@@ -8,6 +8,6 @@ class AppColors {
   static const Color borderAndDividerColor = Color(0xFFf2f2fc);
   static const Color textColor = Color(0xFF424242);
   static const Color yellowColor = Color(0xFFffbc41);
-  static const Color pinkColor = Color(0xf69f8e);
-  static const Color greenColor = Color(0x8fd89f);
+  static const Color pinkColor = Color(0xFFf69f8e);
+  static const Color greenColor = Color(0xFF8fd89f);
 }
