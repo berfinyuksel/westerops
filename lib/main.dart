@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: 'Dongu App',
       theme: appThemeData[AppTheme.PrimaryTheme],
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
