@@ -1,6 +1,7 @@
 {
     "onboarding": {
-        "text": "Gıda israfıyla savaşmak, gezegenimizi korumak için çıktığımız yolculukta aramıza hoş geldin!"
+        "text1": "Gıda israfıyla savaşmak, gezegenimizi korumak için çıktığımız yolculukta ",
+        "text2": "aramıza hoş geldin!"
     }
     
 }

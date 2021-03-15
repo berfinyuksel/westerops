@@ -1,6 +1,7 @@
 {
     "onboarding": {
-        "text": "Welcome on our journey to fight food waste and protect our planet!"
+        "text1": "Welcome on our journey to fight food waste and ",
+        "text2": "protect our planet!"
     }
     
 }
