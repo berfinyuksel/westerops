@@ -2,6 +2,11 @@
     "onboarding": {
         "text1": "Gıda israfıyla savaşmak, gezegenimizi korumak için çıktığımız yolculukta ",
         "text2": "aramıza hoş geldin!"
+    },
+    "onboarding_first": {
+        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.",
+        "button" :"Sonraki",
+        "skip" : "Tümünü Geç"
     }
     
 }

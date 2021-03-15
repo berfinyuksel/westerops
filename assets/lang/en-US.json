@@ -2,6 +2,11 @@
     "onboarding": {
         "text1": "Welcome on our journey to fight food waste and ",
         "text2": "protect our planet!"
+    },
+    "onboarding_first": {
+        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.",
+        "button" :"Next",
+        "skip" : "Skip all"
     }
     
 }
