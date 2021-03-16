@@ -2,28 +2,7 @@
     "onboardings" : {
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.",
         "button" :"Sonraki",
-        "skip" : "Tümünü Geç"
-    },
-    "premission_notification": {
-        "text1": "Döngü bildirimlerine izin ver",
-        "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
-        "button1": "İzin Ver",
-        "button2": "Şimdilik Geç"
-        },
-    "premission_location": {
-        "text1": "Konum hizmetlerini etkinleştirin",
-        "text2": "Yakındaki lezzetli yiyecekleri aramak için, uygun konumunuzu bilmek istiyoruz.",
-        "button1": "Etkinleştir",
-        "button2": "Şimdilik Geç"
-            },
-    "location_card": {
-        "text1": "Kısa Başlık En İyisidir",
-        "text2": "Bir mesaj kısa ve tam bir cümle olmalıdır.",
-        "button1": "İptal",
-        "button2": "Aktifleştir"
-    },
         "skip" : "Tümünü Geç",
-
         "onboarding": {
             "text1": "Gıda israfıyla savaşmak, gezegenimizi korumak için çıktığımız yolculukta ",
             "text2": "aramıza hoş geldin!",
@@ -45,5 +24,27 @@
             "text_headline":"Dünyayı korumamıza yardımcı olduğun için teşekkürler!",
             "button":"Get Started"
         }
+    },
+
+    "premission_notification": {
+        "text1": "Döngü bildirimlerine izin ver",
+        "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "button1": "İzin Ver",
+        "button2": "Şimdilik Geç"
+        },
+    "premission_location": {
+        "text1": "Konum hizmetlerini etkinleştirin",
+        "text2": "Yakındaki lezzetli yiyecekleri aramak için, uygun konumunuzu bilmek istiyoruz.",
+        "button1": "Etkinleştir",
+        "button2": "Şimdilik Geç"
+            },
+    "location_card": {
+        "text1": "Kısa Başlık En İyisidir",
+        "text2": "Bir mesaj kısa ve tam bir cümle olmalıdır.",
+        "button1": "İptal",
+        "button2": "Aktifleştir"
     }
+
+       
+}
     

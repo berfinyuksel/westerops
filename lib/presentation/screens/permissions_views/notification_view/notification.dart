@@ -57,51 +57,50 @@ class NotificationView extends StatelessWidget {
 
   GestureDetector lateForNowButton() {
     return GestureDetector(
-                  onTap: () {},
-                  child: AutoSizeText(
-                    LocaleKeys.pr.locale,
-                    style: AppTextStyles.bodyTextStyle
-                        .copyWith(fontWeight: FontWeight.w400),
-                  ),
-                );
+      onTap: () {},
+      child: AutoSizeText(
+        LocaleKeys.premission_notification_button2.locale,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
+      ),
+    );
   }
 
   CustomButton allowButton(BuildContext context) {
     return CustomButton(
-                  width: context.dynamicWidht(0.9),
-                  borderColor: AppColors.greenColor,
-                  color: AppColors.greenColor,
-                  textColor: AppColors.appBarColor,
-                  title: LocaleKeys.premission_notification_button1.locale,
-                  onPressed: () {},
-                );
+      width: context.dynamicWidht(0.9),
+      borderColor: AppColors.greenColor,
+      color: AppColors.greenColor,
+      textColor: AppColors.appBarColor,
+      title: LocaleKeys.premission_notification_button1.locale,
+      onPressed: () {},
+    );
   }
 
   AutoSizeText descriptionText() {
     return AutoSizeText(
-                  LocaleKeys.premission_notification_text2.locale,
-                  style: AppTextStyles.bodyBoldTextStyle,
-                  maxLines: 4,
-                  textAlign: TextAlign.center,
-                );
+      LocaleKeys.premission_notification_text2.locale,
+      style: AppTextStyles.bodyBoldTextStyle,
+      maxLines: 4,
+      textAlign: TextAlign.center,
+    );
   }
 
   AutoSizeText titleText() {
     return AutoSizeText(
-                  LocaleKeys.premission_notification_text1.locale,
-                  style: AppTextStyles.headlineStyle,
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                );
+      LocaleKeys.premission_notification_text1.locale,
+      style: AppTextStyles.headlineStyle,
+      maxLines: 2,
+      textAlign: TextAlign.center,
+    );
   }
 
   Container notificationImage(BuildContext context) {
     return Container(
-              padding: EdgeInsets.only(top: context.dynamicHeight(0.12)),
-              child: Image.asset(
-                ImageConstant.NOTIFICATION_IMAGE,
-              ),
-            );
+      padding: EdgeInsets.only(top: context.dynamicHeight(0.12)),
+      child: Image.asset(
+        ImageConstant.NOTIFICATION_IMAGE,
+      ),
+    );
   }
 
   AppBar appBar() {

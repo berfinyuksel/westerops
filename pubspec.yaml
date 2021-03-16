@@ -48,8 +48,6 @@ flutter:
     - assets/lang/
     - assets/images/
 
-    - assets/images/onboarding/
-    - assets/images/onboarding_first/
     - assets/images/permissions/
     - assets/commons/
 
