@@ -1,9 +1,5 @@
 {
-    "onboarding": {
-        "text1": "Welcome on our journey to fight food waste and ",
-        "text2": "protect our planet!"
-    },
-    "onboarding_first": {
+    "onboardings": {
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.",
         "button": "Next",
         "skip": "Skip all"
@@ -26,4 +22,30 @@
         "button1": "Cancel",
         "button2": "Action"
     }
+        "button" :"Next",
+        "skip" : "Skip all",
+
+        "onboarding": {
+            "text1": "Welcome on our journey to fight food waste and ",
+            "text2": "protect our planet!"
+        },
+
+        "first": {
+            
+        },
+
+        "second": {
+            "text_headline": "Do not worry! You can use all payment channels."
+        },
+
+        "third": {
+            "text_headline": "You can get your package from the restaurant or the restaurant will send it to you."
+        },
+
+        "forth": {
+           
+        }
+    }
+   
+    
 }

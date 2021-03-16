@@ -1,9 +1,5 @@
 {
-    "onboarding": {
-        "text1": "Gıda israfıyla savaşmak, gezegenimizi korumak için çıktığımız yolculukta ",
-        "text2": "aramıza hoş geldin!"
-    },
-    "onboarding_first": {
+    "onboardings" : {
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.",
         "button" :"Sonraki",
         "skip" : "Tümünü Geç"
@@ -26,4 +22,26 @@
         "button1": "İptal",
         "button2": "Aktifleştir"
     }
+        "skip" : "Tümünü Geç",
+
+        "onboarding": {
+            "text1": "Gıda israfıyla savaşmak, gezegenimizi korumak için çıktığımız yolculukta ",
+            "text2": "aramıza hoş geldin!"
+        },
+
+        "first": {
+       
+        },
+        "second": {
+            "text_headline": "Merak etme! Tüm ödeme kanallarını kullanabilirsin."
+        },
+        "third": {
+            "text_headline": "Paketini restorandan alabilirsin ya da restoran sana göndersin."
+           
+        },
+        "forth": {
+           
+        }
+    }
+    
 }
