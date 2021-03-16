@@ -13,17 +13,18 @@ class LocaleText extends StatelessWidget {
     Key? key,
     this.text,
     this.style,
-    this.maxLines, this.alignment,
+    this.maxLines,
+    this.alignment,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AutoSizeText(
-      
       text!.locale,
       style: style,
       maxLines: maxLines,
       textAlign: alignment,
+      minFontSize: 10,
     );
   }
 }

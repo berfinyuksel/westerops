@@ -6,7 +6,9 @@ abstract class LocaleKeys {
   static const onboardings_skip = 'onboardings.skip';
   static const onboardings_onboarding_text1 = 'onboardings.onboarding.text1';
   static const onboardings_onboarding_text2 = 'onboardings.onboarding.text2';
+  static const onboardings_onboarding_text_headline = 'onboardings.onboarding.text_headline';
   static const onboardings_onboarding = 'onboardings.onboarding';
+  static const onboardings_first_text_headline = 'onboardings.first.text_headline';
   static const onboardings_first = 'onboardings.first';
   static const onboardings_second_text_headline =
       'onboardings.second.text_headline';
@@ -14,6 +16,8 @@ abstract class LocaleKeys {
   static const onboardings_third_text_headline =
       'onboardings.third.text_headline';
   static const onboardings_third = 'onboardings.third';
+  static const onboardings_forth_text_headline = 'onboardings.forth.text_headline';
+  static const onboardings_forth_button = 'onboardings.forth.button';
   static const onboardings_forth = 'onboardings.forth';
   static const onboardings = 'onboardings';
 

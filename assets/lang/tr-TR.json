@@ -26,10 +26,12 @@
 
         "onboarding": {
             "text1": "Gıda israfıyla savaşmak, gezegenimizi korumak için çıktığımız yolculukta ",
-            "text2": "aramıza hoş geldin!"
+            "text2": "aramıza hoş geldin!",
+            "text_headline" :"Sana yakın restoran ve kafelerden birini seç."
         },
 
         "first": {
+            "text_headline":"Paketini rezerve et."
        
         },
         "second": {
@@ -40,7 +42,8 @@
            
         },
         "forth": {
-           
+            "text_headline":"Dünyayı korumamıza yardımcı olduğun için teşekkürler!",
+            "button":"Get Started"
         }
     }
     

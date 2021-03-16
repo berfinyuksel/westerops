@@ -16,7 +16,6 @@ class OnboardingHeadlineText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment(0, 0.55),
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: LocaleText(
         text: headlineText,
