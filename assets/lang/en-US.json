@@ -6,11 +6,12 @@
 
         "onboarding": {
             "text1": "Welcome on our journey to fight food waste and ",
-            "text2": "protect our planet!"
+            "text2": "protect our planet!",
+            "text_headline" :"Choose from restaurants and cafes close to you."
         },
 
         "first": {
-            
+            "text_headline":"Reserve your package."
         },
 
         "second": {
@@ -22,7 +23,8 @@
         },
 
         "forth": {
-           
+            "text_headline":"Thanks for helping us protect the world!",
+            "button":"Get Started"
         }
     }
    

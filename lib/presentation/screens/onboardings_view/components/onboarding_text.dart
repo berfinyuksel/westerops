@@ -13,13 +13,13 @@ class OnboardingText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment(0, 0.75),
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: LocaleText(
         text: text,
         style: AppTextStyles.bodyBoldTextStyle,
         alignment: TextAlign.center,
         maxLines: 3,
+      
       ),
     );
   }

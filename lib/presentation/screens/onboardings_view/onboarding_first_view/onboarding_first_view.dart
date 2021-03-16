@@ -1,9 +1,10 @@
 import 'package:dongu_mobile/presentation/screens/onboardings_view/components/onboarding_background_image.dart';
-import 'package:dongu_mobile/presentation/screens/onboardings_view/components/onboarding_bottom_row.dart';
+import 'package:dongu_mobile/presentation/screens/onboardings_view/components/onboarding_headline_text.dart';
 import 'package:dongu_mobile/presentation/screens/onboardings_view/components/onboarding_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 
 class OnboardingFirstView extends StatelessWidget {
   @override
@@ -19,14 +20,39 @@ class OnboardingFirstView extends StatelessWidget {
             image: ImageConstant.ONBOARDING_FIRST_BACKGROUND,
           ),
         ),
-        OnboardingText(
-          text: LocaleKeys.onboardings_text,
-        ),
-        OnboardingBottomRow(),
+        Positioned(
+          bottom: context.dynamicHeight(0.08),
+          left: 0,
+          right: 0,
+          child: buildBottomText(context),
+        )
       ],
     );
   }
+
+  Container buildBottomText(BuildContext context) {
+    return Container(
+      height: context.dynamicHeight(0.3),
+      child: Column(
+        children: [
+          Spacer(flex: 5),
+          Expanded(
+            flex: 3,
+            child: OnboardingHeadlineText(
+              headlineText: LocaleKeys.onboardings_first_text_headline,
+              maxLines: 1,
+            ),
+          ),
+          Spacer(flex: 1),
+          Expanded(
+            flex: 6,
+            child: OnboardingText(
+              text: LocaleKeys.onboardings_text,
+            ),
+          ),
+          Spacer(flex: 2),
+        ],
+      ),
+    );
+  }
 }
-
-
-
