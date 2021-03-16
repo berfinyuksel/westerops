@@ -1,8 +1,10 @@
+
 import 'package:dongu_mobile/utils/constants/locale_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'presentation/router/app_router.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       onGenerateRoute: _appRouter.onGenerateRoute,
+
     );
 
     /*MultiBlocProvider(
