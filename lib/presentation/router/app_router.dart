@@ -1,9 +1,9 @@
 
-import 'package:dongu_mobile/presentation/screens/onboarding_first_view/onboarding_first_view.dart';
-import 'package:dongu_mobile/presentation/screens/onboarding_view/onboarding_view.dart';
+import 'package:dongu_mobile/presentation/screens/onboardings_view/onboarding_first_view/onboarding_first_view.dart';
 import 'package:dongu_mobile/presentation/screens/permissions_views/location_view/location.dart';
 
 import 'package:dongu_mobile/presentation/screens/onboardings_view/onboarding_view/onboarding_view.dart';
+import 'package:dongu_mobile/presentation/screens/permissions_views/notification_view/notification.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 

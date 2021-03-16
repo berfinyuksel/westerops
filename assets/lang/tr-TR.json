@@ -21,7 +21,7 @@
         "text2": "Bir mesaj kısa ve tam bir cümle olmalıdır.",
         "button1": "İptal",
         "button2": "Aktifleştir"
-    }
+    },
         "skip" : "Tümünü Geç",
 
         "onboarding": {
@@ -44,4 +44,3 @@
         }
     }
     
-}
