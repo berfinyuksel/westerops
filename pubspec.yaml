@@ -56,6 +56,8 @@ flutter:
     - assets/images/onboardings/onboarding_second/
     - assets/images/onboardings/onboarding_third/
     - assets/images/onboardings/onboarding_forth/
+    - assets/images/register_login/ 
+    - assets/images/register_login/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -27,6 +27,27 @@
         }
     },
 
+    "register" : {
+        "text_register": "Sign Up",
+        "phone":"Phone",
+        "full_name" :"Full Name",
+        "email" :"E-mail",
+        "password" :"Password",
+        "consent" :{
+            "text1":"I would like to receive electronic messages within the scope of ",
+            "text2":"Consent Text",
+            "text3":" to be informed about important campaigns."
+        },
+        "contract" :{
+            "text1":"By becoming a member, you agree to the ",
+            "text2":"Terms of Use.",
+            "text3":" Click for the ",
+            "text4":"Clarification Text",
+            "text5":" regarding your personal data."
+        },
+        "social_auth":"Go on"
+    },
+
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
