@@ -13,7 +13,7 @@ class AppTextStyles {
   static TextStyle appBarTitleStyle = GoogleFonts.montserrat(
     decoration: TextDecoration.none,
     fontSize: 18.0,
-    color: AppColors.appBarColor,
+    color: AppColors.textColor,
     fontWeight: FontWeight.w300,
   );
   static TextStyle subTitleStyle = GoogleFonts.montserrat(

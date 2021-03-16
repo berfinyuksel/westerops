@@ -25,7 +25,26 @@
             "button":"Get Started"
         }
     },
-
+    "register" : {
+        "text_register": "Üye Ol",
+        "phone":"Cep Telefonu",
+        "full_name" :"İsim Soyisim",
+        "email" :"E-posta",
+        "password" :"Şifre",
+        "consent" :{
+            "text1":"Önemli kampanyalardan haberdar olmak için ",
+            "text2":"Rıza Metni",
+            "text3":" kapsamında elektronik ileti almak istiyorum."
+        },
+        "contract" :{
+            "text1":"Üye olmakla ",
+            "text2":"Kullanım Koşullarını",
+            "text3":" onaylamış olursunuz. Kişisel \nverilerinize dair ",
+            "text4":"Aydınlatma Metni",
+            "text5":" için tıklayınız."
+        },
+        "social_auth":"Devam et"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
