@@ -47,11 +47,18 @@ flutter:
   assets:
     - assets/lang/
     - assets/images/
+
+    - assets/images/onboarding/
+    - assets/images/onboarding_first/
+    - assets/images/permissions/
+    - assets/commons/
+
     - assets/images/onboardings/onboarding/
     - assets/images/onboardings/onboarding_first/
     - assets/images/onboardings/onboarding_second/
     - assets/images/onboardings/onboarding_third/
     - assets/images/onboardings/onboarding_forth/
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
