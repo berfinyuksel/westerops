@@ -59,7 +59,7 @@ class NotificationView extends StatelessWidget {
     return GestureDetector(
                   onTap: () {},
                   child: AutoSizeText(
-                    LocaleKeys.premission_notification_button2.locale,
+                    LocaleKeys.pr.locale,
                     style: AppTextStyles.bodyTextStyle
                         .copyWith(fontWeight: FontWeight.w400),
                   ),

@@ -21,7 +21,7 @@
         "text2": "A message should be a short, \ncomplete sentence.",
         "button1": "Cancel",
         "button2": "Action"
-    }
+    },
         "button" :"Next",
         "skip" : "Skip all",
 
@@ -48,4 +48,3 @@
     }
    
     
-}
