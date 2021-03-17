@@ -1,32 +1,28 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dongu_mobile/presentation/screens/register_view/components/consent_text.dart';
-import 'package:dongu_mobile/presentation/screens/register_view/components/contract_text.dart';
-import 'package:dongu_mobile/presentation/screens/register_view/components/sign_with_social_auth.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/presentation/screens/register_view/components/sign_with_social_auth.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 
-class RegisterView extends StatefulWidget {
+class LoginView extends StatefulWidget {
   @override
-  _RegisterViewState createState() => _RegisterViewState();
+  _LoginViewState createState() => _LoginViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _LoginViewState extends State<LoginView> {
   TextEditingController phoneController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   bool enableObscure = true;
   String dropdownValue = "TR";
-  bool checkboxValue = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +51,7 @@ class _RegisterViewState extends State<RegisterView> {
       padding: EdgeInsets.symmetric(
         vertical: context.dynamicHeight(0.02),
       ),
-      height: context.dynamicHeight(0.69),
+      height: context.dynamicHeight(0.54),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(18.0),
@@ -65,7 +61,7 @@ class _RegisterViewState extends State<RegisterView> {
       child: Column(
         children: [
           LocaleText(
-            text: LocaleKeys.register_text_register,
+            text: LocaleKeys.login_text_login,
             maxLines: 1,
             style: AppTextStyles.appBarTitleStyle,
           ),
@@ -77,7 +73,7 @@ class _RegisterViewState extends State<RegisterView> {
             flex: 2,
           ),
           Expanded(
-            flex: 5,
+            flex: 4,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
               child: Row(
@@ -97,65 +93,27 @@ class _RegisterViewState extends State<RegisterView> {
             flex: 2,
           ),
           Expanded(
-            flex: 5,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: buildTextFormField(LocaleKeys.register_full_name.locale, nameController),
-            ),
-          ),
-          Spacer(
-            flex: 2,
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: buildTextFormField(LocaleKeys.register_email.locale, emailController),
-            ),
-          ),
-          Spacer(
-            flex: 2,
-          ),
-          Expanded(
-            flex: 5,
+            flex: 4,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
               child: buildTextFormField(LocaleKeys.register_password.locale, passwordController),
             ),
           ),
-          Spacer(
-            flex: 2,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildCheckBox(context),
-                Spacer(
-                  flex: 1,
-                ),
-                ConsentText(),
-              ],
-            ),
-          ),
-          Spacer(
-            flex: 2,
-          ),
+          Spacer(flex: 2),
           CustomButton(
             width: context.dynamicWidht(0.4),
-            title: LocaleKeys.register_text_register,
+            title: LocaleKeys.login_text_login,
             textColor: Colors.white,
-            color: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
-            borderColor: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
+            color: AppColors.greenColor,
+            borderColor: AppColors.greenColor,
           ),
-          Spacer(
-            flex: 2,
+          Spacer(flex: 1),
+          LocaleText(
+            text: LocaleKeys.login_forgot_pass,
+            style: AppTextStyles.bodyTextStyle,
+            maxLines: 1,
           ),
-          ContractText(),
-          Spacer(
-            flex: 2,
-          ),
+          Spacer(flex: 2),
           Expanded(
             flex: 4,
             child: buildSocialAuths(context),
@@ -163,33 +121,29 @@ class _RegisterViewState extends State<RegisterView> {
           Spacer(
             flex: 2,
           ),
+          AutoSizeText.rich(
+            TextSpan(
+              style: AppTextStyles.bodyTextStyle,
+              children: [
+                TextSpan(
+                  text: LocaleKeys.login_dont_have_account.locale,
+                  style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                TextSpan(
+                  text: LocaleKeys.login_sign_up.locale,
+                  style: GoogleFonts.montserrat(
+                    color: AppColors.greenColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Spacer(flex: 2),
         ],
-      ),
-    );
-  }
-
-  Container buildCheckBox(BuildContext context) {
-    return Container(
-      height: context.dynamicWidht(0.08),
-      width: context.dynamicWidht(0.08),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        border: Border.all(
-          color: Color(0xFFD1D0D0),
-        ),
-      ),
-      child: Theme(
-        data: ThemeData(unselectedWidgetColor: Colors.transparent),
-        child: Checkbox(
-          checkColor: Colors.greenAccent,
-          activeColor: Colors.transparent,
-          value: checkboxValue,
-          onChanged: (value) {
-            setState(() {
-              checkboxValue = value!;
-            });
-          },
-        ),
       ),
     );
   }
@@ -215,7 +169,7 @@ class _RegisterViewState extends State<RegisterView> {
     return Container(
       decoration: BoxDecoration(),
       child: SvgPicture.asset(
-        ImageConstant.REGISTER_BACKGROUND,
+        ImageConstant.LOGIN_BACKGROUND,
         fit: BoxFit.fill,
       ),
     );
