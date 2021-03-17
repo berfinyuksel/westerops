@@ -11,6 +11,7 @@ class ImageConstant {
   static const REGISTER_LOGIN_GOOGLE_ICON = "assets/images/register_login/icons/google_icon.svg";
   static const REGISTER_LOGIN_FACEBOOK_ICON = "assets/images/register_login/icons/facebook_icon.svg";
   static const FORGOT_PASSWORD_SEND_AGAIN_ICON = "assets/images/forgot_password/send_again_icon.svg";
+  static const FOOD_WASTE_SYMBOL = "assets/images/food_waste/food_waste_symbol.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.png";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.png";
