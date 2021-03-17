@@ -95,7 +95,12 @@
                 "item2": "Favorilerin",
                 "item3": "Kullanıcı Puanı",
                 "item4": "Yeni Katılanlar"
-            }
+            },
+            "package_price": {
+                "title": "Paket Fiyatı",
+                "item1": "Minimum fiyat",
+                "item2": "Maximum fiyat"
+                    }
         }
        
 }
