@@ -22,7 +22,16 @@
             "button": "Get Started"
         }
     },
-    "register": {
+    "login" : {
+        "text_login": "Sign In",
+        "phone":"Phone",
+        "password" :"Password",
+        "forgot_pass":"Forgot Password",
+        "dont_have_account":"Don't have an account? ",
+        "sign_up":"Sign Up"
+
+    },
+    "register" : {
         "text_register": "Sign Up",
         "phone": "Phone",
         "full_name": "Full Name",
@@ -41,6 +50,14 @@
             "text5": " regarding your personal data."
         },
         "social_auth": "Go on"
+    },
+    "forgot_password" : {
+        "phone":"Phone",
+        "activation_code":"Activation Code",
+        "new_password" :"New Password",
+        "reset_password":"Reset Password",
+        "send_again":"Resend Kod",
+        "send_code":"Send Code"
     },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
