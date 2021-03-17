@@ -60,6 +60,8 @@ flutter:
     - assets/images/register_login/icons/
     - assets/images/forgot_password/
     - assets/images/food_waste/
+    - assets/images/food_waste/expanded/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

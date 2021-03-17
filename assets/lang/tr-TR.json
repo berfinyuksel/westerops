@@ -70,6 +70,20 @@
         "button":"Daha fazla bilgi al",
         "skip":"Şimdilik Geç"
     },
+    "food_waste_expanded" : {
+        "headline1":"Sen de gıda israfıyla savaşmaya başladın",
+        "headline2":"Güncel Verilerle Gıda İsrafı",
+        "headline3":"Gıda İsrafının Çevreye Etkisi",
+        "body1":"Gezegenimizi korumak çıktığımız bu yolda bizi yalnız bırakmadığın için teşekkürler!",
+        "body2":"Food and Agricultural Organisation of the United Nations (FAO) verilerine göre, bir öğün yemeğin atık olarak değerlendirilmesi, 2.5 kg CO2 gazının yayılmasına yani bir diğer değişle akıllı telefonları 300 milyon kez şarj etmeye ya da 1130 ton kömürün yakılmasına bedel olmaktadır.",
+        "body3":"2050 yılına gelindiğinde dünya nüfusunun yaklaşık 9,3 milyara ulaşması beklenirken, bu büyüklükte bir nüfusun beslenebilmesi için bugünkü gıda üretiminin %60 daha fazlasına ihtiyaç duyulacağı öngörülüyor.",
+        "body4":"Tüketime yönelik üretilen toplam gıdanın %33’ü, tüketiciye ulaşmadan israf ediliyor",
+        "body5":"Gıda israfı, yılda yaklaşık 750 milyar dolara mal oluyor.",
+        "body6":"Türkiye'de her yıl israf edilen yiyecek miktarı, 26 milyon ton. Bu israfın maliyeti ise, 214 milyar TL.",
+        "body7":"Tüketime yönelik üretilen toplam gıdanın %33`ü, tüketiciye ulaşmadan israf ediliyor.",
+        "body8":"İsraf edilen gıdaların üretiminde kullanılan su miktarı (250 km3), Avrupa’nın en uzun nehri olan İdil (Volga) Nehri’nden bir yıl boyunca akan su miktarı ve Cenevre Gölü’nün hacminin 3 katı ile eş değer olup, bu miktar 9 milyon kişinin günlük su ihtiyacı karşılanabilir.",
+        "button":"Restoranları Keşfet"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

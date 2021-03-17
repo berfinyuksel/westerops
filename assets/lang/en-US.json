@@ -71,6 +71,20 @@
         "button":"Get more information",
         "skip":"Skip for now"
     },
+    "food_waste_expanded" : {
+        "headline1":"You too started fighting food waste",
+        "headline2":"Food Waste with Current Data",
+        "headline3":"The Impact of Food Waste on the Environment",
+        "body1":"Thank you for not leaving us alone on this road we set out to protect our planet!",
+        "body2":"According to the Food and Agricultural Organization of the United Nations (FAO) data, evaluating a meal as waste means emitting 2.5 kg of CO2 gas, in other words, charging smartphones 300 million times or burning 1130 tons of coal.",
+        "body3":"By 2050, the world population is expected to reach approximately 9.3 billion, and it is predicted that 60% more than today's food production will be needed to feed a population of this size.",
+        "body4":"33% of the total food produced for consumption is wasted before it reaches the consumer.",
+        "body5":"Food waste costs around $ 750 billion a year.",
+        "body6":"The amount of food wasted every year in Turkey, 26 million tons. The cost of this waste is 214 billion TL.",
+        "body7":"33% of the total food produced for consumption is wasted before it reaches the consumer.",
+        "body8":"The amount of water used in the production of wasted food (250 km3) is equivalent to the amount of water flowing from the Idil (Volga) River, Europe's longest river, and 3 times the volume of Lake Geneva, which is equal to 9 million people. daily water need can be met.",
+        "button":"Explore Restaurants"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

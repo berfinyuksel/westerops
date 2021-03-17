@@ -12,6 +12,13 @@ class ImageConstant {
   static const REGISTER_LOGIN_FACEBOOK_ICON = "assets/images/register_login/icons/facebook_icon.svg";
   static const FORGOT_PASSWORD_SEND_AGAIN_ICON = "assets/images/forgot_password/send_again_icon.svg";
   static const FOOD_WASTE_SYMBOL = "assets/images/food_waste/food_waste_symbol.svg";
+  static const FOOD_WASTE_EXPANDED_IMAGE_1 = "assets/images/food_waste/expanded/food_waste_image_1.svg";
+  static const FOOD_WASTE_EXPANDED_IMAGE_2 = "assets/images/food_waste/expanded/food_waste_image_2.svg";
+  static const FOOD_WASTE_EXPANDED_IMAGE_3 = "assets/images/food_waste/expanded/food_waste_image_3.svg";
+  static const FOOD_WASTE_EXPANDED_IMAGE_4 = "assets/images/food_waste/expanded/food_waste_image_4.svg";
+  static const FOOD_WASTE_EXPANDED_IMAGE_5 = "assets/images/food_waste/expanded/food_waste_image_5.svg";
+  static const FOOD_WASTE_EXPANDED_IMAGE_6 = "assets/images/food_waste/expanded/food_waste_image_6.svg";
+  static const FOOD_WASTE_EXPANDED_IMAGE_7 = "assets/images/food_waste/expanded/food_waste_image_7.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.png";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.png";
