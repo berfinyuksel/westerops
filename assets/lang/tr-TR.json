@@ -54,6 +54,14 @@
         "sign_up":"Üye Ol"
 
     },
+    "forgot_password" : {
+        "phone":"Cep Telefonu",
+        "activation_code":"Aktivasyon Kodu",
+        "new_password" :"Yeni Şifre",
+        "reset_password":"Şifremi Yenile",
+        "send_again":"Kodu Tekrar Gönder",
+        "send_code":"Kod Gönder"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

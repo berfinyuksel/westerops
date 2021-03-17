@@ -264,7 +264,7 @@ class _RegisterViewState extends State<RegisterView> {
   TextFormField buildTextFormField(String labelText, TextEditingController controller) {
     return TextFormField(
       controller: controller,
-      obscureText: !enableObscure && controller == passwordController,
+      obscureText: enableObscure && controller == passwordController,
       decoration: InputDecoration(
         prefixText: controller == phoneController
             ? dropdownValue == 'TR'

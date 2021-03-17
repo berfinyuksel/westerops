@@ -55,7 +55,14 @@
         },
         "social_auth":"Go on"
     },
-
+    "forgot_password" : {
+        "phone":"Phone",
+        "activation_code":"Activation Code",
+        "new_password" :"New Password",
+        "reset_password":"Reset Password",
+        "send_again":"Resend Kod",
+        "send_code":"Send Code"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
