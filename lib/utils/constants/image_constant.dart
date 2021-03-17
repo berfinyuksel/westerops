@@ -10,6 +10,7 @@ class ImageConstant {
   static const REGISTER_LOGIN_OBSCURE_DISABLE_ICON = "assets/images/register_login/icons/obscure_disable_icon.svg";
   static const REGISTER_LOGIN_GOOGLE_ICON = "assets/images/register_login/icons/google_icon.svg";
   static const REGISTER_LOGIN_FACEBOOK_ICON = "assets/images/register_login/icons/facebook_icon.svg";
+  static const FORGOT_PASSWORD_SEND_AGAIN_ICON = "assets/images/forgot_password/send_again_icon.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";
