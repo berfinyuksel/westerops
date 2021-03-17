@@ -7,6 +7,7 @@ import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NotificationView extends StatelessWidget {
   const NotificationView({Key? key}) : super(key: key);
@@ -97,18 +98,14 @@ class NotificationView extends StatelessWidget {
   Container notificationImage(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: context.dynamicHeight(0.12)),
-      child: Image.asset(
-        ImageConstant.NOTIFICATION_IMAGE,
-      ),
+      child: SvgPicture.asset(ImageConstant.NOTIFICATION_IMAGE)
     );
   }
 
   AppBar appBar() {
     return AppBar(
       leading: IconButton(
-        icon: Image.asset(
-          ImageConstant.BACK_ICON,
-        ),
+        icon: SvgPicture.asset(ImageConstant.BACK_ICON),
         onPressed: () {},
       ),
       backgroundColor: Colors.transparent,
