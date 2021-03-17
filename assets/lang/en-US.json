@@ -22,16 +22,15 @@
             "button": "Get Started"
         }
     },
-    "login" : {
+    "login": {
         "text_login": "Sign In",
-        "phone":"Phone",
-        "password" :"Password",
-        "forgot_pass":"Forgot Password",
-        "dont_have_account":"Don't have an account? ",
-        "sign_up":"Sign Up"
-
+        "phone": "Phone",
+        "password": "Password",
+        "forgot_pass": "Forgot Password",
+        "dont_have_account": "Don't have an account? ",
+        "sign_up": "Sign Up"
     },
-    "register" : {
+    "register": {
         "text_register": "Sign Up",
         "phone": "Phone",
         "full_name": "Full Name",
@@ -51,21 +50,21 @@
         },
         "social_auth": "Go on"
     },
-    "forgot_password" : {
-        "phone":"Phone",
-        "activation_code":"Activation Code",
-        "new_password" :"New Password",
-        "reset_password":"Reset Password",
-        "send_again":"Resend Kod",
-        "send_code":"Send Code"
+    "forgot_password": {
+        "phone": "Phone",
+        "activation_code": "Activation Code",
+        "new_password": "New Password",
+        "reset_password": "Reset Password",
+        "send_again": "Resend Kod",
+        "send_code": "Send Code"
     },
-    "food_waste" : {
-        "title":"Food Waste",
-        "text1":"Food waste; It means that the food produced turns into waste before it is consumed.",
-        "text2" :"Üretim, işleme, satış veya tüketim süreçlerinde, gıda israfına yol açan pek çok sebep ortaya çıkabiliyor.",
-        "text3":"Many reasons that lead to food waste can arise in production, processing, sales or consumption processes.",
-        "button":"Get more information",
-        "skip":"Skip for now"
+    "food_waste": {
+        "title": "Food Waste",
+        "text1": "Food waste; It means that the food produced turns into waste before it is consumed.",
+        "text2": "Üretim, işleme, satış veya tüketim süreçlerinde, gıda israfına yol açan pek çok sebep ortaya çıkabiliyor.",
+        "text3": "Many reasons that lead to food waste can arise in production, processing, sales or consumption processes.",
+        "button": "Get more information",
+        "skip": "Skip for now"
     },
     "food_waste_expanded" : {
         "headline1":"You too started fighting food waste",
@@ -106,6 +105,11 @@
             "item2": "Favorites",
             "item3": "User Score",
             "item4": "Newcomers"
+        },
+        "package_price": {
+            "title": "Package Price",
+            "item1": "Minimum price",
+            "item2": "Maximum price"
         }
     }
 }

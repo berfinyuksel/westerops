@@ -9,13 +9,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 
 import 'components/custom_checkbox.dart';
+import 'components/custom_sliderbar_textfield.dart';
+
 
 class FilterView extends StatelessWidget {
   const FilterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool _value = false;
+  
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
       appBar: AppBar(),
@@ -31,13 +33,14 @@ class FilterView extends StatelessWidget {
               decoration: BoxDecoration(color: Colors.white),
               child: ExpansionTile(
                 title: Text(
-                  "Paket Fiyatı",
+                  LocaleKeys.filters_package_price_title.locale,
                   style: AppTextStyles.bodyTitleStyle,
                 ),
                 trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
                 backgroundColor: Colors.white,
                 children: [
-                  
+               CustomSliderBarAndTextField(),
+               
                 ],
               ),
             ),
@@ -100,7 +103,7 @@ class FilterView extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.white),
             child: ExpansionTile(
               title: AutoSizeText(
-                "Sırala",
+                LocaleKeys.filters_sort_title.locale,
                 style: AppTextStyles.bodyTitleStyle,
               ),
               trailing:  SvgPicture.asset(ImageConstant.RIGHT_ICON),

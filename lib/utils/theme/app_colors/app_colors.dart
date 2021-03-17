@@ -11,4 +11,7 @@ class AppColors {
   static const Color pinkColor = Color(0xFFf69f8e);
   static const Color greenColor = Color(0xFF8fd89f);
   static const Color disabledButtonColor = Color(0xFFC7C7C7);
+  static const Color sliderColor = Color(0xFFE2E9EF);
+
+  
 }
