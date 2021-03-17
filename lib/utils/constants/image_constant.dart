@@ -11,7 +11,7 @@ class ImageConstant {
   static const REGISTER_LOGIN_GOOGLE_ICON = "assets/images/register_login/icons/google_icon.svg";
   static const REGISTER_LOGIN_FACEBOOK_ICON = "assets/images/register_login/icons/facebook_icon.svg";
 
-  static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.png";
-  static const LOCATION_IMAGE = "assets/images/permissions/location_image.png";
-  static const BACK_ICON = "assets/commons/back_icon.png";
+  static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
+  static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";
+  static const BACK_ICON = "assets/commons/back_icon.svg";
 }
