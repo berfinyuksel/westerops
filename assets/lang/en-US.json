@@ -6,48 +6,42 @@
         "onboarding": {
             "text1": "Welcome on our journey to fight food waste and ",
             "text2": "protect our planet!",
-            "text_headline" :"Choose from restaurants and cafes close to you."
+            "text_headline": "Choose from restaurants and cafes close to you."
         },
-
         "first": {
-            "text_headline":"Reserve your package."
+            "text_headline": "Reserve your package."
         },
-
         "second": {
             "text_headline": "Do not worry! You can use all payment channels."
         },
-
         "third": {
             "text_headline": "You can get your package from the restaurant or the restaurant will send it to you."
         },
-
         "forth": {
-            "text_headline":"Thanks for helping us protect the world!",
-            "button":"Get Started"
+            "text_headline": "Thanks for helping us protect the world!",
+            "button": "Get Started"
         }
     },
-
-    "register" : {
+    "register": {
         "text_register": "Sign Up",
-        "phone":"Phone",
-        "full_name" :"Full Name",
-        "email" :"E-mail",
-        "password" :"Password",
-        "consent" :{
-            "text1":"I would like to receive electronic messages within the scope of ",
-            "text2":"Consent Text",
-            "text3":" to be informed about important campaigns."
+        "phone": "Phone",
+        "full_name": "Full Name",
+        "email": "E-mail",
+        "password": "Password",
+        "consent": {
+            "text1": "I would like to receive electronic messages within the scope of ",
+            "text2": "Consent Text",
+            "text3": " to be informed about important campaigns."
         },
-        "contract" :{
-            "text1":"By becoming a member, you agree to the ",
-            "text2":"Terms of Use.",
-            "text3":" Click for the ",
-            "text4":"Clarification Text",
-            "text5":" regarding your personal data."
+        "contract": {
+            "text1": "By becoming a member, you agree to the ",
+            "text2": "Terms of Use.",
+            "text3": " Click for the ",
+            "text4": "Clarification Text",
+            "text5": " regarding your personal data."
         },
-        "social_auth":"Go on"
+        "social_auth": "Go on"
     },
-
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
@@ -65,8 +59,14 @@
         "text2": "A message should be a short, \ncomplete sentence.",
         "button1": "Cancel",
         "button2": "Action"
+    },
+    "filters": {
+        "sort": {
+            "title": "Sort",
+            "item1": "Sort By Distance",
+            "item2": "Favorites",
+            "item3": "User Score",
+            "item4": "Newcomers"
+        }
     }
-        
- }
-   
-    
+}

@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/presentation/screens/filter_view/filter_view.dart';
+import 'package:dongu_mobile/presentation/screens/permissions_views/notification_view/notification.dart';
 import 'package:dongu_mobile/utils/constants/locale_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -31,12 +33,14 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       onGenerateRoute: _appRouter.onGenerateRoute,
+      home: FilterView(),
     );
 
     /*MultiBlocProvider(
       providers: [],
       child: Builder(builder: (context) {
         return 
+        
       }),
     );*/
   }
