@@ -15,4 +15,7 @@ class ImageConstant {
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";
   static const BACK_ICON = "assets/commons/back_icon.svg";
+  static const RIGHT_ICON = "assets/commons/right_icon.svg";
+  static const UNDER_ICON = "assets/commons/under_icon.svg";
+
 }
