@@ -4,10 +4,10 @@ class ImageConstant {
   static const ONBOARDING_SECOND_BACKGROUND = "assets/images/onboardings/onboarding_second/onboarding_second_background.png";
   static const ONBOARDING_THIRD_BACKGROUND = "assets/images/onboardings/onboarding_third/onboarding_third_background.png";
   static const ONBOARDING_FORTH_BACKGROUND = "assets/images/onboardings/onboarding_forth/onboarding_forth_background.png";
-  static const REGISTER_LOGIN_BACKGROUND = "assets/images/register_login/register_login_background.svg";
+  static const REGISTER_BACKGROUND = "assets/images/register_login/register_background.svg";
+  static const LOGIN_BACKGROUND = "assets/images/register_login/login_background.svg";
   static const REGISTER_LOGIN_OBSCURE_ENABLE_ICON = "assets/images/register_login/icons/obscure_enable_icon.svg";
   static const REGISTER_LOGIN_OBSCURE_DISABLE_ICON = "assets/images/register_login/icons/obscure_disable_icon.svg";
-
   static const REGISTER_LOGIN_GOOGLE_ICON = "assets/images/register_login/icons/google_icon.svg";
   static const REGISTER_LOGIN_FACEBOOK_ICON = "assets/images/register_login/icons/facebook_icon.svg";
 

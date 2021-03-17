@@ -26,7 +26,15 @@
             "button":"Get Started"
         }
     },
+    "login" : {
+        "text_login": "Sign In",
+        "phone":"Phone",
+        "password" :"Password",
+        "forgot_pass":"Forgot Password",
+        "dont_have_account":"Don't have an account? ",
+        "sign_up":"Sign Up"
 
+    },
     "register" : {
         "text_register": "Sign Up",
         "phone":"Phone",

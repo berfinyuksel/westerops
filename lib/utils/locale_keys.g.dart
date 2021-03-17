@@ -35,6 +35,13 @@ abstract class  LocaleKeys {
   static const register_contract = 'register.contract';
   static const register_social_auth = 'register.social_auth';
   static const register = 'register';
+  static const login_text_login = 'login.text_login';
+  static const login_phone = 'login.phone';
+  static const login_password = 'login.password';
+  static const login_forgot_pass = 'login.forgot_pass';
+  static const login_dont_have_account = 'login.dont_have_account';
+  static const login_sign_up = 'login.sign_up';
+  static const login = 'login';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
