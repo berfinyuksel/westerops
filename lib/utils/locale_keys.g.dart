@@ -54,6 +54,13 @@ abstract class LocaleKeys {
   static const forgot_password_send_again = 'forgot_password.send_again';
   static const forgot_password_send_code = 'forgot_password.send_code';
   static const forgot_password = 'forgot_password';
+  static const food_waste_title = 'food_waste.title';
+  static const food_waste_text1 = 'food_waste.text1';
+  static const food_waste_text2 = 'food_waste.text2';
+  static const food_waste_text3 = 'food_waste.text3';
+  static const food_waste_button = 'food_waste.button';
+  static const food_waste_skip = 'food_waste.skip';
+  static const food_waste = 'food_waste';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
