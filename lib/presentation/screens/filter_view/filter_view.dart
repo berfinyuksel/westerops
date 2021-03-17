@@ -22,78 +22,7 @@ class FilterView extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(color: Colors.white),
-              child: ExpansionTile(
-                title: AutoSizeText(
-                  "Sırala",
-                  style: AppTextStyles.bodyTitleStyle,
-                ),
-                trailing:  SvgPicture.asset(ImageConstant.RIGHT_ICON),
-                backgroundColor: Colors.white,
-                children: [
-                  Container(
-                    width: context.dynamicWidht(0.9),
-                    height: context.dynamicHeight(0.2),
-                    child: Expanded(
-                      child: Column(
-                        children: [
-                          Spacer(flex: 25),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomCheckbox(),
-                              Spacer(flex: 2),
-                              AutoSizeText(LocaleKeys.filters_sort_item1.locale,
-                                  style: AppTextStyles.bodyTextStyle
-                                      .copyWith(fontSize: 13)),
-                              Spacer(flex: 35),
-                            ],
-                          ),
-                          Spacer(flex: 35),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomCheckbox(),
-                              Spacer(flex: 2),
-                              AutoSizeText(LocaleKeys.filters_sort_item2.locale,
-                                  style: AppTextStyles.bodyTextStyle
-                                      .copyWith(fontSize: 13)),
-                              Spacer(flex: 35),
-                            ],
-                          ),
-                          Spacer(flex: 35),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomCheckbox(),
-                              Spacer(flex: 2),
-                              AutoSizeText(LocaleKeys.filters_sort_item3.locale,
-                                  style: AppTextStyles.bodyTextStyle
-                                      .copyWith(fontSize: 13)),
-                              Spacer(flex: 35),
-                            ],
-                          ),
-                          Spacer(flex: 35),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomCheckbox(),
-                              Spacer(flex: 2),
-                              AutoSizeText(LocaleKeys.filters_sort_item4.locale,
-                                  style: AppTextStyles.bodyTextStyle
-                                      .copyWith(fontSize: 13)),
-                              Spacer(flex: 35),
-                            ],
-                          ),
-                          Spacer(flex: 70),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+            sortFilter(context),
             Divider(
             height: 1,
               color: Colors.transparent,
@@ -164,5 +93,80 @@ class FilterView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Container sortFilter(BuildContext context) {
+    return Container(
+            decoration: BoxDecoration(color: Colors.white),
+            child: ExpansionTile(
+              title: AutoSizeText(
+                "Sırala",
+                style: AppTextStyles.bodyTitleStyle,
+              ),
+              trailing:  SvgPicture.asset(ImageConstant.RIGHT_ICON),
+              backgroundColor: Colors.white,
+              children: [
+                Container(
+                  width: context.dynamicWidht(0.9),
+                  height: context.dynamicHeight(0.2),
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        Spacer(flex: 25),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(LocaleKeys.filters_sort_item1.locale,
+                                style: AppTextStyles.bodyTextStyle
+                                    .copyWith(fontSize: 13)),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(LocaleKeys.filters_sort_item2.locale,
+                                style: AppTextStyles.bodyTextStyle
+                                    .copyWith(fontSize: 13)),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(LocaleKeys.filters_sort_item3.locale,
+                                style: AppTextStyles.bodyTextStyle
+                                    .copyWith(fontSize: 13)),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(LocaleKeys.filters_sort_item4.locale,
+                                style: AppTextStyles.bodyTextStyle
+                                    .copyWith(fontSize: 13)),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 70),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
   }
 }
