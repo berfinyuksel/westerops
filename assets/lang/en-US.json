@@ -6,70 +6,65 @@
         "onboarding": {
             "text1": "Welcome on our journey to fight food waste and ",
             "text2": "protect our planet!",
-            "text_headline" :"Choose from restaurants and cafes close to you."
+            "text_headline": "Choose from restaurants and cafes close to you."
         },
-
         "first": {
-            "text_headline":"Reserve your package."
+            "text_headline": "Reserve your package."
         },
-
         "second": {
             "text_headline": "Do not worry! You can use all payment channels."
         },
-
         "third": {
             "text_headline": "You can get your package from the restaurant or the restaurant will send it to you."
         },
-
         "forth": {
-            "text_headline":"Thanks for helping us protect the world!",
-            "button":"Get Started"
+            "text_headline": "Thanks for helping us protect the world!",
+            "button": "Get Started"
         }
     },
-    "login" : {
+    "login": {
         "text_login": "Sign In",
-        "phone":"Phone",
-        "password" :"Password",
-        "forgot_pass":"Forgot Password",
-        "dont_have_account":"Don't have an account? ",
-        "sign_up":"Sign Up"
-
+        "phone": "Phone",
+        "password": "Password",
+        "forgot_pass": "Forgot Password",
+        "dont_have_account": "Don't have an account? ",
+        "sign_up": "Sign Up"
     },
-    "register" : {
+    "register": {
         "text_register": "Sign Up",
-        "phone":"Phone",
-        "full_name" :"Full Name",
-        "email" :"E-mail",
-        "password" :"Password",
-        "consent" :{
-            "text1":"I would like to receive electronic messages within the scope of ",
-            "text2":"Consent Text",
-            "text3":" to be informed about important campaigns."
+        "phone": "Phone",
+        "full_name": "Full Name",
+        "email": "E-mail",
+        "password": "Password",
+        "consent": {
+            "text1": "I would like to receive electronic messages within the scope of ",
+            "text2": "Consent Text",
+            "text3": " to be informed about important campaigns."
         },
-        "contract" :{
-            "text1":"By becoming a member, you agree to the ",
-            "text2":"Terms of Use.",
-            "text3":" Click for the ",
-            "text4":"Clarification Text",
-            "text5":" regarding your personal data."
+        "contract": {
+            "text1": "By becoming a member, you agree to the ",
+            "text2": "Terms of Use.",
+            "text3": " Click for the ",
+            "text4": "Clarification Text",
+            "text5": " regarding your personal data."
         },
-        "social_auth":"Go on"
+        "social_auth": "Go on"
     },
-    "forgot_password" : {
-        "phone":"Phone",
-        "activation_code":"Activation Code",
-        "new_password" :"New Password",
-        "reset_password":"Reset Password",
-        "send_again":"Resend Kod",
-        "send_code":"Send Code"
+    "forgot_password": {
+        "phone": "Phone",
+        "activation_code": "Activation Code",
+        "new_password": "New Password",
+        "reset_password": "Reset Password",
+        "send_again": "Resend Kod",
+        "send_code": "Send Code"
     },
-    "food_waste" : {
-        "title":"Food Waste",
-        "text1":"Food waste; It means that the food produced turns into waste before it is consumed.",
-        "text2" :"Üretim, işleme, satış veya tüketim süreçlerinde, gıda israfına yol açan pek çok sebep ortaya çıkabiliyor.",
-        "text3":"Many reasons that lead to food waste can arise in production, processing, sales or consumption processes.",
-        "button":"Get more information",
-        "skip":"Skip for now"
+    "food_waste": {
+        "title": "Food Waste",
+        "text1": "Food waste; It means that the food produced turns into waste before it is consumed.",
+        "text2": "Üretim, işleme, satış veya tüketim süreçlerinde, gıda israfına yol açan pek çok sebep ortaya çıkabiliyor.",
+        "text3": "Many reasons that lead to food waste can arise in production, processing, sales or consumption processes.",
+        "button": "Get more information",
+        "skip": "Skip for now"
     },
     "food_waste_expanded" : {
         "headline1":"You too started fighting food waste",
@@ -102,8 +97,20 @@
         "text2": "A message should be a short, \ncomplete sentence.",
         "button1": "Cancel",
         "button2": "Action"
+    },
+    "filters": {
+        "sort": {
+            "title": "Sort",
+            "item1": "Sort By Distance",
+            "item2": "Favorites",
+            "item3": "User Score",
+            "item4": "Newcomers"
+        },
+        "package_price": {
+            "title": "Package Price",
+            "item1": "Minimum price",
+            "item2": "Maximum price",
+            "item3": "USD"
+        }
     }
-        
- }
-   
-    
+}

@@ -101,8 +101,20 @@
         "text2": "Bir mesaj kısa ve tam bir cümle olmalıdır.",
         "button1": "İptal",
         "button2": "Aktifleştir"
-    }
-
-       
+    },
+        "filters": {
+            "sort": {
+                "title": "Sırala",
+                "item1": "Uzaklığa Göre Sırala",
+                "item2": "Favorilerin",
+                "item3": "Kullanıcı Puanı",
+                "item4": "Yeni Katılanlar"
+            },
+            "package_price": {
+                "title": "Paket Fiyatı",
+                "item1": "Minimum fiyat",
+                "item2": "Maximum fiyat",
+                "item3": "TL"
+                    }
+        }
 }
-    

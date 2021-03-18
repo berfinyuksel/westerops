@@ -33,7 +33,10 @@ class ImageConstant {
   static const NAVBAR_BASKET = "assets/images/navbar/navbar_basket.svg";
   static const NAVBAR_BASKET_ACTIVE = "assets/images/navbar/navbar_basket_active.svg";
 
-  static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.png";
-  static const LOCATION_IMAGE = "assets/images/permissions/location_image.png";
-  static const BACK_ICON = "assets/commons/back_icon.png";
+  static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
+  static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";
+  static const BACK_ICON = "assets/commons/back_icon.svg";
+  static const RIGHT_ICON = "assets/commons/right_icon.svg";
+  static const UNDER_ICON = "assets/commons/under_icon.svg";
+
 }

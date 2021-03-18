@@ -1,20 +1,25 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const onboardings_text = 'onboardings.text';
   static const onboardings_button = 'onboardings.button';
   static const onboardings_skip = 'onboardings.skip';
   static const onboardings_onboarding_text1 = 'onboardings.onboarding.text1';
   static const onboardings_onboarding_text2 = 'onboardings.onboarding.text2';
-  static const onboardings_onboarding_text_headline = 'onboardings.onboarding.text_headline';
+  static const onboardings_onboarding_text_headline =
+      'onboardings.onboarding.text_headline';
   static const onboardings_onboarding = 'onboardings.onboarding';
-  static const onboardings_first_text_headline = 'onboardings.first.text_headline';
+  static const onboardings_first_text_headline =
+      'onboardings.first.text_headline';
   static const onboardings_first = 'onboardings.first';
-  static const onboardings_second_text_headline = 'onboardings.second.text_headline';
+  static const onboardings_second_text_headline =
+      'onboardings.second.text_headline';
   static const onboardings_second = 'onboardings.second';
-  static const onboardings_third_text_headline = 'onboardings.third.text_headline';
+  static const onboardings_third_text_headline =
+      'onboardings.third.text_headline';
   static const onboardings_third = 'onboardings.third';
-  static const onboardings_forth_text_headline = 'onboardings.forth.text_headline';
+  static const onboardings_forth_text_headline =
+      'onboardings.forth.text_headline';
   static const onboardings_forth_button = 'onboardings.forth.button';
   static const onboardings_forth = 'onboardings.forth';
   static const onboardings = 'onboardings';
@@ -84,5 +89,15 @@ abstract class  LocaleKeys {
   static const location_card_button1 = 'location_card.button1';
   static const location_card_button2 = 'location_card.button2';
   static const location_card = 'location_card';
+
+  static const filters_sort_title = 'filters.sort.title';
+  static const filters_sort_item1 = 'filters.sort.item1';
+  static const filters_sort_item2 = 'filters.sort.item2';
+  static const filters_sort_item3 = 'filters.sort.item3';
+  static const filters_sort_item4 = 'filters.sort.item4';
+  static const filters_package_price_title = 'filters.package_price.title';
+  static const filters_package_price_item1 = 'filters.package_price.item1';
+  static const filters_package_price_item2 = 'filters.package_price.item2';
+  static const filters_package_price_item3 = 'filters.package_price.item3';
 
 }
