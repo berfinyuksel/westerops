@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/presentation/screens/register_view/components/clipped_password_rules.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/consent_text.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/contract_text.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/sign_with_social_auth.dart';
@@ -27,25 +28,41 @@ class _RegisterViewState extends State<RegisterView> {
   bool enableObscure = true;
   String dropdownValue = "TR";
   bool checkboxValue = false;
+  bool isRulesVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: buildBackground,
-          ),
-          Positioned(
-            bottom: 0,
-            left: context.dynamicWidht(0.035),
-            right: context.dynamicWidht(0.035),
-            child: buildCardBody(context),
-          ),
-        ],
+      body: GestureDetector(
+        onTap: () {
+          setState(() {
+            if (isRulesVisible) {
+              isRulesVisible = false;
+            }
+          });
+        },
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: buildBackground,
+            ),
+            Positioned(
+              bottom: 0,
+              left: context.dynamicWidht(0.035),
+              right: context.dynamicWidht(0.035),
+              child: buildCardBody(context),
+            ),
+            Positioned(
+              top: context.dynamicHeight(0.53),
+              left: context.dynamicWidht(0.095),
+              child: Visibility(visible: isRulesVisible, child: ClippedPasswordRules(passwordController: passwordController)),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -120,7 +137,7 @@ class _RegisterViewState extends State<RegisterView> {
             flex: 5,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: buildTextFormField(LocaleKeys.register_password.locale, passwordController),
+              child: buildTextFormFieldPassword(LocaleKeys.register_password.locale),
             ),
           ),
           Spacer(
@@ -261,35 +278,67 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
+  TextFormField buildTextFormFieldPassword(String labelText) {
+    return TextFormField(
+      onChanged: (value) {
+        setState(() {
+          isRulesVisible = true;
+        });
+      },
+      controller: passwordController,
+      obscureText: enableObscure,
+      decoration: InputDecoration(
+        suffixIconConstraints: BoxConstraints.tightFor(width: context.dynamicWidht(0.05), height: context.dynamicHeight(0.02)),
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              enableObscure = !enableObscure;
+            });
+          },
+          child: enableObscure
+              ? SvgPicture.asset(
+                  ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
+                )
+              : SvgPicture.asset(
+                  ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
+                ),
+        ),
+        labelText: labelText,
+        prefix: Text(
+          "",
+        ),
+        labelStyle: AppTextStyles.subTitleStyle,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(),
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+      ),
+    );
+  }
+
   TextFormField buildTextFormField(String labelText, TextEditingController controller) {
     return TextFormField(
+      onTap: () {
+        setState(() {
+          isRulesVisible = false;
+        });
+      },
       controller: controller,
-      obscureText: enableObscure && controller == passwordController,
       decoration: InputDecoration(
+        labelText: labelText,
         prefixText: controller == phoneController
             ? dropdownValue == 'TR'
                 ? "+90"
                 : "+1"
-            : "",
-        suffixIconConstraints:
-            controller == passwordController ? BoxConstraints.tightFor(width: context.dynamicWidht(0.05), height: context.dynamicHeight(0.02)) : null,
-        suffixIcon: controller == passwordController
-            ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    enableObscure = !enableObscure;
-                  });
-                },
-                child: enableObscure
-                    ? SvgPicture.asset(
-                        ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
-                      )
-                    : SvgPicture.asset(
-                        ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
-                      ),
-              )
             : null,
-        labelText: labelText,
         labelStyle: AppTextStyles.subTitleStyle,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
