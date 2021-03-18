@@ -109,7 +109,8 @@
         "package_price": {
             "title": "Package Price",
             "item1": "Minimum price",
-            "item2": "Maximum price"
+            "item2": "Maximum price",
+            "item3": "USD"
         }
     }
 }
