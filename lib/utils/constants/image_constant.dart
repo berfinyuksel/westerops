@@ -1,4 +1,5 @@
 class ImageConstant {
+  static const COMMONS_FORWARD_ICON = "assets/images/commons/forward_icon.svg";
   static const ONBOARDING_BACKGROUND = "assets/images/onboardings/onboarding/onboarding_background.png";
   static const ONBOARDING_FIRST_BACKGROUND = "assets/images/onboardings/onboarding_first/onboarding_first_background.png";
   static const ONBOARDING_SECOND_BACKGROUND = "assets/images/onboardings/onboarding_second/onboarding_second_background.png";
@@ -21,6 +22,16 @@ class ImageConstant {
   static const FOOD_WASTE_EXPANDED_IMAGE_5 = "assets/images/food_waste/expanded/food_waste_image_5.svg";
   static const FOOD_WASTE_EXPANDED_IMAGE_6 = "assets/images/food_waste/expanded/food_waste_image_6.svg";
   static const FOOD_WASTE_EXPANDED_IMAGE_7 = "assets/images/food_waste/expanded/food_waste_image_7.svg";
+  static const NAVBAR_HOME = "assets/images/navbar/navbar_home.svg";
+  static const NAVBAR_HOME_ACTIVE = "assets/images/navbar/navbar_home_active.svg";
+  static const NAVBAR_SEARCH = "assets/images/navbar/navbar_search.svg";
+  static const NAVBAR_SEARCH_ACTIVE = "assets/images/navbar/navbar_search_active.svg";
+  static const NAVBAR_FAVORITES = "assets/images/navbar/navbar_favorites.svg";
+  static const NAVBAR_FAVORITES_ACTIVE = "assets/images/navbar/navbar_favorites_active.svg";
+  static const NAVBAR_NOTIFACATIONS = "assets/images/navbar/navbar_notifications.svg";
+  static const NAVBAR_NOTIFACATIONS_ACTIVE = "assets/images/navbar/navbar_notifications_active.svg";
+  static const NAVBAR_BASKET = "assets/images/navbar/navbar_basket.svg";
+  static const NAVBAR_BASKET_ACTIVE = "assets/images/navbar/navbar_basket_active.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.png";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.png";
