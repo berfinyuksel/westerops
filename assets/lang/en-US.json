@@ -111,6 +111,31 @@
             "item1": "Minimum price",
             "item2": "Maximum price",
             "item3": "USD"
+        },
+        "package_delivery": {
+            "title": "Package Delivery",
+            "item1": "Take-Out Package",
+            "item2": "Motor Courier"
+        },
+        "payment_method": {
+            "title": "Payment Method",
+            "item1": "Online Payment",
+            "item2": "Payment at the Door/ Restaurant"
+        },
+        "choose_category": {
+            "title": "Choose Category",
+            "item1": "Main Course",
+            "item2": "Drinks",
+            "item3": "Vegan",
+            "item4": "Hamburger",
+            "item5": "Dessert",
+            "item6": "Pizza",
+            "item7": "Chicken",
+            "item8": "Coffee"
+        },
+        "button": {
+            "item1": "Clean",
+            "item2": "Save"
         }
     }
 }
