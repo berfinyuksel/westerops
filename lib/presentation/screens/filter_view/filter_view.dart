@@ -40,7 +40,6 @@ class FilterView extends StatelessWidget {
                 backgroundColor: Colors.white,
                 children: [
                CustomSliderBarAndTextField(),
-               
                 ],
               ),
             ),

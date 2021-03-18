@@ -86,4 +86,6 @@ abstract class LocaleKeys {
   static const filters_package_price_title = 'filters.package_price.title';
   static const filters_package_price_item1 = 'filters.package_price.item1';
   static const filters_package_price_item2 = 'filters.package_price.item2';
+  static const filters_package_price_item3 = 'filters.package_price.item3';
+
 }

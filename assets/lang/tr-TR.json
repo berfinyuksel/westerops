@@ -99,7 +99,8 @@
             "package_price": {
                 "title": "Paket Fiyatı",
                 "item1": "Minimum fiyat",
-                "item2": "Maximum fiyat"
+                "item2": "Maximum fiyat",
+                "item3": "TL"
                     }
         }
        
