@@ -3,7 +3,8 @@ import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckbox extends StatefulWidget {
-  const CustomCheckbox({Key? key}) : super(key: key);
+ 
+  const CustomCheckbox({Key? key,}) : super(key: key);
 
   @override
   _CustomCheckboxState createState() => _CustomCheckboxState();
@@ -11,15 +12,17 @@ class CustomCheckbox extends StatefulWidget {
 
 class _CustomCheckboxState extends State<CustomCheckbox> {
   bool _value = false;
+
   @override
   Widget build(BuildContext context) {
-    return Center(child: InkWell(onTap: () {
-      setState(() {
-        _value = !_value;
-        
-      });
-    }, 
-    child: Container(
+    return Center(
+        child: InkWell(
+      onTap: () {
+        setState(() {
+          _value = !_value;
+        });
+      },
+      child: Container(
         alignment: Alignment.center,
         width: context.dynamicWidht(0.06),
         height: context.dynamicHeight(0.03),
@@ -35,10 +38,8 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
           width: context.dynamicWidht(0.04),
           height: context.dynamicHeight(0.04),
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: _value ? AppColors.greenColor : Colors.transparent
-          ),
-       
+              shape: BoxShape.circle,
+              color: _value ? AppColors.greenColor : Colors.transparent),
         ),
       ),
     ));

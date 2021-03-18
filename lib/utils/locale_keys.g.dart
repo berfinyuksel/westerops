@@ -86,5 +86,28 @@ abstract class LocaleKeys {
   static const filters_package_price_item1 = 'filters.package_price.item1';
   static const filters_package_price_item2 = 'filters.package_price.item2';
   static const filters_package_price_item3 = 'filters.package_price.item3';
+  static const filters_package_delivery_title = 'filters.package_delivery.title';
+  static const filters_package_delivery_item1 = 'filters.package_delivery.item1';
+  static const filters_package_delivery_item2 = 'filters.package_delivery.item2';
+
+  static const filters_payment_method_title = 'filters.payment_method.title';
+  static const filters_payment_method_item1 = 'filters.payment_method.item1';
+  static const filters_payment_method_item2 = 'filters.payment_method.item2';
+
+ static const filters_choose_category_title = 'filters.choose_category.title';
+  static const filters_choose_category_item1 = 'filters.choose_category.item1';
+  static const filters_choose_category_item2 = 'filters.choose_category.item2';
+  static const filters_choose_category_item3 = 'filters.choose_category.item3';
+  static const filters_choose_category_item4 = 'filters.choose_category.item4';
+  static const filters_choose_category_item5 = 'filters.choose_category.item5';
+  static const filters_choose_category_item6 = 'filters.choose_category.item6';
+  static const filters_choose_category_item7 = 'filters.choose_category.item7';
+  static const filters_choose_category_item8 = 'filters.choose_category.item8';
+
+  static const filters_button_item1 = 'filters.button.item1';
+  static const filters_button_item2 = 'filters.button.item2';
+
+
+
 
 }

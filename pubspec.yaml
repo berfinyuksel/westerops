@@ -50,16 +50,18 @@ flutter:
 
     - assets/images/permissions/
     - assets/commons/
+    - assets/images/filters/
 
     - assets/images/onboardings/onboarding/
     - assets/images/onboardings/onboarding_first/
     - assets/images/onboardings/onboarding_second/
     - assets/images/onboardings/onboarding_third/
     - assets/images/onboardings/onboarding_forth/
-    - assets/images/register_login/ 
+    - assets/images/register_login/
     - assets/images/register_login/icons/
     - assets/images/forgot_password/
     - assets/images/food_waste/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
