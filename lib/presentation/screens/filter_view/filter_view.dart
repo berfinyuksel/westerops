@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/presentation/screens/filter_view/components/custom_container.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
+import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -13,19 +14,28 @@ import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'components/custom_checkbox.dart';
 import 'components/custom_sliderbar_textfield.dart';
 
-class FilterView extends StatelessWidget {
+class FilterView extends StatefulWidget {
   const FilterView({Key? key}) : super(key: key);
+
+  @override
+  _FilterViewState createState() => _FilterViewState();
+}
+
+class _FilterViewState extends State<FilterView> {
+  bool _valuePackage = false;
+  bool _valueCoruier = false;
+
 
   @override
   Widget build(BuildContext context) {
 
 
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldBackgroundColor,
-      appBar: AppBar(),
+    return CustomScaffold(
+
       body: Center(
         child: Expanded(
           child: ListView(
+            
             children: [
               sortFilter(context),
               Divider(
@@ -48,7 +58,7 @@ class FilterView extends StatelessWidget {
                 color: Colors.transparent,
               ),
               chooseCategoryFilter(context),
-              SizedBox(height: context.dynamicHeight(0.4),),
+              SizedBox(height: context.dynamicHeight(0.35),),
               cleanAndSaveButtons(context),
             ],
           ),
@@ -91,7 +101,9 @@ class FilterView extends StatelessWidget {
                 LocaleKeys.filters_choose_category_title.locale,
                 style: AppTextStyles.bodyTitleStyle,
               ),
-              //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+             // trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+             
+              initiallyExpanded: true,
               backgroundColor: Colors.white,
               children: [
                 Container(
@@ -268,6 +280,7 @@ class FilterView extends StatelessWidget {
   }
 
   Container packageDeliveryFilter(BuildContext context) {
+
     return Container(
             decoration: BoxDecoration(color: Colors.white),
             child: ExpansionTile(
@@ -287,13 +300,40 @@ class FilterView extends StatelessWidget {
                         Row(
                           children: [
                             Spacer(flex: 4),
-                            CustomCheckbox(),
+                            Center(
+        child: InkWell(
+      onTap: () {
+        setState(() {
+          _valuePackage = !_valuePackage;
+        });
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: context.dynamicWidht(0.06),
+        height: context.dynamicHeight(0.03),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.0),
+          color: Colors.white,
+          border: Border.all(
+            width: 1,
+            color: const Color(0xFFD1D0D0),
+          ),
+        ),
+        child: Container(
+          width: context.dynamicWidht(0.04),
+          height: context.dynamicHeight(0.04),
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: _valuePackage ? AppColors.greenColor : Colors.transparent),
+        ),
+      ),
+    )),
                             Spacer(flex: 3),
                             CustomContainer(
                               child: Row(
                                 children: [
                                   Spacer(flex: 5),
-                                  SvgPicture.asset(ImageConstant.PACKAGE_ICON),
+                                  SvgPicture.asset(ImageConstant.PACKAGE_ICON, color: _valuePackage ? AppColors.greenColor : AppColors.iconColor,),
                                   Spacer(flex: 13),
                                   Center(
                                       child: AutoSizeText(
@@ -314,14 +354,45 @@ class FilterView extends StatelessWidget {
                         Row(
                           children: [
                             Spacer(flex: 4),
-                            CustomCheckbox(),
+                              Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valueCoruier = !_valueCoruier;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
+                            ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _valueCoruier
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
+                          ),
+                        ),
+                      )),
                             Spacer(flex: 3),
                             CustomContainer(
                               child: Row(
                                 children: [
                                   Spacer(flex: 5),
                                   SvgPicture.asset(
-                                      ImageConstant.PACKAGE_DELIVERY_ICON,
+                                      ImageConstant.PACKAGE_DELIVERY_ICON, color: _valueCoruier
+                                  ? AppColors.greenColor
+                                  : AppColors.iconColor,
                                      // cubit --> color:  Colors.red
                                       ),
                                   Spacer(flex: 13),
@@ -375,6 +446,7 @@ class FilterView extends StatelessWidget {
           style: AppTextStyles.bodyTitleStyle,
         ),
         //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        
         backgroundColor: Colors.white,
         children: [
           Container(
@@ -443,5 +515,6 @@ class FilterView extends StatelessWidget {
       ),
     );
   }
+
 }
 
