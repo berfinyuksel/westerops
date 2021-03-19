@@ -48,7 +48,12 @@ flutter:
     - assets/images/
 
     - assets/images/permissions/
-    - assets/images/commons/
+
+    - assets/commons/
+    - assets/images/filters/
+
+
+
 
     - assets/images/onboardings/onboarding/
     - assets/images/onboardings/onboarding_first/
@@ -61,6 +66,7 @@ flutter:
     - assets/images/food_waste/
     - assets/images/food_waste/expanded/
     - assets/images/navbar/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

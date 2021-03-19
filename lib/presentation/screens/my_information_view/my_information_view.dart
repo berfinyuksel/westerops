@@ -16,66 +16,63 @@ class MyInformationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: "Bilgilerim",
-      body: Padding(
-        padding: EdgeInsets.zero,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Spacer(
-              flex: 2,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Spacer(
+            flex: 2,
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+              right: context.dynamicWidht(0.06),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: context.dynamicWidht(0.06),
-                right: context.dynamicWidht(0.06),
-              ),
-              child: buildRowTitleAndEdit(),
-            ),
-            Spacer(
-              flex: 1,
-            ),
-            InformationListTile(
-              title: "Ad",
-              subtitle: "John",
-            ),
-            InformationListTile(
-              title: "Soyad",
-              subtitle: "Doe",
-            ),
-            InformationListTile(
-              title: "Doğum Tarihi",
-              subtitle: "12.09.1992",
-            ),
-            InformationListTile(
-              title: "E-posta",
-              subtitle: "jonh.doe@mail.com",
-            ),
-            InformationListTile(
-              title: "Telefon numarası",
-              subtitle: "+90 555 55 55",
-            ),
-            Spacer(
-              flex: 4,
-            ),
-            buildChangePassword(context),
-            Spacer(
-              flex: 4,
-            ),
-            buildSocialAuthTitle(context),
-            Spacer(flex: 1),
-            SocialAuthListTile(
-              title: "Bağlantıyı Kaldır",
-              image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
-            ),
-            Spacer(
-              flex: 11,
-            ),
-            buildButton(context),
-            Spacer(
-              flex: 4,
-            ),
-          ],
-        ),
+            child: buildRowTitleAndEdit(),
+          ),
+          Spacer(
+            flex: 1,
+          ),
+          InformationListTile(
+            title: "Ad",
+            subtitle: "John",
+          ),
+          InformationListTile(
+            title: "Soyad",
+            subtitle: "Doe",
+          ),
+          InformationListTile(
+            title: "Doğum Tarihi",
+            subtitle: "12.09.1992",
+          ),
+          InformationListTile(
+            title: "E-posta",
+            subtitle: "jonh.doe@mail.com",
+          ),
+          InformationListTile(
+            title: "Telefon numarası",
+            subtitle: "+90 555 55 55",
+          ),
+          Spacer(
+            flex: 4,
+          ),
+          buildChangePassword(context),
+          Spacer(
+            flex: 4,
+          ),
+          buildSocialAuthTitle(context),
+          Spacer(flex: 1),
+          SocialAuthListTile(
+            title: "Bağlantıyı Kaldır",
+            image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
+          ),
+          Spacer(
+            flex: 11,
+          ),
+          buildButton(context),
+          Spacer(
+            flex: 4,
+          ),
+        ],
       ),
     );
   }

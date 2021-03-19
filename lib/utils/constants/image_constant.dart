@@ -38,5 +38,8 @@ class ImageConstant {
   static const BACK_ICON = "assets/commons/back_icon.svg";
   static const RIGHT_ICON = "assets/commons/right_icon.svg";
   static const UNDER_ICON = "assets/commons/under_icon.svg";
+  static const PACKAGE_DELIVERY_ICON = "assets/images/filters/package_delivery.svg";
+  static const PACKAGE_ICON = "assets/images/filters/package.svg";
+
 
 }

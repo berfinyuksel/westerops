@@ -57,6 +57,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       Container(
                         height: context.dynamicHeight(0.06),
                         width: context.dynamicWidht(0.57),
+                        color: Colors.white,
                         child: buildTextFormField(LocaleKeys.forgot_password_phone.locale, phoneController),
                       ),
                     ],
@@ -64,14 +65,19 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   SizedBox(
                     height: context.dynamicHeight(0.02),
                   ),
-                  Visibility(visible: isCodeSent, child: buildTextFormField(LocaleKeys.forgot_password_activation_code.locale, codeController)),
+                  Visibility(
+                      visible: isCodeSent,
+                      child: Container(
+                          color: Colors.white, child: buildTextFormField(LocaleKeys.forgot_password_activation_code.locale, codeController))),
                   Visibility(
                     visible: isCodeSent,
                     child: SizedBox(
                       height: context.dynamicHeight(0.02),
                     ),
                   ),
-                  Visibility(visible: isCodeSent, child: buildTextFormFieldPassword(LocaleKeys.forgot_password_new_password.locale)),
+                  Visibility(
+                      visible: isCodeSent,
+                      child: Container(color: Colors.white, child: buildTextFormFieldPassword(LocaleKeys.forgot_password_new_password.locale))),
                   SizedBox(
                     height: context.dynamicHeight(0.02),
                   ),

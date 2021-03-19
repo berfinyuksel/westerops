@@ -115,6 +115,31 @@
                 "item1": "Minimum fiyat",
                 "item2": "Maximum fiyat",
                 "item3": "TL"
-                    }
+            },
+            "package_delivery": {
+                "title": "Paket Teslimi",
+                "item1": "Gel-Al Paket",
+                "item2": "Motorlu Kurye"
+            },
+            "payment_method": {
+                "title": "Ödeme Şekli",
+                "item1": "Online Ödeme",
+                "item2": "Kapıda/Restorana Ödeme"
+            },
+            "choose_category": {
+                "title": "Kategori Seç",
+                "item1": "Ana Yemek",
+                "item2": "İçecek",
+                "item3": "Vegan",
+                "item4": "Hamburger",
+                "item5": "Tatlı",
+                "item6": "Pizza",
+                "item7": "Tavuk",
+                "item8": "Kahve"
+            },
+            "button": {
+                "item1": "Temizle",
+                "item2": "Kaydet"
+            }
         }
 }
