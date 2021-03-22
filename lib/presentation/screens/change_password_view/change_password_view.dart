@@ -3,6 +3,8 @@ import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +34,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         });
       },
       child: CustomScaffold(
-        title: "Şifre Değişikliği",
+        title: LocaleKeys.change_password_title,
         body: Stack(
           children: [
             Padding(
@@ -62,9 +64,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       color: Colors.white,
       child: Column(
         children: [
-          buildTextFormFieldPassword("Mevcut Şifre", passwordController),
-          buildTextFormFieldNewPassword("Yeni Şifre"),
-          buildTextFormFieldPassword("Yeni Şifre Tekrar", newPasswordAgainController)
+          buildTextFormFieldPassword(LocaleKeys.change_password_current_password.locale, passwordController),
+          buildTextFormFieldNewPassword(LocaleKeys.change_password_new_password.locale),
+          buildTextFormFieldPassword(LocaleKeys.change_password_new_password_again.locale, newPasswordAgainController)
         ],
       ),
     );
@@ -173,7 +175,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
       child: CustomButton(
         width: double.infinity,
-        title: "Kaydet",
+        title: LocaleKeys.change_password_button,
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,

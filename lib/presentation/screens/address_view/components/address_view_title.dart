@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
@@ -15,7 +16,7 @@ class AddressBodyTitle extends StatelessWidget {
         left: context.dynamicWidht(0.06),
       ),
       child: LocaleText(
-        text: "Kayıtlı Adreslerim",
+        text: LocaleKeys.address_body_title,
         style: AppTextStyles.bodyTitleStyle,
       ),
     );

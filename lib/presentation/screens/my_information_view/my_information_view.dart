@@ -2,6 +2,7 @@ import 'package:dongu_mobile/presentation/screens/my_information_view/components
 import 'package:dongu_mobile/presentation/screens/my_information_view/components/social_auth_list_tile.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +16,7 @@ class MyInformationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Bilgilerim",
+      title: LocaleKeys.inform_title,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,23 +34,23 @@ class MyInformationView extends StatelessWidget {
             flex: 1,
           ),
           InformationListTile(
-            title: "Ad",
+            title: LocaleKeys.inform_list_tile_name,
             subtitle: "John",
           ),
           InformationListTile(
-            title: "Soyad",
+            title: LocaleKeys.inform_list_tile_surname,
             subtitle: "Doe",
           ),
           InformationListTile(
-            title: "Doğum Tarihi",
+            title: LocaleKeys.inform_list_tile_birth,
             subtitle: "12.09.1992",
           ),
           InformationListTile(
-            title: "E-posta",
+            title: LocaleKeys.inform_list_tile_mail,
             subtitle: "jonh.doe@mail.com",
           ),
           InformationListTile(
-            title: "Telefon numarası",
+            title: LocaleKeys.inform_list_tile_phone,
             subtitle: "+90 555 55 55",
           ),
           Spacer(
@@ -62,7 +63,7 @@ class MyInformationView extends StatelessWidget {
           buildSocialAuthTitle(context),
           Spacer(flex: 1),
           SocialAuthListTile(
-            title: "Bağlantıyı Kaldır",
+            title: LocaleKeys.inform_list_tile_remove_link,
             image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
           ),
           Spacer(
@@ -82,11 +83,11 @@ class MyInformationView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         LocaleText(
-          text: "Kişisel Bilgilerim",
+          text: LocaleKeys.inform_body_title_1,
           style: AppTextStyles.bodyTitleStyle,
         ),
         LocaleText(
-          text: 'Düzenle',
+          text: LocaleKeys.inform_edit,
           style: GoogleFonts.montserrat(
             fontSize: 12.0,
             color: AppColors.orangeColor,
@@ -107,7 +108,7 @@ class MyInformationView extends StatelessWidget {
       ),
       tileColor: Colors.white,
       title: LocaleText(
-        text: "Şifre Değişikliği",
+        text: LocaleKeys.inform_list_tile_change_password,
         style: AppTextStyles.myInformationBodyTextStyle,
       ),
       trailing: SvgPicture.asset(
@@ -123,7 +124,7 @@ class MyInformationView extends StatelessWidget {
         left: context.dynamicWidht(0.06),
       ),
       child: LocaleText(
-        text: "Bağlı Hesaplar",
+        text: LocaleKeys.inform_body_title_2,
         style: AppTextStyles.bodyTitleStyle,
       ),
     );
@@ -134,7 +135,7 @@ class MyInformationView extends StatelessWidget {
       padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
       child: CustomButton(
         width: double.infinity,
-        title: "Güncelle",
+        title: LocaleKeys.inform_button,
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
