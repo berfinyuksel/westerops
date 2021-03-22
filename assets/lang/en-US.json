@@ -80,6 +80,9 @@
         "body8":"The amount of water used in the production of wasted food (250 km3) is equivalent to the amount of water flowing from the Idil (Volga) River, Europe's longest river, and 3 times the volume of Lake Geneva, which is equal to 9 million people. daily water need can be met.",
         "button":"Explore Restaurants"
     },
+    "language_settings" : {
+        "title":"Language Settings"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

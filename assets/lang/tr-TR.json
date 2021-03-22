@@ -84,6 +84,9 @@
         "body8":"İsraf edilen gıdaların üretiminde kullanılan su miktarı (250 km3), Avrupa’nın en uzun nehri olan İdil (Volga) Nehri’nden bir yıl boyunca akan su miktarı ve Cenevre Gölü’nün hacminin 3 katı ile eş değer olup, bu miktar 9 milyon kişinin günlük su ihtiyacı karşılanabilir.",
         "button":"Restoranları Keşfet"
     },
+    "language_settings" : {
+        "title":"Dil Ayarları"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

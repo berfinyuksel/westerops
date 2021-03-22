@@ -1,5 +1,6 @@
 class ImageConstant {
   static const COMMONS_FORWARD_ICON = "assets/images/commons/forward_icon.svg";
+  static const COMMONS_CHECK_ICON = "assets/images/commons/check_icon.svg";
   static const ONBOARDING_BACKGROUND = "assets/images/onboardings/onboarding/onboarding_background.png";
   static const ONBOARDING_FIRST_BACKGROUND = "assets/images/onboardings/onboarding_first/onboarding_first_background.png";
   static const ONBOARDING_SECOND_BACKGROUND = "assets/images/onboardings/onboarding_second/onboarding_second_background.png";
@@ -40,6 +41,4 @@ class ImageConstant {
   static const UNDER_ICON = "assets/commons/under_icon.svg";
   static const PACKAGE_DELIVERY_ICON = "assets/images/filters/package_delivery.svg";
   static const PACKAGE_ICON = "assets/images/filters/package.svg";
-
-
 }
