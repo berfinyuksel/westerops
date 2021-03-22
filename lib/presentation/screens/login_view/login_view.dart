@@ -1,4 +1,6 @@
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/sign_with_social_auth.dart';
@@ -34,6 +36,14 @@ class _LoginViewState extends State<LoginView> {
             left: 0,
             right: 0,
             child: buildBackground,
+          ),
+          Positioned(
+            top: context.dynamicHeight(0.04),
+            left: context.dynamicWidht(0.035),
+            child: IconButton(
+              icon: Icon(Icons.keyboard_arrow_left, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
           ),
           Positioned(
             bottom: 0,
@@ -106,12 +116,20 @@ class _LoginViewState extends State<LoginView> {
             textColor: Colors.white,
             color: AppColors.greenColor,
             borderColor: AppColors.greenColor,
+            onPressed: () {
+              Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_VIEW);
+            },
           ),
           Spacer(flex: 1),
-          LocaleText(
-            text: LocaleKeys.login_forgot_pass,
-            style: AppTextStyles.bodyTextStyle,
-            maxLines: 1,
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.FORGOT_PASSWORD_VIEW);
+            },
+            child: LocaleText(
+              text: LocaleKeys.login_forgot_pass,
+              style: AppTextStyles.bodyTextStyle,
+              maxLines: 1,
+            ),
           ),
           Spacer(flex: 2),
           Expanded(
@@ -132,6 +150,10 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
                 TextSpan(
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.pushNamed(context, RouteConstant.REGISTER_VIEW);
+                    },
                   text: LocaleKeys.login_sign_up.locale,
                   style: GoogleFonts.montserrat(
                     color: AppColors.greenColor,

@@ -51,6 +51,14 @@ class _RegisterViewState extends State<RegisterView> {
               child: buildBackground,
             ),
             Positioned(
+              top: context.dynamicHeight(0.04),
+              left: context.dynamicWidht(0.035),
+              child: IconButton(
+                icon: Icon(Icons.keyboard_arrow_left, color: Colors.white),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
+            Positioned(
               bottom: 0,
               left: context.dynamicWidht(0.035),
               right: context.dynamicWidht(0.035),

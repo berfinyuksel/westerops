@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/clipped_password_rules.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
+import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -36,10 +37,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           }
         });
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("This will be changed"),
-        ),
+      child: CustomScaffold(
+        title: "Şifremi Unuttum",
         body: Stack(
           children: [
             Padding(

@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
@@ -27,6 +29,10 @@ class ContractText extends StatelessWidget {
               ),
             ),
             TextSpan(
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Navigator.pushNamed(context, RouteConstant.AGREEMENT_VIEW);
+                },
               text: LocaleKeys.register_contract_text2.locale,
               style: GoogleFonts.montserrat(
                 color: AppColors.orangeColor,

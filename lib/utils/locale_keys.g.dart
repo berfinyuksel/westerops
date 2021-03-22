@@ -77,7 +77,7 @@ abstract class  LocaleKeys {
   static const food_waste_expanded = 'food_waste_expanded';
   static const custom_drawer_title = 'custom_drawer.title';
   static const custom_drawer_login_button = 'custom_drawer.login_button';
-  static const custom_drawer_sign_up_button = 'custom_drawer.sign_up_button';
+  static const custom_drawer_register_button = 'custom_drawer.register_button';
   static const custom_drawer_body_title_1 = 'custom_drawer.body_title_1';
   static const custom_drawer_body_title_2 = 'custom_drawer.body_title_2';
   static const custom_drawer_body_list_tile_inform = 'custom_drawer.body_list_tile_inform';

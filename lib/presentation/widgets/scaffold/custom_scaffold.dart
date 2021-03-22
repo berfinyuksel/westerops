@@ -64,6 +64,10 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   AppBar buildAppBarWithInputTitle() {
     return AppBar(
       iconTheme: IconThemeData(color: AppColors.greenColor),
+      leading: IconButton(
+        icon: Icon(Icons.keyboard_arrow_left, color: AppColors.greenColor),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
       title: LocaleText(
         text: widget.title!,
         style: AppTextStyles.appBarTitleStyle,
@@ -75,7 +79,10 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   AppBar buildAppBarWithTitleList() {
     return AppBar(
       iconTheme: IconThemeData(color: AppColors.greenColor),
-      leading: Container(),
+      leading: IconButton(
+        icon: Icon(Icons.keyboard_arrow_left, color: AppColors.greenColor),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
       title: LocaleText(
         text: _titles.elementAt(_selectedIndex)!,
         style: AppTextStyles.appBarTitleStyle,
