@@ -94,7 +94,7 @@
     "custom_drawer" : {
         "title":"Profilim",
         "login_button":"Giriş Yap",
-        "sign_up_button":"Üye Ol",
+        "register_button":"Üye Ol",
         "body_title_1":"Ayarlar",
         "body_title_2":"Hakkında",
         "body_list_tile_inform":"Bilgilerim",

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -61,8 +62,7 @@ class LocationView extends StatelessWidget {
       onTap: () {},
       child: AutoSizeText(
         LocaleKeys.premission_notification_button2.locale,
-        style:
-            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
       ),
     );
   }
@@ -75,6 +75,7 @@ class LocationView extends StatelessWidget {
       textColor: AppColors.appBarColor,
       title: LocaleKeys.premission_location_button1.locale,
       onPressed: () {
+        Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
       },
     );
   }

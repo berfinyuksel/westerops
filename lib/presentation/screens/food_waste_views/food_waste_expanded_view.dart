@@ -1,6 +1,8 @@
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
+import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
@@ -11,10 +13,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 class FoodWasteExpandedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("This will be changed"),
-      ),
+    return CustomScaffold(
+      title: "Gıda İsrafı",
       body: Container(
         padding: EdgeInsets.only(
           top: context.dynamicHeight(0.02),
@@ -174,6 +174,9 @@ class FoodWasteExpandedView extends StatelessWidget {
               color: AppColors.greenColor,
               borderColor: AppColors.greenColor,
               textColor: Colors.white,
+              onPressed: () {
+                Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+              },
             ),
             SizedBox(
               height: context.dynamicHeight(0.02),

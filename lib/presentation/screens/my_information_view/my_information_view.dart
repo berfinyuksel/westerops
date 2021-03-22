@@ -2,6 +2,7 @@ import 'package:dongu_mobile/presentation/screens/my_information_view/components
 import 'package:dongu_mobile/presentation/screens/my_information_view/components/social_auth_list_tile.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -114,7 +115,9 @@ class MyInformationView extends StatelessWidget {
       trailing: SvgPicture.asset(
         ImageConstant.COMMONS_FORWARD_ICON,
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, RouteConstant.CHANGE_PASSWORD_VIEW);
+      },
     );
   }
 
