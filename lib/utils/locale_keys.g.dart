@@ -1,25 +1,20 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const onboardings_text = 'onboardings.text';
   static const onboardings_button = 'onboardings.button';
   static const onboardings_skip = 'onboardings.skip';
   static const onboardings_onboarding_text1 = 'onboardings.onboarding.text1';
   static const onboardings_onboarding_text2 = 'onboardings.onboarding.text2';
-  static const onboardings_onboarding_text_headline =
-      'onboardings.onboarding.text_headline';
+  static const onboardings_onboarding_text_headline = 'onboardings.onboarding.text_headline';
   static const onboardings_onboarding = 'onboardings.onboarding';
-  static const onboardings_first_text_headline =
-      'onboardings.first.text_headline';
+  static const onboardings_first_text_headline = 'onboardings.first.text_headline';
   static const onboardings_first = 'onboardings.first';
-  static const onboardings_second_text_headline =
-      'onboardings.second.text_headline';
+  static const onboardings_second_text_headline = 'onboardings.second.text_headline';
   static const onboardings_second = 'onboardings.second';
-  static const onboardings_third_text_headline =
-      'onboardings.third.text_headline';
+  static const onboardings_third_text_headline = 'onboardings.third.text_headline';
   static const onboardings_third = 'onboardings.third';
-  static const onboardings_forth_text_headline =
-      'onboardings.forth.text_headline';
+  static const onboardings_forth_text_headline = 'onboardings.forth.text_headline';
   static const onboardings_forth_button = 'onboardings.forth.button';
   static const onboardings_forth = 'onboardings.forth';
   static const onboardings = 'onboardings';
@@ -74,6 +69,8 @@ abstract class LocaleKeys {
   static const food_waste_expanded_body8 = 'food_waste_expanded.body8';
   static const food_waste_expanded_button = 'food_waste_expanded.button';
   static const food_waste_expanded = 'food_waste_expanded';
+  static const language_settings_title = 'language_settings.title';
+  static const language_settings = 'language_settings';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
@@ -89,25 +86,26 @@ abstract class LocaleKeys {
   static const location_card_button1 = 'location_card.button1';
   static const location_card_button2 = 'location_card.button2';
   static const location_card = 'location_card';
-
   static const filters_sort_title = 'filters.sort.title';
   static const filters_sort_item1 = 'filters.sort.item1';
   static const filters_sort_item2 = 'filters.sort.item2';
   static const filters_sort_item3 = 'filters.sort.item3';
   static const filters_sort_item4 = 'filters.sort.item4';
+  static const filters_sort = 'filters.sort';
   static const filters_package_price_title = 'filters.package_price.title';
   static const filters_package_price_item1 = 'filters.package_price.item1';
   static const filters_package_price_item2 = 'filters.package_price.item2';
   static const filters_package_price_item3 = 'filters.package_price.item3';
+  static const filters_package_price = 'filters.package_price';
   static const filters_package_delivery_title = 'filters.package_delivery.title';
   static const filters_package_delivery_item1 = 'filters.package_delivery.item1';
   static const filters_package_delivery_item2 = 'filters.package_delivery.item2';
-
+  static const filters_package_delivery = 'filters.package_delivery';
   static const filters_payment_method_title = 'filters.payment_method.title';
   static const filters_payment_method_item1 = 'filters.payment_method.item1';
   static const filters_payment_method_item2 = 'filters.payment_method.item2';
-
- static const filters_choose_category_title = 'filters.choose_category.title';
+  static const filters_payment_method = 'filters.payment_method';
+  static const filters_choose_category_title = 'filters.choose_category.title';
   static const filters_choose_category_item1 = 'filters.choose_category.item1';
   static const filters_choose_category_item2 = 'filters.choose_category.item2';
   static const filters_choose_category_item3 = 'filters.choose_category.item3';
@@ -116,11 +114,10 @@ abstract class LocaleKeys {
   static const filters_choose_category_item6 = 'filters.choose_category.item6';
   static const filters_choose_category_item7 = 'filters.choose_category.item7';
   static const filters_choose_category_item8 = 'filters.choose_category.item8';
-
+  static const filters_choose_category = 'filters.choose_category';
   static const filters_button_item1 = 'filters.button.item1';
   static const filters_button_item2 = 'filters.button.item2';
-
-
-
+  static const filters_button = 'filters.button';
+  static const filters = 'filters';
 
 }

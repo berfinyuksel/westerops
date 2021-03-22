@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/presentation/widgets/scaffold/components/custom_drawer.dart';
+import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
@@ -61,8 +62,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   AppBar buildAppBarWithInputTitle() {
     return AppBar(
       iconTheme: IconThemeData(color: AppColors.greenColor),
-      title: Text(
-        widget.title!,
+      title: LocaleText(
+        text: widget.title!,
         style: AppTextStyles.appBarTitleStyle,
       ),
       centerTitle: true,
