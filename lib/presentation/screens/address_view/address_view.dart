@@ -3,6 +3,7 @@ import 'package:dongu_mobile/presentation/screens/address_view/components/adress
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class AddressView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Adreslerim",
+      title: LocaleKeys.address_title,
       body: Padding(
         padding: EdgeInsets.only(
           top: context.dynamicHeight(0.02),
@@ -57,7 +58,7 @@ class AddressView extends StatelessWidget {
       padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
       child: CustomButton(
         width: double.infinity,
-        title: "Yeni Adres Ekle",
+        title: LocaleKeys.address_button,
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,

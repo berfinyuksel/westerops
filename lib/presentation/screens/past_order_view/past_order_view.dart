@@ -1,13 +1,14 @@
 import 'package:dongu_mobile/presentation/screens/past_order_view/components/past_order_list_tile.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 class PastOrderView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Geçmiş Siparişlerim",
+      title: LocaleKeys.past_order_title,
       body: ListView(
         padding: EdgeInsets.only(
           top: context.dynamicHeight(0.02),

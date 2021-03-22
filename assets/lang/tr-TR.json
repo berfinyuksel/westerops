@@ -1,4 +1,11 @@
 {
+    "bottom_nav_bar":{
+        "item_1":"Anasayfa",
+        "item_2":"Arama",
+        "item_3":"Favorilerim",
+        "item_4":"Bildirimlerim",
+        "item_5":"Sepetim"
+    },
     "onboardings" : {
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.",
         "button" :"Sonraki",
@@ -83,6 +90,53 @@
         "body7":"Tüketime yönelik üretilen toplam gıdanın %33`ü, tüketiciye ulaşmadan israf ediliyor.",
         "body8":"İsraf edilen gıdaların üretiminde kullanılan su miktarı (250 km3), Avrupa’nın en uzun nehri olan İdil (Volga) Nehri’nden bir yıl boyunca akan su miktarı ve Cenevre Gölü’nün hacminin 3 katı ile eş değer olup, bu miktar 9 milyon kişinin günlük su ihtiyacı karşılanabilir.",
         "button":"Restoranları Keşfet"
+    },
+    "custom_drawer" : {
+        "title":"Profilim",
+        "login_button":"Giriş Yap",
+        "sign_up_button":"Üye Ol",
+        "body_title_1":"Ayarlar",
+        "body_title_2":"Hakkında",
+        "body_list_tile_inform":"Bilgilerim",
+        "body_list_tile_past_orders":"Geçmiş Siparişlerim",
+        "body_list_tile_adresses":"Adreslerim",
+        "body_list_tile_cards":"Kayıtlı Kartlarım",
+        "body_list_tile_restaurants":"Takip Ettiğim Restoranlar",
+        "body_list_tile_general_settings":"Genel Ayarlar",
+        "body_list_tile_language_settings":"Dil Ayarları",
+        "body_list_tile_change_location":"Bölge Değiştir",
+        "body_list_tile_rate_app":"Uygulamayı Değerlendirin",
+        "body_list_tile_about_app":"Uygulama Hakkında",
+        "body_list_tile_about_food_waste":"Gıda İsrafı Hakkında"
+    },
+    "inform": {
+        "title":"Bilgilerim",
+        "body_title_1":"Kişisel Bilgiler",
+        "body_title_2":"Bağlı Hesaplar",
+        "edit":"Düzenle",
+        "list_tile_name":"Ad",
+        "list_tile_surname":"Soyad",
+        "list_tile_birth":"Doğum Tarihi",
+        "list_tile_mail":"E-posta",
+        "list_tile_phone":"Telefon numarası",
+        "list_tile_change_password":"Şifre Değişikliği",
+        "list_tile_remove_link":"Bağlantıyı Kaldır",
+        "button":"Güncelle"
+    },
+    "change_password":{
+        "title":"Şifre Değişikliği",
+        "current_password":"Mevcut Şifre",
+        "new_password":"Yeni Şifre",
+        "new_password_again":"Yeni şifre Tekrar",
+        "button":"Kaydet"
+    },
+    "past_order": {
+        "title":"Geçmiş Siparişlerim"
+    },
+    "address":{
+        "title":"Adreslerim",
+        "body_title":"Kayıtlı Adreslerim",
+        "button":"Yeni Adres Ekle"
     },
     "language_settings" : {
         "title":"Dil Ayarları"

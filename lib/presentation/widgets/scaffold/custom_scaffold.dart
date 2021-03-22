@@ -1,10 +1,12 @@
 import 'package:dongu_mobile/presentation/widgets/scaffold/components/custom_drawer.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 
 class CustomScaffold extends StatefulWidget {
   String? title;
@@ -29,11 +31,11 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     Text("Sepetim"),
   ];
   List<String?> _titles = <String?>[
-    "Anasayfa",
-    "Arama",
-    "Favorilerim",
-    "Bildirimlerim",
-    "Sepetim",
+    LocaleKeys.bottom_nav_bar_item_1,
+    LocaleKeys.bottom_nav_bar_item_2,
+    LocaleKeys.bottom_nav_bar_item_3,
+    LocaleKeys.bottom_nav_bar_item_4,
+    LocaleKeys.bottom_nav_bar_item_5,
   ];
 
   void _onItemTapped(int index) {
@@ -74,8 +76,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     return AppBar(
       iconTheme: IconThemeData(color: AppColors.greenColor),
       leading: Container(),
-      title: Text(
-        _titles.elementAt(_selectedIndex)!,
+      title: LocaleText(
+        text: _titles.elementAt(_selectedIndex)!,
         style: AppTextStyles.appBarTitleStyle,
       ),
     );
@@ -92,21 +94,21 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           activeIcon: SvgPicture.asset(
             ImageConstant.NAVBAR_HOME_ACTIVE,
           ),
-          label: "Anasayfa",
+          label: LocaleKeys.bottom_nav_bar_item_1.locale,
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(ImageConstant.NAVBAR_SEARCH),
           activeIcon: SvgPicture.asset(
             ImageConstant.NAVBAR_SEARCH_ACTIVE,
           ),
-          label: "Arama",
+          label: LocaleKeys.bottom_nav_bar_item_2.locale,
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             ImageConstant.NAVBAR_FAVORITES,
           ),
           activeIcon: SvgPicture.asset(ImageConstant.NAVBAR_FAVORITES_ACTIVE),
-          label: "Favorilerim",
+          label: LocaleKeys.bottom_nav_bar_item_3.locale,
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
@@ -115,7 +117,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           activeIcon: SvgPicture.asset(
             ImageConstant.NAVBAR_NOTIFACATIONS_ACTIVE,
           ),
-          label: "Bildirimlerim",
+          label: LocaleKeys.bottom_nav_bar_item_4.locale,
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
@@ -124,7 +126,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           activeIcon: SvgPicture.asset(
             ImageConstant.NAVBAR_BASKET_ACTIVE,
           ),
-          label: "Sepetim",
+          label: LocaleKeys.bottom_nav_bar_item_5.locale,
         ),
       ],
       showUnselectedLabels: true,

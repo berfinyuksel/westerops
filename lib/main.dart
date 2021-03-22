@@ -1,4 +1,3 @@
-import 'package:dongu_mobile/presentation/screens/filter_view/filter_view.dart';
 import 'package:dongu_mobile/utils/constants/locale_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
