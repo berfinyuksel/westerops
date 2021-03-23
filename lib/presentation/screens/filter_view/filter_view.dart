@@ -248,81 +248,13 @@ class _FilterViewState extends State<FilterView> {
                       ],
                     ),
                   ),
-                  Spacer(flex: 35),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomCheckbox(),
-                      Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item2.locale, style: AppTextStyles.bodyTextStyle),
-                      Spacer(flex: 35),
-                    ],
-                  ),
-                  Spacer(flex: 35),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomCheckbox(),
-                      Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item3.locale, style: AppTextStyles.bodyTextStyle),
-                      Spacer(flex: 35),
-                    ],
-                  ),
-                  Spacer(flex: 35),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomCheckbox(),
-                      Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item4.locale, style: AppTextStyles.bodyTextStyle),
-                      Spacer(flex: 35),
-                    ],
-                  ),
-                  Spacer(flex: 35),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomCheckbox(),
-                      Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item5.locale, style: AppTextStyles.bodyTextStyle),
-                      Spacer(flex: 35),
-                    ],
-                  ),
-                  Spacer(flex: 35),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomCheckbox(),
-                      Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item6.locale, style: AppTextStyles.bodyTextStyle),
-                      Spacer(flex: 35),
-                    ],
-                  ),
-                  Spacer(flex: 35),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomCheckbox(),
-                      Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item7.locale, style: AppTextStyles.bodyTextStyle),
-                      Spacer(flex: 35),
-                    ],
-                  ),
-                  Spacer(flex: 35),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomCheckbox(),
-                      Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item8.locale, style: AppTextStyles.bodyTextStyle),
-                      Spacer(flex: 35),
-                    ],
-                  ),
-                  Spacer(flex: 70),
-                ],
+  
+
+
+                    
               ),
-            ),
-          )
+            
+          
         ],
       ),
     );
@@ -383,66 +315,23 @@ class _FilterViewState extends State<FilterView> {
               ],
             ),
           )
-        ],
+                 )],
       ),
     );
   }
 
+
   Container packageDeliveryFilter(BuildContext context) {
     return Container(
-            decoration: BoxDecoration(color: Colors.white),
-            child: ExpansionTile(
-                      onExpansionChanged: (value) {
-          setState(() {
-            _valueArrowThree = !_valueArrowThree;
-          });
-        },
-              title: AutoSizeText(
-                LocaleKeys.filters_package_delivery_title.locale,
-                style: AppTextStyles.bodyTitleStyle,
-              ),
-                      trailing: _valueArrowThree
+      decoration: BoxDecoration(color: Colors.white),
+      child: ExpansionTile(
+        title: AutoSizeText(
+          LocaleKeys.filters_package_delivery_title.locale,
+          style: AppTextStyles.bodyTitleStyle,
+        ),
+         trailing: _valueArrowThree
             ? SvgPicture.asset(ImageConstant.UNDER_ICON)
             : SvgPicture.asset(ImageConstant.RIGHT_ICON),
-
-              backgroundColor: Colors.white,
-              children: [
-                Container(
-                  height: context.dynamicHeight(0.23),
-                  child: Expanded(
-                    child: Column(
-                      children: [
-                        Spacer(flex:2),
-                        Row(
-                          children: [
-                            Spacer(flex: 4),
-                            Center(
-        child: InkWell(
-      onTap: () {
-        setState(() {
-          _valuePackage = !_valuePackage;
-        });
-      },
-      child: Container(
-        alignment: Alignment.center,
-        width: context.dynamicWidht(0.06),
-        height: context.dynamicHeight(0.03),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          color: Colors.white,
-          border: Border.all(
-            width: 1,
-            color: const Color(0xFFD1D0D0),
-          ),
-        ),
-        child: Container(
-          width: context.dynamicWidht(0.04),
-          height: context.dynamicHeight(0.04),
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: _valuePackage ? AppColors.greenColor : Colors.transparent),
-        ),
-        //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
         children: [
           Container(
@@ -563,7 +452,6 @@ class _FilterViewState extends State<FilterView> {
       ),
     );
   }
-
   Container packagePriceFilter() {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
