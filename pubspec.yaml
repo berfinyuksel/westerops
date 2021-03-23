@@ -51,7 +51,11 @@ flutter:
 
     - assets/commons/
     - assets/images/filters/
-    - assets/images/commons/
+    - assets/images/search/
+
+
+
+
 
     - assets/images/onboardings/onboarding/
     - assets/images/onboardings/onboarding_first/

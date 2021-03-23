@@ -24,6 +24,12 @@ class FilterView extends StatefulWidget {
 class _FilterViewState extends State<FilterView> {
   bool _valuePackage = false;
   bool _valueCoruier = false;
+  bool _valueArrowOne = false;
+  bool _valueArrowTwo = false;
+  bool _valueArrowThree = false;
+  bool _valueArrowFour = false;
+  bool _valueArrowFive = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,33 +37,39 @@ class _FilterViewState extends State<FilterView> {
       title: "Filtrele",
       body: Center(
         child: Expanded(
-          child: ListView(
+          child: Column(
+          
             children: [
-              sortFilter(context),
-              Divider(
-                height: 1,
-                color: Colors.transparent,
-              ),
-              packagePriceFilter(),
-              Divider(
-                height: 1,
-                color: Colors.transparent,
-              ),
-              packageDeliveryFilter(context),
-              Divider(
-                height: 1,
-                color: Colors.transparent,
-              ),
-              paymentMethodFilter(context),
-              Divider(
-                height: 1,
-                color: Colors.transparent,
-              ),
-              chooseCategoryFilter(context),
-              SizedBox(
-                height: context.dynamicHeight(0.35),
-              ),
-              cleanAndSaveButtons(context),
+              Expanded(
+                flex: 15,
+                child: ListView(
+                children: [
+                  Expanded(flex:5,child: sortFilter(context)),
+                  Divider(
+                    height: 1,
+                    color: Colors.transparent,
+                  ),
+                  Expanded(flex:5,child: packagePriceFilter()),
+                  Divider(
+                    height: 1,
+                    color: Colors.transparent,
+                  ),
+                  Expanded(flex:5,child: packageDeliveryFilter(context)),
+                  Divider(
+                    height: 1,
+                    color: Colors.transparent,
+                  ),
+                  Expanded(flex:5,child: paymentMethodFilter(context)),
+                  Divider(
+                    height: 1,
+                    color: Colors.transparent,
+                  ),
+                  Expanded(flex:5,child: chooseCategoryFilter(context)),
+                  //SizedBox(height: context.dynamicHeight(0.35),),
+                ],
+            ),
+               ),
+            Expanded(flex:2,child: cleanAndSaveButtons(context)),
             ],
           ),
         ),
@@ -67,58 +79,174 @@ class _FilterViewState extends State<FilterView> {
 
   Row cleanAndSaveButtons(BuildContext context) {
     return Row(
-      children: [
-        Spacer(flex: 25),
-        CustomButton(
-          width: context.dynamicWidht(0.4),
-          color: AppColors.appBarColor,
-          borderColor: AppColors.greenColor,
-          title: LocaleKeys.filters_button_item1.locale,
-          textColor: AppColors.greenColor,
-          onPressed: () {},
-        ),
-        Spacer(flex: 10),
-        CustomButton(
-          width: context.dynamicWidht(0.4),
-          color: AppColors.greenColor,
-          borderColor: AppColors.greenColor,
-          title: LocaleKeys.filters_button_item2.locale,
-          textColor: AppColors.appBarColor,
-          onPressed: () {},
-        ),
-        Spacer(flex: 25),
-      ],
-    );
+              children: [
+                Spacer(flex: 25),
+                CustomButton(
+                  width: context.dynamicWidht(0.4),
+                  color: Colors.transparent,
+                  borderColor: AppColors.greenColor,
+                  title:  LocaleKeys.filters_button_item1.locale,
+                  textColor: AppColors.greenColor,
+                  onPressed: (){},
+                ),
+                Spacer(flex: 10),
+                CustomButton(
+                  width: context.dynamicWidht(0.4),
+                  color: AppColors.greenColor,
+                  borderColor: AppColors.greenColor,
+                  title: LocaleKeys.filters_button_item2.locale,
+                  textColor: AppColors.appBarColor,
+                  onPressed: (){},
+                ),
+                Spacer(flex: 25),
+              ],
+            );
   }
 
   Container chooseCategoryFilter(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
-      child: ExpansionTile(
-        title: AutoSizeText(
-          LocaleKeys.filters_choose_category_title.locale,
-          style: AppTextStyles.bodyTitleStyle,
-        ),
-        // trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+            decoration: BoxDecoration(color: Colors.white),
+            child: ExpansionTile(
+                      onExpansionChanged: (value) {
+          setState(() {
+            _valueArrowOne = !_valueArrowOne;
+          });
+        },
+              title: AutoSizeText(
+                LocaleKeys.filters_choose_category_title.locale,
+                style: AppTextStyles.bodyTitleStyle,
+              ),
+                    trailing: _valueArrowOne
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
 
-        initiallyExpanded: true,
-        backgroundColor: Colors.white,
-        children: [
-          Container(
-            width: context.dynamicWidht(0.9),
-            height: context.dynamicHeight(0.4),
-            child: Expanded(
-              child: Column(
-                children: [
-                  Spacer(flex: 25),
+              backgroundColor: Colors.white,
+              children: [
+                Container(
+                  width: context.dynamicWidht(0.9),
+                  height: context.dynamicHeight(0.4),
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        Spacer(flex: 25),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(
+                                LocaleKeys
+                                    .filters_choose_category_item1.locale,
+                                style: AppTextStyles.bodyTextStyle),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(
+                                LocaleKeys
+                                    .filters_choose_category_item2.locale,
+                                style: AppTextStyles.bodyTextStyle),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(
+                                LocaleKeys
+                                    .filters_choose_category_item3.locale,
+                                style: AppTextStyles.bodyTextStyle),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(
+                                LocaleKeys
+                                    .filters_choose_category_item4.locale,
+                                style: AppTextStyles.bodyTextStyle),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
+                          Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(
+                                LocaleKeys
+                                    .filters_choose_category_item5.locale,
+                                style: AppTextStyles.bodyTextStyle),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(
+                                LocaleKeys
+                                    .filters_choose_category_item6.locale,
+                                style: AppTextStyles.bodyTextStyle),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(
+                                LocaleKeys
+                                    .filters_choose_category_item7.locale,
+                                style: AppTextStyles.bodyTextStyle),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomCheckbox(),
+                            Spacer(flex: 2),
+                            AutoSizeText(
+                                LocaleKeys
+                                    .filters_choose_category_item8.locale,
+                                style: AppTextStyles.bodyTextStyle),
+                            Spacer(flex: 35),
+                          ],
+                        ),
+                        Spacer(flex: 35),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CustomCheckbox(),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item1.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item9.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
+                  ),
+                        Spacer(flex: 70),
+                      ],
+                    ),
                   ),
                   Spacer(flex: 35),
                   Row(
@@ -202,44 +330,57 @@ class _FilterViewState extends State<FilterView> {
 
   Container paymentMethodFilter(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
-      child: ExpansionTile(
-        title: AutoSizeText(
-          LocaleKeys.filters_payment_method_title.locale,
-          style: AppTextStyles.bodyTitleStyle,
-        ),
-        //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
-        backgroundColor: Colors.white,
-        children: [
-          Container(
-            width: context.dynamicWidht(0.9),
-            height: context.dynamicHeight(0.15),
-            child: Expanded(
-              child: Column(
-                children: [
-                  Spacer(flex: 25),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomCheckbox(),
-                      Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_payment_method_item1.locale, style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 13)),
-                      Spacer(flex: 35),
-                    ],
-                  ),
-                  Spacer(flex: 35),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomCheckbox(),
-                      Spacer(flex: 4),
-                      AutoSizeText(LocaleKeys.filters_payment_method_item2.locale, style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 13)),
-                      Spacer(flex: 35),
-                    ],
-                  ),
-                  Spacer(flex: 70),
-                ],
+            decoration: BoxDecoration(color: Colors.white),
+            child: ExpansionTile(
+                      onExpansionChanged: (value) {
+          setState(() {
+            _valueArrowTwo = !_valueArrowTwo;
+          });
+        },
+              title: AutoSizeText(
+                LocaleKeys.filters_payment_method_title.locale,
+                style: AppTextStyles.bodyTitleStyle,
               ),
+                      trailing: _valueArrowTwo
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+
+              backgroundColor: Colors.white,
+              children: [
+                 Container(
+          width: context.dynamicWidht(0.9),
+          height: context.dynamicHeight(0.15),
+          child: Expanded(
+            child: Column(
+              children: [
+                Spacer(flex: 25),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomCheckbox(),
+                    Spacer(flex: 2),
+                    AutoSizeText(LocaleKeys.filters_payment_method_item1.locale,
+                        style: AppTextStyles.bodyTextStyle
+                            .copyWith(fontSize: 13)),
+                    Spacer(flex: 35),
+                  ],
+                ),
+                Spacer(flex: 35),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomCheckbox(),
+                    Spacer(flex: 4),
+                    AutoSizeText(LocaleKeys.filters_payment_method_item2.locale,
+                        style: AppTextStyles.bodyTextStyle
+                            .copyWith(fontSize: 13)),
+                    Spacer(flex: 35),
+                  ],
+                ),
+
+
+                Spacer(flex: 70),
+              ],
             ),
           )
         ],
@@ -249,11 +390,57 @@ class _FilterViewState extends State<FilterView> {
 
   Container packageDeliveryFilter(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
-      child: ExpansionTile(
-        title: AutoSizeText(
-          LocaleKeys.filters_package_delivery_title.locale,
-          style: AppTextStyles.bodyTitleStyle,
+            decoration: BoxDecoration(color: Colors.white),
+            child: ExpansionTile(
+                      onExpansionChanged: (value) {
+          setState(() {
+            _valueArrowThree = !_valueArrowThree;
+          });
+        },
+              title: AutoSizeText(
+                LocaleKeys.filters_package_delivery_title.locale,
+                style: AppTextStyles.bodyTitleStyle,
+              ),
+                      trailing: _valueArrowThree
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+
+              backgroundColor: Colors.white,
+              children: [
+                Container(
+                  height: context.dynamicHeight(0.23),
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        Spacer(flex:2),
+                        Row(
+                          children: [
+                            Spacer(flex: 4),
+                            Center(
+        child: InkWell(
+      onTap: () {
+        setState(() {
+          _valuePackage = !_valuePackage;
+        });
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: context.dynamicWidht(0.06),
+        height: context.dynamicHeight(0.03),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.0),
+          color: Colors.white,
+          border: Border.all(
+            width: 1,
+            color: const Color(0xFFD1D0D0),
+          ),
+        ),
+        child: Container(
+          width: context.dynamicWidht(0.04),
+          height: context.dynamicHeight(0.04),
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: _valuePackage ? AppColors.greenColor : Colors.transparent),
         ),
         //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
@@ -381,11 +568,16 @@ class _FilterViewState extends State<FilterView> {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
+        onExpansionChanged: (value){
+          setState(() {
+                      _valueArrowFour = !_valueArrowFour;
+                    });
+        },
         title: Text(
           LocaleKeys.filters_package_price_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        trailing: _valueArrowFour ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
         children: [
           CustomSliderBarAndTextField(),
@@ -398,12 +590,20 @@ class _FilterViewState extends State<FilterView> {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
+                onExpansionChanged: (value) {
+          setState(() {
+            _valueArrowFive = !_valueArrowFive;
+          });
+        },
         title: AutoSizeText(
           LocaleKeys.filters_sort_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+                trailing: _valueArrowFive
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
 
+        
         backgroundColor: Colors.white,
         children: [
           Container(
