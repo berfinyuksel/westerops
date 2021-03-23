@@ -31,7 +31,7 @@ class AlertDialogCard extends StatelessWidget {
         ),
         CupertinoDialogAction(
           isDefaultAction: true,
-          onPressed: () async {},
+          onPressed: () {},
           child: Text(LocaleKeys.location_card_button2.locale),
         ),
       ],

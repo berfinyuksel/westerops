@@ -19,6 +19,7 @@ class CustomDrawer extends StatelessWidget {
       width: context.width,
       child: Drawer(
         child: CustomScaffold(
+          isDrawer: true,
           title: LocaleKeys.custom_drawer_title,
           body: Container(
             color: AppColors.scaffoldBackgroundColor,

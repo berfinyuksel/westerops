@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dongu_mobile/presentation/screens/permissions_views/components/alert_dialog_card.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -66,8 +66,7 @@ class _LocationViewState extends State<LocationView> {
       onTap: () {},
       child: AutoSizeText(
         LocaleKeys.premission_notification_button2.locale,
-        style:
-            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
       ),
     );
   }
@@ -138,7 +137,9 @@ alertDialogCard(BuildContext context) {
       ),
       CupertinoDialogAction(
         isDefaultAction: true,
-        onPressed: () async {},
+        onPressed: () {
+          Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+        },
         child: Text(LocaleKeys.location_card_button2.locale),
       ),
     ],
