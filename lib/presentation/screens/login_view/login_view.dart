@@ -23,7 +23,6 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
   bool enableObscure = true;
   String dropdownValue = "TR";
   @override
@@ -180,8 +179,13 @@ class _LoginViewState extends State<LoginView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SignWithSocialAuth(
-            image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
+          GestureDetector(
+            onTap: () {
+              AuthService.loginWithGmail();
+            },
+            child: SignWithSocialAuth(
+              image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
+            ),
           ),
           GestureDetector(
             onTap: () {
