@@ -21,9 +21,12 @@ class FoodWasteView extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         actions: [
-          IconButton(
-            icon: SvgPicture.asset(ImageConstant.COMMONS_DRAWER_ICON),
-            onPressed: () => scaffoldKey.currentState!.openEndDrawer(),
+          Padding(
+            padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
+            child: IconButton(
+              icon: SvgPicture.asset(ImageConstant.COMMONS_DRAWER_ICON),
+              onPressed: () => scaffoldKey.currentState!.openEndDrawer(),
+            ),
           ),
         ],
         leading: IconButton(

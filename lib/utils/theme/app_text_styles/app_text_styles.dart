@@ -45,6 +45,7 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
     height: 1.71,
   );
+
   static TextStyle myInformationBodyTextStyle = GoogleFonts.montserrat(
     decoration: TextDecoration.none,
     fontSize: 14.0,
