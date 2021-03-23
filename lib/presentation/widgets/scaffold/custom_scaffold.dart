@@ -12,10 +12,12 @@ import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 class CustomScaffold extends StatefulWidget {
   String? title;
   Widget? body;
+  bool? isDrawer;
   CustomScaffold({
     Key? key,
     this.title,
     this.body,
+    this.isDrawer,
   }) : super(key: key);
   @override
   _CustomScaffoldState createState() => _CustomScaffoldState();
@@ -44,6 +46,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     setState(() {
       widget.body = null;
       widget.title = null;
+      widget.isDrawer = false;
       _selectedIndex = index;
     });
   }
@@ -53,14 +56,42 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
-      appBar: widget.title == null
-          ? _titles.elementAt(_selectedIndex) == null
+      appBar: widget.isDrawer == null
+          ? widget.title == null
+              ? _titles.elementAt(_selectedIndex) == null
+                  ? null
+                  : buildAppBarWithTitleList()
+              : buildAppBarWithInputTitle()
+          : widget.isDrawer!
+              ? buildAppBarForDrawer()
+              : widget.title == null
+                  ? _titles.elementAt(_selectedIndex) == null
+                      ? null
+                      : buildAppBarWithTitleList()
+                  : buildAppBarWithInputTitle(),
+      endDrawer: widget.isDrawer == null
+          ? CustomDrawer()
+          : widget.isDrawer!
               ? null
-              : buildAppBarWithTitleList()
-          : buildAppBarWithInputTitle(),
-      endDrawer: CustomDrawer(),
+              : CustomDrawer(),
       bottomNavigationBar: buildBottomNavigationBar(),
       body: widget.body == null ? _widgetOptions.elementAt(_selectedIndex) : widget.body,
+    );
+  }
+
+  AppBar buildAppBarForDrawer() {
+    return AppBar(
+      iconTheme: IconThemeData(color: AppColors.greenColor, size: 20.0),
+      elevation: 0,
+      leading: IconButton(
+        icon: SvgPicture.asset(ImageConstant.BACK_ICON),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
+      title: LocaleText(
+        text: LocaleKeys.custom_drawer_title,
+        style: AppTextStyles.appBarTitleStyle,
+      ),
+      centerTitle: true,
     );
   }
 
@@ -109,6 +140,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         text: _titles.elementAt(_selectedIndex)!,
         style: AppTextStyles.appBarTitleStyle,
       ),
+      centerTitle: true,
     );
   }
 
