@@ -24,6 +24,12 @@ class FilterView extends StatefulWidget {
 class _FilterViewState extends State<FilterView> {
   bool _valuePackage = false;
   bool _valueCoruier = false;
+  bool _valueArrowOne = false;
+  bool _valueArrowTwo = false;
+  bool _valueArrowThree = false;
+  bool _valueArrowFour = false;
+  bool _valueArrowFive = false;
+
 
 
   @override
@@ -34,32 +40,39 @@ class _FilterViewState extends State<FilterView> {
 
       body: Center(
         child: Expanded(
-          child: ListView(
-            
+          child: Column(
+          
             children: [
-              sortFilter(context),
-              Divider(
-                height: 1,
-                color: Colors.transparent,
-              ),
-              packagePriceFilter(),
-              Divider(
-                height: 1,
-                color: Colors.transparent,
-              ),
-              packageDeliveryFilter(context),
-              Divider(
-                height: 1,
-                color: Colors.transparent,
-              ),
-              paymentMethodFilter(context),
-              Divider(
-                height: 1,
-                color: Colors.transparent,
-              ),
-              chooseCategoryFilter(context),
-              SizedBox(height: context.dynamicHeight(0.35),),
-              cleanAndSaveButtons(context),
+              Expanded(
+                flex: 15,
+                child: ListView(
+                children: [
+                  Expanded(flex:5,child: sortFilter(context)),
+                  Divider(
+                    height: 1,
+                    color: Colors.transparent,
+                  ),
+                  Expanded(flex:5,child: packagePriceFilter()),
+                  Divider(
+                    height: 1,
+                    color: Colors.transparent,
+                  ),
+                  Expanded(flex:5,child: packageDeliveryFilter(context)),
+                  Divider(
+                    height: 1,
+                    color: Colors.transparent,
+                  ),
+                  Expanded(flex:5,child: paymentMethodFilter(context)),
+                  Divider(
+                    height: 1,
+                    color: Colors.transparent,
+                  ),
+                  Expanded(flex:5,child: chooseCategoryFilter(context)),
+                  //SizedBox(height: context.dynamicHeight(0.35),),
+                ],
+            ),
+               ),
+            Expanded(flex:2,child: cleanAndSaveButtons(context)),
             ],
           ),
         ),
@@ -73,7 +86,7 @@ class _FilterViewState extends State<FilterView> {
                 Spacer(flex: 25),
                 CustomButton(
                   width: context.dynamicWidht(0.4),
-                  color: AppColors.appBarColor,
+                  color: Colors.transparent,
                   borderColor: AppColors.greenColor,
                   title:  LocaleKeys.filters_button_item1.locale,
                   textColor: AppColors.greenColor,
@@ -97,13 +110,19 @@ class _FilterViewState extends State<FilterView> {
     return Container(
             decoration: BoxDecoration(color: Colors.white),
             child: ExpansionTile(
+                      onExpansionChanged: (value) {
+          setState(() {
+            _valueArrowOne = !_valueArrowOne;
+          });
+        },
               title: AutoSizeText(
                 LocaleKeys.filters_choose_category_title.locale,
                 style: AppTextStyles.bodyTitleStyle,
               ),
-             // trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
-             
-              initiallyExpanded: true,
+                    trailing: _valueArrowOne
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+
               backgroundColor: Colors.white,
               children: [
                 Container(
@@ -216,6 +235,18 @@ class _FilterViewState extends State<FilterView> {
                             Spacer(flex: 35),
                           ],
                         ),
+                        Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomCheckbox(),
+                      Spacer(flex: 2),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item9.locale,
+                          style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
                         Spacer(flex: 70),
                       ],
                     ),
@@ -230,11 +261,19 @@ class _FilterViewState extends State<FilterView> {
     return Container(
             decoration: BoxDecoration(color: Colors.white),
             child: ExpansionTile(
+                      onExpansionChanged: (value) {
+          setState(() {
+            _valueArrowTwo = !_valueArrowTwo;
+          });
+        },
               title: AutoSizeText(
                 LocaleKeys.filters_payment_method_title.locale,
                 style: AppTextStyles.bodyTitleStyle,
               ),
-              //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+                      trailing: _valueArrowTwo
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+
               backgroundColor: Colors.white,
               children: [
                  Container(
@@ -284,11 +323,19 @@ class _FilterViewState extends State<FilterView> {
     return Container(
             decoration: BoxDecoration(color: Colors.white),
             child: ExpansionTile(
+                      onExpansionChanged: (value) {
+          setState(() {
+            _valueArrowThree = !_valueArrowThree;
+          });
+        },
               title: AutoSizeText(
                 LocaleKeys.filters_package_delivery_title.locale,
                 style: AppTextStyles.bodyTitleStyle,
               ),
-              //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+                      trailing: _valueArrowThree
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+
               backgroundColor: Colors.white,
               children: [
                 Container(
@@ -424,11 +471,16 @@ class _FilterViewState extends State<FilterView> {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
+        onExpansionChanged: (value){
+          setState(() {
+                      _valueArrowFour = !_valueArrowFour;
+                    });
+        },
         title: Text(
           LocaleKeys.filters_package_price_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        trailing: _valueArrowFour ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
         children: [
           CustomSliderBarAndTextField(),
@@ -441,11 +493,19 @@ class _FilterViewState extends State<FilterView> {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
+                onExpansionChanged: (value) {
+          setState(() {
+            _valueArrowFive = !_valueArrowFive;
+          });
+        },
         title: AutoSizeText(
           LocaleKeys.filters_sort_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+                trailing: _valueArrowFive
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+
         
         backgroundColor: Colors.white,
         children: [

@@ -3,8 +3,10 @@ import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckbox extends StatefulWidget {
- 
-  const CustomCheckbox({Key? key,}) : super(key: key);
+  final Color? checkboxColor;
+  const CustomCheckbox({
+    Key? key, this.checkboxColor,
+  }) : super(key: key);
 
   @override
   _CustomCheckboxState createState() => _CustomCheckboxState();

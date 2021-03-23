@@ -222,21 +222,26 @@ class _CustomSliderBarAndTextFieldState
     );
   }
 
-  RangeSlider rangeSliderBar() {
-    return RangeSlider(
-      values: RangeValues(_starValue, _endValue),
-      min: minValue,
-      max: maxValue,
-      inactiveColor: AppColors.sliderColor,
-      activeColor: AppColors.greenColor,
-      onChanged: (values) {
-        setState(() {
-          _starValue = values.start.roundToDouble();
-          _endValue = values.end.roundToDouble();
-          startController.text = values.start.roundToDouble().toString();
-          endController.text = values.end.roundToDouble().toString();
-        });
-      },
+  SliderTheme rangeSliderBar() {
+    return SliderTheme(
+      data: SliderThemeData(
+        trackHeight: 7
+      ),
+      child: RangeSlider(
+        values: RangeValues(_starValue, _endValue),
+        min: minValue,
+        max: maxValue,
+        inactiveColor: AppColors.sliderColor,
+        activeColor: AppColors.greenColor,
+        onChanged: (values) {
+          setState(() {
+            _starValue = values.start.roundToDouble();
+            _endValue = values.end.roundToDouble();
+            startController.text = values.start.roundToDouble().toString();
+            endController.text = values.end.roundToDouble().toString();
+          });
+        },
+      ),
     );
   }
 }

@@ -116,6 +116,8 @@ abstract class LocaleKeys {
   static const filters_choose_category_item6 = 'filters.choose_category.item6';
   static const filters_choose_category_item7 = 'filters.choose_category.item7';
   static const filters_choose_category_item8 = 'filters.choose_category.item8';
+  static const filters_choose_category_item9 = 'filters.choose_category.item9';
+
 
   static const filters_button_item1 = 'filters.button.item1';
   static const filters_button_item2 = 'filters.button.item2';

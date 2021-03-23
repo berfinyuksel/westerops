@@ -131,7 +131,8 @@
             "item5": "Dessert",
             "item6": "Pizza",
             "item7": "Chicken",
-            "item8": "Coffee"
+            "item8": "Coffee",
+            "item9": "Select All"
         },
         "button": {
             "item1": "Clean",
