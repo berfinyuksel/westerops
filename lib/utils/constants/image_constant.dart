@@ -1,5 +1,7 @@
 class ImageConstant {
   static const COMMONS_FORWARD_ICON = "assets/images/commons/forward_icon.svg";
+  static const COMMONS_CHECK_ICON = "assets/images/commons/check_icon.svg";
+  static const COMMONS_DRAWER_ICON = "assets/images/commons/drawer_icon.svg";
   static const ONBOARDING_BACKGROUND = "assets/images/onboardings/onboarding/onboarding_background.png";
   static const ONBOARDING_FIRST_BACKGROUND = "assets/images/onboardings/onboarding_first/onboarding_first_background.png";
   static const ONBOARDING_SECOND_BACKGROUND = "assets/images/onboardings/onboarding_second/onboarding_second_background.png";

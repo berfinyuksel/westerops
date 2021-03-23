@@ -1,4 +1,11 @@
 {
+    "bottom_nav_bar":{
+        "item_1":"Home",
+        "item_2":"Search",
+        "item_3":"Favorites",
+        "item_4":"Notifications",
+        "item_5":"Cart"
+    },
     "onboardings": {
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.",
         "button": "Next",
@@ -79,6 +86,56 @@
         "body7":"33% of the total food produced for consumption is wasted before it reaches the consumer.",
         "body8":"The amount of water used in the production of wasted food (250 km3) is equivalent to the amount of water flowing from the Idil (Volga) River, Europe's longest river, and 3 times the volume of Lake Geneva, which is equal to 9 million people. daily water need can be met.",
         "button":"Explore Restaurants"
+    },
+    "custom_drawer" : {
+        "title":"My Profile",
+        "login_button":"Login",
+        "register_button":"Register",
+        "body_title_1":"Settings",
+        "body_title_2":"About",
+        "body_list_tile_inform":"My Information",
+        "body_list_tile_past_orders":"My Past Orders",
+        "body_list_tile_adresses":"My Addresses",
+        "body_list_tile_cards":"My Registered Cards",
+        "body_list_tile_restaurants":"Following Restaurants",
+        "body_list_tile_general_settings":"General Settings",
+        "body_list_tile_language_settings":"Language Settings",
+        "body_list_tile_change_location":"Change Region",
+        "body_list_tile_rate_app":"Rate App",
+        "body_list_tile_about_app":"About App",
+        "body_list_tile_about_food_waste":"About Food Waste"
+    },
+    "inform": {
+        "title":"My Information",
+        "body_title_1":"Personal Information",
+        "body_title_2":"Linked Accounts",
+        "edit":"Edit",
+        "list_tile_name":"Name",
+        "list_tile_surname":"Surname",
+        "list_tile_birth":"Date of birth",
+        "list_tile_mail":"E-mail",
+        "list_tile_phone":"Phone number",
+        "list_tile_change_password":"Change Password",
+        "list_tile_remove_link":"Remove link",
+        "button":"Update"
+    },
+    "change_password":{
+        "title":"Change Password",
+        "current_password":"Current Password",
+        "new_password":"New Password",
+        "new_password_again":"Repeat New Password",
+        "button":"Save"
+    },
+    "past_order": {
+        "title":"My Past Orders"
+    },
+    "address":{
+        "title":"My Adresses",
+        "body_title":"My Recorded Addresses",
+        "button":"Add New Address"
+    },
+    "language_settings" : {
+        "title":"Language Settings"
     },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",

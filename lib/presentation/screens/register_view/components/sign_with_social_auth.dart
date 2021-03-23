@@ -24,8 +24,11 @@ class SignWithSocialAuth extends StatelessWidget {
         border: Border.all(width: 2.0, color: AppColors.borderAndDividerColor),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(image!),
+          SvgPicture.asset(
+            image!,
+          ),
           Spacer(
             flex: 1,
           ),

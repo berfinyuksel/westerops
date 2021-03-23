@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:dongu_mobile/presentation/screens/onboardings_view/onboarding_first_view/onboarding_first_view.dart';
 import 'package:dongu_mobile/presentation/screens/onboardings_view/onboarding_forth_view/onboarding_forth_view.dart';
@@ -52,6 +53,9 @@ class _OnboardingsViewState extends State<OnboardingsView> {
         Expanded(
           flex: 212,
           child: CustomButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, RouteConstant.NOTIFICATION_VIEW);
+            },
             title: LocaleKeys.onboardings_forth_button,
             textColor: Colors.white,
             color: AppColors.greenColor,

@@ -51,6 +51,14 @@ class _RegisterViewState extends State<RegisterView> {
               child: buildBackground,
             ),
             Positioned(
+              top: context.dynamicHeight(0.06),
+              left: 0,
+              child: IconButton(
+                icon: SvgPicture.asset(ImageConstant.BACK_ICON, color: Colors.white),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
+            Positioned(
               bottom: 0,
               left: context.dynamicWidht(0.035),
               right: context.dynamicWidht(0.035),
@@ -69,8 +77,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   Container buildCardBody(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: context.dynamicHeight(0.02),
+      padding: EdgeInsets.only(
+        bottom: context.dynamicHeight(0.02),
       ),
       height: context.dynamicHeight(0.69),
       decoration: BoxDecoration(
@@ -81,12 +89,19 @@ class _RegisterViewState extends State<RegisterView> {
       ),
       child: Column(
         children: [
+          Spacer(
+            flex: 2,
+          ),
           LocaleText(
             text: LocaleKeys.register_text_register,
             maxLines: 1,
             style: AppTextStyles.appBarTitleStyle,
           ),
+          Spacer(
+            flex: 2,
+          ),
           Divider(
+            height: 0,
             thickness: 4,
             color: AppColors.borderAndDividerColor,
           ),
@@ -258,7 +273,7 @@ class _RegisterViewState extends State<RegisterView> {
           child: const Icon(Icons.keyboard_arrow_down),
         ),
         iconSize: 15,
-        style: AppTextStyles.bodyBoldTextStyle,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         onChanged: (String? newValue) {
           setState(() {
             dropdownValue = newValue!;
@@ -269,7 +284,7 @@ class _RegisterViewState extends State<RegisterView> {
             value: value,
             child: AutoSizeText(
               value,
-              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w500),
+              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
               maxLines: 1,
             ),
           );
@@ -280,6 +295,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   TextFormField buildTextFormFieldPassword(String labelText) {
     return TextFormField(
+      cursorColor: AppColors.cursorColor,
+      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       onChanged: (value) {
         setState(() {
           isRulesVisible = true;
@@ -288,26 +305,32 @@ class _RegisterViewState extends State<RegisterView> {
       controller: passwordController,
       obscureText: enableObscure,
       decoration: InputDecoration(
-        suffixIconConstraints: BoxConstraints.tightFor(width: context.dynamicWidht(0.05), height: context.dynamicHeight(0.02)),
-        suffixIcon: GestureDetector(
-          onTap: () {
-            setState(() {
-              enableObscure = !enableObscure;
-            });
-          },
-          child: enableObscure
-              ? SvgPicture.asset(
-                  ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
-                )
-              : SvgPicture.asset(
-                  ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
-                ),
+        suffixIconConstraints: BoxConstraints.tightFor(width: context.dynamicWidht(0.09), height: context.dynamicWidht(0.06)),
+        suffixIcon: Padding(
+          padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                enableObscure = !enableObscure;
+              });
+            },
+            child: enableObscure
+                ? SvgPicture.asset(
+                    ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
+                    color: AppColors.iconColor,
+                  )
+                : SvgPicture.asset(
+                    ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
+                    color: AppColors.iconColor,
+                  ),
+          ),
         ),
         labelText: labelText,
         prefix: Text(
           "",
         ),
-        labelStyle: AppTextStyles.subTitleStyle,
+        labelStyle: AppTextStyles.bodyTextStyle,
+        prefixStyle: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
@@ -326,6 +349,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   TextFormField buildTextFormField(String labelText, TextEditingController controller) {
     return TextFormField(
+      cursorColor: AppColors.cursorColor,
+      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       onTap: () {
         setState(() {
           isRulesVisible = false;
@@ -339,7 +364,8 @@ class _RegisterViewState extends State<RegisterView> {
                 ? "+90"
                 : "+1"
             : null,
-        labelStyle: AppTextStyles.subTitleStyle,
+        labelStyle: AppTextStyles.bodyTextStyle,
+        prefixStyle: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),

@@ -1,25 +1,26 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
+  static const bottom_nav_bar_item_1 = 'bottom_nav_bar.item_1';
+  static const bottom_nav_bar_item_2 = 'bottom_nav_bar.item_2';
+  static const bottom_nav_bar_item_3 = 'bottom_nav_bar.item_3';
+  static const bottom_nav_bar_item_4 = 'bottom_nav_bar.item_4';
+  static const bottom_nav_bar_item_5 = 'bottom_nav_bar.item_5';
+  static const bottom_nav_bar = 'bottom_nav_bar';
   static const onboardings_text = 'onboardings.text';
   static const onboardings_button = 'onboardings.button';
   static const onboardings_skip = 'onboardings.skip';
   static const onboardings_onboarding_text1 = 'onboardings.onboarding.text1';
   static const onboardings_onboarding_text2 = 'onboardings.onboarding.text2';
-  static const onboardings_onboarding_text_headline =
-      'onboardings.onboarding.text_headline';
+  static const onboardings_onboarding_text_headline = 'onboardings.onboarding.text_headline';
   static const onboardings_onboarding = 'onboardings.onboarding';
-  static const onboardings_first_text_headline =
-      'onboardings.first.text_headline';
+  static const onboardings_first_text_headline = 'onboardings.first.text_headline';
   static const onboardings_first = 'onboardings.first';
-  static const onboardings_second_text_headline =
-      'onboardings.second.text_headline';
+  static const onboardings_second_text_headline = 'onboardings.second.text_headline';
   static const onboardings_second = 'onboardings.second';
-  static const onboardings_third_text_headline =
-      'onboardings.third.text_headline';
+  static const onboardings_third_text_headline = 'onboardings.third.text_headline';
   static const onboardings_third = 'onboardings.third';
-  static const onboardings_forth_text_headline =
-      'onboardings.forth.text_headline';
+  static const onboardings_forth_text_headline = 'onboardings.forth.text_headline';
   static const onboardings_forth_button = 'onboardings.forth.button';
   static const onboardings_forth = 'onboardings.forth';
   static const onboardings = 'onboardings';
@@ -74,6 +75,50 @@ abstract class LocaleKeys {
   static const food_waste_expanded_body8 = 'food_waste_expanded.body8';
   static const food_waste_expanded_button = 'food_waste_expanded.button';
   static const food_waste_expanded = 'food_waste_expanded';
+  static const custom_drawer_title = 'custom_drawer.title';
+  static const custom_drawer_login_button = 'custom_drawer.login_button';
+  static const custom_drawer_register_button = 'custom_drawer.register_button';
+  static const custom_drawer_body_title_1 = 'custom_drawer.body_title_1';
+  static const custom_drawer_body_title_2 = 'custom_drawer.body_title_2';
+  static const custom_drawer_body_list_tile_inform = 'custom_drawer.body_list_tile_inform';
+  static const custom_drawer_body_list_tile_past_orders = 'custom_drawer.body_list_tile_past_orders';
+  static const custom_drawer_body_list_tile_adresses = 'custom_drawer.body_list_tile_adresses';
+  static const custom_drawer_body_list_tile_cards = 'custom_drawer.body_list_tile_cards';
+  static const custom_drawer_body_list_tile_restaurants = 'custom_drawer.body_list_tile_restaurants';
+  static const custom_drawer_body_list_tile_general_settings = 'custom_drawer.body_list_tile_general_settings';
+  static const custom_drawer_body_list_tile_language_settings = 'custom_drawer.body_list_tile_language_settings';
+  static const custom_drawer_body_list_tile_change_location = 'custom_drawer.body_list_tile_change_location';
+  static const custom_drawer_body_list_tile_rate_app = 'custom_drawer.body_list_tile_rate_app';
+  static const custom_drawer_body_list_tile_about_app = 'custom_drawer.body_list_tile_about_app';
+  static const custom_drawer_body_list_tile_about_food_waste = 'custom_drawer.body_list_tile_about_food_waste';
+  static const custom_drawer = 'custom_drawer';
+  static const inform_title = 'inform.title';
+  static const inform_body_title_1 = 'inform.body_title_1';
+  static const inform_body_title_2 = 'inform.body_title_2';
+  static const inform_edit = 'inform.edit';
+  static const inform_list_tile_name = 'inform.list_tile_name';
+  static const inform_list_tile_surname = 'inform.list_tile_surname';
+  static const inform_list_tile_birth = 'inform.list_tile_birth';
+  static const inform_list_tile_mail = 'inform.list_tile_mail';
+  static const inform_list_tile_phone = 'inform.list_tile_phone';
+  static const inform_list_tile_change_password = 'inform.list_tile_change_password';
+  static const inform_list_tile_remove_link = 'inform.list_tile_remove_link';
+  static const inform_button = 'inform.button';
+  static const inform = 'inform';
+  static const change_password_title = 'change_password.title';
+  static const change_password_current_password = 'change_password.current_password';
+  static const change_password_new_password = 'change_password.new_password';
+  static const change_password_new_password_again = 'change_password.new_password_again';
+  static const change_password_button = 'change_password.button';
+  static const change_password = 'change_password';
+  static const past_order_title = 'past_order.title';
+  static const past_order = 'past_order';
+  static const address_title = 'address.title';
+  static const address_body_title = 'address.body_title';
+  static const address_button = 'address.button';
+  static const address = 'address';
+  static const language_settings_title = 'language_settings.title';
+  static const language_settings = 'language_settings';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
@@ -89,25 +134,26 @@ abstract class LocaleKeys {
   static const location_card_button1 = 'location_card.button1';
   static const location_card_button2 = 'location_card.button2';
   static const location_card = 'location_card';
-
   static const filters_sort_title = 'filters.sort.title';
   static const filters_sort_item1 = 'filters.sort.item1';
   static const filters_sort_item2 = 'filters.sort.item2';
   static const filters_sort_item3 = 'filters.sort.item3';
   static const filters_sort_item4 = 'filters.sort.item4';
+  static const filters_sort = 'filters.sort';
   static const filters_package_price_title = 'filters.package_price.title';
   static const filters_package_price_item1 = 'filters.package_price.item1';
   static const filters_package_price_item2 = 'filters.package_price.item2';
   static const filters_package_price_item3 = 'filters.package_price.item3';
+  static const filters_package_price = 'filters.package_price';
   static const filters_package_delivery_title = 'filters.package_delivery.title';
   static const filters_package_delivery_item1 = 'filters.package_delivery.item1';
   static const filters_package_delivery_item2 = 'filters.package_delivery.item2';
-
+  static const filters_package_delivery = 'filters.package_delivery';
   static const filters_payment_method_title = 'filters.payment_method.title';
   static const filters_payment_method_item1 = 'filters.payment_method.item1';
   static const filters_payment_method_item2 = 'filters.payment_method.item2';
-
- static const filters_choose_category_title = 'filters.choose_category.title';
+  static const filters_payment_method = 'filters.payment_method';
+  static const filters_choose_category_title = 'filters.choose_category.title';
   static const filters_choose_category_item1 = 'filters.choose_category.item1';
   static const filters_choose_category_item2 = 'filters.choose_category.item2';
   static const filters_choose_category_item3 = 'filters.choose_category.item3';
@@ -121,8 +167,7 @@ abstract class LocaleKeys {
 
   static const filters_button_item1 = 'filters.button.item1';
   static const filters_button_item2 = 'filters.button.item2';
-
-
-
+  static const filters_button = 'filters.button';
+  static const filters = 'filters';
 
 }

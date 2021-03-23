@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -75,7 +76,9 @@ class NotificationView extends StatelessWidget {
       color: AppColors.greenColor,
       textColor: AppColors.appBarColor,
       title: LocaleKeys.premission_notification_button1.locale,
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
+      },
     );
   }
 
@@ -98,10 +101,7 @@ class NotificationView extends StatelessWidget {
   }
 
   Container notificationImage(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: context.dynamicHeight(0.12)),
-      child: SvgPicture.asset(ImageConstant.NOTIFICATION_IMAGE)
-    );
+    return Container(padding: EdgeInsets.only(top: context.dynamicHeight(0.12)), child: SvgPicture.asset(ImageConstant.NOTIFICATION_IMAGE));
   }
 
   AppBar appBar(BuildContext context) {

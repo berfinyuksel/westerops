@@ -31,13 +31,10 @@ class _FilterViewState extends State<FilterView> {
   bool _valueArrowFive = false;
 
 
-
   @override
   Widget build(BuildContext context) {
-
-
     return CustomScaffold(
-
+      title: "Filtrele",
       body: Center(
         child: Expanded(
           child: Column(
@@ -251,10 +248,84 @@ class _FilterViewState extends State<FilterView> {
                       ],
                     ),
                   ),
-                )
-              ],
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomCheckbox(),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item2.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomCheckbox(),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item3.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomCheckbox(),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item4.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomCheckbox(),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item5.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomCheckbox(),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item6.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomCheckbox(),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item7.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomCheckbox(),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item8.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 70),
+                ],
+              ),
             ),
-          );
+          )
+        ],
+      ),
+    );
   }
 
   Container paymentMethodFilter(BuildContext context) {
@@ -311,15 +382,13 @@ class _FilterViewState extends State<FilterView> {
                 Spacer(flex: 70),
               ],
             ),
-          ),
-        )
-              ],
-            ),
-          );
+          )
+        ],
+      ),
+    );
   }
 
   Container packageDeliveryFilter(BuildContext context) {
-
     return Container(
             decoration: BoxDecoration(color: Colors.white),
             child: ExpansionTile(
@@ -373,35 +442,71 @@ class _FilterViewState extends State<FilterView> {
               shape: BoxShape.circle,
               color: _valuePackage ? AppColors.greenColor : Colors.transparent),
         ),
-      ),
-    )),
-                            Spacer(flex: 3),
-                            CustomContainer(
-                              child: Row(
-                                children: [
-                                  Spacer(flex: 5),
-                                  SvgPicture.asset(ImageConstant.PACKAGE_ICON, color: _valuePackage ? AppColors.greenColor : AppColors.iconColor,),
-                                  Spacer(flex: 13),
-                                  Center(
-                                      child: AutoSizeText(
-                                    LocaleKeys
-                                        .filters_package_delivery_item1.locale,
-                                    style: AppTextStyles.bodyTextStyle
-                                        .copyWith(fontWeight: FontWeight.w600),
-                                  )),
-                                  Spacer(flex: 24),
-                                ],
-                              ),
+        //trailing: SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        backgroundColor: Colors.white,
+        children: [
+          Container(
+            height: context.dynamicHeight(0.23),
+            child: Expanded(
+              child: Column(
+                children: [
+                  Spacer(flex: 2),
+                  Row(
+                    children: [
+                      Spacer(flex: 4),
+                      Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valuePackage = !_valuePackage;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
                             ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(shape: BoxShape.circle, color: _valuePackage ? AppColors.greenColor : Colors.transparent),
+                          ),
+                        ),
+                      )),
+                      Spacer(flex: 3),
+                      CustomContainer(
+                        child: Row(
+                          children: [
                             Spacer(flex: 5),
+                            SvgPicture.asset(
+                              ImageConstant.PACKAGE_ICON,
+                              color: _valuePackage ? AppColors.greenColor : AppColors.iconColor,
+                            ),
+                            Spacer(flex: 13),
+                            Center(
+                                child: AutoSizeText(
+                              LocaleKeys.filters_package_delivery_item1.locale,
+                              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+                            )),
+                            Spacer(flex: 24),
                           ],
                         ),
-
-                        Spacer(flex: 2),
-                        Row(
-                          children: [
-                            Spacer(flex: 4),
-                              Center(
+                      ),
+                      Spacer(flex: 5),
+                    ],
+                  ),
+                  Spacer(flex: 2),
+                  Row(
+                    children: [
+                      Spacer(flex: 4),
+                      Center(
                           child: InkWell(
                         onTap: () {
                           setState(() {
@@ -423,48 +528,40 @@ class _FilterViewState extends State<FilterView> {
                           child: Container(
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: _valueCoruier
-                                    ? AppColors.greenColor
-                                    : Colors.transparent),
+                            decoration: BoxDecoration(shape: BoxShape.circle, color: _valueCoruier ? AppColors.greenColor : Colors.transparent),
                           ),
                         ),
                       )),
-                            Spacer(flex: 3),
-                            CustomContainer(
-                              child: Row(
-                                children: [
-                                  Spacer(flex: 5),
-                                  SvgPicture.asset(
-                                      ImageConstant.PACKAGE_DELIVERY_ICON, color: _valueCoruier
-                                  ? AppColors.greenColor
-                                  : AppColors.iconColor,
-                                     // cubit --> color:  Colors.red
-                                      ),
-                                  Spacer(flex: 13),
-                                  Center(
-                                      child: AutoSizeText(
-                                    LocaleKeys
-                                        .filters_package_delivery_item2.locale,
-                                    style: AppTextStyles.bodyTextStyle
-                                        .copyWith(fontWeight: FontWeight.w600),
-                                  )),
-                                  Spacer(flex: 24),
-                                ],
-                              ),
-                            ),
+                      Spacer(flex: 3),
+                      CustomContainer(
+                        child: Row(
+                          children: [
                             Spacer(flex: 5),
+                            SvgPicture.asset(
+                              ImageConstant.PACKAGE_DELIVERY_ICON, color: _valueCoruier ? AppColors.greenColor : AppColors.iconColor,
+                              // cubit --> color:  Colors.red
+                            ),
+                            Spacer(flex: 13),
+                            Center(
+                                child: AutoSizeText(
+                              LocaleKeys.filters_package_delivery_item2.locale,
+                              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+                            )),
+                            Spacer(flex: 24),
                           ],
                         ),
-                        Spacer(flex: 3),
-                      ],
-                    ),
+                      ),
+                      Spacer(flex: 5),
+                    ],
                   ),
-                )
-              ],
+                  Spacer(flex: 3),
+                ],
+              ),
             ),
-          );
+          )
+        ],
+      ),
+    );
   }
 
   Container packagePriceFilter() {
@@ -521,9 +618,7 @@ class _FilterViewState extends State<FilterView> {
                     children: [
                       CustomCheckbox(),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_sort_item1.locale,
-                          style: AppTextStyles.bodyTextStyle
-                              ),
+                      AutoSizeText(LocaleKeys.filters_sort_item1.locale, style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -533,10 +628,7 @@ class _FilterViewState extends State<FilterView> {
                     children: [
                       CustomCheckbox(),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_sort_item2.locale,
-                          style: AppTextStyles.bodyTextStyle
-                             
-                             ),
+                      AutoSizeText(LocaleKeys.filters_sort_item2.locale, style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -546,10 +638,7 @@ class _FilterViewState extends State<FilterView> {
                     children: [
                       CustomCheckbox(),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_sort_item3.locale,
-                          style: AppTextStyles.bodyTextStyle
-                             
-                              ),
+                      AutoSizeText(LocaleKeys.filters_sort_item3.locale, style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -559,10 +648,7 @@ class _FilterViewState extends State<FilterView> {
                     children: [
                       CustomCheckbox(),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_sort_item4.locale,
-                          style: AppTextStyles.bodyTextStyle
-                             
-                             ),
+                      AutoSizeText(LocaleKeys.filters_sort_item4.locale, style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -575,6 +661,4 @@ class _FilterViewState extends State<FilterView> {
       ),
     );
   }
-
 }
-
