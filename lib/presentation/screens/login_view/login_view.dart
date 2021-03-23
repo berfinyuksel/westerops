@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/services/auth_service.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/gestures.dart';
@@ -182,8 +183,13 @@ class _LoginViewState extends State<LoginView> {
           SignWithSocialAuth(
             image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
           ),
-          SignWithSocialAuth(
-            image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
+          GestureDetector(
+            onTap: () {
+              AuthService.loginWithFacebook();
+            },
+            child: SignWithSocialAuth(
+              image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
+            ),
           ),
         ],
       ),
