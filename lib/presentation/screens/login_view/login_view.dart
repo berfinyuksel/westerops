@@ -38,10 +38,10 @@ class _LoginViewState extends State<LoginView> {
             child: buildBackground,
           ),
           Positioned(
-            top: context.dynamicHeight(0.04),
-            left: context.dynamicWidht(0.035),
+            top: context.dynamicHeight(0.06),
+            left: 0,
             child: IconButton(
-              icon: Icon(Icons.keyboard_arrow_left, color: Colors.white),
+              icon: SvgPicture.asset(ImageConstant.BACK_ICON, color: Colors.white),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
@@ -58,8 +58,8 @@ class _LoginViewState extends State<LoginView> {
 
   Container buildCardBody(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: context.dynamicHeight(0.02),
+      padding: EdgeInsets.only(
+        bottom: context.dynamicHeight(0.02),
       ),
       height: context.dynamicHeight(0.54),
       decoration: BoxDecoration(
@@ -70,13 +70,16 @@ class _LoginViewState extends State<LoginView> {
       ),
       child: Column(
         children: [
+          Spacer(flex: 2),
           LocaleText(
             text: LocaleKeys.login_text_login,
             maxLines: 1,
             style: AppTextStyles.appBarTitleStyle,
           ),
+          Spacer(flex: 2),
           Divider(
             thickness: 4,
+            height: 0,
             color: AppColors.borderAndDividerColor,
           ),
           Spacer(
@@ -217,7 +220,7 @@ class _LoginViewState extends State<LoginView> {
           child: const Icon(Icons.keyboard_arrow_down),
         ),
         iconSize: 15,
-        style: AppTextStyles.bodyBoldTextStyle,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         onChanged: (String? newValue) {
           setState(() {
             dropdownValue = newValue!;
@@ -228,7 +231,7 @@ class _LoginViewState extends State<LoginView> {
             value: value,
             child: AutoSizeText(
               value,
-              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w500),
+              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
               maxLines: 1,
             ),
           );
@@ -239,34 +242,42 @@ class _LoginViewState extends State<LoginView> {
 
   TextFormField buildTextFormField(String labelText, TextEditingController controller) {
     return TextFormField(
+      cursorColor: AppColors.cursorColor,
+      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       controller: controller,
       obscureText: enableObscure && controller == passwordController,
       decoration: InputDecoration(
+        prefixStyle: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         prefixText: controller == phoneController
             ? dropdownValue == 'TR'
                 ? "+90"
                 : "+1"
             : "",
         suffixIconConstraints:
-            controller == passwordController ? BoxConstraints.tightFor(width: context.dynamicWidht(0.05), height: context.dynamicHeight(0.02)) : null,
+            controller == passwordController ? BoxConstraints.tightFor(width: context.dynamicWidht(0.09), height: context.dynamicWidht(0.06)) : null,
         suffixIcon: controller == passwordController
-            ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    enableObscure = !enableObscure;
-                  });
-                },
-                child: enableObscure
-                    ? SvgPicture.asset(
-                        ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
-                      )
-                    : SvgPicture.asset(
-                        ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
-                      ),
+            ? Padding(
+                padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      enableObscure = !enableObscure;
+                    });
+                  },
+                  child: enableObscure
+                      ? SvgPicture.asset(
+                          ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
+                          color: AppColors.iconColor,
+                        )
+                      : SvgPicture.asset(
+                          ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
+                          color: AppColors.iconColor,
+                        ),
+                ),
               )
             : null,
         labelText: labelText,
-        labelStyle: AppTextStyles.subTitleStyle,
+        labelStyle: AppTextStyles.bodyTextStyle,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),

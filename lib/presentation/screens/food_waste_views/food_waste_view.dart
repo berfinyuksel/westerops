@@ -1,5 +1,5 @@
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
+import 'package:dongu_mobile/presentation/widgets/scaffold/components/custom_drawer.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
@@ -11,10 +11,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class FoodWasteView extends StatelessWidget {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: "",
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: Colors.white,
+      endDrawer: CustomDrawer(),
+      appBar: AppBar(
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: SvgPicture.asset(ImageConstant.COMMONS_DRAWER_ICON),
+            onPressed: () => scaffoldKey.currentState!.openEndDrawer(),
+          ),
+        ],
+        leading: IconButton(
+          icon: SvgPicture.asset(ImageConstant.BACK_ICON),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       body: Container(
         padding: EdgeInsets.only(
           top: context.dynamicHeight(0.02),

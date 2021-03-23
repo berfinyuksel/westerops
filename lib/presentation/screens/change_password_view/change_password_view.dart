@@ -74,6 +74,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
 
   TextFormField buildTextFormFieldPassword(String labelText, TextEditingController controller) {
     return TextFormField(
+      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+      cursorColor: AppColors.cursorColor,
       onTap: () {
         setState(() {
           isRulesVisible = false;
@@ -82,38 +84,47 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       controller: controller,
       obscureText: controller == passwordController ? enableObscureOldPass : enableObscureNewAgainPass,
       decoration: InputDecoration(
-        suffixIconConstraints: BoxConstraints.tightFor(width: context.dynamicWidht(0.05), height: context.dynamicHeight(0.02)),
-        suffixIcon: GestureDetector(
-          onTap: () {
-            setState(() {
-              if (controller == passwordController) {
-                enableObscureOldPass = !enableObscureOldPass;
-              } else {
-                enableObscureNewAgainPass = !enableObscureNewAgainPass;
-              }
-            });
-          },
-          child: controller == passwordController
-              ? enableObscureOldPass
-                  ? SvgPicture.asset(
-                      ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
-                    )
-                  : SvgPicture.asset(
-                      ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
-                    )
-              : enableObscureNewAgainPass
-                  ? SvgPicture.asset(
-                      ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
-                    )
-                  : SvgPicture.asset(
-                      ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
-                    ),
+        suffixIconConstraints: BoxConstraints.tightFor(width: context.dynamicWidht(0.09), height: context.dynamicWidht(0.06)),
+        suffixIcon: Padding(
+          padding: EdgeInsets.only(
+            right: context.dynamicWidht(0.03),
+          ),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                if (controller == passwordController) {
+                  enableObscureOldPass = !enableObscureOldPass;
+                } else {
+                  enableObscureNewAgainPass = !enableObscureNewAgainPass;
+                }
+              });
+            },
+            child: controller == passwordController
+                ? enableObscureOldPass
+                    ? SvgPicture.asset(
+                        ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
+                        color: AppColors.iconColor,
+                      )
+                    : SvgPicture.asset(
+                        ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
+                        color: AppColors.iconColor,
+                      )
+                : enableObscureNewAgainPass
+                    ? SvgPicture.asset(
+                        ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
+                        color: AppColors.iconColor,
+                      )
+                    : SvgPicture.asset(
+                        ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
+                        color: AppColors.iconColor,
+                      ),
+          ),
         ),
         labelText: labelText,
         prefix: Text(
           "",
         ),
-        labelStyle: AppTextStyles.subTitleStyle,
+        labelStyle: AppTextStyles.bodyTextStyle,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
         ),
@@ -129,6 +140,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
 
   TextFormField buildTextFormFieldNewPassword(String labelText) {
     return TextFormField(
+      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+      cursorColor: AppColors.cursorColor,
       onChanged: (value) {
         setState(() {
           isRulesVisible = true;
@@ -137,26 +150,36 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       controller: newPasswordController,
       obscureText: enableObscureNewPass,
       decoration: InputDecoration(
-        suffixIconConstraints: BoxConstraints.tightFor(width: context.dynamicWidht(0.05), height: context.dynamicHeight(0.02)),
-        suffixIcon: GestureDetector(
-          onTap: () {
-            setState(() {
-              enableObscureNewPass = !enableObscureNewPass;
-            });
-          },
-          child: enableObscureNewPass
-              ? SvgPicture.asset(
-                  ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
-                )
-              : SvgPicture.asset(
-                  ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
-                ),
+        suffixIconConstraints: BoxConstraints.tightFor(
+          width: context.dynamicWidht(0.09),
+          height: context.dynamicWidht(0.06),
+        ),
+        suffixIcon: Padding(
+          padding: EdgeInsets.only(
+            right: context.dynamicWidht(0.03),
+          ),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                enableObscureNewPass = !enableObscureNewPass;
+              });
+            },
+            child: enableObscureNewPass
+                ? SvgPicture.asset(
+                    ImageConstant.REGISTER_LOGIN_OBSCURE_ENABLE_ICON,
+                    color: AppColors.iconColor,
+                  )
+                : SvgPicture.asset(
+                    ImageConstant.REGISTER_LOGIN_OBSCURE_DISABLE_ICON,
+                    color: AppColors.iconColor,
+                  ),
+          ),
         ),
         labelText: labelText,
         prefix: Text(
           "",
         ),
-        labelStyle: AppTextStyles.subTitleStyle,
+        labelStyle: AppTextStyles.bodyTextStyle,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
         ),
