@@ -1,6 +1,9 @@
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
+  GoogleSignInAccount? currentUser;
+
   static Future<void> loginWithFacebook() async {
     try {
       AccessToken accessToken = (await FacebookAuth.instance.login());
@@ -20,6 +23,22 @@ class AuthService {
           print("login failed");
           break;
       }
+    }
+  }
+
+  static Future<void> loginWithGmail() async {
+    GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
+    try {
+      await googleSignIn.signIn();
+      print(googleSignIn.currentUser!.displayName);
+      print(googleSignIn.currentUser!.email);
+    } catch (error) {
+      print(error);
     }
   }
 }
