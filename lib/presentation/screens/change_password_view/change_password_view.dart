@@ -84,10 +84,11 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       controller: controller,
       obscureText: controller == passwordController ? enableObscureOldPass : enableObscureNewAgainPass,
       decoration: InputDecoration(
-        suffixIconConstraints: BoxConstraints.tightFor(width: context.dynamicWidht(0.09), height: context.dynamicWidht(0.06)),
+        contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+        suffixIconConstraints: BoxConstraints.tightFor(width: context.dynamicWidht(0.12), height: context.dynamicWidht(0.06)),
         suffixIcon: Padding(
           padding: EdgeInsets.only(
-            right: context.dynamicWidht(0.03),
+            right: context.dynamicWidht(0.06),
           ),
           child: GestureDetector(
             onTap: () {
@@ -150,13 +151,14 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       controller: newPasswordController,
       obscureText: enableObscureNewPass,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
         suffixIconConstraints: BoxConstraints.tightFor(
-          width: context.dynamicWidht(0.09),
+          width: context.dynamicWidht(0.12),
           height: context.dynamicWidht(0.06),
         ),
         suffixIcon: Padding(
           padding: EdgeInsets.only(
-            right: context.dynamicWidht(0.03),
+            right: context.dynamicWidht(0.06),
           ),
           child: GestureDetector(
             onTap: () {
