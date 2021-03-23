@@ -21,6 +21,7 @@ class CustomScaffold extends StatefulWidget {
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
     //buraya ekranlar gelcek
@@ -49,6 +50,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       resizeToAvoidBottomInset: false,
       appBar: widget.title == null
           ? _titles.elementAt(_selectedIndex) == null
@@ -63,9 +65,16 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   AppBar buildAppBarWithInputTitle() {
     return AppBar(
-      iconTheme: IconThemeData(color: AppColors.greenColor),
+      actions: [
+        IconButton(
+          icon: SvgPicture.asset(ImageConstant.COMMONS_DRAWER_ICON),
+          onPressed: () => scaffoldKey.currentState!.openEndDrawer(),
+        ),
+      ],
+      iconTheme: IconThemeData(color: AppColors.greenColor, size: 20.0),
+      elevation: 0,
       leading: IconButton(
-        icon: Icon(Icons.keyboard_arrow_left, color: AppColors.greenColor),
+        icon: SvgPicture.asset(ImageConstant.BACK_ICON),
         onPressed: () => Navigator.of(context).pop(),
       ),
       title: LocaleText(
@@ -78,9 +87,15 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   AppBar buildAppBarWithTitleList() {
     return AppBar(
+      actions: [
+        IconButton(
+          icon: SvgPicture.asset(ImageConstant.COMMONS_DRAWER_ICON),
+          onPressed: () => scaffoldKey.currentState!.openEndDrawer(),
+        ),
+      ],
       iconTheme: IconThemeData(color: AppColors.greenColor),
       leading: IconButton(
-        icon: Icon(Icons.keyboard_arrow_left, color: AppColors.greenColor),
+        icon: SvgPicture.asset(ImageConstant.BACK_ICON),
         onPressed: () => Navigator.of(context).pop(),
       ),
       title: LocaleText(
