@@ -32,7 +32,6 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
     return Padding(
       padding: EdgeInsets.only(
         top: context.dynamicHeight(0.02),
-        bottom: context.dynamicHeight(0.04),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
