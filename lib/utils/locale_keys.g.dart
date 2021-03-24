@@ -119,6 +119,18 @@ abstract class  LocaleKeys {
   static const address = 'address';
   static const language_settings_title = 'language_settings.title';
   static const language_settings = 'language_settings';
+  static const general_settings_title = 'general_settings.title';
+  static const general_settings_body_title_1 = 'general_settings.body_title_1';
+  static const general_settings_body_title_2 = 'general_settings.body_title_2';
+  static const general_settings_body_title_3 = 'general_settings.body_title_3';
+  static const general_settings_contact_confirmation = 'general_settings.contact_confirmation';
+  static const general_settings_sms = 'general_settings.sms';
+  static const general_settings_email = 'general_settings.email';
+  static const general_settings_phone_call = 'general_settings.phone_call';
+  static const general_settings_phone_call_subtitle = 'general_settings.phone_call_subtitle';
+  static const general_settings_notification = 'general_settings.notification';
+  static const general_settings_location = 'general_settings.location';
+  static const general_settings = 'general_settings';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
@@ -163,8 +175,7 @@ abstract class  LocaleKeys {
   static const filters_choose_category_item7 = 'filters.choose_category.item7';
   static const filters_choose_category_item8 = 'filters.choose_category.item8';
   static const filters_choose_category_item9 = 'filters.choose_category.item9';
-
-
+  static const filters_choose_category = 'filters.choose_category';
   static const filters_button_item1 = 'filters.button.item1';
   static const filters_button_item2 = 'filters.button.item2';
   static const filters_button = 'filters.button';

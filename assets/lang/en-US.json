@@ -137,6 +137,19 @@
     "language_settings" : {
         "title":"Language Settings"
     },
+    "general_settings" :{
+        "title":"General Settings",
+        "body_title_1":"Communication Permissions",
+        "body_title_2":"Notifications",
+        "body_title_3":"Location Services",
+        "contact_confirmation":"Special offers for me or valid for me, etc. I want to get information about the following methods I will choose. Within this scope, I accept my personal data to be processed and transferred to business partners for sending messages.",
+        "sms":"SMS",
+        "email":"E-mail",
+        "phone_call":"Telephone Call",
+        "phone_call_subtitle":"I want to be called by phone for situations such as cancellation / change related to orders.",
+        "notification":"Allow notifications",
+        "location":"Allow detect my location"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
