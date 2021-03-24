@@ -150,6 +150,16 @@
         "notification":"Allow notifications",
         "location":"Allow detect my location"
     },
+    "about_app":{
+        "title":"About App",
+        "website":"Website",
+        "website_trailing_text":"www.dongu.com",
+        "contract":"User Agreement and KVKK",
+        "clarification":"Clarification Text",
+        "help_center":"Help Center - FAQ",
+        "contact":"Contact",
+        "version":"Version: 1.0.1"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

@@ -154,6 +154,16 @@
         "notification":"Bildirimlere izin ver",
         "location":"Konumumu algılamasına izin ver"
     },
+    "about_app":{
+        "title":"Uygulama Hakkında",
+        "website":"Web Sitesi",
+        "website_trailing_text":"www.dongu.com",
+        "contract":"Kullanıcı Sözleşmesi ve KVKK",
+        "clarification":"Aydınlatma Metni",
+        "help_center":"Yardım Merkezi - SSS",
+        "contact":"İletişim",
+        "version":"Sürüm: 1.0.1"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

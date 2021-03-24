@@ -131,6 +131,15 @@ abstract class  LocaleKeys {
   static const general_settings_notification = 'general_settings.notification';
   static const general_settings_location = 'general_settings.location';
   static const general_settings = 'general_settings';
+  static const about_app_title = 'about_app.title';
+  static const about_app_website = 'about_app.website';
+  static const about_app_website_trailing_text = 'about_app.website_trailing_text';
+  static const about_app_contract = 'about_app.contract';
+  static const about_app_clarification = 'about_app.clarification';
+  static const about_app_help_center = 'about_app.help_center';
+  static const about_app_contact = 'about_app.contact';
+  static const about_app_version = 'about_app.version';
+  static const about_app = 'about_app';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
