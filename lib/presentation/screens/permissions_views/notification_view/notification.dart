@@ -19,41 +19,39 @@ class NotificationView extends StatelessWidget {
       appBar: appBar(context),
       backgroundColor: AppColors.scaffoldBackgroundColor,
       body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: notificationImage(context),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Spacer(
-                    flex: 275,
-                  ),
-                  titleText(),
-                  Spacer(
-                    flex: 10,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: context.dynamicHeight(0.03),
-                      ),
-                    child: descriptionText()),
-                  Spacer(
-                    flex: 175,
-                  ),
-                  allowButton(context),
-                  Spacer(
-                    flex: 10,
-                  ),
-                  lateForNowButton(),
-                  Spacer(
-                    flex: 155,
-                  ),
-                ],
+        child: Padding(
+          padding:  EdgeInsets.only( bottom: context.dynamicHeight(0.06),),
+          child: Column(
+            children: [
+                 Spacer(
+                flex: 12,
               ),
-            ),
-          ],
+              notificationImage(context),
+              Spacer(
+                flex: 12,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: context.dynamicWidht(0.06),
+                  ),
+                child: titleText(),
+              ),
+              Spacer(
+                flex: 1,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: context.dynamicWidht(0.06),
+                  ),
+                child: descriptionText()),
+              Spacer(
+                flex: 4,
+              ),
+              allowButton(context),
+              SizedBox(height: context.dynamicHeight(0.01),),
+              lateForNowButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -101,7 +99,8 @@ class NotificationView extends StatelessWidget {
   }
 
   Container notificationImage(BuildContext context) {
-    return Container(padding: EdgeInsets.only(top: context.dynamicHeight(0.12)), child: SvgPicture.asset(ImageConstant.NOTIFICATION_IMAGE));
+    return Container(padding: EdgeInsets.only(
+      right: context.dynamicWidht(0.06), left: context.dynamicWidht(0.06)), child: SvgPicture.asset(ImageConstant.NOTIFICATION_IMAGE));
   }
 
   AppBar appBar(BuildContext context) {

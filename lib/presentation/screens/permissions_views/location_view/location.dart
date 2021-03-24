@@ -25,37 +25,44 @@ class _LocationViewState extends State<LocationView> {
       appBar: appBar(context),
       backgroundColor: AppColors.scaffoldBackgroundColor,
       body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: locationImage(context),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Spacer(
-                    flex: 175,
-                  ),
-                  titleText(),
-                  Spacer(
-                    flex: 10,
-                  ),
-                  descriptionText(),
-                  Spacer(
-                    flex: 90,
-                  ),
-                  enableButton(context),
-                  Spacer(
-                    flex: 10,
-                  ),
-                  lateForNowButton(),
-                  Spacer(
-                    flex: 155,
-                  ),
-                ],
+        child: Padding(
+          padding: EdgeInsets.only(
+           
+            bottom: context.dynamicHeight(0.06),
+          ),
+          child: Column(
+            children: [
+                     Spacer(
+                flex: 6,
               ),
-            ),
-          ],
+              locationImage(context),
+              Spacer(
+                flex: 6,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.dynamicWidht(0.06),
+                ),
+                child: titleText(),
+              ),
+              Spacer(
+                flex: 1,
+              ),
+              Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.dynamicWidht(0.06),
+                  ),
+                  child: descriptionText()),
+              Spacer(
+                flex: 4,
+              ),
+              enableButton(context),
+              SizedBox(
+                height: context.dynamicHeight(0.01),
+              ),
+              lateForNowButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -66,7 +73,8 @@ class _LocationViewState extends State<LocationView> {
       onTap: () {},
       child: AutoSizeText(
         LocaleKeys.premission_notification_button2.locale,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
       ),
     );
   }
@@ -105,6 +113,9 @@ class _LocationViewState extends State<LocationView> {
   Container locationImage(BuildContext context) {
     return Container(
       //padding: EdgeInsets.only(top: context.dynamicHeight(1)),
+      //padding: EdgeInsets.only(top: context.dynamicHeight(0.10)),
+      padding: EdgeInsets.only(
+          right: context.dynamicWidht(0.06), left: context.dynamicWidht(0.06)),
       child: SvgPicture.asset(ImageConstant.LOCATION_IMAGE),
     );
   }

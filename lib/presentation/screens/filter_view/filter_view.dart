@@ -24,6 +24,8 @@ class FilterView extends StatefulWidget {
 class _FilterViewState extends State<FilterView> {
   bool _valuePackage = false;
   bool _valueCoruier = false;
+  bool _valueOnline = false;
+  bool _valueRestaurant = false;
   bool _valueArrowOne = false;
   bool _valueArrowTwo = false;
   bool _valueArrowThree = false;
@@ -53,22 +55,22 @@ class _FilterViewState extends State<FilterView> {
                   children: [
                     Expanded(flex: 5, child: sortFilter(context)),
                     Divider(
-                      height: 1,
+                      height: 2,
                       color: Colors.transparent,
                     ),
                     Expanded(flex: 5, child: packagePriceFilter()),
                     Divider(
-                      height: 1,
+                      height: 2,
                       color: Colors.transparent,
                     ),
                     Expanded(flex: 5, child: packageDeliveryFilter(context)),
                     Divider(
-                      height: 1,
+                      height: 2,
                       color: Colors.transparent,
                     ),
                     Expanded(flex: 5, child: paymentMethodFilter(context)),
                     Divider(
-                      height: 1,
+                      height: 2,
                       color: Colors.transparent,
                     ),
                     Expanded(flex: 5, child: chooseCategoryFilter(context)),
@@ -86,7 +88,8 @@ class _FilterViewState extends State<FilterView> {
 
   Padding cleanAndSaveButtons(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.only(
+          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
       child: Row(
         children: [
           CustomButton(
@@ -119,6 +122,9 @@ class _FilterViewState extends State<FilterView> {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
+        tilePadding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+            right: context.dynamicWidht(0.06)),
         onExpansionChanged: (value) {
           setState(() {
             _valueArrowOne = !_valueArrowOne;
@@ -128,7 +134,9 @@ class _FilterViewState extends State<FilterView> {
           LocaleKeys.filters_choose_category_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        trailing: _valueArrowOne ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        trailing: _valueArrowOne
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
         children: [
           Container(
@@ -163,12 +171,18 @@ class _FilterViewState extends State<FilterView> {
                           child: Container(
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
-                            decoration: BoxDecoration(shape: BoxShape.circle, color: _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _valueSelectAll
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item9.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item9.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -199,12 +213,17 @@ class _FilterViewState extends State<FilterView> {
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: _valueSelectOne || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                                shape: BoxShape.circle,
+                                color: _valueSelectOne || _valueSelectAll
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item1.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item1.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -235,12 +254,17 @@ class _FilterViewState extends State<FilterView> {
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: _valueSelectTwo || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                                shape: BoxShape.circle,
+                                color: _valueSelectTwo || _valueSelectAll
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item2.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item2.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -271,12 +295,17 @@ class _FilterViewState extends State<FilterView> {
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: _valueSelectThree || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                                shape: BoxShape.circle,
+                                color: _valueSelectThree || _valueSelectAll
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item3.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item3.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -307,12 +336,17 @@ class _FilterViewState extends State<FilterView> {
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: _valueSelectFour || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                                shape: BoxShape.circle,
+                                color: _valueSelectFour || _valueSelectAll
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item4.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item4.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -343,12 +377,17 @@ class _FilterViewState extends State<FilterView> {
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: _valueSelectFive || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                                shape: BoxShape.circle,
+                                color: _valueSelectFive || _valueSelectAll
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item5.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item5.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -379,12 +418,17 @@ class _FilterViewState extends State<FilterView> {
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: _valueSelectSix || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                                shape: BoxShape.circle,
+                                color: _valueSelectSix || _valueSelectAll
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item6.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item6.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -415,12 +459,17 @@ class _FilterViewState extends State<FilterView> {
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: _valueSelectSeven || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                                shape: BoxShape.circle,
+                                color: _valueSelectSeven || _valueSelectAll
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item7.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item7.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -451,12 +500,17 @@ class _FilterViewState extends State<FilterView> {
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: _valueSelectEigth || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                                shape: BoxShape.circle,
+                                color: _valueSelectEigth || _valueSelectAll
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_choose_category_item8.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(
+                          LocaleKeys.filters_choose_category_item8.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -474,6 +528,9 @@ class _FilterViewState extends State<FilterView> {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
+        tilePadding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+            right: context.dynamicWidht(0.06)),
         onExpansionChanged: (value) {
           setState(() {
             _valueArrowTwo = !_valueArrowTwo;
@@ -483,7 +540,9 @@ class _FilterViewState extends State<FilterView> {
           LocaleKeys.filters_payment_method_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        trailing: _valueArrowTwo ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        trailing: _valueArrowTwo
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
         children: [
           Container(
@@ -496,9 +555,48 @@ class _FilterViewState extends State<FilterView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomCheckbox(),
+                          Center(
+                            child: InkWell(
+                          onTap: () {
+                            if (_valueOnline == false) {
+                              setState(() {
+                                _valueRestaurant = !_valueRestaurant;
+                              });
+                            } else {
+                              setState(() {
+                                _valueRestaurant = !_valueRestaurant;
+                                _valueOnline = !_valueOnline;
+                              });
+                            }
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: context.dynamicWidht(0.06),
+                            height: context.dynamicHeight(0.03),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: Colors.white,
+                              border: Border.all(
+                                width: 1,
+                                color: const Color(0xFFD1D0D0),
+                              ),
+                            ),
+                            child: Container(
+                              width: context.dynamicWidht(0.04),
+                              height: context.dynamicHeight(0.04),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _valueRestaurant
+                                      ? AppColors.greenColor
+                                      : Colors.transparent),
+                            ),
+                          ),
+                        )),
                         Spacer(flex: 2),
-                        AutoSizeText(LocaleKeys.filters_payment_method_item1.locale, style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 13)),
+                        AutoSizeText(
+                            LocaleKeys.filters_payment_method_item1.locale,
+                            style: AppTextStyles.bodyTextStyle
+                                .copyWith(fontSize: 13)),
                         Spacer(flex: 35),
                       ],
                     ),
@@ -506,9 +604,48 @@ class _FilterViewState extends State<FilterView> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CustomCheckbox(),
+                                  Center(
+                            child: InkWell(
+                          onTap: () {
+                            if (_valueRestaurant == false) {
+                              setState(() {
+                                _valueOnline = !_valueOnline;
+                              });
+                            } else {
+                              setState(() {
+                                _valueOnline = !_valueOnline;
+                                _valueRestaurant = !_valueRestaurant;
+                              });
+                            }
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: context.dynamicWidht(0.06),
+                            height: context.dynamicHeight(0.03),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: Colors.white,
+                              border: Border.all(
+                                width: 1,
+                                color: const Color(0xFFD1D0D0),
+                              ),
+                            ),
+                            child: Container(
+                              width: context.dynamicWidht(0.04),
+                              height: context.dynamicHeight(0.04),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _valueOnline
+                                      ? AppColors.greenColor
+                                      : Colors.transparent),
+                            ),
+                          ),
+                        )),
                         Spacer(flex: 4),
-                        AutoSizeText(LocaleKeys.filters_payment_method_item2.locale, style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 13)),
+                        AutoSizeText(
+                            LocaleKeys.filters_payment_method_item2.locale,
+                            style: AppTextStyles.bodyTextStyle
+                                .copyWith(fontSize: 13)),
                         Spacer(flex: 35),
                       ],
                     ),
@@ -525,6 +662,9 @@ class _FilterViewState extends State<FilterView> {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
+        tilePadding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+            right: context.dynamicWidht(0.06)),
         onExpansionChanged: (value) {
           setState(() {
             _valueArrowThree = !_valueArrowThree;
@@ -534,7 +674,9 @@ class _FilterViewState extends State<FilterView> {
           LocaleKeys.filters_package_delivery_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        trailing: _valueArrowThree ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        trailing: _valueArrowThree
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
         children: [
           Container(
@@ -549,9 +691,16 @@ class _FilterViewState extends State<FilterView> {
                       Center(
                           child: InkWell(
                         onTap: () {
-                          setState(() {
-                            _valuePackage = !_valuePackage;
-                          });
+                          if (_valueCoruier == false) {
+                            setState(() {
+                              _valuePackage = !_valuePackage;
+                            });
+                          } else {
+                            setState(() {
+                             _valuePackage = !_valuePackage;
+                              _valueCoruier = !_valueCoruier;
+                            });
+                          }
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -568,7 +717,11 @@ class _FilterViewState extends State<FilterView> {
                           child: Container(
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
-                            decoration: BoxDecoration(shape: BoxShape.circle, color: _valuePackage ? AppColors.greenColor : Colors.transparent),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _valuePackage
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
@@ -579,13 +732,16 @@ class _FilterViewState extends State<FilterView> {
                             Spacer(flex: 5),
                             SvgPicture.asset(
                               ImageConstant.PACKAGE_ICON,
-                              color: _valuePackage ? AppColors.greenColor : AppColors.iconColor,
+                              color: _valuePackage
+                                  ? AppColors.greenColor
+                                  : AppColors.iconColor,
                             ),
                             Spacer(flex: 13),
                             Center(
                                 child: AutoSizeText(
                               LocaleKeys.filters_package_delivery_item1.locale,
-                              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+                              style: AppTextStyles.bodyTextStyle
+                                  .copyWith(fontWeight: FontWeight.w600),
                             )),
                             Spacer(flex: 24),
                           ],
@@ -601,9 +757,17 @@ class _FilterViewState extends State<FilterView> {
                       Center(
                           child: InkWell(
                         onTap: () {
-                          setState(() {
-                            _valueCoruier = !_valueCoruier;
-                          });
+                          if (_valuePackage == false) {
+                            setState(() {
+                              _valueCoruier = !_valueCoruier;
+                            });
+                          } else {
+                            setState(() {
+                              _valuePackage = !_valuePackage;
+                              _valueCoruier = !_valueCoruier;
+
+                            });
+                          }
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -620,7 +784,11 @@ class _FilterViewState extends State<FilterView> {
                           child: Container(
                             width: context.dynamicWidht(0.04),
                             height: context.dynamicHeight(0.04),
-                            decoration: BoxDecoration(shape: BoxShape.circle, color: _valueCoruier ? AppColors.greenColor : Colors.transparent),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _valueCoruier
+                                    ? AppColors.greenColor
+                                    : Colors.transparent),
                           ),
                         ),
                       )),
@@ -631,14 +799,17 @@ class _FilterViewState extends State<FilterView> {
                             Spacer(flex: 5),
                             SvgPicture.asset(
                               ImageConstant.PACKAGE_DELIVERY_ICON,
-                              color: _valueCoruier ? AppColors.greenColor : AppColors.iconColor,
+                              color: _valueCoruier
+                                  ? AppColors.greenColor
+                                  : AppColors.iconColor,
                               // cubit --> color:  Colors.red
                             ),
                             Spacer(flex: 13),
                             Center(
                                 child: AutoSizeText(
                               LocaleKeys.filters_package_delivery_item2.locale,
-                              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+                              style: AppTextStyles.bodyTextStyle
+                                  .copyWith(fontWeight: FontWeight.w600),
                             )),
                             Spacer(flex: 24),
                           ],
@@ -661,6 +832,9 @@ class _FilterViewState extends State<FilterView> {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
+        tilePadding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+            right: context.dynamicWidht(0.06)),
         onExpansionChanged: (value) {
           setState(() {
             _valueArrowFour = !_valueArrowFour;
@@ -670,7 +844,9 @@ class _FilterViewState extends State<FilterView> {
           LocaleKeys.filters_package_price_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        trailing: _valueArrowFour ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        trailing: _valueArrowFour
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
         children: [
           CustomSliderBarAndTextField(),
@@ -683,6 +859,9 @@ class _FilterViewState extends State<FilterView> {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
+        tilePadding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+            right: context.dynamicWidht(0.06)),
         onExpansionChanged: (value) {
           setState(() {
             _valueArrowFive = !_valueArrowFive;
@@ -692,7 +871,9 @@ class _FilterViewState extends State<FilterView> {
           LocaleKeys.filters_sort_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        trailing: _valueArrowFive ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        trailing: _valueArrowFive
+            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
+            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
         children: [
           Container(
@@ -707,7 +888,8 @@ class _FilterViewState extends State<FilterView> {
                     children: [
                       CustomCheckbox(),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_sort_item1.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(LocaleKeys.filters_sort_item1.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -717,7 +899,8 @@ class _FilterViewState extends State<FilterView> {
                     children: [
                       CustomCheckbox(),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_sort_item2.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(LocaleKeys.filters_sort_item2.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -727,7 +910,8 @@ class _FilterViewState extends State<FilterView> {
                     children: [
                       CustomCheckbox(),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_sort_item3.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(LocaleKeys.filters_sort_item3.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
@@ -737,7 +921,8 @@ class _FilterViewState extends State<FilterView> {
                     children: [
                       CustomCheckbox(),
                       Spacer(flex: 2),
-                      AutoSizeText(LocaleKeys.filters_sort_item4.locale, style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(LocaleKeys.filters_sort_item4.locale,
+                          style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
