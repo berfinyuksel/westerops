@@ -43,7 +43,4 @@ class ImageConstant {
   static const PACKAGE_DELIVERY_ICON = "assets/images/filters/package_delivery.svg";
   static const PACKAGE_ICON = "assets/images/filters/package.svg";
   static const SEARCH_ICON = "assets/images/search/search.svg";
-
-
-
 }

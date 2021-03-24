@@ -10,6 +10,7 @@ import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../utils/extensions/context_extension.dart';
 
 class OnboardingsView extends StatefulWidget {
@@ -47,11 +48,11 @@ class _OnboardingsViewState extends State<OnboardingsView> {
   Row buildRowForth(BuildContext context) {
     return Row(
       children: [
-        Spacer(flex: 28),
-        Expanded(flex: 81, child: buildCenterCarouselPoints(context)),
-        Spacer(flex: 70),
+        Spacer(flex: 139),
+        Expanded(flex: 81, child: buildCarouselPoints(context)),
+        Spacer(flex: 20),
         Expanded(
-          flex: 212,
+          flex: 140,
           child: CustomButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, RouteConstant.NOTIFICATION_VIEW);
@@ -69,6 +70,7 @@ class _OnboardingsViewState extends State<OnboardingsView> {
 
   Row buildRowFromFirstToThird(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Spacer(flex: 28),
         Expanded(
@@ -87,7 +89,10 @@ class _OnboardingsViewState extends State<OnboardingsView> {
           ),
         ),
         Spacer(flex: 20),
-        Expanded(flex: 81, child: buildCenterCarouselPoints(context)),
+        Expanded(
+          flex: 81,
+          child: buildCarouselPoints(context),
+        ),
         Spacer(flex: 20),
         Expanded(
           flex: 140,
@@ -103,6 +108,20 @@ class _OnboardingsViewState extends State<OnboardingsView> {
         ),
         Spacer(flex: 28),
       ],
+    );
+  }
+
+  SmoothPageIndicator buildCarouselPoints(BuildContext context) {
+    return SmoothPageIndicator(
+      controller: pageController, // PageController
+      count: 5,
+      effect: ExpandingDotsEffect(
+        dotWidth: context.dynamicHeight(0.01),
+        dotHeight: context.dynamicHeight(0.01),
+        spacing: 4.0,
+        dotColor: AppColors.greenColor.withOpacity(.3),
+        activeDotColor: AppColors.greenColor,
+      ),
     );
   }
 
@@ -123,39 +142,6 @@ class _OnboardingsViewState extends State<OnboardingsView> {
         itemBuilder: (context, index) {
           return onboardings[index];
         },
-      ),
-    );
-  }
-
-  Center buildCenterCarouselPoints(BuildContext context) {
-    return Center(
-      child: Container(
-        height: context.height * 0.01,
-        child: ListView.builder(
-          itemCount: 5,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return pageIndex == index
-                ? Container(
-                    height: context.dynamicHeight(0.01),
-                    width: context.dynamicHeight(0.03),
-                    margin: EdgeInsets.symmetric(horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.0),
-                      color: AppColors.greenColor,
-                    ),
-                  )
-                : Container(
-                    height: context.dynamicHeight(0.01),
-                    width: context.dynamicHeight(0.01),
-                    margin: EdgeInsets.symmetric(horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.greenColor.withOpacity(.3),
-                    ),
-                  );
-          },
-        ),
       ),
     );
   }

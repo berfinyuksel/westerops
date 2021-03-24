@@ -29,7 +29,15 @@ class _FilterViewState extends State<FilterView> {
   bool _valueArrowThree = false;
   bool _valueArrowFour = false;
   bool _valueArrowFive = false;
-
+  bool _valueSelectAll = false;
+  bool _valueSelectOne = false;
+  bool _valueSelectTwo = false;
+  bool _valueSelectThree = false;
+  bool _valueSelectFour = false;
+  bool _valueSelectFive = false;
+  bool _valueSelectSix = false;
+  bool _valueSelectSeven = false;
+  bool _valueSelectEigth = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,38 +46,37 @@ class _FilterViewState extends State<FilterView> {
       body: Center(
         child: Expanded(
           child: Column(
-          
             children: [
               Expanded(
                 flex: 15,
                 child: ListView(
-                children: [
-                  Expanded(flex:5,child: sortFilter(context)),
-                  Divider(
-                    height: 1,
-                    color: Colors.transparent,
-                  ),
-                  Expanded(flex:5,child: packagePriceFilter()),
-                  Divider(
-                    height: 1,
-                    color: Colors.transparent,
-                  ),
-                  Expanded(flex:5,child: packageDeliveryFilter(context)),
-                  Divider(
-                    height: 1,
-                    color: Colors.transparent,
-                  ),
-                  Expanded(flex:5,child: paymentMethodFilter(context)),
-                  Divider(
-                    height: 1,
-                    color: Colors.transparent,
-                  ),
-                  Expanded(flex:5,child: chooseCategoryFilter(context)),
-                  //SizedBox(height: context.dynamicHeight(0.35),),
-                ],
-            ),
-               ),
-            Expanded(flex:2,child: cleanAndSaveButtons(context)),
+                  children: [
+                    Expanded(flex: 5, child: sortFilter(context)),
+                    Divider(
+                      height: 1,
+                      color: Colors.transparent,
+                    ),
+                    Expanded(flex: 5, child: packagePriceFilter()),
+                    Divider(
+                      height: 1,
+                      color: Colors.transparent,
+                    ),
+                    Expanded(flex: 5, child: packageDeliveryFilter(context)),
+                    Divider(
+                      height: 1,
+                      color: Colors.transparent,
+                    ),
+                    Expanded(flex: 5, child: paymentMethodFilter(context)),
+                    Divider(
+                      height: 1,
+                      color: Colors.transparent,
+                    ),
+                    Expanded(flex: 5, child: chooseCategoryFilter(context)),
+                    //SizedBox(height: context.dynamicHeight(0.35),),
+                  ],
+                ),
+              ),
+              Expanded(flex: 2, child: cleanAndSaveButtons(context)),
             ],
           ),
         ),
@@ -77,184 +84,387 @@ class _FilterViewState extends State<FilterView> {
     );
   }
 
-  Row cleanAndSaveButtons(BuildContext context) {
-    return Row(
-              children: [
-                Spacer(flex: 25),
-                CustomButton(
-                  width: context.dynamicWidht(0.4),
-                  color: Colors.transparent,
-                  borderColor: AppColors.greenColor,
-                  title:  LocaleKeys.filters_button_item1.locale,
-                  textColor: AppColors.greenColor,
-                  onPressed: (){},
-                ),
-                Spacer(flex: 10),
-                CustomButton(
-                  width: context.dynamicWidht(0.4),
-                  color: AppColors.greenColor,
-                  borderColor: AppColors.greenColor,
-                  title: LocaleKeys.filters_button_item2.locale,
-                  textColor: AppColors.appBarColor,
-                  onPressed: (){},
-                ),
-                Spacer(flex: 25),
-              ],
-            );
+  Padding cleanAndSaveButtons(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+      child: Row(
+        children: [
+          CustomButton(
+            width: context.dynamicWidht(0.4),
+            title: LocaleKeys.custom_drawer_login_button,
+            textColor: AppColors.greenColor,
+            color: Colors.transparent,
+            borderColor: AppColors.greenColor,
+            onPressed: () {
+              //   Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+            },
+          ),
+          Spacer(flex: 1),
+          CustomButton(
+            width: context.dynamicWidht(0.4),
+            title: LocaleKeys.custom_drawer_register_button,
+            textColor: Colors.white,
+            color: AppColors.greenColor,
+            borderColor: AppColors.greenColor,
+            onPressed: () {
+              //   Navigator.pushNamed(context, RouteConstant.REGISTER_VIEW);
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Container chooseCategoryFilter(BuildContext context) {
     return Container(
-            decoration: BoxDecoration(color: Colors.white),
-            child: ExpansionTile(
-                      onExpansionChanged: (value) {
+      decoration: BoxDecoration(color: Colors.white),
+      child: ExpansionTile(
+        onExpansionChanged: (value) {
           setState(() {
             _valueArrowOne = !_valueArrowOne;
           });
         },
-              title: AutoSizeText(
-                LocaleKeys.filters_choose_category_title.locale,
-                style: AppTextStyles.bodyTitleStyle,
-              ),
-                    trailing: _valueArrowOne
-            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
-            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
-
-              backgroundColor: Colors.white,
-              children: [
-                Container(
-                  width: context.dynamicWidht(0.9),
-                  height: context.dynamicHeight(0.4),
-                  child: Expanded(
-                    child: Column(
-                      children: [
-                        Spacer(flex: 25),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomCheckbox(),
-                            Spacer(flex: 2),
-                            AutoSizeText(
-                                LocaleKeys
-                                    .filters_choose_category_item1.locale,
-                                style: AppTextStyles.bodyTextStyle),
-                            Spacer(flex: 35),
-                          ],
-                        ),
-                        Spacer(flex: 35),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CustomCheckbox(),
-                            Spacer(flex: 2),
-                            AutoSizeText(
-                                LocaleKeys
-                                    .filters_choose_category_item2.locale,
-                                style: AppTextStyles.bodyTextStyle),
-                            Spacer(flex: 35),
-                          ],
-                        ),
-                        Spacer(flex: 35),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CustomCheckbox(),
-                            Spacer(flex: 2),
-                            AutoSizeText(
-                                LocaleKeys
-                                    .filters_choose_category_item3.locale,
-                                style: AppTextStyles.bodyTextStyle),
-                            Spacer(flex: 35),
-                          ],
-                        ),
-                        Spacer(flex: 35),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CustomCheckbox(),
-                            Spacer(flex: 2),
-                            AutoSizeText(
-                                LocaleKeys
-                                    .filters_choose_category_item4.locale,
-                                style: AppTextStyles.bodyTextStyle),
-                            Spacer(flex: 35),
-                          ],
-                        ),
-                        Spacer(flex: 35),
-                          Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomCheckbox(),
-                            Spacer(flex: 2),
-                            AutoSizeText(
-                                LocaleKeys
-                                    .filters_choose_category_item5.locale,
-                                style: AppTextStyles.bodyTextStyle),
-                            Spacer(flex: 35),
-                          ],
-                        ),
-                        Spacer(flex: 35),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CustomCheckbox(),
-                            Spacer(flex: 2),
-                            AutoSizeText(
-                                LocaleKeys
-                                    .filters_choose_category_item6.locale,
-                                style: AppTextStyles.bodyTextStyle),
-                            Spacer(flex: 35),
-                          ],
-                        ),
-                        Spacer(flex: 35),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CustomCheckbox(),
-                            Spacer(flex: 2),
-                            AutoSizeText(
-                                LocaleKeys
-                                    .filters_choose_category_item7.locale,
-                                style: AppTextStyles.bodyTextStyle),
-                            Spacer(flex: 35),
-                          ],
-                        ),
-                        Spacer(flex: 35),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CustomCheckbox(),
-                            Spacer(flex: 2),
-                            AutoSizeText(
-                                LocaleKeys
-                                    .filters_choose_category_item8.locale,
-                                style: AppTextStyles.bodyTextStyle),
-                            Spacer(flex: 35),
-                          ],
-                        ),
-                        Spacer(flex: 35),
+        title: AutoSizeText(
+          LocaleKeys.filters_choose_category_title.locale,
+          style: AppTextStyles.bodyTitleStyle,
+        ),
+        trailing: _valueArrowOne ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        backgroundColor: Colors.white,
+        children: [
+          Container(
+            width: context.dynamicWidht(0.9),
+            height: context.dynamicHeight(0.4),
+            child: Expanded(
+              child: Column(
+                children: [
+                  Spacer(flex: 25),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CustomCheckbox(),
+                      Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valueSelectAll = !_valueSelectAll;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
+                            ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(shape: BoxShape.circle, color: _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                          ),
+                        ),
+                      )),
                       Spacer(flex: 2),
-                      AutoSizeText(
-                          LocaleKeys.filters_choose_category_item9.locale,
-                          style: AppTextStyles.bodyTextStyle),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item9.locale, style: AppTextStyles.bodyTextStyle),
                       Spacer(flex: 35),
                     ],
                   ),
-                        Spacer(flex: 70),
-                      ],
-                    ),
+                  Spacer(flex: 35),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valueSelectOne = !_valueSelectOne;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
+                            ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: _valueSelectOne || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                          ),
+                        ),
+                      )),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item1.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
                   ),
-  
-
-
-                    
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valueSelectTwo = !_valueSelectTwo;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
+                            ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: _valueSelectTwo || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                          ),
+                        ),
+                      )),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item2.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valueSelectThree = !_valueSelectThree;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
+                            ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: _valueSelectThree || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                          ),
+                        ),
+                      )),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item3.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valueSelectFour = !_valueSelectFour;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
+                            ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: _valueSelectFour || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                          ),
+                        ),
+                      )),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item4.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valueSelectFive = !_valueSelectFive;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
+                            ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: _valueSelectFive || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                          ),
+                        ),
+                      )),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item5.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valueSelectSix = !_valueSelectSix;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
+                            ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: _valueSelectSix || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                          ),
+                        ),
+                      )),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item6.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valueSelectSeven = !_valueSelectSeven;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
+                            ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: _valueSelectSeven || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                          ),
+                        ),
+                      )),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item7.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _valueSelectEigth = !_valueSelectEigth;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: context.dynamicWidht(0.06),
+                          height: context.dynamicHeight(0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            border: Border.all(
+                              width: 1,
+                              color: const Color(0xFFD1D0D0),
+                            ),
+                          ),
+                          child: Container(
+                            width: context.dynamicWidht(0.04),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: _valueSelectEigth || _valueSelectAll ? AppColors.greenColor : Colors.transparent),
+                          ),
+                        ),
+                      )),
+                      Spacer(flex: 2),
+                      AutoSizeText(LocaleKeys.filters_choose_category_item8.locale, style: AppTextStyles.bodyTextStyle),
+                      Spacer(flex: 35),
+                    ],
+                  ),
+                  Spacer(flex: 70),
+                ],
               ),
-            
-          
+            ),
+          ),
         ],
       ),
     );
@@ -262,76 +472,69 @@ class _FilterViewState extends State<FilterView> {
 
   Container paymentMethodFilter(BuildContext context) {
     return Container(
-            decoration: BoxDecoration(color: Colors.white),
-            child: ExpansionTile(
-                      onExpansionChanged: (value) {
+      decoration: BoxDecoration(color: Colors.white),
+      child: ExpansionTile(
+        onExpansionChanged: (value) {
           setState(() {
             _valueArrowTwo = !_valueArrowTwo;
           });
         },
-              title: AutoSizeText(
-                LocaleKeys.filters_payment_method_title.locale,
-                style: AppTextStyles.bodyTitleStyle,
-              ),
-                      trailing: _valueArrowTwo
-            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
-            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
-
-              backgroundColor: Colors.white,
-              children: [
-                 Container(
-          width: context.dynamicWidht(0.9),
-          height: context.dynamicHeight(0.15),
-          child: Expanded(
-            child: Column(
-              children: [
-                Spacer(flex: 25),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+        title: AutoSizeText(
+          LocaleKeys.filters_payment_method_title.locale,
+          style: AppTextStyles.bodyTitleStyle,
+        ),
+        trailing: _valueArrowTwo ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        backgroundColor: Colors.white,
+        children: [
+          Container(
+              width: context.dynamicWidht(0.9),
+              height: context.dynamicHeight(0.15),
+              child: Expanded(
+                child: Column(
                   children: [
-                    CustomCheckbox(),
-                    Spacer(flex: 2),
-                    AutoSizeText(LocaleKeys.filters_payment_method_item1.locale,
-                        style: AppTextStyles.bodyTextStyle
-                            .copyWith(fontSize: 13)),
+                    Spacer(flex: 25),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomCheckbox(),
+                        Spacer(flex: 2),
+                        AutoSizeText(LocaleKeys.filters_payment_method_item1.locale, style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 13)),
+                        Spacer(flex: 35),
+                      ],
+                    ),
                     Spacer(flex: 35),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CustomCheckbox(),
+                        Spacer(flex: 4),
+                        AutoSizeText(LocaleKeys.filters_payment_method_item2.locale, style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 13)),
+                        Spacer(flex: 35),
+                      ],
+                    ),
+                    Spacer(flex: 70),
                   ],
                 ),
-                Spacer(flex: 35),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomCheckbox(),
-                    Spacer(flex: 4),
-                    AutoSizeText(LocaleKeys.filters_payment_method_item2.locale,
-                        style: AppTextStyles.bodyTextStyle
-                            .copyWith(fontSize: 13)),
-                    Spacer(flex: 35),
-                  ],
-                ),
-
-
-                Spacer(flex: 70),
-              ],
-            ),
-          )
-                 )],
+              ))
+        ],
       ),
     );
   }
-
 
   Container packageDeliveryFilter(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
+        onExpansionChanged: (value) {
+          setState(() {
+            _valueArrowThree = !_valueArrowThree;
+          });
+        },
         title: AutoSizeText(
           LocaleKeys.filters_package_delivery_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-         trailing: _valueArrowThree
-            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
-            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
+        trailing: _valueArrowThree ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
         children: [
           Container(
@@ -427,7 +630,8 @@ class _FilterViewState extends State<FilterView> {
                           children: [
                             Spacer(flex: 5),
                             SvgPicture.asset(
-                              ImageConstant.PACKAGE_DELIVERY_ICON, color: _valueCoruier ? AppColors.greenColor : AppColors.iconColor,
+                              ImageConstant.PACKAGE_DELIVERY_ICON,
+                              color: _valueCoruier ? AppColors.greenColor : AppColors.iconColor,
                               // cubit --> color:  Colors.red
                             ),
                             Spacer(flex: 13),
@@ -452,14 +656,15 @@ class _FilterViewState extends State<FilterView> {
       ),
     );
   }
+
   Container packagePriceFilter() {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
-        onExpansionChanged: (value){
+        onExpansionChanged: (value) {
           setState(() {
-                      _valueArrowFour = !_valueArrowFour;
-                    });
+            _valueArrowFour = !_valueArrowFour;
+          });
         },
         title: Text(
           LocaleKeys.filters_package_price_title.locale,
@@ -478,7 +683,7 @@ class _FilterViewState extends State<FilterView> {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: ExpansionTile(
-                onExpansionChanged: (value) {
+        onExpansionChanged: (value) {
           setState(() {
             _valueArrowFive = !_valueArrowFive;
           });
@@ -487,11 +692,7 @@ class _FilterViewState extends State<FilterView> {
           LocaleKeys.filters_sort_title.locale,
           style: AppTextStyles.bodyTitleStyle,
         ),
-                trailing: _valueArrowFive
-            ? SvgPicture.asset(ImageConstant.UNDER_ICON)
-            : SvgPicture.asset(ImageConstant.RIGHT_ICON),
-
-        
+        trailing: _valueArrowFive ? SvgPicture.asset(ImageConstant.UNDER_ICON) : SvgPicture.asset(ImageConstant.RIGHT_ICON),
         backgroundColor: Colors.white,
         children: [
           Container(
