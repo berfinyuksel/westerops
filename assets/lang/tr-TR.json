@@ -141,6 +141,19 @@
     "language_settings" : {
         "title":"Dil Ayarları"
     },
+    "general_settings" :{
+        "title":"Genel Ayarlar",
+        "body_title_1":"İletişim İzinleri",
+        "body_title_2":"Bildirimler",
+        "body_title_3":"Konum Servisleri",
+        "contact_confirmation":"Bana özel veya benim için geçerli kampanyalar vb. ile ilgili aşağıdaki seçeceğim yöntemler ile bilgi almak istiyorum. Bu kapsamda sınırlı olmak üzere kişisel verilerimin işlenmesini ve ileti gönderimi için iş ortaklarına aktarılmasını kabul ediyorum.",
+        "sms":"SMS",
+        "email":"E-posta",
+        "phone_call":"Telefonla Arama",
+        "phone_call_subtitle":"Siparişlerimle ilgili iptal/değişiklik gibi durumlar için telefonla aranmak istiyorum",
+        "notification":"Bildirimlere izin ver",
+        "location":"Konumumu algılamasına izin ver"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
