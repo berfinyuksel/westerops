@@ -140,6 +140,10 @@ abstract class  LocaleKeys {
   static const about_app_contact = 'about_app.contact';
   static const about_app_version = 'about_app.version';
   static const about_app = 'about_app';
+  static const contact_view_title = 'contact_view.title';
+  static const contact_view_body_title = 'contact_view.body_title';
+  static const contact_view_list_tile_1 = 'contact_view.list_tile_1';
+  static const contact_view = 'contact_view';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';

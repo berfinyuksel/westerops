@@ -160,6 +160,11 @@
         "contact":"Contact",
         "version":"Version: 1.0.1"
     },
+    "contact_view":{
+        "title":"Contact",
+        "body_title":"Contact Us",
+        "list_tile_1":"Customer Service"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
