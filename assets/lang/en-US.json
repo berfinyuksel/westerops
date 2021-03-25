@@ -182,6 +182,10 @@
         "list_tile_title_11":"Contact Us",
         "list_tile_subtitle_1":".  Having access to a wide variety of delicious food at great prices, \n. To be able to contribute to the prevention of food waste while reaching quality food at affordable prices, \n. The Cycle is waiting for you if you want to do your part in protecting the environment, which is a social responsibility."
     },
+    "change_location":{
+        "title":"Change Region",
+        "hint_text":"Search City"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
