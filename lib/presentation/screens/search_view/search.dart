@@ -156,21 +156,21 @@ class _SearchViewState extends State<SearchView> {
 
   ListView searchListViewBuilder() {
     return ListView.builder(
-          shrinkWrap: true,
-          itemCount: items.length,
-          itemBuilder: (context, index) {
+        shrinkWrap: true,
+        itemCount: items.length,
+        itemBuilder: (context, index) {
           return Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.dynamicWidht(0.06),
-          ),
-          decoration: BoxDecoration(color: Colors.white),
-          child: ListTile(
-            leading: LocaleText(
-              text: "${items[index]}",
-              style: AppTextStyles.bodyTextStyle,
+            padding: EdgeInsets.symmetric(
+              horizontal: context.dynamicWidht(0.06),
             ),
-          ),
-        );
+            decoration: BoxDecoration(color: Colors.white),
+            child: ListTile(
+              leading: LocaleText(
+                text: "${items[index]}",
+                style: AppTextStyles.bodyTextStyle,
+              ),
+            ),
+          );
         });
   }
 
