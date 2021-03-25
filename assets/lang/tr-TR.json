@@ -169,6 +169,24 @@
         "body_title":"Bize Ulaşın",
         "list_tile_1":"Müşteri Hizmetleri"
     },
+    "help_center":{
+        "title":"Yardım Merkezi",
+        "body_title_1":"Üyelik Hakkında",
+        "body_title_2":"Siparişler Hakkında",
+        "list_tile_title_1":"Neden Döngü’de yer almalıyım?",
+        "list_tile_title_2":"Döngü’ye nasıl üye olabilirim?",
+        "list_tile_title_3":"Döngü üyeliği ücretli mi?",
+        "list_tile_title_4":"Döngü aracılığıyla ne tür ve kalitede yiyecekler sunuluyor?",
+        "list_tile_title_5":"Yakınımdaki işletmeleri nasıl bulabilirim?",
+        "list_tile_title_6":"Kurtarabileceğim yiyecek olduğunda nasıl bilgilendirilirim?",
+        "list_tile_title_7":"Nasıl sipariş oluşturabilirim?",
+        "list_tile_title_8":"Sürpriz Paket Nedir?",
+        "list_tile_title_9":"Tanımlı Paket Nedir?",
+        "list_tile_title_10":"Yemeği nasıl teslim alabilirim?",
+        "list_tile_title_11":"Bize Ulaşın",
+        "list_tile_subtitle_1":".  Çok çeşitli ve lezzetli yiyeceklere harika fiyatlarla erişebilmek,\n.  Kaliteli yiyeceklere uygun fiyatlarla ulaşırken, gıda israfının önlemesine katkı sağlayabilmek, \n.  Toplumsal bir sorumluluk olan çevreyi koruma konusunda üzerine düşeni gerçekleştirebilmek istiyorsan, Döngü seni bekliyor."
+
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
