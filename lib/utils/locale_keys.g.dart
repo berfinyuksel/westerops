@@ -170,4 +170,32 @@ abstract class  LocaleKeys {
   static const filters_button = 'filters.button';
   static const filters = 'filters';
 
+  static const search_text1 = 'search.text1';
+  static const search_text2 = 'search.text2';
+  static const search_text3 = 'search.text3';
+  static const search_text4 = 'search.text4';
+  static const search_text5 = 'search.text5';
+
+
+
+  static const search_item1 = 'search.item1';
+  static const search_item2 = 'search.item2';
+  static const search_item3 = 'search.item3';
+
+  static const search_kind1 = 'search.kind1';
+  static const search_kind2 = 'search.kind2';
+  static const search_kind3 = 'search.kind3';
+  static const search_kind4 = 'search.kind4';
+  static const search_kind5 = 'search.kind5';
+  static const search_kind6 = 'search.kind6';
+  static const search_kind7 = 'search.kind7';
+  static const search_kind8 = 'search.kind8';
+  static const search_kind9 = 'search.kind9';
+  static const search_kind10 = 'search.kind10';
+
+
+
+
+
+
 }
