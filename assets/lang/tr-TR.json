@@ -249,5 +249,24 @@
                 "item1": "Temizle",
                 "item2": "Kaydet"
             }
+        },
+        "search": {
+            "text1": "Arama Geçmişim",
+            "text2": "Temizle",
+            "text3": "Popüler Aramalar",
+            "text4": "Kategoriler",
+            "text5": "Yemek, restoran ara",
+            "item1": "Döner",
+            "item2": "Mantı",
+            "item3": "Canım Büfe",
+            "kind1": "Hamburger",
+            "kind2": "Tavuk",
+            "kind3": "Yemek",
+            "kind4": "Cheese Burger",
+            "kind5": "Tavuk",
+            "kind6": "Vegan",
+            "kind7": "Pizza",
+            "kind9": "Dessert",
+            "kind10": "Coffee"
         }
 }

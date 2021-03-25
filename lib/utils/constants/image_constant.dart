@@ -45,4 +45,19 @@ class ImageConstant {
   static const PACKAGE_DELIVERY_ICON = "assets/images/filters/package_delivery.svg";
   static const PACKAGE_ICON = "assets/images/filters/package.svg";
   static const SEARCH_ICON = "assets/images/search/search.svg";
+  static const CHICKEN_ICON = "assets/images/search/chicken_icon.svg";
+  static const COFFEE_ICON = "assets/images/search/coffee_icon.svg";
+  static const DESSERT_ICON = "assets/images/search/dessert_icon.svg";
+  static const DRINK_ICON = "assets/images/search/drink_icon.svg";
+  static const FOOD_ICON = "assets/images/search/food_icon.svg";
+  static const HAMBURGER_ICON = "assets/images/search/hamburger_icon.svg";
+  static const PIZZA_ICON = "assets/images/search/pizza_icon.svg";
+  static const VEGAN_ICON = "assets/images/search/vegan_icon.svg";
+
+
+
+
+
+
+
 }

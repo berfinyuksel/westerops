@@ -1,10 +1,14 @@
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'components/horizontal_list_category_bar.dart';
+import 'components/horizontal_list_trend_bar.dart';
+import 'components/search_bar.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({
@@ -17,9 +21,9 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView> {
   TextEditingController? controller = TextEditingController();
-  bool _valuePackage = false;
-
-  final duplicateItems = ["fatih", "boran", "flutter", "mobil"];
+  //bool _valueSearch = false;
+  final duplicateItems = [LocaleKeys.search_item1.locale, LocaleKeys.search_item2.locale, LocaleKeys.search_item3.locale
+  ];
   var items = <String>[];
 
   @override
@@ -57,84 +61,163 @@ class _SearchViewState extends State<SearchView> {
       title: "Arama Yap",
       body: Column(
         children: [
-          SizedBox(
-            height: 25,
-          ),
-          Row(
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.centerStart,
-                children: [
-                  Container(
-                    width: _valuePackage ? context.dynamicWidht(0.9) : context.dynamicWidht(0.7),
-                    height: context.dynamicWidht(0.12),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.horizontal(
-                        left: Radius.circular(25.0),
-                        right: Radius.circular(4.0),
-                      ),
-                      color: Colors.white,
-                      border: Border.all(
-                        width: 2.0,
-                        color: AppColors.borderAndDividerColor,
-                      ),
-                    ),
-                    child: TextField(
-                      onChanged: (value) {
-                        filterSearchResults(value);
-                      },
-                       onTap: () {
-                        setState(() {
-                          _valuePackage = !_valuePackage;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: "Yemek, restoran ara",
-                        hintStyle:
-                        AppTextStyles.bodyTextStyle.copyWith(fontSize: 16),
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                      ),
-                      controller: controller,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: context.dynamicWidht(0.13),
-                    height: context.dynamicHeight(0.13),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.yellowColor,
-                    ),
-                    child: SvgPicture.asset(
-                      // search
-                      ImageConstant.SEARCH_ICON,
-                      width: 17.36,
-                      height: 25.56,
-                    ),
-                  ),
-                ],
-              ),
-
-            ],
-            
-          ),
-          _valuePackage ? Text("Vazgeç") : Text("data"),
-
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-            return ListTile(
-              title: Text("List ${items[index]}"),
-            );
-          })
+          searchBar(context),
+          searchHistoryAndCleanTexts(context),
+          dividerOne(context),
+          Spacer(flex: 2),
+          searchListViewBuilder(),
+          Spacer(flex: 4),
+          popularSearchText(context),
+          dividerSecond(context),
+          Spacer(flex: 4),
+          horizontalListTrend(context),
+          Spacer(flex: 4),
+          categoriesText(context),
+          dividerThird(context),
+          Spacer(flex: 1),
+          horizontalListCategory(context),
+          Spacer(flex: 14),
         ],
       ),
     );
+  }
+
+  Padding horizontalListCategory(BuildContext context) {
+    return Padding(
+          padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+          ),
+          child: Container(
+            height: context.dynamicHeight(0.19),
+            child: CustomHorizontalListCategory()
+          ),
+        );
+  }
+
+  Padding dividerThird(BuildContext context) {
+    return Padding(
+          padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+          ),
+          child: Divider(
+            color: AppColors.borderAndDividerColor,
+            thickness: 5,
+          ),
+        );
+  }
+
+  Padding categoriesText(BuildContext context) {
+    return Padding(
+          padding: EdgeInsets.only(
+            right: context.dynamicWidht(0.6),
+          ),
+          child: LocaleText(
+            text: LocaleKeys.search_text4,
+            style: AppTextStyles.bodyTitleStyle,
+          ),
+        );
+  }
+
+  Padding horizontalListTrend(BuildContext context) {
+    return Padding(
+          padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+          ),
+          child: Container(
+            height: context.dynamicHeight(0.04),
+            child: CustomHorizontalListTrend()
+          ),
+        );
+  }
+
+  Padding dividerSecond(BuildContext context) {
+    return Padding(
+          padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+          ),
+          child: Divider(
+            color: AppColors.borderAndDividerColor,
+            thickness: 5,
+          ),
+        );
+  }
+
+  Padding popularSearchText(BuildContext context) {
+    return Padding(
+          padding: EdgeInsets.only(
+            right: context.dynamicWidht(0.5),
+          ),
+          child: LocaleText(
+            text: LocaleKeys.search_text3,
+            style: AppTextStyles.bodyTitleStyle,
+          ),
+        );
+  }
+
+  ListView searchListViewBuilder() {
+    return ListView.builder(
+          shrinkWrap: true,
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+          return Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: context.dynamicWidht(0.06),
+          ),
+          decoration: BoxDecoration(color: Colors.white),
+          child: ListTile(
+            leading: LocaleText(
+              text: "${items[index]}",
+              style: AppTextStyles.bodyTextStyle,
+            ),
+          ),
+        );
+        });
+  }
+
+  Padding dividerOne(BuildContext context) {
+    return Padding(
+          padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+          ),
+          child: Divider(
+            color: AppColors.borderAndDividerColor,
+            thickness: 5,
+          ),
+        );
+  }
+
+  Padding searchHistoryAndCleanTexts(BuildContext context) {
+    return Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: context.dynamicWidht(0.06),
+          ),
+          child: Row(
+            children: [
+              LocaleText(
+                text: LocaleKeys.search_text1,
+                style: AppTextStyles.bodyTitleStyle,
+              ),
+              Spacer(
+                flex: 18,
+              ),
+              LocaleText(
+                text: LocaleKeys.search_text2,
+                style: AppTextStyles.bodyTitleStyle
+                    .copyWith(color: AppColors.orangeColor, fontSize: 12),
+              ),
+            ],
+          ),
+        );
+  }
+
+  Padding searchBar(BuildContext context) {
+    return Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: context.dynamicWidht(0.06),
+          ),
+          child: CustomSearchBar(
+            hintText: LocaleKeys.search_text5.locale,
+          )
+        );
   }
 }

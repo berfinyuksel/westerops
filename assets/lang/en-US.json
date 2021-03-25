@@ -244,5 +244,25 @@
             "item1": "Clean",
             "item2": "Save"
         }
+    },
+    "search": {
+        "text1": "My Search History",
+        "text2": "Clean",
+        "text3": "Popular Searches",
+        "text4": "Categories",
+        "text5": "Search for food, restaurants",
+        "item1": "Doner",
+        "item2": "Pasty",
+        "item3": "Canım Bufe",
+        "kind1": "Hamburger",
+        "kind2": "Chicken",
+        "kind3": "Food",
+        "kind4": "Cheese Burger",
+        "kind5": "Chicken",
+        "kind6": "Vegan",
+        "kind7": "Pizza",
+        "kind8": "Drink",
+        "kind9": "Dessert",
+        "kind10": "Coffee"
     }
 }
