@@ -187,6 +187,10 @@
         "list_tile_subtitle_1":".  Çok çeşitli ve lezzetli yiyeceklere harika fiyatlarla erişebilmek,\n.  Kaliteli yiyeceklere uygun fiyatlarla ulaşırken, gıda israfının önlemesine katkı sağlayabilmek, \n.  Toplumsal bir sorumluluk olan çevreyi koruma konusunda üzerine düşeni gerçekleştirebilmek istiyorsan, Döngü seni bekliyor."
 
     },
+    "change_location":{
+        "title":"Bölge Değiştir",
+        "hint_text":"Şehir Ara"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

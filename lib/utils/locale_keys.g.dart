@@ -160,6 +160,9 @@ abstract class  LocaleKeys {
   static const help_center_list_tile_title_11 = 'help_center.list_tile_title_11';
   static const help_center_list_tile_subtitle_1 = 'help_center.list_tile_subtitle_1';
   static const help_center = 'help_center';
+  static const change_location_title = 'change_location.title';
+  static const change_location_hint_text = 'change_location.hint_text';
+  static const change_location = 'change_location';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
