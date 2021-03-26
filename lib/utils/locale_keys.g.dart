@@ -163,6 +163,13 @@ abstract class  LocaleKeys {
   static const change_location_title = 'change_location.title';
   static const change_location_hint_text = 'change_location.hint_text';
   static const change_location = 'change_location';
+  static const home_page_location = 'home_page.location';
+  static const home_page_edit = 'home_page.edit';
+  static const home_page_closer = 'home_page.closer';
+  static const home_page_see_all = 'home_page.see_all';
+  static const home_page_categories = 'home_page.categories';
+  static const home_page_opportunities = 'home_page.opportunities';
+  static const home_page = 'home_page';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
@@ -212,19 +219,14 @@ abstract class  LocaleKeys {
   static const filters_button_item2 = 'filters.button.item2';
   static const filters_button = 'filters.button';
   static const filters = 'filters';
-
   static const search_text1 = 'search.text1';
   static const search_text2 = 'search.text2';
   static const search_text3 = 'search.text3';
   static const search_text4 = 'search.text4';
   static const search_text5 = 'search.text5';
-
-
-
   static const search_item1 = 'search.item1';
   static const search_item2 = 'search.item2';
   static const search_item3 = 'search.item3';
-
   static const search_kind1 = 'search.kind1';
   static const search_kind2 = 'search.kind2';
   static const search_kind3 = 'search.kind3';
@@ -235,10 +237,6 @@ abstract class  LocaleKeys {
   static const search_kind8 = 'search.kind8';
   static const search_kind9 = 'search.kind9';
   static const search_kind10 = 'search.kind10';
-
-
-
-
-
+  static const search = 'search';
 
 }

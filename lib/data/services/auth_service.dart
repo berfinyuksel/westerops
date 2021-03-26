@@ -1,10 +1,10 @@
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+//import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   GoogleSignInAccount? currentUser;
 
-  static Future<void> loginWithFacebook() async {
+  /*static Future<void> loginWithFacebook() async {
     try {
       AccessToken accessToken = (await FacebookAuth.instance.login());
       print(accessToken.toJson());
@@ -24,7 +24,7 @@ class AuthService {
           break;
       }
     }
-  }
+  }*/
 
   static Future<void> loginWithGmail() async {
     GoogleSignIn googleSignIn = GoogleSignIn(
