@@ -33,9 +33,7 @@ class RestaurantInfoCard extends StatelessWidget {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
-      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.011), horizontal: context.dynamicWidht(0.023)),
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(ImageConstant.COMMONS_RESTAURANT_IMAGE), alignment: Alignment.topCenter),
         borderRadius: BorderRadius.circular(8.0),
         color: Colors.white,
         boxShadow: [
@@ -46,18 +44,32 @@ class RestaurantInfoCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
+      child: Stack(
         children: [
-          buildFirstRow(context, packetNumber!),
-          Spacer(flex: 9),
-          buildSecondRow(restaurantName!),
-          Spacer(flex: 1),
-          buildThirdRow(grade!, location!, distance!),
-          Divider(
-            thickness: 2,
-            color: AppColors.borderAndDividerColor,
+          Image.asset(
+            ImageConstant.COMMONS_RESTAURANT_IMAGE,
+            alignment: Alignment.topCenter,
+            fit: BoxFit.fitWidth,
+            width: context.dynamicWidht(0.64),
+            height: context.height > 800 ? context.dynamicHeight(0.16) : context.dynamicHeight(0.14),
           ),
-          buildForthRow(context, availableTime!)
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.011), horizontal: context.dynamicWidht(0.023)),
+            child: Column(
+              children: [
+                buildFirstRow(context, packetNumber!),
+                Spacer(flex: 9),
+                buildSecondRow(restaurantName!),
+                Spacer(flex: 1),
+                buildThirdRow(grade!, location!, distance!),
+                Divider(
+                  thickness: 2,
+                  color: AppColors.borderAndDividerColor,
+                ),
+                buildForthRow(context, availableTime!)
+              ],
+            ),
+          ),
         ],
       ),
     );
