@@ -3,6 +3,14 @@ class ImageConstant {
   static const COMMONS_CHECK_ICON = "assets/images/commons/check_icon.svg";
   static const COMMONS_DRAWER_ICON = "assets/images/commons/drawer_icon.svg";
   static const COMMONS_SEARCH_ICON = "assets/images/commons/search_icon.svg";
+  static const COMMONS_FILTER_ICON = "assets/images/commons/filter_icon.svg";
+  static const COMMONS_STAR_ICON = "assets/images/commons/star_icon.svg";
+  static const COMMONS_GET_IT_ICON = "assets/images/commons/get_it_icon.svg";
+  static const COMMONS_CARRIER_ICON = "assets/images/commons/carrier_icon.svg";
+  static const COMMONS_METERS_ICON = "assets/images/commons/meters_icon.svg";
+  static const COMMONS_TIME_ICON = "assets/images/commons/time_icon.svg";
+  static const COMMONS_RESTAURANT_IMAGE = "assets/images/commons/restaurant_image.png";
+  static const COMMONS_RESTAURANT_ICON = "assets/images/commons/restaurant_icon.png";
   static const DONGU_LOGO = "assets/images/commons/dongu_logo.svg";
   static const ONBOARDING_BACKGROUND = "assets/images/onboardings/onboarding/onboarding_background.png";
   static const ONBOARDING_FIRST_BACKGROUND = "assets/images/onboardings/onboarding_first/onboarding_first_background.png";
