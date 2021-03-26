@@ -23,6 +23,13 @@ class AppTextStyles {
     fontWeight: FontWeight.w300,
     height: 1.64,
   );
+  static TextStyle subTitleBoldStyle = GoogleFonts.montserrat(
+    decoration: TextDecoration.none,
+    fontSize: 11.0,
+    color: Colors.white,
+    fontWeight: FontWeight.w600,
+    height: 2.18,
+  );
   static TextStyle bodyTitleStyle = GoogleFonts.montserrat(
     decoration: TextDecoration.none,
     fontSize: 16.0,
