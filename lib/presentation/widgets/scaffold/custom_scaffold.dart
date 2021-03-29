@@ -74,7 +74,11 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           : widget.isDrawer!
               ? null
               : CustomDrawer(),
-      bottomNavigationBar: buildBottomNavigationBar(),
+      bottomNavigationBar: ClipRRect(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(18.0),
+          ),
+          child: buildBottomNavigationBar()),
       body: widget.body == null ? _widgetOptions.elementAt(_selectedIndex) : widget.body,
     );
   }
@@ -230,6 +234,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       ],
       showUnselectedLabels: true,
       currentIndex: _selectedIndex,
+      backgroundColor: Colors.white,
       unselectedItemColor: AppColors.textColor,
       unselectedLabelStyle: AppTextStyles.subTitleStyle,
       selectedLabelStyle: AppTextStyles.subTitleStyle,
