@@ -202,7 +202,17 @@
         "title":"Yakınımdakiler",
         "location":"Konumum",
         "edit":"Değiştir",
-        "body_title":"Yakınımdakiler Tümü"
+        "body_title":"Yakınımdakiler Tümü",
+        "show_map":"Haritada Göster",
+        "show_list":"Liste Olarak Göster"
+    },
+    "my_favorites":{
+        "title":"Favorilerim",
+        "location":"Konumum",
+        "edit":"Değiştir",
+        "body_title":"Favorilerim",
+        "show_map":"Haritada Göster",
+        "show_list":"Liste Olarak Göster"
     },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",

@@ -174,7 +174,16 @@ abstract class  LocaleKeys {
   static const my_near_location = 'my_near.location';
   static const my_near_edit = 'my_near.edit';
   static const my_near_body_title = 'my_near.body_title';
+  static const my_near_show_map = 'my_near.show_map';
+  static const my_near_show_list = 'my_near.show_list';
   static const my_near = 'my_near';
+  static const my_favorites_title = 'my_favorites.title';
+  static const my_favorites_location = 'my_favorites.location';
+  static const my_favorites_edit = 'my_favorites.edit';
+  static const my_favorites_body_title = 'my_favorites.body_title';
+  static const my_favorites_show_map = 'my_favorites.show_map';
+  static const my_favorites_show_list = 'my_favorites.show_list';
+  static const my_favorites = 'my_favorites';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';

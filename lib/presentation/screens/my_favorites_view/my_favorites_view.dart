@@ -1,9 +1,9 @@
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_card/restaurant_info_card.dart';
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -16,88 +16,87 @@ class MyFavoritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Favorilerim",
-      body: Column(
+      title: LocaleKeys.my_favorites_title,
+      body: buildBody(context),
+    );
+  }
+
+  ListView buildBody(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      children: [buildTitlesAndSearchBar(context), buildListViewRestaurantInfo()],
+    );
+  }
+
+  Padding buildTitlesAndSearchBar(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: context.dynamicWidht(0.06),
+        right: context.dynamicWidht(0.06),
+        top: context.dynamicHeight(0.02),
+        bottom: context.dynamicHeight(0.02),
+      ),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildRowTitleLeftRight(context, "Konumun", "Değiştir"),
+          buildRowTitleLeftRight(context, LocaleKeys.my_favorites_location, LocaleKeys.my_favorites_edit),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
           ),
           AddressText(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-            child: Row(
-              children: [
-                buildSearchBar(context),
-                Spacer(),
-                SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON),
-              ],
-            ),
+          SizedBox(height: context.dynamicHeight(0.03)),
+          Row(
+            children: [
+              buildSearchBar(context),
+              Spacer(),
+              SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-            ),
-            child: LocaleText(
-              text: "En Son Sipariş Verdiğim",
-              style: AppTextStyles.bodyTitleStyle,
-            ),
-          ),
+          SizedBox(height: context.dynamicHeight(0.03)),
+          buildRowTitleLeftRight(context, LocaleKeys.my_favorites_body_title, LocaleKeys.my_favorites_show_map),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
-          ),
-          RestaurantInfoListTile(
-            packetNumber: "4 paket",
-            restaurantName: "Mini Burger",
-            distance: "74m",
-            availableTime: "18:00-21:00",
-          ),
-          buildRowTitleLeftRight(context, "Diğer Takip Ettiklerim", "Liste Olarak Gör"),
-          Divider(
-            thickness: 4,
-            color: AppColors.borderAndDividerColor,
-          ),
-          RestaurantInfoCard(
-            packetNumber: "tükendi",
-            restaurantName: "Uzun İsimli Bir Resto…",
-            grade: "4.7",
-            location: "Beşiktaş",
-            distance: "254m",
-            availableTime: '18:00-21:00',
           ),
         ],
       ),
     );
   }
 
-  Padding buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          LocaleText(
-            text: titleLeft,
-            style: AppTextStyles.bodyTitleStyle,
+  ListView buildListViewRestaurantInfo() {
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return RestaurantInfoListTile(
+            restaurantName: "Mini Burger",
+            distance: "74m",
+            packetNumber: "4 paket",
+            availableTime: "18:00-21:00",
+          );
+        });
+  }
+
+  Row buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        LocaleText(
+          text: titleLeft,
+          style: AppTextStyles.bodyTitleStyle,
+        ),
+        LocaleText(
+          text: titleRight,
+          style: GoogleFonts.montserrat(
+            fontSize: 12.0,
+            color: AppColors.orangeColor,
+            fontWeight: FontWeight.w600,
           ),
-          LocaleText(
-            text: titleRight,
-            style: GoogleFonts.montserrat(
-              fontSize: 12.0,
-              color: AppColors.orangeColor,
-              fontWeight: FontWeight.w600,
-              height: 2.0,
-            ),
-            alignment: TextAlign.right,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

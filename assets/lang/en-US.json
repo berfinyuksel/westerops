@@ -196,9 +196,17 @@
     },
     "my_near":{
         "title":"Near Me",
-        "location":"My location",
+        "location":"My Location",
         "edit":"Change",
         "body_title":"Near Me All"
+    },
+    "my_favorites":{
+        "title":"My Favorites",
+        "location":"My Location",
+        "edit":"Change",
+        "body_title":"My Favorites",
+        "show_map":"Show on Map",
+        "show_list":"Show as List"
     },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
