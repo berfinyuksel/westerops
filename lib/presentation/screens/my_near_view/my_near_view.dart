@@ -23,69 +23,64 @@ class MyNearView extends StatelessWidget {
   ListView buildBody(BuildContext context) {
     return ListView(
       shrinkWrap: true,
-      children: [
-        buildTitlesAndSearchBar(context),
-        buildListViewRestaurantInfo()
-      ],
+      children: [buildTitlesAndSearchBar(context), buildListViewRestaurantInfo()],
     );
   }
 
   Padding buildTitlesAndSearchBar(BuildContext context) {
     return Padding(
-          padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-            right: context.dynamicWidht(0.06),
-            top: context.dynamicHeight(0.02),
-            bottom: context.dynamicHeight(0.02),
+      padding: EdgeInsets.only(
+        left: context.dynamicWidht(0.06),
+        right: context.dynamicWidht(0.06),
+        top: context.dynamicHeight(0.02),
+        bottom: context.dynamicHeight(0.02),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildRowTitleLeftRight(context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
+          Divider(
+            thickness: 4,
+            color: AppColors.borderAndDividerColor,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          AddressText(),
+          SizedBox(height: context.dynamicHeight(0.03)),
+          Row(
             children: [
-              buildRowTitleLeftRight(context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
-              Divider(
-                thickness: 4,
-                color: AppColors.borderAndDividerColor,
-              ),
-              AddressText(),
-              SizedBox(height: context.dynamicHeight(0.03)),
-              Row(
-                children: [
-                  buildSearchBar(context),
-                  Spacer(),
-                  SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON),
-                ],
-              ),
-              SizedBox(height: context.dynamicHeight(0.03)),
-              LocaleText(
-                text: LocaleKeys.my_near_body_title,
-                style: AppTextStyles.bodyTitleStyle,
-              ),
-              Divider(
-                thickness: 4,
-                color: AppColors.borderAndDividerColor,
-              ),
+              buildSearchBar(context),
+              Spacer(),
+              SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON),
             ],
           ),
-        );
+          SizedBox(height: context.dynamicHeight(0.03)),
+          buildRowTitleLeftRight(context, LocaleKeys.my_near_body_title, LocaleKeys.my_near_show_map),
+          Divider(
+            thickness: 4,
+            color: AppColors.borderAndDividerColor,
+          ),
+        ],
+      ),
+    );
   }
 
   ListView buildListViewRestaurantInfo() {
     return ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return RestaurantInfoListTile(
-                restaurantName: "Mini Burger",
-                distance: "74m",
-                packetNumber: "4 paket",
-                availableTime: "18:00-21:00",
-              );
-            });
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return RestaurantInfoListTile(
+            restaurantName: "Mini Burger",
+            distance: "74m",
+            packetNumber: "4 paket",
+            availableTime: "18:00-21:00",
+          );
+        });
   }
 
   Row buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         LocaleText(
@@ -98,9 +93,7 @@ class MyNearView extends StatelessWidget {
             fontSize: 12.0,
             color: AppColors.orangeColor,
             fontWeight: FontWeight.w600,
-            height: 2.0,
           ),
-          alignment: TextAlign.right,
         ),
       ],
     );

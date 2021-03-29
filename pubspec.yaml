@@ -57,6 +57,7 @@ flutter:
     - assets/images/filters/
     - assets/images/search/
     - assets/images/commons/
+    - assets/images/past_order/
 
     - assets/images/onboardings/onboarding/
     - assets/images/onboardings/onboarding_first/
