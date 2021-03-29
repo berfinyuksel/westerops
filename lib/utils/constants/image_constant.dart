@@ -34,6 +34,10 @@ class ImageConstant {
   static const FOOD_WASTE_EXPANDED_IMAGE_5 = "assets/images/food_waste/expanded/food_waste_image_5.svg";
   static const FOOD_WASTE_EXPANDED_IMAGE_6 = "assets/images/food_waste/expanded/food_waste_image_6.svg";
   static const FOOD_WASTE_EXPANDED_IMAGE_7 = "assets/images/food_waste/expanded/food_waste_image_7.svg";
+  static const PAST_ORDER_DETAIL_ICON = "assets/images/past_order/past_order_detail_icon.svg";
+  static const PAST_ORDER_DETAIL_STAR_ICON = "assets/images/past_order/past_order_detail_star_icon.svg";
+  static const PAST_ORDER_DETAIL_BIG_STAR = "assets/images/past_order/past_order_detail_big_star.svg";
+  static const PAST_ORDER_DETAIL_FILLED_STAR_ICON = "assets/images/past_order/past_order_detail_filled_star_icon.svg";
   static const NAVBAR_HOME = "assets/images/navbar/navbar_home.svg";
   static const NAVBAR_HOME_ACTIVE = "assets/images/navbar/navbar_home_active.svg";
   static const NAVBAR_SEARCH = "assets/images/navbar/navbar_search.svg";
@@ -61,11 +65,4 @@ class ImageConstant {
   static const HAMBURGER_ICON = "assets/images/search/hamburger_icon.svg";
   static const PIZZA_ICON = "assets/images/search/pizza_icon.svg";
   static const VEGAN_ICON = "assets/images/search/vegan_icon.svg";
-
-
-
-
-
-
-
 }

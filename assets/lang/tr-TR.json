@@ -133,6 +133,24 @@
     "past_order": {
         "title":"Geçmiş Siparişlerim"
     },
+    "past_order_detail": {
+        "title":"Geçmiş Siparişlerim",
+        "body_title_1":"Restoran",
+        "body_title_2":"Puanla",
+        "body_title_3":"Sepettekiler",
+        "body_title_4":"Ödeme",
+        "evaluate_1":"Servis:",
+        "evaluate_2":"Kalite:",
+        "evaluate_3":"Lezzet:",
+        "payment_1":"Sepet Tutarı",
+        "payment_2":"Kurye Ücreti",
+        "payment_3":"Poşet Ücreti",
+        "payment_4":"Ödenen Toplam Tutar",
+        "edit":"Düzenle",
+        "button_1":"Değerlendirmemi Paylaş",
+        "button_2":"Restoranları Keşfet",
+        "thanks":"Değerlendirmen için Teşekkür Ederiz"
+    },
     "address":{
         "title":"Adreslerim",
         "body_title":"Kayıtlı Adreslerim",
