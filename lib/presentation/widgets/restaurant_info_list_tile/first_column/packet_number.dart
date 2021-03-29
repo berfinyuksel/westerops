@@ -22,7 +22,7 @@ class PacketNumber extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0), color: text == "tükendi" ? AppColors.yellowColor : AppColors.orangeColor),
       child: LocaleText(
-        text: text,
+        text: text!,
         style: AppTextStyles.subTitleBoldStyle,
         alignment: TextAlign.center,
       ),

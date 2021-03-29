@@ -17,6 +17,7 @@ class OldAndNewPrices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           '75 TL',
