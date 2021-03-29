@@ -21,17 +21,23 @@ class RestaurantInfoListTile extends StatelessWidget {
   final String? availableTime;
   const RestaurantInfoListTile({
     Key? key,
-    this.packetNumber,
-    this.restaurantName,
-    this.distance,
-    this.availableTime,
+    @required this.packetNumber,
+    @required this.restaurantName,
+    @required this.distance,
+    @required this.availableTime,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          width: 1.0,
+          color: AppColors.borderAndDividerColor,
+        ),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06), vertical: context.dynamicHeight(0.02)),
       height: context.dynamicHeight(0.13),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,9 +58,7 @@ class RestaurantInfoListTile extends StatelessWidget {
   Column buildThirdColumn(BuildContext context, String distance, String availableTime) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Spacer(flex: 2),
         Meters(
           distance: distance,
         ),
@@ -70,7 +74,6 @@ class RestaurantInfoListTile extends StatelessWidget {
           width: context.dynamicWidht(0.11),
           height: context.dynamicHeight(0.026),
         ),
-        Spacer(flex: 2),
       ],
     );
   }
@@ -79,7 +82,6 @@ class RestaurantInfoListTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Spacer(flex: 2),
         LocaleText(
           text: restaurantName,
           style: AppTextStyles.bodyBoldTextStyle,
@@ -94,15 +96,14 @@ class RestaurantInfoListTile extends StatelessWidget {
           backgroundColor: AppColors.greenColor,
           color: Colors.white,
         ),
-        Spacer(flex: 2),
       ],
     );
   }
 
   Column buildFirstColumn(BuildContext context, String packetNumber) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Spacer(flex: 2),
         RestrauntIcon(),
         Spacer(flex: 1),
         PacketNumber(
@@ -110,7 +111,6 @@ class RestaurantInfoListTile extends StatelessWidget {
           width: context.dynamicWidht(0.175),
           height: context.dynamicHeight(0.026),
         ),
-        Spacer(flex: 2),
       ],
     );
   }

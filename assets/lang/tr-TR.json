@@ -198,6 +198,12 @@
         "categories":"Kategoriler",
         "opportunities":"Fırsatlar"
     },
+    "my_near":{
+        "title":"Yakınımdakiler",
+        "location":"Konumum",
+        "edit":"Değiştir",
+        "body_title":"Yakınımdakiler Tümü"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

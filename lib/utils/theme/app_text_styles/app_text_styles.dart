@@ -27,8 +27,7 @@ class AppTextStyles {
     decoration: TextDecoration.none,
     fontSize: 11.0,
     color: Colors.white,
-    fontWeight: FontWeight.w600,
-    height: 2.18,
+    fontWeight: FontWeight.w500,
   );
   static TextStyle bodyTitleStyle = GoogleFonts.montserrat(
     decoration: TextDecoration.none,
@@ -50,7 +49,6 @@ class AppTextStyles {
     fontSize: 14.0,
     color: const Color(0xFF2E3142),
     fontWeight: FontWeight.w600,
-    height: 1.71,
   );
 
   static TextStyle myInformationBodyTextStyle = GoogleFonts.montserrat(

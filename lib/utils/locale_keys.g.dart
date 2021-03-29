@@ -170,6 +170,11 @@ abstract class  LocaleKeys {
   static const home_page_categories = 'home_page.categories';
   static const home_page_opportunities = 'home_page.opportunities';
   static const home_page = 'home_page';
+  static const my_near_title = 'my_near.title';
+  static const my_near_location = 'my_near.location';
+  static const my_near_edit = 'my_near.edit';
+  static const my_near_body_title = 'my_near.body_title';
+  static const my_near = 'my_near';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
