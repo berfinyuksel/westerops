@@ -317,5 +317,14 @@
             "kind8": "İçecek",
             "kind9": "Tatlı",
             "kind10": "Kahve"
-        }
+        },
+       "restaurant_detail": {
+        "text1": "Packets",
+        "text2": "Informations",
+        "title": "Mini Burger",
+        "address": "Kuruçeşme, Muallim Street, Beşiktaş",
+        "item1": "Service",
+        "item2": "Quality",
+        "item3": "Food"
+    } 
 }
