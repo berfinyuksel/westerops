@@ -31,8 +31,8 @@ class PastOrderListTile extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.only(right: context.dynamicWidht(0.07)),
-            width: 69.0,
-            height: 36.0,
+            width: context.dynamicWidht(0.16),
+            height: context.dynamicHeight(0.04),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4.0),
               color: AppColors.scaffoldBackgroundColor,

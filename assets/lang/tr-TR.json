@@ -133,6 +133,24 @@
     "past_order": {
         "title":"Geçmiş Siparişlerim"
     },
+    "past_order_detail": {
+        "title":"Geçmiş Siparişlerim",
+        "body_title_1":"Restoran",
+        "body_title_2":"Puanla",
+        "body_title_3":"Sepettekiler",
+        "body_title_4":"Ödeme",
+        "evaluate_1":"Servis:",
+        "evaluate_2":"Kalite:",
+        "evaluate_3":"Lezzet:",
+        "payment_1":"Sepet Tutarı",
+        "payment_2":"Kurye Ücreti",
+        "payment_3":"Poşet Ücreti",
+        "payment_4":"Ödenen Toplam Tutar",
+        "edit":"Düzenle",
+        "button_1":"Değerlendirmemi Paylaş",
+        "button_2":"Restoranları Keşfet",
+        "thanks":"Değerlendirmen için Teşekkür Ederiz"
+    },
     "address":{
         "title":"Adreslerim",
         "body_title":"Kayıtlı Adreslerim",
@@ -185,11 +203,41 @@
         "list_tile_title_10":"Yemeği nasıl teslim alabilirim?",
         "list_tile_title_11":"Bize Ulaşın",
         "list_tile_subtitle_1":".  Çok çeşitli ve lezzetli yiyeceklere harika fiyatlarla erişebilmek,\n.  Kaliteli yiyeceklere uygun fiyatlarla ulaşırken, gıda israfının önlemesine katkı sağlayabilmek, \n.  Toplumsal bir sorumluluk olan çevreyi koruma konusunda üzerine düşeni gerçekleştirebilmek istiyorsan, Döngü seni bekliyor."
-
     },
     "change_location":{
         "title":"Bölge Değiştir",
         "hint_text":"Şehir Ara"
+    },
+    "home_page":{
+        "location":"Konumum",
+        "edit":"Düzenle",
+        "closer":"Yakınımdakiler",
+        "see_all":"Tümünü Gör",
+        "categories":"Kategoriler",
+        "opportunities":"Fırsatlar"
+    },
+    "my_near":{
+        "title":"Yakınımdakiler",
+        "location":"Konumum",
+        "edit":"Değiştir",
+        "body_title":"Yakınımdakiler Tümü",
+        "show_map":"Haritada Göster",
+        "show_list":"Liste Olarak Göster"
+    },
+    "my_favorites":{
+        "title":"Favorilerim",
+        "location":"Konumum",
+        "edit":"Değiştir",
+        "body_title":"Favorilerim",
+        "show_map":"Haritada Göster",
+        "show_list":"Liste Olarak Göster"
+    },
+    "cart":{
+        "title":"Sepetim",
+        "button_empty":"Restoranları Gör",
+        "button":"Devam Et",
+        "empty_cart":"Upps! Sepetin boş.",
+        "choose_restaurant":"Haydi!\nSana yakın restoran ve kafelerden birini seç."
     },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
@@ -266,16 +314,8 @@
             "kind5": "Tavuk",
             "kind6": "Vegan",
             "kind7": "Pizza",
-            "kind9": "Dessert",
-            "kind10": "Coffee"
-        },
-        "restaurant_detail": {
-            "text1": "Paketler",
-            "text2": "Bilgiler",
-            "title": "Mini Burger",
-            "address": "Kuruçeşme, Muallim Cad, Beşiktaş",
-            "item1": "Servis",
-            "item2": "Kalite",
-            "item3": "Yemek"
-            }
+            "kind8": "İçecek",
+            "kind9": "Tatlı",
+            "kind10": "Kahve"
+        }
 }

@@ -3,6 +3,14 @@ class ImageConstant {
   static const COMMONS_CHECK_ICON = "assets/images/commons/check_icon.svg";
   static const COMMONS_DRAWER_ICON = "assets/images/commons/drawer_icon.svg";
   static const COMMONS_SEARCH_ICON = "assets/images/commons/search_icon.svg";
+  static const COMMONS_FILTER_ICON = "assets/images/commons/filter_icon.svg";
+  static const COMMONS_STAR_ICON = "assets/images/commons/star_icon.svg";
+  static const COMMONS_GET_IT_ICON = "assets/images/commons/get_it_icon.svg";
+  static const COMMONS_CARRIER_ICON = "assets/images/commons/carrier_icon.svg";
+  static const COMMONS_METERS_ICON = "assets/images/commons/meters_icon.svg";
+  static const COMMONS_TIME_ICON = "assets/images/commons/time_icon.svg";
+  static const COMMONS_RESTAURANT_IMAGE = "assets/images/commons/restaurant_image.png";
+  static const COMMONS_RESTAURANT_ICON = "assets/images/commons/restaurant_icon.png";
   static const DONGU_LOGO = "assets/images/commons/dongu_logo.svg";
   static const ONBOARDING_BACKGROUND = "assets/images/onboardings/onboarding/onboarding_background.png";
   static const ONBOARDING_FIRST_BACKGROUND = "assets/images/onboardings/onboarding_first/onboarding_first_background.png";
@@ -26,6 +34,10 @@ class ImageConstant {
   static const FOOD_WASTE_EXPANDED_IMAGE_5 = "assets/images/food_waste/expanded/food_waste_image_5.svg";
   static const FOOD_WASTE_EXPANDED_IMAGE_6 = "assets/images/food_waste/expanded/food_waste_image_6.svg";
   static const FOOD_WASTE_EXPANDED_IMAGE_7 = "assets/images/food_waste/expanded/food_waste_image_7.svg";
+  static const PAST_ORDER_DETAIL_ICON = "assets/images/past_order/past_order_detail_icon.svg";
+  static const PAST_ORDER_DETAIL_STAR_ICON = "assets/images/past_order/past_order_detail_star_icon.svg";
+  static const PAST_ORDER_DETAIL_BIG_STAR = "assets/images/past_order/past_order_detail_big_star.svg";
+  static const PAST_ORDER_DETAIL_FILLED_STAR_ICON = "assets/images/past_order/past_order_detail_filled_star_icon.svg";
   static const NAVBAR_HOME = "assets/images/navbar/navbar_home.svg";
   static const NAVBAR_HOME_ACTIVE = "assets/images/navbar/navbar_home_active.svg";
   static const NAVBAR_SEARCH = "assets/images/navbar/navbar_search.svg";
@@ -36,6 +48,7 @@ class ImageConstant {
   static const NAVBAR_NOTIFACATIONS_ACTIVE = "assets/images/navbar/navbar_notifications_active.svg";
   static const NAVBAR_BASKET = "assets/images/navbar/navbar_basket.svg";
   static const NAVBAR_BASKET_ACTIVE = "assets/images/navbar/navbar_basket_active.svg";
+  static const EMPTY_CART_BACKGROUND = "assets/images/cart/cart_background.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";
@@ -53,15 +66,4 @@ class ImageConstant {
   static const HAMBURGER_ICON = "assets/images/search/hamburger_icon.svg";
   static const PIZZA_ICON = "assets/images/search/pizza_icon.svg";
   static const VEGAN_ICON = "assets/images/search/vegan_icon.svg";
-  static const RESTAURANT_LOGO = "assets/images/restaurant_detail/restaurant_logo.svg";
-  static const RESTAURANT_STAR_ICON = "assets/images/restaurant_detail/star_icon.svg";
-
-
-
-
-
-
-
-
-
 }

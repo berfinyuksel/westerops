@@ -129,6 +129,24 @@
     "past_order": {
         "title":"My Past Orders"
     },
+    "past_order_detail": {
+        "title":"My Past Orders",
+        "body_title_1":"Restaurant",
+        "body_title_2":"Evaluate",
+        "body_title_3":"Cart Items",
+        "body_title_4":"Payment",
+        "evaluate_1":"Service:",
+        "evaluate_2":"Quality:",
+        "evaluate_3":"Taste:",
+        "payment_1":"Cart Total",
+        "payment_2":"Courier Fee",
+        "payment_3":"Bag Fee",
+        "payment_4":"Total Amount Paid",
+        "edit":"Edit",
+        "button_1":"Share My Review",
+        "button_2":"Explore Restaurants",
+        "thanks":"Thank You for Your Evaluation"
+    },
     "address":{
         "title":"My Adresses",
         "body_title":"My Recorded Addresses",
@@ -185,6 +203,35 @@
     "change_location":{
         "title":"Change Region",
         "hint_text":"Search City"
+    },
+    "home_page":{
+        "location":"My Location",
+        "edit":"Edit",
+        "closer":"Near me",
+        "see_all":"See All",
+        "categories":"Categories",
+        "opportunities":"Opportunities"
+    },
+    "my_near":{
+        "title":"Near Me",
+        "location":"My Location",
+        "edit":"Change",
+        "body_title":"Near Me All"
+    },
+    "my_favorites":{
+        "title":"My Favorites",
+        "location":"My Location",
+        "edit":"Change",
+        "body_title":"My Favorites",
+        "show_map":"Show on Map",
+        "show_list":"Show as List"
+    },
+    "cart":{
+        "title":"My Cart",
+        "button_empty":"See Restaurants",
+        "button":"Go ahead",
+        "empty_cart":"Upps! Your cart is empty.",
+        "choose_restaurant":"Lets!\nChoose from restaurants and cafes close to you."
     },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
