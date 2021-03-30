@@ -3,22 +3,18 @@ import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
+class DeliveryCustomButton extends StatelessWidget {
   final double? width;
   final String? title;
   final Color? color;
-  final Color? borderColor;
-  final Color? textColor;
 
   final VoidCallback? onPressed;
-  const CustomButton({
+  const DeliveryCustomButton({
     Key? key,
     this.width,
     this.title,
     this.color,
-    this.textColor,
     this.onPressed,
-    this.borderColor,
   }) : super(key: key);
 
   @override
@@ -27,20 +23,19 @@ class CustomButton extends StatelessWidget {
       height: context.dynamicHeight(0.052),
       width: width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
+        borderRadius: BorderRadius.circular(5.0),
         color: color,
         border: Border.all(
-          width: 2.0,
-          color: borderColor!,
+          width: 1.0,
+          color: Color(0xFFD1D0D0),
         ),
       ),
       child: TextButton(
-        onPressed: onPressed,
-        child: LocaleText(
-          text: title,
-          style: AppTextStyles.bodyTitleStyle.copyWith(color: textColor!),
-        ),
-      ),
+          onPressed: onPressed,
+          child: LocaleText(
+            text: title,
+            style: AppTextStyles.bodyTextStyle,
+          )),
     );
   }
 }
