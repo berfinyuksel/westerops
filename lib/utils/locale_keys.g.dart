@@ -201,6 +201,12 @@ abstract class  LocaleKeys {
   static const my_favorites_show_map = 'my_favorites.show_map';
   static const my_favorites_show_list = 'my_favorites.show_list';
   static const my_favorites = 'my_favorites';
+  static const cart_title = 'cart.title';
+  static const cart_button_empty = 'cart.button_empty';
+  static const cart_button = 'cart.button';
+  static const cart_empty_cart = 'cart.empty_cart';
+  static const cart_choose_restaurant = 'cart.choose_restaurant';
+  static const cart = 'cart';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
