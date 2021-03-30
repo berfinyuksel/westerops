@@ -233,6 +233,24 @@
         "empty_cart":"Upps! Your cart is empty.",
         "choose_restaurant":"Lets!\nChoose from restaurants and cafes close to you."
     },
+    "payment":{
+        "tab_1":"Address",
+        "tab_2":"Delivery",
+        "tab_3":"Payment",
+        "get_it":"Take-Out Package",
+        "package_delivery":"Motor Courier",
+        "button_go_on":"Go On",
+        "address":{
+            "from_address":"Delivery Address",
+            "to_address":"Delivery Address",
+            "change":"Change",
+            "show_on_map":"Show on Map",
+            "billing_info":"Billing Information",
+            "button_add_address":"Add New Delivery Address",
+            "button_add_bill":"Add New Billing Address",
+            "use_as_billing":"Use as billing address"
+        }
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

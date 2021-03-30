@@ -26,8 +26,13 @@ class AddressListTile extends StatelessWidget {
         left: context.dynamicWidht(0.06),
         right: context.dynamicWidht(0.06),
       ),
-      trailing: SvgPicture.asset(
-        ImageConstant.COMMONS_FORWARD_ICON,
+      trailing: Container(
+        height: double.infinity,
+        width: context.dynamicWidht(0.03),
+        child: SvgPicture.asset(
+          ImageConstant.COMMONS_FORWARD_ICON,
+          fit: BoxFit.fitWidth,
+        ),
       ),
       tileColor: Colors.white,
       title: LocaleText(
