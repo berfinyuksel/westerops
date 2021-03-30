@@ -232,6 +232,13 @@
         "show_map":"Haritada Göster",
         "show_list":"Liste Olarak Göster"
     },
+    "cart":{
+        "title":"Sepetim",
+        "button_empty":"Restoranları Gör",
+        "button":"Devam Et",
+        "empty_cart":"Upps! Sepetin boş.",
+        "choose_restaurant":"Haydi!\nSana yakın restoran ve kafelerden birini seç."
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

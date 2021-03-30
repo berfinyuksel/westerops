@@ -48,6 +48,7 @@ class ImageConstant {
   static const NAVBAR_NOTIFACATIONS_ACTIVE = "assets/images/navbar/navbar_notifications_active.svg";
   static const NAVBAR_BASKET = "assets/images/navbar/navbar_basket.svg";
   static const NAVBAR_BASKET_ACTIVE = "assets/images/navbar/navbar_basket_active.svg";
+  static const EMPTY_CART_BACKGROUND = "assets/images/cart/cart_background.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";

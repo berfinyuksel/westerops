@@ -226,6 +226,13 @@
         "show_map":"Show on Map",
         "show_list":"Show as List"
     },
+    "cart":{
+        "title":"My Cart",
+        "button_empty":"See Restaurants",
+        "button":"Go ahead",
+        "empty_cart":"Upps! Your cart is empty.",
+        "choose_restaurant":"Lets!\nChoose from restaurants and cafes close to you."
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

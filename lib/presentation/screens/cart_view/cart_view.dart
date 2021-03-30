@@ -18,7 +18,7 @@ class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Sepetim",
+      title: LocaleKeys.cart_title,
       body: Column(
         children: [
           ListView(
@@ -76,19 +76,19 @@ class CartView extends StatelessWidget {
                 lineTrough: true,
                 withDecimal: true,
               ),
-                PastOrderDetailPaymentListTile(
+              PastOrderDetailPaymentListTile(
                 title: LocaleKeys.past_order_detail_payment_2,
                 price: 4.50,
                 lineTrough: true,
                 withDecimal: true,
               ),
-                PastOrderDetailPaymentListTile(
+              PastOrderDetailPaymentListTile(
                 title: LocaleKeys.past_order_detail_payment_2,
                 price: 4.50,
                 lineTrough: true,
                 withDecimal: true,
               ),
-                PastOrderDetailPaymentListTile(
+              PastOrderDetailPaymentListTile(
                 title: LocaleKeys.past_order_detail_payment_2,
                 price: 4.50,
                 lineTrough: true,
@@ -111,22 +111,26 @@ class CartView extends StatelessWidget {
             ],
           ),
           Spacer(),
-          Padding(
-            padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06),
-              bottom: context.dynamicHeight(0.02),
-            ),
-            child: CustomButton(
-              width: double.infinity,
-              title: "Devam et",
-              color: AppColors.greenColor,
-              borderColor: AppColors.greenColor,
-              textColor: Colors.white,
-              onPressed: () {},
-            ),
-          ),
+          buildButton(context),
         ],
+      ),
+    );
+  }
+
+  Padding buildButton(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: context.dynamicWidht(0.06),
+        right: context.dynamicWidht(0.06),
+        bottom: context.dynamicHeight(0.03),
+      ),
+      child: CustomButton(
+        width: double.infinity,
+        title: LocaleKeys.cart_button,
+        color: AppColors.greenColor,
+        borderColor: AppColors.greenColor,
+        textColor: Colors.white,
+        onPressed: () {},
       ),
     );
   }
