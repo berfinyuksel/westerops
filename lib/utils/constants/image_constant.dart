@@ -11,6 +11,7 @@ class ImageConstant {
   static const COMMONS_TIME_ICON = "assets/images/commons/time_icon.svg";
   static const COMMONS_RESTAURANT_IMAGE = "assets/images/commons/restaurant_image.png";
   static const COMMONS_RESTAURANT_ICON = "assets/images/commons/restaurant_icon.png";
+  static const COMMONS_APP_BAR_LOGO = "assets/images/commons/app_bar_logo.svg";
   static const DONGU_LOGO = "assets/images/commons/dongu_logo.svg";
   static const ONBOARDING_BACKGROUND = "assets/images/onboardings/onboarding/onboarding_background.png";
   static const ONBOARDING_FIRST_BACKGROUND = "assets/images/onboardings/onboarding_first/onboarding_first_background.png";
