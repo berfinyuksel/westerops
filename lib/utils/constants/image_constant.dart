@@ -66,4 +66,7 @@ class ImageConstant {
   static const HAMBURGER_ICON = "assets/images/search/hamburger_icon.svg";
   static const PIZZA_ICON = "assets/images/search/pizza_icon.svg";
   static const VEGAN_ICON = "assets/images/search/vegan_icon.svg";
+  static const RESTAURANT_LOGO = "assets/images/restaurant_detail/restaurant_logo.svg";
+  static const RESTAURANT_STAR_ICON = "assets/images/restaurant_detail/star_icon.svg";
+
 }
