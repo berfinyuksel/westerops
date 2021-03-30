@@ -71,6 +71,7 @@ flutter:
     - assets/images/food_waste/expanded/
     - assets/images/navbar/
     - assets/images/cart/
+    - assets/images/payment/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

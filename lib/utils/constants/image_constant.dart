@@ -1,5 +1,6 @@
 class ImageConstant {
   static const COMMONS_FORWARD_ICON = "assets/images/commons/forward_icon.svg";
+  static const COMMONS_WARNING_ICON = "assets/images/commons/warning_icon.svg";
   static const COMMONS_CHECK_ICON = "assets/images/commons/check_icon.svg";
   static const COMMONS_DRAWER_ICON = "assets/images/commons/drawer_icon.svg";
   static const COMMONS_SEARCH_ICON = "assets/images/commons/search_icon.svg";
@@ -50,6 +51,7 @@ class ImageConstant {
   static const NAVBAR_BASKET = "assets/images/navbar/navbar_basket.svg";
   static const NAVBAR_BASKET_ACTIVE = "assets/images/navbar/navbar_basket_active.svg";
   static const EMPTY_CART_BACKGROUND = "assets/images/cart/cart_background.svg";
+  static const PAYMENT_DELIVERY_AVAILABLE_TIME_ICON = "assets/images/payment/delivery_available_time_icon.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";

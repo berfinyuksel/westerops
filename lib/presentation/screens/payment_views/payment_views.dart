@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_address_view/payment_address_view.dart';
+import 'package:dongu_mobile/presentation/screens/payment_views/payment_delivery_view/payment_delivery_view.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -117,7 +118,8 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
               color: !isGetIt ? AppColors.greenColor : AppColors.iconColor,
             ),
             LocaleText(
-                text: LocaleKeys.payment_package_delivery, style: AppTextStyles.bodyTextStyle.copyWith(color: !isGetIt ? AppColors.greenColor : AppColors.textColor)),
+                text: LocaleKeys.payment_package_delivery,
+                style: AppTextStyles.bodyTextStyle.copyWith(color: !isGetIt ? AppColors.greenColor : AppColors.textColor)),
           ],
         ),
       ),
@@ -151,7 +153,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
               color: isGetIt ? AppColors.greenColor : AppColors.iconColor,
             ),
             LocaleText(
-              text:  LocaleKeys.payment_get_it,
+              text: LocaleKeys.payment_get_it,
               style: AppTextStyles.bodyTextStyle.copyWith(color: isGetIt ? AppColors.greenColor : AppColors.textColor),
             ),
           ],
@@ -184,7 +186,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
   buildTabs() {
     List<Widget> tabs = [
       LocaleText(
-        text:  LocaleKeys.payment_tab_1,
+        text: LocaleKeys.payment_tab_1,
         style: GoogleFonts.montserrat(
           fontSize: 16.0,
           color: tabController!.index == 0 ? AppColors.orangeColor : AppColors.textColor,
@@ -192,7 +194,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         ),
       ),
       LocaleText(
-        text:  LocaleKeys.payment_tab_2,
+        text: LocaleKeys.payment_tab_2,
         style: GoogleFonts.montserrat(
           fontSize: 16.0,
           color: tabController!.index == 1 ? AppColors.orangeColor : AppColors.textColor,
@@ -200,7 +202,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         ),
       ),
       LocaleText(
-        text:  LocaleKeys.payment_tab_3,
+        text: LocaleKeys.payment_tab_3,
         style: GoogleFonts.montserrat(
           fontSize: 16.0,
           color: tabController!.index == 2 ? AppColors.orangeColor : AppColors.textColor,
@@ -226,7 +228,9 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
               isGetIt: isGetIt,
             );
           } else if (tabController!.index == 1) {
-            return Text("Teslimat");
+            return PaymentDeliveryView(
+              isGetIt: isGetIt,
+            );
           } else {
             return Text("Ödeme");
           }
