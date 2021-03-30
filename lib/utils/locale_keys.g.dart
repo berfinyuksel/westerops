@@ -274,6 +274,24 @@ abstract class  LocaleKeys {
   static const search_kind8 = 'search.kind8';
   static const search_kind9 = 'search.kind9';
   static const search_kind10 = 'search.kind10';
-  static const search = 'search';
+
+  static const restaurant_detail_text1 = 'restaurant_detail.text1';
+  static const restaurant_detail_text2 = 'restaurant_detail.text2';
+  static const restaurant_detail_title = 'restaurant_detail.title';
+  static const restaurant_detail_address = 'restaurant_detail.address';
+  static const restaurant_detail_item1 = 'restaurant_detail.item1';
+  static const restaurant_detail_item2 = 'restaurant_detail.item2';
+  static const restaurant_detail_item3 = 'restaurant_detail.item3';
+
+
+
+
+
+
+
+
+
+
+
 
 }
