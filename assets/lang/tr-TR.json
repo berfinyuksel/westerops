@@ -268,5 +268,14 @@
             "kind7": "Pizza",
             "kind9": "Dessert",
             "kind10": "Coffee"
-        }
+        },
+        "restaurant_detail": {
+            "text1": "Paketler",
+            "text2": "Bilgiler",
+            "title": "Mini Burger",
+            "address": "Kuruçeşme, Muallim Cad, Beşiktaş",
+            "item1": "Servis",
+            "item2": "Kalite",
+            "item3": "Yemek"
+            }
 }
