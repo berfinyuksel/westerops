@@ -5,6 +5,7 @@ import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
@@ -29,8 +30,6 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   List<String> months = <String>['Ay', '01'];
   List<String> years = <String>['Yıl', '2021'];
 
-  bool checkboxInfoValue = false;
-  bool checkboxAgreementValue = false;
   bool checkboxAddCardValue = false;
 
   String selectedCashOrCredit = "cash";
@@ -43,22 +42,24 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: context.dynamicHeight(0.02),
-        ),
-        Visibility(
-          visible: widget.isOnline!,
-          child: buildOnline(context),
-        ),
-        Visibility(
-          visible: !widget.isOnline!,
-          child: buildDoor(context),
-        ),
-        buildBottomCard(context),
-      ],
+    return Container(
+      height: context.dynamicHeight(0.4),
+      child: ListView(
+        children: [
+          SizedBox(
+            height: context.dynamicHeight(0.02),
+          ),
+          Visibility(
+            visible: widget.isOnline!,
+            child: buildOnline(context),
+          ),
+          Visibility(
+            visible: !widget.isOnline!,
+            child: buildDoor(context),
+          ),
+          //buildBottomCard(context),
+        ],
+      ),
     );
   }
 
@@ -90,9 +91,6 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           height: context.dynamicHeight(0.02),
         ),
         WarningContainer(text: "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız."),
-        SizedBox(
-          height: context.dynamicHeight(0.03),
-        ),
       ],
     );
   }
@@ -134,9 +132,6 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
                 height: context.dynamicHeight(0.02),
               ),
               buildAnotherCardButton(context),
-              SizedBox(
-                height: context.dynamicHeight(0.17),
-              ),
             ],
           ),
         ),
@@ -151,11 +146,11 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   Column buildPayWithAnotherCard(BuildContext context) {
     return Column(
       children: [
-        buildTextFormField(LocaleKeys.payment_payment_name_on_card, nameController),
+        buildTextFormField(LocaleKeys.payment_payment_name_on_card.locale, nameController),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        buildTextFormField(LocaleKeys.payment_payment_card_number, cardController),
+        buildTextFormField(LocaleKeys.payment_payment_card_number.locale, cardController),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
@@ -173,105 +168,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        buildAddCardCheckBox(context, checkboxAddCardValue),
-        SizedBox(
-          height: context.dynamicHeight(0.1),
-        ),
       ],
-    );
-  }
-
-  Container buildBottomCard(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: context.dynamicHeight(0.29),
-      padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06), top: context.dynamicHeight(0.01), bottom: context.dynamicHeight(0.04)),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(18.0),
-        ),
-        color: Colors.white,
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              LocaleText(text: LocaleKeys.payment_payment_order_amount, style: AppTextStyles.bodyTextStyle),
-              PaymentTotalPrice(
-                price: 70.50,
-                withDecimal: true,
-              ),
-            ],
-          ),
-          Divider(
-            height: context.dynamicHeight(0.01),
-            thickness: 2,
-            color: AppColors.borderAndDividerColor,
-          ),
-          Spacer(flex: 5),
-          buildRowCheckBoxAgreement(context, "Ön Bilgilendirme Koşulları", "’nı okudum, onaylıyorum.", "info"),
-          Spacer(flex: 4),
-          buildRowCheckBoxAgreement(context, "Mesafeli Satış Sözleşmesi", "’nı okudum, onaylıyorum.", "agreement"),
-          Spacer(flex: 9),
-          buildRowTotalPayment(context),
-        ],
-      ),
-    );
-  }
-
-  Row buildRowTotalPayment(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          height: context.dynamicHeight(0.052),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              LocaleText(
-                text: LocaleKeys.payment_payment_to_be_paid,
-                style: AppTextStyles.myInformationBodyTextStyle,
-                maxLines: 1,
-              ),
-              LocaleText(
-                text: '70,50 TL',
-                style: GoogleFonts.montserrat(
-                  fontSize: 18.0,
-                  color: AppColors.greenColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ),
-        CustomButton(
-          width: context.dynamicWidht(0.5),
-          title: LocaleKeys.payment_payment_pay,
-          color: AppColors.greenColor,
-          textColor: Colors.white,
-          borderColor: AppColors.greenColor,
-        ),
-      ],
-    );
-  }
-
-  Padding buildAddCardCheckBox(BuildContext context, bool checkValue) {
-    return Padding(
-      padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
-      child: Row(
-        children: [
-          buildCheckBox(context, "card"),
-          SizedBox(width: context.dynamicWidht(0.02)),
-          LocaleText(
-            text: LocaleKeys.payment_payment_add_to_registered_cards,
-            style: AppTextStyles.subTitleStyle,
-          ),
-        ],
-      ),
     );
   }
 
@@ -413,57 +310,6 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           selectedIndex = index;
         });
       },
-    );
-  }
-
-  Row buildRowCheckBoxAgreement(BuildContext context, String underlinedText, String text, String checkValue) {
-    return Row(
-      children: [
-        buildCheckBox(context, checkValue),
-        Spacer(flex: 1),
-        AcceptAgreementText(
-          underlinedText: underlinedText,
-          text: text,
-          style: AppTextStyles.subTitleStyle,
-        ),
-        Spacer(flex: 5),
-      ],
-    );
-  }
-
-  Container buildCheckBox(BuildContext context, String checkValue) {
-    return Container(
-      height: context.dynamicWidht(0.04),
-      width: context.dynamicWidht(0.04),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        border: Border.all(
-          color: Color(0xFFD1D0D0),
-        ),
-      ),
-      child: Theme(
-        data: ThemeData(unselectedWidgetColor: Colors.transparent),
-        child: Checkbox(
-          checkColor: Colors.greenAccent,
-          activeColor: Colors.transparent,
-          value: checkValue == "info"
-              ? checkboxInfoValue
-              : checkValue == "agreement"
-                  ? checkboxAgreementValue
-                  : checkboxAddCardValue,
-          onChanged: (value) {
-            setState(() {
-              if (checkValue == "info") {
-                checkboxInfoValue = value!;
-              } else if (checkValue == "agreement") {
-                checkboxAgreementValue = value!;
-              } else {
-                checkboxAddCardValue = value!;
-              }
-            });
-          },
-        ),
-      ),
     );
   }
 

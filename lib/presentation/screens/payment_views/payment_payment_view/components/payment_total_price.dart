@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -16,15 +17,17 @@ class PaymentTotalPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: context.dynamicWidht(0.16),
+      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.02)),
+      width: context.dynamicWidht(0.18),
       height: context.dynamicHeight(0.04),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: AppColors.scaffoldBackgroundColor,
       ),
-      child: Text(
+      child: AutoSizeText(
         '${withDecimal! ? price!.toStringAsFixed(2) : price!.toStringAsFixed(0)} TL',
         style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.greenColor),
+        maxLines: 1,
       ),
     );
   }

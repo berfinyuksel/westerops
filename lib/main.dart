@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/payment_views/payment_views.dart';
 import 'package:dongu_mobile/utils/constants/locale_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
+      home: PaymentViews(),
       onGenerateRoute: _appRouter.onGenerateRoute,
     );
 
