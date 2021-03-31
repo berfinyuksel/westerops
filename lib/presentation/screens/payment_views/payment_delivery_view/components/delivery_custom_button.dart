@@ -31,11 +31,12 @@ class DeliveryCustomButton extends StatelessWidget {
         ),
       ),
       child: TextButton(
-          onPressed: onPressed,
-          child: LocaleText(
-            text: title,
-            style: AppTextStyles.bodyTextStyle,
-          )),
+        onPressed: onPressed,
+        child: LocaleText(
+          text: title,
+          style: AppTextStyles.bodyTextStyle,
+        ),
+      ),
     );
   }
 }

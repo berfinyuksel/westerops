@@ -51,6 +51,6 @@ class AppTextStyles {
     decoration: TextDecoration.none,
     fontSize: 14.0,
     color: const Color(0xFF2E3142),
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w400,
   );
 }

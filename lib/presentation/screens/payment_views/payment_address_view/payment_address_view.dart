@@ -7,7 +7,6 @@ import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 class PaymentAddressView extends StatefulWidget {
@@ -24,11 +23,9 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: context.dynamicHeight(0.04),
-      ),
-      child: Column(
+    return Container(
+      height: context.dynamicHeight(0.57),
+      child: ListView(
         children: [
           SizedBox(
             height: context.dynamicHeight(0.04),
@@ -79,10 +76,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             height: context.dynamicHeight(0.02),
           ),
           buildButtonDeliveryAndBillingAddress(context, LocaleKeys.payment_address_button_add_bill),
-          SizedBox(
-            height: context.dynamicHeight(0.14),
-          ),
-          buildButton(context),
         ],
       ),
     );
@@ -100,24 +93,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             style: AppTextStyles.subTitleStyle,
           ),
         ],
-      ),
-    );
-  }
-
-  Padding buildButton(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-        bottom: context.dynamicHeight(0.03),
-      ),
-      child: CustomButton(
-        width: double.infinity,
-        title: LocaleKeys.payment_button_go_on,
-        color: AppColors.greenColor,
-        borderColor: AppColors.greenColor,
-        textColor: Colors.white,
-        onPressed: () {},
       ),
     );
   }
