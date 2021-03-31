@@ -66,7 +66,19 @@ class ImageConstant {
   static const HAMBURGER_ICON = "assets/images/search/hamburger_icon.svg";
   static const PIZZA_ICON = "assets/images/search/pizza_icon.svg";
   static const VEGAN_ICON = "assets/images/search/vegan_icon.svg";
-  static const RESTAURANT_LOGO = "assets/images/restaurant_detail/restaurant_logo.svg";
+  static const RESTAURANT_LOGO = "assets/images/restaurant_detail/restaurant_logo.png";
   static const RESTAURANT_STAR_ICON = "assets/images/restaurant_detail/star_icon.svg";
+  static const RESTAURANT_FOOD_RATING_ICON = "assets/images/restaurant_detail/food_rating_icon.svg";
+  static const RESTAURANT_QUALITY_RATING_ICON = "assets/images/restaurant_detail/quality_rating_icon.svg";
+  static const RESTAURANT_SERVICE_RATING_ICON = "assets/images/restaurant_detail/service_rating_icon.svg";
+  static const RESTAURANT_BACKGROUND = "assets/images/restaurant_detail/background.png";
+  static const RESTAURANT_PACKAGE_ICON = "assets/images/restaurant_detail/package_icon.svg";
+  static const RESTAURANT_COURIER_ICON = "assets/images/restaurant_detail/courier_icon.svg";
+  static const RESTAURANT_FAVORITE_ICON = "assets/images/restaurant_detail/favorite_icon.svg";
+  static const RESTAURANT_INFO_ICON = "assets/images/restaurant_detail/info_icon.svg";
+
+
+
+
 
 }

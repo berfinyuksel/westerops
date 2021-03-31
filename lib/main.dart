@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/food_categories/food_categories_view.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/restaurant_detail_view/restaurant_detail_view.dart';
 import 'package:dongu_mobile/utils/constants/locale_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       onGenerateRoute: _appRouter.onGenerateRoute,
+      home:FoodCategories()
     );
 
     /*MultiBlocProvider(
