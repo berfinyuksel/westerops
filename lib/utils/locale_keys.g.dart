@@ -308,11 +308,48 @@ abstract class  LocaleKeys {
 
   static const restaurant_detail_text1 = 'restaurant_detail.text1';
   static const restaurant_detail_text2 = 'restaurant_detail.text2';
+  static const restaurant_detail_text3 = 'restaurant_detail.text3';
   static const restaurant_detail_title = 'restaurant_detail.title';
   static const restaurant_detail_address = 'restaurant_detail.address';
   static const restaurant_detail_item1 = 'restaurant_detail.item1';
   static const restaurant_detail_item2 = 'restaurant_detail.item2';
   static const restaurant_detail_item3 = 'restaurant_detail.item3';
+  static const restaurant_detail_item4 = 'restaurant_detail.item4';
+  static const restaurant_detail_sub_title1 = 'restaurant_detail.sub_title1';
+  static const restaurant_detail_sub_text1 = 'restaurant_detail.sub_text1';
+  static const restaurant_detail_sub_text2 = 'restaurant_detail.sub_text2';
+  static const restaurant_detail_sub_text3 = 'restaurant_detail.sub_text3';
+  static const restaurant_detail_button_text = 'restaurant_detail.button_text';
+  static const restaurant_detail_sub_text4 = 'restaurant_detail.sub_text4';
+  static const restaurant_detail_sub_text5 = 'restaurant_detail.sub_text5';
+  static const restaurant_detail_sub_title2 = 'restaurant_detail.sub_title2';
+
+  static const restaurant_detail_tab_title1 = 'restaurant_detail.detail_tab.title1';
+  static const restaurant_detail_tab_title2 = 'restaurant_detail.detail_tab.title2';
+  static const restaurant_detail_tab_title3 = 'restaurant_detail.detail_tab.title3';
+  static const restaurant_detail_tab_title4 = 'restaurant_detail.detail_tab.title4';
+  static const restaurant_detail_tab_title5 = 'restaurant_detail.detail_tab.title5';
+  static const restaurant_detail_tab_title6 = 'restaurant_detail.detail_tab.title6';
+  static const restaurant_detail_tab_sub_title1 = 'restaurant_detail.detail_tab.sub_title1';
+  static const restaurant_detail_tab_sub_title2 = 'restaurant_detail.detail_tab.sub_title2';
+  static const restaurant_detail_tab_sub_title3 = 'restaurant_detail.detail_tab.sub_title3';
+  static const restaurant_detail_tab_sub_title4 = 'restaurant_detail.detail_tab.sub_title4';
+  static const restaurant_detail_tab_sub_title5 = 'restaurant_detail.detail_tab.sub_title5';
+
+
+
+
+
+
+
+  static const restaurant_food_categories_text1 = 'restaurant_food_categories.text1';
+  static const restaurant_food_categories_text2 = 'restaurant_food_categories.text2';
+  static const restaurant_food_categories_text3 = 'restaurant_food_categories.text3';
+  static const restaurant_food_categories_text4 = 'restaurant_food_categories.text4';
+
+
+
+
 
 
 

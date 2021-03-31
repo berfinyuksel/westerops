@@ -194,7 +194,7 @@ class _LoginViewState extends State<LoginView> {
           ),
           GestureDetector(
             onTap: () {
-               AuthService.loginWithFacebook();
+              AuthService.loginWithFacebook();
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
