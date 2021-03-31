@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_address_view/payment_address_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_delivery_view/payment_delivery_view.dart';
+import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -19,6 +20,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
   TabController? tabController;
   bool isGetIt = true;
   bool checkboxValue = false;
+  bool isOnline = true;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,6 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
     return ListView(
       padding: EdgeInsets.only(
         top: context.dynamicHeight(0.02),
-        bottom: context.dynamicHeight(0.04),
       ),
       children: [
         buildTabsContainer(context),
@@ -95,7 +96,11 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
     return GestureDetector(
       onTap: () {
         setState(() {
-          isGetIt = false;
+          if (tabController!.index == 2) {
+            isOnline = false;
+          } else {
+            isGetIt = false;
+          }
         });
       },
       child: Container(
@@ -110,18 +115,21 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
             color: const Color(0xFFD1D0D0),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SvgPicture.asset(
-              ImageConstant.PACKAGE_DELIVERY_ICON,
-              color: !isGetIt ? AppColors.greenColor : AppColors.iconColor,
-            ),
-            LocaleText(
-                text: LocaleKeys.payment_package_delivery,
-                style: AppTextStyles.bodyTextStyle.copyWith(color: !isGetIt ? AppColors.greenColor : AppColors.textColor)),
-          ],
-        ),
+        child: tabController!.index == 2
+            ? LocaleText(
+                text: "Kapıda Ödeme", style: AppTextStyles.bodyTextStyle.copyWith(color: !isOnline ? AppColors.greenColor : AppColors.textColor))
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SvgPicture.asset(
+                    ImageConstant.PACKAGE_DELIVERY_ICON,
+                    color: !isGetIt ? AppColors.greenColor : AppColors.iconColor,
+                  ),
+                  LocaleText(
+                      text: LocaleKeys.payment_package_delivery,
+                      style: AppTextStyles.bodyTextStyle.copyWith(color: !isGetIt ? AppColors.greenColor : AppColors.textColor)),
+                ],
+              ),
       ),
     );
   }
@@ -130,7 +138,11 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
     return GestureDetector(
       onTap: () {
         setState(() {
-          isGetIt = true;
+          if (tabController!.index == 2) {
+            isOnline = true;
+          } else {
+            isGetIt = true;
+          }
         });
       },
       child: Container(
@@ -145,19 +157,22 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
             color: const Color(0xFFD1D0D0),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SvgPicture.asset(
-              ImageConstant.PACKAGE_ICON,
-              color: isGetIt ? AppColors.greenColor : AppColors.iconColor,
-            ),
-            LocaleText(
-              text: LocaleKeys.payment_get_it,
-              style: AppTextStyles.bodyTextStyle.copyWith(color: isGetIt ? AppColors.greenColor : AppColors.textColor),
-            ),
-          ],
-        ),
+        child: tabController!.index == 2
+            ? LocaleText(
+                text: "Online Ödeme", style: AppTextStyles.bodyTextStyle.copyWith(color: isOnline ? AppColors.greenColor : AppColors.textColor))
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SvgPicture.asset(
+                    ImageConstant.PACKAGE_ICON,
+                    color: isGetIt ? AppColors.greenColor : AppColors.iconColor,
+                  ),
+                  LocaleText(
+                    text: LocaleKeys.payment_get_it,
+                    style: AppTextStyles.bodyTextStyle.copyWith(color: isGetIt ? AppColors.greenColor : AppColors.textColor),
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -232,7 +247,9 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
               isGetIt: isGetIt,
             );
           } else {
-            return Text("Ödeme");
+            return PaymentPaymentView(
+              isOnline: isOnline,
+            );
           }
         });
   }

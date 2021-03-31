@@ -255,6 +255,23 @@
             "button_add_address":"Yeni Teslimat Adresi Ekle",
             "button_add_bill":"Yeni Fatura Adresi Ekle",
             "use_as_billing":"Fatura adresi olarakta kullan"
+        },
+        "delivery": {
+            "delivery_time":"Teslim Saat Aralığı"
+        },
+        "payment": {
+            "choose_card":"Kayıtlı Kartlarımdan Seç",
+            "edit":"Düzenle",
+            "pay_another_card":"Başka Kartla Öde",
+            "order_amount":"Sipariş Tutarı",
+            "to_be_paid":"Ödenecek Tutar:",
+            "pay":"Ödeme Yap",
+            "pay_type":"Ödeme Yöntemi",
+            "cash":"Nakit",
+            "credit":"Kredi",
+            "name_on_card":"Kart Üzerindeki İsim",
+            "card_number":"Kart Numarası",
+            "add_to_registered_cards":"Kayıtlı Kartlarıma Ekle"
         }
     },
     "premission_notification": {
