@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dongu_mobile/presentation/screens/agreement_view/components/accept_agreement_text.dart';
 import 'package:dongu_mobile/presentation/widgets/warning_container/warning_container.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
@@ -12,8 +11,6 @@ import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'components/payment_total_price.dart';
 
 class PaymentPaymentView extends StatefulWidget {
   final bool? isOnline;
