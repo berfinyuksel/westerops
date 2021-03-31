@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
@@ -23,7 +24,7 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
       ),
       tileColor: Colors.white,
       title: LocaleText(
-        text: "Teslim Saat Aralığı",
+        text: LocaleKeys.payment_delivery_delivery_time,
         style: AppTextStyles.myInformationBodyTextStyle,
       ),
       onTap: () {},

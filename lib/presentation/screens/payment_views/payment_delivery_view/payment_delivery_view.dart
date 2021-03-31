@@ -7,7 +7,7 @@ import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'components/delivery_available_time_list_tile.dart';
-import 'components/delivery_warning_container.dart';
+import '../../../widgets/warning_container/warning_container.dart';
 
 class PaymentDeliveryView extends StatelessWidget {
   final bool? isGetIt;
@@ -19,6 +19,7 @@ class PaymentDeliveryView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(
         top: context.dynamicHeight(0.02),
+        bottom: context.dynamicHeight(0.04),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +52,7 @@ class PaymentDeliveryView extends StatelessWidget {
                       SizedBox(
                         height: context.dynamicHeight(0.02),
                       ),
-                      DeliveryWarningContainer(
+                      WarningContainer(
                         text: "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
                       ),
                       SizedBox(
@@ -61,7 +62,7 @@ class PaymentDeliveryView extends StatelessWidget {
                   ),
                 ),
                 buildAvailableDeliveryTimes(context),
-                DeliveryWarningContainer(
+                WarningContainer(
                   text:
                       "Belirtilen saat içerisinde \nrestorandan paketinizi 1 saat içinde \nalmadığınız durumda siparişiniz \niptal edilip tekrar satışa sunulacaktır.",
                 ),

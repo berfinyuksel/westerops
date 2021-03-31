@@ -52,6 +52,7 @@ class ImageConstant {
   static const NAVBAR_BASKET_ACTIVE = "assets/images/navbar/navbar_basket_active.svg";
   static const EMPTY_CART_BACKGROUND = "assets/images/cart/cart_background.svg";
   static const PAYMENT_DELIVERY_AVAILABLE_TIME_ICON = "assets/images/payment/delivery_available_time_icon.svg";
+  static const PAYMENT_CVV_ICON = "assets/images/payment/cvv_icon.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";

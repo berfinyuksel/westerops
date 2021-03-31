@@ -249,6 +249,23 @@
             "button_add_address":"Add New Delivery Address",
             "button_add_bill":"Add New Billing Address",
             "use_as_billing":"Use as billing address"
+        },
+        "delivery": {
+            "delivery_time":"Delivery Time Range"
+        },
+        "payment": {
+            "choose_card":"Choose from My Registered Cards",
+            "edit":"Edit",
+            "pay_another_card":"Pay With Another Card",
+            "order_amount":"Order Amount",
+            "to_be_paid":"Amount to be paid:",
+            "pay":"Pay",
+            "pay_type":"Payment Method",
+            "cash":"Cash",
+            "credit":"Credit Card",
+            "name_on_card":"Name on The Card",
+            "card_number":"Card Number",
+            "add_to_registered_cards":"Add to My Saved Cards"
         }
     },
     "premission_notification": {

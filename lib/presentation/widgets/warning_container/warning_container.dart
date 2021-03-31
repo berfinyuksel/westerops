@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 
-class DeliveryWarningContainer extends StatelessWidget {
+class WarningContainer extends StatelessWidget {
   final String? text;
-  const DeliveryWarningContainer({
+  const WarningContainer({
     Key? key,
     this.text,
   }) : super(key: key);

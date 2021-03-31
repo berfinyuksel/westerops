@@ -24,62 +24,67 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: context.dynamicHeight(0.04),
-        ),
-        buildRowTitleLeftRight(context, widget.isGetIt! ? LocaleKeys.payment_address_from_address : LocaleKeys.payment_address_to_address,
-            widget.isGetIt! ? LocaleKeys.payment_address_show_on_map : LocaleKeys.payment_address_change),
-        SizedBox(
-          height: context.dynamicHeight(0.01),
-        ),
-        Visibility(
-          visible: widget.isGetIt!,
-          child: GetItAddressListTile(
-            restaurantName: "Canım Büfe",
-            address: "Kuruçeşme, Muallim Cad., No:18 Beşiktaş/İstanbul",
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: context.dynamicHeight(0.04),
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: context.dynamicHeight(0.04),
           ),
-        ),
-        Visibility(
-          visible: !widget.isGetIt!,
-          child: Column(children: [
-            AddressListTile(
-              title: "Ev",
-              subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)",
-              subtitle: "\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n",
+          buildRowTitleLeftRight(context, widget.isGetIt! ? LocaleKeys.payment_address_from_address : LocaleKeys.payment_address_to_address,
+              widget.isGetIt! ? LocaleKeys.payment_address_show_on_map : LocaleKeys.payment_address_change),
+          SizedBox(
+            height: context.dynamicHeight(0.01),
+          ),
+          Visibility(
+            visible: widget.isGetIt!,
+            child: GetItAddressListTile(
+              restaurantName: "Canım Büfe",
+              address: "Kuruçeşme, Muallim Cad., No:18 Beşiktaş/İstanbul",
             ),
-            SizedBox(
-              height: context.dynamicHeight(0.02),
-            ),
-            buildButtonDeliveryAndBillingAddress(context, LocaleKeys.payment_address_button_add_address),
-            SizedBox(
-              height: context.dynamicHeight(0.02),
-            ),
-            buildRowCheckBox(context),
-          ]),
-        ),
-        SizedBox(
-          height: context.dynamicHeight(0.04),
-        ),
-        buildRowTitleLeftRight(context, LocaleKeys.payment_address_billing_info, LocaleKeys.payment_address_change),
-        SizedBox(
-          height: context.dynamicHeight(0.01),
-        ),
-        AddressListTile(
-          title: "Ev",
-          subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)",
-          subtitle: "\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n",
-        ),
-        SizedBox(
-          height: context.dynamicHeight(0.02),
-        ),
-        buildButtonDeliveryAndBillingAddress(context, LocaleKeys.payment_address_button_add_bill),
-        SizedBox(
-          height: context.dynamicHeight(0.14),
-        ),
-        buildButton(context),
-      ],
+          ),
+          Visibility(
+            visible: !widget.isGetIt!,
+            child: Column(children: [
+              AddressListTile(
+                title: "Ev",
+                subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)",
+                subtitle: "\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n",
+              ),
+              SizedBox(
+                height: context.dynamicHeight(0.02),
+              ),
+              buildButtonDeliveryAndBillingAddress(context, LocaleKeys.payment_address_button_add_address),
+              SizedBox(
+                height: context.dynamicHeight(0.02),
+              ),
+              buildRowCheckBox(context),
+            ]),
+          ),
+          SizedBox(
+            height: context.dynamicHeight(0.04),
+          ),
+          buildRowTitleLeftRight(context, LocaleKeys.payment_address_billing_info, LocaleKeys.payment_address_change),
+          SizedBox(
+            height: context.dynamicHeight(0.01),
+          ),
+          AddressListTile(
+            title: "Ev",
+            subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)",
+            subtitle: "\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n",
+          ),
+          SizedBox(
+            height: context.dynamicHeight(0.02),
+          ),
+          buildButtonDeliveryAndBillingAddress(context, LocaleKeys.payment_address_button_add_bill),
+          SizedBox(
+            height: context.dynamicHeight(0.14),
+          ),
+          buildButton(context),
+        ],
+      ),
     );
   }
 

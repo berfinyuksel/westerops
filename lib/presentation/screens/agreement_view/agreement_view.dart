@@ -50,7 +50,11 @@ class _AgreementViewState extends State<AgreementView> {
                   children: [
                     buildCheckBox(context),
                     Spacer(flex: 1),
-                    AcceptAgreementText(),
+                    AcceptAgreementText(
+                      underlinedText: 'Sözleşmeyi ',
+                      text: 'okudum, onaylıyorum',
+                      style: AppTextStyles.bodyTextStyle,
+                    ),
                     Spacer(flex: 5),
                   ],
                 ),
