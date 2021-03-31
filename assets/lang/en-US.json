@@ -346,5 +346,43 @@
         "kind8": "Drink",
         "kind9": "Dessert",
         "kind10": "Coffee"
+    },
+    "restaurant_detail": {
+        "text1": "Packets",
+        "text2": "Informations",
+        "text3": "Add The Restaurant To My Favorites",
+        "title": "Mini Burger",
+        "address": "Kuruçeşme, Muallim Street, Beşiktaş",
+        "item1": "Service",
+        "item2": "Quality",
+        "item3": "Food",
+        "item4": "4 Package",
+        "sub_title1": "Surprise Packages",
+        "sub_text1": "Surprise Packages 1",
+        "sub_text2": "Surprise Packages 2",
+        "sub_text3": "Surprise Packages 3",
+        "button_text": "Buy",
+        "sub_title2": "Defined Packages",
+        "sub_text4": "Vegan 4 Packages",
+        "sub_text5": "Broccoli Salad, Beans With Vegan\n Sauce Soy Sauce",
+        "detail_tab": {
+            "title1": "Delivery Hours",
+            "title2": "Package Delivery",
+            "title3": "Working Hours",
+            "title4": "Payment Method",
+            "title5": "Contact",
+            "title6": "Food Categories",
+            "sub_title1": "Pick Up Package - Motor Courier",
+            "sub_title2": "Today: ",
+            "sub_title3": "Online Credit/Debit Card - Cash on Delivery",
+            "sub_title4": "Business Name Mini Burger",
+            "sub_title5": "Main course, Vegan, Hamburger, Drink, Chicken..."
+        }
+    },
+    "restaurant_food_categories": {
+        "text1": "Buffet meal food safety",
+        "text2": "Additional Suggestions",
+        "text3": "This item contains food from the buffet",
+        "text4": "If your business has defined recommendations on how to \nuse and store your food, we can \nshare them in the space below."
     }
 }

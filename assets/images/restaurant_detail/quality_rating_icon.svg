@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="39.64" height="40.784" viewBox="0 0 39.64 40.784">
+  <g id="Group_28894" data-name="Group 28894" transform="translate(-298.515 -370.901)">
+    <text id="_4.9" data-name="4.9" transform="translate(317 394.783)" fill="#424242" font-size="11" font-family="Montserrat-SemiBold, Montserrat" font-weight="600"><tspan x="-8.635" y="0">4.9</tspan></text>
+    <g id="Group_28891" data-name="Group 28891">
+      <g id="Ellipse_501" data-name="Ellipse 501" transform="translate(302 375.806)" fill="none" stroke="#e2e9ef" stroke-width="3">
+        <circle cx="15" cy="15" r="15" stroke="none"/>
+        <circle cx="15" cy="15" r="13.5" fill="none"/>
+      </g>
+      <g id="Ellipse_85" data-name="Ellipse 85" transform="translate(301.965 397.43) rotate(-60)">
+        <path id="Path_105958" data-name="Path 105958" d="M23.046,0A13.5,13.5,0,1,1,3.808.148" transform="translate(0 0)" fill="none" stroke="#e5876a" stroke-linecap="round" stroke-width="4"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -6,7 +6,8 @@ class AuthService {
   GoogleSignInAccount? currentUser;
 
   static Future<AccessToken?> loginWithFacebook() async {
-    final LoginResult result = await FacebookAuth.instance.login(); // by the fault we request the email and the public profile
+    final LoginResult result = await FacebookAuth.instance
+        .login(); // by the fault we request the email and the public profile
     if (result.status == LoginStatus.success) {
       // get the user data
       // by default we get the userId, email,name and picture
