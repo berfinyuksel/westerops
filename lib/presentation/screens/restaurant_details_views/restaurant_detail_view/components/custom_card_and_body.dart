@@ -20,9 +20,8 @@ class CustomCardAndBody extends StatefulWidget {
   _CustomCardAndBodyState createState() => _CustomCardAndBodyState();
 }
 
-class _CustomCardAndBodyState extends State<CustomCardAndBody>
-    with SingleTickerProviderStateMixin {
-     bool _isSelect = false;
+class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTickerProviderStateMixin {
+  bool _isSelect = false;
 
   TabController? _controller;
   @override
@@ -33,7 +32,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [customCard(context), customBody(context)],
     );
@@ -115,9 +113,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   Container customBody(BuildContext context) {
     return Container(
       height: context.dynamicHeight(0.5),
-      child: TabBarView(
-          controller: _controller,
-          children: [tabPackages(context), tabDetail(context)]),
+      child: TabBarView(controller: _controller, children: [tabPackages(context), tabDetail(context)]),
     );
   }
 
@@ -131,13 +127,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding:
-              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_title1,
+              text: LocaleKeys.restaurant_detail_detail_tab_title1,
               style: AppTextStyles.subTitleStyle,
             ),
             subtitle: LocaleText(
@@ -151,17 +145,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding:
-              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_title2,
+              text: LocaleKeys.restaurant_detail_detail_tab_title2,
               style: AppTextStyles.subTitleStyle,
             ),
             subtitle: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_sub_title1,
+              text: LocaleKeys.restaurant_detail_detail_tab_sub_title1,
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -171,17 +163,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding:
-              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_title3,
+              text: LocaleKeys.restaurant_detail_detail_tab_title3,
               style: AppTextStyles.subTitleStyle,
             ),
             subtitle: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_sub_title2,
+              text: LocaleKeys.restaurant_detail_detail_tab_sub_title2,
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -191,17 +181,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding:
-              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_title4,
+              text: LocaleKeys.restaurant_detail_detail_tab_title4,
               style: AppTextStyles.subTitleStyle,
             ),
             subtitle: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_sub_title3,
+              text: LocaleKeys.restaurant_detail_detail_tab_sub_title3,
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -211,17 +199,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding:
-              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_title5,
+              text: LocaleKeys.restaurant_detail_detail_tab_title5,
               style: AppTextStyles.subTitleStyle,
             ),
             subtitle: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_sub_title4,
+              text: LocaleKeys.restaurant_detail_detail_tab_sub_title4,
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -231,17 +217,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding:
-              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_title6,
+              text: LocaleKeys.restaurant_detail_detail_tab_title6,
               style: AppTextStyles.subTitleStyle,
             ),
             subtitle: LocaleText(
-              text: LocaleKeys.restaurant_detail_tab_sub_title5,
+              text: LocaleKeys.restaurant_detail_detail_tab_sub_title5,
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -428,12 +412,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   TabBar tabBar(BuildContext context) {
     return TabBar(
-        labelPadding:
-            EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
+        labelPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
         indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(width: 3, color: AppColors.orangeColor),
-            insets:
-                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.11))),
+            borderSide: BorderSide(width: 3, color: AppColors.orangeColor), insets: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.11))),
         labelColor: AppColors.orangeColor,
         labelStyle: AppTextStyles.bodyTitleStyle,
         unselectedLabelColor: AppColors.textColor,
@@ -527,8 +508,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       child: Text(
         "35 TL",
         textAlign: TextAlign.center,
-        style: AppTextStyles.bodyBoldTextStyle
-            .copyWith(fontWeight: FontWeight.w700, color: AppColors.greenColor),
+        style: AppTextStyles.bodyBoldTextStyle.copyWith(fontWeight: FontWeight.w700, color: AppColors.greenColor),
       ),
     );
   }
@@ -536,9 +516,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   Text oldPriceText() {
     return Text(
       "75 TL",
-      style: AppTextStyles.bodyBoldTextStyle.copyWith(
-          decoration: TextDecoration.lineThrough,
-          color: AppColors.unSelectedpackageDeliveryColor),
+      style: AppTextStyles.bodyBoldTextStyle.copyWith(decoration: TextDecoration.lineThrough, color: AppColors.unSelectedpackageDeliveryColor),
     );
   }
 
@@ -574,8 +552,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           Text(
             "18:00-21:00",
             textAlign: TextAlign.center,
-            style: AppTextStyles.bodyBoldTextStyle
-                .copyWith(color: AppColors.yellowColor),
+            style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.yellowColor),
           ),
         ],
       ),
@@ -603,12 +580,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       children: [
         LocaleText(
           text: LocaleKeys.restaurant_detail_title,
-          style: AppTextStyles.appBarTitleStyle
-              .copyWith(fontWeight: FontWeight.w600),
+          style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w600),
         ),
-        LocaleText(
-            text: LocaleKeys.restaurant_detail_address,
-            style: AppTextStyles.subTitleStyle),
+        LocaleText(text: LocaleKeys.restaurant_detail_address, style: AppTextStyles.subTitleStyle),
       ],
     );
   }
@@ -692,8 +666,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       _isSelect = !_isSelect;
                     });
                   },
-                  child:
-                      SvgPicture.asset(ImageConstant.RESTAURANT_FAVORITE_ICON, color: _isSelect?AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,))
+                  child: SvgPicture.asset(
+                    ImageConstant.RESTAURANT_FAVORITE_ICON,
+                    color: _isSelect ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                  ))
             ],
           )
         ],
