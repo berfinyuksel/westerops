@@ -22,8 +22,9 @@ class CustomCardAndBody extends StatefulWidget {
 
 class _CustomCardAndBodyState extends State<CustomCardAndBody>
     with SingleTickerProviderStateMixin {
-  TabController? _controller;
+     bool _isSelect = false;
 
+  TabController? _controller;
   @override
   void initState() {
     super.initState();
@@ -32,403 +33,397 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
-      children: [
-        customCard(context),
-        customBody(context)
-      ],
+      children: [customCard(context), customBody(context)],
     );
   }
 
   Container customCard(BuildContext context) {
     return Container(
-        //0.86 372.0 & 0.23 214
-        width: context.dynamicWidht(0.86),
-        height: context.dynamicHeight(0.23),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(18.0),
-            bottom: Radius.circular(8.0),
-          ),
-          color: Colors.white,
+      //0.86 372.0 & 0.23 214
+      width: context.dynamicWidht(0.86),
+      height: context.dynamicHeight(0.23),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(18.0),
+          bottom: Radius.circular(8.0),
         ),
-        child: customCardTabView(context),
-      );
+        color: Colors.white,
+      ),
+      child: customCardTabView(context),
+    );
   }
 
   Column customCardTabView(BuildContext context) {
     return Column(
-          children: [
-            tabBar(context),
-            Divider(
-              thickness: 2,
-              color: AppColors.borderAndDividerColor,
+      children: [
+        tabBar(context),
+        Divider(
+          thickness: 2,
+          color: AppColors.borderAndDividerColor,
+        ),
+        Container(
+          child: Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Spacer(flex: 1),
+                restaurantLogoContainer(context),
+                Spacer(flex: 1),
+                restaurantTitleAndAddressColumn(),
+                Spacer(flex: 2),
+                restaurantStarIconRating(),
+                Spacer(flex: 1),
+              ],
             ),
-            Container(
-              child: Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Spacer(flex: 1),
-                    restaurantLogoContainer(context),
-                    Spacer(flex: 1),
-                    restaurantTitleAndAddressColumn(),
-                    Spacer(flex: 2),
-                    restaurantStarIconRating(),
-                    Spacer(flex: 1),
-                  ],
-                ),
+          ),
+        ),
+        Divider(
+          thickness: 2,
+          color: AppColors.borderAndDividerColor,
+        ),
+        Container(
+          child: Expanded(
+            child: TabBarView(controller: _controller, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  clockContainer(context),
+                  packageContainer(context),
+                  oldPriceText(),
+                  newPriceText(context),
+                ],
               ),
-            ),
-            Divider(
-              thickness: 2,
-              color: AppColors.borderAndDividerColor,
-            ),
-            Container(
-              child: Expanded(
-                child: TabBarView(controller: _controller, children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      clockContainer(context),
-                      packageContainer(context),
-                      oldPriceText(),
-                      newPriceText(context),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      serviceRatingRow(context),
-                      qualityRatingRow(context),
-                      foodRatingRow(context),
-                    ],
-                  ),
-                ]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  serviceRatingRow(context),
+                  qualityRatingRow(context),
+                  foodRatingRow(context),
+                ],
               ),
-            ),
-          ], //56
-        );
+            ]),
+          ),
+        ),
+      ], //56
+    );
   }
 
   Container customBody(BuildContext context) {
     return Container(
-        height: context.dynamicHeight(0.5),
-        child: TabBarView(controller: _controller, children: [
-          tabPackages(context),
-          tabDetail(context)
-        ]),
-      );
+      height: context.dynamicHeight(0.5),
+      child: TabBarView(
+          controller: _controller,
+          children: [tabPackages(context), tabDetail(context)]),
+    );
   }
 
   Column tabDetail(BuildContext context) {
     return Column(
-            children: [
-              SizedBox(
-                height: context.dynamicHeight(0.02),
-              ),
-              Container(
-                color: AppColors.appBarColor,
-                width: context.dynamicWidht(1),
-                height: context.dynamicHeight(0.065),
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.065)),
-                child: ListTile(
-                  contentPadding:
-                      EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
-                  title: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_title1,
-                    style: AppTextStyles.subTitleStyle,
-                  ),
-                  subtitle: LocaleText(
-                    text: "18:00-21:00",
-                    style: AppTextStyles.myInformationBodyTextStyle,
-                  ),
-                  //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-                ),
-              ),
-              Container(
-                color: AppColors.appBarColor,
-                width: context.dynamicWidht(1),
-                height: context.dynamicHeight(0.065),
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.065)),
-                child: ListTile(
-                  contentPadding:
-                      EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
-                  title: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_title2,
-                    style: AppTextStyles.subTitleStyle,
-                  ),
-                  subtitle: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_sub_title1,
-                    style: AppTextStyles.myInformationBodyTextStyle,
-                  ),
-                  //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-                ),
-              ),
-              Container(
-                color: AppColors.appBarColor,
-                width: context.dynamicWidht(1),
-                height: context.dynamicHeight(0.065),
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.065)),
-                child: ListTile(
-                  contentPadding:
-                      EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
-                  title: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_title3,
-                    style: AppTextStyles.subTitleStyle,
-                  ),
-                  subtitle: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_sub_title2,
-                    style: AppTextStyles.myInformationBodyTextStyle,
-                  ),
-                  trailing:
-                      SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-                ),
-              ),
-              Container(
-                color: AppColors.appBarColor,
-                width: context.dynamicWidht(1),
-                height: context.dynamicHeight(0.065),
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.065)),
-                child: ListTile(
-                  contentPadding:
-                      EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
-                  title: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_title4,
-                    style: AppTextStyles.subTitleStyle,
-                  ),
-                  subtitle: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_sub_title3,
-                    style: AppTextStyles.myInformationBodyTextStyle,
-                  ),
-                  //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-                ),
-              ),
-              Container(
-                color: AppColors.appBarColor,
-                width: context.dynamicWidht(1),
-                height: context.dynamicHeight(0.065),
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.065)),
-                child: ListTile(
-                  contentPadding:
-                      EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
-                  title: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_title5,
-                    style: AppTextStyles.subTitleStyle,
-                  ),
-                  subtitle: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_sub_title4,
-                    style: AppTextStyles.myInformationBodyTextStyle,
-                  ),
-                  trailing:
-                      SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-                ),
-              ),
-              Container(
-                color: AppColors.appBarColor,
-                width: context.dynamicWidht(1),
-                height: context.dynamicHeight(0.065),
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.065)),
-                child: ListTile(
-                  contentPadding:
-                      EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
-                  title: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_title6,
-                    style: AppTextStyles.subTitleStyle,
-                  ),
-                  subtitle: LocaleText(
-                    text: LocaleKeys.restaurant_detail_tab_sub_title5,
-                    style: AppTextStyles.myInformationBodyTextStyle,
-                  ),
-                  trailing:
-                      SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-                ),
-              ),
-            ],
-          );
+      children: [
+        SizedBox(
+          height: context.dynamicHeight(0.02),
+        ),
+        Container(
+          color: AppColors.appBarColor,
+          width: context.dynamicWidht(1),
+          height: context.dynamicHeight(0.065),
+          padding:
+              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          child: ListTile(
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            title: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_title1,
+              style: AppTextStyles.subTitleStyle,
+            ),
+            subtitle: LocaleText(
+              text: "18:00-21:00",
+              style: AppTextStyles.myInformationBodyTextStyle,
+            ),
+            //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+          ),
+        ),
+        Container(
+          color: AppColors.appBarColor,
+          width: context.dynamicWidht(1),
+          height: context.dynamicHeight(0.065),
+          padding:
+              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          child: ListTile(
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            title: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_title2,
+              style: AppTextStyles.subTitleStyle,
+            ),
+            subtitle: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_sub_title1,
+              style: AppTextStyles.myInformationBodyTextStyle,
+            ),
+            //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+          ),
+        ),
+        Container(
+          color: AppColors.appBarColor,
+          width: context.dynamicWidht(1),
+          height: context.dynamicHeight(0.065),
+          padding:
+              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          child: ListTile(
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            title: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_title3,
+              style: AppTextStyles.subTitleStyle,
+            ),
+            subtitle: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_sub_title2,
+              style: AppTextStyles.myInformationBodyTextStyle,
+            ),
+            trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+          ),
+        ),
+        Container(
+          color: AppColors.appBarColor,
+          width: context.dynamicWidht(1),
+          height: context.dynamicHeight(0.065),
+          padding:
+              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          child: ListTile(
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            title: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_title4,
+              style: AppTextStyles.subTitleStyle,
+            ),
+            subtitle: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_sub_title3,
+              style: AppTextStyles.myInformationBodyTextStyle,
+            ),
+            //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+          ),
+        ),
+        Container(
+          color: AppColors.appBarColor,
+          width: context.dynamicWidht(1),
+          height: context.dynamicHeight(0.065),
+          padding:
+              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          child: ListTile(
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            title: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_title5,
+              style: AppTextStyles.subTitleStyle,
+            ),
+            subtitle: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_sub_title4,
+              style: AppTextStyles.myInformationBodyTextStyle,
+            ),
+            trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+          ),
+        ),
+        Container(
+          color: AppColors.appBarColor,
+          width: context.dynamicWidht(1),
+          height: context.dynamicHeight(0.065),
+          padding:
+              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          child: ListTile(
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            title: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_title6,
+              style: AppTextStyles.subTitleStyle,
+            ),
+            subtitle: LocaleText(
+              text: LocaleKeys.restaurant_detail_tab_sub_title5,
+              style: AppTextStyles.myInformationBodyTextStyle,
+            ),
+            trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+          ),
+        ),
+      ],
+    );
   }
 
   ListView tabPackages(BuildContext context) {
     return ListView(
+      children: [
+        SizedBox(
+          height: context.dynamicHeight(0.021),
+        ),
+        packageCourierAndFavoriteContainer(context),
+        SizedBox(
+          height: context.dynamicHeight(0.04),
+        ),
+        //spacer 4
+        Padding(
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
+          child: Column(
             children: [
-              SizedBox(
-                height: context.dynamicHeight(0.021),
+              Row(
+                children: [
+                  LocaleText(
+                    text: LocaleKeys.restaurant_detail_sub_title1,
+                    style: AppTextStyles.bodyTitleStyle,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  SvgPicture.asset(ImageConstant.RESTAURANT_INFO_ICON),
+                ],
               ),
-              packageCourierAndFavoriteContainer(context),
-              SizedBox(
-                height: context.dynamicHeight(0.04),
-              ),
-              //spacer 4
-              Padding(
-                padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        LocaleText(
-                          text: LocaleKeys.restaurant_detail_sub_title1,
-                          style: AppTextStyles.bodyTitleStyle,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        SvgPicture.asset(ImageConstant.RESTAURANT_INFO_ICON),
-                      ],
-                    ),
-                    Divider(
-                      thickness: 5,
-                      color: AppColors.borderAndDividerColor,
-                    )
-                  ],
-                ),
-              ),
-              // Group: Group 28572
-              Container(
-                  //alignment: Alignment(-0.8, 0.0),
-                  width: context.dynamicWidht(1),
-                  height: context.dynamicHeight(0.060),
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      LocaleText(
-                        text: LocaleKeys.restaurant_detail_sub_text1,
-                        style: AppTextStyles.myInformationBodyTextStyle,
-                      ),
-                      LocaleText(
-                        text: "09:00:20",
-                      ),
-                      CustomButton(
-                        title: LocaleKeys.restaurant_detail_button_text,
-                        color: AppColors.greenColor,
-                        textColor: AppColors.appBarColor,
-                        width: context.dynamicWidht(0.28),
-                        borderColor: AppColors.greenColor,
-                        onPressed: () {},
-                      )
-                    ],
-                  )),
-              Container(
-                  //alignment: Alignment(-0.8, 0.0),
-                  width: context.dynamicWidht(1),
-                  height: context.dynamicHeight(0.060),
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      LocaleText(
-                        text: LocaleKeys.restaurant_detail_sub_text2,
-                        style: AppTextStyles.myInformationBodyTextStyle,
-                      ),
-                      LocaleText(
-                        text: "09:00:20",
-                      ),
-                      CustomButton(
-                        title: LocaleKeys.restaurant_detail_button_text,
-                        color: AppColors.greenColor,
-                        textColor: AppColors.appBarColor,
-                        width: context.dynamicWidht(0.28),
-                        borderColor: AppColors.greenColor,
-                        onPressed: () {},
-                      )
-                    ],
-                  )),
-              Container(
-                  //alignment: Alignment(-0.8, 0.0),
-                  width: context.dynamicWidht(1),
-                  height: context.dynamicHeight(0.060),
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      LocaleText(
-                        text: LocaleKeys.restaurant_detail_sub_text3,
-                        style: AppTextStyles.myInformationBodyTextStyle,
-                      ),
-                      LocaleText(
-                        text: "09:00:20",
-                      ),
-                      CustomButton(
-                        title: LocaleKeys.restaurant_detail_button_text,
-                        color: AppColors.greenColor,
-                        textColor: AppColors.appBarColor,
-                        width: context.dynamicWidht(0.28),
-                        borderColor: AppColors.greenColor,
-                        onPressed: () {},
-                      )
-                    ],
-                  )),
-              SizedBox(
-                height: context.dynamicHeight(0.04),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        LocaleText(
-                          text: LocaleKeys.restaurant_detail_sub_title2,
-                          style: AppTextStyles.bodyTitleStyle,
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      thickness: 5,
-                      color: AppColors.borderAndDividerColor,
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                  //alignment: Alignment(-0.8, 0.0),
-                  width: context.dynamicWidht(1),
-                  height: context.dynamicHeight(0.080),
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          LocaleText(
-                            text: LocaleKeys.restaurant_detail_sub_text4,
-                            style: AppTextStyles.myInformationBodyTextStyle,
-                          ),
-                          LocaleText(
-                            text: LocaleKeys.restaurant_detail_sub_text5,
-                            style: AppTextStyles.subTitleStyle,
-                            maxLines: 2,
-                          ),
-                        ],
-                      ),
-                      LocaleText(
-                        text: "07:00:20",
-                      ),
-                      CustomButton(
-                        title: LocaleKeys.restaurant_detail_button_text,
-                        color: AppColors.greenColor,
-                        textColor: AppColors.appBarColor,
-                        width: context.dynamicWidht(0.28),
-                        borderColor: AppColors.greenColor,
-                        onPressed: () {},
-                      )
-                    ],
-                  )),
-              SizedBox(
-                height: context.dynamicHeight(0.04),
-              ),
+              Divider(
+                thickness: 5,
+                color: AppColors.borderAndDividerColor,
+              )
             ],
-          );
+          ),
+        ),
+        // Group: Group 28572
+        Container(
+            //alignment: Alignment(-0.8, 0.0),
+            width: context.dynamicWidht(1),
+            height: context.dynamicHeight(0.075),
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                LocaleText(
+                  text: LocaleKeys.restaurant_detail_sub_text1,
+                  style: AppTextStyles.myInformationBodyTextStyle,
+                ),
+                LocaleText(
+                  text: "09:00:20",
+                ),
+                CustomButton(
+                  title: LocaleKeys.restaurant_detail_button_text,
+                  color: AppColors.greenColor,
+                  textColor: AppColors.appBarColor,
+                  width: context.dynamicWidht(0.28),
+                  borderColor: AppColors.greenColor,
+                  onPressed: () {},
+                )
+              ],
+            )),
+        Container(
+            //alignment: Alignment(-0.8, 0.0),
+            width: context.dynamicWidht(1),
+            height: context.dynamicHeight(0.075),
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                LocaleText(
+                  text: LocaleKeys.restaurant_detail_sub_text2,
+                  style: AppTextStyles.myInformationBodyTextStyle,
+                ),
+                LocaleText(
+                  text: "09:00:20",
+                ),
+                CustomButton(
+                  title: LocaleKeys.restaurant_detail_button_text,
+                  color: AppColors.greenColor,
+                  textColor: AppColors.appBarColor,
+                  width: context.dynamicWidht(0.28),
+                  borderColor: AppColors.greenColor,
+                  onPressed: () {},
+                )
+              ],
+            )),
+        Container(
+            //alignment: Alignment(-0.8, 0.0),
+            width: context.dynamicWidht(1),
+            height: context.dynamicHeight(0.075),
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                LocaleText(
+                  text: LocaleKeys.restaurant_detail_sub_text3,
+                  style: AppTextStyles.myInformationBodyTextStyle,
+                ),
+                LocaleText(
+                  text: "09:00:20",
+                ),
+                CustomButton(
+                  title: LocaleKeys.restaurant_detail_button_text,
+                  color: AppColors.greenColor,
+                  textColor: AppColors.appBarColor,
+                  width: context.dynamicWidht(0.28),
+                  borderColor: AppColors.greenColor,
+                  onPressed: () {},
+                )
+              ],
+            )),
+        SizedBox(
+          height: context.dynamicHeight(0.04),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  LocaleText(
+                    text: LocaleKeys.restaurant_detail_sub_title2,
+                    style: AppTextStyles.bodyTitleStyle,
+                  ),
+                ],
+              ),
+              Divider(
+                thickness: 5,
+                color: AppColors.borderAndDividerColor,
+              )
+            ],
+          ),
+        ),
+        Container(
+            //alignment: Alignment(-0.8, 0.0),
+            width: context.dynamicWidht(1),
+            height: context.dynamicHeight(0.080),
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    LocaleText(
+                      text: LocaleKeys.restaurant_detail_sub_text4,
+                      style: AppTextStyles.myInformationBodyTextStyle,
+                    ),
+                    LocaleText(
+                      text: LocaleKeys.restaurant_detail_sub_text5,
+                      style: AppTextStyles.subTitleStyle,
+                      maxLines: 2,
+                    ),
+                  ],
+                ),
+                LocaleText(
+                  text: "07:00:20",
+                ),
+                CustomButton(
+                  title: LocaleKeys.restaurant_detail_button_text,
+                  color: AppColors.greenColor,
+                  textColor: AppColors.appBarColor,
+                  width: context.dynamicWidht(0.28),
+                  borderColor: AppColors.greenColor,
+                  onPressed: () {},
+                )
+              ],
+            )),
+        SizedBox(
+          height: context.dynamicHeight(0.04),
+        ),
+      ],
+    );
   }
 
   TabBar tabBar(BuildContext context) {
@@ -472,7 +467,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         SizedBox(
           width: context.dynamicWidht(0.02),
         ),
-        CustomCircularProgress(valueColor: AppColors.cursorColor, ratingText: "4.1",value: 1,)
+        CustomCircularProgress(
+          valueColor: AppColors.cursorColor,
+          ratingText: "4.1",
+          value: 1,
+        )
         /*SvgPicture.asset(ImageConstant.RESTAURANT_FOOD_RATING_ICON),*/
       ],
     );
@@ -616,24 +615,23 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Container restaurantLogoContainer(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.22),
-      height: context.dynamicHeight(0.2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: Colors.white,
-        border: Border.all(
-          width: 2.0,
-          color: AppColors.borderAndDividerColor,
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: context.dynamicHeight(0.0053),
-          horizontal: context.dynamicHeight(0.0056),
+        width: context.dynamicWidht(0.22),
+        height: context.dynamicHeight(0.2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+          color: Colors.white,
+          border: Border.all(
+            width: 2.0,
+            color: AppColors.borderAndDividerColor,
           ),
-        child: Image.asset(ImageConstant.RESTAURANT_LOGO),
-      )
-    );
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: context.dynamicHeight(0.0053),
+            horizontal: context.dynamicHeight(0.0056),
+          ),
+          child: Image.asset(ImageConstant.RESTAURANT_LOGO),
+        ));
   }
 
   Container packageCourierAndFavoriteContainer(BuildContext context) {
@@ -688,7 +686,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               SizedBox(
                 width: context.dynamicWidht(0.02),
               ),
-              SvgPicture.asset(ImageConstant.RESTAURANT_FAVORITE_ICON)
+              GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isSelect = !_isSelect;
+                    });
+                  },
+                  child:
+                      SvgPicture.asset(ImageConstant.RESTAURANT_FAVORITE_ICON, color: _isSelect?AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,))
             ],
           )
         ],
