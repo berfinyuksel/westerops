@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       onGenerateRoute: _appRouter.onGenerateRoute,
-      home: RestaurantDetailView(),
     );
 
     /*MultiBlocProvider(
