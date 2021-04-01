@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/presentation/screens/past_order_view/components/past_order_list_tile.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ class PastOrderView extends StatelessWidget {
             title: "Ev - 27 Şubat 2021  20:08",
             subtitle: "Canım Büfe",
             price: "35",
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.PAST_ORDER_DETAIL_VIEW);
+            },
           ),
           PastOrderListTile(
             title: "Ev - 02 Ocak 2021  17:32",

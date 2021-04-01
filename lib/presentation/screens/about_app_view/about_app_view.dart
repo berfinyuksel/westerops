@@ -2,6 +2,7 @@ import 'package:dongu_mobile/presentation/screens/about_app_view/components/abou
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
@@ -32,15 +33,24 @@ class AboutAppView extends StatelessWidget {
           ),
           AboutAppListTile(
             text: LocaleKeys.about_app_contract,
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.AGREEMENT_KVKK_VIEW);
+            },
           ),
           AboutAppListTile(
             text: LocaleKeys.about_app_clarification,
           ),
           AboutAppListTile(
             text: LocaleKeys.about_app_help_center,
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.HELP_CENTER_VIEW);
+            },
           ),
           AboutAppListTile(
             text: LocaleKeys.about_app_contact,
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.CONTACT_VIEW);
+            },
           ),
           Spacer(),
           Center(child: SvgPicture.asset(ImageConstant.DONGU_LOGO)),

@@ -41,7 +41,10 @@ class _AgreementKvkkViewState extends State<AgreementKvkkView> {
               children: [
                 buildCheckBox(context),
                 Spacer(flex: 1),
-                AcceptAgreementText(),
+                AcceptAgreementText(
+                  underlinedText: "Sözleşme",
+                  text: "yi okudum, onaylıyorum",
+                ),
                 Spacer(flex: 5),
               ],
             ),

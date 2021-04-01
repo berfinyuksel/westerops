@@ -1,5 +1,4 @@
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
@@ -15,10 +14,7 @@ import 'components/address_text.dart';
 class MyFavoritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: LocaleKeys.my_favorites_title,
-      body: buildBody(context),
-    );
+    return buildBody(context);
   }
 
   ListView buildBody(BuildContext context) {

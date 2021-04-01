@@ -182,7 +182,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
           title: LocaleKeys.payment_payment_pay,
           color: checkboxAgreementValue && checkboxInfoValue ? AppColors.greenColor : AppColors.disabledButtonColor,
           textColor: Colors.white,
-          borderColor: AppColors.greenColor,
+          borderColor: checkboxAgreementValue && checkboxInfoValue ? AppColors.greenColor : AppColors.disabledButtonColor,
         ),
       ],
     );

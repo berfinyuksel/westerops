@@ -8,10 +8,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 class AboutAppListTile extends StatelessWidget {
   final String? text;
   final String? trailingText;
+  final VoidCallback? onTap;
   const AboutAppListTile({
     Key? key,
     this.text,
     this.trailingText,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -39,7 +41,7 @@ class AboutAppListTile extends StatelessWidget {
         text: text,
         style: AppTextStyles.bodyTextStyle,
       ),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 }

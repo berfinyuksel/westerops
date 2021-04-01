@@ -1,3 +1,8 @@
+import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
+import 'package:dongu_mobile/presentation/screens/cart_view/empty_cart_view.dart';
+import 'package:dongu_mobile/presentation/screens/home_page_view/home_page_view.dart';
+import 'package:dongu_mobile/presentation/screens/my_favorites_view/my_favorites_view.dart';
+import 'package:dongu_mobile/presentation/screens/search_view/search.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/components/custom_drawer.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
@@ -28,11 +33,11 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
     //buraya ekranlar gelcek
-    Text("Anasayfa"),
-    Text("Arama"),
-    Text("Favorilerim"),
-    Text("Bildirimlerim"),
-    Text("Sepetim"),
+    HomePageView(),
+    SearchView(),
+    MyFavoritesView(),
+    EmptyCartView(),
+    CartView(),
   ];
   List<String?> _titles = <String?>[
     LocaleKeys.bottom_nav_bar_item_1,

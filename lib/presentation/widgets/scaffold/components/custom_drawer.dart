@@ -80,9 +80,6 @@ class CustomDrawer extends StatelessWidget {
                 DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_cards,
                 ),
-                DrawerListTile(
-                  title: LocaleKeys.custom_drawer_body_list_tile_restaurants,
-                ),
                 SizedBox(
                   height: context.dynamicHeight(0.03),
                 ),
@@ -94,6 +91,9 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_general_settings,
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteConstant.GENERAL_SETTINGS_VIEW);
+                  },
                 ),
                 DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_language_settings,
@@ -103,6 +103,9 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_change_location,
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteConstant.CHANGE_LOCATION_VIEW);
+                  },
                 ),
                 DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_rate_app,
@@ -118,6 +121,9 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_about_app,
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteConstant.ABOUT_APP_VIEW);
+                  },
                 ),
                 DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_about_food_waste,

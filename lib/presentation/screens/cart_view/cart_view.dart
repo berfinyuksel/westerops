@@ -3,9 +3,9 @@ import 'package:dongu_mobile/presentation/screens/past_order_detail_view/compone
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/past_order_detail_payment_list_tile.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/past_order_detail_total_payment_list_tile.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -17,103 +17,86 @@ import 'package:flutter_svg/svg.dart';
 class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: LocaleKeys.cart_title,
-      body: Column(
-        children: [
-          ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(
-              top: context.dynamicHeight(0.02),
-            ),
-            children: [
-              PastOrderDetailBodyTitle(
-                title: LocaleKeys.past_order_detail_body_title_1,
-              ),
-              SizedBox(
-                height: context.dynamicHeight(0.01),
-              ),
-              buildRestaurantListTile(context),
-              SizedBox(
-                height: context.dynamicHeight(0.04),
-              ),
-              PastOrderDetailBodyTitle(
-                title: LocaleKeys.past_order_detail_body_title_3,
-              ),
-              SizedBox(
-                height: context.dynamicHeight(0.01),
-              ),
-              PastOrderDetailBasketListTile(
-                title: "Anadolu Lezzetleri",
-                price: 35,
-                withDecimal: false,
-                subTitle: "Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu",
-              ),
-              PastOrderDetailBasketListTile(
-                title: "Vegan 4 Paket",
-                price: 35,
-                withDecimal: false,
-                subTitle: "Brokoli Salatası, Vegan Sos\nSoya Soslu Fasulye",
-              ),
-              SizedBox(
-                height: context.dynamicHeight(0.04),
-              ),
-              PastOrderDetailBodyTitle(
-                title: LocaleKeys.past_order_detail_body_title_4,
-              ),
-              SizedBox(
-                height: context.dynamicHeight(0.01),
-              ),
-              PastOrderDetailPaymentListTile(
-                title: LocaleKeys.past_order_detail_payment_1,
-                price: 70,
-                lineTrough: false,
-                withDecimal: false,
-              ),
-              PastOrderDetailPaymentListTile(
-                title: LocaleKeys.past_order_detail_payment_2,
-                price: 4.50,
-                lineTrough: true,
-                withDecimal: true,
-              ),
-              PastOrderDetailPaymentListTile(
-                title: LocaleKeys.past_order_detail_payment_2,
-                price: 4.50,
-                lineTrough: true,
-                withDecimal: true,
-              ),
-              PastOrderDetailPaymentListTile(
-                title: LocaleKeys.past_order_detail_payment_2,
-                price: 4.50,
-                lineTrough: true,
-                withDecimal: true,
-              ),
-              PastOrderDetailPaymentListTile(
-                title: LocaleKeys.past_order_detail_payment_2,
-                price: 4.50,
-                lineTrough: true,
-                withDecimal: true,
-              ),
-              PastOrderDetailPaymentListTile(
-                title: "${LocaleKeys.past_order_detail_payment_3.locale} (2)*",
-                price: 0.50,
-                lineTrough: false,
-                withDecimal: true,
-              ),
-              PastOrderDetailTotalPaymentListTile(
-                title: LocaleKeys.past_order_detail_payment_4,
-                price: 70.50,
-                withDecimal: true,
-              ),
-              SizedBox(
-                height: context.dynamicHeight(0.02),
-              ),
-            ],
+    return buildBody(context);
+  }
+
+  Column buildBody(BuildContext context) {
+    return Column(
+      children: [
+        ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(
+            top: context.dynamicHeight(0.02),
           ),
-          Spacer(),
-          buildButton(context),
-        ],
-      ),
+          children: [
+            PastOrderDetailBodyTitle(
+              title: LocaleKeys.past_order_detail_body_title_1,
+            ),
+            SizedBox(
+              height: context.dynamicHeight(0.01),
+            ),
+            buildRestaurantListTile(context),
+            SizedBox(
+              height: context.dynamicHeight(0.04),
+            ),
+            PastOrderDetailBodyTitle(
+              title: LocaleKeys.past_order_detail_body_title_3,
+            ),
+            SizedBox(
+              height: context.dynamicHeight(0.01),
+            ),
+            PastOrderDetailBasketListTile(
+              title: "Anadolu Lezzetleri",
+              price: 35,
+              withDecimal: false,
+              subTitle: "Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu",
+            ),
+            PastOrderDetailBasketListTile(
+              title: "Vegan 4 Paket",
+              price: 35,
+              withDecimal: false,
+              subTitle: "Brokoli Salatası, Vegan Sos\nSoya Soslu Fasulye",
+            ),
+            SizedBox(
+              height: context.dynamicHeight(0.04),
+            ),
+            PastOrderDetailBodyTitle(
+              title: LocaleKeys.past_order_detail_body_title_4,
+            ),
+            SizedBox(
+              height: context.dynamicHeight(0.01),
+            ),
+            PastOrderDetailPaymentListTile(
+              title: LocaleKeys.past_order_detail_payment_1,
+              price: 70,
+              lineTrough: false,
+              withDecimal: false,
+            ),
+            PastOrderDetailPaymentListTile(
+              title: LocaleKeys.past_order_detail_payment_2,
+              price: 4.50,
+              lineTrough: true,
+              withDecimal: true,
+            ),
+            PastOrderDetailPaymentListTile(
+              title: "${LocaleKeys.past_order_detail_payment_3.locale} (2)*",
+              price: 0.50,
+              lineTrough: false,
+              withDecimal: true,
+            ),
+            PastOrderDetailTotalPaymentListTile(
+              title: LocaleKeys.past_order_detail_payment_4,
+              price: 70.50,
+              withDecimal: true,
+            ),
+            SizedBox(
+              height: context.dynamicHeight(0.02),
+            ),
+          ],
+        ),
+        Spacer(),
+        buildButton(context),
+      ],
     );
   }
 
@@ -130,7 +113,9 @@ class CartView extends StatelessWidget {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, RouteConstant.PAYMENTS_VIEW);
+        },
       ),
     );
   }

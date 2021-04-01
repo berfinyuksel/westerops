@@ -10,11 +10,13 @@ class PastOrderListTile extends StatelessWidget {
   final String? title;
   final String? subtitle;
   final String? price;
+  final VoidCallback? onTap;
   const PastOrderListTile({
     Key? key,
     this.title,
     this.subtitle,
     this.price,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -56,7 +58,7 @@ class PastOrderListTile extends StatelessWidget {
         subtitle!,
         style: AppTextStyles.myInformationBodyTextStyle,
       ),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 }
