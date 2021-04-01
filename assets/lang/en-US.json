@@ -267,6 +267,21 @@
             "add_to_registered_cards":"Add to My Saved Cards"
         }
     },
+    "order_received": {
+        "headline":"Your Order Has Been Received",
+        "order_number":"Order Number: ",
+        "subtitle":"* Please indicate this number to the restaurant when receiving your order.",
+        "count_down":"Time to delivery time",
+        "order_summary":"Order Summary",
+        "take_from_restaurant":" You can pick it up from the restaurant.",
+        "item_number":"Number of products in your cart:",
+        "order_amount":"Order amount: ",
+        "total_amount":"Total Amount Paid:",
+        "delivery_address":"Delivery Address",
+        "show_on_map":"Show on Map",
+        "button_1":"My Past Orders",
+        "button_2":"Continue to Save Our World"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

@@ -13,6 +13,7 @@ class ImageConstant {
   static const COMMONS_RESTAURANT_IMAGE = "assets/images/commons/restaurant_image.png";
   static const COMMONS_RESTAURANT_ICON = "assets/images/commons/restaurant_icon.png";
   static const COMMONS_APP_BAR_LOGO = "assets/images/commons/app_bar_logo.svg";
+  static const COMMONS_CLOSE_ICON = "assets/images/commons/close_icon.svg";
   static const DONGU_LOGO = "assets/images/commons/dongu_logo.svg";
   static const ONBOARDING_BACKGROUND = "assets/images/onboardings/onboarding/onboarding_background.png";
   static const ONBOARDING_FIRST_BACKGROUND = "assets/images/onboardings/onboarding_first/onboarding_first_background.png";
@@ -55,6 +56,7 @@ class ImageConstant {
   static const PAYMENT_CVV_ICON = "assets/images/payment/cvv_icon.svg";
   static const ORDER_RECEIVING_DONGU_LOGO = "assets/images/order_receiving/receiving_dongu_logo.svg";
   static const ORDER_RECEIVING_PACKAGE_ICON = "assets/images/order_receiving/receiving_package_icon.svg";
+  static const ORDER_RECEIVED_CLOCK_ICON = "assets/images/order_receiving/received_clock_icon.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";
