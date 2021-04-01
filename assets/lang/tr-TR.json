@@ -273,6 +273,21 @@
             "add_to_registered_cards":"Kayıtlı Kartlarıma Ekle"
         }
     },
+    "order_received": {
+        "headline":"Siparişiniz Alındı",
+        "order_number":"Sipariş Numarası: ",
+        "subtitle":"* Siparişinizi teslim alırken bu numarayı restorana belirtiniz.",
+        "count_down":"Teslim saatine kalan süre",
+        "order_summary":"Sipariş Özeti",
+        "take_from_restaurant":" Restorandan teslim alabilirsiniz.",
+        "item_number":"Sepetindeki ürün adedi:",
+        "order_amount":"Sipariş Tutarı: ",
+        "total_amount":"Ödenen Toplam Tutar:",
+        "delivery_address":"Teslim Alınacak Adres",
+        "show_on_map":"Haritada Göster",
+        "button_1":"Geçmiş Siparişlerim",
+        "button_2":"Dünyamızı Kurtarmaya Devam Et"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

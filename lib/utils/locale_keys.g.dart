@@ -84,7 +84,6 @@ abstract class  LocaleKeys {
   static const custom_drawer_body_list_tile_past_orders = 'custom_drawer.body_list_tile_past_orders';
   static const custom_drawer_body_list_tile_adresses = 'custom_drawer.body_list_tile_adresses';
   static const custom_drawer_body_list_tile_cards = 'custom_drawer.body_list_tile_cards';
-  static const custom_drawer_body_list_tile_restaurants = 'custom_drawer.body_list_tile_restaurants';
   static const custom_drawer_body_list_tile_general_settings = 'custom_drawer.body_list_tile_general_settings';
   static const custom_drawer_body_list_tile_language_settings = 'custom_drawer.body_list_tile_language_settings';
   static const custom_drawer_body_list_tile_change_location = 'custom_drawer.body_list_tile_change_location';
@@ -238,6 +237,20 @@ abstract class  LocaleKeys {
   static const payment_payment_add_to_registered_cards = 'payment.payment.add_to_registered_cards';
   static const payment_payment = 'payment.payment';
   static const payment = 'payment';
+  static const order_received_headline = 'order_received.headline';
+  static const order_received_order_number = 'order_received.order_number';
+  static const order_received_subtitle = 'order_received.subtitle';
+  static const order_received_count_down = 'order_received.count_down';
+  static const order_received_order_summary = 'order_received.order_summary';
+  static const order_received_take_from_restaurant = 'order_received.take_from_restaurant';
+  static const order_received_item_number = 'order_received.item_number';
+  static const order_received_order_amount = 'order_received.order_amount';
+  static const order_received_total_amount = 'order_received.total_amount';
+  static const order_received_delivery_address = 'order_received.delivery_address';
+  static const order_received_show_on_map = 'order_received.show_on_map';
+  static const order_received_button_1 = 'order_received.button_1';
+  static const order_received_button_2 = 'order_received.button_2';
+  static const order_received = 'order_received';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
@@ -305,7 +318,7 @@ abstract class  LocaleKeys {
   static const search_kind8 = 'search.kind8';
   static const search_kind9 = 'search.kind9';
   static const search_kind10 = 'search.kind10';
-
+  static const search = 'search';
   static const restaurant_detail_text1 = 'restaurant_detail.text1';
   static const restaurant_detail_text2 = 'restaurant_detail.text2';
   static const restaurant_detail_text3 = 'restaurant_detail.text3';
@@ -320,46 +333,26 @@ abstract class  LocaleKeys {
   static const restaurant_detail_sub_text2 = 'restaurant_detail.sub_text2';
   static const restaurant_detail_sub_text3 = 'restaurant_detail.sub_text3';
   static const restaurant_detail_button_text = 'restaurant_detail.button_text';
+  static const restaurant_detail_sub_title2 = 'restaurant_detail.sub_title2';
   static const restaurant_detail_sub_text4 = 'restaurant_detail.sub_text4';
   static const restaurant_detail_sub_text5 = 'restaurant_detail.sub_text5';
-  static const restaurant_detail_sub_title2 = 'restaurant_detail.sub_title2';
-
-  static const restaurant_detail_tab_title1 = 'restaurant_detail.detail_tab.title1';
-  static const restaurant_detail_tab_title2 = 'restaurant_detail.detail_tab.title2';
-  static const restaurant_detail_tab_title3 = 'restaurant_detail.detail_tab.title3';
-  static const restaurant_detail_tab_title4 = 'restaurant_detail.detail_tab.title4';
-  static const restaurant_detail_tab_title5 = 'restaurant_detail.detail_tab.title5';
-  static const restaurant_detail_tab_title6 = 'restaurant_detail.detail_tab.title6';
-  static const restaurant_detail_tab_sub_title1 = 'restaurant_detail.detail_tab.sub_title1';
-  static const restaurant_detail_tab_sub_title2 = 'restaurant_detail.detail_tab.sub_title2';
-  static const restaurant_detail_tab_sub_title3 = 'restaurant_detail.detail_tab.sub_title3';
-  static const restaurant_detail_tab_sub_title4 = 'restaurant_detail.detail_tab.sub_title4';
-  static const restaurant_detail_tab_sub_title5 = 'restaurant_detail.detail_tab.sub_title5';
-
-
-
-
-
-
-
+  static const restaurant_detail_detail_tab_title1 = 'restaurant_detail.detail_tab.title1';
+  static const restaurant_detail_detail_tab_title2 = 'restaurant_detail.detail_tab.title2';
+  static const restaurant_detail_detail_tab_title3 = 'restaurant_detail.detail_tab.title3';
+  static const restaurant_detail_detail_tab_title4 = 'restaurant_detail.detail_tab.title4';
+  static const restaurant_detail_detail_tab_title5 = 'restaurant_detail.detail_tab.title5';
+  static const restaurant_detail_detail_tab_title6 = 'restaurant_detail.detail_tab.title6';
+  static const restaurant_detail_detail_tab_sub_title1 = 'restaurant_detail.detail_tab.sub_title1';
+  static const restaurant_detail_detail_tab_sub_title2 = 'restaurant_detail.detail_tab.sub_title2';
+  static const restaurant_detail_detail_tab_sub_title3 = 'restaurant_detail.detail_tab.sub_title3';
+  static const restaurant_detail_detail_tab_sub_title4 = 'restaurant_detail.detail_tab.sub_title4';
+  static const restaurant_detail_detail_tab_sub_title5 = 'restaurant_detail.detail_tab.sub_title5';
+  static const restaurant_detail_detail_tab = 'restaurant_detail.detail_tab';
+  static const restaurant_detail = 'restaurant_detail';
   static const restaurant_food_categories_text1 = 'restaurant_food_categories.text1';
   static const restaurant_food_categories_text2 = 'restaurant_food_categories.text2';
   static const restaurant_food_categories_text3 = 'restaurant_food_categories.text3';
   static const restaurant_food_categories_text4 = 'restaurant_food_categories.text4';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  static const restaurant_food_categories = 'restaurant_food_categories';
 
 }
