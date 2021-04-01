@@ -52,6 +52,8 @@ flutter:
     - assets/images/
 
     - assets/images/permissions/
+    - assets/images/restaurant_detail/
+
 
     - assets/commons/
     - assets/images/filters/

@@ -351,5 +351,43 @@
             "kind8": "İçecek",
             "kind9": "Tatlı",
             "kind10": "Kahve"
+        },
+       "restaurant_detail": {
+        "text1": "Paketler",
+        "text2": "Bilgiler",
+        "text3": "Restoranı Favorilerime Ekle",
+        "title": "Mini Burger",
+        "address": "Kuruçeşme, Muallim Cad, Beşiktaş",
+        "item1": "Servis",
+        "item2": "Kalite",
+        "item3": "Yemek",
+        "item4": "4 Paket",
+        "sub_title1": "Sürpriz Paketler",
+        "sub_text1": "Sürpriz Paket 1",
+        "sub_text2": "Sürpriz Paket 2",
+        "sub_text3": "Sürpriz Paket 3",
+        "button_text": "Satın Al",
+        "sub_title2": "Tanımlı Paketler",
+        "sub_text4": "Vegan 4 Paket",
+        "sub_text5": "Brokoli Salatası, Vegan Sos \nSoya Soslu Fasulye",
+        "detail_tab": {
+            "title1": "Teslim Saatleri",
+            "title2": "Paket Teslimi",
+            "title3": "Çalışma Saatleri",
+            "title4": "Ödeme Şekli",
+            "title5": "İletişim",
+            "title6": "Gıda Kategorileri",
+            "sub_title1": "Gel Al Paket - Motorlu Kurye",
+            "sub_title2": "Bugün: ",
+            "sub_title3": "Online Kredi Kartı/Banka Kartı - Kapıda Ödeme",
+            "sub_title4": "İşletme Adı Mini Burger",
+            "sub_title5": "Ana yemek, Vegan, Hamburger, İçecek, Tavuk..."
         }
+    },
+    "restaurant_food_categories": {
+        "text1": "Açık büfe yemek gıda güvenliği",
+        "text2": "Ek Öneriler",
+        "text3": "Bu öğe açık büfeden yiyecek içeriyor",
+        "text4": "İşletmeniz, yiyeceklerinizi nasıl kullanacağınıza ve \ndepolayacağınıza ilişkin öneriler tanımladıysa, \nbunları aşağıdaki alanda paylaşabiliriz."
+    }
 }
