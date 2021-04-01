@@ -1,4 +1,3 @@
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
@@ -22,8 +21,7 @@ class SearchView extends StatefulWidget {
 class _SearchViewState extends State<SearchView> {
   TextEditingController? controller = TextEditingController();
   //bool _valueSearch = false;
-  final duplicateItems = [LocaleKeys.search_item1.locale, LocaleKeys.search_item2.locale, LocaleKeys.search_item3.locale
-  ];
+  final duplicateItems = [LocaleKeys.search_item1.locale, LocaleKeys.search_item2.locale, LocaleKeys.search_item3.locale];
   var items = <String>[];
 
   @override
@@ -57,101 +55,96 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: "Arama Yap",
-      body: Column(
-        children: [
-          searchBar(context),
-          searchHistoryAndCleanTexts(context),
-          dividerOne(context),
-          Spacer(flex: 2),
-          searchListViewBuilder(),
-          Spacer(flex: 4),
-          popularSearchText(context),
-          dividerSecond(context),
-          Spacer(flex: 4),
-          horizontalListTrend(context),
-          Spacer(flex: 4),
-          categoriesText(context),
-          dividerThird(context),
-          Spacer(flex: 1),
-          horizontalListCategory(context),
-          Spacer(flex: 14),
-        ],
-      ),
+    return buildBody(context);
+  }
+
+  Column buildBody(BuildContext context) {
+    return Column(
+      children: [
+        searchBar(context),
+        searchHistoryAndCleanTexts(context),
+        dividerOne(context),
+        Spacer(flex: 2),
+        searchListViewBuilder(),
+        Spacer(flex: 4),
+        popularSearchText(context),
+        dividerSecond(context),
+        Spacer(flex: 4),
+        horizontalListTrend(context),
+        Spacer(flex: 4),
+        categoriesText(context),
+        dividerThird(context),
+        Spacer(flex: 1),
+        horizontalListCategory(context),
+        Spacer(flex: 14),
+      ],
     );
   }
 
   Padding horizontalListCategory(BuildContext context) {
     return Padding(
-          padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-          ),
-          child: Container(
-            height: context.dynamicHeight(0.19),
-            child: CustomHorizontalListCategory()
-          ),
-        );
+      padding: EdgeInsets.only(
+        left: context.dynamicWidht(0.06),
+      ),
+      child: Container(height: context.dynamicHeight(0.19), child: CustomHorizontalListCategory()),
+    );
   }
 
   Padding dividerThird(BuildContext context) {
     return Padding(
-          padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-          ),
-          child: Divider(
-            color: AppColors.borderAndDividerColor,
-            thickness: 5,
-          ),
-        );
+      padding: EdgeInsets.only(
+        left: context.dynamicWidht(0.06),
+      ),
+      child: Divider(
+        color: AppColors.borderAndDividerColor,
+        thickness: 5,
+      ),
+    );
   }
 
   Padding categoriesText(BuildContext context) {
     return Padding(
-          padding: EdgeInsets.only(
-            right: context.dynamicWidht(0.6),
-          ),
-          child: LocaleText(
-            text: LocaleKeys.search_text4,
-            style: AppTextStyles.bodyTitleStyle,
-          ),
-        );
+      padding: EdgeInsets.only(
+        right: context.dynamicWidht(0.6),
+      ),
+      child: LocaleText(
+        text: LocaleKeys.search_text4,
+        style: AppTextStyles.bodyTitleStyle,
+      ),
+    );
   }
 
   Padding horizontalListTrend(BuildContext context) {
     return Padding(
-          padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-          ),
-          child: Container(
-            height: context.dynamicHeight(0.04),
-            child: CustomHorizontalListTrend()
-          ),
-        );
+      padding: EdgeInsets.only(
+        left: context.dynamicWidht(0.06),
+      ),
+      child: Container(height: context.dynamicHeight(0.04), child: CustomHorizontalListTrend()),
+    );
   }
 
   Padding dividerSecond(BuildContext context) {
     return Padding(
-          padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-          ),
-          child: Divider(
-            color: AppColors.borderAndDividerColor,
-            thickness: 5,
-          ),
-        );
+      padding: EdgeInsets.only(
+        left: context.dynamicWidht(0.06),
+      ),
+      child: Divider(
+        color: AppColors.borderAndDividerColor,
+        thickness: 5,
+      ),
+    );
   }
 
   Padding popularSearchText(BuildContext context) {
     return Padding(
-          padding: EdgeInsets.only(
-            right: context.dynamicWidht(0.5),
-          ),
-          child: LocaleText(
-            text: LocaleKeys.search_text3,
-            style: AppTextStyles.bodyTitleStyle,
-          ),
-        );
+      padding: EdgeInsets.only(
+        right: context.dynamicWidht(0.5),
+      ),
+      child: LocaleText(
+        text: LocaleKeys.search_text3,
+        style: AppTextStyles.bodyTitleStyle,
+      ),
+    );
   }
 
   ListView searchListViewBuilder() {
@@ -176,48 +169,46 @@ class _SearchViewState extends State<SearchView> {
 
   Padding dividerOne(BuildContext context) {
     return Padding(
-          padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-          ),
-          child: Divider(
-            color: AppColors.borderAndDividerColor,
-            thickness: 5,
-          ),
-        );
+      padding: EdgeInsets.only(
+        left: context.dynamicWidht(0.06),
+      ),
+      child: Divider(
+        color: AppColors.borderAndDividerColor,
+        thickness: 5,
+      ),
+    );
   }
 
   Padding searchHistoryAndCleanTexts(BuildContext context) {
     return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.dynamicWidht(0.06),
+      padding: EdgeInsets.symmetric(
+        horizontal: context.dynamicWidht(0.06),
+      ),
+      child: Row(
+        children: [
+          LocaleText(
+            text: LocaleKeys.search_text1,
+            style: AppTextStyles.bodyTitleStyle,
           ),
-          child: Row(
-            children: [
-              LocaleText(
-                text: LocaleKeys.search_text1,
-                style: AppTextStyles.bodyTitleStyle,
-              ),
-              Spacer(
-                flex: 18,
-              ),
-              LocaleText(
-                text: LocaleKeys.search_text2,
-                style: AppTextStyles.bodyTitleStyle
-                    .copyWith(color: AppColors.orangeColor, fontSize: 12),
-              ),
-            ],
+          Spacer(
+            flex: 18,
           ),
-        );
+          LocaleText(
+            text: LocaleKeys.search_text2,
+            style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12),
+          ),
+        ],
+      ),
+    );
   }
 
   Padding searchBar(BuildContext context) {
     return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.dynamicWidht(0.06),
-          ),
-          child: CustomSearchBar(
-            hintText: LocaleKeys.search_text5.locale,
-          )
-        );
+        padding: EdgeInsets.symmetric(
+          horizontal: context.dynamicWidht(0.06),
+        ),
+        child: CustomSearchBar(
+          hintText: LocaleKeys.search_text5.locale,
+        ));
   }
 }

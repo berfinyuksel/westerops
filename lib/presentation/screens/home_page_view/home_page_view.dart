@@ -1,9 +1,9 @@
 import 'package:dongu_mobile/presentation/screens/my_favorites_view/components/address_text.dart';
 import 'package:dongu_mobile/presentation/screens/search_view/components/horizontal_list_category_bar.dart';
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_card/restaurant_info_card.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
@@ -15,10 +15,7 @@ import 'package:google_fonts/google_fonts.dart';
 class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: "Anasayfa",
-      body: buildBody(context),
-    );
+    return buildBody(context);
   }
 
   ListView buildBody(BuildContext context) {
@@ -109,15 +106,20 @@ class HomePageView extends StatelessWidget {
           text: titleLeft,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        LocaleText(
-          text: titleRight,
-          style: GoogleFonts.montserrat(
-            fontSize: 12.0,
-            color: AppColors.orangeColor,
-            fontWeight: FontWeight.w600,
-            height: 2.0,
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, RouteConstant.MY_NEAR_VIEW);
+          },
+          child: LocaleText(
+            text: titleRight,
+            style: GoogleFonts.montserrat(
+              fontSize: 12.0,
+              color: AppColors.orangeColor,
+              fontWeight: FontWeight.w600,
+              height: 2.0,
+            ),
+            alignment: TextAlign.right,
           ),
-          alignment: TextAlign.right,
         ),
       ],
     );
