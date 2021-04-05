@@ -226,21 +226,19 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           decoration: InputDecoration(
             labelText: labelText,
             labelStyle: AppTextStyles.bodyTextStyle,
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
-              borderRadius: BorderRadius.circular(4.0),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
-              borderRadius: BorderRadius.circular(4.0),
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(),
-              borderRadius: BorderRadius.circular(4.0),
-            ),
+            enabledBorder: buildOutlineInputBorder(),
+            focusedBorder: buildOutlineInputBorder(),
+            border: buildOutlineInputBorder(),
           ),
         ),
       ),
+    );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder() {
+    return OutlineInputBorder(
+      borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+      borderRadius: BorderRadius.circular(4.0),
     );
   }
 
