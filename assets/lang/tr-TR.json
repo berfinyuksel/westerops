@@ -260,7 +260,8 @@
         },
         "payment": {
             "choose_card":"Kayıtlı Kartlarımdan Seç",
-            "edit":"Düzenle",
+            "cancel":"Vazgeç",
+            "name_card":"Karta İsim Ver",
             "pay_another_card":"Başka Kartla Öde",
             "order_amount":"Sipariş Tutarı",
             "to_be_paid":"Ödenecek Tutar:",

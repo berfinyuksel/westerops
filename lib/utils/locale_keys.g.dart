@@ -224,7 +224,8 @@ abstract class  LocaleKeys {
   static const payment_delivery_delivery_time = 'payment.delivery.delivery_time';
   static const payment_delivery = 'payment.delivery';
   static const payment_payment_choose_card = 'payment.payment.choose_card';
-  static const payment_payment_edit = 'payment.payment.edit';
+  static const payment_payment_cancel = 'payment.payment.cancel';
+  static const payment_payment_name_card = 'payment.payment.name_card';
   static const payment_payment_pay_another_card = 'payment.payment.pay_another_card';
   static const payment_payment_order_amount = 'payment.payment.order_amount';
   static const payment_payment_to_be_paid = 'payment.payment.to_be_paid';

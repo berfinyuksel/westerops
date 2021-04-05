@@ -254,7 +254,8 @@
         },
         "payment": {
             "choose_card":"Choose from My Registered Cards",
-            "edit":"Edit",
+            "cancel":"Cancel",
+            "name_card":"Name Card",
             "pay_another_card":"Pay With Another Card",
             "order_amount":"Order Amount",
             "to_be_paid":"Amount to be paid:",
