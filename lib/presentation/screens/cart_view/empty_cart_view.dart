@@ -13,16 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 class EmptyCartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Spacer(flex: 76),
-        buildBackground(context),
-        Spacer(flex: 47),
-        buildOrangeText(context),
-        Spacer(flex: 29),
-        buildButton(context),
-      ],
-    );
+    return buildBackground(context);
   }
 
   Padding buildOrangeText(BuildContext context) {
@@ -42,29 +33,37 @@ class EmptyCartView extends StatelessWidget {
 
   Container buildBackground(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.46),
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment.center,
-            child: SvgPicture.asset(
-              ImageConstant.EMPTY_CART_BACKGROUND,
-            ),
+          SvgPicture.asset(
+            ImageConstant.ORDER_RECEIVING_BACKGROUND,
+            fit: BoxFit.fitWidth,
+            width: double.infinity,
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: context.dynamicHeight(0.12),
-            child: LocaleText(
-              text: LocaleKeys.cart_empty_cart,
-              style: GoogleFonts.montserrat(
-                fontSize: 18.0,
-                color: AppColors.textColor,
-                fontWeight: FontWeight.w600,
-              ),
-              alignment: TextAlign.center,
+          Center(
+            child: Column(
+              children: [
+                Spacer(flex: 3),
+                LocaleText(
+                  text: LocaleKeys.cart_empty_cart,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 18.0,
+                    color: AppColors.textColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  alignment: TextAlign.center,
+                ),
+                SvgPicture.asset(
+                  ImageConstant.ORDER_DELIVERED_ICON,
+                  fit: BoxFit.fitHeight,
+                ),
+                Spacer(flex: 3),
+                buildOrangeText(context),
+                Spacer(flex: 1),
+                buildButton(context),
+              ],
             ),
-          ),
+          )
         ],
       ),
     );

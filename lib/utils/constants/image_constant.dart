@@ -13,6 +13,7 @@ class ImageConstant {
   static const COMMONS_RESTAURANT_IMAGE = "assets/images/commons/restaurant_image.png";
   static const COMMONS_RESTAURANT_ICON = "assets/images/commons/restaurant_icon.png";
   static const COMMONS_APP_BAR_LOGO = "assets/images/commons/app_bar_logo.svg";
+  static const COMMONS_CLOSE_ICON = "assets/images/commons/close_icon.svg";
   static const DONGU_LOGO = "assets/images/commons/dongu_logo.svg";
   static const ONBOARDING_BACKGROUND = "assets/images/onboardings/onboarding/onboarding_background.png";
   static const ONBOARDING_FIRST_BACKGROUND = "assets/images/onboardings/onboarding_first/onboarding_first_background.png";
@@ -53,6 +54,12 @@ class ImageConstant {
   static const EMPTY_CART_BACKGROUND = "assets/images/cart/cart_background.svg";
   static const PAYMENT_DELIVERY_AVAILABLE_TIME_ICON = "assets/images/payment/delivery_available_time_icon.svg";
   static const PAYMENT_CVV_ICON = "assets/images/payment/cvv_icon.svg";
+  static const ORDER_RECEIVING_DONGU_LOGO = "assets/images/order_receiving/receiving_dongu_logo.svg";
+  static const ORDER_RECEIVING_PACKAGE_ICON = "assets/images/order_receiving/receiving_package_icon.svg";
+  static const ORDER_RECEIVING_BACKGROUND = "assets/images/order_receiving/background.svg";
+  static const ORDER_RECEIVED_CLOCK_ICON = "assets/images/order_receiving/received_clock_icon.svg";
+  static const ORDER_DELIVERED_ICON = "assets/images/order_receiving/delivered_icon.svg";
+  static const DELETE_ACCOUNT_LOVE = "assets/images/delete_account/love.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";
@@ -81,10 +88,12 @@ class ImageConstant {
   static const RESTAURANT_FAVORITE_ICON = "assets/images/restaurant_detail/favorite_icon.svg";
   static const RESTAURANT_INFO_ICON = "assets/images/restaurant_detail/info_icon.svg";
 
+
   static const NOTIFICATIONS_DISCOUNT_50_ICON = "assets/images/notifications/discount_50.svg";
   static const NOTIFICATIONS_DISCOUNT_70_ICON = "assets/images/notifications/discount_70.svg";
   static const NOTIFICATIONS_ITSELF_ICON = "assets/images/notifications/itself.svg";
   static const NOTIFICATIONS_LIKE_ICON = "assets/images/notifications/like.svg";
+
 
 
 

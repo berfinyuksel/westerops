@@ -1,4 +1,3 @@
-import 'package:dongu_mobile/presentation/screens/my_information_view/components/information_list_tile.dart';
 import 'package:dongu_mobile/presentation/screens/my_information_view/components/social_auth_list_tile.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
@@ -10,10 +9,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 
-class MyInformationView extends StatelessWidget {
+class MyInformationView extends StatefulWidget {
+  @override
+  _MyInformationViewState createState() => _MyInformationViewState();
+}
+
+class _MyInformationViewState extends State<MyInformationView> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController surnameController = TextEditingController();
+  TextEditingController mailController = TextEditingController();
+  TextEditingController birthController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  bool isReadOnly = true;
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -22,7 +34,7 @@ class MyInformationView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Spacer(
-            flex: 2,
+            flex: 4,
           ),
           Padding(
             padding: EdgeInsets.only(
@@ -32,50 +44,89 @@ class MyInformationView extends StatelessWidget {
             child: buildRowTitleAndEdit(),
           ),
           Spacer(
-            flex: 1,
+            flex: 2,
           ),
-          InformationListTile(
-            title: LocaleKeys.inform_list_tile_name,
-            subtitle: "John",
+          Container(
+            color: Colors.white,
+            height: context.dynamicHeight(0.01),
           ),
-          InformationListTile(
-            title: LocaleKeys.inform_list_tile_surname,
-            subtitle: "Doe",
-          ),
-          InformationListTile(
-            title: LocaleKeys.inform_list_tile_birth,
-            subtitle: "12.09.1992",
-          ),
-          InformationListTile(
-            title: LocaleKeys.inform_list_tile_mail,
-            subtitle: "jonh.doe@mail.com",
-          ),
-          InformationListTile(
-            title: LocaleKeys.inform_list_tile_phone,
-            subtitle: "+90 555 55 55",
-          ),
+          buildTextFormField(context, LocaleKeys.inform_list_tile_name.locale, nameController),
+          buildTextFormField(context, LocaleKeys.inform_list_tile_surname.locale, surnameController),
+          buildTextFormField(context, LocaleKeys.inform_list_tile_birth.locale, birthController),
+          buildTextFormField(context, LocaleKeys.inform_list_tile_mail.locale, mailController),
+          buildTextFormField(context, LocaleKeys.inform_list_tile_phone.locale, phoneController),
           Spacer(
-            flex: 4,
+            flex: 8,
           ),
           buildChangePassword(context),
           Spacer(
-            flex: 4,
+            flex: 8,
           ),
           buildSocialAuthTitle(context),
-          Spacer(flex: 1),
+          Spacer(flex: 2),
           SocialAuthListTile(
             title: LocaleKeys.inform_list_tile_remove_link,
             image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
           ),
           Spacer(
-            flex: 11,
+            flex: 15,
           ),
           buildButton(context),
           Spacer(
-            flex: 4,
+            flex: 3,
+          ),
+          Center(
+            child: LocaleText(
+              text: LocaleKeys.inform_delete_account,
+              style: AppTextStyles.bodyTextStyle,
+            ),
+          ),
+          Spacer(
+            flex: 8,
           ),
         ],
       ),
+    );
+  }
+
+  Container buildTextFormField(BuildContext context, String labelText, TextEditingController controller) {
+    return Container(
+      height: context.dynamicHeight(0.06),
+      color: Colors.white,
+      child: TextFormField(
+        readOnly: isReadOnly,
+        style: AppTextStyles.myInformationBodyTextStyle,
+        cursorColor: AppColors.cursorColor,
+        onTap: () {
+          setState(() {});
+        },
+        controller: controller,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+          labelText: labelText,
+          hintStyle: AppTextStyles.myInformationBodyTextStyle,
+          labelStyle: AppTextStyles.bodyTextStyle,
+          enabledBorder: buildOutlineInputBorder(),
+          focusedBorder: buildOutlineInputBorder(),
+          border: buildOutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = "John";
+    surnameController.text = "Doe";
+    mailController.text = "jonh.doe@mail.com";
+    birthController.text = "12.09.1992";
+    phoneController.text = "+90 555 55 55";
+  }
+
+  OutlineInputBorder buildOutlineInputBorder() {
+    return OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.white),
     );
   }
 
@@ -87,15 +138,25 @@ class MyInformationView extends StatelessWidget {
           text: LocaleKeys.inform_body_title_1,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        LocaleText(
-          text: LocaleKeys.inform_edit,
-          style: GoogleFonts.montserrat(
-            fontSize: 12.0,
-            color: AppColors.orangeColor,
-            fontWeight: FontWeight.w600,
-            height: 2.0,
+        Visibility(
+          visible: isReadOnly,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                isReadOnly = false;
+              });
+            },
+            child: LocaleText(
+              text: LocaleKeys.inform_edit,
+              style: GoogleFonts.montserrat(
+                fontSize: 12.0,
+                color: AppColors.orangeColor,
+                fontWeight: FontWeight.w600,
+                height: 2.0,
+              ),
+              alignment: TextAlign.right,
+            ),
           ),
-          alignment: TextAlign.right,
         ),
       ],
     );
@@ -142,6 +203,11 @@ class MyInformationView extends StatelessWidget {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
+        onPressed: () {
+          setState(() {
+            isReadOnly = true;
+          });
+        },
       ),
     );
   }

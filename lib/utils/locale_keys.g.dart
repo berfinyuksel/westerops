@@ -103,6 +103,7 @@ abstract class  LocaleKeys {
   static const inform_list_tile_change_password = 'inform.list_tile_change_password';
   static const inform_list_tile_remove_link = 'inform.list_tile_remove_link';
   static const inform_button = 'inform.button';
+  static const inform_delete_account = 'inform.delete_account';
   static const inform = 'inform';
   static const change_password_title = 'change_password.title';
   static const change_password_current_password = 'change_password.current_password';
@@ -222,7 +223,8 @@ abstract class  LocaleKeys {
   static const payment_delivery_delivery_time = 'payment.delivery.delivery_time';
   static const payment_delivery = 'payment.delivery';
   static const payment_payment_choose_card = 'payment.payment.choose_card';
-  static const payment_payment_edit = 'payment.payment.edit';
+  static const payment_payment_cancel = 'payment.payment.cancel';
+  static const payment_payment_name_card = 'payment.payment.name_card';
   static const payment_payment_pay_another_card = 'payment.payment.pay_another_card';
   static const payment_payment_order_amount = 'payment.payment.order_amount';
   static const payment_payment_to_be_paid = 'payment.payment.to_be_paid';
@@ -235,6 +237,30 @@ abstract class  LocaleKeys {
   static const payment_payment_add_to_registered_cards = 'payment.payment.add_to_registered_cards';
   static const payment_payment = 'payment.payment';
   static const payment = 'payment';
+  static const order_received_headline = 'order_received.headline';
+  static const order_received_order_number = 'order_received.order_number';
+  static const order_received_subtitle = 'order_received.subtitle';
+  static const order_received_count_down = 'order_received.count_down';
+  static const order_received_order_summary = 'order_received.order_summary';
+  static const order_received_take_from_restaurant = 'order_received.take_from_restaurant';
+  static const order_received_item_number = 'order_received.item_number';
+  static const order_received_order_amount = 'order_received.order_amount';
+  static const order_received_total_amount = 'order_received.total_amount';
+  static const order_received_delivery_address = 'order_received.delivery_address';
+  static const order_received_show_on_map = 'order_received.show_on_map';
+  static const order_received_button_1 = 'order_received.button_1';
+  static const order_received_button_2 = 'order_received.button_2';
+  static const order_received = 'order_received';
+  static const order_delivered_headline_text = 'order_delivered.headline_text';
+  static const order_delivered_body_text = 'order_delivered.body_text';
+  static const order_delivered_button = 'order_delivered.button';
+  static const order_delivered = 'order_delivered';
+  static const delete_account_title = 'delete_account.title';
+  static const delete_account_text_1 = 'delete_account.text_1';
+  static const delete_account_text_2 = 'delete_account.text_2';
+  static const delete_account_button = 'delete_account.button';
+  static const delete_account_hint_text = 'delete_account.hint_text';
+  static const delete_account = 'delete_account';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
@@ -364,5 +390,6 @@ abstract class  LocaleKeys {
   static const my_notifications_special_for_me_favorite = 'my_notifications.special_for_me.favorite';
   static const my_notifications_special_for_me = 'my_notifications.special_for_me';
   static const my_notifications = 'my_notifications';
+
 
 }

@@ -149,6 +149,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
       height: context.dynamicWidht(0.04),
       width: context.dynamicWidht(0.04),
       decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(4.0),
         border: Border.all(
           color: Color(0xFFD1D0D0),

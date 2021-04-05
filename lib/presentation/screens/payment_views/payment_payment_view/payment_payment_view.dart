@@ -36,6 +36,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   TextEditingController cardController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController cardNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -114,9 +115,12 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
   Column buildOnline(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildRowTitleLeftRight(context, payWithAnotherCard ? LocaleKeys.payment_payment_pay_another_card : LocaleKeys.payment_payment_choose_card,
-            LocaleKeys.payment_payment_edit),
+        buildBodyTitle(
+          context,
+          payWithAnotherCard ? LocaleKeys.payment_payment_pay_another_card : LocaleKeys.payment_payment_choose_card,
+        ),
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
@@ -128,15 +132,50 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
               SizedBox(
                 height: context.dynamicHeight(0.02),
               ),
-              buildAnotherCardButton(context),
             ],
           ),
         ),
         Visibility(
           visible: payWithAnotherCard,
-          child: buildPayWithAnotherCard(context),
+          child: Column(
+            children: [
+              buildPayWithAnotherCard(context),
+              Visibility(
+                visible: checkboxAddCardValue,
+                child: Column(
+                  children: [
+                    buildTextFormField(LocaleKeys.payment_payment_name_card, cardNameController),
+                    SizedBox(
+                      height: context.dynamicHeight(0.02),
+                    ),
+                  ],
+                ),
+              ),
+              buildRowCheckBox(context),
+              SizedBox(
+                height: context.dynamicHeight(0.02),
+              ),
+            ],
+          ),
         ),
+        buildAnotherCardButton(context),
       ],
+    );
+  }
+
+  Padding buildRowCheckBox(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+      child: Row(
+        children: [
+          buildCheckBox(context),
+          SizedBox(width: context.dynamicWidht(0.02)),
+          LocaleText(
+            text: LocaleKeys.payment_payment_add_to_registered_cards,
+            style: AppTextStyles.subTitleStyle,
+          ),
+        ],
+      ),
     );
   }
 
@@ -226,21 +265,19 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           decoration: InputDecoration(
             labelText: labelText,
             labelStyle: AppTextStyles.bodyTextStyle,
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
-              borderRadius: BorderRadius.circular(4.0),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
-              borderRadius: BorderRadius.circular(4.0),
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(),
-              borderRadius: BorderRadius.circular(4.0),
-            ),
+            enabledBorder: buildOutlineInputBorder(),
+            focusedBorder: buildOutlineInputBorder(),
+            border: buildOutlineInputBorder(),
           ),
         ),
       ),
+    );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder() {
+    return OutlineInputBorder(
+      borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+      borderRadius: BorderRadius.circular(4.0),
     );
   }
 
@@ -318,45 +355,58 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       ),
       child: CustomButton(
         width: double.infinity,
-        title: LocaleKeys.payment_payment_pay_another_card,
+        title: payWithAnotherCard ? LocaleKeys.payment_payment_cancel : LocaleKeys.payment_payment_pay_another_card,
         color: Colors.transparent,
         borderColor: AppColors.greenColor,
         textColor: AppColors.greenColor,
         onPressed: () {
           setState(() {
-            payWithAnotherCard = true;
+            if (!payWithAnotherCard) {
+              payWithAnotherCard = true;
+            } else {
+              payWithAnotherCard = false;
+            }
           });
         },
       ),
     );
   }
 
-  Padding buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
+  Container buildCheckBox(BuildContext context) {
+    return Container(
+      height: context.dynamicWidht(0.04),
+      width: context.dynamicWidht(0.04),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4.0),
+        color: Colors.white,
+        border: Border.all(
+          color: Color(0xFFD1D0D0),
+        ),
+      ),
+      child: Theme(
+        data: ThemeData(unselectedWidgetColor: Colors.transparent),
+        child: Checkbox(
+          checkColor: Colors.greenAccent,
+          activeColor: Colors.transparent,
+          value: checkboxAddCardValue,
+          onChanged: (value) {
+            setState(() {
+              checkboxAddCardValue = value!;
+            });
+          },
+        ),
+      ),
+    );
+  }
+
+  Padding buildBodyTitle(BuildContext context, String titleLeft) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          LocaleText(
-            text: titleLeft,
-            style: AppTextStyles.bodyTitleStyle,
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: LocaleText(
-              text: titleRight,
-              style: GoogleFonts.montserrat(
-                fontSize: 12.0,
-                color: AppColors.orangeColor,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
+      child: LocaleText(
+        text: titleLeft,
+        style: AppTextStyles.bodyTitleStyle,
       ),
     );
   }
