@@ -116,7 +116,8 @@
         "list_tile_phone":"Phone number",
         "list_tile_change_password":"Change Password",
         "list_tile_remove_link":"Remove link",
-        "button":"Update"
+        "button":"Update",
+        "delete_account":"Delete My Account"
     },
     "change_password":{
         "title":"Change Password",
