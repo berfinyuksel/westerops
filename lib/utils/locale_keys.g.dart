@@ -251,6 +251,10 @@ abstract class  LocaleKeys {
   static const order_received_button_1 = 'order_received.button_1';
   static const order_received_button_2 = 'order_received.button_2';
   static const order_received = 'order_received';
+  static const order_delivered_headline_text = 'order_delivered.headline_text';
+  static const order_delivered_body_text = 'order_delivered.body_text';
+  static const order_delivered_button = 'order_delivered.button';
+  static const order_delivered = 'order_delivered';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';

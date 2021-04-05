@@ -282,6 +282,11 @@
         "button_1":"My Past Orders",
         "button_2":"Continue to Save Our World"
     },
+    "order_delivered":{
+        "headline_text":"Thanks for\nhelping us\nprotect the world!",
+        "body_text":"Thank you for not leaving us alone on this road\nwe set out to protect our planet!\nNow it's time to score your order!",
+        "button":"Evaluate"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

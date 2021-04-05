@@ -288,6 +288,11 @@
         "button_1":"Geçmiş Siparişlerim",
         "button_2":"Dünyamızı Kurtarmaya Devam Et"
     },
+    "order_delivered":{
+        "headline_text":"Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",
+        "body_text":"Gezegenimizi korumak çıktığımız bu yolda\nbizi yalnız bırakmadığın için teşekkürler!\nŞimdi sıra siparişini puanlamada!",
+        "button":"Değerlendir"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
