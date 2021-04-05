@@ -24,6 +24,13 @@ abstract class  LocaleKeys {
   static const onboardings_forth_button = 'onboardings.forth.button';
   static const onboardings_forth = 'onboardings.forth';
   static const onboardings = 'onboardings';
+  static const login_text_login = 'login.text_login';
+  static const login_phone = 'login.phone';
+  static const login_password = 'login.password';
+  static const login_forgot_pass = 'login.forgot_pass';
+  static const login_dont_have_account = 'login.dont_have_account';
+  static const login_sign_up = 'login.sign_up';
+  static const login = 'login';
   static const register_text_register = 'register.text_register';
   static const register_phone = 'register.phone';
   static const register_full_name = 'register.full_name';
@@ -41,13 +48,6 @@ abstract class  LocaleKeys {
   static const register_contract = 'register.contract';
   static const register_social_auth = 'register.social_auth';
   static const register = 'register';
-  static const login_text_login = 'login.text_login';
-  static const login_phone = 'login.phone';
-  static const login_password = 'login.password';
-  static const login_forgot_pass = 'login.forgot_pass';
-  static const login_dont_have_account = 'login.dont_have_account';
-  static const login_sign_up = 'login.sign_up';
-  static const login = 'login';
   static const forgot_password_phone = 'forgot_password.phone';
   static const forgot_password_activation_code = 'forgot_password.activation_code';
   static const forgot_password_new_password = 'forgot_password.new_password';
@@ -191,8 +191,6 @@ abstract class  LocaleKeys {
   static const my_near_location = 'my_near.location';
   static const my_near_edit = 'my_near.edit';
   static const my_near_body_title = 'my_near.body_title';
-  static const my_near_show_map = 'my_near.show_map';
-  static const my_near_show_list = 'my_near.show_list';
   static const my_near = 'my_near';
   static const my_favorites_title = 'my_favorites.title';
   static const my_favorites_location = 'my_favorites.location';
@@ -366,5 +364,32 @@ abstract class  LocaleKeys {
   static const restaurant_food_categories_text3 = 'restaurant_food_categories.text3';
   static const restaurant_food_categories_text4 = 'restaurant_food_categories.text4';
   static const restaurant_food_categories = 'restaurant_food_categories';
+  static const my_notifications_tab_bar_title_title1 = 'my_notifications.tab_bar_title.title1';
+  static const my_notifications_tab_bar_title_title2 = 'my_notifications.tab_bar_title.title2';
+  static const my_notifications_tab_bar_title_title3 = 'my_notifications.tab_bar_title.title3';
+  static const my_notifications_tab_bar_title = 'my_notifications.tab_bar_title';
+  static const my_notifications_delete_text_text = 'my_notifications.delete_text.text';
+  static const my_notifications_delete_text = 'my_notifications.delete_text';
+  static const my_notifications_my_orders_title = 'my_notifications.my_orders.title';
+  static const my_notifications_my_orders_courierItsWay = 'my_notifications.my_orders.courierItsWay';
+  static const my_notifications_my_orders_forgetRate = 'my_notifications.my_orders.forgetRate';
+  static const my_notifications_my_orders = 'my_notifications.my_orders';
+  static const my_notifications_all_list_title1 = 'my_notifications.all_list.title1';
+  static const my_notifications_all_list_title2 = 'my_notifications.all_list.title2';
+  static const my_notifications_all_list_title3 = 'my_notifications.all_list.title3';
+  static const my_notifications_all_list_lastThirtyMins = 'my_notifications.all_list.lastThirtyMins';
+  static const my_notifications_all_list_lastThirtyMinsApprove = 'my_notifications.all_list.lastThirtyMinsApprove';
+  static const my_notifications_all_list_firstBuyer = 'my_notifications.all_list.firstBuyer';
+  static const my_notifications_all_list_courierItsWay = 'my_notifications.all_list.courierItsWay';
+  static const my_notifications_all_list_forgetRate = 'my_notifications.all_list.forgetRate';
+  static const my_notifications_all_list = 'my_notifications.all_list';
+  static const my_notifications_special_for_me_title = 'my_notifications.special_for_me.title';
+  static const my_notifications_special_for_me_discountFifty = 'my_notifications.special_for_me.discountFifty';
+  static const my_notifications_special_for_me_discountSeventy = 'my_notifications.special_for_me.discountSeventy';
+  static const my_notifications_special_for_me_pawsAnimals = 'my_notifications.special_for_me.pawsAnimals';
+  static const my_notifications_special_for_me_favorite = 'my_notifications.special_for_me.favorite';
+  static const my_notifications_special_for_me = 'my_notifications.special_for_me';
+  static const my_notifications = 'my_notifications';
+
 
 }

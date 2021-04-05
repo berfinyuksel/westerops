@@ -25,6 +25,8 @@ import 'package:dongu_mobile/presentation/screens/payment_views/payment_views.da
 import 'package:dongu_mobile/presentation/screens/permissions_views/location_view/location.dart';
 import 'package:dongu_mobile/presentation/screens/permissions_views/notification_view/notification.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/register_view.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/food_categories/food_categories_view.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/restaurant_detail_view/restaurant_detail_view.dart';
 import 'package:dongu_mobile/presentation/screens/search_view/search.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +52,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => ContactView());
       case RouteConstant.FILTER_VIEW:
         return MaterialPageRoute(builder: (_) => FilterView());
+      case RouteConstant.FOOD_CATEGORIES_VIEW:
+        return MaterialPageRoute(builder: (_) => FoodCategories());
       case RouteConstant.FOOD_WASTE_EXPANDED_VIEW:
         return MaterialPageRoute(builder: (_) => FoodWasteExpandedView());
       case RouteConstant.FOOD_WASTE_VIEW:
@@ -88,6 +92,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => MyInformationView());
       case RouteConstant.REGISTER_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterView());
+      case RouteConstant.RESTAURANT_DETAIL:
+        return MaterialPageRoute(builder: (_) => RestaurantDetailView());
       case RouteConstant.RESTAURANT_DETAIL:
         return MaterialPageRoute(builder: (_) => Text(""));
       case RouteConstant.SEARCH_VIEW:

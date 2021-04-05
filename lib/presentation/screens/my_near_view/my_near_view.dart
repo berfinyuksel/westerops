@@ -23,7 +23,10 @@ class MyNearView extends StatelessWidget {
   ListView buildBody(BuildContext context) {
     return ListView(
       shrinkWrap: true,
-      children: [buildTitlesAndSearchBar(context), buildListViewRestaurantInfo()],
+      children: [
+        buildTitlesAndSearchBar(context),
+        buildListViewRestaurantInfo()
+      ],
     );
   }
 
@@ -38,7 +41,8 @@ class MyNearView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildRowTitleLeftRight(context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
+          buildRowTitleLeftRight(
+              context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -53,7 +57,8 @@ class MyNearView extends StatelessWidget {
             ],
           ),
           SizedBox(height: context.dynamicHeight(0.03)),
-          buildRowTitleLeftRight(context, LocaleKeys.my_near_body_title, LocaleKeys.my_near_show_map),
+          buildRowTitleLeftRight(context, LocaleKeys.my_near_body_title,
+              LocaleKeys.my_near_show_map),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -78,7 +83,8 @@ class MyNearView extends StatelessWidget {
         });
   }
 
-  Row buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRight(
+      BuildContext context, String titleLeft, String titleRight) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

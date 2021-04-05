@@ -20,7 +20,8 @@ class CustomCardAndBody extends StatefulWidget {
   _CustomCardAndBodyState createState() => _CustomCardAndBodyState();
 }
 
-class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTickerProviderStateMixin {
+class _CustomCardAndBodyState extends State<CustomCardAndBody>
+    with SingleTickerProviderStateMixin {
   bool _isSelect = false;
 
   TabController? _controller;
@@ -149,7 +150,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           child: ListTile(
             contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
-              text: LocaleKeys.restaurant_detail_detail_tab_title2,
+              text: LocaleKeys.restaurant_detail_detail_tab_title1,
               style: AppTextStyles.subTitleStyle,
             ),
             subtitle: LocaleText(
@@ -668,7 +669,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   },
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_FAVORITE_ICON,
-                    color: _isSelect ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                    color: _isSelect
+                        ? AppColors.orangeColor
+                        : AppColors.unSelectedpackageDeliveryColor,
                   ))
             ],
           )

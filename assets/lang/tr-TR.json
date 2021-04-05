@@ -418,5 +418,38 @@
         "text2": "Ek Öneriler",
         "text3": "Bu öğe açık büfeden yiyecek içeriyor",
         "text4": "İşletmeniz, yiyeceklerinizi nasıl kullanacağınıza ve \ndepolayacağınıza ilişkin öneriler tanımladıysa, \nbunları aşağıdaki alanda paylaşabiliriz."
+    },
+    "my_notifications":
+    {
+        "tab_bar_title": {
+            "title1": "Siperişlerim",
+            "title2": "Tümü",
+            "title3": "Bana Özel"
+        },
+        "delete_text":{
+            "text": "Sil"
+        },
+        "my_orders": {
+        "title": "🛒 Siparişlerim",
+        "courierItsWay": "Siparişin sana ulaşmak üzere yola çıktı. 🛵💨",
+        "forgetRate": "Siparişin sana ulaştı. Puanlamayı unutma.\n ⭐️⭐️⭐️⭐️⭐️"
+        },
+        "all_list": {
+        "title1": "🔔 Sürpriz Paket Alarmı",
+        "title2": "🛒 Siparişlerim",
+        "title3": "🎉 Bana Özel Fırsatlar",
+        "lastThirtyMins": "Satın aldığın sürpriz paketin açılmasına son\n yarım saat kaldı! 🥳🎉✨",
+        "lastThirtyMinsApprove": "Satın aldığın paket açıldı 30 dk içerisinde\n onaylamalısın!",
+        "firstBuyer": "Favorilediğin Restoranın yeni paket ekledi.\n İlk satın alana sen ol! 🥇",
+        "courierItsWay": "Siparişin sana ulaşmak üzere yola çıktı. 🛵💨",
+        "forgetRate": "Siparişin sana ulaştı. Puanlamayı unutma.\n ⭐️⭐️⭐️⭐️⭐️"
+        },
+        "special_for_me": {
+            "title": "🎉 Bana Özel Fırsatlar",
+            "discountFifty": "Favorilediğin Restoran paketlerini tam\n %50 indirimle satışa çıkardı!",
+            "discountSeventy": "Favorilediğin Restoran paketlerini tam\n %70 indirimle satışa çıkardı!",
+            "pawsAnimals": "Bugün satın aldığın paketlerin geliri\n patili dostlarımıza ulaşıyor.",
+            "favorite": "Favori Restoranının bugün 10 paketi var.\n Acele et bu Döngü’ye sen de ortak ol!"
+        }
     }
 }
