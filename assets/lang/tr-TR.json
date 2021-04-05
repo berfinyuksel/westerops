@@ -120,7 +120,8 @@
         "list_tile_phone":"Telefon numarası",
         "list_tile_change_password":"Şifre Değişikliği",
         "list_tile_remove_link":"Bağlantıyı Kaldır",
-        "button":"Güncelle"
+        "button":"Güncelle",
+        "delete_account":"Hesabımı Sil"
     },
     "change_password":{
         "title":"Şifre Değişikliği",

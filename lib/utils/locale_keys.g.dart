@@ -103,6 +103,7 @@ abstract class  LocaleKeys {
   static const inform_list_tile_change_password = 'inform.list_tile_change_password';
   static const inform_list_tile_remove_link = 'inform.list_tile_remove_link';
   static const inform_button = 'inform.button';
+  static const inform_delete_account = 'inform.delete_account';
   static const inform = 'inform';
   static const change_password_title = 'change_password.title';
   static const change_password_current_password = 'change_password.current_password';
