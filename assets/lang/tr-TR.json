@@ -293,6 +293,13 @@
         "body_text":"Gezegenimizi korumak çıktığımız bu yolda\nbizi yalnız bırakmadığın için teşekkürler!\nŞimdi sıra siparişini puanlamada!",
         "button":"Değerlendir"
     },
+    "delete_account":{
+        "title":"Hesabımı Sil",
+        "text_1":"Gidiyor musun?",
+        "text_2":"Neden hesabını silmek istiyorsun? Lütfen seç. Bilgileriniz 30 gün süreyle saklanacaktır. 30 gün içinde tekrar gelirseniz, hesabınıza hiçbir şey olmamış gibi giriş yapabilirsiniz.",
+        "button":"Hesabımı Sil",
+        "hint_text":"Başka açıklama ekleyebilirsin"
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

@@ -74,6 +74,7 @@ flutter:
     - assets/images/cart/
     - assets/images/payment/
     - assets/images/order_receiving/
+    - assets/images/delete_account/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

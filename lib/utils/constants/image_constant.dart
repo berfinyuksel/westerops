@@ -59,6 +59,7 @@ class ImageConstant {
   static const ORDER_RECEIVING_BACKGROUND = "assets/images/order_receiving/background.svg";
   static const ORDER_RECEIVED_CLOCK_ICON = "assets/images/order_receiving/received_clock_icon.svg";
   static const ORDER_DELIVERED_ICON = "assets/images/order_receiving/delivered_icon.svg";
+  static const DELETE_ACCOUNT_LOVE = "assets/images/delete_account/love.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";

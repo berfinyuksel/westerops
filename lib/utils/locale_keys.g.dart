@@ -255,6 +255,12 @@ abstract class  LocaleKeys {
   static const order_delivered_body_text = 'order_delivered.body_text';
   static const order_delivered_button = 'order_delivered.button';
   static const order_delivered = 'order_delivered';
+  static const delete_account_title = 'delete_account.title';
+  static const delete_account_text_1 = 'delete_account.text_1';
+  static const delete_account_text_2 = 'delete_account.text_2';
+  static const delete_account_button = 'delete_account.button';
+  static const delete_account_hint_text = 'delete_account.hint_text';
+  static const delete_account = 'delete_account';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';

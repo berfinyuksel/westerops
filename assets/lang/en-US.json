@@ -287,6 +287,13 @@
         "body_text":"Thank you for not leaving us alone on this road\nwe set out to protect our planet!\nNow it's time to score your order!",
         "button":"Evaluate"
     },
+    "delete_account":{
+        "title":"Delete My Account",
+        "text_1":"Are you leaving?",
+        "text_2":"Why do you want to delete your account? Please choose. Your information will be stored for 30 days. If you come back within 30 days, you can log into your account as if nothing had happened.",
+        "button":"Delete My Account",
+        "hint_text":"You can add another description"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
