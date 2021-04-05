@@ -6,6 +6,7 @@ import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
@@ -115,7 +116,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         style: AppTextStyles.bodyTextStyle,
         children: [
           TextSpan(
-            text: LocaleKeys.order_received_order_number,
+            text: LocaleKeys.order_received_order_number.locale,
             style: GoogleFonts.montserrat(
               fontWeight: FontWeight.w400,
             ),

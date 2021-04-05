@@ -56,7 +56,9 @@ class ImageConstant {
   static const PAYMENT_CVV_ICON = "assets/images/payment/cvv_icon.svg";
   static const ORDER_RECEIVING_DONGU_LOGO = "assets/images/order_receiving/receiving_dongu_logo.svg";
   static const ORDER_RECEIVING_PACKAGE_ICON = "assets/images/order_receiving/receiving_package_icon.svg";
+  static const ORDER_RECEIVING_BACKGROUND = "assets/images/order_receiving/background.svg";
   static const ORDER_RECEIVED_CLOCK_ICON = "assets/images/order_receiving/received_clock_icon.svg";
+  static const ORDER_DELIVERED_ICON = "assets/images/order_receiving/delivered_icon.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";
