@@ -64,6 +64,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       color: Colors.white,
       child: Column(
         children: [
+          SizedBox(
+            height: context.dynamicHeight(0.01),
+          ),
           buildTextFormFieldPassword(LocaleKeys.change_password_current_password.locale, passwordController),
           buildTextFormFieldNewPassword(LocaleKeys.change_password_new_password.locale),
           buildTextFormFieldPassword(LocaleKeys.change_password_new_password_again.locale, newPasswordAgainController)
