@@ -53,6 +53,8 @@ flutter:
 
     - assets/images/permissions/
     - assets/images/restaurant_detail/
+    - assets/images/notifications/
+
 
 
     - assets/commons/

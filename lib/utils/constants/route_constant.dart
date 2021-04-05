@@ -8,6 +8,8 @@ class RouteConstant {
   static const CHANGE_PASSWORD_VIEW = '/changePass';
   static const CONTACT_VIEW = '/contact';
   static const FILTER_VIEW = '/filter';
+  static const FOOD_CATEGORIES_VIEW = '/foodCategories';
+
   static const FOOD_WASTE_VIEW = '/foodWaste';
   static const FOOD_WASTE_EXPANDED_VIEW = '/foodWasteExpanded';
   static const FORGOT_PASSWORD_VIEW = '/forgotPass';

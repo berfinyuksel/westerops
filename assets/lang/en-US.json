@@ -349,20 +349,20 @@
     "restaurant_detail": {
         "text1": "Packets",
         "text2": "Informations",
-        "text3": "Add The Restaurant To My Favorites",
+        "text3": "Add Restaurant To Favorite",
         "title": "Mini Burger",
         "address": "Kuruçeşme, Muallim Street, Beşiktaş",
         "item1": "Service",
         "item2": "Quality",
         "item3": "Food",
-        "item4": "4 Package",
-        "sub_title1": "Surprise Packages",
-        "sub_text1": "Surprise Packages 1",
-        "sub_text2": "Surprise Packages 2",
-        "sub_text3": "Surprise Packages 3",
+        "item4": "4 Packet",
+        "sub_title1": "Surprise Packet",
+        "sub_text1": "Surprise Packet 1",
+        "sub_text2": "Surprise Packet 2",
+        "sub_text3": "Surprise Packet 3",
         "button_text": "Buy",
         "sub_title2": "Defined Packages",
-        "sub_text4": "Vegan 4 Packages",
+        "sub_text4": "Vegan 4 Packets",
         "sub_text5": "Broccoli Salad, Beans With Vegan\n Sauce Soy Sauce",
         "detail_tab": {
             "title1": "Delivery Hours",
@@ -383,5 +383,37 @@
         "text2": "Additional Suggestions",
         "text3": "This item contains food from the buffet",
         "text4": "If your business has defined recommendations on how to \nuse and store your food, we can \nshare them in the space below."
+    },
+    "my_notifications": {
+        "tab_bar_title": {
+            "title1": "My Orders",
+            "title2": "All",
+            "title3": "Special For Me"
+        },
+            "delete_text": {
+                "text": "Delete"
+            },
+        "my_orders": {
+            "title": "🛒 My Orders",
+            "courierItsWay": "Your order is on its way to you. 🛵💨",
+            "forgetRate": "Your order has reached you. Don't forget to rate it.\n ⭐️⭐️⭐️⭐️⭐️"
+        },
+        "all_list": {
+            "title1": "🔔 Surprise Package Alarm",
+            "title2": "🛒 My Orders",
+            "title3": "🎉 Special Offers For Me",
+            "lastThirtyMins": "The last half an hour is left for the surprise\n package you purchased to open! 🥳🎉✨",
+            "lastThirtyMinsApprove": "The package you bought has been opened,\n you have to confirm it within 30 minutes!",
+            "firstBuyer": "Your Favorite Restaurant has added a new\n package. Be the first to buy! 🥇",
+            "courierItsWay": "Your order is on its way to you. 🛵💨",
+            "forgetRate": "Your order has reached you. Don't forget to rate it.\n ⭐️⭐️⭐️⭐️⭐️"
+        },
+        "special_for_me": {
+            "title": "🎉 Special Offers For Me",
+            "discountFifty": "Your favorite Restaurant packages are on sale\n with a full 50% discount!",
+            "discountSeventy": "Your favorite Restaurant packages are on sale\n with a full 70% discount!",
+            "pawsAnimals": "The income of the packages you buy today\n reaches our patili friends.",
+            "favorite": "Favorite Restaurant has 10 packages today.\n Hurry, become a partner in this Cycle!"
+        }
     }
 }
