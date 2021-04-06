@@ -3,15 +3,13 @@ import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class MyOrdersListTileBuilder extends StatefulWidget {
   MyOrdersListTileBuilder({Key? key}) : super(key: key);
 
   @override
-  _MyOrdersListTileBuilderState createState() =>
-      _MyOrdersListTileBuilderState();
+  _MyOrdersListTileBuilderState createState() => _MyOrdersListTileBuilderState();
 }
 
 class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
@@ -44,15 +42,12 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
                 background: Padding(
                   padding: EdgeInsets.only(left: context.dynamicWidht(0.65)),
                   child: Container(
-                    color: AppColors.listTileRemoveColor,
+                    color: AppColors.redColor,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: context.dynamicHeight(0.038),
-                          horizontal: context.dynamicWidht(0.048)),
+                      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.038), horizontal: context.dynamicWidht(0.048)),
                       child: LocaleText(
                         text: LocaleKeys.my_notifications_delete_text_text,
-                        style: AppTextStyles.bodyTextStyle.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                         alignment: TextAlign.end,
                       ),
                     ),
@@ -71,17 +66,10 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          buildTitle(context, index)[index],
-                          buildDateTrailing(context, index)[index]
-                        ],
+                        children: [buildTitle(context, index)[index], buildDateTrailing(context, index)[index]],
                       ),
                       Row(
-                        children: [
-                          Expanded(
-                              child: buildDescriptionSubtitle(
-                                  context, index)[index])
-                        ],
+                        children: [Expanded(child: buildDescriptionSubtitle(context, index)[index])],
                       ),
                     ],
                   ),
@@ -124,8 +112,7 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
         padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
         child: LocaleText(
           text: LocaleKeys.my_notifications_my_orders_courierItsWay,
-          style:
-              AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
           alignment: TextAlign.start,
         ),
       ),
@@ -133,8 +120,7 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
         padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
         child: LocaleText(
           text: LocaleKeys.my_notifications_my_orders_forgetRate,
-          style:
-              AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
           alignment: TextAlign.start,
         ),
       ),
@@ -142,8 +128,7 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
         padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
         child: LocaleText(
           text: LocaleKeys.my_notifications_my_orders_courierItsWay,
-          style:
-              AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
           alignment: TextAlign.start,
         ),
       ),
@@ -151,8 +136,7 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
         padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
         child: LocaleText(
           text: LocaleKeys.my_notifications_my_orders_forgetRate,
-          style:
-              AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
           alignment: TextAlign.start,
         ),
       ),
@@ -166,12 +150,7 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
 
   buildDateTrailing(BuildContext context, index) {
     List<Widget> dateText = [];
-    List<String> date = [
-      "15 Mart 2021",
-      "16 Mart 2021",
-      "17 Mart 2021",
-      "21 Mart 2021"
-    ];
+    List<String> date = ["15 Mart 2021", "16 Mart 2021", "17 Mart 2021", "21 Mart 2021"];
 
     for (int i = 0; i <= 4; i++) {
       dateText.add(

@@ -24,13 +24,6 @@ abstract class  LocaleKeys {
   static const onboardings_forth_button = 'onboardings.forth.button';
   static const onboardings_forth = 'onboardings.forth';
   static const onboardings = 'onboardings';
-  static const login_text_login = 'login.text_login';
-  static const login_phone = 'login.phone';
-  static const login_password = 'login.password';
-  static const login_forgot_pass = 'login.forgot_pass';
-  static const login_dont_have_account = 'login.dont_have_account';
-  static const login_sign_up = 'login.sign_up';
-  static const login = 'login';
   static const register_text_register = 'register.text_register';
   static const register_phone = 'register.phone';
   static const register_full_name = 'register.full_name';
@@ -48,6 +41,13 @@ abstract class  LocaleKeys {
   static const register_contract = 'register.contract';
   static const register_social_auth = 'register.social_auth';
   static const register = 'register';
+  static const login_text_login = 'login.text_login';
+  static const login_phone = 'login.phone';
+  static const login_password = 'login.password';
+  static const login_forgot_pass = 'login.forgot_pass';
+  static const login_dont_have_account = 'login.dont_have_account';
+  static const login_sign_up = 'login.sign_up';
+  static const login = 'login';
   static const forgot_password_phone = 'forgot_password.phone';
   static const forgot_password_activation_code = 'forgot_password.activation_code';
   static const forgot_password_new_password = 'forgot_password.new_password';
@@ -191,6 +191,8 @@ abstract class  LocaleKeys {
   static const my_near_location = 'my_near.location';
   static const my_near_edit = 'my_near.edit';
   static const my_near_body_title = 'my_near.body_title';
+  static const my_near_show_map = 'my_near.show_map';
+  static const my_near_show_list = 'my_near.show_list';
   static const my_near = 'my_near';
   static const my_favorites_title = 'my_favorites.title';
   static const my_favorites_location = 'my_favorites.location';
@@ -266,6 +268,11 @@ abstract class  LocaleKeys {
   static const surprise_pack_button_reject = 'surprise_pack.button_reject';
   static const surprise_pack_button_accept = 'surprise_pack.button_accept';
   static const surprise_pack = 'surprise_pack';
+  static const surprise_pack_canceled_canceled_your_pack = 'surprise_pack_canceled.canceled_your_pack';
+  static const surprise_pack_canceled_button_buy = 'surprise_pack_canceled.button_buy';
+  static const surprise_pack_canceled_button_send = 'surprise_pack_canceled.button_send';
+  static const surprise_pack_canceled_pack_canceled = 'surprise_pack_canceled.pack_canceled';
+  static const surprise_pack_canceled = 'surprise_pack_canceled';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
@@ -395,6 +402,5 @@ abstract class  LocaleKeys {
   static const my_notifications_special_for_me_favorite = 'my_notifications.special_for_me.favorite';
   static const my_notifications_special_for_me = 'my_notifications.special_for_me';
   static const my_notifications = 'my_notifications';
-
 
 }

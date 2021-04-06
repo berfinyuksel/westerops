@@ -144,13 +144,9 @@ class _SurprisePackViewState extends State<SurprisePackView> {
             style: AppTextStyles.myInformationBodyTextStyle,
           ),
           SvgPicture.asset(ImageConstant.SURPRISE_PACK_FORWARD_ICON),
-          Column(
-            children: [
-              AutoSizeText(
-                'Anadolu Lezzetleri',
-                style: AppTextStyles.myInformationBodyTextStyle,
-              ),
-            ],
+          AutoSizeText(
+            'Anadolu Lezzetleri',
+            style: AppTextStyles.myInformationBodyTextStyle,
           ),
         ],
       ),

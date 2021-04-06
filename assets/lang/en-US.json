@@ -289,18 +289,24 @@
         "body_text":"Thank you for not leaving us alone on this road\nwe set out to protect our planet!\nNow it's time to score your order!",
         "button":"Evaluate"
     },
-    "surprise_pack": {
-        "surprise_pack_opened":"Your Surprise Package has been opened!",
-        "surprise_pack":"Surprise Package",
-        "button_reject":"Reject",
-        "button_accept":"Accept"
-    },
     "delete_account":{
         "title":"Delete My Account",
         "text_1":"Are you leaving?",
         "text_2":"Why do you want to delete your account? Please choose. Your information will be stored for 30 days. If you come back within 30 days, you can log into your account as if nothing had happened.",
         "button":"Delete My Account",
         "hint_text":"You can add another description"
+    },
+    "surprise_pack": {
+        "surprise_pack_opened":"Your Surprise Package has been opened!",
+        "surprise_pack":"Surprise Package",
+        "button_reject":"Reject",
+        "button_accept":"Accept"
+    },
+    "surprise_pack_canceled": {
+        "canceled_your_pack":"You Canceled Your Specified Package!",
+        "button_buy":"Buy",
+        "button_send":"Send",
+        "pack_canceled":"Defined Package Canceled."
     },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
