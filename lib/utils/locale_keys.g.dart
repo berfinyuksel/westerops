@@ -261,6 +261,11 @@ abstract class  LocaleKeys {
   static const delete_account_button = 'delete_account.button';
   static const delete_account_hint_text = 'delete_account.hint_text';
   static const delete_account = 'delete_account';
+  static const surprise_pack_surprise_pack_opened = 'surprise_pack.surprise_pack_opened';
+  static const surprise_pack_surprise_pack = 'surprise_pack.surprise_pack';
+  static const surprise_pack_button_reject = 'surprise_pack.button_reject';
+  static const surprise_pack_button_accept = 'surprise_pack.button_accept';
+  static const surprise_pack = 'surprise_pack';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';
