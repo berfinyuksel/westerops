@@ -289,6 +289,12 @@
         "body_text":"Thank you for not leaving us alone on this road\nwe set out to protect our planet!\nNow it's time to score your order!",
         "button":"Evaluate"
     },
+    "surprise_pack": {
+        "surprise_pack_opened":"Your Surprise Package has been opened!",
+        "surprise_pack":"Surprise Package",
+        "button_reject":"Reject",
+        "button_accept":"Accept"
+    },
     "delete_account":{
         "title":"Delete My Account",
         "text_1":"Are you leaving?",
