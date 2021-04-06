@@ -308,6 +308,12 @@
         "button_reject":"Reddet",
         "button_accept":"Kabul Et"
     },
+    "surprise_pack_canceled": {
+        "canceled_your_pack":"Tanımlanmış Paketini İptal Ettin!",
+        "button_buy":"Satın Al",
+        "button_send":"Gönder",
+        "pack_canceled":"Tanımlanmış Paketin İptal Edildi."
+    },
     "premission_notification": {
         "text1": "Döngü bildirimlerine izin ver",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",

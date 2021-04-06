@@ -11,12 +11,10 @@ class SpecialForMeListTileBuilder extends StatefulWidget {
   SpecialForMeListTileBuilder({Key? key}) : super(key: key);
 
   @override
-  _SpecialForMeListTileBuilderState createState() =>
-      _SpecialForMeListTileBuilderState();
+  _SpecialForMeListTileBuilderState createState() => _SpecialForMeListTileBuilderState();
 }
 
-class _SpecialForMeListTileBuilderState
-    extends State<SpecialForMeListTileBuilder> {
+class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilder> {
   var value = <String>["", "", "", ""];
 
   @override
@@ -42,15 +40,12 @@ class _SpecialForMeListTileBuilderState
             child: Dismissible(
                 direction: DismissDirection.endToStart,
                 background: Container(
-                  color: AppColors.listTileRemoveColor,
+                  color: AppColors.redColor,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: context.dynamicHeight(0.038),
-                        horizontal: context.dynamicWidht(0.058)),
+                    padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.038), horizontal: context.dynamicWidht(0.058)),
                     child: LocaleText(
                       text: LocaleKeys.my_notifications_delete_text_text,
-                      style: AppTextStyles.bodyTextStyle.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                       alignment: TextAlign.end,
                     ),
                   ),
@@ -72,18 +67,10 @@ class _SpecialForMeListTileBuilderState
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          buildTitle(context, index)[index],
-                          buildDateTrailing(context, index)[index]
-                        ],
+                        children: [buildTitle(context, index)[index], buildDateTrailing(context, index)[index]],
                       ),
                       Row(
-                        children: [
-                          buildIconsLeading(context, index)[index],
-                          Expanded(
-                              child: buildDescriptionSubtitle(
-                                  context, index)[index])
-                        ],
+                        children: [buildIconsLeading(context, index)[index], Expanded(child: buildDescriptionSubtitle(context, index)[index])],
                       ),
                     ],
                   ),
@@ -129,12 +116,7 @@ class _SpecialForMeListTileBuilderState
 
   buildDateTrailing(BuildContext context, index) {
     List<Widget> dateText = [];
-    List<String> date = [
-      "15 Mart 2021",
-      "16 Mart 2021",
-      "17 Mart 2021",
-      "21 Mart 2021"
-    ];
+    List<String> date = ["15 Mart 2021", "16 Mart 2021", "17 Mart 2021", "21 Mart 2021"];
 
     for (int i = 0; i <= 4; i++) {
       dateText.add(
@@ -159,29 +141,25 @@ class _SpecialForMeListTileBuilderState
     List<Widget> description = [
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_discountFifty,
-        style:
-            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
         alignment: TextAlign.start,
         maxLines: 2,
       ),
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_discountSeventy,
-        style:
-            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
         maxLines: 2,
         alignment: TextAlign.start,
       ),
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_pawsAnimals,
-        style:
-            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
         maxLines: 2,
         alignment: TextAlign.start,
       ),
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_favorite,
-        style:
-            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
         maxLines: 2,
         alignment: TextAlign.start,
       ),
@@ -201,29 +179,25 @@ class _SpecialForMeListTileBuilderState
     List<Widget> title = [
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_title,
-        style:
-            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
+        style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
         alignment: TextAlign.start,
         maxLines: 2,
       ),
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_title,
-        style:
-            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
+        style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
         maxLines: 2,
         alignment: TextAlign.start,
       ),
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_title,
-        style:
-            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
+        style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
         maxLines: 2,
         alignment: TextAlign.start,
       ),
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_title,
-        style:
-            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
+        style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
         alignment: TextAlign.start,
         maxLines: 2,
       ),
