@@ -10,10 +10,12 @@ class CustomSliderBarAndTextField extends StatefulWidget {
   CustomSliderBarAndTextField({Key? key}) : super(key: key);
 
   @override
-  _CustomSliderBarAndTextFieldState createState() => _CustomSliderBarAndTextFieldState();
+  _CustomSliderBarAndTextFieldState createState() =>
+      _CustomSliderBarAndTextFieldState();
 }
 
-class _CustomSliderBarAndTextFieldState extends State<CustomSliderBarAndTextField> {
+class _CustomSliderBarAndTextFieldState
+    extends State<CustomSliderBarAndTextField> {
   int _starValue = 10;
   int _endValue = 50;
   int minValue = 10;
@@ -30,7 +32,8 @@ class _CustomSliderBarAndTextFieldState extends State<CustomSliderBarAndTextFiel
   }
 
   _setStartValue() {
-    if (double.parse(startController.text).roundToDouble() <= double.parse(endController.text).roundToDouble() &&
+    if (double.parse(startController.text).roundToDouble() <=
+            double.parse(endController.text).roundToDouble() &&
         double.parse(startController.text).roundToDouble() >= minValue &&
         double.parse(endController.text).roundToDouble() >= minValue &&
         double.parse(startController.text).roundToDouble() <= maxValue &&
@@ -43,7 +46,8 @@ class _CustomSliderBarAndTextFieldState extends State<CustomSliderBarAndTextFiel
   }
 
   _setEndValue() {
-    if (double.parse(startController.text).roundToDouble() <= double.parse(endController.text).roundToDouble() &&
+    if (double.parse(startController.text).roundToDouble() <=
+            double.parse(endController.text).roundToDouble() &&
         double.parse(startController.text).roundToDouble() >= minValue &&
         double.parse(endController.text).roundToDouble() >= minValue &&
         double.parse(startController.text).roundToDouble() <= maxValue &&
@@ -68,11 +72,11 @@ class _CustomSliderBarAndTextFieldState extends State<CustomSliderBarAndTextFiel
       //   width: context.dynamicWidht(0.9),
       height: context.dynamicHeight(0.18),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(flex: 50, child: rangeSliderBar()),
           Spacer(
-            flex: 3,
+            flex: 1,
           ),
           Expanded(
             flex: 50,
@@ -84,7 +88,7 @@ class _CustomSliderBarAndTextFieldState extends State<CustomSliderBarAndTextFiel
                 ),
                 minPrice(context),
                 Spacer(
-                  flex: 3,
+                  flex: 1,
                 ),
                 maxPrice(context),
                 Spacer(
@@ -103,8 +107,8 @@ class _CustomSliderBarAndTextFieldState extends State<CustomSliderBarAndTextFiel
 
   Container maxPrice(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.45),
-      height: context.dynamicHeight(0.075),
+      width: context.dynamicWidht(0.39),
+      height: context.dynamicHeight(0.060),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(
@@ -146,7 +150,8 @@ class _CustomSliderBarAndTextFieldState extends State<CustomSliderBarAndTextFiel
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: LocaleKeys.filters_package_price_item3.locale,
-                        hintStyle: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.bold)),
+                        hintStyle: AppTextStyles.subTitleStyle
+                            .copyWith(fontWeight: FontWeight.bold)),
                     controller: endController,
                     cursorColor: AppColors.textColor,
                   ),
@@ -162,8 +167,8 @@ class _CustomSliderBarAndTextFieldState extends State<CustomSliderBarAndTextFiel
 
   Container minPrice(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.45),
-      height: context.dynamicHeight(0.075),
+      width: context.dynamicWidht(0.39),
+      height: context.dynamicHeight(0.060),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(
@@ -205,7 +210,8 @@ class _CustomSliderBarAndTextFieldState extends State<CustomSliderBarAndTextFiel
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: LocaleKeys.filters_package_price_item3.locale,
-                        hintStyle: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.bold)),
+                        hintStyle: AppTextStyles.subTitleStyle
+                            .copyWith(fontWeight: FontWeight.bold)),
                     controller: startController,
                     cursorColor: AppColors.textColor,
                   ),
@@ -219,23 +225,28 @@ class _CustomSliderBarAndTextFieldState extends State<CustomSliderBarAndTextFiel
     );
   }
 
-  SliderTheme rangeSliderBar() {
-    return SliderTheme(
-      data: SliderThemeData(trackHeight: 7),
-      child: RangeSlider(
-        values: RangeValues(_starValue.toDouble(), _endValue.toDouble()),
-        min: minValue.toDouble(),
-        max: maxValue.toDouble(),
-        inactiveColor: AppColors.sliderColor,
-        activeColor: AppColors.greenColor,
-        onChanged: (values) {
-          setState(() {
-            _starValue = values.start.roundToDouble().toInt();
-            _endValue = values.end.roundToDouble().toInt();
-            startController.text = values.start.roundToDouble().toInt().toString();
-            endController.text = values.end.roundToDouble().toInt().toString();
-          });
-        },
+  Container rangeSliderBar() {
+    return Container(
+      width: context.dynamicWidht(0.92),
+      child: SliderTheme(
+        data: SliderThemeData(trackHeight: 7),
+        child: RangeSlider(
+          values: RangeValues(_starValue.toDouble(), _endValue.toDouble()),
+          min: minValue.toDouble(),
+          max: maxValue.toDouble(),
+          inactiveColor: AppColors.sliderColor,
+          activeColor: AppColors.greenColor,
+          onChanged: (values) {
+            setState(() {
+              _starValue = values.start.roundToDouble().toInt();
+              _endValue = values.end.roundToDouble().toInt();
+              startController.text =
+                  values.start.roundToDouble().toInt().toString();
+              endController.text =
+                  values.end.roundToDouble().toInt().toString();
+            });
+          },
+        ),
       ),
     );
   }
