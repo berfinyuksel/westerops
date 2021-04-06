@@ -61,6 +61,7 @@ class ImageConstant {
   static const ORDER_DELIVERED_ICON = "assets/images/order_receiving/delivered_icon.svg";
   static const DELETE_ACCOUNT_LOVE = "assets/images/delete_account/love.svg";
   static const SURPRISE_PACK = "assets/images/surprise_pack/surprise_pack.svg";
+  static const SURPRISE_PACK_ALERT = "assets/images/surprise_pack/surprise_alert.svg";
   static const SURPRISE_PACK_FORWARD_ICON = "assets/images/surprise_pack/surprise_pack_forward_icon.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
@@ -90,16 +91,8 @@ class ImageConstant {
   static const RESTAURANT_FAVORITE_ICON = "assets/images/restaurant_detail/favorite_icon.svg";
   static const RESTAURANT_INFO_ICON = "assets/images/restaurant_detail/info_icon.svg";
 
-
   static const NOTIFICATIONS_DISCOUNT_50_ICON = "assets/images/notifications/discount_50.svg";
   static const NOTIFICATIONS_DISCOUNT_70_ICON = "assets/images/notifications/discount_70.svg";
   static const NOTIFICATIONS_ITSELF_ICON = "assets/images/notifications/itself.svg";
   static const NOTIFICATIONS_LIKE_ICON = "assets/images/notifications/like.svg";
-
-
-
-
-
-
-
 }

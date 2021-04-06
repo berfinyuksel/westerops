@@ -300,7 +300,10 @@
         "surprise_pack_opened":"Your Surprise Package has been opened!",
         "surprise_pack":"Surprise Package",
         "button_reject":"Reject",
-        "button_accept":"Accept"
+        "button_accept":"Accept",
+        "alert_button1":"No",
+        "alert_button2":"Yes",
+        "alert_text":"Are you sure you want to\nCancel your package?"
     },
     "surprise_pack_canceled": {
         "canceled_your_pack":"You Canceled Your Specified Package!",

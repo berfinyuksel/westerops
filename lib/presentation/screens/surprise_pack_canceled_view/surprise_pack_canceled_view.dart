@@ -11,7 +11,6 @@ import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'components/buy_button.dart';
 
 class SurprisePackCanceled extends StatefulWidget {
