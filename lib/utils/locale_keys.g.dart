@@ -267,6 +267,9 @@ abstract class  LocaleKeys {
   static const surprise_pack_surprise_pack = 'surprise_pack.surprise_pack';
   static const surprise_pack_button_reject = 'surprise_pack.button_reject';
   static const surprise_pack_button_accept = 'surprise_pack.button_accept';
+  static const surprise_pack_alert_button1 = 'surprise_pack.alert_button1';
+  static const surprise_pack_alert_button2 = 'surprise_pack.alert_button2';
+  static const surprise_pack_alert_text = 'surprise_pack.alert_text';
   static const surprise_pack = 'surprise_pack';
   static const surprise_pack_canceled_canceled_your_pack = 'surprise_pack_canceled.canceled_your_pack';
   static const surprise_pack_canceled_button_buy = 'surprise_pack_canceled.button_buy';

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
@@ -105,6 +106,9 @@ class _SurprisePackViewState extends State<SurprisePackView> {
           color: Colors.transparent,
           textColor: AppColors.redColor,
           borderColor: AppColors.redColor,
+          onPressed: () {
+            showDialog(context: context, builder: (_) => CustomAlertDialog());
+          },
         ),
         CustomButton(
           width: context.dynamicWidht(0.416),

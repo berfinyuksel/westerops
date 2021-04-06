@@ -306,7 +306,10 @@
         "surprise_pack_opened":"Sürpriz Paketin açıldı!",
         "surprise_pack":"Sürpriz Paket",
         "button_reject":"Reddet",
-        "button_accept":"Kabul Et"
+        "button_accept":"Kabul Et",
+        "alert_button1":"Hayır",
+        "alert_button2":"Evet",
+        "alert_text":"Paketini İptal Etmek istediğine\nemin misin?"
     },
     "surprise_pack_canceled": {
         "canceled_your_pack":"Tanımlanmış Paketini İptal Ettin!",
