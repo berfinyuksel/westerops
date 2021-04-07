@@ -55,7 +55,6 @@ flutter:
     - assets/images/restaurant_detail/
     - assets/images/notifications/
 
-
     - assets/commons/
     - assets/images/filters/
     - assets/images/search/
@@ -78,7 +77,6 @@ flutter:
     - assets/images/order_receiving/
     - assets/images/delete_account/
     - assets/images/surprise_pack/
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
