@@ -276,6 +276,10 @@ abstract class  LocaleKeys {
   static const surprise_pack_canceled_button_send = 'surprise_pack_canceled.button_send';
   static const surprise_pack_canceled_pack_canceled = 'surprise_pack_canceled.pack_canceled';
   static const surprise_pack_canceled = 'surprise_pack_canceled';
+  static const address_from_map_title = 'address_from_map.title';
+  static const address_from_map_hint_text = 'address_from_map.hint_text';
+  static const address_from_map_button = 'address_from_map.button';
+  static const address_from_map = 'address_from_map';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
   static const premission_notification_button1 = 'premission_notification.button1';

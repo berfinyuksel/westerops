@@ -311,6 +311,11 @@
         "button_send":"Send",
         "pack_canceled":"Defined Package Canceled."
     },
+    "address_from_map": {
+        "title":"Add New Address",
+        "hint_text":"Search district, street",
+        "button":"Use This Address"
+    },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
         "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
