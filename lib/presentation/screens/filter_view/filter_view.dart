@@ -28,7 +28,7 @@ class _FilterViewState extends State<FilterView> {
             PaymentMethodFilterList(),
             ChooseCategoryFilterList(),
             SizedBox(
-              height: context.dynamicHeight(0.12),
+              height: context.dynamicHeight(0.34),
             ),
             CleanAndSaveButtons()
           ],
