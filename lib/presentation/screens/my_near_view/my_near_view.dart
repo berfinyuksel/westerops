@@ -1,17 +1,49 @@
+import 'dart:async';
+import 'dart:ui' as ui;
+import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/presentation/screens/my_favorites_view/components/address_text.dart';
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MyNearView extends StatelessWidget {
+class MyNearView extends StatefulWidget {
+  @override
+  _MyNearViewState createState() => _MyNearViewState();
+}
+
+class _MyNearViewState extends State<MyNearView> {
+  late BitmapDescriptor markerIcon;
+  late BitmapDescriptor restaurantMarkerIcon;
+  late BitmapDescriptor restaurantSoldoutMarkerIcon;
+
+  final MarkerId markerId = MarkerId("my_location");
+  final MarkerId restaurantMarkerId = MarkerId("rest_1");
+
+  late Completer<GoogleMapController> _mapController;
+  Map<MarkerId, Marker> markers = Map<MarkerId, Marker>();
+  double latitude = 0;
+  double longitude = 0;
+
+  bool isShowOnMap = false;
+  bool isShowBottomInfo = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -20,14 +52,90 @@ class MyNearView extends StatelessWidget {
     );
   }
 
-  ListView buildBody(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
+  Column buildBody(BuildContext context) {
+    return Column(
       children: [
         buildTitlesAndSearchBar(context),
-        buildListViewRestaurantInfo()
+        Visibility(
+          visible: isShowOnMap,
+          child: Expanded(
+            child: Container(
+              height: context.dynamicHeight(0.54),
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  Stack(
+                    alignment: Alignment(0.81, 0.88),
+                    children: [
+                      GoogleMap(
+                        myLocationButtonEnabled: false,
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(latitude, longitude),
+                          zoom: 17.0,
+                        ),
+                        onMapCreated: (GoogleMapController controller) {
+                          _mapController.complete(controller);
+                        },
+                        mapType: MapType.normal,
+                        markers: Set<Marker>.of(markers.values),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          final GoogleMapController controller = await _mapController.future;
+                          setState(() {
+                            latitude = LocationService.latitude!;
+                            longitude = LocationService.longitude!;
+
+                            controller.animateCamera(CameraUpdate.newCameraPosition(
+                              CameraPosition(
+                                target: LatLng(latitude, longitude),
+                                zoom: 17.0,
+                              ),
+                            ));
+                          });
+                        },
+                        child: SvgPicture.asset(ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                      ),
+                      Visibility(
+                          visible: isShowBottomInfo,
+                          child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isShowBottomInfo = false;
+                                });
+                              },
+                              child: Container(color: Colors.black.withOpacity(0.2)))),
+                    ],
+                  ),
+                  Visibility(visible: isShowBottomInfo, child: buildBottomInfo(context))
+                ],
+              ),
+            ),
+          ),
+        ),
+        Visibility(
+            visible: !isShowOnMap, child: Expanded(child: Container(height: context.dynamicHeight(0.54), child: buildListViewRestaurantInfo())))
       ],
     );
+  }
+
+  Positioned buildBottomInfo(BuildContext context) {
+    return Positioned(
+        right: 0,
+        left: 0,
+        bottom: 0,
+        child: Container(
+          width: double.infinity,
+          height: context.dynamicHeight(0.176),
+          padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+          color: Colors.white,
+          child: RestaurantInfoListTile(
+            restaurantName: "Mini Burger",
+            distance: "74m",
+            packetNumber: "4 paket",
+            availableTime: "18:00-21:00",
+          ),
+        ));
   }
 
   Padding buildTitlesAndSearchBar(BuildContext context) {
@@ -41,8 +149,7 @@ class MyNearView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildRowTitleLeftRight(
-              context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
+          buildRowTitleLeftRight(context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -57,8 +164,7 @@ class MyNearView extends StatelessWidget {
             ],
           ),
           SizedBox(height: context.dynamicHeight(0.03)),
-          buildRowTitleLeftRight(context, LocaleKeys.my_near_body_title,
-              LocaleKeys.my_near_show_map),
+          buildRowTitleLeftRight(context, LocaleKeys.my_near_body_title, isShowOnMap ? LocaleKeys.my_near_show_list : LocaleKeys.my_near_show_map),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -70,8 +176,6 @@ class MyNearView extends StatelessWidget {
 
   ListView buildListViewRestaurantInfo() {
     return ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
         itemCount: 5,
         itemBuilder: (context, index) {
           return RestaurantInfoListTile(
@@ -79,12 +183,15 @@ class MyNearView extends StatelessWidget {
             distance: "74m",
             packetNumber: "4 paket",
             availableTime: "18:00-21:00",
+            border: Border.all(
+              width: 1.0,
+              color: AppColors.borderAndDividerColor,
+            ),
           );
         });
   }
 
-  Row buildRowTitleLeftRight(
-      BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,12 +200,21 @@ class MyNearView extends StatelessWidget {
           text: titleLeft,
           style: AppTextStyles.bodyTitleStyle,
         ),
-        LocaleText(
-          text: titleRight,
-          style: GoogleFonts.montserrat(
-            fontSize: 12.0,
-            color: AppColors.orangeColor,
-            fontWeight: FontWeight.w600,
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              isShowOnMap = !isShowOnMap;
+              _mapController = Completer<GoogleMapController>();
+              setCustomMarker();
+            });
+          },
+          child: LocaleText(
+            text: titleRight,
+            style: GoogleFonts.montserrat(
+              fontSize: 12.0,
+              color: AppColors.orangeColor,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ],
@@ -128,7 +244,7 @@ class MyNearView extends StatelessWidget {
             errorBorder: buildOutlineInputBorder(),
             disabledBorder: buildOutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.046)),
-            hintText: "Yemek, restoran ara"),
+            hintText: LocaleKeys.my_near_hint_text.locale),
       ),
     );
   }
@@ -144,5 +260,89 @@ class MyNearView extends StatelessWidget {
         color: AppColors.borderAndDividerColor,
       ),
     );
+  }
+
+  void setCustomMarker() async {
+    markerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
+    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_MARKER);
+    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
+    getLocation();
+  }
+
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(String assetName) async {
+    // Read SVG file as String
+    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
+    // Create DrawableRoot from SVG String
+    DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
+
+    // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
+    MediaQueryData queryData = MediaQuery.of(context);
+    double devicePixelRatio = queryData.devicePixelRatio;
+    double width = 64 * devicePixelRatio; // where 32 is your SVG's original width
+    double height = 64 * devicePixelRatio; // same thing
+
+    // Convert to ui.Picture
+    ui.Picture picture = svgDrawableRoot.toPicture(size: Size(width, height));
+
+    // Convert to ui.Image. toImage() takes width and height as parameters
+    // you need to find the best size to suit your needs and take into account the
+    // screen DPI
+    ui.Image image = await picture.toImage(width.toInt(), height.toInt());
+    ByteData? bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    return BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
+  }
+
+  Future<void> getLocation() async {
+    await LocationService.getCurrentLocation();
+    final GoogleMapController controller = await _mapController.future;
+    setState(() {
+      latitude = LocationService.latitude!;
+      longitude = LocationService.longitude!;
+
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(latitude, longitude),
+          zoom: 17.0,
+        ),
+      ));
+      final Marker marker = Marker(
+        onTap: () {
+          setState(() {
+            isShowBottomInfo = false;
+          });
+        },
+        infoWindow: InfoWindow(title: "Benim Konumum"),
+        icon: markerIcon,
+        markerId: markerId,
+        position: LatLng(latitude, longitude),
+      );
+      markers[markerId] = marker;
+      for (int i = 1; i < 3; i++) {
+        Marker restMarker = Marker(
+          onTap: () {
+            setState(() {
+              isShowBottomInfo = !isShowBottomInfo;
+            });
+          },
+          icon: restaurantMarkerIcon,
+          markerId: MarkerId("rest_$i"),
+          position: LatLng(latitude + i * 0.0005, longitude + i * 0.0005),
+        );
+        markers[MarkerId("rest_$i")] = restMarker;
+      }
+      for (int i = 1; i < 3; i++) {
+        Marker restMarker = Marker(
+          onTap: () {
+            setState(() {
+              isShowBottomInfo = !isShowBottomInfo;
+            });
+          },
+          icon: restaurantSoldoutMarkerIcon,
+          markerId: MarkerId("rest_${3 + i}"),
+          position: LatLng(latitude - i * 0.0005, longitude - i * 0.0005),
+        );
+        markers[MarkerId("rest_${3 + i}")] = restMarker;
+      }
+    });
   }
 }

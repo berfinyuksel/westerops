@@ -222,7 +222,8 @@
         "edit":"Değiştir",
         "body_title":"Yakınımdakiler Tümü",
         "show_map":"Haritada Göster",
-        "show_list":"Liste Olarak Göster"
+        "show_list":"Liste Olarak Göster",
+        "hint_text":"Yemek, restoran ara"
     },
     "my_favorites":{
         "title":"Favorilerim",
