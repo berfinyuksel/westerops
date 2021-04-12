@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:dongu_mobile/data/model/place.dart';
@@ -19,12 +22,12 @@ import 'package:geocoding/geocoding.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class AddNewAddressView extends StatefulWidget {
+class AddressFromMapView extends StatefulWidget {
   @override
-  _AddNewAddressViewState createState() => _AddNewAddressViewState();
+  _AddressFromMapViewState createState() => _AddressFromMapViewState();
 }
 
-class _AddNewAddressViewState extends State<AddNewAddressView> {
+class _AddressFromMapViewState extends State<AddressFromMapView> {
   double latitude = 0;
   double longitude = 0;
   final TextEditingController searchController = new TextEditingController();
@@ -35,7 +38,7 @@ class _AddNewAddressViewState extends State<AddNewAddressView> {
   Completer<GoogleMapController> _mapController = Completer<GoogleMapController>();
 
   Map<MarkerId, Marker> markers = Map<MarkerId, Marker>();
-  late BitmapDescriptor markerIcon;
+  BitmapDescriptor? markerIcon;
   final MarkerId markerId = MarkerId("center");
 
   @override
@@ -76,7 +79,7 @@ class _AddNewAddressViewState extends State<AddNewAddressView> {
                         latitude = object.target.latitude;
                         longitude = object.target.longitude;
                         final Marker marker = Marker(
-                          icon: markerIcon,
+                          icon: markerIcon!,
                           markerId: markerId,
                           position: LatLng(latitude, longitude),
                         );
@@ -91,14 +94,6 @@ class _AddNewAddressViewState extends State<AddNewAddressView> {
                       ),
                       onMapCreated: (GoogleMapController controller) {
                         _mapController.complete(controller);
-                        final Marker marker = Marker(
-                          icon: markerIcon,
-                          markerId: markerId,
-                          position: LatLng(latitude, longitude),
-                        );
-                        setState(() {
-                          markers[markerId] = marker;
-                        });
                       },
                       mapType: MapType.normal,
                       markers: Set<Marker>.of(markers.values),
@@ -117,7 +112,7 @@ class _AddNewAddressViewState extends State<AddNewAddressView> {
                               ),
                             ));
                             final Marker marker = Marker(
-                              icon: markerIcon,
+                              icon: markerIcon!,
                               markerId: markerId,
                               position: LatLng(latitude, longitude),
                             );
@@ -173,7 +168,6 @@ class _AddNewAddressViewState extends State<AddNewAddressView> {
     return GestureDetector(
       onTap: () async {
         Place place = await getPlace(state.response[index].placeId);
-        print("clicked");
         final GoogleMapController controller = await _mapController.future;
         setState(() {
           isSearchesShown = false;
@@ -187,7 +181,7 @@ class _AddNewAddressViewState extends State<AddNewAddressView> {
             ),
           ));
           final Marker marker = Marker(
-            icon: markerIcon,
+            icon: markerIcon!,
             markerId: markerId,
             position: LatLng(latitude, longitude),
           );
@@ -239,7 +233,6 @@ class _AddNewAddressViewState extends State<AddNewAddressView> {
             isSearchesShown = true;
           });
           context.read<SearchLocationCubit>().getLocations(searchedText);
-          print("getloc");
         },
         controller: searchController,
         cursorColor: AppColors.cursorColor,
@@ -310,8 +303,31 @@ class _AddNewAddressViewState extends State<AddNewAddressView> {
   }
 
   void setCustomMarker() async {
-    markerIcon = await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5), ImageConstant.COMMONS_MAP_MARKER);
+    markerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
     getLocation();
+  }
+
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(String assetName) async {
+    // Read SVG file as String
+    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
+    // Create DrawableRoot from SVG String
+    DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
+
+    // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
+    MediaQueryData queryData = MediaQuery.of(context);
+    double devicePixelRatio = queryData.devicePixelRatio;
+    double width = 64 * devicePixelRatio; // where 32 is your SVG's original width
+    double height = 64 * devicePixelRatio; // same thing
+
+    // Convert to ui.Picture
+    ui.Picture picture = svgDrawableRoot.toPicture(size: Size(width, height));
+
+    // Convert to ui.Image. toImage() takes width and height as parameters
+    // you need to find the best size to suit your needs and take into account the
+    // screen DPI
+    ui.Image image = await picture.toImage(width.toInt(), height.toInt());
+    ByteData? bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    return BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
   }
 
   Future<void> getLocation() async {
@@ -328,7 +344,7 @@ class _AddNewAddressViewState extends State<AddNewAddressView> {
         ),
       ));
       final Marker marker = Marker(
-        icon: markerIcon,
+        icon: markerIcon!,
         markerId: markerId,
         position: LatLng(latitude, longitude),
       );

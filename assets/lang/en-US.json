@@ -216,7 +216,10 @@
         "title":"Near Me",
         "location":"My Location",
         "edit":"Change",
-        "body_title":"Near Me All"
+        "body_title":"Near Me All",
+        "show_map":"Show on Map",
+        "show_list":"Show as List",
+        "hint_text":"Search for food, restaurants"
     },
     "my_favorites":{
         "title":"My Favorites",

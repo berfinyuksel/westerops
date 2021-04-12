@@ -19,24 +19,20 @@ class RestaurantInfoListTile extends StatelessWidget {
   final String? restaurantName;
   final String? distance;
   final String? availableTime;
+  final Border? border;
   const RestaurantInfoListTile({
     Key? key,
     @required this.packetNumber,
     @required this.restaurantName,
     @required this.distance,
     @required this.availableTime,
+    this.border,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-          width: 1.0,
-          color: AppColors.borderAndDividerColor,
-        ),
-      ),
+      decoration: BoxDecoration(color: Colors.white, border: border),
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06), vertical: context.dynamicHeight(0.02)),
       height: context.dynamicHeight(0.13),
       child: Row(
