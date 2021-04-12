@@ -193,6 +193,7 @@ abstract class  LocaleKeys {
   static const my_near_body_title = 'my_near.body_title';
   static const my_near_show_map = 'my_near.show_map';
   static const my_near_show_list = 'my_near.show_list';
+  static const my_near_hint_text = 'my_near.hint_text';
   static const my_near = 'my_near';
   static const my_favorites_title = 'my_favorites.title';
   static const my_favorites_location = 'my_favorites.location';
