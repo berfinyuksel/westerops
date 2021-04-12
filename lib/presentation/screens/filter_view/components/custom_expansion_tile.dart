@@ -27,6 +27,7 @@ class CustomExpansionTile extends StatelessWidget {
           text: expansionTileTitle,
           style: AppTextStyles.bodyTitleStyle,
         ),
+
         children: [
           expansionTileBody,
         ],

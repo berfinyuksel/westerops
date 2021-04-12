@@ -39,14 +39,17 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
             decoration: BoxDecoration(color: Colors.white),
             child: Dismissible(
                 direction: DismissDirection.endToStart,
-                background: Container(
-                  color: AppColors.redColor,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.038), horizontal: context.dynamicWidht(0.058)),
-                    child: LocaleText(
-                      text: LocaleKeys.my_notifications_delete_text_text,
-                      style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                      alignment: TextAlign.end,
+                background: Padding(
+                padding: EdgeInsets.only(left: context.dynamicWidht(0.65)),
+                  child: Container(
+                    color: AppColors.redColor,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.038), horizontal: context.dynamicWidht(0.058)),
+                      child: LocaleText(
+                        text: LocaleKeys.my_notifications_delete_text_text,
+                        style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                        alignment: TextAlign.end,
+                      ),
                     ),
                   ),
                 ),
