@@ -55,6 +55,7 @@ class _OnboardingsViewState extends State<OnboardingsView> {
           flex: 140,
           child: CustomButton(
             onPressed: () {
+              //SharedPrefs.onboardingShown();
               Navigator.pushReplacementNamed(context, RouteConstant.NOTIFICATION_VIEW);
             },
             title: LocaleKeys.onboardings_forth_button,

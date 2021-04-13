@@ -5,12 +5,14 @@ import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'data/shared/shared_prefs.dart';
 import 'presentation/router/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await EasyLocalization.ensureInitialized();
+  await SharedPrefs.initialize();
 
   runApp(
     EasyLocalization(
@@ -39,7 +41,6 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           onGenerateRoute: _appRouter.onGenerateRoute,
-
         );
       }),
     );
