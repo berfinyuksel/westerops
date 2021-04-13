@@ -1,5 +1,7 @@
 class RouteConstant {
   static const ABOUT_APP_VIEW = '/about';
+  static const ADDRESS_DETAIL_VIEW = '/address_detail';
+  static const ADDRESS_FROM_MAP_VIEW = '/addressMap';
   static const ADDRESS_VIEW = '/address';
   static const AGREEMENT_KVKK_VIEW = '/kvkk';
   static const AGREEMENT_VIEW = '/agreement';
@@ -7,9 +9,9 @@ class RouteConstant {
   static const CHANGE_LOCATION_VIEW = '/changeLocation';
   static const CHANGE_PASSWORD_VIEW = '/changePass';
   static const CONTACT_VIEW = '/contact';
+  static const DELETE_ACCOUNT_VIEW = '/deleteAccount';
   static const FILTER_VIEW = '/filter';
   static const FOOD_CATEGORIES_VIEW = '/foodCategories';
-
   static const FOOD_WASTE_VIEW = '/foodWaste';
   static const FOOD_WASTE_EXPANDED_VIEW = '/foodWasteExpanded';
   static const FORGOT_PASSWORD_VIEW = '/forgotPass';
@@ -24,10 +26,15 @@ class RouteConstant {
   static const MY_NEAR_VIEW = '/myNear';
   static const NOTIFICATION_VIEW = '/notification';
   static const ONBOARDINGS_VIEW = '/';
+  static const ORDER_DELIVERED_VIEW = '/orderDelivered';
+  static const ORDER_RECEIVED_VIEW = '/orderReceived';
+  static const ORDER_RECEIVING_VIEW = '/orderReceiving';
   static const PAST_ORDER_DETAIL_VIEW = '/pastOrderDetail';
   static const PAST_ORDER_VIEW = '/pastOrder';
   static const PAYMENTS_VIEW = '/payments';
   static const REGISTER_VIEW = '/register';
   static const RESTAURANT_DETAIL = '/restaurantDetail';
   static const SEARCH_VIEW = '/search';
+  static const SURPRISE_PACK_CANCELED_VIEW = '/surpriseCanceled';
+  static const SURPRISE_PACK_VIEW = '/surprise';
 }

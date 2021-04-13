@@ -36,7 +36,6 @@ dependencies:
   shared_preferences: ^2.0.5
   smooth_page_indicator: ^0.3.0-nullsafety.0
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,7 +62,7 @@ flutter:
     - assets/images/search/
     - assets/images/commons/
     - assets/images/past_order/
-
+    - assets/images/address/
     - assets/images/onboardings/onboarding/
     - assets/images/onboardings/onboarding_first/
     - assets/images/onboardings/onboarding_second/

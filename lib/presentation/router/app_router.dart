@@ -1,5 +1,8 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/presentation/screens/about_app_view/about_app_view.dart';
+import 'package:dongu_mobile/presentation/screens/address_detail_view/address_detail_view.dart';
+import 'package:dongu_mobile/presentation/screens/address_detail_view/string_arguments/string_arguments.dart';
+import 'package:dongu_mobile/presentation/screens/address_from_map_view/address_from_map_view.dart';
 import 'package:dongu_mobile/presentation/screens/address_view/address_view.dart';
 import 'package:dongu_mobile/presentation/screens/agreement_kvkk_view/agreement_kvkk_view.dart';
 import 'package:dongu_mobile/presentation/screens/agreement_view/agreement_view.dart';
@@ -7,6 +10,7 @@ import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
 import 'package:dongu_mobile/presentation/screens/change_location_view/change_location_view.dart';
 import 'package:dongu_mobile/presentation/screens/change_password_view/change_password_view.dart';
 import 'package:dongu_mobile/presentation/screens/contact_view/contact_view.dart';
+import 'package:dongu_mobile/presentation/screens/delete_account_view/delete_account_view.dart';
 import 'package:dongu_mobile/presentation/screens/filter_view/filter_view.dart';
 import 'package:dongu_mobile/presentation/screens/food_waste_views/food_waste_expanded_view.dart';
 import 'package:dongu_mobile/presentation/screens/food_waste_views/food_waste_view.dart';
@@ -20,6 +24,9 @@ import 'package:dongu_mobile/presentation/screens/my_favorites_view/my_favorites
 import 'package:dongu_mobile/presentation/screens/my_information_view/my_information_view.dart';
 import 'package:dongu_mobile/presentation/screens/my_near_view/my_near_view.dart';
 import 'package:dongu_mobile/presentation/screens/onboardings_view/onboardings_view.dart';
+import 'package:dongu_mobile/presentation/screens/order_delivered_view/order_delivered_view.dart';
+import 'package:dongu_mobile/presentation/screens/order_received_view/order_received_view.dart';
+import 'package:dongu_mobile/presentation/screens/order_receiving_view/order_receiving_view.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/past_order_detail_view.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_view/past_order_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_views.dart';
@@ -29,6 +36,8 @@ import 'package:dongu_mobile/presentation/screens/register_view/register_view.da
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/food_categories/food_categories_view.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/restaurant_detail_view/restaurant_detail_view.dart';
 import 'package:dongu_mobile/presentation/screens/search_view/search.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/surprise_pack_canceled_view.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_view/surprise_pack_view.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +46,17 @@ class AppRouter {
     switch (routeSettings.name) {
       case RouteConstant.ABOUT_APP_VIEW:
         return MaterialPageRoute(builder: (_) => AboutAppView());
+      case RouteConstant.ADDRESS_DETAIL_VIEW:
+        final ScreenArguments args = routeSettings.arguments as ScreenArguments;
+
+        return MaterialPageRoute(
+            builder: (_) => AddressDetailView(
+                  title: args.title,
+                  address: args.description,
+                  district: args.district,
+                ));
+      case RouteConstant.ADDRESS_FROM_MAP_VIEW:
+        return MaterialPageRoute(builder: (_) => AddressFromMapView());
       case RouteConstant.ADDRESS_VIEW:
         return MaterialPageRoute(builder: (_) => AddressView());
       case RouteConstant.AGREEMENT_KVKK_VIEW:
@@ -51,6 +71,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => ChangePasswordView());
       case RouteConstant.CONTACT_VIEW:
         return MaterialPageRoute(builder: (_) => ContactView());
+      case RouteConstant.DELETE_ACCOUNT_VIEW:
+        return MaterialPageRoute(builder: (_) => DeleteAccountView());
       case RouteConstant.FILTER_VIEW:
         return MaterialPageRoute(builder: (_) => FilterView());
       case RouteConstant.FOOD_CATEGORIES_VIEW:
@@ -83,6 +105,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => NotificationView());
       case RouteConstant.ONBOARDINGS_VIEW:
         return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? LoginView() : OnboardingsView());
+      case RouteConstant.ORDER_DELIVERED_VIEW:
+        return MaterialPageRoute(builder: (_) => OrderDeliveredView());
+      case RouteConstant.ORDER_RECEIVED_VIEW:
+        return MaterialPageRoute(builder: (_) => OrderReceivedView());
+      case RouteConstant.ORDER_RECEIVING_VIEW:
+        return MaterialPageRoute(builder: (_) => OrderReceivingView());
       case RouteConstant.PAST_ORDER_DETAIL_VIEW:
         return MaterialPageRoute(builder: (_) => PastOrderDetailView());
       case RouteConstant.PAST_ORDER_VIEW:
@@ -95,10 +123,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => RegisterView());
       case RouteConstant.RESTAURANT_DETAIL:
         return MaterialPageRoute(builder: (_) => RestaurantDetailView());
-      case RouteConstant.RESTAURANT_DETAIL:
-        return MaterialPageRoute(builder: (_) => Text(""));
       case RouteConstant.SEARCH_VIEW:
         return MaterialPageRoute(builder: (_) => SearchView());
+      case RouteConstant.SURPRISE_PACK_CANCELED_VIEW:
+        return MaterialPageRoute(builder: (_) => SurprisePackCanceled());
+      case RouteConstant.SURPRISE_PACK_VIEW:
+        return MaterialPageRoute(builder: (_) => SurprisePackView());
 
       default:
         return null;

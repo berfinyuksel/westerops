@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:ui' as ui;
+
+import 'package:dongu_mobile/presentation/screens/address_from_map_view/components/map_alert_dialog.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -145,7 +147,6 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   Builder buildBuilder() {
     return Builder(builder: (context) {
       final GenericState state = context.watch<SearchLocationCubit>().state;
-
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
@@ -284,11 +285,15 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
         textColor: Colors.white,
         onPressed: () async {
           await getLocationDetails();
-          print(placemark[0].locality);
-          print(placemark[0].administrativeArea);
-          print(placemark[0].subLocality);
-          print(placemark[0].subThoroughfare);
-          print(placemark[0].thoroughfare);
+          String address =
+              "${placemark[0].name}, ${placemark[0].subLocality}, ${placemark[0].locality}, ${placemark[0].administrativeArea} ${placemark[0].postalCode}, ${placemark[0].country}";
+          String district = "${placemark[0].locality}";
+          showDialog(
+              context: context,
+              builder: (_) => MapAlertDialog(
+                    address: address,
+                    district: district,
+                  ));
         },
       ),
     );
