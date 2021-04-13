@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/presentation/screens/about_app_view/about_app_view.dart';
 import 'package:dongu_mobile/presentation/screens/address_view/address_view.dart';
 import 'package:dongu_mobile/presentation/screens/agreement_kvkk_view/agreement_kvkk_view.dart';
@@ -81,7 +82,7 @@ class AppRouter {
       case RouteConstant.NOTIFICATION_VIEW:
         return MaterialPageRoute(builder: (_) => NotificationView());
       case RouteConstant.ONBOARDINGS_VIEW:
-        return MaterialPageRoute(builder: (_) => OnboardingsView());
+        return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? LoginView() : OnboardingsView());
       case RouteConstant.PAST_ORDER_DETAIL_VIEW:
         return MaterialPageRoute(builder: (_) => PastOrderDetailView());
       case RouteConstant.PAST_ORDER_VIEW:
