@@ -2,6 +2,7 @@ import 'package:dongu_mobile/presentation/screens/address_view/components/addres
 import 'package:dongu_mobile/presentation/screens/address_view/components/adress_list_tile.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
@@ -62,6 +63,9 @@ class AddressView extends StatelessWidget {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
+        onPressed: () {
+          Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+        },
       ),
     );
   }

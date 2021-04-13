@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/data/repositories/search_location_repository.dart';
+import 'package:dongu_mobile/logic/cubits/payment_cubit/payment_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_location_cubit/search_location_cubit.dart';
 import 'package:dongu_mobile/utils/constants/locale_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<SearchLocationCubit>(create: (context) => SearchLocationCubit(SampleSearchLocationRepository())),
+        BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
       ],
       child: Builder(builder: (context) {
         return MaterialApp(
@@ -44,14 +46,5 @@ class MyApp extends StatelessWidget {
         );
       }),
     );
-
-    /*MultiBlocProvider(
-      providers: [          BlocProvider<ImageCubit>(create: (context) => ImageCubit(SampleImageRepository())),
-],
-      child: Builder(builder: (context) {
-        return
-
-      }),
-    );*/
   }
 }

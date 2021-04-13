@@ -67,6 +67,7 @@ class ImageConstant {
   static const SURPRISE_PACK = "assets/images/surprise_pack/surprise_pack.svg";
   static const SURPRISE_PACK_ALERT = "assets/images/surprise_pack/surprise_alert.svg";
   static const SURPRISE_PACK_FORWARD_ICON = "assets/images/surprise_pack/surprise_pack_forward_icon.svg";
+  static const ADDRESS_MAP_ALERT = "assets/images/address/map_alert.svg";
 
   static const NOTIFICATION_IMAGE = "assets/images/permissions/notification_image.svg";
   static const LOCATION_IMAGE = "assets/images/permissions/location_image.svg";

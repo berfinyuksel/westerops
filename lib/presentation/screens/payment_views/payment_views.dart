@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/payment_cubit/payment_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/agreement_view/components/accept_agreement_text.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_address_view/payment_address_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_delivery_view/payment_delivery_view.dart';
@@ -6,6 +7,7 @@ import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PaymentViews extends StatefulWidget {
   @override
@@ -21,9 +24,7 @@ class PaymentViews extends StatefulWidget {
 
 class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMixin {
   TabController? tabController;
-  bool isGetIt = true;
   bool checkboxValue = false;
-  bool isOnline = true;
   bool checkboxInfoValue = false;
   bool checkboxAgreementValue = false;
   bool checkboxAddCardValue = false;
@@ -32,11 +33,14 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: buildBody(context),
+      body: Builder(builder: (context) {
+        final PaymentState state = context.watch<PaymentCubit>().state;
+        return buildBody(context, state);
+      }),
     );
   }
 
-  Padding buildBody(BuildContext context) {
+  Padding buildBody(BuildContext context, PaymentState state) {
     return Padding(
       padding: EdgeInsets.only(
         top: context.dynamicHeight(0.02),
@@ -45,8 +49,8 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
       child: Column(
         children: [
           buildTabsContainer(context),
-          buildDeliveryType(context),
-          buildTabBars(),
+          buildDeliveryType(context, state),
+          buildTabBars(state),
           Spacer(),
           Visibility(visible: tabController!.index != 2, child: buildButton(context)),
           Visibility(visible: tabController!.index == 2, child: buildBottomCard(context)),
@@ -183,6 +187,11 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
           color: checkboxAgreementValue && checkboxInfoValue ? AppColors.greenColor : AppColors.disabledButtonColor,
           textColor: Colors.white,
           borderColor: checkboxAgreementValue && checkboxInfoValue ? AppColors.greenColor : AppColors.disabledButtonColor,
+          onPressed: () {
+            if (checkboxAgreementValue && checkboxInfoValue) {
+              Navigator.pushReplacementNamed(context, RouteConstant.ORDER_RECEIVING_VIEW);
+            }
+          },
         ),
       ],
     );
@@ -234,7 +243,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
     );
   }
 
-  Container buildDeliveryType(BuildContext context) {
+  Container buildDeliveryType(BuildContext context, PaymentState state) {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: context.dynamicWidht(0.06),
@@ -246,21 +255,21 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          buildGetIt(context),
-          buildPackageDelivery(context),
+          buildGetIt(context, state),
+          buildPackageDelivery(context, state),
         ],
       ),
     );
   }
 
-  GestureDetector buildPackageDelivery(BuildContext context) {
+  GestureDetector buildPackageDelivery(BuildContext context, PaymentState state) {
     return GestureDetector(
       onTap: () {
         setState(() {
           if (tabController!.index == 2) {
-            isOnline = false;
+            context.read<PaymentCubit>().setIsOnline(false);
           } else {
-            isGetIt = false;
+            context.read<PaymentCubit>().setIsGetIt(false);
           }
         });
       },
@@ -278,31 +287,34 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         ),
         child: tabController!.index == 2
             ? LocaleText(
-                text: "Kapıda Ödeme", style: AppTextStyles.bodyTextStyle.copyWith(color: !isOnline ? AppColors.greenColor : AppColors.textColor))
+                text: "Kapıda Ödeme",
+                style: AppTextStyles.bodyTextStyle.copyWith(color: !state.isOnline! ? AppColors.greenColor : AppColors.textColor))
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SvgPicture.asset(
                     ImageConstant.PACKAGE_DELIVERY_ICON,
-                    color: !isGetIt ? AppColors.greenColor : AppColors.iconColor,
+                    color: !state.isGetIt! ? AppColors.greenColor : AppColors.iconColor,
                   ),
                   LocaleText(
                       text: LocaleKeys.payment_package_delivery,
-                      style: AppTextStyles.bodyTextStyle.copyWith(color: !isGetIt ? AppColors.greenColor : AppColors.textColor)),
+                      style: AppTextStyles.bodyTextStyle.copyWith(color: !state.isGetIt! ? AppColors.greenColor : AppColors.textColor)),
                 ],
               ),
       ),
     );
   }
 
-  GestureDetector buildGetIt(BuildContext context) {
+  GestureDetector buildGetIt(BuildContext context, PaymentState state) {
     return GestureDetector(
       onTap: () {
+        print(state.isOnline);
+        print(state.isGetIt);
         setState(() {
           if (tabController!.index == 2) {
-            isOnline = true;
+            context.read<PaymentCubit>().setIsOnline(true);
           } else {
-            isGetIt = true;
+            context.read<PaymentCubit>().setIsGetIt(true);
           }
         });
       },
@@ -320,17 +332,18 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         ),
         child: tabController!.index == 2
             ? LocaleText(
-                text: "Online Ödeme", style: AppTextStyles.bodyTextStyle.copyWith(color: isOnline ? AppColors.greenColor : AppColors.textColor))
+                text: "Online Ödeme",
+                style: AppTextStyles.bodyTextStyle.copyWith(color: state.isOnline! ? AppColors.greenColor : AppColors.textColor))
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SvgPicture.asset(
                     ImageConstant.PACKAGE_ICON,
-                    color: isGetIt ? AppColors.greenColor : AppColors.iconColor,
+                    color: state.isGetIt! ? AppColors.greenColor : AppColors.iconColor,
                   ),
                   LocaleText(
                     text: LocaleKeys.payment_get_it,
-                    style: AppTextStyles.bodyTextStyle.copyWith(color: isGetIt ? AppColors.greenColor : AppColors.textColor),
+                    style: AppTextStyles.bodyTextStyle.copyWith(color: state.isGetIt! ? AppColors.greenColor : AppColors.textColor),
                   ),
                 ],
               ),
@@ -412,21 +425,21 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
     );
   }
 
-  buildTabBars() {
+  buildTabBars(PaymentState state) {
     return AnimatedBuilder(
         animation: tabController!.animation as Listenable,
         builder: (ctx, child) {
           if (tabController!.index == 0) {
             return PaymentAddressView(
-              isGetIt: isGetIt,
+              isGetIt: state.isGetIt,
             );
           } else if (tabController!.index == 1) {
             return PaymentDeliveryView(
-              isGetIt: isGetIt,
+              isGetIt: state.isGetIt,
             );
           } else {
             return PaymentPaymentView(
-              isOnline: isOnline,
+              isOnline: state.isOnline,
             );
           }
         });
