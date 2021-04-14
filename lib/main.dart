@@ -4,6 +4,7 @@ import 'package:dongu_mobile/logic/cubits/search_location_cubit/search_location_
 import 'package:dongu_mobile/utils/constants/locale_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'data/shared/shared_prefs.dart';
@@ -14,6 +15,7 @@ Future<void> main() async {
 
   await EasyLocalization.ensureInitialized();
   await SharedPrefs.initialize();
+  await Firebase.initializeApp();
 
   runApp(
     EasyLocalization(

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/services/auth_service.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/clipped_password_rules.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/consent_text.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/contract_text.dart';
@@ -180,6 +181,10 @@ class _RegisterViewState extends State<RegisterView> {
             textColor: Colors.white,
             color: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
             borderColor: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
+            onPressed: () {
+              AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
+              print(AuthService.auth.currentUser!.phoneNumber);
+            },
           ),
           Spacer(
             flex: 2,
