@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/filter_view/components/custom_expansion_tile.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
@@ -5,6 +6,7 @@ import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'custom_checkbox.dart';
 
@@ -24,13 +26,17 @@ class _SortFilterListState extends State<SortFilterList> {
           child: Column(
             children: [
               SizedBox(height: context.dynamicHeight(0.01)),
-              buildRowCheckboxAndText(context, LocaleKeys.filters_sort_item1),
+              buildRowCheckboxAndText(
+                  context, LocaleKeys.filters_sort_item1, "Sort by Distance"),
               SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(context, LocaleKeys.filters_sort_item2),
+              buildRowCheckboxAndText(
+                  context, LocaleKeys.filters_sort_item2, "Favorites"),
               SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(context, LocaleKeys.filters_sort_item3),
+              buildRowCheckboxAndText(
+                  context, LocaleKeys.filters_sort_item3, "User Point"),
               SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(context, LocaleKeys.filters_sort_item4),
+              buildRowCheckboxAndText(
+                  context, LocaleKeys.filters_sort_item4, "New Guest"),
               SizedBox(height: context.dynamicHeight(0.030)),
             ],
           ),
@@ -38,37 +44,76 @@ class _SortFilterListState extends State<SortFilterList> {
         expansionTileTitle: LocaleKeys.filters_sort_title);
   }
 
-  Row buildRowCheckboxAndText(BuildContext context, String text) {
+  Row buildRowCheckboxAndText(
+      BuildContext context, String text, String checkValue) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Check(),
+        buildCheckBox(context, checkValue),
         Spacer(flex: 2),
         LocaleText(text: text, style: AppTextStyles.bodyTextStyle),
         Spacer(flex: 35),
       ],
     );
   }
-}
 
-class Check extends StatefulWidget {
-  const Check({Key? key}) : super(key: key);
+  Builder buildCheckBox(BuildContext context, String checkValue) {
+    return Builder(builder: (context) {
+      final FiltersState state = context.watch<FiltersCubit>().state;
 
-  @override
-  _CheckState createState() => _CheckState();
-}
-
-class _CheckState extends State<Check> {
-  bool value = false;
-  @override
-  Widget build(BuildContext context) {
-    return CustomCheckbox(
-      onTap: () {
-        setState(() {
-          value = !value;
-        });
-      },
-      checkboxColor: value ? AppColors.greenColor : Colors.white,
-    );
+      return CustomCheckbox(
+        onTap: () {
+          setState(() {
+            if (checkValue == "Sort by Distance") {
+              context.read<FiltersCubit>().setIsCheckboxSortByDistanceValue(
+                  !state.checkboxSortByDistanceValue!);
+            } else if (checkValue == "Favorites") {
+              context
+                  .read<FiltersCubit>()
+                  .setIsCheckboxFavoritesValue(!state.checkboxFavoritesValue!);
+            } else if (checkValue == "User Point") {
+              context
+                  .read<FiltersCubit>()
+                  .setIsCheckboxUserPointValue(!state.checkboxUserPointValue!);
+            } else {
+              context
+                  .read<FiltersCubit>()
+                  .setIsCheckboxNewGuestValue(!state.checkboxNewGuestValue!);
+            }
+          });
+        },
+        checkboxColor: checkValue == "Sort by Distance"
+            ? state.checkboxSortByDistanceValue!
+                ? AppColors.greenColor
+                : Colors.white
+            : checkValue == "Favorites"
+                ? state.checkboxFavoritesValue!
+                    ? AppColors.greenColor
+                    : Colors.white
+                : checkValue == "User Point"
+                    ? state.checkboxUserPointValue!
+                        ? AppColors.greenColor
+                        : Colors.white
+                    : state.checkboxNewGuestValue!
+                        ? AppColors.greenColor
+                        : Colors.white,
+      );
+    });
   }
 }
+
+
+/**
+ * Builder(builder: (context) {
+      final FiltersState state = context.watch<FiltersCubit>().state;
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Check(),
+          Spacer(flex: 2),
+          LocaleText(text: text, style: AppTextStyles.bodyTextStyle),
+          Spacer(flex: 35),
+        ],
+      );
+    });
+ */

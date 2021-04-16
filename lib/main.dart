@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/repositories/search_location_repository.dart';
 import 'package:dongu_mobile/logic/cubits/payment_cubit/payment_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_location_cubit/search_location_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/filter_view/filter_view.dart';
 import 'package:dongu_mobile/utils/constants/locale_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -8,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'data/shared/shared_prefs.dart';
+import 'logic/cubits/filters_cubit/filters_cubit.dart';
 import 'presentation/router/app_router.dart';
 
 Future<void> main() async {
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<SearchLocationCubit>(create: (context) => SearchLocationCubit(SampleSearchLocationRepository())),
         BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
+        BlocProvider<FiltersCubit>(create: (context) => FiltersCubit())
       ],
       child: Builder(builder: (context) {
         return MaterialApp(
@@ -45,6 +48,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           onGenerateRoute: _appRouter.onGenerateRoute,
+          //home: FilterView(),
         );
       }),
     );

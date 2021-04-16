@@ -38,7 +38,11 @@ class HomePageView extends StatelessWidget {
           children: [
             buildSearchBar(context),
             Spacer(),
-            SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON),
+            GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+              },
+              child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON)),
           ],
         ),
         SizedBox(height: context.dynamicHeight(0.03)),
