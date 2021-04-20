@@ -1,5 +1,5 @@
 import 'dart:convert' as convert;
-import 'package:dongu_mobile/data/model/searched_locations.dart';
+import '../model/searched_locations.dart';
 import 'package:http/http.dart' as http;
 
 abstract class SearchLocationRepository {

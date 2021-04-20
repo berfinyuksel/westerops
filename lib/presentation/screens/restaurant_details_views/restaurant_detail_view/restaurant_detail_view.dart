@@ -1,6 +1,6 @@
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import '../../../widgets/scaffold/custom_scaffold.dart';
+import '../../../../utils/constants/image_constant.dart';
+import '../../../../utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 import 'components/custom_card_and_body.dart';

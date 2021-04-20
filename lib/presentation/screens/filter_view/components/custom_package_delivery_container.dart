@@ -1,10 +1,10 @@
-import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import '../../../../logic/cubits/filters_cubit/filters_cubit.dart';
+import '../../../widgets/text/locale_text.dart';
+import '../../../../utils/constants/image_constant.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../../../utils/locale_keys.g.dart';
+import '../../../../utils/theme/app_colors/app_colors.dart';
+import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -65,10 +65,10 @@ class _CustomContainerPackageDeliveryState
             SvgPicture.asset(
               ImageConstant.PACKAGE_ICON,
               color: checkState == true
-                  ? state.checkboxTakeOutPackage!
+                  ? state.checkList![5]
                       ? AppColors.greenColor
                       : Colors.white
-                  : state.checkboxMotorCourier!
+                  : state.checkList![4] //motor
                       ? AppColors.greenColor
                       : AppColors.unSelectedpackageDeliveryColor,
             ),
@@ -88,7 +88,7 @@ class _CustomContainerPackageDeliveryState
 
   Builder buildMotorCourierDeliveryContainer(
       BuildContext context, bool checkState) {
-      return Builder(builder: (context) {
+    return Builder(builder: (context) {
       final FiltersState state = context.watch<FiltersCubit>().state;
 
       return CustomContainer(
@@ -98,10 +98,10 @@ class _CustomContainerPackageDeliveryState
             SvgPicture.asset(
               ImageConstant.PACKAGE_DELIVERY_ICON,
               color: checkState == false
-                  ? state.checkboxMotorCourier!
+                  ? state.checkList![4]
                       ? AppColors.greenColor
                       : Colors.white
-                  : state.checkboxTakeOutPackage!
+                  : state.checkList![5]
                       ? AppColors.greenColor
                       : AppColors.unSelectedpackageDeliveryColor,
               // cubit --> color:  Colors.red
@@ -128,22 +128,19 @@ class _CustomContainerPackageDeliveryState
           onTap: () {
             setState(() {
               if (checkState == false) {
-                context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxMotorCourier(!state.checkboxMotorCourier!);
-                context.read<FiltersCubit>().setIsCheckboxTakeOutPackage(false);
+                state.checkList![4] = !state.checkList![4];
+                state.checkList![5] = false;
               } else {
-                context.read<FiltersCubit>().setIsCheckboxTakeOutPackage(
-                    !state.checkboxTakeOutPackage!);
-                context.read<FiltersCubit>().setIsCheckboxMotorCourier(false);
+                state.checkList![5] = !state.checkList![5];
+                state.checkList![4] = false;
               }
             });
           },
           checkboxColor: checkState == false
-              ? state.checkboxMotorCourier!
+              ? state.checkList![4]
                   ? AppColors.greenColor
                   : Colors.white
-              : state.checkboxTakeOutPackage!
+              : state.checkList![5]
                   ? AppColors.greenColor
                   : Colors.white,
         );

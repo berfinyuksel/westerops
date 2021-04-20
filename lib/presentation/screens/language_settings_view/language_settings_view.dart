@@ -1,8 +1,8 @@
-import 'package:dongu_mobile/presentation/screens/language_settings_view/components/language_settings_list_tile.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
-import 'package:dongu_mobile/utils/constants/locale_constant.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
+import 'components/language_settings_list_tile.dart';
+import '../../widgets/scaffold/custom_scaffold.dart';
+import '../../../utils/constants/locale_constant.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 class LanguageSettingsView extends StatelessWidget {

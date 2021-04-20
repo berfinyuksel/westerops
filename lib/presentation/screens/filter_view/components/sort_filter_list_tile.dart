@@ -1,10 +1,10 @@
-import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/filter_view/components/custom_expansion_tile.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import '../../../../logic/cubits/filters_cubit/filters_cubit.dart';
+import 'custom_expansion_tile.dart';
+import '../../../widgets/text/locale_text.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../../../utils/locale_keys.g.dart';
+import '../../../../utils/theme/app_colors/app_colors.dart';
+import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +18,7 @@ class SortFilterList extends StatefulWidget {
 }
 
 class _SortFilterListState extends State<SortFilterList> {
+  // List<bool> checkList = [false,false,false];
   @override
   Widget build(BuildContext context) {
     return CustomExpansionTile(
@@ -65,36 +66,29 @@ class _SortFilterListState extends State<SortFilterList> {
         onTap: () {
           setState(() {
             if (checkValue == "Sort by Distance") {
-              context.read<FiltersCubit>().setIsCheckboxSortByDistanceValue(
-                  !state.checkboxSortByDistanceValue!);
+              state.checkList![0] = !state.checkList![0];
             } else if (checkValue == "Favorites") {
-              context
-                  .read<FiltersCubit>()
-                  .setIsCheckboxFavoritesValue(!state.checkboxFavoritesValue!);
+              state.checkList![1] = !state.checkList![1];
             } else if (checkValue == "User Point") {
-              context
-                  .read<FiltersCubit>()
-                  .setIsCheckboxUserPointValue(!state.checkboxUserPointValue!);
+              state.checkList![2] = !state.checkList![2];
             } else {
-              context
-                  .read<FiltersCubit>()
-                  .setIsCheckboxNewGuestValue(!state.checkboxNewGuestValue!);
+              state.checkList![3] = !state.checkList![3];
             }
           });
         },
         checkboxColor: checkValue == "Sort by Distance"
-            ? state.checkboxSortByDistanceValue!
+            ? state.checkList![0]
                 ? AppColors.greenColor
                 : Colors.white
             : checkValue == "Favorites"
-                ? state.checkboxFavoritesValue!
+                ? state.checkList![1]
                     ? AppColors.greenColor
                     : Colors.white
                 : checkValue == "User Point"
-                    ? state.checkboxUserPointValue!
+                    ? state.checkList![2]
                         ? AppColors.greenColor
                         : Colors.white
-                    : state.checkboxNewGuestValue!
+                    : state.checkList![3]
                         ? AppColors.greenColor
                         : Colors.white,
       );

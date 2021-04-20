@@ -1,11 +1,11 @@
-import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/components/drawer_body_title.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/components/drawer_list_tile.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
+import '../../button/custom_button.dart';
+import 'drawer_body_title.dart';
+import 'drawer_list_tile.dart';
+import '../custom_scaffold.dart';
+import '../../../../utils/constants/route_constant.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../../../utils/locale_keys.g.dart';
+import '../../../../utils/theme/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {

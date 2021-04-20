@@ -1,10 +1,10 @@
-import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/filter_view/components/custom_expansion_tile.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import '../../../../logic/cubits/filters_cubit/filters_cubit.dart';
+import 'custom_expansion_tile.dart';
+import '../../../widgets/text/locale_text.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../../../utils/locale_keys.g.dart';
+import '../../../../utils/theme/app_colors/app_colors.dart';
+import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -107,106 +107,67 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
           onTap: () {
             setState(() {
               if (checkValue == "Main Course") {
-                context.read<FiltersCubit>().setIsCheckboxMainCourse(
-                    !state.checkboxMainCourse!);
-              } 
-              else if (checkValue == "Drinks") {
-                context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxDrinks(!state.checkboxDrinks!);
-              } 
-              else if (checkValue == "Vegan") {
-                context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxVegan(!state.checkboxVegan!);
-              } 
-              else if (checkValue == "Hamburger") {
-                context.read<FiltersCubit>().setIsCheckboxHamburger(
-                    !state.checkboxHamburger!);
-              } 
-              else if (checkValue == "Dessert") {
-                context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxDessert(!state.checkboxDessert!);
-              } 
-              else if (checkValue == "Pizza") {
-                context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxPizza(!state.checkboxPizza!);
-              }
-               else if (checkValue == "Chicken") {
-                context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxChicken(!state.checkboxChicken!);
-              } 
-              else if (checkValue == "Coffee") {
-                context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxCoffe(!state.checkboxCoffe!);
+                state.checkList![8] = !state.checkList![8];
+              } else if (checkValue == "Drinks") {
+                state.checkList![9] = !state.checkList![9];
+              } else if (checkValue == "Vegan") {
+                state.checkList![10] = !state.checkList![10];
+              } else if (checkValue == "Hamburger") {
+                state.checkList![11] = !state.checkList![11];
+              } else if (checkValue == "Dessert") {
+                state.checkList![12] = !state.checkList![12];
+              } else if (checkValue == "Pizza") {
+                state.checkList![13] = !state.checkList![13];
+              } else if (checkValue == "Chicken") {
+                state.checkList![14] = !state.checkList![14];
+              } else if (checkValue == "Coffee") {
+                state.checkList![15] = !state.checkList![15];
               } else {
-                context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxSelectAll(!state.checkboxSelectAll!);
-                      context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxMainCourse(true);
-                     context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxDrinks(true);
-                    context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxVegan(true);
-                     context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxHamburger(true);
-                     context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxDessert(true);
-                    context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxPizza(true);
-                     context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxChicken(true);
-                     context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxCoffe(true);
+                state.checkList![16] = !state.checkList![16];
+                state.checkList![10] = !state.checkList![10];
+                state.checkList![11] = !state.checkList![11];
+                state.checkList![12] = !state.checkList![12];
+                state.checkList![13] = !state.checkList![13];
+                state.checkList![14] = !state.checkList![14];
+                state.checkList![15] = !state.checkList![15];
+                state.checkList![9] = !state.checkList![9];
+                state.checkList![8] = !state.checkList![8];
               }
             });
           },
           checkboxColor: checkValue == "Main Course"
-              ? state.checkboxMainCourse!
+              ? state.checkList![8]
                   ? AppColors.greenColor
                   : Colors.white
               : checkValue == "Drinks"
-                  ? state.checkboxDrinks!
+                  ? state.checkList![9]
                       ? AppColors.greenColor
                       : Colors.white
                   : checkValue == "Vegan"
-                      ? state.checkboxVegan!
+                      ? state.checkList![10]
                           ? AppColors.greenColor
                           : Colors.white
                       : checkValue == "Hamburger"
-                          ? state.checkboxHamburger!
+                          ? state.checkList![11]
                               ? AppColors.greenColor
                               : Colors.white
                           : checkValue == "Dessert"
-                              ? state.checkboxDessert!
+                              ? state.checkList![12]
                                   ? AppColors.greenColor
                                   : Colors.white
                               : checkValue == "Pizza"
-                                  ? state.checkboxPizza!
+                                  ? state.checkList![13]
                                       ? AppColors.greenColor
                                       : Colors.white
                                   : checkValue == "Chicken"
-                                      ? state.checkboxChicken!
+                                      ? state.checkList![14]
                                           ? AppColors.greenColor
                                           : Colors.white
                                       : checkValue == "Coffee"
-                                          ? state.checkboxCoffe!
+                                          ? state.checkList![15]
                                               ? AppColors.greenColor
                                               : Colors.white
-                                          : state.checkboxSelectAll!
+                                          : state.checkList![16]
                                               ? AppColors.greenColor
                                               : Colors.white);
     });

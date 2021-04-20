@@ -1,10 +1,10 @@
-import 'package:dongu_mobile/presentation/screens/onboardings_view/components/onboarding_background_image.dart';
-import 'package:dongu_mobile/presentation/screens/onboardings_view/components/onboarding_headline_text.dart';
-import 'package:dongu_mobile/presentation/screens/onboardings_view/components/onboarding_text.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
+import '../components/onboarding_background_image.dart';
+import '../components/onboarding_headline_text.dart';
+import '../components/onboarding_text.dart';
+import '../../../../utils/constants/image_constant.dart';
+import '../../../../utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import '../../../../utils/extensions/context_extension.dart';
 
 class OnboardingThirdView extends StatelessWidget {
   final Widget? carouselPoints;
