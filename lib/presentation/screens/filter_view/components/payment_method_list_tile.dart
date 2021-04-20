@@ -1,11 +1,11 @@
-import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/filter_view/components/custom_checkbox.dart';
-import 'package:dongu_mobile/presentation/screens/filter_view/components/custom_expansion_tile.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import '../../../../logic/cubits/filters_cubit/filters_cubit.dart';
+import 'custom_checkbox.dart';
+import 'custom_expansion_tile.dart';
+import '../../../widgets/text/locale_text.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../../../utils/locale_keys.g.dart';
+import '../../../../utils/theme/app_colors/app_colors.dart';
+import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,24 +52,21 @@ class _PaymentMethodFilterListState extends State<PaymentMethodFilterList> {
           onTap: () {
             setState(() {
               if (checkState == false) {
-                context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxPaymentOnline(!state.checkboxOnlinePayment!);
-                context
-                    .read<FiltersCubit>()
-                    .setIsCheckboxPaymentRestaurant(false);
+                state.checkList![6] = !state.checkList![6];
+
+                state.checkList![7] = false;
               } else {
-                context.read<FiltersCubit>().setIsCheckboxPaymentRestaurant(
-                    !state.checkboxRestaurantPayment!);
-                context.read<FiltersCubit>().setIsCheckboxPaymentOnline(false);
+                state.checkList![7] = !state.checkList![7];
+
+                state.checkList![6] = false;
               }
             });
           },
           checkboxColor: checkState == false
-              ? state.checkboxOnlinePayment!
+              ? state.checkList![6]
                   ? AppColors.greenColor
                   : Colors.white
-              : state.checkboxRestaurantPayment!
+              : state.checkList![7]
                   ? AppColors.greenColor
                   : Colors.white,
         );
