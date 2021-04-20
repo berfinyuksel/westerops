@@ -166,11 +166,4 @@ class _AddressDetailViewState extends State<AddressDetailView> {
       ),
     );
   }
-
-  OutlineInputBorder buildOutlineInputBorder() {
-    return OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
-      borderRadius: BorderRadius.circular(4.0),
-    );
-  }
 }

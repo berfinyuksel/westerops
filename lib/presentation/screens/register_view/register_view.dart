@@ -180,6 +180,10 @@ class _RegisterViewState extends State<RegisterView> {
             textColor: Colors.white,
             color: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
             borderColor: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
+            onPressed: () {
+              AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
+              print(AuthService.auth.currentUser!.phoneNumber);
+            },
           ),
           Spacer(
             flex: 2,
