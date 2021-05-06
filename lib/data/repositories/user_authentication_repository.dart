@@ -27,10 +27,7 @@ class SampleUserAuthenticationRepository implements UserAuthenticationRepository
       },
     );
     if (response.statusCode == 201) {
-      User user = User(email: email, firstName: firstName, lastName: lastName);
-      List<User> users = [];
-      users.add(user);
-      return users;
+      return loginUser(phone, password);
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
