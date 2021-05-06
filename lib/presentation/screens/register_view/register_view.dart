@@ -11,14 +11,14 @@ import 'package:dongu_mobile/presentation/screens/register_view/components/sign_
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import '../../../utils/extensions/context_extension.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
+import '../../../utils/extensions/string_extension.dart';
 
 class RegisterView extends StatefulWidget {
   @override

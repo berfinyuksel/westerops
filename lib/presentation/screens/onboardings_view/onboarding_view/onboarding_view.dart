@@ -1,13 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dongu_mobile/presentation/screens/onboardings_view/components/onboarding_background_image.dart';
-import 'package:dongu_mobile/presentation/screens/onboardings_view/components/onboarding_headline_text.dart';
-import 'package:dongu_mobile/presentation/screens/onboardings_view/components/onboarding_text.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import '../components/onboarding_background_image.dart';
+import '../components/onboarding_headline_text.dart';
+import '../components/onboarding_text.dart';
+import '../../../../utils/constants/image_constant.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../../../utils/extensions/string_extension.dart';
+import '../../../../utils/locale_keys.g.dart';
+import '../../../../utils/theme/app_colors/app_colors.dart';
+import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

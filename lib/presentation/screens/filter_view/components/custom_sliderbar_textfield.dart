@@ -1,10 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import '../../../../logic/cubits/filters_cubit/filters_cubit.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../../../utils/locale_keys.g.dart';
+import '../../../../utils/theme/app_colors/app_colors.dart';
+import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
+import '../../../../utils/extensions/string_extension.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomSliderBarAndTextField extends StatefulWidget {
   CustomSliderBarAndTextField({Key? key}) : super(key: key);
@@ -18,9 +20,10 @@ class _CustomSliderBarAndTextFieldState
     extends State<CustomSliderBarAndTextField> {
   int _starValue = 10;
   int _endValue = 50;
-  int minValue = 10;
-  int maxValue = 500;
-
+  int minValue = 10; //
+  int maxValue = 500; //
+  bool setStartValue = true;
+  bool setEndValue = true;
   final startController = TextEditingController();
   final endController = TextEditingController();
   @override
@@ -32,30 +35,101 @@ class _CustomSliderBarAndTextFieldState
   }
 
   _setStartValue() {
-    if (double.parse(startController.text).roundToDouble() <=
-            double.parse(endController.text).roundToDouble() &&
-        double.parse(startController.text).roundToDouble() >= minValue &&
-        double.parse(endController.text).roundToDouble() >= minValue &&
-        double.parse(startController.text).roundToDouble() <= maxValue &&
-        double.parse(endController.text).roundToDouble() <= maxValue) {
-      setState(() {
-        _starValue = double.parse(startController.text).roundToDouble().toInt();
-      });
+    if (startController.text.length == 0 || endController.text.length == 0) {
+      if (double.parse(startController.text.length == 0 ? "10" : startController.text)
+                  .roundToDouble() <=
+              double.parse(endController.text.length == 0
+                      ? "500"
+                      : endController.text)
+                  .roundToDouble() &&
+          double.parse(startController.text.length == 0
+                      ? "10"
+                      : startController.text)
+                  .roundToDouble() >=
+              minValue &&
+          double.parse(endController.text.length == 0 ? "500" : endController.text)
+                  .roundToDouble() >=
+              minValue &&
+          double.parse(startController.text.length == 0
+                      ? "10"
+                      : startController.text)
+                  .roundToDouble() <=
+              maxValue &&
+          double.parse(endController.text.length == 0 ? "500" : endController.text)
+                  .roundToDouble() <=
+              maxValue) {
+        setState(() {
+          _starValue = double.parse(startController.text.length == 0
+                  ? "10"
+                  : startController.text)
+              .roundToDouble()
+              .toInt();
+          context.read<FiltersCubit>().setIsMinValue(_starValue);
+        });
+      }
+    } else {
+      if (double.parse(startController.text).roundToDouble() <=
+              double.parse(endController.text).roundToDouble() &&
+          double.parse(startController.text).roundToDouble() >= minValue &&
+          double.parse(endController.text).roundToDouble() >= minValue &&
+          double.parse(startController.text).roundToDouble() <= maxValue &&
+          double.parse(endController.text).roundToDouble() <= maxValue) {
+        setState(() {
+          _starValue =
+              double.parse(startController.text).roundToDouble().toInt();
+              context.read<FiltersCubit>().setIsMaxValue(_endValue);
+        });
+      }
     }
-    print("Second text field: ${startController.text}");
+
+    print("One text field: ${startController.text}");
   }
 
   _setEndValue() {
-    if (double.parse(startController.text).roundToDouble() <=
-            double.parse(endController.text).roundToDouble() &&
-        double.parse(startController.text).roundToDouble() >= minValue &&
-        double.parse(endController.text).roundToDouble() >= minValue &&
-        double.parse(startController.text).roundToDouble() <= maxValue &&
-        double.parse(endController.text).roundToDouble() <= maxValue) {
-      setState(() {
-        _endValue = double.parse(endController.text).roundToDouble().toInt();
-      });
+    if (startController.text.length == 0 || endController.text.length == 0) {
+      if (double.parse(startController.text.length == 0 ? "10" : startController.text)
+                  .roundToDouble() <=
+              double.parse(endController.text.length == 0
+                      ? "500"
+                      : endController.text)
+                  .roundToDouble() &&
+          double.parse(startController.text.length == 0
+                      ? "10"
+                      : startController.text)
+                  .roundToDouble() >=
+              minValue &&
+          double.parse(endController.text.length == 0 ? "500" : endController.text)
+                  .roundToDouble() >=
+              minValue &&
+          double.parse(startController.text.length == 0
+                      ? "10"
+                      : startController.text)
+                  .roundToDouble() <=
+              maxValue &&
+          double.parse(endController.text.length == 0 ? "500" : endController.text)
+                  .roundToDouble() <=
+              maxValue) {
+        setState(() {
+          _endValue = double.parse(
+                  endController.text.length == 0 ? "500" : endController.text)
+              .roundToDouble()
+              .toInt();
+        });
+      }
+    } else {
+      if (double.parse(startController.text).roundToDouble() <=
+              double.parse(endController.text).roundToDouble() &&
+          double.parse(startController.text).roundToDouble() >= minValue &&
+          double.parse(endController.text).roundToDouble() >= minValue &&
+          double.parse(startController.text).roundToDouble() <= maxValue &&
+          double.parse(endController.text).roundToDouble() <= maxValue) {
+        setState(() {
+          _endValue = double.parse(endController.text).roundToDouble().toInt();
+          context.read<FiltersCubit>().setIsMaxValue(_endValue);
+        });
+      }
     }
+
     print("Second text field: ${endController.text}");
   }
 
@@ -71,41 +145,44 @@ class _CustomSliderBarAndTextFieldState
     return Container(
       //   width: context.dynamicWidht(0.9),
       height: context.dynamicHeight(0.18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(flex: 50, child: rangeSliderBar()),
-          Spacer(
-            flex: 1,
-          ),
-          Expanded(
-            flex: 50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Spacer(
-                  flex: 3,
-                ),
-                minPrice(context),
-                Spacer(
-                  flex: 1,
-                ),
-                maxPrice(context),
-                Spacer(
-                  flex: 3,
-                ),
-              ],
+      child: Builder(builder: (context) {
+        final FiltersState state = context.watch<FiltersCubit>().state;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(flex: 50, child: rangeSliderBar(state)),
+            Spacer(
+              flex: 1,
             ),
-          ),
-          Spacer(
-            flex: 25,
-          )
-        ],
-      ),
+            Expanded(
+              flex: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Spacer(
+                    flex: 3,
+                  ),
+                  minPrice(context),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  maxPrice(context),
+                  Spacer(
+                    flex: 3,
+                  ),
+                ],
+              ),
+            ),
+            Spacer(
+              flex: 25,
+            )
+          ],
+        );
+      }),
     );
   }
 
-  Container maxPrice(BuildContext context) {
+  Container maxPrice(BuildContext context,) {
     return Container(
       width: context.dynamicWidht(0.39),
       height: context.dynamicHeight(0.060),
@@ -225,21 +302,21 @@ class _CustomSliderBarAndTextFieldState
     );
   }
 
-  Container rangeSliderBar() {
+  Container rangeSliderBar(FiltersState state) {
     return Container(
       width: context.dynamicWidht(0.92),
       child: SliderTheme(
         data: SliderThemeData(trackHeight: 7),
         child: RangeSlider(
-          values: RangeValues(_starValue.toDouble(), _endValue.toDouble()),
+          values: RangeValues(state.minValue!, state.maxValue!),
           min: minValue.toDouble(),
           max: maxValue.toDouble(),
           inactiveColor: AppColors.sliderColor,
           activeColor: AppColors.greenColor,
           onChanged: (values) {
             setState(() {
-              _starValue = values.start.roundToDouble().toInt();
-              _endValue = values.end.roundToDouble().toInt();
+              state.minValue = values.start.roundToDouble();
+              state.maxValue = values.end.roundToDouble();
               startController.text =
                   values.start.roundToDouble().toInt().toString();
               endController.text =

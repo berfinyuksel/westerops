@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<UserAuthCubit>(create: (context) => UserAuthCubit(SampleUserAuthenticationRepository())),
         BlocProvider<OrderCubit>(create: (context) => OrderCubit(SampleOrderRepository())),
         BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
+        BlocProvider<FiltersCubit>(create: (context) => FiltersCubit())
       ],
       child: Builder(builder: (context) {
         return MaterialApp(
