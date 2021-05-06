@@ -1,7 +1,8 @@
-import 'password_rules.dart';
-import '../../../../utils/clippers/password_rules_clipper.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../utils/clippers/password_rules_clipper.dart';
 import '../../../../utils/extensions/context_extension.dart';
+import 'password_rules.dart';
 
 class ClippedPasswordRules extends StatelessWidget {
   const ClippedPasswordRules({

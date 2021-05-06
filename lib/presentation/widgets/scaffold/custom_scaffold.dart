@@ -1,5 +1,6 @@
+import 'package:dongu_mobile/presentation/screens/my_notifications_view/my_notifications_view.dart';
+
 import '../../screens/cart_view/cart_view.dart';
-import '../../screens/cart_view/empty_cart_view.dart';
 import '../../screens/home_page_view/home_page_view.dart';
 import '../../screens/my_favorites_view/my_favorites_view.dart';
 import '../../screens/search_view/search.dart';
@@ -31,12 +32,12 @@ class CustomScaffold extends StatefulWidget {
 class _CustomScaffoldState extends State<CustomScaffold> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
+  bool homePageActiveIcon = true;
   List<Widget> _widgetOptions = <Widget>[
-    //buraya ekranlar gelcek
     HomePageView(),
     SearchView(),
     MyFavoritesView(),
-    EmptyCartView(),
+    MyNotificationsView(),
     CartView(),
   ];
   List<String?> _titles = <String?>[
@@ -111,7 +112,12 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
           child: IconButton(
             icon: SvgPicture.asset(ImageConstant.COMMONS_DRAWER_ICON),
-            onPressed: () => scaffoldKey.currentState!.openEndDrawer(),
+            onPressed: () {
+              setState(() {
+                homePageActiveIcon = false;
+              });
+              return scaffoldKey.currentState!.openEndDrawer();
+            },
           ),
         ),
       ],
@@ -135,9 +141,13 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         Padding(
           padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
           child: IconButton(
-            icon: SvgPicture.asset(ImageConstant.COMMONS_DRAWER_ICON),
-            onPressed: () => scaffoldKey.currentState!.openEndDrawer(),
-          ),
+              icon: SvgPicture.asset(ImageConstant.COMMONS_DRAWER_ICON),
+              onPressed: () {
+                setState(() {
+                  homePageActiveIcon = false;
+                });
+                return scaffoldKey.currentState!.openEndDrawer();
+              }),
         ),
       ],
       iconTheme: IconThemeData(color: AppColors.greenColor),

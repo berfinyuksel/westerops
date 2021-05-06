@@ -1,18 +1,23 @@
-import '../../widgets/button/custom_button.dart';
-import '../../../utils/constants/route_constant.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import '../register_view/components/sign_with_social_auth.dart';
-import '../../../utils/locale_keys.g.dart';
-import '../../../utils/extensions/context_extension.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../data/services/auth_service.dart';
+import '../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
+import '../../../utils/constants/route_constant.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/string_extension.dart';
+import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
+import '../../widgets/button/custom_button.dart';
 import '../../widgets/text/locale_text.dart';
-import '../../../utils/extensions/string_extension.dart';
+import '../register_view/components/sign_with_social_auth.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -112,6 +117,7 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
           Spacer(flex: 2),
+          buildBuilder(),
           CustomButton(
             width: context.dynamicWidht(0.4),
             title: LocaleKeys.login_text_login,
@@ -119,7 +125,9 @@ class _LoginViewState extends State<LoginView> {
             color: AppColors.greenColor,
             borderColor: AppColors.greenColor,
             onPressed: () {
-              Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_VIEW);
+              print(phoneController.text);
+              context.read<UserAuthCubit>().loginUser(phoneController.text, passwordController.text);
+              //Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_VIEW);
             },
           ),
           Spacer(flex: 1),
@@ -172,6 +180,23 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
+  Builder buildBuilder() {
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<UserAuthCubit>().state;
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Container();
+      } else if (state is GenericCompleted) {
+        return Text(state.response[0].firstName);
+      } else {
+        final error = state as GenericError;
+
+        return Center(child: Text("\n${error.statusCode}"));
+      }
+    });
+  }
+
   Padding buildSocialAuths(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
@@ -180,7 +205,7 @@ class _LoginViewState extends State<LoginView> {
         children: [
           GestureDetector(
             onTap: () {
-              //AuthService.loginWithGmail();
+              AuthService.loginWithGmail();
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
@@ -188,7 +213,7 @@ class _LoginViewState extends State<LoginView> {
           ),
           GestureDetector(
             onTap: () {
-              //AuthService.loginWithFacebook();
+              AuthService.loginWithFacebook();
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,

@@ -1,22 +1,24 @@
 import 'dart:async';
 import 'dart:ui' as ui;
-import '../../../data/services/location_service.dart';
-import '../my_favorites_view/components/address_text.dart';
-import '../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
-import '../../widgets/scaffold/custom_scaffold.dart';
-import '../../widgets/text/locale_text.dart';
-import '../../../utils/constants/image_constant.dart';
-import '../../../utils/extensions/context_extension.dart';
-import '../../../utils/extensions/string_extension.dart';
-import '../../../utils/locale_keys.g.dart';
-import '../../../utils/theme/app_colors/app_colors.dart';
-import '../../../utils/theme/app_text_styles/app_text_styles.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../../../data/services/location_service.dart';
+import '../../../utils/constants/image_constant.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/string_extension.dart';
+import '../../../utils/locale_keys.g.dart';
+import '../../../utils/theme/app_colors/app_colors.dart';
+import '../../../utils/theme/app_text_styles/app_text_styles.dart';
+import '../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
+import '../../widgets/scaffold/custom_scaffold.dart';
+import '../../widgets/text/locale_text.dart';
+import '../my_favorites_view/components/address_text.dart';
 
 class MyNearView extends StatefulWidget {
   @override

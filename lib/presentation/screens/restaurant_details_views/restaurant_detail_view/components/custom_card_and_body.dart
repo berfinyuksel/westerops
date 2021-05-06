@@ -1,34 +1,51 @@
-import '../../../../widgets/button/custom_button.dart';
-import '../../../../widgets/text/locale_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../../data/model/box.dart';
+import '../../../../../data/model/store.dart';
+import '../../../../../logic/cubits/order_cubit/order_cubit.dart';
+import '../../../../../logic/cubits/user_operations_cubit/user_operations_cubit.dart';
 import '../../../../../utils/constants/image_constant.dart';
 import '../../../../../utils/extensions/context_extension.dart';
+import '../../../../../utils/extensions/string_extension.dart';
 import '../../../../../utils/locale_keys.g.dart';
 import '../../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../../../../../utils/extensions/string_extension.dart';
-
+import '../../../../widgets/button/custom_button.dart';
+import '../../../../widgets/text/locale_text.dart';
 import 'custom_circular_progress.dart';
 
 class CustomCardAndBody extends StatefulWidget {
-  final Image? restaurantLogo;
-  const CustomCardAndBody({Key? key, this.restaurantLogo}) : super(key: key);
+  final Store? restaurant;
+  const CustomCardAndBody({Key? key, this.restaurant}) : super(key: key);
 
   @override
   _CustomCardAndBodyState createState() => _CustomCardAndBodyState();
 }
 
-class _CustomCardAndBodyState extends State<CustomCardAndBody>
-    with SingleTickerProviderStateMixin {
+class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTickerProviderStateMixin {
   bool _isSelect = false;
+  String startTime = '';
+  String endTime = '';
+  List<Box> definedBoxes = [];
 
   TabController? _controller;
   @override
   void initState() {
     super.initState();
     _controller = TabController(length: 2, vsync: this);
+    startTime = widget.restaurant!.calendar![0].startDate!.split("T")[1];
+    endTime = widget.restaurant!.calendar![0].endDate!.split("T")[1];
+    startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
+    endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
+    definedBoxes.clear();
+    for (int i = 0; i < widget.restaurant!.boxes!.length; i++) {
+      if (widget.restaurant!.boxes![i].defined!) {
+        definedBoxes.add(widget.restaurant!.boxes![i]);
+      }
+    }
   }
 
   @override
@@ -128,7 +145,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
           child: ListTile(
             contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
@@ -136,7 +153,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               style: AppTextStyles.subTitleStyle,
             ),
             subtitle: LocaleText(
-              text: "18:00-21:00",
+              text: "$startTime-$endTime",
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -146,7 +163,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
           child: ListTile(
             contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
@@ -200,7 +217,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
           child: ListTile(
             contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
@@ -270,87 +287,19 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ],
           ),
         ),
-        // Group: Group 28572
-        Container(
-            //alignment: Alignment(-0.8, 0.0),
-            width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.075),
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                LocaleText(
-                  text: LocaleKeys.restaurant_detail_sub_text1,
-                  style: AppTextStyles.myInformationBodyTextStyle,
-                ),
-                LocaleText(
-                  text: "09:00:20",
-                ),
-                CustomButton(
-                  title: LocaleKeys.restaurant_detail_button_text,
-                  color: AppColors.greenColor,
-                  textColor: AppColors.appBarColor,
-                  width: context.dynamicWidht(0.28),
-                  borderColor: AppColors.greenColor,
-                  onPressed: () {},
-                )
-              ],
-            )),
-        Container(
-            //alignment: Alignment(-0.8, 0.0),
-            width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.075),
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                LocaleText(
-                  text: LocaleKeys.restaurant_detail_sub_text2,
-                  style: AppTextStyles.myInformationBodyTextStyle,
-                ),
-                LocaleText(
-                  text: "09:00:20",
-                ),
-                CustomButton(
-                  title: LocaleKeys.restaurant_detail_button_text,
-                  color: AppColors.greenColor,
-                  textColor: AppColors.appBarColor,
-                  width: context.dynamicWidht(0.28),
-                  borderColor: AppColors.greenColor,
-                  onPressed: () {},
-                )
-              ],
-            )),
-        Container(
-            //alignment: Alignment(-0.8, 0.0),
-            width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.075),
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                LocaleText(
-                  text: LocaleKeys.restaurant_detail_sub_text3,
-                  style: AppTextStyles.myInformationBodyTextStyle,
-                ),
-                LocaleText(
-                  text: "09:00:20",
-                ),
-                CustomButton(
-                  title: LocaleKeys.restaurant_detail_button_text,
-                  color: AppColors.greenColor,
-                  textColor: AppColors.appBarColor,
-                  width: context.dynamicWidht(0.28),
-                  borderColor: AppColors.greenColor,
-                  onPressed: () {},
-                )
-              ],
-            )),
+        ListView.builder(
+          itemCount: widget.restaurant!.boxes!.length,
+          itemBuilder: (context, index) {
+            return buildBox(context, index);
+          },
+          shrinkWrap: true,
+        ),
+
         SizedBox(
           height: context.dynamicHeight(0.04),
         ),
         Padding(
-          padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
           child: Column(
             children: [
               Row(
@@ -368,47 +317,91 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ],
           ),
         ),
-        Container(
-            //alignment: Alignment(-0.8, 0.0),
-            width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.080),
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    LocaleText(
-                      text: LocaleKeys.restaurant_detail_sub_text4,
-                      style: AppTextStyles.myInformationBodyTextStyle,
-                    ),
-                    LocaleText(
-                      text: LocaleKeys.restaurant_detail_sub_text5,
-                      style: AppTextStyles.subTitleStyle,
-                      maxLines: 2,
-                    ),
-                  ],
-                ),
-                LocaleText(
-                  text: "07:00:20",
-                ),
-                CustomButton(
-                  title: LocaleKeys.restaurant_detail_button_text,
-                  color: AppColors.greenColor,
-                  textColor: AppColors.appBarColor,
-                  width: context.dynamicWidht(0.28),
-                  borderColor: AppColors.greenColor,
-                  onPressed: () {},
-                )
-              ],
-            )),
+        ListView.builder(
+          itemCount: definedBoxes.length,
+          itemBuilder: (context, index) {
+            return buildDefinedBox(context, index, definedBoxes);
+          },
+          shrinkWrap: true,
+        ),
+
         SizedBox(
           height: context.dynamicHeight(0.04),
         ),
       ],
     );
+  }
+
+  Container buildDefinedBox(BuildContext context, int index, List<Box> definedBoxes) {
+    return Container(
+        //alignment: Alignment(-0.8, 0.0),
+        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+        width: context.dynamicWidht(1),
+        height: context.dynamicHeight(0.080),
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                LocaleText(
+                  text: definedBoxes[index].name,
+                  style: AppTextStyles.myInformationBodyTextStyle,
+                ),
+                LocaleText(
+                  text: definedBoxes[index].description,
+                  style: AppTextStyles.subTitleStyle,
+                  maxLines: 2,
+                ),
+              ],
+            ),
+            LocaleText(
+              text: "07:00:20",
+            ),
+            CustomButton(
+              title: LocaleKeys.restaurant_detail_button_text,
+              color: AppColors.greenColor,
+              textColor: AppColors.appBarColor,
+              width: context.dynamicWidht(0.28),
+              borderColor: AppColors.greenColor,
+              onPressed: () {},
+            )
+          ],
+        ));
+  }
+
+  Container buildBox(BuildContext context, int index) {
+    return Container(
+        //alignment: Alignment(-0.8, 0.0),
+        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+        width: context.dynamicWidht(1),
+        height: context.dynamicHeight(0.075),
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.restaurant!.boxes![index].name!,
+              style: AppTextStyles.myInformationBodyTextStyle,
+            ),
+            LocaleText(
+              text: "Sor! sale day id: ${widget.restaurant!.boxes![0].saleDay!}",
+            ),
+            CustomButton(
+              title: LocaleKeys.restaurant_detail_button_text,
+              color: AppColors.greenColor,
+              textColor: AppColors.appBarColor,
+              width: context.dynamicWidht(0.28),
+              borderColor: AppColors.greenColor,
+              onPressed: () {
+                print(widget.restaurant!.boxes![index].id!);
+                context.read<OrderCubit>().addToBasket(widget.restaurant!.boxes![index].id!);
+              },
+            )
+          ],
+        ));
   }
 
   TabBar tabBar(BuildContext context) {
@@ -528,12 +521,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       height: context.dynamicHeight(0.04),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
-        color: AppColors.pinkColor,
+        color: AppColors.orangeColor,
       ),
-      child: LocaleText(
-        text: LocaleKeys.restaurant_detail_item4,
+      child: Text(
+        "${widget.restaurant!.boxes!.length} paket",
         style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
-        alignment: TextAlign.center,
+        textAlign: TextAlign.center,
       ),
     );
   }
@@ -551,7 +544,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         children: [
           SvgPicture.asset(ImageConstant.COMMONS_TIME_ICON),
           Text(
-            "18:00-21:00",
+            "$startTime-$endTime",
             textAlign: TextAlign.center,
             style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.yellowColor),
           ),
@@ -579,11 +572,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LocaleText(
-          text: LocaleKeys.restaurant_detail_title,
-          style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w600),
+        Container(
+          width: context.dynamicWidht(0.4),
+          child: Text(
+            widget.restaurant!.name!,
+            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w600),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-        LocaleText(text: LocaleKeys.restaurant_detail_address, style: AppTextStyles.subTitleStyle),
+        LocaleText(text: widget.restaurant!.address, style: AppTextStyles.subTitleStyle),
       ],
     );
   }
@@ -605,7 +602,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             vertical: context.dynamicHeight(0.0053),
             horizontal: context.dynamicHeight(0.0056),
           ),
-          child: Image.asset(ImageConstant.RESTAURANT_LOGO),
+          child: Image.network(widget.restaurant!.photo!),
         ));
   }
 
@@ -663,15 +660,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               ),
               GestureDetector(
                   onTap: () {
+                    context.read<UserOperationsCubit>().addToFavorite(widget.restaurant!.id!);
                     setState(() {
                       _isSelect = !_isSelect;
                     });
                   },
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_FAVORITE_ICON,
-                    color: _isSelect
-                        ? AppColors.orangeColor
-                        : AppColors.unSelectedpackageDeliveryColor,
+                    color: _isSelect ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
                   ))
             ],
           )

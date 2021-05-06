@@ -1,11 +1,12 @@
-import 'components/delivery_custom_button.dart';
-import '../../../widgets/text/locale_text.dart';
+import 'package:flutter/material.dart';
+
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter/material.dart';
-import 'components/delivery_available_time_list_tile.dart';
+import '../../../widgets/text/locale_text.dart';
 import '../../../widgets/warning_container/warning_container.dart';
+import 'components/delivery_available_time_list_tile.dart';
+import 'components/delivery_custom_button.dart';
 
 class PaymentDeliveryView extends StatefulWidget {
   final bool? isGetIt;

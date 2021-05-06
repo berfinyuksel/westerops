@@ -1,9 +1,10 @@
-import 'components/language_settings_list_tile.dart';
-import '../../widgets/scaffold/custom_scaffold.dart';
+import 'package:flutter/material.dart';
+
 import '../../../utils/constants/locale_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
-import 'package:flutter/material.dart';
+import '../../widgets/scaffold/custom_scaffold.dart';
+import 'components/language_settings_list_tile.dart';
 
 class LanguageSettingsView extends StatelessWidget {
   @override

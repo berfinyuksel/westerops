@@ -1,15 +1,14 @@
-import 'components/special_for_me_list_tile_builder.dart';
-import '../../widgets/scaffold/custom_scaffold.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/string_extension.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../../../utils/extensions/string_extension.dart';
-
 import 'components/all_list_tile_builder.dart';
 import 'components/my_orders_list_tile_builder.dart';
+import 'components/special_for_me_list_tile_builder.dart';
 
 class MyNotificationsView extends StatefulWidget {
   MyNotificationsView({Key? key}) : super(key: key);
@@ -18,8 +17,7 @@ class MyNotificationsView extends StatefulWidget {
   _MyNotificationsViewState createState() => _MyNotificationsViewState();
 }
 
-class _MyNotificationsViewState extends State<MyNotificationsView>
-    with SingleTickerProviderStateMixin {
+class _MyNotificationsViewState extends State<MyNotificationsView> with SingleTickerProviderStateMixin {
   TabController? _controller;
   @override
   void initState() {
@@ -29,35 +27,33 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: "Bildirimlerim",
-      body: Column(
-        children: [
-          tabBarPadding(context),
-          Expanded(
-            child: TabBarView(controller: _controller, children: [
-              Column(
-                children: [MyOrdersListTileBuilder()],
-              ),
-              Column(
-                children: [AllListTileBuilder()],
-              ),
-              Column(
-                children: [SpecialForMeListTileBuilder()],
-              ),
-            ]),
-          ),
-        ],
-      ),
+    return buildBody(context);
+  }
+
+  Column buildBody(BuildContext context) {
+    return Column(
+      children: [
+        tabBarPadding(context),
+        Expanded(
+          child: TabBarView(controller: _controller, children: [
+            Column(
+              children: [MyOrdersListTileBuilder()],
+            ),
+            Column(
+              children: [AllListTileBuilder()],
+            ),
+            Column(
+              children: [SpecialForMeListTileBuilder()],
+            ),
+          ]),
+        ),
+      ],
     );
   }
 
   Padding tabBarPadding(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.065),
-          right: context.dynamicWidht(0.065),
-          top: context.dynamicHeight(0.028)),
+      padding: EdgeInsets.only(left: context.dynamicWidht(0.065), right: context.dynamicWidht(0.065), top: context.dynamicHeight(0.028)),
       child: tabBarContainer(context),
     );
   }
@@ -92,12 +88,9 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
 
   TabBar tabBar(BuildContext context) {
     return TabBar(
-        labelPadding:
-            EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
+        labelPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
         indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(width: 3, color: AppColors.orangeColor),
-            insets:
-                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.060))),
+            borderSide: BorderSide(width: 3, color: AppColors.orangeColor), insets: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.060))),
         labelColor: AppColors.orangeColor,
         labelStyle: AppTextStyles.bodyTitleStyle,
         unselectedLabelColor: AppColors.textColor,

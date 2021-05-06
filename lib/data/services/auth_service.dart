@@ -13,6 +13,7 @@ class AuthService {
       // by default we get the userId, email,name and picture
       final userData = await FacebookAuth.instance.getUserData();
       print(userData);
+      print(result.accessToken!.token.toString());
       return result.accessToken;
     }
 

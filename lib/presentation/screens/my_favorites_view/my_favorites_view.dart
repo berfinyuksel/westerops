@@ -1,19 +1,25 @@
 import 'dart:async';
 import 'dart:ui' as ui;
+
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../../../data/model/store.dart';
 import '../../../data/services/location_service.dart';
-import '../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
-import '../../widgets/text/locale_text.dart';
+import '../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../logic/cubits/store_cubit/store_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import '../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
+import '../../widgets/text/locale_text.dart';
 import 'components/address_text.dart';
 
 class MyFavoritesView extends StatefulWidget {
@@ -37,11 +43,41 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   bool isShowOnMap = false;
   bool isShowBottomInfo = false;
   @override
-  Widget build(BuildContext context) {
-    return buildBody(context);
+  void initState() {
+    super.initState();
+    context.read<StoreCubit>().getStores();
   }
 
-  Column buildBody(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
+    return buildBuilder();
+  }
+
+  Builder buildBuilder() {
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<StoreCubit>().state;
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        List<Store> favourites = [];
+        for (int i = 0; i < state.response[0].results.length; i++) {
+          for (int j = 0; j < state.response[0].results[i].favourites.length; j++) {
+            if (state.response[0].results[i].favourites[j].user.email == SharedPrefs.getUserEmail) {
+              favourites.add(state.response[0].results[i]);
+            }
+          }
+        }
+        return Center(child: buildBody(context, favourites));
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
+  }
+
+  Column buildBody(BuildContext context, List<Store> favourites) {
     return Column(
       children: [
         buildTitlesAndSearchBar(context),
@@ -102,7 +138,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             ),
           ),
         ),
-        Visibility(visible: !isShowOnMap, child: Expanded(child: buildListViewRestaurantInfo())),
+        Visibility(visible: !isShowOnMap, child: Expanded(child: buildListViewRestaurantInfo(favourites))),
       ],
     );
   }
@@ -144,15 +180,22 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     );
   }
 
-  ListView buildListViewRestaurantInfo() {
+  ListView buildListViewRestaurantInfo(List<Store> favourites) {
     return ListView.builder(
-        itemCount: 5,
+        itemCount: favourites.length,
         itemBuilder: (context, index) {
+          String startTime = favourites[index].calendar![0].startDate!.split("T")[1];
+          String endTime = favourites[index].calendar![0].endDate!.split("T")[1];
+
+          startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
+          endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
+
           return RestaurantInfoListTile(
-            restaurantName: "Mini Burger",
+            icon: favourites[index].photo,
+            restaurantName: favourites[index].name,
             distance: "74m",
-            packetNumber: "4 paket",
-            availableTime: "18:00-21:00",
+            packetNumber: favourites[index].boxes!.length == 0 ? 'tükendi' : '${favourites[index].boxes!.length} paket',
+            availableTime: '$startTime-$endTime',
           );
         });
   }

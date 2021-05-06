@@ -1,7 +1,8 @@
-import '../../text/locale_text.dart';
+import 'package:flutter/material.dart';
+
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter/material.dart';
+import '../../text/locale_text.dart';
 
 class PacketNumber extends StatelessWidget {
   final String? text;

@@ -18,6 +18,8 @@ class RestaurantInfoCard extends StatelessWidget {
   final String? location;
   final String? distance;
   final String? availableTime;
+  final String? backgroundImage;
+  final String? restaurantIcon;
   const RestaurantInfoCard({
     Key? key,
     this.packetNumber,
@@ -26,6 +28,8 @@ class RestaurantInfoCard extends StatelessWidget {
     this.location,
     this.distance,
     this.availableTime,
+    this.backgroundImage,
+    this.restaurantIcon,
   }) : super(key: key);
 
   @override
@@ -46,12 +50,15 @@ class RestaurantInfoCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          Image.asset(
-            ImageConstant.COMMONS_RESTAURANT_IMAGE,
-            alignment: Alignment.topCenter,
-            fit: BoxFit.fitWidth,
-            width: context.dynamicWidht(0.64),
-            height: context.height > 800 ? context.dynamicHeight(0.16) : context.dynamicHeight(0.14),
+          ClipRRect(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+            child: Image.network(
+              backgroundImage!,
+              alignment: Alignment.topCenter,
+              fit: BoxFit.fill,
+              width: context.dynamicWidht(0.64),
+              height: context.height > 800 ? context.dynamicHeight(0.16) : context.dynamicHeight(0.14),
+            ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.011), horizontal: context.dynamicWidht(0.023)),
@@ -59,7 +66,7 @@ class RestaurantInfoCard extends StatelessWidget {
               children: [
                 buildFirstRow(context, packetNumber!),
                 Spacer(flex: 9),
-                buildSecondRow(restaurantName!),
+                buildSecondRow(restaurantName!, restaurantIcon!),
                 Spacer(flex: 1),
                 buildThirdRow(grade!, location!, distance!),
                 Divider(
@@ -115,15 +122,25 @@ class RestaurantInfoCard extends StatelessWidget {
     );
   }
 
-  Row buildSecondRow(String restaurantName) {
+  Row buildSecondRow(String restaurantName, String restaurantIcon) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        RestrauntIcon(),
-        Text(
-          restaurantName,
-          style: AppTextStyles.bodyBoldTextStyle,
+        RestrauntIcon(
+          icon: restaurantIcon,
+        ),
+        Spacer(
+          flex: 1,
+        ),
+        Flexible(
+          flex: 6,
+          child: Text(
+            restaurantName,
+            style: AppTextStyles.bodyBoldTextStyle,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );

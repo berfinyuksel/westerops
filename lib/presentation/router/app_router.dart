@@ -1,4 +1,8 @@
+import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
+import 'package:flutter/material.dart';
+
 import '../../data/shared/shared_prefs.dart';
+import '../../utils/constants/route_constant.dart';
 import '../screens/about_app_view/about_app_view.dart';
 import '../screens/address_detail_view/address_detail_view.dart';
 import '../screens/address_detail_view/string_arguments/string_arguments.dart';
@@ -35,11 +39,10 @@ import '../screens/permissions_views/notification_view/notification.dart';
 import '../screens/register_view/register_view.dart';
 import '../screens/restaurant_details_views/food_categories/food_categories_view.dart';
 import '../screens/restaurant_details_views/restaurant_detail_view/restaurant_detail_view.dart';
+import '../screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../screens/search_view/search.dart';
 import '../screens/surprise_pack_canceled_view/surprise_pack_canceled_view.dart';
 import '../screens/surprise_pack_view/surprise_pack_view.dart';
-import '../../utils/constants/route_constant.dart';
-import 'package:flutter/material.dart';
 
 class AppRouter {
   Route? onGenerateRoute(RouteSettings routeSettings) {
@@ -50,11 +53,12 @@ class AppRouter {
         final ScreenArguments args = routeSettings.arguments as ScreenArguments;
 
         return MaterialPageRoute(
-            builder: (_) => AddressDetailView(
-                  title: args.title,
-                  address: args.description,
-                  district: args.district,
-                ));
+          builder: (_) => AddressDetailView(
+            title: args.title,
+            address: args.description,
+            district: args.district,
+          ),
+        );
       case RouteConstant.ADDRESS_FROM_MAP_VIEW:
         return MaterialPageRoute(builder: (_) => AddressFromMapView());
       case RouteConstant.ADDRESS_VIEW:
@@ -71,6 +75,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => ChangePasswordView());
       case RouteConstant.CONTACT_VIEW:
         return MaterialPageRoute(builder: (_) => ContactView());
+      case RouteConstant.CUSTOM_SCAFFOLD:
+        return MaterialPageRoute(builder: (_) => CustomScaffold());
       case RouteConstant.DELETE_ACCOUNT_VIEW:
         return MaterialPageRoute(builder: (_) => DeleteAccountView());
       case RouteConstant.FILTER_VIEW:
@@ -117,12 +123,16 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PastOrderView());
       case RouteConstant.PAYMENTS_VIEW:
         return MaterialPageRoute(builder: (_) => PaymentViews());
-      case RouteConstant.MY_INFORMATION_VIEW:
-        return MaterialPageRoute(builder: (_) => MyInformationView());
       case RouteConstant.REGISTER_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterView());
       case RouteConstant.RESTAURANT_DETAIL:
-        return MaterialPageRoute(builder: (_) => RestaurantDetailView());
+        final ScreenArgumentsRestaurantDetail args = routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+
+        return MaterialPageRoute(
+          builder: (_) => RestaurantDetailView(
+            restaurant: args.restaurant,
+          ),
+        );
       case RouteConstant.SEARCH_VIEW:
         return MaterialPageRoute(builder: (_) => SearchView());
       case RouteConstant.SURPRISE_PACK_CANCELED_VIEW:
