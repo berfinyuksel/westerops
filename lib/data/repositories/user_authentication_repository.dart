@@ -47,7 +47,9 @@ class SampleUserAuthenticationRepository implements UserAuthenticationRepository
       final jsonBody = jsonDecode(response.body);
       var jsonResults = jsonBody['user'];
       SharedPrefs.setToken(jsonBody['token']);
+
       User user = User.fromJson(jsonResults);
+      SharedPrefs.setUserEmail(user.email!);
       List<User> users = [];
       users.add(user);
       return users;

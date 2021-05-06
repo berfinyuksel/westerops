@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/constants/route_constant.dart';
@@ -28,12 +29,11 @@ class _LocationViewState extends State<LocationView> {
       body: Center(
         child: Padding(
           padding: EdgeInsets.only(
-           
             bottom: context.dynamicHeight(0.06),
           ),
           child: Column(
             children: [
-                     Spacer(
+              Spacer(
                 flex: 6,
               ),
               locationImage(context),
@@ -74,8 +74,7 @@ class _LocationViewState extends State<LocationView> {
       onTap: () {},
       child: AutoSizeText(
         LocaleKeys.premission_notification_button2.locale,
-        style:
-            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
       ),
     );
   }
@@ -87,8 +86,9 @@ class _LocationViewState extends State<LocationView> {
       color: AppColors.greenColor,
       textColor: AppColors.appBarColor,
       title: LocaleKeys.premission_location_button1.locale,
-      onPressed: () {
-        alertDialogCard(context);
+      onPressed: () async {
+        await Geolocator.requestPermission();
+        Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
       },
     );
   }
@@ -115,8 +115,7 @@ class _LocationViewState extends State<LocationView> {
     return Container(
       //padding: EdgeInsets.only(top: context.dynamicHeight(1)),
       //padding: EdgeInsets.only(top: context.dynamicHeight(0.10)),
-      padding: EdgeInsets.only(
-          right: context.dynamicWidht(0.06), left: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.only(right: context.dynamicWidht(0.06), left: context.dynamicWidht(0.06)),
       child: SvgPicture.asset(ImageConstant.LOCATION_IMAGE),
     );
   }
@@ -133,32 +132,4 @@ class _LocationViewState extends State<LocationView> {
       elevation: 0,
     );
   }
-}
-
-alertDialogCard(BuildContext context) {
-  var alertDialog = CupertinoAlertDialog(
-    title: Text(LocaleKeys.location_card_text1.locale),
-    content: Text(LocaleKeys.location_card_text2.locale),
-    actions: <Widget>[
-      CupertinoDialogAction(
-        isDefaultAction: true,
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Text(LocaleKeys.location_card_button1.locale),
-      ),
-      CupertinoDialogAction(
-        isDefaultAction: true,
-        onPressed: () {
-          Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
-        },
-        child: Text(LocaleKeys.location_card_button2.locale),
-      ),
-    ],
-  );
-  showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alertDialog;
-      });
 }

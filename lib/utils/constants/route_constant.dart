@@ -9,6 +9,7 @@ class RouteConstant {
   static const CHANGE_LOCATION_VIEW = '/changeLocation';
   static const CHANGE_PASSWORD_VIEW = '/changePass';
   static const CONTACT_VIEW = '/contact';
+  static const CUSTOM_SCAFFOLD = '/scaf';
   static const DELETE_ACCOUNT_VIEW = '/deleteAccount';
   static const FILTER_VIEW = '/filter';
   static const FOOD_CATEGORIES_VIEW = '/foodCategories';

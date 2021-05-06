@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../data/services/auth_service.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';

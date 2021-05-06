@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/shared/shared_prefs.dart';
@@ -74,6 +75,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => ChangePasswordView());
       case RouteConstant.CONTACT_VIEW:
         return MaterialPageRoute(builder: (_) => ContactView());
+      case RouteConstant.CUSTOM_SCAFFOLD:
+        return MaterialPageRoute(builder: (_) => CustomScaffold());
       case RouteConstant.DELETE_ACCOUNT_VIEW:
         return MaterialPageRoute(builder: (_) => DeleteAccountView());
       case RouteConstant.FILTER_VIEW:
@@ -120,8 +123,6 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PastOrderView());
       case RouteConstant.PAYMENTS_VIEW:
         return MaterialPageRoute(builder: (_) => PaymentViews());
-      case RouteConstant.MY_INFORMATION_VIEW:
-        return MaterialPageRoute(builder: (_) => MyInformationView());
       case RouteConstant.REGISTER_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterView());
       case RouteConstant.RESTAURANT_DETAIL:

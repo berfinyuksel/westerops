@@ -84,7 +84,7 @@ class EmptyCartView extends StatelessWidget {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
-          Navigator.pushNamed(context, RouteConstant.CART_VIEW);
+          Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
         },
       ),
     );
