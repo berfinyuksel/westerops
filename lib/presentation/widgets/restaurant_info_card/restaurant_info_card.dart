@@ -50,12 +50,15 @@ class RestaurantInfoCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          Image.network(
-            backgroundImage!,
-            alignment: Alignment.topCenter,
-            fit: BoxFit.fill,
-            width: context.dynamicWidht(0.64),
-            height: context.height > 800 ? context.dynamicHeight(0.16) : context.dynamicHeight(0.14),
+          ClipRRect(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+            child: Image.network(
+              backgroundImage!,
+              alignment: Alignment.topCenter,
+              fit: BoxFit.fill,
+              width: context.dynamicWidht(0.64),
+              height: context.height > 800 ? context.dynamicHeight(0.16) : context.dynamicHeight(0.14),
+            ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.011), horizontal: context.dynamicWidht(0.023)),

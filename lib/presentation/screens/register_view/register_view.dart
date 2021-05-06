@@ -187,11 +187,16 @@ class _RegisterViewState extends State<RegisterView> {
             color: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
             borderColor: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
             onPressed: () {
-              String firstName = nameController.text.split(" ")[0];
-              String lastName = nameController.text.split(" ")[1];
-              context.read<UserAuthCubit>().registerUser(firstName, lastName, emailController.text, phoneController.text, passwordController.text);
-              _showMyDialog();
-              AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
+              bool numberControl = passwordController.text.contains(RegExp(r'[0-9]'));
+              bool uppercaseControl = passwordController.text.contains(RegExp(r'[A-Z]'));
+              bool lengthControl = passwordController.text.length > 7;
+              if (checkboxValue && numberControl && uppercaseControl && lengthControl) {
+                String firstName = nameController.text.split(" ")[0];
+                String lastName = nameController.text.split(" ")[1];
+                context.read<UserAuthCubit>().registerUser(firstName, lastName, emailController.text, phoneController.text, passwordController.text);
+                _showMyDialog();
+              }
+              // AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
             },
           ),
           Spacer(
