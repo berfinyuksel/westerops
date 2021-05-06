@@ -1,13 +1,13 @@
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/first_column/packet_number.dart';
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/first_column/restaurant_icon.dart';
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/second_column/package_delivery.dart';
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/third_column/available_time.dart';
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/third_column/meters.dart';
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/third_column/old_and_new_prices.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import '../restaurant_info_list_tile/first_column/packet_number.dart';
+import '../restaurant_info_list_tile/first_column/restaurant_icon.dart';
+import '../restaurant_info_list_tile/second_column/package_delivery.dart';
+import '../restaurant_info_list_tile/third_column/available_time.dart';
+import '../restaurant_info_list_tile/third_column/meters.dart';
+import '../restaurant_info_list_tile/third_column/old_and_new_prices.dart';
+import '../../../utils/constants/image_constant.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/theme/app_colors/app_colors.dart';
+import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

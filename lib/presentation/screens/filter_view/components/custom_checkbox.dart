@@ -1,5 +1,6 @@
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../utils/extensions/context_extension.dart';
 
 class CustomCheckbox extends StatelessWidget {
   final VoidCallback? onTap;

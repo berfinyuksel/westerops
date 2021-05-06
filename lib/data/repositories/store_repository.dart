@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:dongu_mobile/data/model/storeList.dart';
-import 'package:dongu_mobile/utils/constants/url_constant.dart';
+import '../model/storeList.dart';
+import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
 abstract class StoreRepository {

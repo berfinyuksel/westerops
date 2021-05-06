@@ -1,10 +1,14 @@
-import 'package:dongu_mobile/presentation/screens/filter_view/components/custom_expansion_tile.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../logic/cubits/filters_cubit/filters_cubit.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../../../utils/locale_keys.g.dart';
+import '../../../../utils/theme/app_colors/app_colors.dart';
+import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
+import '../../../widgets/text/locale_text.dart';
+import 'custom_checkbox.dart';
+import 'custom_expansion_tile.dart';
 
 class PaymentMethodFilterList extends StatefulWidget {
   PaymentMethodFilterList({Key? key}) : super(key: key);
@@ -15,9 +19,6 @@ class PaymentMethodFilterList extends StatefulWidget {
 }
 
 class _PaymentMethodFilterListState extends State<PaymentMethodFilterList> {
-  bool _valueOnline = false;
-  bool _valueRestaurant = false;
-
   @override
   Widget build(BuildContext context) {
     return CustomExpansionTile(
@@ -29,13 +30,13 @@ class _PaymentMethodFilterListState extends State<PaymentMethodFilterList> {
               buildRowCheckboxAndText(
                 context,
                 LocaleKeys.filters_payment_method_item1,
-                buildCheckBox(context),
+                buildCheckBox(context, false),
               ),
               SizedBox(height: context.dynamicHeight(0.016)),
               buildRowCheckboxAndText(
                 context,
                 LocaleKeys.filters_payment_method_item2,
-                buildSecondCheckBox(context),
+                buildCheckBox(context, true),
               ),
               SizedBox(height: context.dynamicHeight(0.030)),
             ],
@@ -44,81 +45,34 @@ class _PaymentMethodFilterListState extends State<PaymentMethodFilterList> {
         expansionTileTitle: LocaleKeys.filters_payment_method_title);
   }
 
-  Center buildSecondCheckBox(BuildContext context) {
-    return Center(
-        child: InkWell(
-      onTap: () {
-        if (_valueRestaurant == false) {
-          setState(() {
-            _valueOnline = !_valueOnline;
-          });
-        } else {
-          setState(() {
-            _valueOnline = !_valueOnline;
-            _valueRestaurant = !_valueRestaurant;
-          });
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        width: context.dynamicWidht(0.051),
-        height: context.dynamicHeight(0.023),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          color: Colors.white,
-          border: Border.all(
-            width: 1,
-            color: Color(0xFFD1D0D0),
-          ),
-        ),
-        child: Container(
-          width: context.dynamicWidht(0.032),
-          height: context.dynamicHeight(0.015),
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: _valueOnline ? AppColors.greenColor : Colors.transparent),
-        ),
-      ),
-    ));
-  }
+  Builder buildCheckBox(BuildContext context, bool checkState) {
+    return Builder(
+      builder: (context) {
+        final FiltersState state = context.watch<FiltersCubit>().state;
+        return CustomCheckbox(
+          onTap: () {
+            setState(() {
+              if (checkState == false) {
+                state.checkList![6] = !state.checkList![6];
 
-  Center buildCheckBox(BuildContext context) {
-    return Center(
-        child: InkWell(
-      onTap: () {
-        if (_valueOnline == false) {
-          setState(() {
-            _valueRestaurant = !_valueRestaurant;
-          });
-        } else {
-          setState(() {
-            _valueRestaurant = !_valueRestaurant;
-            _valueOnline = !_valueOnline;
-          });
-        }
+                state.checkList![7] = false;
+              } else {
+                state.checkList![7] = !state.checkList![7];
+
+                state.checkList![6] = false;
+              }
+            });
+          },
+          checkboxColor: checkState == false
+              ? state.checkList![6]
+                  ? AppColors.greenColor
+                  : Colors.white
+              : state.checkList![7]
+                  ? AppColors.greenColor
+                  : Colors.white,
+        );
       },
-      child: Container(
-        alignment: Alignment.center,
-        width: context.dynamicWidht(0.051),
-        height: context.dynamicHeight(0.023),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          color: Colors.white,
-          border: Border.all(
-            width: 1,
-            color: Color(0xFFD1D0D0),
-          ),
-        ),
-        child: Container(
-          width: context.dynamicWidht(0.032),
-          height: context.dynamicHeight(0.015),
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color:
-                  _valueRestaurant ? AppColors.greenColor : Colors.transparent),
-        ),
-      ),
-    ));
+    );
   }
 
   Row buildRowCheckboxAndText(

@@ -1,28 +1,29 @@
 import 'dart:async';
+import 'dart:convert' as convert;
 import 'dart:ui' as ui;
 
-import 'package:dongu_mobile/presentation/screens/address_from_map_view/components/map_alert_dialog.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
-import 'package:dongu_mobile/data/model/place.dart';
-import 'package:dongu_mobile/data/services/location_service.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/search_location_cubit/search_location_cubit.dart';
-import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
+
+import '../../../data/model/place.dart';
+import '../../../data/services/location_service.dart';
+import '../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../logic/cubits/search_location_cubit/search_location_cubit.dart';
+import '../../../utils/constants/image_constant.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/string_extension.dart';
+import '../../../utils/locale_keys.g.dart';
+import '../../../utils/theme/app_colors/app_colors.dart';
+import '../../../utils/theme/app_text_styles/app_text_styles.dart';
+import '../../widgets/button/custom_button.dart';
+import '../../widgets/scaffold/custom_scaffold.dart';
+import 'components/map_alert_dialog.dart';
 
 class AddressFromMapView extends StatefulWidget {
   @override

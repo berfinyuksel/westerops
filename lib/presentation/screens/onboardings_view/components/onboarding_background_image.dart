@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+
+import '../../../../utils/extensions/context_extension.dart';
 
 class OnboardingBackgroundImage extends StatelessWidget {
   final String? image;

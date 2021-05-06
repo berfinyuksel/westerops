@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/data/model/store.dart';
+import '../../../../data/model/store.dart';
 
 class ScreenArgumentsRestaurantDetail {
   final Store restaurant;

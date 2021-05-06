@@ -1,15 +1,15 @@
-import 'package:dongu_mobile/presentation/screens/my_notifications_view/components/special_for_me_list_tile_builder.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/string_extension.dart';
+import '../../../utils/locale_keys.g.dart';
+import '../../../utils/theme/app_colors/app_colors.dart';
+import '../../../utils/theme/app_text_styles/app_text_styles.dart';
+import '../../widgets/scaffold/custom_scaffold.dart';
 import 'components/all_list_tile_builder.dart';
 import 'components/my_orders_list_tile_builder.dart';
+import 'components/special_for_me_list_tile_builder.dart';
 
 class MyNotificationsView extends StatefulWidget {
   MyNotificationsView({Key? key}) : super(key: key);

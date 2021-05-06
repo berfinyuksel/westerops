@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
-import 'package:dongu_mobile/data/model/user.dart';
+
+import '../../utils/constants/url_constant.dart';
+import '../model/user.dart';
+import '../shared/shared_prefs.dart';
 
 abstract class UserAuthenticationRepository {
   Future<List<User>> registerUser(String firstName, String lastName, String email, String phone, String password);

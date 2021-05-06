@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/data/model/location_details.dart';
+import 'location_details.dart';
 
 class Geometry {
   final LocationDetails? locationDetails;

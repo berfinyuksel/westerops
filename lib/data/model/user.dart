@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/data/model/favourite.dart';
+import 'favourite.dart';
 
 class User {
   String? firstName;

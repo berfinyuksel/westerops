@@ -1,7 +1,8 @@
-import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
-import 'package:dongu_mobile/utils/clippers/password_rules_clipper.dart';
 import 'package:flutter/material.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+
+import '../../../../utils/clippers/password_rules_clipper.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import 'password_rules.dart';
 
 class ClippedPasswordRules extends StatelessWidget {
   const ClippedPasswordRules({

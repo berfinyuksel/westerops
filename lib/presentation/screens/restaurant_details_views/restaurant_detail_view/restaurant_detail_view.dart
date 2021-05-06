@@ -1,9 +1,8 @@
-import 'package:dongu_mobile/data/model/store.dart';
-
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../data/model/store.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../../widgets/scaffold/custom_scaffold.dart';
 import 'components/custom_card_and_body.dart';
 
 class RestaurantDetailView extends StatefulWidget {

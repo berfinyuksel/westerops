@@ -1,12 +1,13 @@
-import 'package:dongu_mobile/presentation/screens/agreement_kvkk_view/components/agreement_scrollbar_listview.dart';
-import 'package:dongu_mobile/presentation/screens/agreement_view/components/accept_agreement_text.dart';
-import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
+
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/theme/app_colors/app_colors.dart';
+import '../../../utils/theme/app_text_styles/app_text_styles.dart';
+import '../../widgets/button/custom_button.dart';
+import '../../widgets/scaffold/custom_scaffold.dart';
+import '../../widgets/text/locale_text.dart';
+import '../agreement_view/components/accept_agreement_text.dart';
+import 'components/agreement_scrollbar_listview.dart';
 
 class AgreementKvkkView extends StatefulWidget {
   @override

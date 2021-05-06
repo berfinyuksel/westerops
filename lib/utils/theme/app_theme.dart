@@ -1,5 +1,6 @@
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import 'app_colors/app_colors.dart';
 
 enum AppTheme {
   PrimaryTheme,

@@ -1,7 +1,7 @@
-import 'package:dongu_mobile/data/model/box.dart';
-import 'package:dongu_mobile/data/model/calendar.dart';
-import 'package:dongu_mobile/data/model/favourite.dart';
-import 'package:dongu_mobile/data/model/user.dart';
+import 'box.dart';
+import 'calendar.dart';
+import 'favourite.dart';
+import 'user.dart';
 
 class Store {
   int? id;
