@@ -1,6 +1,13 @@
+import 'package:dongu_mobile/data/repositories/order_repository.dart';
 import 'package:dongu_mobile/data/repositories/search_location_repository.dart';
+import 'package:dongu_mobile/data/repositories/store_repository.dart';
+import 'package:dongu_mobile/data/repositories/user_authentication_repository.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
+
 import 'package:dongu_mobile/logic/cubits/payment_cubit/payment_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_location_cubit/search_location_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
+
 import 'package:dongu_mobile/utils/constants/locale_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -8,6 +15,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'data/shared/shared_prefs.dart';
+import 'logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'presentation/router/app_router.dart';
 
 Future<void> main() async {
@@ -34,6 +42,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<SearchLocationCubit>(create: (context) => SearchLocationCubit(SampleSearchLocationRepository())),
+        BlocProvider<StoreCubit>(create: (context) => StoreCubit(SampleStoreRepository())),
+        BlocProvider<UserAuthCubit>(create: (context) => UserAuthCubit(SampleUserAuthenticationRepository())),
+        BlocProvider<OrderCubit>(create: (context) => OrderCubit(SampleOrderRepository())),
         BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
       ],
       child: Builder(builder: (context) {

@@ -1,3 +1,6 @@
+import 'package:dongu_mobile/data/services/auth_service.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/gestures.dart';
@@ -13,6 +16,7 @@ import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -112,6 +116,7 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
           Spacer(flex: 2),
+          buildBuilder(),
           CustomButton(
             width: context.dynamicWidht(0.4),
             title: LocaleKeys.login_text_login,
@@ -119,7 +124,9 @@ class _LoginViewState extends State<LoginView> {
             color: AppColors.greenColor,
             borderColor: AppColors.greenColor,
             onPressed: () {
-              Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_VIEW);
+              print(phoneController.text);
+              context.read<UserAuthCubit>().loginUser(phoneController.text, passwordController.text);
+              //Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_VIEW);
             },
           ),
           Spacer(flex: 1),
@@ -172,6 +179,23 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
+  Builder buildBuilder() {
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<UserAuthCubit>().state;
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Container();
+      } else if (state is GenericCompleted) {
+        return Text(state.response[0].firstName);
+      } else {
+        final error = state as GenericError;
+
+        return Center(child: Text("\n${error.statusCode}"));
+      }
+    });
+  }
+
   Padding buildSocialAuths(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
@@ -180,7 +204,7 @@ class _LoginViewState extends State<LoginView> {
         children: [
           GestureDetector(
             onTap: () {
-              //AuthService.loginWithGmail();
+              AuthService.loginWithGmail();
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
@@ -188,7 +212,7 @@ class _LoginViewState extends State<LoginView> {
           ),
           GestureDetector(
             onTap: () {
-              //AuthService.loginWithFacebook();
+              AuthService.loginWithFacebook();
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,

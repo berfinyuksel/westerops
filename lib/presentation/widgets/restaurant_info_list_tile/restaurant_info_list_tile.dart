@@ -3,7 +3,6 @@ import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/seco
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/third_column/available_time.dart';
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/third_column/meters.dart';
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/third_column/old_and_new_prices.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
@@ -20,6 +19,7 @@ class RestaurantInfoListTile extends StatelessWidget {
   final String? distance;
   final String? availableTime;
   final Border? border;
+  final String? icon;
   const RestaurantInfoListTile({
     Key? key,
     @required this.packetNumber,
@@ -27,6 +27,7 @@ class RestaurantInfoListTile extends StatelessWidget {
     @required this.distance,
     @required this.availableTime,
     this.border,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -78,9 +79,15 @@ class RestaurantInfoListTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LocaleText(
-          text: restaurantName,
-          style: AppTextStyles.bodyBoldTextStyle,
+        Container(
+          width: context.dynamicWidht(0.3),
+          child: Flexible(
+            child: Text(
+              restaurantName,
+              style: AppTextStyles.bodyBoldTextStyle,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ),
         Spacer(flex: 1),
         GradeAndLocation(),
@@ -100,7 +107,9 @@ class RestaurantInfoListTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        RestrauntIcon(),
+        RestrauntIcon(
+          icon: icon,
+        ),
         Spacer(flex: 1),
         PacketNumber(
           text: packetNumber,

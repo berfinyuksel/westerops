@@ -35,6 +35,7 @@ import 'package:dongu_mobile/presentation/screens/permissions_views/notification
 import 'package:dongu_mobile/presentation/screens/register_view/register_view.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/food_categories/food_categories_view.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/restaurant_detail_view/restaurant_detail_view.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/presentation/screens/search_view/search.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/surprise_pack_canceled_view.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_view/surprise_pack_view.dart';
@@ -50,11 +51,12 @@ class AppRouter {
         final ScreenArguments args = routeSettings.arguments as ScreenArguments;
 
         return MaterialPageRoute(
-            builder: (_) => AddressDetailView(
-                  title: args.title,
-                  address: args.description,
-                  district: args.district,
-                ));
+          builder: (_) => AddressDetailView(
+            title: args.title,
+            address: args.description,
+            district: args.district,
+          ),
+        );
       case RouteConstant.ADDRESS_FROM_MAP_VIEW:
         return MaterialPageRoute(builder: (_) => AddressFromMapView());
       case RouteConstant.ADDRESS_VIEW:
@@ -122,7 +124,13 @@ class AppRouter {
       case RouteConstant.REGISTER_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterView());
       case RouteConstant.RESTAURANT_DETAIL:
-        return MaterialPageRoute(builder: (_) => RestaurantDetailView());
+        final ScreenArgumentsRestaurantDetail args = routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+
+        return MaterialPageRoute(
+          builder: (_) => RestaurantDetailView(
+            restaurant: args.restaurant,
+          ),
+        );
       case RouteConstant.SEARCH_VIEW:
         return MaterialPageRoute(builder: (_) => SearchView());
       case RouteConstant.SURPRISE_PACK_CANCELED_VIEW:

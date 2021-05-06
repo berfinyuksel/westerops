@@ -1,5 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/services/auth_service.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/clipped_password_rules.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/consent_text.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/contract_text.dart';
@@ -9,6 +13,7 @@ import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -182,8 +187,11 @@ class _RegisterViewState extends State<RegisterView> {
             color: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
             borderColor: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
             onPressed: () {
+              String firstName = nameController.text.split(" ")[0];
+              String lastName = nameController.text.split(" ")[1];
+              context.read<UserAuthCubit>().registerUser(firstName, lastName, emailController.text, phoneController.text, passwordController.text);
+              _showMyDialog();
               AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
-              print(AuthService.auth.currentUser!.phoneNumber);
             },
           ),
           Spacer(
@@ -202,6 +210,118 @@ class _RegisterViewState extends State<RegisterView> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        final GenericState state = context.watch<UserAuthCubit>().state;
+        if (state is GenericInitial) {
+          return Container();
+        } else if (state is GenericLoading) {
+          return Container();
+        } else if (state is GenericCompleted) {
+          return AlertDialog(
+            title: Text('Hosgeldiniz'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('This is a demo alert dialog.'),
+                  Text('Would you like to approve of this message?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Approve'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        } else {
+          return AlertDialog(
+            contentPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.047), vertical: context.dynamicHeight(0.03)),
+            content: Container(
+              alignment: Alignment.center,
+              height: context.dynamicHeight(0.15),
+              width: context.dynamicWidht(0.8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.0),
+                color: Colors.white,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Spacer(
+                    flex: 2,
+                  ),
+                  SvgPicture.asset(ImageConstant.COMMONS_WARNING_ICON),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.', style: AppTextStyles.bodyTitleStyle),
+                      Text.rich(
+                        TextSpan(
+                          style: GoogleFonts.montserrat(
+                            fontSize: 14.0,
+                            color: AppColors.textColor,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: 'Hesabınıza ',
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'giriş yapabilir',
+                              style: GoogleFonts.montserrat(
+                                color: AppColors.orangeColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: ' ',
+                              style: GoogleFonts.montserrat(
+                                color: AppColors.orangeColor,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'veya \nhatırlamıyorsanız ',
+                              style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'şifrenizi \nyenileyebilirsiniz.',
+                              style: GoogleFonts.montserrat(
+                                color: AppColors.orangeColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(
+                    flex: 5,
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 
