@@ -2,11 +2,13 @@ import 'package:dongu_mobile/data/repositories/order_repository.dart';
 import 'package:dongu_mobile/data/repositories/search_location_repository.dart';
 import 'package:dongu_mobile/data/repositories/store_repository.dart';
 import 'package:dongu_mobile/data/repositories/user_authentication_repository.dart';
+import 'package:dongu_mobile/data/repositories/user_operatios_repository.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 
 import 'package:dongu_mobile/logic/cubits/payment_cubit/payment_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_location_cubit/search_location_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/user_operations_cubit/user_operations_cubit.dart';
 
 import 'package:dongu_mobile/utils/constants/locale_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
@@ -45,6 +47,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<StoreCubit>(create: (context) => StoreCubit(SampleStoreRepository())),
         BlocProvider<UserAuthCubit>(create: (context) => UserAuthCubit(SampleUserAuthenticationRepository())),
         BlocProvider<OrderCubit>(create: (context) => OrderCubit(SampleOrderRepository())),
+        BlocProvider<UserOperationsCubit>(create: (context) => UserOperationsCubit(SampleUserOperationsRepository())),
         BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
       ],
       child: Builder(builder: (context) {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dongu_mobile/data/model/box.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,11 +20,7 @@ class SampleOrderRepository implements OrderRepository {
     final response = await http.post(
       Uri.parse(url),
       body: json,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization':
-            'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwidXNlcm5hbWUiOiJ6ZXluZXBAZ21haWwuY29tIiwiZXhwIjoxNjIwNDczNzg5LCJlbWFpbCI6InpleW5lcEBnbWFpbC5jb20iLCJvcmlnX2lhdCI6MTYyMDIxNDU4OX0.VF5uuE68eth7ab7WbHQ-bBUbERJwQi0I53e2T7wlPu8'
-      },
+      headers: {'Content-Type': 'application/json', 'Authorization': 'JWT ${SharedPrefs.getToken}'},
     );
     print(response.statusCode);
     if (response.statusCode == 201) {

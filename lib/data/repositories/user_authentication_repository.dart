@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 import 'package:dongu_mobile/data/model/user.dart';
@@ -43,10 +44,11 @@ class SampleUserAuthenticationRepository implements UserAuthenticationRepository
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print(response.body);
+
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(response.body);
       var jsonResults = jsonBody['user'];
+      SharedPrefs.setToken(jsonBody['token']);
       User user = User.fromJson(jsonResults);
       List<User> users = [];
       users.add(user);

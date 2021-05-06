@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/model/box.dart';
 import 'package:dongu_mobile/data/model/store.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/user_operations_cubit/user_operations_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
@@ -658,6 +659,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               ),
               GestureDetector(
                   onTap: () {
+                    context.read<UserOperationsCubit>().addToFavorite(widget.restaurant!.id!);
                     setState(() {
                       _isSelect = !_isSelect;
                     });
