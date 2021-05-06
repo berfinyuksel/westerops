@@ -1,20 +1,21 @@
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/my_favorites_view/components/address_text.dart';
-import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
-import 'package:dongu_mobile/presentation/screens/search_view/components/horizontal_list_category_bar.dart';
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_card/restaurant_info_card.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../logic/cubits/store_cubit/store_cubit.dart';
+import '../../../utils/constants/image_constant.dart';
+import '../../../utils/constants/route_constant.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/locale_keys.g.dart';
+import '../../../utils/theme/app_colors/app_colors.dart';
+import '../../../utils/theme/app_text_styles/app_text_styles.dart';
+import '../../widgets/restaurant_info_card/restaurant_info_card.dart';
+import '../../widgets/text/locale_text.dart';
+import '../my_favorites_view/components/address_text.dart';
+import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
+import '../search_view/components/horizontal_list_category_bar.dart';
 
 class HomePageView extends StatefulWidget {
   @override

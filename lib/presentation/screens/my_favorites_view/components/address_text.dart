@@ -1,6 +1,7 @@
-import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 
 class AddressText extends StatelessWidget {
   const AddressText({

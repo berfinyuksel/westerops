@@ -3,7 +3,6 @@ import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/extensions/context_extension.dart';
 
-
 class DrawerBodyTitle extends StatelessWidget {
   final String? text;
   const DrawerBodyTitle({

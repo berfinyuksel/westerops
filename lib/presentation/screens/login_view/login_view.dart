@@ -1,22 +1,23 @@
-import 'package:dongu_mobile/data/services/auth_service.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
-import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import '../register_view/components/sign_with_social_auth.dart';
-import '../../../utils/locale_keys.g.dart';
-import '../../../utils/extensions/context_extension.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../data/services/auth_service.dart';
+import '../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
+import '../../../utils/constants/route_constant.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/string_extension.dart';
+import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
+import '../../widgets/button/custom_button.dart';
 import '../../widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../register_view/components/sign_with_social_auth.dart';
 
 class LoginView extends StatefulWidget {
   @override

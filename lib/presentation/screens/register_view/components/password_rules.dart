@@ -1,8 +1,9 @@
-import '../../../widgets/text/locale_text.dart';
-import '../../../../utils/constants/image_constant.dart';
-import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../utils/constants/image_constant.dart';
+import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
+import '../../../widgets/text/locale_text.dart';
 
 class PasswordRules extends StatelessWidget {
   const PasswordRules({

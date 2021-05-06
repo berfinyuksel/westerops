@@ -1,14 +1,15 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../../../logic/cubits/filters_cubit/filters_cubit.dart';
-import '../../../widgets/text/locale_text.dart';
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../widgets/text/locale_text.dart';
 import 'custom_checkbox.dart';
 import 'custom_container.dart';
 

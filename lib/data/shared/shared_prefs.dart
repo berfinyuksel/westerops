@@ -14,10 +14,15 @@ class SharedPrefs {
     _prefs.setBool('login', true);
   }
 
+  static Future<void> setToken(String token) async {
+    _prefs.setString('token', token);
+  }
+
   static Future<void> clearCache() async {
     _prefs.clear();
   }
 
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
+  static String get getToken => _prefs.getString('token') ?? "";
 }

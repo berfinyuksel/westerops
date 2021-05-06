@@ -1,7 +1,8 @@
-import '../../../../utils/locale_keys.g.dart';
-import '../../../../utils/extensions/string_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../utils/extensions/string_extension.dart';
+import '../../../../utils/locale_keys.g.dart';
 
 class AlertDialogCard extends StatelessWidget {
   const AlertDialogCard({Key? key}) : super(key: key);

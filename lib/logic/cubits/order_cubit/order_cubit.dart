@@ -1,7 +1,6 @@
-import 'package:dongu_mobile/data/repositories/order_repository.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/repositories/order_repository.dart';
 import '../generic_state/generic_state.dart';
 
 class OrderCubit extends Cubit<GenericState> {

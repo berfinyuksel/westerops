@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/data/model/store.dart';
+import 'store.dart';
 
 class StoreList {
   List<Store>? results;

@@ -1,18 +1,20 @@
 import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
-import 'components/order_summary_container.dart';
-import '../payment_views/payment_address_view/components/get_it_address_list_tile.dart';
-import '../../widgets/button/custom_button.dart';
-import '../../widgets/text/locale_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../widgets/button/custom_button.dart';
+import '../../widgets/text/locale_text.dart';
+import '../payment_views/payment_address_view/components/get_it_address_list_tile.dart';
+import 'components/order_summary_container.dart';
 
 class OrderReceivedView extends StatefulWidget {
   @override

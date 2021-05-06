@@ -1,13 +1,14 @@
-import '../../address_view/components/adress_list_tile.dart';
-import 'components/get_it_address_list_tile.dart';
-import '../../../widgets/button/custom_button.dart';
-import '../../../widgets/text/locale_text.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter/material.dart';
-import '../../../../utils/extensions/context_extension.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../../widgets/button/custom_button.dart';
+import '../../../widgets/text/locale_text.dart';
+import '../../address_view/components/adress_list_tile.dart';
+import 'components/get_it_address_list_tile.dart';
 
 class PaymentAddressView extends StatefulWidget {
   final bool? isGetIt;

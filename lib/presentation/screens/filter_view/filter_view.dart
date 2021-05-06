@@ -1,11 +1,12 @@
-import 'components/package_price_filter_list_tile.dart';
-import '../../widgets/scaffold/custom_scaffold.dart';
-import '../../../utils/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
+
+import '../../../utils/extensions/context_extension.dart';
+import '../../widgets/scaffold/custom_scaffold.dart';
 import 'components/choose_category_filter_list_tile.dart';
 import 'components/clean_and_save_buttons.dart';
-import 'components/payment_method_list_tile.dart';
 import 'components/package_delivery_filter_list_tile.dart';
+import 'components/package_price_filter_list_tile.dart';
+import 'components/payment_method_list_tile.dart';
 import 'components/sort_filter_list_tile.dart';
 
 class FilterView extends StatefulWidget {

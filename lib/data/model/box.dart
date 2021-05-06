@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/data/model/meal.dart';
+import 'meal.dart';
 
 class Box {
   int? id;

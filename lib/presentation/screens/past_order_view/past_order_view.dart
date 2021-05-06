@@ -1,9 +1,10 @@
-import 'components/past_order_list_tile.dart';
-import '../../widgets/scaffold/custom_scaffold.dart';
+import 'package:flutter/material.dart';
+
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
-import 'package:flutter/material.dart';
+import '../../widgets/scaffold/custom_scaffold.dart';
+import 'components/past_order_list_tile.dart';
 
 class PastOrderView extends StatelessWidget {
   @override
