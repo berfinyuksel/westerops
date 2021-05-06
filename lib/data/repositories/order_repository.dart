@@ -34,11 +34,7 @@ class SampleOrderRepository implements OrderRepository {
   Future<List<Box>> getBasket() async {
     final response = await http.get(
       Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization':
-            'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwidXNlcm5hbWUiOiJ6ZXluZXBAZ21haWwuY29tIiwiZXhwIjoxNjIwNDczNzg5LCJlbWFpbCI6InpleW5lcEBnbWFpbC5jb20iLCJvcmlnX2lhdCI6MTYyMDIxNDU4OX0.VF5uuE68eth7ab7WbHQ-bBUbERJwQi0I53e2T7wlPu8'
-      },
+      headers: {'Content-Type': 'application/json', 'Authorization': 'JWT ${SharedPrefs.getToken}'},
     );
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters

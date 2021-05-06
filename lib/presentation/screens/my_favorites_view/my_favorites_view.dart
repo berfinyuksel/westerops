@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +13,6 @@ import '../../../data/model/store.dart';
 import '../../../data/services/location_service.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/store_cubit/store_cubit.dart';
-import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
@@ -56,17 +56,15 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   Builder buildBuilder() {
     return Builder(builder: (context) {
       final GenericState state = context.watch<StoreCubit>().state;
-      final GenericState userState = context.watch<UserAuthCubit>().state;
       if (state is GenericInitial) {
-        context.read<StoreCubit>().getStores();
         return Container();
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
-      } else if (state is GenericCompleted && userState is GenericCompleted) {
+      } else if (state is GenericCompleted) {
         List<Store> favourites = [];
         for (int i = 0; i < state.response[0].results.length; i++) {
           for (int j = 0; j < state.response[0].results[i].favourites.length; j++) {
-            if (state.response[0].results[i].favourites[j].user.email == userState.response[0].email) {
+            if (state.response[0].results[i].favourites[j].user.email == SharedPrefs.getUserEmail) {
               favourites.add(state.response[0].results[i]);
             }
           }

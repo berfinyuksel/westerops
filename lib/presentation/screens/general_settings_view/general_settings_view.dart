@@ -1,3 +1,5 @@
+import 'package:geolocator/geolocator.dart';
+
 import 'components/contact_confirmation_list_tile.dart';
 import 'components/general_settings_body_title.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
@@ -20,6 +22,26 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   bool isSwitchedPhoneCall = false;
   bool isSwitchedNotification = false;
   bool isSwitchedLocation = false;
+  LocationPermission? permission;
+  @override
+  void initState() {
+    super.initState();
+    checkLocationPermission();
+  }
+
+  checkLocationPermission() async {
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+      setState(() {
+        isSwitchedLocation = false;
+      });
+    } else {
+      setState(() {
+        isSwitchedLocation = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -198,10 +220,8 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
         scale: 0.8,
         child: CupertinoSwitch(
             value: isSwitchedLocation,
-            onChanged: (value) {
-              setState(() {
-                isSwitchedLocation = value;
-              });
+            onChanged: (value) async {
+              await Geolocator.openLocationSettings();
             },
             trackColor: Colors.white,
             activeColor: AppColors.greenColor),
