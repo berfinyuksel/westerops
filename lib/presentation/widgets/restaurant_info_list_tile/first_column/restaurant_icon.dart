@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../utils/extensions/context_extension.dart';
 
 class RestrauntIcon extends StatelessWidget {
+  final String? icon;
   const RestrauntIcon({
     Key? key,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class RestrauntIcon extends StatelessWidget {
           color: const Color(0xFFF2F2FB),
         ),
       ),
-      child: Image.asset(ImageConstant.COMMONS_RESTAURANT_ICON),
+      child: Image.network(icon!),
     );
   }
 }

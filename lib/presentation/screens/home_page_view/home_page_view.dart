@@ -1,24 +1,55 @@
-import '../my_favorites_view/components/address_text.dart';
-import '../search_view/components/horizontal_list_category_bar.dart';
-import '../../widgets/restaurant_info_card/restaurant_info_card.dart';
-import '../../widgets/text/locale_text.dart';
-import '../../../utils/constants/image_constant.dart';
-import '../../../utils/constants/route_constant.dart';
-import '../../../utils/extensions/context_extension.dart';
-import '../../../utils/locale_keys.g.dart';
-import '../../../utils/theme/app_colors/app_colors.dart';
-import '../../../utils/theme/app_text_styles/app_text_styles.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/my_favorites_view/components/address_text.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
+import 'package:dongu_mobile/presentation/screens/search_view/components/horizontal_list_category_bar.dart';
+import 'package:dongu_mobile/presentation/widgets/restaurant_info_card/restaurant_info_card.dart';
+import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
+import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
+import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
+import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomePageView extends StatelessWidget {
+class HomePageView extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return buildBody(context);
+  _HomePageViewState createState() => _HomePageViewState();
+}
+
+class _HomePageViewState extends State<HomePageView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<StoreCubit>().getStores();
   }
 
-  ListView buildBody(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
+    return buildBuilder();
+  }
+
+  Builder buildBuilder() {
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<StoreCubit>().state;
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        return Center(child: buildBody(context, state));
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
+  }
+
+  ListView buildBody(BuildContext context, GenericCompleted state) {
     return ListView(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -52,7 +83,7 @@ class HomePageView extends StatelessWidget {
           color: AppColors.borderAndDividerColor,
         ),
         SizedBox(height: context.dynamicHeight(0.02)),
-        buildListView(context),
+        buildListView(context, state),
         SizedBox(height: context.dynamicHeight(0.04)),
         LocaleText(
           text: LocaleKeys.home_page_categories,
@@ -73,26 +104,40 @@ class HomePageView extends StatelessWidget {
           color: AppColors.borderAndDividerColor,
         ),
         SizedBox(height: context.dynamicHeight(0.01)),
-        buildListView(context),
+        buildListView(context, state),
       ],
     );
   }
 
-  Container buildListView(BuildContext context) {
+  Container buildListView(BuildContext context, GenericCompleted state) {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
       child: ListView.separated(
-        itemCount: 3,
+        itemCount: state.response[0].results.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return RestaurantInfoCard(
-            packetNumber: "4 paket",
-            restaurantName: "Uzun İsimli Bir Resto…",
-            grade: "4.7",
-            location: "Beşiktaş",
-            distance: "254m",
-            availableTime: '18:00-21:00',
+          String startTime = state.response[0].results[index].calendar[0].startDate.split("T")[1];
+          String endTime = state.response[0].results[index].calendar[0].endDate.split("T")[1];
+
+          startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
+          endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
+
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                  arguments: ScreenArgumentsRestaurantDetail(state.response[0].results[index]));
+            },
+            child: RestaurantInfoCard(
+              restaurantIcon: state.response[0].results[index].photo,
+              backgroundImage: state.response[0].results[index].background,
+              packetNumber: state.response[0].results[index].boxes.length == 0 ? 'tükendi' : '${state.response[0].results[index].boxes.length} paket',
+              restaurantName: state.response[0].results[index].name,
+              grade: "4.7",
+              location: state.response[0].results[index].city,
+              distance: "254m",
+              availableTime: '$startTime-$endTime',
+            ),
           );
         },
         separatorBuilder: (BuildContext context, int index) => SizedBox(
