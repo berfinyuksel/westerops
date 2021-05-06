@@ -6,7 +6,7 @@ part 'filters_state.dart';
 class FiltersCubit extends Cubit<FiltersState> {
   FiltersCubit()
       : super(
-          FiltersState(check: false, maxValue: 500, minValue: 10, checkList: [
+          FiltersState(check: false, maxValue: 100, minValue: 0, checkList: [
           false,
           false,
           false,

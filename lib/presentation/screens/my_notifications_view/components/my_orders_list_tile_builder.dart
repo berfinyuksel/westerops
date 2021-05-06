@@ -108,44 +108,60 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
   buildDescriptionSubtitle(BuildContext context, index) {
     List<Widget> descriptionText = [];
     List<Widget> description = [
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_my_orders_courierItsWay,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-          alignment: TextAlign.start,
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_my_orders_forgetRate,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-          alignment: TextAlign.start,
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_my_orders_courierItsWay,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-          alignment: TextAlign.start,
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_my_orders_forgetRate,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-          alignment: TextAlign.start,
-        ),
-      ),
+      courierItsWayText(context),
+      forgetRateText(context),
+      courierItsWayText2(context),
+      forgetRateText2(context),
     ];
 
     for (int i = 0; i <= 4; i++) {
       descriptionText.add(description[index]);
     }
     return descriptionText;
+  }
+
+  Padding forgetRateText2(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_my_orders_forgetRate,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        alignment: TextAlign.start,
+      ),
+    );
+  }
+
+  Padding courierItsWayText2(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_my_orders_courierItsWay,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        alignment: TextAlign.start,
+      ),
+    );
+  }
+
+  Padding forgetRateText(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_my_orders_forgetRate,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        alignment: TextAlign.start,
+      ),
+    );
+  }
+
+  Padding courierItsWayText(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_my_orders_courierItsWay,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        alignment: TextAlign.start,
+      ),
+    );
   }
 
   buildDateTrailing(BuildContext context, index) {
