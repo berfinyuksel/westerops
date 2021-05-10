@@ -17,6 +17,16 @@ class OrderCubit extends Cubit<GenericState> {
     }
   }
 
+  Future<void> deleteBasket(int boxId) async {
+    try {
+      emit(GenericLoading());
+      final response = await _orderRepository.deleteBasket(boxId);
+      emit(GenericCompleted(response));
+    } on NetworkError catch (e) {
+      emit(GenericError(e.message, e.statusCode));
+    }
+  }
+
   Future<void> getBasket() async {
     try {
       emit(GenericLoading());

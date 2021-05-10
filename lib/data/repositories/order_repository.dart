@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 abstract class OrderRepository {
   Future<List<String>> addToBasket(int boxId);
+  Future<List<Box>> deleteBasket(int boxId);
   Future<List<Box>> getBasket();
 }
 
@@ -26,6 +27,26 @@ class SampleOrderRepository implements OrderRepository {
     if (response.statusCode == 201) {
       List<String> boxes = [];
       boxes.add("box");
+      return boxes;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
+
+  Future<List<Box>> deleteBasket(int boxId) async {
+    print("http://localhost:8000/en/order/basket/$boxId/");
+    final response = await http.delete(
+      Uri.parse("$url$boxId/"),
+      headers: {'Authorization': 'JWT ${SharedPrefs.getToken}'},
+    );
+    print(response.statusCode);
+    if (response.statusCode == 201) {
+      final jsonBody = jsonDecode(response.body);
+      var jsonResults = jsonBody['boxes'];
+      print(jsonResults);
+      List<Box> boxes = [];
+      for (int i = 0; i < jsonResults.length; i++) {
+        boxes.add(Box.fromJson(jsonResults[i]));
+      }
       return boxes;
     }
     throw NetworkError(response.statusCode.toString(), response.body);

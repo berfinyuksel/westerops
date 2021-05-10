@@ -1,7 +1,8 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -13,6 +14,7 @@ import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import 'components/social_auth_list_tile.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyInformationView extends StatefulWidget {
   @override
@@ -118,11 +120,11 @@ class _MyInformationViewState extends State<MyInformationView> {
   @override
   void initState() {
     super.initState();
-    nameController.text = "John";
-    surnameController.text = "Doe";
-    mailController.text = "jonh.doe@mail.com";
+    nameController.text = SharedPrefs.getUserName;
+    surnameController.text = SharedPrefs.getUserLastName;
+    mailController.text = SharedPrefs.getUserEmail;
     birthController.text = "12.09.1992";
-    phoneController.text = "+90 555 55 55";
+    phoneController.text = SharedPrefs.getUserPhone;
   }
 
   OutlineInputBorder buildOutlineInputBorder() {
@@ -205,6 +207,7 @@ class _MyInformationViewState extends State<MyInformationView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
+          context.read<UserAuthCubit>().updateUser(nameController.text, surnameController.text, mailController.text, phoneController.text);
           setState(() {
             isReadOnly = true;
           });

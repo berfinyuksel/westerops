@@ -88,11 +88,28 @@ class _CartViewState extends State<CartView> {
                   shrinkWrap: true,
                   itemCount: state.response.length,
                   itemBuilder: (context, index) {
-                    return PastOrderDetailBasketListTile(
-                      title: state.response[index].name,
-                      price: 35,
-                      withDecimal: false,
-                      subTitle: "Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu",
+                    return Dismissible(
+                      direction: DismissDirection.endToStart,
+                      key: UniqueKey(),
+                      background: Container(
+                        color: AppColors.redColor,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(right: context.dynamicWidht(0.06)),
+                        child: LocaleText(
+                          text: LocaleKeys.my_notifications_delete_text_text,
+                          style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                          alignment: TextAlign.end,
+                        ),
+                      ),
+                      onDismissed: (DismissDirection direction) {
+                        context.read<OrderCubit>().deleteBasket(state.response[index].id);
+                      },
+                      child: PastOrderDetailBasketListTile(
+                        title: state.response[index].name,
+                        price: 35,
+                        withDecimal: false,
+                        subTitle: "Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu",
+                      ),
                     );
                   }),
               SizedBox(
