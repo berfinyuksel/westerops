@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../data/services/auth_service.dart';
-import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -117,17 +117,17 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
           Spacer(flex: 2),
-          buildBuilder(),
           CustomButton(
             width: context.dynamicWidht(0.4),
             title: LocaleKeys.login_text_login,
             textColor: Colors.white,
             color: AppColors.greenColor,
             borderColor: AppColors.greenColor,
-            onPressed: () {
-              print(phoneController.text);
-              context.read<UserAuthCubit>().loginUser(phoneController.text, passwordController.text);
-              //Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_VIEW);
+            onPressed: () async {
+              await context.read<UserAuthCubit>().loginUser(phoneController.text, passwordController.text);
+              if (SharedPrefs.getIsLogined) {
+                Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+              }
             },
           ),
           Spacer(flex: 1),
@@ -178,23 +178,6 @@ class _LoginViewState extends State<LoginView> {
         ],
       ),
     );
-  }
-
-  Builder buildBuilder() {
-    return Builder(builder: (context) {
-      final GenericState state = context.watch<UserAuthCubit>().state;
-      if (state is GenericInitial) {
-        return Container();
-      } else if (state is GenericLoading) {
-        return Container();
-      } else if (state is GenericCompleted) {
-        return Text(state.response[0].firstName);
-      } else {
-        final error = state as GenericError;
-
-        return Center(child: Text("\n${error.statusCode}"));
-      }
-    });
   }
 
   Padding buildSocialAuths(BuildContext context) {

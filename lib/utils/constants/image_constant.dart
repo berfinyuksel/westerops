@@ -1,5 +1,6 @@
 class ImageConstant {
   static const COMMONS_FORWARD_ICON = "assets/images/commons/forward_icon.svg";
+  static const COMMONS_PROFILE_ICON = "assets/images/commons/profile_icon.svg";
   static const COMMONS_WARNING_ICON = "assets/images/commons/warning_icon.svg";
   static const COMMONS_CHECK_ICON = "assets/images/commons/check_icon.svg";
   static const COMMONS_DRAWER_ICON = "assets/images/commons/drawer_icon.svg";

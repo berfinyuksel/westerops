@@ -81,12 +81,10 @@ class RestaurantInfoListTile extends StatelessWidget {
       children: [
         Container(
           width: context.dynamicWidht(0.3),
-          child: Flexible(
-            child: Text(
-              restaurantName,
-              style: AppTextStyles.bodyBoldTextStyle,
-              overflow: TextOverflow.ellipsis,
-            ),
+          child: Text(
+            restaurantName,
+            style: AppTextStyles.bodyBoldTextStyle,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         Spacer(flex: 1),

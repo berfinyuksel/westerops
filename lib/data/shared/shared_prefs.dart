@@ -18,8 +18,24 @@ class SharedPrefs {
     _prefs.setString('token', token);
   }
 
+  static Future<void> setUserId(int userId) async {
+    _prefs.setInt('userId', userId);
+  }
+
   static Future<void> setUserEmail(String email) async {
     _prefs.setString('userEmail', email);
+  }
+
+  static Future<void> setUserPhone(String phone) async {
+    _prefs.setString('userPhone', phone);
+  }
+
+  static Future<void> setUserName(String name) async {
+    _prefs.setString('userName', name);
+  }
+
+  static Future<void> setUserLastName(String lastName) async {
+    _prefs.setString('userLastName', lastName);
   }
 
   static Future<void> clearCache() async {
@@ -29,5 +45,9 @@ class SharedPrefs {
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
+  static int get getUserId => _prefs.getInt('userId') ?? 0;
   static String get getUserEmail => _prefs.getString('userEmail') ?? "";
+  static String get getUserPhone => _prefs.getString('userPhone') ?? "";
+  static String get getUserName => _prefs.getString('userName') ?? "";
+  static String get getUserLastName => _prefs.getString('userLastName') ?? "";
 }
