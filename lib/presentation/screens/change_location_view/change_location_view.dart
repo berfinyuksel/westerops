@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -24,7 +25,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
   var searchedCities = [];
   var searchedCitiesIndexes = [];
   String searchedText = "";
-  String chosedCity = "Adana";
+  String chosedCity = SharedPrefs.getUserAddress;
   String chosedCityIndex = "01";
 
   @override
@@ -81,6 +82,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
             setState(() {
               chosedCityIndex = searchedCitiesIndexes[index];
               chosedCity = searchedCities[index];
+              SharedPrefs.setUserAddress(chosedCity);
               searchController.clear();
             });
           },
@@ -111,6 +113,12 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
   @override
   void initState() {
     super.initState();
+
+    for (int i = 0; i < cities.length; i++) {
+      if (cities[i] == chosedCity) {
+        chosedCityIndex = citiesIndexes[i];
+      }
+    }
 
     searchController.addListener(() {
       if (searchController.text.isEmpty) {
