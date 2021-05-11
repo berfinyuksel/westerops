@@ -17,10 +17,10 @@ class UserAuthCubit extends Cubit<GenericState> {
     }
   }
 
-  Future<void> updateUser(String firstName, String lastName, String email, String phone) async {
+  Future<void> updateUser(String firstName, String lastName, String email, String phone, String address, String birthday) async {
     try {
       emit(GenericLoading());
-      final response = await _userAuthenticationRepository.updateUser(firstName, lastName, email, phone);
+      final response = await _userAuthenticationRepository.updateUser(firstName, lastName, email, phone, address, birthday);
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));

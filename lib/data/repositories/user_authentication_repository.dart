@@ -8,13 +8,13 @@ import '../shared/shared_prefs.dart';
 
 abstract class UserAuthenticationRepository {
   Future<List<User>> registerUser(String firstName, String lastName, String email, String phone, String password);
-  Future<List<String>> updateUser(String firstName, String lastName, String email, String phone);
+  Future<List<String>> updateUser(String firstName, String lastName, String email, String phone, String address, String birthday);
   Future<List<User>> loginUser(String email, String password);
 }
 
 class SampleUserAuthenticationRepository implements UserAuthenticationRepository {
   final url = "${UrlConstant.EN_URL}user/";
-  final urlUpdate = "${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/";
+  final urlUpdate = "${UrlConstant.EN_URL}user/";
   final urlLogin = "${UrlConstant.EN_URL}user/login/";
 
   @override
@@ -35,10 +35,11 @@ class SampleUserAuthenticationRepository implements UserAuthenticationRepository
   }
 
   @override
-  Future<List<String>> updateUser(String firstName, String lastName, String email, String phone) async {
-    String json = '{"first_name":"$firstName","last_name":"$lastName","email": "$email","phone_number": "$phone"}';
+  Future<List<String>> updateUser(String firstName, String lastName, String email, String phone, String address, String birthday) async {
+    String json =
+        '{"first_name":"$firstName","last_name":"$lastName","email": "$email","phone_number": "$phone","address":"$address","birthday":"$birthday"}';
     final response = await http.put(
-      Uri.parse(urlUpdate),
+      Uri.parse("$urlUpdate${SharedPrefs.getUserId}/"),
       body: json,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -50,6 +51,8 @@ class SampleUserAuthenticationRepository implements UserAuthenticationRepository
       SharedPrefs.setUserName(firstName);
       SharedPrefs.setUserLastName(lastName);
       SharedPrefs.setUserPhone(phone);
+      SharedPrefs.setUserAddress(address);
+      SharedPrefs.setUserBirth(birthday);
       List<String> result = [];
       return result;
     }
@@ -70,10 +73,13 @@ class SampleUserAuthenticationRepository implements UserAuthenticationRepository
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(response.body);
       var jsonResults = jsonBody['user'];
+
       SharedPrefs.setToken(jsonBody['token']);
 
       User user = User.fromJson(jsonResults);
       SharedPrefs.setUserId(jsonResults['id']);
+      SharedPrefs.setUserAddress(jsonResults['address']);
+      SharedPrefs.setUserBirth(jsonResults['birthday'] == null ? "yyyy-mm-dd" : "${jsonResults['birthday']}");
       SharedPrefs.setUserEmail(user.email!);
       SharedPrefs.setUserName(user.firstName!);
       SharedPrefs.setUserLastName(user.lastName!);
