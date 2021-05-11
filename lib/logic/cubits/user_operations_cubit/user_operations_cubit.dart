@@ -16,4 +16,14 @@ class UserOperationsCubit extends Cubit<GenericState> {
       emit(GenericError(e.message, e.statusCode));
     }
   }
+
+  Future<void> deleteFromFavourites(int favoriteId) async {
+    try {
+      emit(GenericLoading());
+      final response = await _userOperationsRepository.deleteFromFavorites(favoriteId);
+      emit(GenericCompleted(response));
+    } on NetworkError catch (e) {
+      emit(GenericError(e.message, e.statusCode));
+    }
+  }
 }
