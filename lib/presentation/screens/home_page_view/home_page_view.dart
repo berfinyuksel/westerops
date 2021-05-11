@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/data/model/store.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -42,7 +44,13 @@ class _HomePageViewState extends State<HomePageView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        return Center(child: buildBody(context, state));
+        List<Store> restaurants = [];
+        for (int i = 0; i < state.response[0].results.length; i++) {
+          if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
+            restaurants.add(state.response[0].results[i]);
+          }
+        }
+        return Center(child: buildBody(context, restaurants));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -50,7 +58,7 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  ListView buildBody(BuildContext context, GenericCompleted state) {
+  ListView buildBody(BuildContext context, List<Store> restaurants) {
     return ListView(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -71,10 +79,10 @@ class _HomePageViewState extends State<HomePageView> {
             buildSearchBar(context),
             Spacer(),
             GestureDetector(
-              onTap: (){
-                Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
-              },
-              child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON)),
+                onTap: () {
+                  Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+                },
+                child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON)),
           ],
         ),
         SizedBox(height: context.dynamicHeight(0.03)),
@@ -84,7 +92,7 @@ class _HomePageViewState extends State<HomePageView> {
           color: AppColors.borderAndDividerColor,
         ),
         SizedBox(height: context.dynamicHeight(0.02)),
-        buildListView(context, state),
+        buildListView(context, restaurants),
         SizedBox(height: context.dynamicHeight(0.04)),
         LocaleText(
           text: LocaleKeys.home_page_categories,
@@ -105,37 +113,36 @@ class _HomePageViewState extends State<HomePageView> {
           color: AppColors.borderAndDividerColor,
         ),
         SizedBox(height: context.dynamicHeight(0.01)),
-        buildListView(context, state),
+        buildListView(context, restaurants),
       ],
     );
   }
 
-  Container buildListView(BuildContext context, GenericCompleted state) {
+  Container buildListView(BuildContext context, List<Store> restaurants) {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
       child: ListView.separated(
-        itemCount: state.response[0].results.length,
+        itemCount: restaurants.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          String startTime = state.response[0].results[index].calendar[0].startDate.split("T")[1];
-          String endTime = state.response[0].results[index].calendar[0].endDate.split("T")[1];
+          String startTime = restaurants[index].calendar![0].startDate!.split("T")[1];
+          String endTime = restaurants[index].calendar![0].endDate!.split("T")[1];
 
           startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
           endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
 
           return GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                  arguments: ScreenArgumentsRestaurantDetail(state.response[0].results[index]));
+              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL, arguments: ScreenArgumentsRestaurantDetail(restaurants[index]));
             },
             child: RestaurantInfoCard(
-              restaurantIcon: state.response[0].results[index].photo,
-              backgroundImage: state.response[0].results[index].background,
-              packetNumber: state.response[0].results[index].boxes.length == 0 ? 'tükendi' : '${state.response[0].results[index].boxes.length} paket',
-              restaurantName: state.response[0].results[index].name,
+              restaurantIcon: restaurants[index].photo,
+              backgroundImage: restaurants[index].background,
+              packetNumber: restaurants[index].boxes!.length == 0 ? 'tükendi' : '${restaurants[index].boxes!.length} paket',
+              restaurantName: restaurants[index].name,
               grade: "4.7",
-              location: state.response[0].results[index].city,
+              location: restaurants[index].city,
               distance: "254m",
               availableTime: '$startTime-$endTime',
             ),
