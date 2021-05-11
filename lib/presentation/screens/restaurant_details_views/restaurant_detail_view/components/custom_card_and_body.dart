@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,10 +27,11 @@ class CustomCardAndBody extends StatefulWidget {
 }
 
 class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTickerProviderStateMixin {
-  bool _isSelect = false;
   String startTime = '';
   String endTime = '';
   List<Box> definedBoxes = [];
+  bool isFavourite = false;
+  int favouriteId = 0;
 
   TabController? _controller;
   @override
@@ -44,6 +46,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
     for (int i = 0; i < widget.restaurant!.boxes!.length; i++) {
       if (widget.restaurant!.boxes![i].defined!) {
         definedBoxes.add(widget.restaurant!.boxes![i]);
+      }
+    }
+    for (int i = 0; i < widget.restaurant!.favourites!.length; i++) {
+      if (widget.restaurant!.favourites![i].user!.email == SharedPrefs.getUserEmail) {
+        favouriteId = widget.restaurant!.favourites![i].id!;
+        isFavourite = true;
       }
     }
   }
@@ -659,16 +667,21 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 width: context.dynamicWidht(0.02),
               ),
               GestureDetector(
-                  onTap: () {
+                onTap: () {
+                  if (isFavourite) {
+                    context.read<UserOperationsCubit>().deleteFromFavourites(favouriteId);
+                  } else {
                     context.read<UserOperationsCubit>().addToFavorite(widget.restaurant!.id!);
-                    setState(() {
-                      _isSelect = !_isSelect;
-                    });
-                  },
-                  child: SvgPicture.asset(
-                    ImageConstant.RESTAURANT_FAVORITE_ICON,
-                    color: _isSelect ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
-                  ))
+                  }
+                  setState(() {
+                    isFavourite = !isFavourite;
+                  });
+                },
+                child: SvgPicture.asset(
+                  ImageConstant.RESTAURANT_FAVORITE_ICON,
+                  color: isFavourite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                ),
+              )
             ],
           )
         ],
