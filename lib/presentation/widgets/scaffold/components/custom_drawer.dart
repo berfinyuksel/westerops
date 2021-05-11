@@ -166,7 +166,7 @@ class CustomDrawer extends StatelessWidget {
               height: context.dynamicHeight(0.013),
             ),
             Text(
-              "Kuruçeşme, Muallim Cad., Beşiktaş",
+              SharedPrefs.getUserAddress,
               style: AppTextStyles.bodyTextStyle,
             ),
           ],

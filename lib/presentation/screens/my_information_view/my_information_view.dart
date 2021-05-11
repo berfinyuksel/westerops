@@ -123,7 +123,7 @@ class _MyInformationViewState extends State<MyInformationView> {
     nameController.text = SharedPrefs.getUserName;
     surnameController.text = SharedPrefs.getUserLastName;
     mailController.text = SharedPrefs.getUserEmail;
-    birthController.text = "12.09.1992";
+    birthController.text = SharedPrefs.getUserBirth;
     phoneController.text = SharedPrefs.getUserPhone;
   }
 
@@ -207,7 +207,8 @@ class _MyInformationViewState extends State<MyInformationView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
-          context.read<UserAuthCubit>().updateUser(nameController.text, surnameController.text, mailController.text, phoneController.text);
+          context.read<UserAuthCubit>().updateUser(nameController.text, surnameController.text, mailController.text, phoneController.text,
+              SharedPrefs.getUserAddress, birthController.text);
           setState(() {
             isReadOnly = true;
           });
