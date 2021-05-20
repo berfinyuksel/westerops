@@ -134,60 +134,84 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
   buildDescriptionSubtitle(BuildContext context, index) {
     List<Widget> descriptionText = [];
     List<Widget> description = [
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_all_list_lastThirtyMins,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-          alignment: TextAlign.start,
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_all_list_lastThirtyMinsApprove,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-          alignment: TextAlign.start,
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_all_list_firstBuyer,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-          alignment: TextAlign.start,
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_all_list_courierItsWay,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-          alignment: TextAlign.start,
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_all_list_forgetRate,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-          alignment: TextAlign.start,
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_all_list_firstBuyer,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-          alignment: TextAlign.start,
-        ),
-      ),
+      lastThirtyMinsText(context),
+      lastThirtyMinsApproveText(context),
+      firstBuyerText(context),
+      courierItsWayText(context),
+      forgetRateText(context),
+      firstBuyerText2(context),
     ];
 
     for (int i = 0; i <= 6; i++) {
       descriptionText.add(description[index]);
     }
     return descriptionText;
+  }
+
+  Padding firstBuyerText2(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_all_list_firstBuyer,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        alignment: TextAlign.start,
+      ),
+    );
+  }
+
+  Padding forgetRateText(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_all_list_forgetRate,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        alignment: TextAlign.start,
+      ),
+    );
+  }
+
+  Padding courierItsWayText(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_all_list_courierItsWay,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        alignment: TextAlign.start,
+      ),
+    );
+  }
+
+  Padding firstBuyerText(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_all_list_firstBuyer,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        alignment: TextAlign.start,
+      ),
+    );
+  }
+
+  Padding lastThirtyMinsApproveText(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_all_list_lastThirtyMinsApprove,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        alignment: TextAlign.start,
+      ),
+    );
+  }
+
+  Padding lastThirtyMinsText(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_all_list_lastThirtyMins,
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        alignment: TextAlign.start,
+      ),
+    );
   }
 
   buildDateTrailing(BuildContext context, index) {

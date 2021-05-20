@@ -21,8 +21,8 @@ class _CustomSliderBarAndTextFieldState
     extends State<CustomSliderBarAndTextField> {
   int _starValue = 10;
   int _endValue = 50;
-  int minValue = 10; //
-  int maxValue = 500; //
+  int minValue = 0; //
+  int maxValue = 100; //
   bool setStartValue = true;
   bool setEndValue = true;
   final startController = TextEditingController();
@@ -88,31 +88,31 @@ class _CustomSliderBarAndTextFieldState
 
   _setEndValue() {
     if (startController.text.length == 0 || endController.text.length == 0) {
-      if (double.parse(startController.text.length == 0 ? "10" : startController.text)
+      if (double.parse(startController.text.length == 0 ? "0" : startController.text)
                   .roundToDouble() <=
               double.parse(endController.text.length == 0
-                      ? "500"
+                      ? "100"
                       : endController.text)
                   .roundToDouble() &&
           double.parse(startController.text.length == 0
-                      ? "10"
+                      ? "0"
                       : startController.text)
                   .roundToDouble() >=
               minValue &&
-          double.parse(endController.text.length == 0 ? "500" : endController.text)
+          double.parse(endController.text.length == 0 ? "100" : endController.text)
                   .roundToDouble() >=
               minValue &&
           double.parse(startController.text.length == 0
-                      ? "10"
+                      ? "0"
                       : startController.text)
                   .roundToDouble() <=
               maxValue &&
-          double.parse(endController.text.length == 0 ? "500" : endController.text)
+          double.parse(endController.text.length == 0 ? "100" : endController.text)
                   .roundToDouble() <=
               maxValue) {
         setState(() {
           _endValue = double.parse(
-                  endController.text.length == 0 ? "500" : endController.text)
+                  endController.text.length == 0 ? "100" : endController.text)
               .roundToDouble()
               .toInt();
         });

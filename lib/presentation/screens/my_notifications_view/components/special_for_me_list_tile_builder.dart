@@ -143,30 +143,10 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
   buildDescriptionSubtitle(BuildContext context, index) {
     List<Widget> descriptionText = [];
     List<Widget> description = [
-      LocaleText(
-        text: LocaleKeys.my_notifications_special_for_me_discountFifty,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-        alignment: TextAlign.start,
-        maxLines: 2,
-      ),
-      LocaleText(
-        text: LocaleKeys.my_notifications_special_for_me_discountSeventy,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-        maxLines: 2,
-        alignment: TextAlign.start,
-      ),
-      LocaleText(
-        text: LocaleKeys.my_notifications_special_for_me_pawsAnimals,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-        maxLines: 2,
-        alignment: TextAlign.start,
-      ),
-      LocaleText(
-        text: LocaleKeys.my_notifications_special_for_me_favorite,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-        maxLines: 2,
-        alignment: TextAlign.start,
-      ),
+      discountFiftyText(),
+      discountSeventyText(),
+      pawsAnimalsText(),
+      favoriteText(),
     ];
 
     for (int i = 0; i <= 4; i++) {
@@ -176,6 +156,42 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
       ));
     }
     return descriptionText;
+  }
+
+  LocaleText favoriteText() {
+    return LocaleText(
+      text: LocaleKeys.my_notifications_special_for_me_favorite,
+      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+      maxLines: 2,
+      alignment: TextAlign.start,
+    );
+  }
+
+  LocaleText pawsAnimalsText() {
+    return LocaleText(
+      text: LocaleKeys.my_notifications_special_for_me_pawsAnimals,
+      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+      maxLines: 2,
+      alignment: TextAlign.start,
+    );
+  }
+
+  LocaleText discountSeventyText() {
+    return LocaleText(
+      text: LocaleKeys.my_notifications_special_for_me_discountSeventy,
+      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+      maxLines: 2,
+      alignment: TextAlign.start,
+    );
+  }
+
+  LocaleText discountFiftyText() {
+    return LocaleText(
+      text: LocaleKeys.my_notifications_special_for_me_discountFifty,
+      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+      alignment: TextAlign.start,
+      maxLines: 2,
+    );
   }
 
   buildTitle(BuildContext context, index) {
