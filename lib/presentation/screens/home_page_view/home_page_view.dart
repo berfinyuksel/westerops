@@ -1,5 +1,8 @@
 import 'package:dongu_mobile/data/model/store.dart';
+import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
+import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -29,6 +32,7 @@ class _HomePageViewState extends State<HomePageView> {
   void initState() {
     super.initState();
     context.read<StoreCubit>().getStores();
+    LocationService.getCurrentLocation();
   }
 
   @override
@@ -39,18 +43,25 @@ class _HomePageViewState extends State<HomePageView> {
   Builder buildBuilder() {
     return Builder(builder: (context) {
       final GenericState state = context.watch<StoreCubit>().state;
+      final FiltersState filterState = context.watch<FiltersCubit>().state;
+
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
         List<Store> restaurants = [];
+        List<double> distances = [];
         for (int i = 0; i < state.response[0].results.length; i++) {
-          if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
-            restaurants.add(state.response[0].results[i]);
+          if ((filterState.minValue! == null ? 0 : filterState.minValue!) < state.response[0].results[i].minOrderPrice) {
+            if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
+              restaurants.add(state.response[0].results[i]);
+              distances.add(Haversine.distance(LocationService.latitude!, LocationService.longitude!, state.response[0].results[i].latitude,
+                  state.response[0].results[i].longitude));
+            }
           }
         }
-        return Center(child: buildBody(context, restaurants));
+        return Center(child: buildBody(context, restaurants, distances));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -58,7 +69,7 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  ListView buildBody(BuildContext context, List<Store> restaurants) {
+  ListView buildBody(BuildContext context, List<Store> restaurants, List<double> distances) {
     return ListView(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -92,7 +103,7 @@ class _HomePageViewState extends State<HomePageView> {
           color: AppColors.borderAndDividerColor,
         ),
         SizedBox(height: context.dynamicHeight(0.02)),
-        buildListView(context, restaurants),
+        buildListView(context, restaurants, distances),
         SizedBox(height: context.dynamicHeight(0.04)),
         LocaleText(
           text: LocaleKeys.home_page_categories,
@@ -113,12 +124,12 @@ class _HomePageViewState extends State<HomePageView> {
           color: AppColors.borderAndDividerColor,
         ),
         SizedBox(height: context.dynamicHeight(0.01)),
-        buildListView(context, restaurants),
+        buildListView(context, restaurants, distances),
       ],
     );
   }
 
-  Container buildListView(BuildContext context, List<Store> restaurants) {
+  Container buildListView(BuildContext context, List<Store> restaurants, List<double> distances) {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
@@ -143,7 +154,7 @@ class _HomePageViewState extends State<HomePageView> {
               restaurantName: restaurants[index].name,
               grade: "4.7",
               location: restaurants[index].city,
-              distance: "254m",
+              distance: "${distances[index].toInt()}m",
               availableTime: '$startTime-$endTime',
             ),
           );

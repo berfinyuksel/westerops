@@ -24,6 +24,8 @@ class Store {
   int? minOrderPrice;
   int? cancelCount;
   User? storeOwner;
+  double? latitude;
+  double? longitude;
 
   Store(
       {this.id,
@@ -45,7 +47,9 @@ class Store {
       this.minOrderPrice,
       this.cancelCount,
       this.storeOwner,
-      this.calendar});
+      this.calendar,
+      this.latitude,
+      this.longitude});
 
   Store.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -68,6 +72,8 @@ class Store {
         favourites!.add(new Favourite.fromJson(v));
       });
     }
+    latitude = json['latitude'];
+    longitude = json['longitude'];
     name = json['name'];
     photo = json['photo'];
     background = json['background'];
@@ -99,6 +105,8 @@ class Store {
     if (this.favourites != null) {
       data['favourites'] = this.favourites!.map((v) => v.toJson()).toList();
     }
+    data['latitude'] = this.latitude;
+    data['longitude'] = this.longitude;
     data['name'] = this.name;
     data['photo'] = this.photo;
     data['background'] = this.background;
