@@ -58,6 +58,6 @@ class SharedPrefs {
   static String get getUserPhone => _prefs.getString('userPhone') ?? "";
   static String get getUserName => _prefs.getString('userName') ?? "";
   static String get getUserBirth => _prefs.getString('userBirth') ?? "yyyy-mm-dd";
-  static String get getUserAddress => _prefs.getString('userAddress') ?? "";
+  static String get getUserAddress => _prefs.getString('userAddress') ?? "Adana";
   static String get getUserLastName => _prefs.getString('userLastName') ?? "";
 }
