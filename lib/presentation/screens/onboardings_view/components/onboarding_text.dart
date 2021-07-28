@@ -17,10 +17,10 @@ class OnboardingText extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: LocaleText(
         text: text,
-        style: AppTextStyles.bodyBoldTextStyle,
+        style: AppTextStyles.bodyBoldTextStyle.copyWith(height: 1.5),
         alignment: TextAlign.center,
         maxLines: 3,
-      
+        
       ),
     );
   }

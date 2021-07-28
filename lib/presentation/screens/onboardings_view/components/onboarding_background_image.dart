@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
 
@@ -12,13 +13,13 @@ class OnboardingBackgroundImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: context.dynamicHeight(0.14)),
+      padding: EdgeInsets.only(top: context.dynamicHeight(0.0)),
       decoration: BoxDecoration(
         color: Colors.white,
       ),
-      child: Image.asset(
+      child: SvgPicture.asset(
         image!,
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
       ),
     );
   }

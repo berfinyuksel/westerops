@@ -69,9 +69,9 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             height: context.dynamicHeight(0.01),
           ),
           AddressListTile(
-            title: "Ev",
-            subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)",
-            subtitle: "\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n",
+            title: "Ev\t\t",
+            subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)\t\t",
+            subtitle: "\njonh.doe@mail.com\t\t\nLorem Ipsum Dolor sit amet No:5 D:5\t\t\n+90 555 555 55 55\t\t\nSüpermarketin üstü\t\t", 
           ),
           SizedBox(
             height: context.dynamicHeight(0.02),
@@ -140,7 +140,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
         color: Colors.transparent,
         borderColor: AppColors.greenColor,
         textColor: AppColors.greenColor,
-        onPressed: () {},
+        onPressed: () {
+        },
       ),
     );
   }

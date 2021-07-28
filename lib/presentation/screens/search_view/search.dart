@@ -22,9 +22,16 @@ class SearchView extends StatefulWidget {
 class _SearchViewState extends State<SearchView> {
   TextEditingController? controller = TextEditingController();
   //bool _valueSearch = false;
-  final duplicateItems = [LocaleKeys.search_item1.locale, LocaleKeys.search_item2.locale, LocaleKeys.search_item3.locale];
+  final duplicateItems = [
+    LocaleKeys.search_item1.locale,
+    LocaleKeys.search_item2.locale,
+    LocaleKeys.search_item3.locale
+  ];
   var items = <String>[];
 
+  bool scroolCategories = false;
+  bool scroolTrend = false;
+  bool visible = true;
   @override
   void initState() {
     items.addAll(duplicateItems);
@@ -63,20 +70,21 @@ class _SearchViewState extends State<SearchView> {
     return Column(
       children: [
         searchBar(context),
-        searchHistoryAndCleanTexts(context),
-        dividerOne(context),
-        Spacer(flex: 2),
+        Visibility(
+            visible: visible, child: searchHistoryAndCleanTexts(context)),
+        Visibility(visible: visible, child: dividerOne(context)),
+        Visibility(visible: visible, child: Spacer(flex: 2)),
         searchListViewBuilder(),
         Spacer(flex: 4),
-        popularSearchText(context),
-        dividerSecond(context),
+        Visibility(visible: visible, child: popularSearchText(context)),
+        Visibility(visible: visible, child: dividerSecond(context)),
         Spacer(flex: 4),
-        horizontalListTrend(context),
+        Visibility(visible: visible, child: horizontalListTrend(context)),
         Spacer(flex: 4),
-        categoriesText(context),
-        dividerThird(context),
+        Visibility(visible: visible, child: categoriesText(context)),
+        Visibility(visible: visible, child: dividerThird(context)),
         Spacer(flex: 1),
-        horizontalListCategory(context),
+        Visibility(visible: visible, child: horizontalListCategory(context)),
         Spacer(flex: 14),
       ],
     );
@@ -84,10 +92,25 @@ class _SearchViewState extends State<SearchView> {
 
   Padding horizontalListCategory(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-      ),
-      child: Container(height: context.dynamicHeight(0.19), child: CustomHorizontalListCategory()),
+      padding: scroolCategories
+          ? EdgeInsets.only(
+              left: context.dynamicWidht(0.00),
+            )
+          : EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+            ),
+      child: Container(
+          height: context.dynamicHeight(0.19),
+          child: NotificationListener(
+              onNotification: (t) {
+                if (scroolCategories == false) {
+                  setState(() {
+                    scroolCategories = !scroolCategories;
+                  });
+                }
+                return scroolCategories;
+              },
+              child: CustomHorizontalListCategory())),
     );
   }
 
@@ -117,10 +140,25 @@ class _SearchViewState extends State<SearchView> {
 
   Padding horizontalListTrend(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-      ),
-      child: Container(height: context.dynamicHeight(0.04), child: CustomHorizontalListTrend()),
+      padding: scroolTrend
+          ? EdgeInsets.only(
+              left: context.dynamicWidht(0.00),
+            )
+          : EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+            ),
+      child: Container(
+          height: context.dynamicHeight(0.04),
+          child: NotificationListener(
+              onNotification: (t) {
+                if (scroolTrend == false) {
+                  setState(() {
+                    scroolTrend = !scroolTrend;
+                  });
+                }
+                return scroolTrend;
+              },
+              child: CustomHorizontalListTrend())),
     );
   }
 
@@ -163,6 +201,7 @@ class _SearchViewState extends State<SearchView> {
                 text: "${items[index]}",
                 style: AppTextStyles.bodyTextStyle,
               ),
+              trailing: visible ? null : Icon(Icons.chevron_right),
             ),
           );
         });
@@ -196,7 +235,8 @@ class _SearchViewState extends State<SearchView> {
           ),
           LocaleText(
             text: LocaleKeys.search_text2,
-            style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12),
+            style: AppTextStyles.bodyTitleStyle
+                .copyWith(color: AppColors.orangeColor, fontSize: 12),
           ),
         ],
       ),
@@ -207,9 +247,34 @@ class _SearchViewState extends State<SearchView> {
     return Padding(
         padding: EdgeInsets.symmetric(
           horizontal: context.dynamicWidht(0.06),
+          vertical: context.dynamicHeight(0.03),
         ),
         child: CustomSearchBar(
+          containerPadding:
+              visible ? context.dynamicWidht(0.85) : context.dynamicWidht(0.71),
+          onTap: () {
+            setState(() {
+              visible = !visible;
+            });
+          },
+          onChanged: (value) {
+            filterSearchResults(value);
+          },
+          controller: controller,
           hintText: LocaleKeys.search_text5.locale,
+          textButton: visible
+              ? null
+              : TextButton(
+                  onPressed: () {
+                    setState(() {
+                      visible = !visible;
+                    });
+                  },
+                  child: Text(
+                    LocaleKeys.search_cancel_button.locale,
+                    style: AppTextStyles.bodyTitleStyle
+                        .copyWith(color: AppColors.orangeColor, fontSize: 12),
+                  )),
         ));
   }
 }

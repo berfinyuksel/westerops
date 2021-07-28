@@ -1,9 +1,10 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/utils/clippers/password_rules_clipper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import '../../../register_view/components/clipped_password_rules.dart';
 import '../../../../../data/model/box.dart';
 import '../../../../../data/model/store.dart';
 import '../../../../../logic/cubits/order_cubit/order_cubit.dart';
@@ -17,6 +18,7 @@ import '../../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../../widgets/button/custom_button.dart';
 import '../../../../widgets/text/locale_text.dart';
 import 'custom_circular_progress.dart';
+import 'info_tooltip.dart';
 
 class CustomCardAndBody extends StatefulWidget {
   final Store? restaurant;
@@ -26,12 +28,14 @@ class CustomCardAndBody extends StatefulWidget {
   _CustomCardAndBodyState createState() => _CustomCardAndBodyState();
 }
 
-class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTickerProviderStateMixin {
+class _CustomCardAndBodyState extends State<CustomCardAndBody>
+    with SingleTickerProviderStateMixin {
   String startTime = '';
   String endTime = '';
   List<Box> definedBoxes = [];
   bool isFavourite = false;
   int favouriteId = 0;
+  bool showInfo = false;
 
   TabController? _controller;
   @override
@@ -49,7 +53,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
       }
     }
     for (int i = 0; i < widget.restaurant!.favourites!.length; i++) {
-      if (widget.restaurant!.favourites![i].user!.email == SharedPrefs.getUserEmail) {
+      if (widget.restaurant!.favourites![i].user!.email ==
+          SharedPrefs.getUserEmail) {
         favouriteId = widget.restaurant!.favourites![i].id!;
         isFavourite = true;
       }
@@ -58,8 +63,19 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [customCard(context), customBody(context)],
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          showInfo = false;
+        });
+      },
+      child:Column(
+            children: [customCard(context), customBody(context)],
+          ),
+         
+      
+        
+     
     );
   }
 
@@ -98,7 +114,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 Spacer(flex: 1),
                 restaurantTitleAndAddressColumn(),
                 Spacer(flex: 2),
-                restaurantStarIconRating(),
+                Padding(
+                  padding: EdgeInsets.only(top: context.dynamicHeight(0.009)),
+                  child: restaurantStarIconRating(),
+                ),
                 Spacer(flex: 1),
               ],
             ),
@@ -139,7 +158,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
   Container customBody(BuildContext context) {
     return Container(
       height: context.dynamicHeight(0.5),
-      child: TabBarView(controller: _controller, children: [tabPackages(context), tabDetail(context)]),
+      child: TabBarView(
+          controller: _controller,
+          children: [tabPackages(context), tabDetail(context)]),
     );
   }
 
@@ -155,7 +176,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           height: context.dynamicHeight(0.065),
           padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
           child: ListTile(
-            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title1,
               style: AppTextStyles.subTitleStyle,
@@ -173,7 +195,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           height: context.dynamicHeight(0.065),
           padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
           child: ListTile(
-            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title1,
               style: AppTextStyles.subTitleStyle,
@@ -189,9 +212,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding:
+              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
-            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title3,
               style: AppTextStyles.subTitleStyle,
@@ -207,9 +232,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.065),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding:
+              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
-            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title4,
               style: AppTextStyles.subTitleStyle,
@@ -224,10 +251,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         Container(
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.065),
+          height: context.dynamicHeight(0.069),
           padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
           child: ListTile(
-            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title5,
               style: AppTextStyles.subTitleStyle,
@@ -242,10 +270,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         Container(
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.065),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          height: context.dynamicHeight(0.085),
+          padding:
+              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
-            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title6,
               style: AppTextStyles.subTitleStyle,
@@ -261,45 +291,69 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
     );
   }
 
-  ListView tabPackages(BuildContext context) {
-    return ListView(
+  Column tabPackages(BuildContext context) {
+    return Column(
       children: [
         SizedBox(
-          height: context.dynamicHeight(0.021),
+          height: context.dynamicHeight(0.02),
         ),
-        packageCourierAndFavoriteContainer(context),
-        SizedBox(
-          height: context.dynamicHeight(0.04),
-        ),
-        //spacer 4
-        Padding(
-          padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
-          child: Column(
-            children: [
-              Row(
+        Stack(
+          children: [
+            Column(
+              children: [
+                packageCourierAndFavoriteContainer(context),
+                SizedBox(
+                  height: context.dynamicHeight(0.04),
+                ),
+                 Padding(
+              padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
+              child: Column(
                 children: [
-                  LocaleText(
-                    text: LocaleKeys.restaurant_detail_sub_title1,
-                    style: AppTextStyles.bodyTitleStyle,
+                  Row(
+                    children: [
+                      LocaleText(
+                        text: LocaleKeys.restaurant_detail_sub_title1,
+                        style: AppTextStyles.bodyTitleStyle,
+                      ),
+                      SizedBox(
+                        width: context.dynamicWidht(0.01),
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              showInfo = !showInfo;
+                            });
+                          },
+                          child:
+                              SvgPicture.asset(ImageConstant.RESTAURANT_INFO_ICON))
+                      //ClippedPasswordRules(child: Text("data"))
+                    ],
                   ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  SvgPicture.asset(ImageConstant.RESTAURANT_INFO_ICON),
+                  Divider(
+                    thickness: 5,
+                    color: AppColors.borderAndDividerColor,
+                  )
                 ],
               ),
-              Divider(
-                thickness: 5,
-                color: AppColors.borderAndDividerColor,
-              )
-            ],
-          ),
+            ),
+              ],
+            ),
+            //spacer 4
+             Align(
+               alignment: Alignment(-0.05,0),
+               child: Visibility(
+                   visible: showInfo,
+                   child: ClippedPasswordRules(child: Text("data"))),
+             )
+          ],
         ),
         ListView.builder(
           itemCount: widget.restaurant!.boxes!.length,
           itemBuilder: (context, index) {
             return buildBox(context, index);
           },
+          physics: NeverScrollableScrollPhysics(),
+          //   primary: false,
           shrinkWrap: true,
         ),
 
@@ -332,15 +386,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           },
           shrinkWrap: true,
         ),
-
-        SizedBox(
-          height: context.dynamicHeight(0.04),
-        ),
       ],
     );
   }
 
-  Container buildDefinedBox(BuildContext context, int index, List<Box> definedBoxes) {
+  Container buildDefinedBox(
+      BuildContext context, int index, List<Box> definedBoxes) {
     return Container(
         //alignment: Alignment(-0.8, 0.0),
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
@@ -395,7 +446,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             LocaleText(
-              text: "Sor! sale day id: ${widget.restaurant!.boxes![0].saleDay!}",
+              text:
+                  "Sor! sale day id: ${widget.restaurant!.boxes![0].saleDay!}",
             ),
             CustomButton(
               title: LocaleKeys.restaurant_detail_button_text,
@@ -405,7 +457,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               borderColor: AppColors.greenColor,
               onPressed: () {
                 print(widget.restaurant!.boxes![index].id!);
-                context.read<OrderCubit>().addToBasket(widget.restaurant!.boxes![index].id!);
+                context
+                    .read<OrderCubit>()
+                    .addToBasket(widget.restaurant!.boxes![index].id!);
               },
             )
           ],
@@ -414,9 +468,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
 
   TabBar tabBar(BuildContext context) {
     return TabBar(
-        labelPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
+        labelPadding:
+            EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
         indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(width: 3, color: AppColors.orangeColor), insets: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.11))),
+            borderSide: BorderSide(width: 3, color: AppColors.orangeColor),
+            insets: EdgeInsets.symmetric(
+              horizontal: context.dynamicWidht(0.11),
+            )), // top değeri değişecek
+        indicatorPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.01)),
         labelColor: AppColors.orangeColor,
         labelStyle: AppTextStyles.bodyTitleStyle,
         unselectedLabelColor: AppColors.textColor,
@@ -510,7 +569,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
       child: Text(
         "35 TL",
         textAlign: TextAlign.center,
-        style: AppTextStyles.bodyBoldTextStyle.copyWith(fontWeight: FontWeight.w700, color: AppColors.greenColor),
+        style: AppTextStyles.bodyBoldTextStyle
+            .copyWith(fontWeight: FontWeight.w700, color: AppColors.greenColor),
       ),
     );
   }
@@ -518,7 +578,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
   Text oldPriceText() {
     return Text(
       "75 TL",
-      style: AppTextStyles.bodyBoldTextStyle.copyWith(decoration: TextDecoration.lineThrough, color: AppColors.unSelectedpackageDeliveryColor),
+      style: AppTextStyles.bodyBoldTextStyle.copyWith(
+          decoration: TextDecoration.lineThrough,
+          color: AppColors.unSelectedpackageDeliveryColor),
     );
   }
 
@@ -554,7 +616,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           Text(
             "$startTime-$endTime",
             textAlign: TextAlign.center,
-            style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.yellowColor),
+            style: AppTextStyles.bodyBoldTextStyle
+                .copyWith(color: AppColors.yellowColor),
           ),
         ],
       ),
@@ -563,10 +626,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
 
   Row restaurantStarIconRating() {
     return Row(
+      //backend
       children: [
         Container(
           child: SvgPicture.asset(ImageConstant.RESTAURANT_STAR_ICON),
         ),
+        SizedBox(width: context.dynamicWidht(0.02)),
         Text(
           "4.7",
           style: AppTextStyles.bodyTextStyle,
@@ -584,11 +649,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           width: context.dynamicWidht(0.4),
           child: Text(
             widget.restaurant!.name!,
-            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w600),
+            style: AppTextStyles.appBarTitleStyle
+                .copyWith(fontWeight: FontWeight.w600),
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        LocaleText(text: widget.restaurant!.address, style: AppTextStyles.subTitleStyle),
+        LocaleText(
+            text: widget.restaurant!.address,
+            style: AppTextStyles.subTitleStyle),
       ],
     );
   }
@@ -632,7 +700,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   color: AppColors.greenColor,
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(context.dynamicHeight(0.006)),
+                  padding: EdgeInsets.all(context.dynamicHeight(0.004)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_PACKAGE_ICON,
                   ),
@@ -669,9 +737,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               GestureDetector(
                 onTap: () {
                   if (isFavourite) {
-                    context.read<UserOperationsCubit>().deleteFromFavourites(favouriteId);
+                    context
+                        .read<UserOperationsCubit>()
+                        .deleteFromFavourites(favouriteId);
                   } else {
-                    context.read<UserOperationsCubit>().addToFavorite(widget.restaurant!.id!);
+                    context
+                        .read<UserOperationsCubit>()
+                        .addToFavorite(widget.restaurant!.id!);
                   }
                   setState(() {
                     isFavourite = !isFavourite;
@@ -679,7 +751,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 },
                 child: SvgPicture.asset(
                   ImageConstant.RESTAURANT_FAVORITE_ICON,
-                  color: isFavourite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                  color: isFavourite
+                      ? AppColors.orangeColor
+                      : AppColors.unSelectedpackageDeliveryColor,
                 ),
               )
             ],

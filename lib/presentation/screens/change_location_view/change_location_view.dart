@@ -66,7 +66,8 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
       List tempIndexList = [];
 
       for (int i = 0; i < cities.length; i++) {
-        if (cities[i].toLowerCase().contains(searchedText.toLowerCase()) || citiesIndexes[i].contains(searchedText)) {
+        if (cities[i].toLowerCase().contains(searchedText.toLowerCase()) ||
+            citiesIndexes[i].contains(searchedText)) {
           tempList.add(cities[i]);
           tempIndexList.add("${i < 9 ? 0 : ""}${i + 1}");
         }

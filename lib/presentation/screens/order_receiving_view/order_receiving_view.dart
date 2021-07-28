@@ -46,7 +46,7 @@ class _OrderReceivingViewState extends State<OrderReceivingView> {
               Spacer(
                 flex: 183,
               ),
-              LocaleText(
+              LocaleText(//guncellenecek
                 text: "Siparişiniz alınıyor…",
                 style: AppTextStyles.headlineStyle,
               ),

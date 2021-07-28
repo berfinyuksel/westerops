@@ -93,6 +93,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     return AppBar(
       iconTheme: IconThemeData(color: AppColors.greenColor, size: 20.0),
       elevation: 0,
+      bottomOpacity:0,
       leading: IconButton(
         icon: SvgPicture.asset(ImageConstant.BACK_ICON),
         onPressed: () => Navigator.of(context).pop(),
@@ -107,6 +108,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   AppBar buildAppBarWithInputTitle() {
     return AppBar(
+      
       actions: [
         Padding(
           padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
@@ -122,7 +124,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         ),
       ],
       iconTheme: IconThemeData(color: AppColors.greenColor, size: 20.0),
-      elevation: 0,
+        elevation: 0,
+      bottomOpacity: 0,
       leading: IconButton(
         icon: SvgPicture.asset(ImageConstant.BACK_ICON),
         onPressed: () => Navigator.of(context).pop(),
@@ -137,6 +140,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   AppBar buildAppBarWithTitleList() {
     return AppBar(
+         elevation: 0,
+      bottomOpacity: 0,
       actions: [
         Padding(
           padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
@@ -166,6 +171,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   BottomNavigationBar buildBottomNavigationBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
+      selectedItemColor: Colors.black,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
@@ -183,6 +189,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                       ImageConstant.NAVBAR_HOME_ACTIVE,
                     ),
           label: LocaleKeys.bottom_nav_bar_item_1.locale,
+          backgroundColor: Colors.black
+          
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(ImageConstant.NAVBAR_SEARCH),

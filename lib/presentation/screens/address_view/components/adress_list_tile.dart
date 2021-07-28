@@ -26,6 +26,8 @@ class AddressListTile extends StatelessWidget {
       contentPadding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
         right: context.dynamicWidht(0.06),
+        top: context.dynamicHeight(0.01),
+        bottom: context.dynamicHeight(0.01)
       ),
       trailing: Container(
         height: double.infinity,
@@ -48,6 +50,7 @@ class AddressListTile extends StatelessWidget {
               text: subtitleBold,
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
+           // TextSpan(text: "       "), bosluk verilecek 
             TextSpan(
               text: subtitle,
               style: AppTextStyles.subTitleStyle,

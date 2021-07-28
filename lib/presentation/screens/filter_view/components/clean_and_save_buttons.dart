@@ -22,7 +22,7 @@ class _CleanAndSaveButtonsState extends State<CleanAndSaveButtons> {
         children: [
           CustomButton(
             width: context.dynamicWidht(0.4),
-            title: LocaleKeys.custom_drawer_login_button,
+            title: LocaleKeys.filters_button_item1,
             textColor: AppColors.greenColor,
             color: Colors.transparent,
             borderColor: AppColors.greenColor,
@@ -33,7 +33,7 @@ class _CleanAndSaveButtonsState extends State<CleanAndSaveButtons> {
           Spacer(flex: 1),
           CustomButton(
             width: context.dynamicWidht(0.4),
-            title: LocaleKeys.custom_drawer_register_button,
+            title: LocaleKeys.filters_button_item2,
             textColor: Colors.white,
             color: AppColors.greenColor,
             borderColor: AppColors.greenColor,

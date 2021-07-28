@@ -21,18 +21,42 @@ class _FilterViewState extends State<FilterView> {
   Widget build(BuildContext context) {
     return CustomScaffold(
         title: "Filtrele",
-        body: ListView(
-          children: [
-            SortFilterList(),
-            PackagePriceFilterList(),
-            PackageDeliveryFilterList(),
-            PaymentMethodFilterList(),
-            ChooseCategoryFilterList(),
-            SizedBox(
-              height: context.dynamicHeight(0.34),
-            ),
-            CleanAndSaveButtons()
-          ],
+        body: Padding(
+          padding: EdgeInsets.only(top: context.dynamicHeight(0.025)),
+          child: Stack(
+            children: [
+              Container(
+                child: ListView(
+                  children: [
+                    SortFilterList(),
+                    Divider(
+                      height: context.dynamicHeight(0.001),
+                    ),
+                    PackagePriceFilterList(),
+                    Divider(
+                      height: context.dynamicHeight(0.001),
+                    ),
+                    PackageDeliveryFilterList(),
+                    Divider(
+                      height: context.dynamicHeight(0.001),
+                    ),
+                 // TODO Odeme sekli kaldirildi.
+                    ChooseCategoryFilterList(),
+                    SizedBox(
+                      height: context.dynamicHeight(0.34),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                child: CleanAndSaveButtons(),
+                bottom: 0,
+                top: 650,
+                left: 0,
+                right: 0,
+              )
+            ],
+          ),
         ));
   }
 }

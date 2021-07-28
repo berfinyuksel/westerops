@@ -193,7 +193,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           return RestaurantInfoListTile(
             icon: favourites[index].photo,
             restaurantName: favourites[index].name,
-            distance: "74m",
+            distance: "74 m",
             packetNumber: favourites[index].boxes!.length == 0 ? 'tükendi' : '${favourites[index].boxes!.length} paket',
             availableTime: '$startTime-$endTime',
           );

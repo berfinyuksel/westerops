@@ -108,7 +108,7 @@ class _CartViewState extends State<CartView> {
                         title: state.response[index].name,
                         price: 35,
                         withDecimal: false,
-                        subTitle: "Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu",
+                        subTitle: "",
                       ),
                     );
                   }),
@@ -129,7 +129,7 @@ class _CartViewState extends State<CartView> {
               ),
               PastOrderDetailPaymentListTile(
                 title: LocaleKeys.past_order_detail_payment_2,
-                price: 4.50,
+                price: 4.50, 
                 lineTrough: true,
                 withDecimal: true,
               ),

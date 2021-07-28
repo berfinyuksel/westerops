@@ -26,61 +26,64 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
     return CustomExpansionTile(
         expansionTileBody: Padding(
           padding: EdgeInsets.only(left: context.dynamicWidht(0.074)),
-          child: Column(
-            children: [
-              SizedBox(height: context.dynamicHeight(0.01)),
-              buildRowCheckboxAndText(
-                  context, LocaleKeys.filters_choose_category_item9, "All"),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                context,
-                LocaleKeys.filters_choose_category_item1,
-                "Main Course",
-              ),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                context,
-                LocaleKeys.filters_choose_category_item2,
-                "Drinks",
-              ),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                context,
-                LocaleKeys.filters_choose_category_item3,
-                "Vegan",
-              ),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                context,
-                LocaleKeys.filters_choose_category_item4,
-                "Hamburger",
-              ),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                context,
-                LocaleKeys.filters_choose_category_item5,
-                "Dessert",
-              ),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                context,
-                LocaleKeys.filters_choose_category_item6,
-                "Pizza",
-              ),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                context,
-                LocaleKeys.filters_choose_category_item7,
-                "Chicken",
-              ),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                context,
-                LocaleKeys.filters_choose_category_item8,
-                "Coffee",
-              ),
-              SizedBox(height: context.dynamicHeight(0.030)),
-            ],
+          child: Container(
+            height: 325,
+            child: Column(
+              children: [
+                SizedBox(height: context.dynamicHeight(0.01)),
+                buildRowCheckboxAndText(
+                    context, LocaleKeys.filters_choose_category_item9, "All"),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(
+                  context,
+                  LocaleKeys.filters_choose_category_item1,
+                  "Main Course",
+                ),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(
+                  context,
+                  LocaleKeys.filters_choose_category_item2,
+                  "Drinks",
+                ),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(
+                  context,
+                  LocaleKeys.filters_choose_category_item3,
+                  "Vegan",
+                ),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(
+                  context,
+                  LocaleKeys.filters_choose_category_item4,
+                  "Hamburger",
+                ),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(
+                  context,
+                  LocaleKeys.filters_choose_category_item5,
+                  "Dessert",
+                ),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(
+                  context,
+                  LocaleKeys.filters_choose_category_item6,
+                  "Pizza",
+                ),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(
+                  context,
+                  LocaleKeys.filters_choose_category_item7,
+                  "Chicken",
+                ),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(
+                  context,
+                  LocaleKeys.filters_choose_category_item8,
+                  "Coffee",
+                ),
+              //  SizedBox(height: context.dynamicHeight(0.030)),
+              ],
+            ),
           ),
         ),
         expansionTileTitle: LocaleKeys.filters_choose_category_title);

@@ -15,25 +15,27 @@ import '../components/onboarding_text.dart';
 class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: OnboardingBackgroundImage(
-            image: ImageConstant.ONBOARDING_BACKGROUND,
+    return SafeArea(
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: OnboardingBackgroundImage(
+              image: ImageConstant.ONBOARDING_BACKGROUND,
+            ),
           ),
-        ),
-        buildText(context),
-        Positioned(
-          bottom: context.dynamicHeight(0.08),
-          left: 0,
-          right: 0,
-          child: buildBottomText(context),
-        )
-      ],
+          buildText(context),
+          Positioned(
+            bottom: context.dynamicHeight(0.08),
+            left: 0,
+            right: 0,
+            child: buildBottomText(context),
+          )
+        ],
+      ),
     );
   }
 
@@ -42,22 +44,22 @@ class OnboardingView extends StatelessWidget {
       height: context.dynamicHeight(0.3),
       child: Column(
         children: [
-          Spacer(flex: 3),
+          Spacer(flex: 13),
           Expanded(
-            flex: 4,
+            flex: 8,
             child: OnboardingHeadlineText(
               headlineText: LocaleKeys.onboardings_onboarding_text_headline,
               maxLines: 2,
             ),
           ),
-          Spacer(flex: 1),
+          Spacer(flex: 2),
           Expanded(
-            flex: 4,
+            flex: 8,
             child: OnboardingText(
               text: LocaleKeys.onboardings_text,
             ),
           ),
-          Spacer(flex: 1),
+          Spacer(flex: 6),
         ],
       ),
     );

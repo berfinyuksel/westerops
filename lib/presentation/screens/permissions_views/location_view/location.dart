@@ -96,8 +96,8 @@ class _LocationViewState extends State<LocationView> {
   AutoSizeText descriptionText() {
     return AutoSizeText(
       LocaleKeys.premission_location_text2.locale,
-      style: AppTextStyles.bodyBoldTextStyle,
-      maxLines: 2,
+      style: AppTextStyles.bodyBoldTextStyle.copyWith(height: 1.5),
+      maxLines: 3,
       textAlign: TextAlign.center,
     );
   }

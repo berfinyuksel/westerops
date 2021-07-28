@@ -32,12 +32,12 @@ class _PaymentMethodFilterListState extends State<PaymentMethodFilterList> {
                 LocaleKeys.filters_payment_method_item1,
                 buildCheckBox(context, false),
               ),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                context,
-                LocaleKeys.filters_payment_method_item2,
-                buildCheckBox(context, true),
-              ),
+              // SizedBox(height: context.dynamicHeight(0.016)),
+              // buildRowCheckboxAndText(
+              //   context,
+              //   LocaleKeys.filters_payment_method_item2,
+              //   buildCheckBox(context, true),
+              // ),
               SizedBox(height: context.dynamicHeight(0.030)),
             ],
           ),

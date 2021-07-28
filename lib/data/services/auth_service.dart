@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+//import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   GoogleSignInAccount? currentUser;
   static final FirebaseAuth auth = FirebaseAuth.instance;
 
-  static Future<AccessToken?> loginWithFacebook() async {
+  /*static Future<AccessToken?> loginWithFacebook() async {
     final LoginResult result = await FacebookAuth.instance.login();
     if (result.status == LoginStatus.success) {
       // get the user data
@@ -44,7 +44,7 @@ class AuthService {
           await (FirebaseAuth.instance.currentUser!).updatePhoneNumber(credential);
         },
         codeAutoRetrievalTimeout: (String a) {});*/
-  }
+  }*/
 
   static Future<void> loginWithGmail() async {
     GoogleSignIn googleSignIn = GoogleSignIn(
@@ -62,3 +62,4 @@ class AuthService {
     }
   }
 }
+

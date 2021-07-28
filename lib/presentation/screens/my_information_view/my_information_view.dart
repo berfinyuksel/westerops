@@ -75,13 +75,28 @@ class _MyInformationViewState extends State<MyInformationView> {
             flex: 15,
           ),
           buildButton(context),
-          Spacer(
-            flex: 3,
-          ),
+       
           Center(
-            child: LocaleText(
-              text: LocaleKeys.inform_delete_account,
-              style: AppTextStyles.bodyTextStyle,
+            child: TextButton(
+              onPressed: (){
+                Navigator.pushNamed(
+                    context, RouteConstant.DELETE_ACCOUNT_VIEW);
+              },
+              child: LocaleText(
+                text: LocaleKeys.inform_delete_account,
+                style: AppTextStyles.bodyTextStyle,
+              ),
+            ),
+          ),
+               Center(
+            child: TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, RouteConstant.DELETE_ACCOUNT_VIEW);
+              },
+              child: LocaleText(
+                text: "Hesabımı Dondur",
+                style: AppTextStyles.bodyTextStyle,
+              ),
             ),
           ),
           Spacer(

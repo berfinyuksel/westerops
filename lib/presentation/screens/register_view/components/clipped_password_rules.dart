@@ -7,10 +7,9 @@ import 'password_rules.dart';
 class ClippedPasswordRules extends StatelessWidget {
   const ClippedPasswordRules({
     Key? key,
-    required this.passwordController,
+    required this.child
   }) : super(key: key);
-
-  final TextEditingController passwordController;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class ClippedPasswordRules extends StatelessWidget {
               ),
             ],
           ),
-          child: PasswordRules(passwordController: passwordController),
+          child: child,
         ),
       ),
     );

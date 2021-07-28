@@ -28,7 +28,7 @@ class CustomHorizontalListTrend extends StatelessWidget {
           ),
           child: SizedBox(
               width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.05),
+              height: context.dynamicHeight(0.02),
               child: LocaleText(
                 text: LocaleKeys.search_kind1,
                 alignment: TextAlign.center,
@@ -52,7 +52,7 @@ class CustomHorizontalListTrend extends StatelessWidget {
           ),
           child: SizedBox(
               width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.05),
+              height: context.dynamicHeight(0.02),
               child: LocaleText(
                   text: LocaleKeys.search_kind2,
                   style: AppTextStyles.bodyTextStyle,
@@ -75,7 +75,7 @@ class CustomHorizontalListTrend extends StatelessWidget {
           ),
           child: SizedBox(
               width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.05),
+              height: context.dynamicHeight(0.02),
               child: LocaleText(
                   text: LocaleKeys.search_kind3,
                   style: AppTextStyles.bodyTextStyle,
@@ -98,7 +98,7 @@ class CustomHorizontalListTrend extends StatelessWidget {
           ),
           child: SizedBox(
               width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.05),
+              height: context.dynamicHeight(0.02),
               child: LocaleText(
                   text: LocaleKeys.search_kind1,
                   style: AppTextStyles.bodyTextStyle,
@@ -121,7 +121,7 @@ class CustomHorizontalListTrend extends StatelessWidget {
           ),
           child: SizedBox(
               width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.05),
+              height: context.dynamicHeight(0.02),
               child: LocaleText(
                   text: LocaleKeys.search_kind5,
                   style: AppTextStyles.bodyTextStyle,

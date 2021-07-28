@@ -47,7 +47,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         top: context.dynamicHeight(0.02),
         bottom: tabController!.index == 2 ? 0 : context.dynamicHeight(0.04),
       ),
-      child: Column(
+      child: ListView(
         children: [
           buildTabsContainer(context),
           buildDeliveryType(context, state),
@@ -254,10 +254,11 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
       height: context.dynamicHeight(0.1),
       width: double.infinity,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: tabController!.index == 2 ?  MainAxisAlignment.center
+            :  MainAxisAlignment.spaceBetween,
         children: [
           buildGetIt(context, state),
-          buildPackageDelivery(context, state),
+         tabController!.index == 0 || tabController!.index == 1 ? buildPackageDelivery(context, state) : SizedBox()
         ],
       ),
     );
@@ -277,7 +278,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
       child: Container(
         alignment: Alignment.center,
         height: context.dynamicHeight(0.052),
-        width: context.dynamicWidht(0.4),
+        width: context.dynamicWidht(0.42),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           color: Colors.white,
@@ -296,10 +297,16 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
                   SvgPicture.asset(
                     ImageConstant.PACKAGE_DELIVERY_ICON,
                     color: !state.isGetIt! ? AppColors.greenColor : AppColors.iconColor,
+                    height: 28,
+                  
+                    fit: BoxFit.fill,
                   ),
-                  LocaleText(
-                      text: LocaleKeys.payment_package_delivery,
-                      style: AppTextStyles.bodyTextStyle.copyWith(color: !state.isGetIt! ? AppColors.greenColor : AppColors.textColor)),
+                  Padding(
+                   padding: EdgeInsets.only(right: context.dynamicWidht(0.06)),
+                    child: LocaleText(
+                        text: LocaleKeys.payment_package_delivery,
+                        style: AppTextStyles.bodyTextStyle.copyWith(color: !state.isGetIt! ? AppColors.greenColor : AppColors.textColor)),
+                  ),
                 ],
               ),
       ),
@@ -322,7 +329,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
       child: Container(
         alignment: Alignment.center,
         height: context.dynamicHeight(0.052),
-        width: context.dynamicWidht(0.43),
+        width:  context.dynamicWidht( tabController!.index == 2 ? 0.85  : 0.45) ,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           color: Colors.white,
@@ -341,10 +348,15 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
                   SvgPicture.asset(
                     ImageConstant.PACKAGE_ICON,
                     color: state.isGetIt! ? AppColors.greenColor : AppColors.iconColor,
+                    height: 30,
+                    fit: BoxFit.fill,
                   ),
-                  LocaleText(
-                    text: LocaleKeys.payment_get_it,
-                    style: AppTextStyles.bodyTextStyle.copyWith(color: state.isGetIt! ? AppColors.greenColor : AppColors.textColor),
+                  Padding(
+                     padding: EdgeInsets.only(right: context.dynamicWidht(0.04)),
+                    child: LocaleText(
+                      text: LocaleKeys.payment_get_it,
+                      style: AppTextStyles.bodyTextStyle.copyWith(color: state.isGetIt! ? AppColors.greenColor : AppColors.textColor),
+                    ),
                   ),
                 ],
               ),
@@ -421,7 +433,8 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
-        onPressed: () {},
+        onPressed: () {
+        },
       ),
     );
   }

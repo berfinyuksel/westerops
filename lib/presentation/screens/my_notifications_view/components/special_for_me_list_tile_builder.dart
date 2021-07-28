@@ -33,9 +33,9 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
         itemCount: value.length,
         itemBuilder: (context, index) {
           return Container(
-            height: context.dynamicHeight(0.097),
+            height: context.dynamicHeight(0.1),
             padding: EdgeInsets.symmetric(
-              horizontal: context.dynamicWidht(0.035),
+              horizontal: context.dynamicWidht(0.065),
             ),
             decoration: BoxDecoration(color: Colors.white),
             child: Dismissible(
@@ -63,8 +63,7 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
                 child: Container(
                   padding: EdgeInsets.only(
                     top: context.dynamicHeight(0.011),
-                    right: context.dynamicWidht(0.028),
-                    left: context.dynamicWidht(0.028),
+
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -73,6 +72,7 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [buildTitle(context, index)[index], buildDateTrailing(context, index)[index]],
                       ),
+         
                       Row(
                         children: [buildIconsLeading(context, index)[index], Expanded(child: buildDescriptionSubtitle(context, index)[index])],
                       ),
@@ -161,7 +161,8 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
   LocaleText favoriteText() {
     return LocaleText(
       text: LocaleKeys.my_notifications_special_for_me_favorite,
-      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+      style: AppTextStyles.bodyTextStyle
+          .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
       maxLines: 2,
       alignment: TextAlign.start,
     );
@@ -170,7 +171,8 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
   LocaleText pawsAnimalsText() {
     return LocaleText(
       text: LocaleKeys.my_notifications_special_for_me_pawsAnimals,
-      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+      style: AppTextStyles.bodyTextStyle
+          .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
       maxLines: 2,
       alignment: TextAlign.start,
     );
@@ -179,7 +181,8 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
   LocaleText discountSeventyText() {
     return LocaleText(
       text: LocaleKeys.my_notifications_special_for_me_discountSeventy,
-      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+      style: AppTextStyles.bodyTextStyle
+          .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
       maxLines: 2,
       alignment: TextAlign.start,
     );
@@ -188,7 +191,8 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
   LocaleText discountFiftyText() {
     return LocaleText(
       text: LocaleKeys.my_notifications_special_for_me_discountFifty,
-      style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+      style: AppTextStyles.bodyTextStyle
+          .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
       alignment: TextAlign.start,
       maxLines: 2,
     );

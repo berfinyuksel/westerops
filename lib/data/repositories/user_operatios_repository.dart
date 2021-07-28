@@ -16,7 +16,10 @@ class SampleUserOperationsRepository implements UserOperationsRepository {
     final response = await http.post(
       Uri.parse(url),
       body: json,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Authorization': 'JWT ${SharedPrefs.getToken}'},
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'JWT ${SharedPrefs.getToken}'
+      },
     );
     print("adawd" + response.body + "${response.statusCode}");
     if (response.statusCode == 201) {
@@ -30,7 +33,10 @@ class SampleUserOperationsRepository implements UserOperationsRepository {
   Future<List<String>> deleteFromFavorites(int favoriteId) async {
     final response = await http.delete(
       Uri.parse("$url$favoriteId/"),
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Authorization': 'JWT ${SharedPrefs.getToken}'},
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'JWT ${SharedPrefs.getToken}'
+      },
     );
     if (response.statusCode == 201) {
       List<String> result = [];

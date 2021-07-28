@@ -1,12 +1,18 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:dongu_mobile/data/model/store.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
+import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/services/location_service.dart';
 import '../../../utils/constants/image_constant.dart';
@@ -40,6 +46,9 @@ class _MyNearViewState extends State<MyNearView> {
 
   bool isShowOnMap = false;
   bool isShowBottomInfo = false;
+  List<Store> restaurants = [];
+  List<double> distances = [];
+  int restaurantIndexOnMap = 1;
 
   @override
   void initState() {
@@ -50,8 +59,36 @@ class _MyNearViewState extends State<MyNearView> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: LocaleKeys.my_near_title,
-      body: buildBody(context),
+      body: buildBuilder(),
     );
+  }
+
+  Builder buildBuilder() {
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<StoreCubit>().state;
+      if (state is GenericInitial) {
+        LocationService.getCurrentLocation();
+
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        for (int i = 0; i < state.response[0].results.length; i++) {
+          if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
+            restaurants.add(state.response[0].results[i]);
+            distances.add(Haversine.distance(
+                LocationService.latitude!,
+                LocationService.longitude!,
+                state.response[0].results[i].latitude,
+                state.response[0].results[i].longitude));
+          }
+        }
+        return Center(child: buildBody(context));
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
   Column buildBody(BuildContext context) {
@@ -83,12 +120,14 @@ class _MyNearViewState extends State<MyNearView> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          final GoogleMapController controller = await _mapController.future;
+                          final GoogleMapController controller =
+                              await _mapController.future;
                           setState(() {
                             latitude = LocationService.latitude!;
                             longitude = LocationService.longitude!;
 
-                            controller.animateCamera(CameraUpdate.newCameraPosition(
+                            controller
+                                .animateCamera(CameraUpdate.newCameraPosition(
                               CameraPosition(
                                 target: LatLng(latitude, longitude),
                                 zoom: 17.0,
@@ -96,7 +135,8 @@ class _MyNearViewState extends State<MyNearView> {
                             ));
                           });
                         },
-                        child: SvgPicture.asset(ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                        child: SvgPicture.asset(
+                            ImageConstant.COMMONS_MY_LOCATION_BUTTON),
                       ),
                       Visibility(
                           visible: isShowBottomInfo,
@@ -106,22 +146,39 @@ class _MyNearViewState extends State<MyNearView> {
                                   isShowBottomInfo = false;
                                 });
                               },
-                              child: Container(color: Colors.black.withOpacity(0.2)))),
+                              child: Container(
+                                  color: Colors.black.withOpacity(0.2)))),
                     ],
                   ),
-                  Visibility(visible: isShowBottomInfo, child: buildBottomInfo(context))
+                  Visibility(
+                      visible: isShowBottomInfo,
+                      child: buildBottomInfo(context, restaurants, distances))
                 ],
               ),
             ),
           ),
         ),
         Visibility(
-            visible: !isShowOnMap, child: Expanded(child: Container(height: context.dynamicHeight(0.54), child: buildListViewRestaurantInfo())))
+            visible: !isShowOnMap,
+            child: Expanded(
+                child: Container(
+                    height: context.dynamicHeight(0.54),
+                    child:
+                        buildListViewRestaurantInfo(restaurants, distances))))
       ],
     );
   }
 
-  Positioned buildBottomInfo(BuildContext context) {
+  Positioned buildBottomInfo(
+      BuildContext context, List<Store> restaurants, List<double> distances) {
+    String startTime =
+        restaurants[restaurantIndexOnMap].calendar![0].startDate!.split("T")[1];
+    String endTime =
+        restaurants[restaurantIndexOnMap].calendar![0].endDate!.split("T")[1];
+
+    startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
+    endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
+
     return Positioned(
         right: 0,
         left: 0,
@@ -132,10 +189,13 @@ class _MyNearViewState extends State<MyNearView> {
           padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
           color: Colors.white,
           child: RestaurantInfoListTile(
-            restaurantName: "Mini Burger",
-            distance: "74m",
-            packetNumber: "4 paket",
-            availableTime: "18:00-21:00",
+            icon: restaurants[restaurantIndexOnMap].photo,
+            restaurantName: restaurants[restaurantIndexOnMap].name,
+            distance: "${distances[restaurantIndexOnMap].toInt()}m",
+            packetNumber: restaurants[restaurantIndexOnMap].boxes!.length == 0
+                ? 'tükendi'
+                : '${restaurants[restaurantIndexOnMap].boxes!.length} paket',
+            availableTime: '$startTime-$endTime',
           ),
         ));
   }
@@ -151,7 +211,8 @@ class _MyNearViewState extends State<MyNearView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildRowTitleLeftRight(context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
+          buildRowTitleLeftRight(
+              context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -166,7 +227,12 @@ class _MyNearViewState extends State<MyNearView> {
             ],
           ),
           SizedBox(height: context.dynamicHeight(0.03)),
-          buildRowTitleLeftRight(context, LocaleKeys.my_near_body_title, isShowOnMap ? LocaleKeys.my_near_show_list : LocaleKeys.my_near_show_map),
+          buildRowTitleLeftRight(
+              context,
+              LocaleKeys.my_near_body_title,
+              isShowOnMap
+                  ? LocaleKeys.my_near_show_list
+                  : LocaleKeys.my_near_show_map),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -176,15 +242,26 @@ class _MyNearViewState extends State<MyNearView> {
     );
   }
 
-  ListView buildListViewRestaurantInfo() {
+  ListView buildListViewRestaurantInfo(
+      List<Store> restaurants, List<double> distances) {
     return ListView.builder(
-        itemCount: 5,
+        itemCount: restaurants.length,
         itemBuilder: (context, index) {
+          String startTime =
+              restaurants[index].calendar![0].startDate!.split("T")[1];
+          String endTime =
+              restaurants[index].calendar![0].endDate!.split("T")[1];
+
+          startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
+          endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
           return RestaurantInfoListTile(
-            restaurantName: "Mini Burger",
-            distance: "74m",
-            packetNumber: "4 paket",
-            availableTime: "18:00-21:00",
+            icon: restaurants[index].photo,
+            restaurantName: restaurants[index].name,
+            distance: "${distances[index].toInt()}m",
+            packetNumber: restaurants[index].boxes!.length == 0
+                ? 'tükendi'
+                : '${restaurants[index].boxes!.length} paket',
+            availableTime: '$startTime-$endTime',
             border: Border.all(
               width: 1.0,
               color: AppColors.borderAndDividerColor,
@@ -193,7 +270,8 @@ class _MyNearViewState extends State<MyNearView> {
         });
   }
 
-  Row buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRight(
+      BuildContext context, String titleLeft, String titleRight) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -265,22 +343,28 @@ class _MyNearViewState extends State<MyNearView> {
   }
 
   void setCustomMarker() async {
-    markerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
-    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_MARKER);
-    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
+    markerIcon =
+        await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
+    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_MARKER);
+    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
     getLocation();
   }
 
-  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(String assetName) async {
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
+      String assetName) async {
     // Read SVG file as String
-    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
+    String svgString =
+        await DefaultAssetBundle.of(context).loadString(assetName);
     // Create DrawableRoot from SVG String
     DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
 
     // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
     MediaQueryData queryData = MediaQuery.of(context);
     double devicePixelRatio = queryData.devicePixelRatio;
-    double width = 64 * devicePixelRatio; // where 32 is your SVG's original width
+    double width =
+        64 * devicePixelRatio; // where 32 is your SVG's original width
     double height = 64 * devicePixelRatio; // same thing
 
     // Convert to ui.Picture
@@ -319,31 +403,22 @@ class _MyNearViewState extends State<MyNearView> {
         position: LatLng(latitude, longitude),
       );
       markers[markerId] = marker;
-      for (int i = 1; i < 3; i++) {
+      for (int i = 0; i < restaurants.length; i++) {
+        print(restaurants[i].latitude!);
+        print(restaurants[i].longitude!);
+
         Marker restMarker = Marker(
           onTap: () {
             setState(() {
               isShowBottomInfo = !isShowBottomInfo;
+              restaurantIndexOnMap = i;
             });
           },
           icon: restaurantMarkerIcon,
           markerId: MarkerId("rest_$i"),
-          position: LatLng(latitude + i * 0.0005, longitude + i * 0.0005),
+          position: LatLng(restaurants[i].latitude!, restaurants[i].longitude!),
         );
         markers[MarkerId("rest_$i")] = restMarker;
-      }
-      for (int i = 1; i < 3; i++) {
-        Marker restMarker = Marker(
-          onTap: () {
-            setState(() {
-              isShowBottomInfo = !isShowBottomInfo;
-            });
-          },
-          icon: restaurantSoldoutMarkerIcon,
-          markerId: MarkerId("rest_${3 + i}"),
-          position: LatLng(latitude - i * 0.0005, longitude - i * 0.0005),
-        );
-        markers[MarkerId("rest_${3 + i}")] = restMarker;
       }
     });
   }
