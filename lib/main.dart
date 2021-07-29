@@ -6,10 +6,13 @@ import 'package:dongu_mobile/presentation/screens/register_view/register_view.da
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/restaurant_detail_view/restaurant_detail_view.dart';
 import 'package:dongu_mobile/presentation/screens/splash_view/splash_view.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_view/surprise_pack_view.dart';
+import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'data/repositories/order_repository.dart';
 import 'data/repositories/search_location_repository.dart';
@@ -34,7 +37,39 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   await SharedPrefs.initialize();
   await Firebase.initializeApp();
+  //fixed late arriving svg with future.wait function
+   Future.wait([
+    precachePicture(
+      ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/permissions/location_image.svg'),
+      null,
+    ),
+    precachePicture(
+      ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/permissions/notification_image.svg'),
+      null,
+    ),
+     precachePicture(
+      ExactAssetPicture(SvgPicture.svgStringDecoder,
+          'assets/images/onboardings/onboarding_forth/onboarding_forth_background.svg'),
+      null,
+    ),
+     precachePicture(
+      ExactAssetPicture(SvgPicture.svgStringDecoder,
+          'assets/images/order_receiving/background.svg'),
+      null,
+    ),
 
+    precachePicture(
+      ExactAssetPicture(SvgPicture.svgStringDecoder,
+          'assets/images/order_receiving/receiving_dongu_logo.svg'),
+      null,
+    ),
+    precachePicture(
+      ExactAssetPicture(SvgPicture.svgStringDecoder,
+          'assets/images/order_receiving/receiving_package_icon.svg'),
+      null,
+    ),
+    // other SVGs or images here
+  ]);
   runApp(
     EasyLocalization(
       path: LocaleConstant.LANG_PATH,

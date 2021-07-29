@@ -21,6 +21,7 @@ class LocationView extends StatefulWidget {
 }
 
 class _LocationViewState extends State<LocationView> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +117,7 @@ class _LocationViewState extends State<LocationView> {
       //padding: EdgeInsets.only(top: context.dynamicHeight(1)),
       //padding: EdgeInsets.only(top: context.dynamicHeight(0.10)),
       padding: EdgeInsets.only(right: context.dynamicWidht(0.06), left: context.dynamicWidht(0.06)),
-      child: SvgPicture.asset(ImageConstant.LOCATION_IMAGE),
+      child: SvgPicture.asset(ImageConstant.LOCATION_IMAGE, ),
     );
   }
 
