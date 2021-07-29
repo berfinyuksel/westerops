@@ -76,10 +76,7 @@ class _MyNearViewState extends State<MyNearView> {
         for (int i = 0; i < state.response[0].results.length; i++) {
           if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
             restaurants.add(state.response[0].results[i]);
-            distances.add(Haversine.distance(
-                LocationService.latitude!,
-                LocationService.longitude!,
-                state.response[0].results[i].latitude,
+            distances.add(Haversine.distance(LocationService.latitude!, LocationService.longitude!, state.response[0].results[i].latitude,
                 state.response[0].results[i].longitude));
           }
         }
@@ -150,9 +147,7 @@ class _MyNearViewState extends State<MyNearView> {
                                   color: Colors.black.withOpacity(0.2)))),
                     ],
                   ),
-                  Visibility(
-                      visible: isShowBottomInfo,
-                      child: buildBottomInfo(context, restaurants, distances))
+                  Visibility(visible: isShowBottomInfo, child: buildBottomInfo(context, restaurants, distances))
                 ],
               ),
             ),
@@ -160,21 +155,14 @@ class _MyNearViewState extends State<MyNearView> {
         ),
         Visibility(
             visible: !isShowOnMap,
-            child: Expanded(
-                child: Container(
-                    height: context.dynamicHeight(0.54),
-                    child:
-                        buildListViewRestaurantInfo(restaurants, distances))))
+            child: Expanded(child: Container(height: context.dynamicHeight(0.54), child: buildListViewRestaurantInfo(restaurants, distances))))
       ],
     );
   }
 
-  Positioned buildBottomInfo(
-      BuildContext context, List<Store> restaurants, List<double> distances) {
-    String startTime =
-        restaurants[restaurantIndexOnMap].calendar![0].startDate!.split("T")[1];
-    String endTime =
-        restaurants[restaurantIndexOnMap].calendar![0].endDate!.split("T")[1];
+  Positioned buildBottomInfo(BuildContext context, List<Store> restaurants, List<double> distances) {
+    String startTime = restaurants[restaurantIndexOnMap].calendar![0].startDate!.split("T")[1];
+    String endTime = restaurants[restaurantIndexOnMap].calendar![0].endDate!.split("T")[1];
 
     startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
     endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
@@ -192,9 +180,8 @@ class _MyNearViewState extends State<MyNearView> {
             icon: restaurants[restaurantIndexOnMap].photo,
             restaurantName: restaurants[restaurantIndexOnMap].name,
             distance: "${distances[restaurantIndexOnMap].toInt()}m",
-            packetNumber: restaurants[restaurantIndexOnMap].boxes!.length == 0
-                ? 'tükendi'
-                : '${restaurants[restaurantIndexOnMap].boxes!.length} paket',
+            packetNumber:
+                restaurants[restaurantIndexOnMap].boxes!.length == 0 ? 'tükendi' : '${restaurants[restaurantIndexOnMap].boxes!.length} paket',
             availableTime: '$startTime-$endTime',
           ),
         ));
@@ -242,15 +229,12 @@ class _MyNearViewState extends State<MyNearView> {
     );
   }
 
-  ListView buildListViewRestaurantInfo(
-      List<Store> restaurants, List<double> distances) {
+  ListView buildListViewRestaurantInfo(List<Store> restaurants, List<double> distances) {
     return ListView.builder(
         itemCount: restaurants.length,
         itemBuilder: (context, index) {
-          String startTime =
-              restaurants[index].calendar![0].startDate!.split("T")[1];
-          String endTime =
-              restaurants[index].calendar![0].endDate!.split("T")[1];
+          String startTime = restaurants[index].calendar![0].startDate!.split("T")[1];
+          String endTime = restaurants[index].calendar![0].endDate!.split("T")[1];
 
           startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
           endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
@@ -258,9 +242,7 @@ class _MyNearViewState extends State<MyNearView> {
             icon: restaurants[index].photo,
             restaurantName: restaurants[index].name,
             distance: "${distances[index].toInt()}m",
-            packetNumber: restaurants[index].boxes!.length == 0
-                ? 'tükendi'
-                : '${restaurants[index].boxes!.length} paket',
+            packetNumber: restaurants[index].boxes!.length == 0 ? 'tükendi' : '${restaurants[index].boxes!.length} paket',
             availableTime: '$startTime-$endTime',
             border: Border.all(
               width: 1.0,

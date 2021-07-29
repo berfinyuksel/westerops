@@ -8,8 +8,7 @@ class Haversine {
     double dLon = _toRadians(lon2 - lon1);
     lat1 = _toRadians(lat1);
     lat2 = _toRadians(lat2);
-    double a =
-        pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
+    double a = pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
     double c = 2 * asin(sqrt(a));
     return R * c;
   }
