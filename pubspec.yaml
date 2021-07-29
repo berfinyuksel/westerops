@@ -29,17 +29,16 @@ dependencies:
   firebase_auth: ^1.1.0
   firebase_core: ^1.0.3
   flutter_bloc: ^7.0.0-nullsafety.5
-  flutter_facebook_auth: ^3.3.2+2
   flutter_svg: ^0.21.0-nullsafety.0
   geocoding: ^2.0.0
   geolocator: ^7.0.1
   google_fonts: ^2.0.0
   google_maps_flutter: ^2.0.3
-  google_sign_in: ^5.0.1
+  google_sign_in: ^5.0.4
   http: ^0.13.1
   shared_preferences: ^2.0.5
   smooth_page_indicator: ^0.3.0-nullsafety.0
-
+  lottie: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -60,6 +59,8 @@ flutter:
     - assets/images/permissions/
     - assets/images/restaurant_detail/
     - assets/images/notifications/
+
+    - assets/splash/
 
     - assets/commons/
     - assets/images/filters/

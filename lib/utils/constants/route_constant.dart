@@ -26,7 +26,7 @@ class RouteConstant {
   static const MY_INFORMATION_VIEW = '/myInfo';
   static const MY_NEAR_VIEW = '/myNear';
   static const NOTIFICATION_VIEW = '/notification';
-  static const ONBOARDINGS_VIEW = '/';
+  static const ONBOARDINGS_VIEW = '/onBoardings';
   static const ORDER_DELIVERED_VIEW = '/orderDelivered';
   static const ORDER_RECEIVED_VIEW = '/orderReceived';
   static const ORDER_RECEIVING_VIEW = '/orderReceiving';
@@ -38,4 +38,5 @@ class RouteConstant {
   static const SEARCH_VIEW = '/search';
   static const SURPRISE_PACK_CANCELED_VIEW = '/surpriseCanceled';
   static const SURPRISE_PACK_VIEW = '/surprise';
+  static const SPLASH_VIEW = '/';
 }

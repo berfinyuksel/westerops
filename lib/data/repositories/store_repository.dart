@@ -17,7 +17,8 @@ class SampleStoreRepository implements StoreRepository {
       Uri.parse(url),
     );
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
+      final jsonBody = jsonDecode(
+          utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
       List<StoreList> storeLists = [];
       storeLists.add(StoreList.fromJson(jsonBody));
       return storeLists;

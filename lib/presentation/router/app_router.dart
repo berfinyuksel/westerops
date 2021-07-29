@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/splash_view/splash_view.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -139,6 +140,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SurprisePackCanceled());
       case RouteConstant.SURPRISE_PACK_VIEW:
         return MaterialPageRoute(builder: (_) => SurprisePackView());
+            case RouteConstant.SPLASH_VIEW:
+        return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? LoginView() : SplashView());
 
       default:
         return null;

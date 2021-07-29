@@ -84,7 +84,7 @@ class NotificationView extends StatelessWidget {
   AutoSizeText descriptionText() {
     return AutoSizeText(
       LocaleKeys.premission_notification_text2.locale,
-      style: AppTextStyles.bodyBoldTextStyle,
+      style: AppTextStyles.bodyBoldTextStyle.copyWith(height: 1.5),
       maxLines: 4,
       textAlign: TextAlign.center,
     );

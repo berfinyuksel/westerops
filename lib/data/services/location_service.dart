@@ -2,8 +2,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationService {
-  static double? latitude;
-  static double? longitude;
+  static double? latitude = 0; // there was no zero/null
+  static double? longitude = 0; // there was no zero/null
   static List<Placemark>? placeMarks;
 
   static Future<void> getCurrentLocation() async {

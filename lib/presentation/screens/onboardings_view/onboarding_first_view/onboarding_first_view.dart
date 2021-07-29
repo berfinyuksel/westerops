@@ -10,24 +10,26 @@ import '../components/onboarding_text.dart';
 class OnboardingFirstView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: OnboardingBackgroundImage(
-            image: ImageConstant.ONBOARDING_FIRST_BACKGROUND,
+    return SafeArea(
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: OnboardingBackgroundImage(
+              image: ImageConstant.ONBOARDING_FIRST_BACKGROUND,
+            ),
           ),
-        ),
-        Positioned(
-          bottom: context.dynamicHeight(0.08),
-          left: 0,
-          right: 0,
-          child: buildBottomText(context),
-        )
-      ],
+          Positioned(
+            bottom: context.dynamicHeight(0.08),
+            left: 0,
+            right: 0,
+            child: buildBottomText(context),
+          )
+        ],
+      ),
     );
   }
 
@@ -36,22 +38,22 @@ class OnboardingFirstView extends StatelessWidget {
       height: context.dynamicHeight(0.3),
       child: Column(
         children: [
-          Spacer(flex: 5),
+          Spacer(flex: 13),
           Expanded(
-            flex: 3,
+            flex: 8,
             child: OnboardingHeadlineText(
               headlineText: LocaleKeys.onboardings_first_text_headline,
-              maxLines: 1,
-            ),
-          ),
-          Spacer(flex: 1),
-          Expanded(
-            flex: 6,
-            child: OnboardingText(
-              text: LocaleKeys.onboardings_text,
+              
             ),
           ),
           Spacer(flex: 2),
+          Expanded(
+            flex: 8,
+            child: OnboardingText(
+              text: LocaleKeys.onboardings_first_text_first ,
+            ),
+          ),
+          Spacer(flex: 6),
         ],
       ),
     );

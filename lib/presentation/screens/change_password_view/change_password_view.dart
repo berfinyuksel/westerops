@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -52,7 +53,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               top: context.height > 800 ? context.dynamicHeight(0.03) : context.dynamicHeight(0.125),
               left: context.dynamicWidht(0.365),
               right: context.dynamicWidht(0.365),
-              child: Visibility(visible: isRulesVisible, child: ClippedPasswordRules(passwordController: newPasswordController)),
+              child: Visibility(visible: isRulesVisible, child: ClippedPasswordRules( child: PasswordRules(passwordController: passwordController),)),
             ),
           ],
         ),

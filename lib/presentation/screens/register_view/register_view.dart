@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -58,7 +59,8 @@ class _RegisterViewState extends State<RegisterView> {
               top: context.dynamicHeight(0.06),
               left: 0,
               child: IconButton(
-                icon: SvgPicture.asset(ImageConstant.BACK_ICON, color: Colors.white),
+                icon: SvgPicture.asset(ImageConstant.BACK_ICON,
+                    color: Colors.white),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
@@ -71,7 +73,10 @@ class _RegisterViewState extends State<RegisterView> {
             Positioned(
               top: context.dynamicHeight(0.53),
               left: context.dynamicWidht(0.095),
-              child: Visibility(visible: isRulesVisible, child: ClippedPasswordRules(passwordController: passwordController)),
+              child: Visibility(
+                  visible: isRulesVisible,
+                  child: ClippedPasswordRules(
+                      child: PasswordRules(passwordController: passwordController),)),
             ),
           ],
         ),
@@ -80,6 +85,9 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   Container buildCardBody(BuildContext context) {
+    String phoneTR = '+90' + phoneController.text;
+    String phoneEN = '+1' + phoneController.text;
+
     return Container(
       padding: EdgeInsets.only(
         bottom: context.dynamicHeight(0.02),
@@ -115,7 +123,8 @@ class _RegisterViewState extends State<RegisterView> {
           Expanded(
             flex: 5,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -123,7 +132,8 @@ class _RegisterViewState extends State<RegisterView> {
                   Container(
                     height: context.dynamicHeight(0.06),
                     width: context.dynamicWidht(0.57),
-                    child: buildTextFormField(LocaleKeys.register_phone.locale, phoneController),
+                    child: buildTextFormField(
+                        LocaleKeys.register_phone.locale, phoneController),
                   ),
                 ],
               ),
@@ -135,8 +145,10 @@ class _RegisterViewState extends State<RegisterView> {
           Expanded(
             flex: 5,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: buildTextFormField(LocaleKeys.register_full_name.locale, nameController),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+              child: buildTextFormField(
+                  LocaleKeys.register_full_name.locale, nameController),
             ),
           ),
           Spacer(
@@ -145,8 +157,10 @@ class _RegisterViewState extends State<RegisterView> {
           Expanded(
             flex: 5,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: buildTextFormField(LocaleKeys.register_email.locale, emailController),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+              child: buildTextFormField(
+                  LocaleKeys.register_email.locale, emailController),
             ),
           ),
           Spacer(
@@ -155,15 +169,18 @@ class _RegisterViewState extends State<RegisterView> {
           Expanded(
             flex: 5,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: buildTextFormFieldPassword(LocaleKeys.register_password.locale),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+              child: buildTextFormFieldPassword(
+                  LocaleKeys.register_password.locale),
             ),
           ),
           Spacer(
             flex: 2,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -182,16 +199,32 @@ class _RegisterViewState extends State<RegisterView> {
             width: context.dynamicWidht(0.4),
             title: LocaleKeys.register_text_register,
             textColor: Colors.white,
-            color: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
-            borderColor: checkboxValue ? AppColors.greenColor : AppColors.disabledButtonColor,
+            color: checkboxValue
+                ? AppColors.greenColor
+                : AppColors.disabledButtonColor,
+            borderColor: checkboxValue
+                ? AppColors.greenColor
+                : AppColors.disabledButtonColor,
             onPressed: () {
-              bool numberControl = passwordController.text.contains(RegExp(r'[0-9]'));
-              bool uppercaseControl = passwordController.text.contains(RegExp(r'[A-Z]'));
+              bool numberControl =
+                  passwordController.text.contains(RegExp(r'[0-9]'));
+              bool uppercaseControl =
+                  passwordController.text.contains(RegExp(r'[A-Z]'));
               bool lengthControl = passwordController.text.length > 7;
-              if (checkboxValue && numberControl && uppercaseControl && lengthControl) {
+              if (checkboxValue &&
+                  numberControl &&
+                  uppercaseControl &&
+                  lengthControl) {
                 String firstName = nameController.text.split(" ")[0];
                 String lastName = nameController.text.split(" ")[1];
-                context.read<UserAuthCubit>().registerUser(firstName, lastName, emailController.text, phoneController.text, passwordController.text);
+                context.read<UserAuthCubit>().registerUser(
+                    firstName,
+                    lastName,
+                    emailController.text,
+                  dropdownValue == 'TR'
+                ? phoneTR
+                : phoneEN,
+                    passwordController.text);
                 _showMyDialog();
               }
               // AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
@@ -248,7 +281,9 @@ class _RegisterViewState extends State<RegisterView> {
           );
         } else {
           return AlertDialog(
-            contentPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.047), vertical: context.dynamicHeight(0.03)),
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: context.dynamicWidht(0.047),
+                vertical: context.dynamicHeight(0.03)),
             content: Container(
               alignment: Alignment.center,
               height: context.dynamicHeight(0.15),
@@ -270,7 +305,9 @@ class _RegisterViewState extends State<RegisterView> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.', style: AppTextStyles.bodyTitleStyle),
+                      Text(
+                          'Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.',
+                          style: AppTextStyles.bodyTitleStyle),
                       Text.rich(
                         TextSpan(
                           style: GoogleFonts.montserrat(
@@ -401,18 +438,21 @@ class _RegisterViewState extends State<RegisterView> {
           child: const Icon(Icons.keyboard_arrow_down),
         ),
         iconSize: 15,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         onChanged: (String? newValue) {
           setState(() {
             dropdownValue = newValue!;
           });
         },
-        items: <String>['TR', 'EN'].map<DropdownMenuItem<String>>((String value) {
+        items:
+            <String>['TR', 'EN'].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: AutoSizeText(
               value,
-              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+              style: AppTextStyles.bodyTextStyle
+                  .copyWith(fontWeight: FontWeight.w600),
               maxLines: 1,
             ),
           );
@@ -433,7 +473,9 @@ class _RegisterViewState extends State<RegisterView> {
       controller: passwordController,
       obscureText: enableObscure,
       decoration: InputDecoration(
-        suffixIconConstraints: BoxConstraints.tightFor(width: context.dynamicWidht(0.09), height: context.dynamicWidht(0.06)),
+        suffixIconConstraints: BoxConstraints.tightFor(
+            width: context.dynamicWidht(0.09),
+            height: context.dynamicWidht(0.06)),
         suffixIcon: Padding(
           padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
           child: GestureDetector(
@@ -458,13 +500,16 @@ class _RegisterViewState extends State<RegisterView> {
           "",
         ),
         labelStyle: AppTextStyles.bodyTextStyle,
-        prefixStyle: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        prefixStyle:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         border: OutlineInputBorder(
@@ -475,7 +520,11 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  TextFormField buildTextFormField(String labelText, TextEditingController controller) {
+  TextFormField buildTextFormField(
+      String labelText, TextEditingController controller) {
+    String phoneTR = '+90';
+    String phoneEN = '+1';
+
     return TextFormField(
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
@@ -489,17 +538,20 @@ class _RegisterViewState extends State<RegisterView> {
         labelText: labelText,
         prefixText: controller == phoneController
             ? dropdownValue == 'TR'
-                ? "+90"
-                : "+1"
+                ? phoneTR
+                : phoneEN
             : null,
         labelStyle: AppTextStyles.bodyTextStyle,
-        prefixStyle: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        prefixStyle:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         border: OutlineInputBorder(

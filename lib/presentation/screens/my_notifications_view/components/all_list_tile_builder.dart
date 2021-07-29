@@ -36,7 +36,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
         itemCount: value.length,
         itemBuilder: (context, index) {
           return Container(
-            height: context.dynamicHeight(0.097),
+            height: context.dynamicHeight(0.1),
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.065),
             ),
@@ -79,6 +79,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [buildTitle(context, index)[index], buildDateTrailing(context, index)[index]],
                         ),
+
                         Row(
                           children: [Expanded(child: buildDescriptionSubtitle(context, index)[index])],
                         ),
@@ -153,7 +154,9 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_all_list_firstBuyer,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor,
+            height: 1.5),
         alignment: TextAlign.start,
       ),
     );
@@ -164,7 +167,9 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_all_list_forgetRate,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor,
+            height: 1.5),
         alignment: TextAlign.start,
       ),
     );
@@ -175,7 +180,9 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_all_list_courierItsWay,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor,
+            height: 1.5),
         alignment: TextAlign.start,
       ),
     );
@@ -186,7 +193,9 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_all_list_firstBuyer,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor,
+            height: 1.5),
         alignment: TextAlign.start,
       ),
     );
@@ -197,7 +206,9 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_all_list_lastThirtyMinsApprove,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor,
+            height: 1.5),
         alignment: TextAlign.start,
       ),
     );
@@ -208,8 +219,10 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_all_list_lastThirtyMins,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor,
+            height: 1.5),
         alignment: TextAlign.start,
+       
       ),
     );
   }

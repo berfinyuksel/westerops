@@ -57,7 +57,9 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         ),
         Padding(
           padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
-          child: LocaleText(text: LocaleKeys.order_received_order_summary, style: AppTextStyles.bodyTitleStyle),
+          child: LocaleText(
+              text: LocaleKeys.order_received_order_summary,
+              style: AppTextStyles.bodyTitleStyle),
         ),
         SizedBox(
           height: context.dynamicHeight(0.01),
@@ -66,7 +68,10 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         SizedBox(
           height: context.dynamicHeight(0.04),
         ),
-        buildRowTitleLeftRight(context, LocaleKeys.order_received_delivery_address, LocaleKeys.order_received_show_on_map),
+        buildRowTitleLeftRight(
+            context,
+            LocaleKeys.order_received_delivery_address,
+            LocaleKeys.order_received_show_on_map),
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
@@ -77,11 +82,13 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         SizedBox(
           height: context.dynamicHeight(0.04),
         ),
-        buildButton(context, LocaleKeys.order_received_button_1, Colors.transparent, AppColors.greenColor),
+        buildButton(context, LocaleKeys.order_received_button_1,
+            Colors.transparent, AppColors.greenColor),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        buildButton(context, LocaleKeys.order_received_button_2, AppColors.greenColor, Colors.white),
+        buildButton(context, LocaleKeys.order_received_button_2,
+            AppColors.greenColor, Colors.white),
         SizedBox(
           height: context.dynamicHeight(0.06),
         ),
@@ -101,7 +108,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           Spacer(flex: 4),
           LocaleText(
             text: LocaleKeys.order_received_headline,
-            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w400, color: AppColors.orangeColor),
+            style: AppTextStyles.appBarTitleStyle.copyWith(
+                fontWeight: FontWeight.w400, color: AppColors.orangeColor),
             alignment: TextAlign.center,
           ),
           Spacer(flex: 2),
@@ -146,16 +154,21 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           Spacer(flex: 5),
           SvgPicture.asset(ImageConstant.ORDER_RECEIVED_CLOCK_ICON),
           Spacer(flex: 1),
-          LocaleText(text: LocaleKeys.order_received_count_down, style: AppTextStyles.bodyTitleStyle),
+          LocaleText(
+              text: LocaleKeys.order_received_count_down,
+              style: AppTextStyles.bodyTitleStyle),
           Spacer(flex: 1),
-          Text('0$hour:${minute < 10 ? "0$minute" : minute}:${second < 10 ? "0$second" : second}', style: AppTextStyles.appBarTitleStyle),
+          Text(
+              '0$hour:${minute < 10 ? "0$minute" : minute}:${second < 10 ? "0$second" : second}',
+              style: AppTextStyles.appBarTitleStyle),
           Spacer(flex: 5),
         ],
       ),
     );
   }
 
-  Padding buildButton(BuildContext context, String title, Color color, Color textColor) {
+  Padding buildButton(
+      BuildContext context, String title, Color color, Color textColor) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -172,7 +185,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     );
   }
 
-  Padding buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
+  Padding buildRowTitleLeftRight(
+      BuildContext context, String titleLeft, String titleRight) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),

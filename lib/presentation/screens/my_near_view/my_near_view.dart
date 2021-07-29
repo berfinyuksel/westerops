@@ -117,12 +117,14 @@ class _MyNearViewState extends State<MyNearView> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          final GoogleMapController controller = await _mapController.future;
+                          final GoogleMapController controller =
+                              await _mapController.future;
                           setState(() {
                             latitude = LocationService.latitude!;
                             longitude = LocationService.longitude!;
 
-                            controller.animateCamera(CameraUpdate.newCameraPosition(
+                            controller
+                                .animateCamera(CameraUpdate.newCameraPosition(
                               CameraPosition(
                                 target: LatLng(latitude, longitude),
                                 zoom: 17.0,
@@ -130,7 +132,8 @@ class _MyNearViewState extends State<MyNearView> {
                             ));
                           });
                         },
-                        child: SvgPicture.asset(ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                        child: SvgPicture.asset(
+                            ImageConstant.COMMONS_MY_LOCATION_BUTTON),
                       ),
                       Visibility(
                           visible: isShowBottomInfo,
@@ -140,7 +143,8 @@ class _MyNearViewState extends State<MyNearView> {
                                   isShowBottomInfo = false;
                                 });
                               },
-                              child: Container(color: Colors.black.withOpacity(0.2)))),
+                              child: Container(
+                                  color: Colors.black.withOpacity(0.2)))),
                     ],
                   ),
                   Visibility(visible: isShowBottomInfo, child: buildBottomInfo(context, restaurants, distances))
@@ -194,7 +198,8 @@ class _MyNearViewState extends State<MyNearView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildRowTitleLeftRight(context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
+          buildRowTitleLeftRight(
+              context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -209,7 +214,12 @@ class _MyNearViewState extends State<MyNearView> {
             ],
           ),
           SizedBox(height: context.dynamicHeight(0.03)),
-          buildRowTitleLeftRight(context, LocaleKeys.my_near_body_title, isShowOnMap ? LocaleKeys.my_near_show_list : LocaleKeys.my_near_show_map),
+          buildRowTitleLeftRight(
+              context,
+              LocaleKeys.my_near_body_title,
+              isShowOnMap
+                  ? LocaleKeys.my_near_show_list
+                  : LocaleKeys.my_near_show_map),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -242,7 +252,8 @@ class _MyNearViewState extends State<MyNearView> {
         });
   }
 
-  Row buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRight(
+      BuildContext context, String titleLeft, String titleRight) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -314,22 +325,28 @@ class _MyNearViewState extends State<MyNearView> {
   }
 
   void setCustomMarker() async {
-    markerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
-    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_MARKER);
-    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
+    markerIcon =
+        await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
+    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_MARKER);
+    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
     getLocation();
   }
 
-  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(String assetName) async {
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
+      String assetName) async {
     // Read SVG file as String
-    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
+    String svgString =
+        await DefaultAssetBundle.of(context).loadString(assetName);
     // Create DrawableRoot from SVG String
     DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
 
     // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
     MediaQueryData queryData = MediaQuery.of(context);
     double devicePixelRatio = queryData.devicePixelRatio;
-    double width = 64 * devicePixelRatio; // where 32 is your SVG's original width
+    double width =
+        64 * devicePixelRatio; // where 32 is your SVG's original width
     double height = 64 * devicePixelRatio; // same thing
 
     // Convert to ui.Picture

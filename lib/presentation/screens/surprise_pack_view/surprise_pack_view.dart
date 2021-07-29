@@ -60,6 +60,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
         Spacer(
           flex: 5,
         ),
+       // Container(child: Text("data"),),
         buildBottomCard(context),
       ],
     );
@@ -171,6 +172,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
           LocaleText(text: LocaleKeys.order_received_count_down, style: AppTextStyles.bodyTitleStyle),
           Spacer(flex: 1),
           Text('0$hour:${minute < 10 ? "0$minute" : minute}:${second < 10 ? "0$second" : second}', style: AppTextStyles.appBarTitleStyle),
+          Text(" kaldı.",style: AppTextStyles.bodyTitleStyle,),
           Spacer(flex: 5),
         ],
       ),

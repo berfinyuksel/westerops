@@ -13,24 +13,26 @@ class OnboardingSecondView extends StatelessWidget {
   const OnboardingSecondView({Key? key, this.carouselPoints}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: OnboardingBackgroundImage(
-            image: ImageConstant.ONBOARDING_SECOND_BACKGROUND,
+    return SafeArea(
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: OnboardingBackgroundImage(
+              image: ImageConstant.ONBOARDING_SECOND_BACKGROUND,
+            ),
           ),
-        ),
-        Positioned(
-          bottom: context.dynamicHeight(0.08),
-          left: 0,
-          right: 0,
-          child: buildBottomText(context),
-        )
-      ],
+          Positioned(
+            bottom: context.dynamicHeight(0.08),
+            left: 0,
+            right: 0,
+            child: buildBottomText(context),
+          )
+        ],
+      ),
     );
   }
 
@@ -39,22 +41,22 @@ class OnboardingSecondView extends StatelessWidget {
       height: context.dynamicHeight(0.3),
       child: Column(
         children: [
-          Spacer(flex: 3),
+          Spacer(flex: 13),
           Expanded(
-            flex: 4,
+            flex: 8,
             child: OnboardingHeadlineText(
               headlineText: LocaleKeys.onboardings_second_text_headline,
               maxLines: 2,
             ),
           ),
-          Spacer(flex: 1),
+          Spacer(flex: 2),
           Expanded(
-            flex: 4,
+            flex: 8,
             child: OnboardingText(
-              text: LocaleKeys.onboardings_text,
+              text: LocaleKeys.onboardings_second_text_second,
             ),
           ),
-          Spacer(flex: 1),
+          Spacer(flex: 6),
         ],
       ),
     );

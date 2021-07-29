@@ -97,8 +97,15 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
 
   buildRadioButtons(BuildContext context) {
     List<Widget> buttons = [];
+    List<String> des = [
+      "Uygulamadan memnun kalmadım.",
+      "İşletmelerle sorun yaşadım",
+      "Ürün çeşitliliğini yetersiz buldum",
+      "İşletme çeşitliliğini yetersiz buldum",
+      "Ödeme yöntemi bana uygun değil."
+      ];
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
       buttons.add(
         GestureDetector(
           onTap: () {
@@ -133,7 +140,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
                   ),
                 ),
                 LocaleText(
-                  text: "Açıklama ${i + 1}",
+                  text: des[i],
                   style: AppTextStyles.bodyTextStyle,
                 ),
               ],

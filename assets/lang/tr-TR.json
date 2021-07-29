@@ -1,408 +1,411 @@
 {
-    "bottom_nav_bar":{
-        "item_1":"Anasayfa",
-        "item_2":"Arama",
-        "item_3":"Favorilerim",
-        "item_4":"Bildirimlerim",
-        "item_5":"Sepetim"
+    "bottom_nav_bar": {
+        "item_1": "Anasayfa",
+        "item_2": "Arama",
+        "item_3": "Favorilerim",
+        "item_4": "Bildirimlerim",
+        "item_5": "Sepetim"
     },
-    "onboardings" : {
-        "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.",
-        "button" :"Sonraki",
-        "skip" : "Tümünü Geç",
+    "onboardings": {
+        "text": "Döngü’de çeşitli ürün kategorilerinde hizmet sunan çok sayıda gıda işletmesine ulaşabilirsin.",
+        "button": "Sonraki",
+        "skip": "Tümünü Geç",
         "onboarding": {
-            "text1": "Gıda israfıyla savaşmak, gezegenimizi korumak için çıktığımız yolculukta ",
+            "text1": "Gıda israfıyla savaşmak ve gezegenin kaynaklarını korumak için çıktığımız bu yolculukta, ",
             "text2": "aramıza hoş geldin!",
-            "text_headline" :"Sana yakın restoran ve kafelerden birini seç."
+            "text_headline": "Çevreye duyarlı Döngü işletmelerini keşfet."
         },
-
         "first": {
-            "text_headline":"Paketini rezerve et."
-       
+            "text_headline": "İstediğin restoranın sunduğu paketi sepetine ekle.",
+            "text_first": "Günün herhangi bir saatinde sipariş oluşturabilirsin."
         },
         "second": {
-            "text_headline": "Merak etme! Tüm ödeme kanallarını kullanabilirsin."
+            "text_headline": "Online ödeme yöntemi ile siparişini tamamlayabilirsin.",
+            "text_second": "Böylece teslim saati için geri sayım başlar."
         },
         "third": {
-            "text_headline": "Paketini restorandan alabilirsin ya da restoran sana göndersin."
-           
+            "text_headline": "Paketini restorana gelerek teslim alabilir, veya kapıda teslimi seçebilirsin.",
+            "text_third": "Kapıda teslim seçeceği şimdilik yalnızca kurye hizmeti sunan restoranlarda geçerli."
         },
         "forth": {
-            "text_headline":"Dünyayı korumamıza yardımcı olduğun için teşekkürler!",
-            "button":"Get Started"
+            "text_headline": "Gıda israfıyla mücadelede bizi yalnız bırakmadığın için teşekkürler!",
+            "text_forth": "Bu siparişinle gıda israfıyla mücadeleye\n katkı sağladığın için teşekkür ederiz!",
+            "button": "Başlayalım"
         }
     },
-    "register" : {
+    "register": {
         "text_register": "Üye Ol",
-        "phone":"Cep Telefonu",
-        "full_name" :"İsim Soyisim",
-        "email" :"E-posta",
-        "password" :"Şifre",
-        "consent" :{
-            "text1":"Önemli kampanyalardan haberdar olmak için ",
-            "text2":"Rıza Metni",
-            "text3":" kapsamında elektronik ileti almak istiyorum."
+        "phone": "Cep Telefonu",
+        "full_name": "İsim Soyisim",
+        "email": "E-posta",
+        "password": "Şifre",
+        "consent": {
+            "text1": "Önemli kampanyalardan haberdar olmak için ",
+            "text2": "Rıza Metni",
+            "text3": " kapsamında elektronik ileti almak istiyorum."
         },
-        "contract" :{
-            "text1":"Üye olmakla ",
-            "text2":"Kullanım Koşullarını",
-            "text3":" onaylamış olursunuz. Kişisel \nverilerinize dair ",
-            "text4":"Aydınlatma Metni",
-            "text5":" için tıklayınız."
+        "contract": {
+            "text1": "Üye olmakla ",
+            "text2": "Kullanım Koşullarını",
+            "text3": " onaylamış olursunuz. Kişisel \nverilerinize dair ",
+            "text4": "Aydınlatma Metni",
+            "text5": " için tıklayınız."
         },
-        "social_auth":"Devam et"
+        "social_auth": "Devam et"
     },
-    "login" : {
+    "login": {
         "text_login": "Giriş Yap",
-        "phone":"Cep Telefonu",
-        "password" :"Şifre",
-        "forgot_pass":"Şifremi Unuttum",
-        "dont_have_account":"Hesabın yok mu? ",
-        "sign_up":"Üye Ol"
-
+        "phone": "Cep Telefonu",
+        "password": "Şifre",
+        "forgot_pass": "Şifremi Unuttum",
+        "dont_have_account": "Hesabın yok mu? ",
+        "sign_up": "Üye Ol"
     },
-    "forgot_password" : {
-        "phone":"Cep Telefonu",
-        "activation_code":"Aktivasyon Kodu",
-        "new_password" :"Yeni Şifre",
-        "reset_password":"Şifremi Yenile",
-        "send_again":"Kodu Tekrar Gönder",
-        "send_code":"Kod Gönder"
+    "forgot_password": {
+        "phone": "Cep Telefonu",
+        "activation_code": "Aktivasyon Kodu",
+        "new_password": "Yeni Şifre",
+        "reset_password": "Şifremi Yenile",
+        "send_again": "Kodu Tekrar Gönder",
+        "send_code": "Doğrulama Kodu Gönder",
+        "successfully_changed": "Şifreniz başarılı bir şekilde değiştirildi.",
+        "ok": "Tamam"
     },
-    "food_waste" : {
-        "title":"Gıda İsrafı",
-        "text1":"Gıda israfı; üretilen gıdanın henüz tüketilmeden atığa dönüşmesi anlamına gelir.",
-        "text2" :"Üretim, işleme, satış veya tüketim süreçlerinde, gıda israfına yol açan pek çok sebep ortaya çıkabiliyor.",
-        "text3":"Dünya genelinde üretimi gerçekleştirilen toplam gıdanın, üçte bire yakınının tüketilmediği bilinmekte.",
-        "button":"Daha fazla bilgi al",
-        "skip":"Şimdilik Geç"
+    "food_waste": {
+        "title": "Gıda İsrafı",
+        "text1": "Gıda israfı, üretilen gıdaların henüz tüketilmeden atığa dönüşmesidir.",
+        "text2": "Üretim, işleme, satış veya tüketim süreçlerinde, birçok farklı sebep gıdanın israf olmasına yol açabiliyor.",
+        "text3": "Dünya genelinde toplam gıda üretiminin yaklaşık üçte birinin hiç tüketilmediği biliniyor.",
+        "button": "Daha fazla bilgi al",
+        "skip": "Şimdilik Geç"
     },
-    "food_waste_expanded" : {
-        "headline1":"Sen de gıda israfıyla savaşmaya başladın",
-        "headline2":"Güncel Verilerle Gıda İsrafı",
-        "headline3":"Gıda İsrafının Çevreye Etkisi",
-        "body1":"Gezegenimizi korumak çıktığımız bu yolda bizi yalnız bırakmadığın için teşekkürler!",
-        "body2":"Food and Agricultural Organisation of the United Nations (FAO) verilerine göre, bir öğün yemeğin atık olarak değerlendirilmesi, 2.5 kg CO2 gazının yayılmasına yani bir diğer değişle akıllı telefonları 300 milyon kez şarj etmeye ya da 1130 ton kömürün yakılmasına bedel olmaktadır.",
-        "body3":"2050 yılına gelindiğinde dünya nüfusunun yaklaşık 9,3 milyara ulaşması beklenirken, bu büyüklükte bir nüfusun beslenebilmesi için bugünkü gıda üretiminin %60 daha fazlasına ihtiyaç duyulacağı öngörülüyor.",
-        "body4":"Tüketime yönelik üretilen toplam gıdanın %33’ü, tüketiciye ulaşmadan israf ediliyor",
-        "body5":"Gıda israfı, yılda yaklaşık 750 milyar dolara mal oluyor.",
-        "body6":"Türkiye'de her yıl israf edilen yiyecek miktarı, 26 milyon ton. Bu israfın maliyeti ise, 214 milyar TL.",
-        "body7":"Tüketime yönelik üretilen toplam gıdanın %33`ü, tüketiciye ulaşmadan israf ediliyor.",
-        "body8":"İsraf edilen gıdaların üretiminde kullanılan su miktarı (250 km3), Avrupa’nın en uzun nehri olan İdil (Volga) Nehri’nden bir yıl boyunca akan su miktarı ve Cenevre Gölü’nün hacminin 3 katı ile eş değer olup, bu miktar 9 milyon kişinin günlük su ihtiyacı karşılanabilir.",
-        "button":"Restoranları Keşfet"
+    "food_waste_expanded": {
+        "headline1": "Sen de gıda israfıyla savaşmaya başladın",
+        "headline2": "Güncel Verilerle Gıda İsrafı",
+        "headline3": "Gıda İsrafının Çevreye Etkisi",
+        "body1": "Gezegenimizi korumak çıktığımız bu yolda bizi yalnız bırakmadığın için teşekkürler!",
+        "body2": "Food and Agricultural Organisation of the United Nations (FAO) verilerine göre, bir öğün yemeğin atık olarak değerlendirilmesi, 2.5 kg CO2 gazının yayılmasına yani bir diğer değişle akıllı telefonları 300 milyon kez şarj etmeye ya da 1130 ton kömürün yakılmasına bedel olmaktadır.",
+        "body3": "2050 yılına gelindiğinde dünya nüfusunun yaklaşık 9,3 milyara ulaşması beklenirken, bu büyüklükte bir nüfusun beslenebilmesi için bugünkü gıda üretiminin %60 daha fazlasına ihtiyaç duyulacağı öngörülüyor.",
+        "body4": "Tüketime yönelik üretilen toplam gıdanın %33’ü, tüketiciye ulaşmadan israf ediliyor",
+        "body5": "Gıda israfı, yılda yaklaşık 750 milyar dolara mal oluyor.",
+        "body6": "Türkiye'de her yıl israf edilen yiyecek miktarı, 26 milyon ton. Bu israfın maliyeti ise, 214 milyar TL.",
+        "body7": "Tüketime yönelik üretilen toplam gıdanın %33`ü, tüketiciye ulaşmadan israf ediliyor.",
+        "body8": "İsraf edilen gıdaların üretiminde kullanılan su miktarı (250 km3), Avrupa’nın en uzun nehri olan İdil (Volga) Nehri’nden bir yıl boyunca akan su miktarı ve Cenevre Gölü’nün hacminin 3 katı ile eş değer olup, bu miktar 9 milyon kişinin günlük su ihtiyacı karşılanabilir.",
+        "button": "Restoranları Keşfet"
     },
-    "custom_drawer" : {
-        "title":"Profilim",
-        "login_button":"Giriş Yap",
-        "register_button":"Üye Ol",
-        "body_title_1":"Ayarlar",
-        "body_title_2":"Hakkında",
-        "body_list_tile_inform":"Bilgilerim",
-        "body_list_tile_past_orders":"Geçmiş Siparişlerim",
-        "body_list_tile_adresses":"Adreslerim",
-        "body_list_tile_cards":"Kayıtlı Kartlarım",
-        "body_list_tile_general_settings":"Genel Ayarlar",
-        "body_list_tile_language_settings":"Dil Ayarları",
-        "body_list_tile_change_location":"Bölge Değiştir",
-        "body_list_tile_rate_app":"Uygulamayı Değerlendirin",
-        "body_list_tile_about_app":"Uygulama Hakkında",
-        "body_list_tile_about_food_waste":"Gıda İsrafı Hakkında"
+    "custom_drawer": {
+        "title": "Profilim",
+        "login_button": "Giriş Yap",
+        "register_button": "Üye Ol",
+        "body_title_1": "Ayarlar",
+        "body_title_2": "Hakkında",
+        "body_list_tile_inform": "Bilgilerim",
+        "body_list_tile_past_orders": "Geçmiş Siparişlerim",
+        "body_list_tile_adresses": "Adreslerim",
+        "body_list_tile_cards": "Kayıtlı Kartlarım",
+        "body_list_tile_general_settings": "Genel Ayarlar",
+        "body_list_tile_language_settings": "Dil Ayarları",
+        "body_list_tile_change_location": "Bölge Değiştir",
+        "body_list_tile_rate_app": "Uygulamayı Değerlendir",
+        "body_list_tile_about_app": "Uygulama Hakkında",
+        "body_list_tile_about_food_waste": "Gıda İsrafı Hakkında"
     },
     "inform": {
-        "title":"Bilgilerim",
-        "body_title_1":"Kişisel Bilgiler",
-        "body_title_2":"Bağlı Hesaplar",
-        "edit":"Düzenle",
-        "list_tile_name":"Ad",
-        "list_tile_surname":"Soyad",
-        "list_tile_birth":"Doğum Tarihi",
-        "list_tile_mail":"E-posta",
-        "list_tile_phone":"Telefon numarası",
-        "list_tile_change_password":"Şifre Değişikliği",
-        "list_tile_remove_link":"Bağlantıyı Kaldır",
-        "button":"Güncelle",
-        "delete_account":"Hesabımı Sil"
+        "title": "Bilgilerim",
+        "body_title_1": "Kişisel Bilgiler",
+        "body_title_2": "Bağlı Hesaplar",
+        "edit": "Düzenle",
+        "list_tile_name": "Ad",
+        "list_tile_surname": "Soyad",
+        "list_tile_birth": "Doğum Tarihi",
+        "list_tile_mail": "E-posta",
+        "list_tile_phone": "Telefon numarası",
+        "list_tile_change_password": "Şifre Değişikliği",
+        "list_tile_remove_link": "Bağlantıyı Kaldır",
+        "button": "Güncelle",
+        "delete_account": "Hesabımı Sil"
     },
-    "change_password":{
-        "title":"Şifre Değişikliği",
-        "current_password":"Mevcut Şifre",
-        "new_password":"Yeni Şifre",
-        "new_password_again":"Yeni şifre Tekrar",
-        "button":"Kaydet"
+    "change_password": {
+        "title": "Şifre Değişikliği",
+        "current_password": "Mevcut Şifre",
+        "new_password": "Yeni Şifre",
+        "new_password_again": "Yeni şifre Tekrar",
+        "button": "Kaydet"
     },
     "past_order": {
-        "title":"Geçmiş Siparişlerim"
+        "title": "Geçmiş Siparişlerim"
     },
     "past_order_detail": {
-        "title":"Geçmiş Siparişlerim",
-        "body_title_1":"Restoran",
-        "body_title_2":"Puanla",
-        "body_title_3":"Sepettekiler",
-        "body_title_4":"Ödeme",
-        "evaluate_1":"Servis:",
-        "evaluate_2":"Kalite:",
-        "evaluate_3":"Lezzet:",
-        "payment_1":"Sepet Tutarı",
-        "payment_2":"Kurye Ücreti",
-        "payment_3":"Poşet Ücreti",
-        "payment_4":"Ödenen Toplam Tutar",
-        "edit":"Düzenle",
-        "button_1":"Değerlendirmemi Paylaş",
-        "button_2":"Restoranları Keşfet",
-        "thanks":"Değerlendirmen için Teşekkür Ederiz"
+        "title": "Geçmiş Siparişlerim",
+        "body_title_1": "Restoran",
+        "body_title_2": "Puanla",
+        "body_title_3": "Sepetim",
+        "body_title_4": "Ödeme",
+        "evaluate_1": "Servis:",
+        "evaluate_2": "Kalite:",
+        "evaluate_3": "Lezzet:",
+        "payment_1": "Sepet Tutarı",
+        "payment_2": "Kurye Ücreti",
+        "payment_3": "Poşet Ücreti",
+        "payment_4": "Ödenen Toplam Tutar",
+        "edit": "Düzenle",
+        "button_1": "Değerlendirmemi Paylaş",
+        "button_2": "Restoranları Keşfet",
+        "thanks": "Değerlendirmen için Teşekkür Ederiz"
     },
-    "address":{
-        "title":"Adreslerim",
-        "body_title":"Kayıtlı Adreslerim",
-        "button":"Yeni Adres Ekle"
+    "address": {
+        "title": "Adreslerim",
+        "body_title": "Kayıtlı Adreslerim",
+        "button": "Yeni Adres Ekle"
     },
-    "language_settings" : {
-        "title":"Dil Ayarları"
+    "language_settings": {
+        "title": "Dil Ayarları"
     },
-    "general_settings" :{
-        "title":"Genel Ayarlar",
-        "body_title_1":"İletişim İzinleri",
-        "body_title_2":"Bildirimler",
-        "body_title_3":"Konum Servisleri",
-        "contact_confirmation":"Bana özel veya benim için geçerli kampanyalar vb. ile ilgili aşağıdaki seçeceğim yöntemler ile bilgi almak istiyorum. Bu kapsamda sınırlı olmak üzere kişisel verilerimin işlenmesini ve ileti gönderimi için iş ortaklarına aktarılmasını kabul ediyorum.",
-        "sms":"SMS",
-        "email":"E-posta",
-        "phone_call":"Telefonla Arama",
-        "phone_call_subtitle":"Siparişlerimle ilgili iptal/değişiklik gibi durumlar için telefonla aranmak istiyorum",
-        "notification":"Bildirimlere izin ver",
-        "location":"Konumumu algılamasına izin ver"
+    "general_settings": {
+        "title": "Genel Ayarlar",
+        "body_title_1": "İletişim İzinleri",
+        "body_title_2": "Bildirimler",
+        "body_title_3": "Konum Servisleri",
+        "contact_confirmation": "Bana özel veya benim için geçerli kampanyalar vb. ile ilgili aşağıdaki seçeceğim yöntemler ile bilgi almak istiyorum. Bu kapsamda sınırlı olmak üzere kişisel verilerimin işlenmesini ve ileti gönderimi için iş ortaklarına aktarılmasını kabul ediyorum.",
+        "sms": "SMS",
+        "email": "E-posta",
+        "phone_call": "Telefonla Arama",
+        "phone_call_subtitle": "Siparişlerimle ilgili iptal/değişiklik gibi durumlar için telefonla aranmak istiyorum",
+        "notification": "Bildirimlere izin ver",
+        "location": "Konumumu algılamasına izin ver"
     },
-    "about_app":{
-        "title":"Uygulama Hakkında",
-        "website":"Web Sitesi",
-        "website_trailing_text":"www.dongu.com",
-        "contract":"Kullanıcı Sözleşmesi ve KVKK",
-        "clarification":"Aydınlatma Metni",
-        "help_center":"Yardım Merkezi - SSS",
-        "contact":"İletişim",
-        "version":"Sürüm: 1.0.1"
+    "about_app": {
+        "title": "Uygulama Hakkında",
+        "website": "Web Sitesi",
+        "website_trailing_text": "www.dongu.com",
+        "contract": "Kullanıcı Sözleşmesi ve KVKK",
+        "clarification": "Aydınlatma Metni",
+        "help_center": "Yardım Merkezi - SSS",
+        "contact": "İletişim",
+        "version": "Sürüm: 1.0.1"
     },
-    "contact_view":{
-        "title":"İletişim",
-        "body_title":"Bize Ulaşın",
-        "list_tile_1":"Müşteri Hizmetleri"
+    "contact_view": {
+        "title": "İletişim",
+        "body_title": "Bize Ulaşın",
+        "list_tile_1": "Müşteri Hizmetleri"
     },
-    "help_center":{
-        "title":"Yardım Merkezi",
-        "body_title_1":"Üyelik Hakkında",
-        "body_title_2":"Siparişler Hakkında",
-        "list_tile_title_1":"Neden Döngü’de yer almalıyım?",
-        "list_tile_title_2":"Döngü’ye nasıl üye olabilirim?",
-        "list_tile_title_3":"Döngü üyeliği ücretli mi?",
-        "list_tile_title_4":"Döngü aracılığıyla ne tür ve kalitede yiyecekler sunuluyor?",
-        "list_tile_title_5":"Yakınımdaki işletmeleri nasıl bulabilirim?",
-        "list_tile_title_6":"Kurtarabileceğim yiyecek olduğunda nasıl bilgilendirilirim?",
-        "list_tile_title_7":"Nasıl sipariş oluşturabilirim?",
-        "list_tile_title_8":"Sürpriz Paket Nedir?",
-        "list_tile_title_9":"Tanımlı Paket Nedir?",
-        "list_tile_title_10":"Yemeği nasıl teslim alabilirim?",
-        "list_tile_title_11":"Bize Ulaşın",
-        "list_tile_subtitle_1":".  Çok çeşitli ve lezzetli yiyeceklere harika fiyatlarla erişebilmek,\n.  Kaliteli yiyeceklere uygun fiyatlarla ulaşırken, gıda israfının önlemesine katkı sağlayabilmek, \n.  Toplumsal bir sorumluluk olan çevreyi koruma konusunda üzerine düşeni gerçekleştirebilmek istiyorsan, Döngü seni bekliyor."
+    "help_center": {
+        "title": "Yardım Merkezi",
+        "body_title_1": "Üyelik Hakkında",
+        "body_title_2": "Siparişler Hakkında",
+        "list_tile_title_1": "Neden Döngü’de yer almalıyım?",
+        "list_tile_title_2": "Döngü’ye nasıl üye olabilirim?",
+        "list_tile_title_3": "Döngü üyeliği ücretli mi?",
+        "list_tile_title_4": "Döngü aracılığıyla ne tür ve kalitede yiyecekler sunuluyor?",
+        "list_tile_title_5": "Yakınımdaki işletmeleri nasıl bulabilirim?",
+        "list_tile_title_6": "Kurtarabileceğim yiyecek olduğunda nasıl bilgilendirilirim?",
+        "list_tile_title_7": "Nasıl sipariş oluşturabilirim?",
+        "list_tile_title_8": "Sürpriz Paket Nedir?",
+        "list_tile_title_9": "Tanımlı Paket Nedir?",
+        "list_tile_title_10": "Yemeği nasıl teslim alabilirim?",
+        "list_tile_title_11": "Bize Ulaşın",
+        "list_tile_subtitle_1": ".  Çok çeşitli ve lezzetli yiyeceklere harika fiyatlarla erişebilmek,\n.  Kaliteli yiyeceklere uygun fiyatlarla ulaşırken, gıda israfının önlemesine katkı sağlayabilmek, \n.  Toplumsal bir sorumluluk olan çevreyi koruma konusunda üzerine düşeni gerçekleştirebilmek istiyorsan, Döngü seni bekliyor."
     },
-    "change_location":{
-        "title":"Bölge Değiştir",
-        "hint_text":"Şehir Ara"
+    "change_location": {
+        "title": "Bölge Değiştir",
+        "hint_text": "Şehir Ara"
     },
-    "home_page":{
-        "location":"Konumum",
-        "edit":"Düzenle",
-        "closer":"Yakınımdakiler",
-        "see_all":"Tümünü Gör",
-        "categories":"Kategoriler",
-        "opportunities":"Fırsatlar"
+    "home_page": {
+        "location": "Konumum",
+        "edit": "Düzenle",
+        "closer": "Yakınımdakiler",
+        "see_all": "Tümünü Gör",
+        "categories": "Kategoriler",
+        "opportunities": "Fırsatlar"
     },
-    "my_near":{
-        "title":"Yakınımdakiler",
-        "location":"Konumum",
-        "edit":"Değiştir",
-        "body_title":"Yakınımdakiler Tümü",
-        "show_map":"Haritada Göster",
-        "show_list":"Liste Olarak Göster",
-        "hint_text":"Yemek, restoran ara"
+    "my_near": {
+        "title": "Yakınımdakiler",
+        "location": "Konumum",
+        "edit": "Değiştir",
+        "body_title": "Yakınımdakiler Tümü",
+        "show_map": "Haritada Göster",
+        "show_list": "Liste Olarak Göster",
+        "hint_text": "Yemek, restoran ara"
     },
-    "my_favorites":{
-        "title":"Favorilerim",
-        "location":"Konumum",
-        "edit":"Değiştir",
-        "body_title":"Favorilerim",
-        "show_map":"Haritada Göster",
-        "show_list":"Liste Olarak Göster"
+    "my_favorites": {
+        "title": "Favorilerim",
+        "location": "Konumum",
+        "edit": "Değiştir",
+        "body_title": "Favorilerim",
+        "show_map": "Haritada Göster",
+        "show_list": "Liste Olarak Göster"
     },
-    "cart":{
-        "title":"Sepetim",
-        "button_empty":"Restoranları Gör",
-        "button":"Devam Et",
-        "empty_cart":"Upps! Sepetin boş.",
-        "choose_restaurant":"Haydi!\nSana yakın restoran ve kafelerden birini seç."
+    "cart": {
+        "title": "Sepetim",
+        "button_empty": "Restoranları Gör",
+        "button": "Devam Et",
+        "empty_cart": "Upps! Sepetin boş.",
+        "choose_restaurant": "Haydi!\nSana yakın restoran ve kafelerden birini seç."
     },
-    "payment":{
-        "tab_1":"Adres",
-        "tab_2":"Teslimat",
-        "tab_3":"Ödeme",
-        "get_it":"Gel-Al Paket",
-        "package_delivery":"Motorlu Kurye",
-        "button_go_on":"Devam Et",
-        "address":{
-            "from_address":"Teslim Alınacak Adres",
-            "to_address":"Teslimat Adresi",
-            "change":"Değiştir",
-            "show_on_map":"Haritada Göster",
-            "billing_info":"Fatura Bilgileri",
-            "button_add_address":"Yeni Teslimat Adresi Ekle",
-            "button_add_bill":"Yeni Fatura Adresi Ekle",
-            "use_as_billing":"Fatura adresi olarakta kullan"
+    "payment": {
+        "tab_1": "Adres",
+        "tab_2": "Teslimat",
+        "tab_3": "Ödeme",
+        "get_it": "Gel-Al Paket",
+        "package_delivery": "Kapıda Paket",
+        "button_go_on": "Devam Et",
+        "address": {
+            "from_address": "Teslim Alınacak Adres",
+            "to_address": "Teslimat Adresi",
+            "change": "Değiştir",
+            "show_on_map": "Haritada Göster",
+            "billing_info": "Fatura Bilgileri",
+            "button_add_address": "Yeni Teslimat Adresi Ekle",
+            "button_add_bill": "Yeni Fatura Adresi Ekle",
+            "use_as_billing": "Fatura adresi olarakta kullan"
         },
         "delivery": {
-            "delivery_time":"Teslim Saat Aralığı"
+            "delivery_time": "Teslim Saat Aralığı"
         },
         "payment": {
-            "choose_card":"Kayıtlı Kartlarımdan Seç",
-            "cancel":"Vazgeç",
-            "name_card":"Karta İsim Ver",
-            "pay_another_card":"Başka Kartla Öde",
-            "order_amount":"Sipariş Tutarı",
-            "to_be_paid":"Ödenecek Tutar:",
-            "pay":"Ödeme Yap",
-            "pay_type":"Ödeme Yöntemi",
-            "cash":"Nakit",
-            "credit":"Kredi",
-            "name_on_card":"Kart Üzerindeki İsim",
-            "card_number":"Kart Numarası",
-            "add_to_registered_cards":"Kayıtlı Kartlarıma Ekle"
+            "choose_card": "Kayıtlı Kartlarımdan Seç",
+            "cancel": "Vazgeç",
+            "name_card": "Karta İsim Ver",
+            "pay_another_card": "Başka Kartla Öde",
+            "order_amount": "Sipariş Tutarı",
+            "to_be_paid": "Ödenecek Tutar:",
+            "pay": "Ödeme Yap",
+            "pay_type": "Ödeme Yöntemi",
+            "cash": "Nakit",
+            "credit": "Kredi",
+            "name_on_card": "Kart Üzerindeki İsim",
+            "card_number": "Kart Numarası",
+            "add_to_registered_cards": "Kayıtlı Kartlarıma Ekle"
         }
     },
     "order_received": {
-        "headline":"Siparişiniz Alındı",
-        "order_number":"Sipariş Numarası: ",
-        "subtitle":"* Siparişinizi teslim alırken bu numarayı restorana belirtiniz.",
-        "count_down":"Teslim saatine kalan süre",
-        "order_summary":"Sipariş Özeti",
-        "take_from_restaurant":" Restorandan teslim alabilirsiniz.",
-        "item_number":"Sepetindeki ürün adedi:",
-        "order_amount":"Sipariş Tutarı: ",
-        "total_amount":"Ödenen Toplam Tutar:",
-        "delivery_address":"Teslim Alınacak Adres",
-        "show_on_map":"Haritada Göster",
-        "button_1":"Geçmiş Siparişlerim",
-        "button_2":"Dünyamızı Kurtarmaya Devam Et"
+        "headline": "Siparişiniz Alındı",
+        "order_number": "Sipariş Numarası: ",
+        "subtitle": "* Siparişinizi teslim alırken bu numarayı restorana belirtiniz.",
+        "count_down": "Teslim zamanına",
+        "order_summary": "Sipariş Özeti",
+        "take_from_restaurant": " Restorandan teslim alabilirsiniz.",
+        "item_number": "Sepetindeki ürün adedi:",
+        "order_amount": "Sipariş Tutarı: ",
+        "total_amount": "Ödenen Toplam Tutar:",
+        "delivery_address": "Teslim Alınacak Adres",
+        "show_on_map": "Haritada Göster",
+        "button_1": "Geçmiş Siparişlerim",
+        "button_2": "Dünyamızı Kurtarmaya Devam Et"
     },
-    "order_delivered":{
-        "headline_text":"Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",
-        "body_text":"Gezegenimizi korumak çıktığımız bu yolda\nbizi yalnız bırakmadığın için teşekkürler!\nŞimdi sıra siparişini puanlamada!",
-        "button":"Değerlendir"
+    "order_delivered": {
+        "headline_text": "Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",
+        "body_text": "Gezegenimizi korumak çıktığımız bu yolda\nbizi yalnız bırakmadığın için teşekkürler!\nŞimdi sıra siparişini puanlamada!",
+        "button": "Değerlendir"
     },
-    "delete_account":{
-        "title":"Hesabımı Sil",
-        "text_1":"Gidiyor musun?",
-        "text_2":"Neden hesabını silmek istiyorsun? Lütfen seç. Bilgileriniz 30 gün süreyle saklanacaktır. 30 gün içinde tekrar gelirseniz, hesabınıza hiçbir şey olmamış gibi giriş yapabilirsiniz.",
-        "button":"Hesabımı Sil",
-        "hint_text":"Başka açıklama ekleyebilirsin"
+    "delete_account": {
+        "title": "Hesabımı Sil",
+        "text_1": "Gidiyor musun?",
+        "text_2": "Hesabını neden silmek istiyorsun? Lütfen yanıtla. Bilgilerini 30 gün süreyle saklayacağız. 30 gün içerisinde geri gelmeye karar verirsen, Döngü hesabını kullanmaya kaldığın yerden devam edebilirsin.",
+        "button": "Hesabımı Sil",
+        "hint_text": "Başka bir sebepten.(Lütfen açıklayın)"
     },
     "surprise_pack": {
-        "surprise_pack_opened":"Sürpriz Paketin açıldı!",
-        "surprise_pack":"Sürpriz Paket",
-        "button_reject":"Reddet",
-        "button_accept":"Kabul Et",
-        "alert_button1":"Hayır",
-        "alert_button2":"Evet",
-        "alert_text":"Paketini İptal Etmek istediğine\nemin misin?"
+        "surprise_pack_opened": "Sürpriz Paketin açıldı!",
+        "surprise_pack": "Sürpriz Paket",
+        "button_reject": "Reddet",
+        "button_accept": "Kabul Et",
+        "alert_button1": "Hayır",
+        "alert_button2": "Evet",
+        "alert_text": "Paketini İptal Etmek istediğine\nemin misin?"
     },
     "surprise_pack_canceled": {
-        "canceled_your_pack":"Tanımlanmış Paketini İptal Ettin!",
-        "button_buy":"Satın Al",
-        "button_send":"Gönder",
-        "pack_canceled":"Tanımlanmış Paketin İptal Edildi."
+        "canceled_your_pack": "Tanımlanmış Paketini İptal Ettin!",
+        "button_buy": "Satın Al",
+        "button_send": "Gönder",
+        "pack_canceled": "Tanımlanmış Paketin İptal Edildi."
     },
     "address_from_map": {
-        "title":"Yeni Adres Ekle",
-        "hint_text":"Mahalle, cadde, sokak ara",
-        "button":"Bu Adresi Kullan"
+        "title": "Yeni Adres Ekle",
+        "hint_text": "Mahalle, cadde, sokak ara",
+        "button": "Bu Adresi Kullan"
     },
     "premission_notification": {
-        "text1": "Döngü bildirimlerine izin ver",
-        "text2": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "text1": "Döngü’nün sana bildirim göndermesine izin ver.",
+        "text2": "Yeni lezzetlerden ve mevcut kampanyalardan seni haberdar edebilmemiz için Döngü bildirim ayarlarını aktif hale getirmen yeterli.",
         "button1": "İzin Ver",
         "button2": "Şimdilik Geç"
-        },
+    },
     "premission_location": {
-        "text1": "Konum hizmetlerini etkinleştirin",
-        "text2": "Yakındaki lezzetli yiyecekleri aramak için, uygun konumunuzu bilmek istiyoruz.",
+        "text1": "Konum servislerini aç.",
+        "text2": "Yakınındaki Döngü işletmelerinin sunduğu lezzetleri görebilmen için mevcut konumunu bilmeye ihtiyacımız var.",
         "button1": "Etkinleştir",
         "button2": "Şimdilik Geç"
-            },
+    },
     "location_card": {
         "text1": "Kısa Başlık En İyisidir",
         "text2": "Bir mesaj kısa ve tam bir cümle olmalıdır.",
         "button1": "İptal",
         "button2": "Aktifleştir"
     },
-        "filters": {
-            "sort": {
-                "title": "Sırala",
-                "item1": "Uzaklığa Göre Sırala",
-                "item2": "Favorilerin",
-                "item3": "Kullanıcı Puanı",
-                "item4": "Yeni Katılanlar"
-            },
-            "package_price": {
-                "title": "Paket Fiyatı",
-                "item1": "Minimum fiyat",
-                "item2": "Maximum fiyat",
-                "item3": "TL"
-            },
-            "package_delivery": {
-                "title": "Paket Teslimi",
-                "item1": "Gel-Al Paket",
-                "item2": "Motorlu Kurye"
-            },
-            "payment_method": {
-                "title": "Ödeme Şekli",
-                "item1": "Online Ödeme",
-                "item2": "Kapıda/Restorana Ödeme"
-            },
-            "choose_category": {
-                "title": "Kategori Seç",
-                "item1": "Ana Yemek",
-                "item2": "İçecek",
-                "item3": "Vegan",
-                "item4": "Hamburger",
-                "item5": "Tatlı",
-                "item6": "Pizza",
-                "item7": "Tavuk",
-                "item8": "Kahve",
-                "item9": "Tümünü Seç"
-            },
-            "button": {
-                "item1": "Temizle",
-                "item2": "Kaydet"
-            }
+    "filters": {
+        "sort": {
+            "title": "Sırala",
+            "item1": "Uzaklığa Göre Sırala",
+            "item2": "Favorilerim",
+            "item3": "Kullanıcı Puanı",
+            "item4": "Yeni Katılanlar"
         },
-        "search": {
-            "text1": "Arama Geçmişim",
-            "text2": "Temizle",
-            "text3": "Popüler Aramalar",
-            "text4": "Kategoriler",
-            "text5": "Yemek, restoran ara",
-            "item1": "Döner",
-            "item2": "Mantı",
-            "item3": "Canım Büfe",
-            "kind1": "Hamburger",
-            "kind2": "Tavuk",
-            "kind3": "Yemek",
-            "kind4": "Cheese Burger",
-            "kind5": "Tavuk",
-            "kind6": "Vegan",
-            "kind7": "Pizza",
-            "kind8": "İçecek",
-            "kind9": "Tatlı",
-            "kind10": "Kahve"
+        "package_price": {
+            "title": "Paket Fiyatı",
+            "item1": "Minimum fiyat",
+            "item2": "Maximum fiyat",
+            "item3": "TL"
         },
-       "restaurant_detail": {
+        "package_delivery": {
+            "title": "Paket Teslim Yöntemi",
+            "item1": "Gel-Al Paket",
+            "item2": "Kapıda Paket"
+        },
+        "payment_method": {
+            "title": "Ödeme Şekli",
+            "item1": "Online Ödeme",
+            "item2": "Kapıda/Restorana Ödeme"
+        },
+        "choose_category": {
+            "title": "Kategori",
+            "item1": "Ana Yemek",
+            "item2": "İçecek",
+            "item3": "Vegan",
+            "item4": "Hamburger",
+            "item5": "Tatlı",
+            "item6": "Pizza",
+            "item7": "Tavuk",
+            "item8": "Kahve",
+            "item9": "Tümünü Seç"
+        },
+        "button": {
+            "item1": "Temizle",
+            "item2": "Kaydet"
+        }
+    },
+    "search": {
+        "text1": "Arama Geçmişim",
+        "text2": "Temizle",
+        "text3": "Popüler Aramalar",
+        "text4": "Kategoriler",
+        "text5": "Yemek, restoran ara",
+        "item1": "Döner",
+        "item2": "Mantı",
+        "item3": "Canım Büfe",
+        "kind1": "Hamburger",
+        "kind2": "Tavuk",
+        "kind3": "Yemek",
+        "kind4": "Cheese Burger",
+        "kind5": "Tavuk",
+        "kind6": "Vegan",
+        "kind7": "Pizza",
+        "kind8": "İçecek",
+        "kind9": "Tatlı",
+        "kind10": "Kahve",
+        "cancel_button": "Vazgeç"
+    },
+    "restaurant_detail": {
         "text1": "Paketler",
         "text2": "Bilgiler",
         "text3": "Restoranı Favorilerime Ekle",
@@ -426,8 +429,8 @@
             "title3": "Çalışma Saatleri",
             "title4": "Ödeme Şekli",
             "title5": "İletişim",
-            "title6": "Gıda Kategorileri",
-            "sub_title1": "Gel Al Paket - Motorlu Kurye",
+            "title6": "Kategoriler",
+            "sub_title1": "Gel Al Paket - Kapıda Paket",
             "sub_title2": "Bugün: ",
             "sub_title3": "Online Kredi Kartı/Banka Kartı - Kapıda Ödeme",
             "sub_title4": "İşletme Adı Mini Burger",
@@ -438,39 +441,38 @@
         "text1": "Açık büfe yemek gıda güvenliği",
         "text2": "Ek Öneriler",
         "text3": "Bu öğe açık büfeden yiyecek içeriyor",
-        "text4": "İşletmeniz, yiyeceklerinizi nasıl kullanacağınıza ve \ndepolayacağınıza ilişkin öneriler tanımladıysa, \nbunları aşağıdaki alanda paylaşabiliriz."
+        "text4": "İşletmenizin yiyecek-içecek kullanımı ve depolama ile ilgili önerilerini, aşağıdaki alanda paylaşabilirsiniz."
     },
-    "my_notifications":
-    {
+    "my_notifications": {
         "tab_bar_title": {
-            "title1": "Siperişlerim",
+            "title1": "Siparişlerim",
             "title2": "Tümü",
             "title3": "Bana Özel"
         },
-        "delete_text":{
+        "delete_text": {
             "text": "Sil"
         },
         "my_orders": {
-        "title": "🛒 Siparişlerim",
-        "courierItsWay": "Siparişin sana ulaşmak üzere yola çıktı. 🛵💨",
-        "forgetRate": "Siparişin sana ulaştı. Puanlamayı unutma.\n ⭐️⭐️⭐️⭐️⭐️"
+            "title": "🛒 Siparişlerim",
+            "courierItsWay": "Siparişin sana ulaşmak üzere yola çıktı. 🛵💨",
+            "forgetRate": "Siparişin sana ulaştı. Puanlamayı unutma.\n ⭐️⭐️⭐️⭐️⭐️"
         },
         "all_list": {
-        "title1": "🔔 Sürpriz Paket Alarmı",
-        "title2": "🛒 Siparişlerim",
-        "title3": "🎉 Bana Özel Fırsatlar",
-        "lastThirtyMins": "Satın aldığın sürpriz paketin açılmasına son\n yarım saat kaldı! 🥳🎉✨",
-        "lastThirtyMinsApprove": "Satın aldığın paket açıldı 30 dk içerisinde\n onaylamalısın!",
-        "firstBuyer": "Favorilediğin Restoranın yeni paket ekledi.\n İlk satın alana sen ol! 🥇",
-        "courierItsWay": "Siparişin sana ulaşmak üzere yola çıktı. 🛵💨",
-        "forgetRate": "Siparişin sana ulaştı. Puanlamayı unutma.\n ⭐️⭐️⭐️⭐️⭐️"
+            "title1": "🔔 Sürpriz Paket Alarmı",
+            "title2": "🛒 Siparişlerim",
+            "title3": "🎉 Bana Özel Fırsatlar",
+            "lastThirtyMins": "Satın aldığın sürpriz paketin açılmasına son\nyarım saat kaldı! 🥳🎉✨",
+            "lastThirtyMinsApprove": "Satın aldığın paket açıldı 30 dk içerisinde\nonaylamalısın!",
+            "firstBuyer": "Favorilediğin Restoranın yeni paket ekledi.\nİlk satın alana sen ol! 🥇",
+            "courierItsWay": "Siparişin sana ulaşmak üzere yola çıktı. 🛵💨",
+            "forgetRate": "Siparişin sana ulaştı. Puanlamayı unutma.\n ⭐️⭐️⭐️⭐️⭐️"
         },
         "special_for_me": {
             "title": "🎉 Bana Özel Fırsatlar",
-            "discountFifty": "Favorilediğin Restoran paketlerini tam\n %50 indirimle satışa çıkardı!",
-            "discountSeventy": "Favorilediğin Restoran paketlerini tam\n %70 indirimle satışa çıkardı!",
-            "pawsAnimals": "Bugün satın aldığın paketlerin geliri\n patili dostlarımıza ulaşıyor.",
-            "favorite": "Favori Restoranının bugün 10 paketi var.\n Acele et bu Döngü’ye sen de ortak ol!"
+            "discountFifty": "Favorilediğin Restoran paketlerini tam\n%50 indirimle satışa çıkardı!",
+            "discountSeventy": "Favorilediğin Restoran paketlerini tam\n%70 indirimle satışa çıkardı!",
+            "pawsAnimals": "Bugün satın aldığın paketlerin geliri\npatili dostlarımıza ulaşıyor.",
+            "favorite": "Favori Restoranının bugün 10 paketi var.\nAcele et bu Döngü’ye sen de ortak ol!"
         }
     }
 }

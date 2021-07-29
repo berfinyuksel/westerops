@@ -8,71 +8,76 @@ import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final String? hintText;
-  const CustomSearchBar({Key? key, this.hintText}) : super(key: key);
+  final FocusNode? focusNode;
+  final TextEditingController? controller;
+  final VoidCallback? onTap;
+  final Function(String)? onChanged;
+  final Widget? textButton;
+  final double? containerPadding;
+  const CustomSearchBar(
+      {Key? key,
+      this.hintText,
+      this.focusNode,
+      this.controller,
+      this.onTap,
+      this.onChanged,
+      this.textButton, this.containerPadding})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: AlignmentDirectional.centerStart,
+    return Row(
       children: [
-       
         Container(
-          width: context.dynamicWidht(0.9),
-          height: context.dynamicWidht(0.12),
+          width: containerPadding,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.horizontal(
-              left: Radius.circular(25.0),
-              right: Radius.circular(4.0),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0),
+              bottomLeft: Radius.circular(25.0),
             ),
             color: Colors.white,
-            border: Border.all(
-              width: 2.0,
-              color: AppColors.borderAndDividerColor,
-            ),
           ),
-          child: Padding(
-            padding: EdgeInsets.only(
-              right: context.dynamicWidht(0.15),
-            ),
-            child: TextField(
-              onChanged: (value) {
-                //filterSearchResults(value);
-              },
-              onTap: () {
-                /*setState(() {
-                  _valueSearch = !_valueSearch;
-                });*/
-              },
-              decoration: InputDecoration(
-                hintText: hintText,
-                hintStyle: AppTextStyles.bodyTextStyle.copyWith(fontSize: 16),
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-              ),
-            //  controller: controller,
-              textAlign: TextAlign.center,
-            ),
+          child: TextFormField(
+            controller: controller,
+            focusNode: focusNode,
+            onChanged: onChanged,
+            onTap: onTap,
+            cursorColor: AppColors.cursorColor,
+            style: AppTextStyles.bodyTextStyle,
+            decoration: InputDecoration(
+                prefixIcon: Padding(
+                  padding: EdgeInsets.only(right:context.dynamicWidht(0.04)),
+                  child: SvgPicture.asset(
+                    ImageConstant.COMMONS_SEARCH_ICON,
+                  ),
+                ),
+                
+                border: buildOutlineInputBorder(),
+                focusedBorder: buildOutlineInputBorder(),
+                enabledBorder: buildOutlineInputBorder(),
+                errorBorder: buildOutlineInputBorder(),
+                disabledBorder: buildOutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.only(left: context.dynamicWidht(0.046)),
+                hintText: "Yemek, restoran ara"),
           ),
         ),
-        Container(
-          alignment: Alignment.center,
-          width: context.dynamicWidht(0.13),
-          height: context.dynamicHeight(0.13),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.yellowColor,
-          ),
-          child: SvgPicture.asset(
-            // search
-            ImageConstant.SEARCH_ICON,
-            width: context.dynamicWidht(0.039),
-            height: context.dynamicHeight(0.058),
-          ),
-        ),
+        SizedBox(width: context.dynamicWidht(0.01),),
+        textButton?? SizedBox()
       ],
+    );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(25.0),
+        bottomLeft: Radius.circular(25.0),
+      ),
+      borderSide: BorderSide(
+        width: 2.0,
+        color: AppColors.borderAndDividerColor,
+      ),
     );
   }
 }

@@ -45,7 +45,8 @@ class _LoginViewState extends State<LoginView> {
             top: context.dynamicHeight(0.06),
             left: 0,
             child: IconButton(
-              icon: SvgPicture.asset(ImageConstant.BACK_ICON, color: Colors.white),
+              icon: SvgPicture.asset(ImageConstant.BACK_ICON,
+                  color: Colors.white),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
@@ -92,7 +93,8 @@ class _LoginViewState extends State<LoginView> {
           Expanded(
             flex: 4,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -100,7 +102,8 @@ class _LoginViewState extends State<LoginView> {
                   Container(
                     height: context.dynamicHeight(0.06),
                     width: context.dynamicWidht(0.57),
-                    child: buildTextFormField(LocaleKeys.register_phone.locale, phoneController),
+                    child: buildTextFormField(
+                        LocaleKeys.register_phone.locale, phoneController),
                   ),
                 ],
               ),
@@ -112,8 +115,10 @@ class _LoginViewState extends State<LoginView> {
           Expanded(
             flex: 4,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: buildTextFormField(LocaleKeys.register_password.locale, passwordController),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+              child: buildTextFormField(
+                  LocaleKeys.register_password.locale, passwordController),
             ),
           ),
           Spacer(flex: 2),
@@ -124,7 +129,12 @@ class _LoginViewState extends State<LoginView> {
             color: AppColors.greenColor,
             borderColor: AppColors.greenColor,
             onPressed: () async {
-              await context.read<UserAuthCubit>().loginUser(phoneController.text, passwordController.text);
+              String phoneTR = '+90' + phoneController.text;
+              String phoneEN = '+1' + phoneController.text;
+              await context
+                  .read<UserAuthCubit>()
+                  .loginUser(
+                  dropdownValue == 'TR' ? phoneTR : phoneEN, passwordController.text);
               if (SharedPrefs.getIsLogined) {
                 Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
               }
@@ -196,7 +206,7 @@ class _LoginViewState extends State<LoginView> {
           ),
           GestureDetector(
             onTap: () {
-              AuthService.loginWithFacebook();
+              //   AuthService.loginWithFacebook();
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
@@ -237,18 +247,21 @@ class _LoginViewState extends State<LoginView> {
           child: const Icon(Icons.keyboard_arrow_down),
         ),
         iconSize: 15,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         onChanged: (String? newValue) {
           setState(() {
             dropdownValue = newValue!;
           });
         },
-        items: <String>['TR', 'EN'].map<DropdownMenuItem<String>>((String value) {
+        items:
+            <String>['TR', 'EN'].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: AutoSizeText(
               value,
-              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+              style: AppTextStyles.bodyTextStyle
+                  .copyWith(fontWeight: FontWeight.w600),
               maxLines: 1,
             ),
           );
@@ -257,21 +270,28 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  TextFormField buildTextFormField(String labelText, TextEditingController controller) {
+  TextFormField buildTextFormField(
+      String labelText, TextEditingController controller) {
+            String phoneTR = '+90';
+    String phoneEN = '+1';
     return TextFormField(
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       controller: controller,
       obscureText: enableObscure && controller == passwordController,
       decoration: InputDecoration(
-        prefixStyle: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        prefixStyle:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         prefixText: controller == phoneController
             ? dropdownValue == 'TR'
-                ? "+90"
-                : "+1"
+                ? phoneTR
+                : phoneEN
             : "",
-        suffixIconConstraints:
-            controller == passwordController ? BoxConstraints.tightFor(width: context.dynamicWidht(0.09), height: context.dynamicWidht(0.06)) : null,
+        suffixIconConstraints: controller == passwordController
+            ? BoxConstraints.tightFor(
+                width: context.dynamicWidht(0.09),
+                height: context.dynamicWidht(0.06))
+            : null,
         suffixIcon: controller == passwordController
             ? Padding(
                 padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
@@ -296,11 +316,13 @@ class _LoginViewState extends State<LoginView> {
         labelText: labelText,
         labelStyle: AppTextStyles.bodyTextStyle,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         border: OutlineInputBorder(

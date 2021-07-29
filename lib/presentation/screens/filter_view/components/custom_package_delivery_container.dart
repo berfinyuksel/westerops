@@ -39,7 +39,7 @@ class _CustomContainerPackageDeliveryState
               Spacer(flex: 5),
             ],
           ),
-          Spacer(flex: 2),
+          Spacer(flex: 1),
           Row(
             children: [
               Spacer(flex: 4),
@@ -49,7 +49,7 @@ class _CustomContainerPackageDeliveryState
               Spacer(flex: 5),
             ],
           ),
-          Spacer(flex: 3),
+          Spacer(flex: 4),
         ],
       ),
     );

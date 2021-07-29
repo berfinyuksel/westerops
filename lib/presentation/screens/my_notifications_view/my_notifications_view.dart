@@ -91,6 +91,7 @@ class _MyNotificationsViewState extends State<MyNotificationsView> with SingleTi
         labelPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
         indicator: UnderlineTabIndicator(
             borderSide: BorderSide(width: 3, color: AppColors.orangeColor), insets: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.060))),
+            indicatorPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.01)),
         labelColor: AppColors.orangeColor,
         labelStyle: AppTextStyles.bodyTitleStyle,
         unselectedLabelColor: AppColors.textColor,

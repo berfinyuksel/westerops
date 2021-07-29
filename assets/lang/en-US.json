@@ -1,10 +1,10 @@
 {
-    "bottom_nav_bar":{
-        "item_1":"Home",
-        "item_2":"Search",
-        "item_3":"Favorites",
-        "item_4":"Notifications",
-        "item_5":"Cart"
+    "bottom_nav_bar": {
+        "item_1": "Home",
+        "item_2": "Search",
+        "item_3": "Favorites",
+        "item_4": "Notifications",
+        "item_5": "Cart"
     },
     "onboardings": {
         "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore.",
@@ -16,16 +16,20 @@
             "text_headline": "Choose from restaurants and cafes close to you."
         },
         "first": {
-            "text_headline": "Reserve your package."
+            "text_headline": "Reserve your package.",
+            "text_first": "Günün herhangi bir saatinde sipariş oluşturabilirsin."
         },
         "second": {
-            "text_headline": "Do not worry! You can use all payment channels."
+            "text_headline": "Do not worry! You can use all payment channels.",
+            "text_second": "Böylece teslim saati için geri sayım başlar"
         },
         "third": {
-            "text_headline": "You can get your package from the restaurant or the restaurant will send it to you."
+            "text_headline": "You can get your package from the restaurant or the restaurant will send it to you.",
+            "text_third": "Kapıda teslim seçeceği şimdilik yalnızca kurye hizmeti sunan restoranlarda geçerli."
         },
         "forth": {
             "text_headline": "Thanks for helping us protect the world!",
+            "text_forth": "Bu siparişinle gıda israfıyla mücadeleye katkı sağladığın için teşekkür ederiz!",
             "button": "Get Started"
         }
     },
@@ -63,7 +67,9 @@
         "new_password": "New Password",
         "reset_password": "Reset Password",
         "send_again": "Resend Kod",
-        "send_code": "Send Code"
+        "send_code": "Send Code",
+        "successfully_changed": "Your password has been successfully changed.",
+        "ok": "Ok"
     },
     "food_waste": {
         "title": "Food Waste",
@@ -73,251 +79,251 @@
         "button": "Get more information",
         "skip": "Skip for now"
     },
-    "food_waste_expanded" : {
-        "headline1":"You too started fighting food waste",
-        "headline2":"Food Waste with Current Data",
-        "headline3":"The Impact of Food Waste on the Environment",
-        "body1":"Thank you for not leaving us alone on this road we set out to protect our planet!",
-        "body2":"According to the Food and Agricultural Organization of the United Nations (FAO) data, evaluating a meal as waste means emitting 2.5 kg of CO2 gas, in other words, charging smartphones 300 million times or burning 1130 tons of coal.",
-        "body3":"By 2050, the world population is expected to reach approximately 9.3 billion, and it is predicted that 60% more than today's food production will be needed to feed a population of this size.",
-        "body4":"33% of the total food produced for consumption is wasted before it reaches the consumer.",
-        "body5":"Food waste costs around $ 750 billion a year.",
-        "body6":"The amount of food wasted every year in Turkey, 26 million tons. The cost of this waste is 214 billion TL.",
-        "body7":"33% of the total food produced for consumption is wasted before it reaches the consumer.",
-        "body8":"The amount of water used in the production of wasted food (250 km3) is equivalent to the amount of water flowing from the Idil (Volga) River, Europe's longest river, and 3 times the volume of Lake Geneva, which is equal to 9 million people. daily water need can be met.",
-        "button":"Explore Restaurants"
+    "food_waste_expanded": {
+        "headline1": "You too started fighting food waste",
+        "headline2": "Food Waste with Current Data",
+        "headline3": "The Impact of Food Waste on the Environment",
+        "body1": "Thank you for not leaving us alone on this road we set out to protect our planet!",
+        "body2": "According to the Food and Agricultural Organization of the United Nations (FAO) data, evaluating a meal as waste means emitting 2.5 kg of CO2 gas, in other words, charging smartphones 300 million times or burning 1130 tons of coal.",
+        "body3": "By 2050, the world population is expected to reach approximately 9.3 billion, and it is predicted that 60% more than today's food production will be needed to feed a population of this size.",
+        "body4": "33% of the total food produced for consumption is wasted before it reaches the consumer.",
+        "body5": "Food waste costs around $ 750 billion a year.",
+        "body6": "The amount of food wasted every year in Turkey, 26 million tons. The cost of this waste is 214 billion TL.",
+        "body7": "33% of the total food produced for consumption is wasted before it reaches the consumer.",
+        "body8": "The amount of water used in the production of wasted food (250 km3) is equivalent to the amount of water flowing from the Idil (Volga) River, Europe's longest river, and 3 times the volume of Lake Geneva, which is equal to 9 million people. daily water need can be met.",
+        "button": "Explore Restaurants"
     },
-    "custom_drawer" : {
-        "title":"My Profile",
-        "login_button":"Login",
-        "register_button":"Register",
-        "body_title_1":"Settings",
-        "body_title_2":"About",
-        "body_list_tile_inform":"My Information",
-        "body_list_tile_past_orders":"My Past Orders",
-        "body_list_tile_adresses":"My Addresses",
-        "body_list_tile_cards":"My Registered Cards",
-        "body_list_tile_general_settings":"General Settings",
-        "body_list_tile_language_settings":"Language Settings",
-        "body_list_tile_change_location":"Change Region",
-        "body_list_tile_rate_app":"Rate App",
-        "body_list_tile_about_app":"About App",
-        "body_list_tile_about_food_waste":"About Food Waste"
+    "custom_drawer": {
+        "title": "My Profile",
+        "login_button": "Login",
+        "register_button": "Register",
+        "body_title_1": "Settings",
+        "body_title_2": "About",
+        "body_list_tile_inform": "My Information",
+        "body_list_tile_past_orders": "My Past Orders",
+        "body_list_tile_adresses": "My Addresses",
+        "body_list_tile_cards": "My Registered Cards",
+        "body_list_tile_general_settings": "General Settings",
+        "body_list_tile_language_settings": "Language Settings",
+        "body_list_tile_change_location": "Change Region",
+        "body_list_tile_rate_app": "Rate App",
+        "body_list_tile_about_app": "About App",
+        "body_list_tile_about_food_waste": "About Food Waste"
     },
     "inform": {
-        "title":"My Information",
-        "body_title_1":"Personal Information",
-        "body_title_2":"Linked Accounts",
-        "edit":"Edit",
-        "list_tile_name":"Name",
-        "list_tile_surname":"Surname",
-        "list_tile_birth":"Date of birth",
-        "list_tile_mail":"E-mail",
-        "list_tile_phone":"Phone number",
-        "list_tile_change_password":"Change Password",
-        "list_tile_remove_link":"Remove link",
-        "button":"Update",
-        "delete_account":"Delete My Account"
+        "title": "My Information",
+        "body_title_1": "Personal Information",
+        "body_title_2": "Linked Accounts",
+        "edit": "Edit",
+        "list_tile_name": "Name",
+        "list_tile_surname": "Surname",
+        "list_tile_birth": "Date of birth",
+        "list_tile_mail": "E-mail",
+        "list_tile_phone": "Phone number",
+        "list_tile_change_password": "Change Password",
+        "list_tile_remove_link": "Remove link",
+        "button": "Update",
+        "delete_account": "Delete My Account"
     },
-    "change_password":{
-        "title":"Change Password",
-        "current_password":"Current Password",
-        "new_password":"New Password",
-        "new_password_again":"Repeat New Password",
-        "button":"Save"
+    "change_password": {
+        "title": "Change Password",
+        "current_password": "Current Password",
+        "new_password": "New Password",
+        "new_password_again": "Repeat New Password",
+        "button": "Save"
     },
     "past_order": {
-        "title":"My Past Orders"
+        "title": "My Past Orders"
     },
     "past_order_detail": {
-        "title":"My Past Orders",
-        "body_title_1":"Restaurant",
-        "body_title_2":"Evaluate",
-        "body_title_3":"Cart Items",
-        "body_title_4":"Payment",
-        "evaluate_1":"Service:",
-        "evaluate_2":"Quality:",
-        "evaluate_3":"Taste:",
-        "payment_1":"Cart Total",
-        "payment_2":"Courier Fee",
-        "payment_3":"Bag Fee",
-        "payment_4":"Total Amount Paid",
-        "edit":"Edit",
-        "button_1":"Share My Review",
-        "button_2":"Explore Restaurants",
-        "thanks":"Thank You for Your Evaluation"
+        "title": "My Past Orders",
+        "body_title_1": "Restaurant",
+        "body_title_2": "Evaluate",
+        "body_title_3": "Cart Items",
+        "body_title_4": "Payment",
+        "evaluate_1": "Service:",
+        "evaluate_2": "Quality:",
+        "evaluate_3": "Taste:",
+        "payment_1": "Cart Total",
+        "payment_2": "Courier Fee",
+        "payment_3": "Bag Fee",
+        "payment_4": "Total Amount Paid",
+        "edit": "Edit",
+        "button_1": "Share My Review",
+        "button_2": "Explore Restaurants",
+        "thanks": "Thank You for Your Evaluation"
     },
-    "address":{
-        "title":"My Adresses",
-        "body_title":"My Recorded Addresses",
-        "button":"Add New Address"
+    "address": {
+        "title": "My Adresses",
+        "body_title": "My Recorded Addresses",
+        "button": "Add New Address"
     },
-    "language_settings" : {
-        "title":"Language Settings"
+    "language_settings": {
+        "title": "Language Settings"
     },
-    "general_settings" :{
-        "title":"General Settings",
-        "body_title_1":"Communication Permissions",
-        "body_title_2":"Notifications",
-        "body_title_3":"Location Services",
-        "contact_confirmation":"Special offers for me or valid for me, etc. I want to get information about the following methods I will choose. Within this scope, I accept my personal data to be processed and transferred to business partners for sending messages.",
-        "sms":"SMS",
-        "email":"E-mail",
-        "phone_call":"Telephone Call",
-        "phone_call_subtitle":"I want to be called by phone for situations such as cancellation / change related to orders.",
-        "notification":"Allow notifications",
-        "location":"Allow detect my location"
+    "general_settings": {
+        "title": "General Settings",
+        "body_title_1": "Communication Permissions",
+        "body_title_2": "Notifications",
+        "body_title_3": "Location Services",
+        "contact_confirmation": "Special offers for me or valid for me, etc. I want to get information about the following methods I will choose. Within this scope, I accept my personal data to be processed and transferred to business partners for sending messages.",
+        "sms": "SMS",
+        "email": "E-mail",
+        "phone_call": "Telephone Call",
+        "phone_call_subtitle": "I want to be called by phone for situations such as cancellation / change related to orders.",
+        "notification": "Allow notifications",
+        "location": "Allow detect my location"
     },
-    "about_app":{
-        "title":"About App",
-        "website":"Website",
-        "website_trailing_text":"www.dongu.com",
-        "contract":"User Agreement and KVKK",
-        "clarification":"Clarification Text",
-        "help_center":"Help Center - FAQ",
-        "contact":"Contact",
-        "version":"Version: 1.0.1"
+    "about_app": {
+        "title": "About App",
+        "website": "Website",
+        "website_trailing_text": "www.dongu.com",
+        "contract": "User Agreement and KVKK",
+        "clarification": "Clarification Text",
+        "help_center": "Help Center - FAQ",
+        "contact": "Contact",
+        "version": "Version: 1.0.1"
     },
-    "contact_view":{
-        "title":"Contact",
-        "body_title":"Contact Us",
-        "list_tile_1":"Customer Service"
+    "contact_view": {
+        "title": "Contact",
+        "body_title": "Contact Us",
+        "list_tile_1": "Customer Service"
     },
-    "help_center":{
-        "title":"Help Center",
-        "body_title_1":"About Membership",
-        "body_title_2":"About Orders",
-        "list_tile_title_1":"Why should I be in the Döngü?",
-        "list_tile_title_2":"How can I become a member of Döngü?",
-        "list_tile_title_3":"Is Döngü membership paid?",
-        "list_tile_title_4":"What kind and quality of food is served through Döngü?",
-        "list_tile_title_5":"How can I find businesses near me?",
-        "list_tile_title_6":"How will I be notified when there is food I can save?",
-        "list_tile_title_7":"How can I create an order?",
-        "list_tile_title_8":"What is Surprise Package?",
-        "list_tile_title_9":"What is a Defined Package?",
-        "list_tile_title_10":"How can I receive the food?",
-        "list_tile_title_11":"Contact Us",
-        "list_tile_subtitle_1":".  Having access to a wide variety of delicious food at great prices, \n. To be able to contribute to the prevention of food waste while reaching quality food at affordable prices, \n. The Cycle is waiting for you if you want to do your part in protecting the environment, which is a social responsibility."
+    "help_center": {
+        "title": "Help Center",
+        "body_title_1": "About Membership",
+        "body_title_2": "About Orders",
+        "list_tile_title_1": "Why should I be in the Döngü?",
+        "list_tile_title_2": "How can I become a member of Döngü?",
+        "list_tile_title_3": "Is Döngü membership paid?",
+        "list_tile_title_4": "What kind and quality of food is served through Döngü?",
+        "list_tile_title_5": "How can I find businesses near me?",
+        "list_tile_title_6": "How will I be notified when there is food I can save?",
+        "list_tile_title_7": "How can I create an order?",
+        "list_tile_title_8": "What is Surprise Package?",
+        "list_tile_title_9": "What is a Defined Package?",
+        "list_tile_title_10": "How can I receive the food?",
+        "list_tile_title_11": "Contact Us",
+        "list_tile_subtitle_1": ".  Having access to a wide variety of delicious food at great prices, \n. To be able to contribute to the prevention of food waste while reaching quality food at affordable prices, \n. The Cycle is waiting for you if you want to do your part in protecting the environment, which is a social responsibility."
     },
-    "change_location":{
-        "title":"Change Region",
-        "hint_text":"Search City"
+    "change_location": {
+        "title": "Change Region",
+        "hint_text": "Search City"
     },
-    "home_page":{
-        "location":"My Location",
-        "edit":"Edit",
-        "closer":"Near me",
-        "see_all":"See All",
-        "categories":"Categories",
-        "opportunities":"Opportunities"
+    "home_page": {
+        "location": "My Location",
+        "edit": "Edit",
+        "closer": "Near me",
+        "see_all": "See All",
+        "categories": "Categories",
+        "opportunities": "Opportunities"
     },
-    "my_near":{
-        "title":"Near Me",
-        "location":"My Location",
-        "edit":"Change",
-        "body_title":"Near Me All",
-        "show_map":"Show on Map",
-        "show_list":"Show as List",
-        "hint_text":"Search for food, restaurants"
+    "my_near": {
+        "title": "Near Me",
+        "location": "My Location",
+        "edit": "Change",
+        "body_title": "Near Me All",
+        "show_map": "Show on Map",
+        "show_list": "Show as List",
+        "hint_text": "Search for food, restaurants"
     },
-    "my_favorites":{
-        "title":"My Favorites",
-        "location":"My Location",
-        "edit":"Change",
-        "body_title":"My Favorites",
-        "show_map":"Show on Map",
-        "show_list":"Show as List"
+    "my_favorites": {
+        "title": "My Favorites",
+        "location": "My Location",
+        "edit": "Change",
+        "body_title": "My Favorites",
+        "show_map": "Show on Map",
+        "show_list": "Show as List"
     },
-    "cart":{
-        "title":"My Cart",
-        "button_empty":"See Restaurants",
-        "button":"Go ahead",
-        "empty_cart":"Upps! Your cart is empty.",
-        "choose_restaurant":"Lets!\nChoose from restaurants and cafes close to you."
+    "cart": {
+        "title": "My Cart",
+        "button_empty": "See Restaurants",
+        "button": "Go ahead",
+        "empty_cart": "Upps! Your cart is empty.",
+        "choose_restaurant": "Lets!\nChoose from restaurants and cafes close to you."
     },
-    "payment":{
-        "tab_1":"Address",
-        "tab_2":"Delivery",
-        "tab_3":"Payment",
-        "get_it":"Take-Out Package",
-        "package_delivery":"Motor Courier",
-        "button_go_on":"Go On",
-        "address":{
-            "from_address":"Delivery Address",
-            "to_address":"Delivery Address",
-            "change":"Change",
-            "show_on_map":"Show on Map",
-            "billing_info":"Billing Information",
-            "button_add_address":"Add New Delivery Address",
-            "button_add_bill":"Add New Billing Address",
-            "use_as_billing":"Use as billing address"
+    "payment": {
+        "tab_1": "Address",
+        "tab_2": "Delivery",
+        "tab_3": "Payment",
+        "get_it": "Take-Away",
+        "package_delivery": "Courier",
+        "button_go_on": "Go On",
+        "address": {
+            "from_address": "Delivery Address",
+            "to_address": "Delivery Address",
+            "change": "Change",
+            "show_on_map": "Show on Map",
+            "billing_info": "Billing Information",
+            "button_add_address": "Add New Delivery Address",
+            "button_add_bill": "Add New Billing Address",
+            "use_as_billing": "Use as billing address"
         },
         "delivery": {
-            "delivery_time":"Delivery Time Range"
+            "delivery_time": "Delivery Time Range"
         },
         "payment": {
-            "choose_card":"Choose from My Registered Cards",
-            "cancel":"Cancel",
-            "name_card":"Name Card",
-            "pay_another_card":"Pay With Another Card",
-            "order_amount":"Order Amount",
-            "to_be_paid":"Amount to be paid:",
-            "pay":"Pay",
-            "pay_type":"Payment Method",
-            "cash":"Cash",
-            "credit":"Credit Card",
-            "name_on_card":"Name on The Card",
-            "card_number":"Card Number",
-            "add_to_registered_cards":"Add to My Saved Cards"
+            "choose_card": "Choose from My Registered Cards",
+            "cancel": "Cancel",
+            "name_card": "Name Card",
+            "pay_another_card": "Pay With Another Card",
+            "order_amount": "Order Amount",
+            "to_be_paid": "Amount to be paid:",
+            "pay": "Pay",
+            "pay_type": "Payment Method",
+            "cash": "Cash",
+            "credit": "Credit Card",
+            "name_on_card": "Name on The Card",
+            "card_number": "Card Number",
+            "add_to_registered_cards": "Add to My Saved Cards"
         }
     },
     "order_received": {
-        "headline":"Your Order Has Been Received",
-        "order_number":"Order Number: ",
-        "subtitle":"* Please indicate this number to the restaurant when receiving your order.",
-        "count_down":"Time to delivery time",
-        "order_summary":"Order Summary",
-        "take_from_restaurant":" You can pick it up from the restaurant.",
-        "item_number":"Number of products in your cart:",
-        "order_amount":"Order amount: ",
-        "total_amount":"Total Amount Paid:",
-        "delivery_address":"Delivery Address",
-        "show_on_map":"Show on Map",
-        "button_1":"My Past Orders",
-        "button_2":"Continue to Save Our World"
+        "headline": "Your Order Has Been Received",
+        "order_number": "Order Number: ",
+        "subtitle": "* Please indicate this number to the restaurant when receiving your order.",
+        "count_down": "Time to delivery time",
+        "order_summary": "Order Summary",
+        "take_from_restaurant": " You can pick it up from the restaurant.",
+        "item_number": "Number of products in your cart:",
+        "order_amount": "Order amount: ",
+        "total_amount": "Total Amount Paid:",
+        "delivery_address": "Delivery Address",
+        "show_on_map": "Show on Map",
+        "button_1": "My Past Orders",
+        "button_2": "Continue to Save Our World"
     },
-    "order_delivered":{
-        "headline_text":"Thanks for\nhelping us\nprotect the world!",
-        "body_text":"Thank you for not leaving us alone on this road\nwe set out to protect our planet!\nNow it's time to score your order!",
-        "button":"Evaluate"
+    "order_delivered": {
+        "headline_text": "Thanks for\nhelping us\nprotect the world!",
+        "body_text": "Thank you for not leaving us alone on this road\nwe set out to protect our planet!\nNow it's time to score your order!",
+        "button": "Evaluate"
     },
-    "delete_account":{
-        "title":"Delete My Account",
-        "text_1":"Are you leaving?",
-        "text_2":"Why do you want to delete your account? Please choose. Your information will be stored for 30 days. If you come back within 30 days, you can log into your account as if nothing had happened.",
-        "button":"Delete My Account",
-        "hint_text":"You can add another description"
+    "delete_account": {
+        "title": "Delete My Account",
+        "text_1": "Are you leaving?",
+        "text_2": "Why do you want to delete your account? Please choose. Your information will be stored for 30 days. If you come back within 30 days, you can log into your account as if nothing had happened.",
+        "button": "Delete My Account",
+        "hint_text": "You can add another description"
     },
     "surprise_pack": {
-        "surprise_pack_opened":"Your Surprise Package has been opened!",
-        "surprise_pack":"Surprise Package",
-        "button_reject":"Reject",
-        "button_accept":"Accept",
-        "alert_button1":"No",
-        "alert_button2":"Yes",
-        "alert_text":"Are you sure you want to\nCancel your package?"
+        "surprise_pack_opened": "Your Surprise Package has been opened!",
+        "surprise_pack": "Surprise Package",
+        "button_reject": "Reject",
+        "button_accept": "Accept",
+        "alert_button1": "No",
+        "alert_button2": "Yes",
+        "alert_text": "Are you sure you want to\nCancel your package?"
     },
     "surprise_pack_canceled": {
-        "canceled_your_pack":"You Canceled Your Specified Package!",
-        "button_buy":"Buy",
-        "button_send":"Send",
-        "pack_canceled":"Defined Package Canceled."
+        "canceled_your_pack": "You Canceled Your Specified Package!",
+        "button_buy": "Buy",
+        "button_send": "Send",
+        "pack_canceled": "Defined Package Canceled."
     },
     "address_from_map": {
-        "title":"Add New Address",
-        "hint_text":"Search district, street",
-        "button":"Use This Address"
+        "title": "Add New Address",
+        "hint_text": "Search district, street",
+        "button": "Use This Address"
     },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
@@ -396,7 +402,8 @@
         "kind7": "Pizza",
         "kind8": "Drink",
         "kind9": "Dessert",
-        "kind10": "Coffee"
+        "kind10": "Coffee",
+        "cancel_button": "Cancel"
     },
     "restaurant_detail": {
         "text1": "Packets",
@@ -440,11 +447,11 @@
         "tab_bar_title": {
             "title1": "My Orders",
             "title2": "All",
-            "title3": "Special For Me"
+            "title3": "Special to Me"
         },
-            "delete_text": {
-                "text": "Delete"
-            },
+        "delete_text": {
+            "text": "Delete"
+        },
         "my_orders": {
             "title": "🛒 My Orders",
             "courierItsWay": "Your order is on its way to you. 🛵💨",
@@ -454,11 +461,11 @@
             "title1": "🔔 Surprise Package Alarm",
             "title2": "🛒 My Orders",
             "title3": "🎉 Special Offers For Me",
-            "lastThirtyMins": "The last half an hour is left for the surprise\n package you purchased to open! 🥳🎉✨",
-            "lastThirtyMinsApprove": "The package you bought has been opened,\n you have to confirm it within 30 minutes!",
-            "firstBuyer": "Your Favorite Restaurant has added a new\n package. Be the first to buy! 🥇",
+            "lastThirtyMins": "The last half an hour is left for the surprise package you purchased to open! 🥳🎉✨",
+            "lastThirtyMinsApprove": "The package you bought has been opened, you have to confirm it within 30 minutes!",
+            "firstBuyer": "Your Favorite Restaurant has added a new package. Be the first to buy! 🥇",
             "courierItsWay": "Your order is on its way to you. 🛵💨",
-            "forgetRate": "Your order has reached you. Don't forget to rate it.\n ⭐️⭐️⭐️⭐️⭐️"
+            "forgetRate": "Your order has reached you. Don't forget to rate it. ⭐️⭐️⭐️⭐️⭐️"
         },
         "special_for_me": {
             "title": "🎉 Special Offers For Me",

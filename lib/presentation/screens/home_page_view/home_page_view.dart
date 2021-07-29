@@ -28,6 +28,10 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
+  bool scroolNearMe = false;
+  bool scroolCategories = false;
+  bool scroolOpportunities = false;
+  ScrollController? _controller;
   @override
   void initState() {
     super.initState();
@@ -53,10 +57,15 @@ class _HomePageViewState extends State<HomePageView> {
         List<Store> restaurants = [];
         List<double> distances = [];
         for (int i = 0; i < state.response[0].results.length; i++) {
-          if ((filterState.minValue! == null ? 0 : filterState.minValue!) < state.response[0].results[i].minOrderPrice) {
-            if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
+          if ((filterState.minValue! == null ? 0 : filterState.minValue!) <
+              state.response[0].results[i].minOrderPrice) {
+            if (SharedPrefs.getUserAddress ==
+                state.response[0].results[i].city) {
               restaurants.add(state.response[0].results[i]);
-              distances.add(Haversine.distance(LocationService.latitude!, LocationService.longitude!, state.response[0].results[i].latitude,
+              distances.add(Haversine.distance(
+                  LocationService.latitude!,
+                  LocationService.longitude!,
+                  state.response[0].results[i].latitude,
                   state.response[0].results[i].longitude));
             }
           }
@@ -69,104 +78,272 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  ListView buildBody(BuildContext context, List<Store> restaurants, List<double> distances) {
+  ListView buildBody(
+      BuildContext context, List<Store> restaurants, List<double> distances) {
     return ListView(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        // left: context.dynamicWidht(0.06),
+        //right: context.dynamicWidht(0.06),
         top: context.dynamicHeight(0.02),
         bottom: context.dynamicHeight(0.02),
       ),
       children: [
-        buildRowTitleLeftRight(context, LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
-        Divider(
-          thickness: 4,
-          color: AppColors.borderAndDividerColor,
+        Padding(
+          padding: EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+              right: context.dynamicWidht(0.06)),
+          child: buildRowTitleLeftRight(context, LocaleKeys.home_page_location,
+              LocaleKeys.home_page_edit),
         ),
-        AddressText(),
-        SizedBox(height: context.dynamicHeight(0.03)),
-        Row(
-          children: [
-            buildSearchBar(context),
-            Spacer(),
-            GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
-                },
-                child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON)),
-          ],
+        Padding(
+          padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+          ),
+          child: Divider(
+            thickness: 4,
+            color: AppColors.borderAndDividerColor,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+              right: context.dynamicWidht(0.06)),
+          child: AddressText(),
         ),
         SizedBox(height: context.dynamicHeight(0.03)),
-        buildRowTitleLeftRight(context, LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
-        Divider(
-          thickness: 4,
-          color: AppColors.borderAndDividerColor,
+        Padding(
+          padding: EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+              right: context.dynamicWidht(0.06)),
+          child: Row(
+            children: [
+              buildSearchBar(context),
+              Spacer(),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+                  },
+                  child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON)),
+            ],
+          ),
+        ),
+        SizedBox(height: context.dynamicHeight(0.03)),
+        Padding(
+          padding: EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+              right: context.dynamicWidht(0.06)),
+          child: buildRowTitleLeftRight(context, LocaleKeys.home_page_closer,
+              LocaleKeys.home_page_see_all),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+          ),
+          child: Divider(
+            thickness: 4,
+            color: AppColors.borderAndDividerColor,
+          ),
         ),
         SizedBox(height: context.dynamicHeight(0.02)),
-        buildListView(context, restaurants, distances),
+        //bool scrool = false;
+        Padding(
+          padding: scroolNearMe
+              ? EdgeInsets.only(
+                  left: context.dynamicWidht(0.00),
+                )
+              : EdgeInsets.only(
+                  left: context.dynamicWidht(0.06),
+                ),
+          child: buildListViewNearMe(context, restaurants, distances),
+        ),
         SizedBox(height: context.dynamicHeight(0.04)),
-        LocaleText(
-          text: LocaleKeys.home_page_categories,
-          style: AppTextStyles.bodyTitleStyle,
+        Padding(
+          padding: EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+              right: context.dynamicWidht(0.06)),
+          child: LocaleText(
+            text: LocaleKeys.home_page_categories,
+            style: AppTextStyles.bodyTitleStyle,
+          ),
         ),
-        Divider(
-          thickness: 4,
-          color: AppColors.borderAndDividerColor,
+        Padding(
+          // scroll edildiğinde 0 olacak
+          padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+          ),
+          child: Divider(
+            thickness: 4,
+            color: AppColors.borderAndDividerColor,
+          ),
         ),
         SizedBox(height: context.dynamicHeight(0.01)),
-        Container(height: context.dynamicHeight(0.16), child: CustomHorizontalListCategory()),
-        LocaleText(
-          text: LocaleKeys.home_page_opportunities,
-          style: AppTextStyles.bodyTitleStyle,
+        Padding(
+          padding: scroolCategories
+              ? EdgeInsets.only(
+                  left: context.dynamicWidht(0.00),
+                )
+              : EdgeInsets.only(
+                  left: context.dynamicWidht(0.06),
+                ),
+          child: Container(
+              height: context.dynamicHeight(0.16),
+              child: NotificationListener(
+                  onNotification: (t) {
+                    if (scroolCategories == false) {
+                      setState(() {
+                        scroolCategories = !scroolCategories;
+                      });
+                    }
+                    return scroolCategories;
+                  },
+                  child: CustomHorizontalListCategory())),
         ),
-        Divider(
-          thickness: 4,
-          color: AppColors.borderAndDividerColor,
+        Padding(
+          padding: EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+              right: context.dynamicWidht(0.06)),
+          child: LocaleText(
+            text: LocaleKeys.home_page_opportunities,
+            style: AppTextStyles.bodyTitleStyle,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+          ),
+          child: Divider(
+            thickness: 4,
+            color: AppColors.borderAndDividerColor,
+          ),
         ),
         SizedBox(height: context.dynamicHeight(0.01)),
-        buildListView(context, restaurants, distances),
+        Padding(
+          padding: scroolOpportunities
+              ? EdgeInsets.only(
+                  left: context.dynamicWidht(0.00),
+                )
+              : EdgeInsets.only(
+                  left: context.dynamicWidht(0.06),
+                ),
+          child: buildListViewOpportunities(context, restaurants, distances),
+        ),
       ],
     );
   }
 
-  Container buildListView(BuildContext context, List<Store> restaurants, List<double> distances) {
+  Container buildListViewNearMe(
+      BuildContext context, List<Store> restaurants, List<double> distances) {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
-      child: ListView.separated(
-        itemCount: restaurants.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          String startTime = restaurants[index].calendar![0].startDate!.split("T")[1];
-          String endTime = restaurants[index].calendar![0].endDate!.split("T")[1];
+      child: NotificationListener(
+        onNotification: (t) {
+          if (scroolNearMe == false) {
+            setState(() {
+              scroolNearMe = !scroolNearMe;
+            });
+          }
 
-          startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
-          endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
-
-          return GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL, arguments: ScreenArgumentsRestaurantDetail(restaurants[index]));
-            },
-            child: RestaurantInfoCard(
-              restaurantIcon: restaurants[index].photo,
-              backgroundImage: restaurants[index].background,
-              packetNumber: restaurants[index].boxes!.length == 0 ? 'tükendi' : '${restaurants[index].boxes!.length} paket',
-              restaurantName: restaurants[index].name,
-              grade: "4.7",
-              location: restaurants[index].city,
-              distance: "${distances[index].toInt()}m",
-              availableTime: '$startTime-$endTime',
-            ),
-          );
+          return scroolNearMe;
         },
-        separatorBuilder: (BuildContext context, int index) => SizedBox(
-          width: context.dynamicWidht(0.04),
+        child: ListView.separated(
+          controller: _controller,
+          itemCount: restaurants.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            String startTime =
+                restaurants[index].calendar![0].startDate!.split("T")[1];
+            String endTime =
+                restaurants[index].calendar![0].endDate!.split("T")[1];
+
+            startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
+            endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
+
+            return GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                    arguments:
+                        ScreenArgumentsRestaurantDetail(restaurants[index]));
+              },
+              child: RestaurantInfoCard(
+                restaurantIcon: restaurants[index].photo,
+                backgroundImage: restaurants[index].background,
+                packetNumber: restaurants[index].boxes!.length == 0
+                    ? 'tükendi'
+                    : '${restaurants[index].boxes!.length} paket',
+                restaurantName: restaurants[index].name,
+                grade: "4.7",
+                location: restaurants[index].city,
+                distance: "${distances[index].toInt()} m",
+                availableTime: '$startTime-$endTime',
+              ),
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) => SizedBox(
+            width: context.dynamicWidht(0.04),
+          ),
         ),
       ),
     );
   }
 
-  Row buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
+  Container buildListViewOpportunities(
+      BuildContext context, List<Store> restaurants, List<double> distances) {
+    return Container(
+      width: context.dynamicWidht(0.64),
+      height: context.dynamicHeight(0.29),
+      child: NotificationListener(
+        onNotification: (t) {
+          if (scroolOpportunities == false) {
+            setState(() {
+              scroolOpportunities = !scroolOpportunities;
+            });
+          }
+          return scroolOpportunities;
+        },
+        child: ListView.separated(
+          controller: _controller,
+          itemCount: restaurants.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            String startTime =
+                restaurants[index].calendar![0].startDate!.split("T")[1];
+            String endTime =
+                restaurants[index].calendar![0].endDate!.split("T")[1];
+
+            startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
+            endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
+
+            return GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                    arguments:
+                        ScreenArgumentsRestaurantDetail(restaurants[index]));
+              },
+              child: RestaurantInfoCard(
+                restaurantIcon: restaurants[index].photo,
+                backgroundImage: restaurants[index].background,
+                packetNumber: restaurants[index].boxes!.length == 0
+                    ? 'tükendi'
+                    : '${restaurants[index].boxes!.length} paket',
+                restaurantName: restaurants[index].name,
+                grade: "4.7",
+                location: restaurants[index].city,
+                distance: "${distances[index].toInt()} m",
+                availableTime: '$startTime-$endTime',
+              ),
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) => SizedBox(
+            width: context.dynamicWidht(0.04),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Row buildRowTitleLeftRight(
+      BuildContext context, String titleLeft, String titleRight) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

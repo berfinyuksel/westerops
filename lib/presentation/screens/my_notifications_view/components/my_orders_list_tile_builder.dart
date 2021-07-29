@@ -126,7 +126,7 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_my_orders_forgetRate,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor),
         alignment: TextAlign.start,
       ),
     );
@@ -137,7 +137,8 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_my_orders_courierItsWay,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor),
         alignment: TextAlign.start,
       ),
     );
@@ -148,7 +149,8 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_my_orders_forgetRate,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor),
         alignment: TextAlign.start,
       ),
     );
@@ -159,7 +161,8 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_my_orders_courierItsWay,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor),
         alignment: TextAlign.start,
       ),
     );

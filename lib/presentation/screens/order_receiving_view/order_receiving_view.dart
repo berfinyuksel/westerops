@@ -24,39 +24,41 @@ class _OrderReceivingViewState extends State<OrderReceivingView> {
     Navigator.pushReplacementNamed(context, RouteConstant.ORDER_RECEIVED_VIEW);
   }
 
-  @override
+  @override 
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          color: AppColors.scaffoldBackgroundColor,
-          child: SvgPicture.asset(ImageConstant.ORDER_RECEIVING_BACKGROUND),
-        ),
-        Center(
-          child: Column(
-            children: [
-              Spacer(
-                flex: 201,
-              ),
-              SvgPicture.asset(ImageConstant.ORDER_RECEIVING_DONGU_LOGO),
-              Spacer(
-                flex: 129,
-              ),
-              SvgPicture.asset(ImageConstant.ORDER_RECEIVING_PACKAGE_ICON),
-              Spacer(
-                flex: 183,
-              ),
-              LocaleText(
-                text: "Siparişiniz alınıyor…",
-                style: AppTextStyles.headlineStyle,
-              ),
-              Spacer(
-                flex: 197,
-              ),
-            ],
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            color: AppColors.scaffoldBackgroundColor,
+            child: SvgPicture.asset(ImageConstant.ORDER_RECEIVING_BACKGROUND),
           ),
-        )
-      ],
+          Center(
+            child: Column(
+              children: [
+                Spacer(
+                  flex: 201,
+                ),
+                SvgPicture.asset(ImageConstant.ORDER_RECEIVING_DONGU_LOGO),
+                Spacer(
+                  flex: 129,
+                ),
+                SvgPicture.asset(ImageConstant.ORDER_RECEIVING_PACKAGE_ICON),
+                Spacer(
+                  flex: 183,
+                ),
+                LocaleText(
+                  text: "Siparişiniz alınıyor…",
+                  style: AppTextStyles.headlineStyle,
+                ),
+                Spacer(
+                  flex: 197,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

@@ -38,7 +38,8 @@ class OrderSummaryContainer extends StatelessWidget {
             ),
             Spacer(flex: 2),
             LocaleText(
-              text: "${state.isGetIt! ? "Gel-Al Paket" : "Motorlu Kurye"} - ${state.isOnline! ? "Online Ödeme (Kredi Kartı)" : "Kapıda Ödeme"}",
+              text:
+                  "${state.isGetIt! ? "Gel-Al Paket" : "Motorlu Kurye"} - ${state.isOnline! ? "Online Ödeme (Kredi Kartı)" : "Kapıda Ödeme"}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 5),

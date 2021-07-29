@@ -25,6 +25,7 @@ class LocaleText extends StatelessWidget {
       maxLines: maxLines,
       textAlign: alignment,
       minFontSize: 10,
+      
     );
   }
 }

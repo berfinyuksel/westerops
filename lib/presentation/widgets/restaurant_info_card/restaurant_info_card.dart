@@ -157,7 +157,7 @@ class RestaurantInfoCard extends StatelessWidget {
         ),
         Spacer(),
         PackageDelivery(
-          image: ImageConstant.COMMONS_GET_IT_ICON,
+          image: ImageConstant.RESTAURANT_PACKAGE_ICON,
           color: Colors.white,
           backgroundColor: AppColors.greenColor,
           width: context.dynamicWidht(0.1),
