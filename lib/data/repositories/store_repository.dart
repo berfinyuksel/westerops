@@ -1,30 +1,26 @@
 import 'dart:convert';
 
-import '../model/storeList.dart';
+import 'package:dongu_mobile/data/model/store.dart';
+
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
 abstract class StoreRepository {
-  Future<List<StoreList>> getStores();
+  Future<List<Store>> getStores();
 }
 
 class SampleStoreRepository implements StoreRepository {
   final url = "${UrlConstant.EN_URL}store/";
 
   @override
-  Future<List<StoreList>> getStores() async {
+  Future<List<Store>> getStores() async {
     final response = await http.get(
       Uri.parse(url),
     );
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(
-          utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
-      List<StoreList> storeLists = [];
-      storeLists.add(StoreList.fromJson(jsonBody));
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
+      List<Store> storeLists = List<Store>.from(jsonBody.map((model) => Store.fromJson(model)));
       return storeLists;
-      /*if (jsonBody is List) {
-        return jsonBody.map((e) => StoreList.fromJson(e)).toList(); bu yontem list dönmemek için fazladan generic state yaratmamak için kullanılmadı. Boyle daha optimize olur.
-      }*/
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
