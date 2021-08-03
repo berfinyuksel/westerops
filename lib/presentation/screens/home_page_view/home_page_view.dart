@@ -1,8 +1,6 @@
 import 'package:dongu_mobile/data/model/store.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
-import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -56,20 +54,11 @@ class _HomePageViewState extends State<HomePageView> {
       } else if (state is GenericCompleted) {
         List<Store> restaurants = [];
         List<double> distances = [];
-        for (int i = 0; i < state.response[0].results.length; i++) {
-          if ((filterState.minValue! == null ? 0 : filterState.minValue!) <
-              state.response[0].results[i].minOrderPrice) {
-            if (SharedPrefs.getUserAddress ==
-                state.response[0].results[i].city) {
-              restaurants.add(state.response[0].results[i]);
-              distances.add(Haversine.distance(
-                  LocationService.latitude!,
-                  LocationService.longitude!,
-                  state.response[0].results[i].latitude,
-                  state.response[0].results[i].longitude));
-            }
-          }
+        print(state.response[0].address);
+        for (int i = 0; i < state.response.length; i++) {
+          restaurants.add(state.response[i]);
         }
+
         return Center(child: buildBody(context, restaurants, distances));
       } else {
         final error = state as GenericError;
@@ -78,22 +67,16 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  ListView buildBody(
-      BuildContext context, List<Store> restaurants, List<double> distances) {
+  ListView buildBody(BuildContext context, List<Store> restaurants, List<double> distances) {
     return ListView(
       padding: EdgeInsets.only(
-        // left: context.dynamicWidht(0.06),
-        //right: context.dynamicWidht(0.06),
         top: context.dynamicHeight(0.02),
         bottom: context.dynamicHeight(0.02),
       ),
       children: [
         Padding(
-          padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06)),
-          child: buildRowTitleLeftRight(context, LocaleKeys.home_page_location,
-              LocaleKeys.home_page_edit),
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+          child: buildRowTitleLeftRight(context, LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -105,16 +88,12 @@ class _HomePageViewState extends State<HomePageView> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06)),
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
           child: AddressText(),
         ),
         SizedBox(height: context.dynamicHeight(0.03)),
         Padding(
-          padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06)),
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
           child: Row(
             children: [
               buildSearchBar(context),
@@ -129,11 +108,8 @@ class _HomePageViewState extends State<HomePageView> {
         ),
         SizedBox(height: context.dynamicHeight(0.03)),
         Padding(
-          padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06)),
-          child: buildRowTitleLeftRight(context, LocaleKeys.home_page_closer,
-              LocaleKeys.home_page_see_all),
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+          child: buildRowTitleLeftRight(context, LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -158,9 +134,7 @@ class _HomePageViewState extends State<HomePageView> {
         ),
         SizedBox(height: context.dynamicHeight(0.04)),
         Padding(
-          padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06)),
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
           child: LocaleText(
             text: LocaleKeys.home_page_categories,
             style: AppTextStyles.bodyTitleStyle,
@@ -199,9 +173,7 @@ class _HomePageViewState extends State<HomePageView> {
                   child: CustomHorizontalListCategory())),
         ),
         Padding(
-          padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06)),
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
           child: LocaleText(
             text: LocaleKeys.home_page_opportunities,
             style: AppTextStyles.bodyTitleStyle,
@@ -231,8 +203,7 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Container buildListViewNearMe(
-      BuildContext context, List<Store> restaurants, List<double> distances) {
+  Container buildListViewNearMe(BuildContext context, List<Store> restaurants, List<double> distances) {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
@@ -251,31 +222,19 @@ class _HomePageViewState extends State<HomePageView> {
           itemCount: restaurants.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            String startTime =
-                restaurants[index].calendar![0].startDate!.split("T")[1];
-            String endTime =
-                restaurants[index].calendar![0].endDate!.split("T")[1];
-
-            startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
-            endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
-
             return GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                    arguments:
-                        ScreenArgumentsRestaurantDetail(restaurants[index]));
+                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL, arguments: ScreenArgumentsRestaurantDetail(restaurants[index]));
               },
               child: RestaurantInfoCard(
                 restaurantIcon: restaurants[index].photo,
                 backgroundImage: restaurants[index].background,
-                packetNumber: restaurants[index].boxes!.length == 0
-                    ? 'tükendi'
-                    : '${restaurants[index].boxes!.length} paket',
+                packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
                 restaurantName: restaurants[index].name,
                 grade: "4.7",
                 location: restaurants[index].city,
-                distance: "${distances[index].toInt()} m",
-                availableTime: '$startTime-$endTime',
+                distance: "500 m",
+                availableTime: '1-4',
               ),
             );
           },
@@ -287,8 +246,7 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Container buildListViewOpportunities(
-      BuildContext context, List<Store> restaurants, List<double> distances) {
+  Container buildListViewOpportunities(BuildContext context, List<Store> restaurants, List<double> distances) {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
@@ -306,31 +264,19 @@ class _HomePageViewState extends State<HomePageView> {
           itemCount: restaurants.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            String startTime =
-                restaurants[index].calendar![0].startDate!.split("T")[1];
-            String endTime =
-                restaurants[index].calendar![0].endDate!.split("T")[1];
-
-            startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
-            endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
-
             return GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                    arguments:
-                        ScreenArgumentsRestaurantDetail(restaurants[index]));
+                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL, arguments: ScreenArgumentsRestaurantDetail(restaurants[index]));
               },
               child: RestaurantInfoCard(
                 restaurantIcon: restaurants[index].photo,
                 backgroundImage: restaurants[index].background,
-                packetNumber: restaurants[index].boxes!.length == 0
-                    ? 'tükendi'
-                    : '${restaurants[index].boxes!.length} paket',
+                packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
                 restaurantName: restaurants[index].name,
                 grade: "4.7",
                 location: restaurants[index].city,
-                distance: "${distances[index].toInt()} m",
-                availableTime: '$startTime-$endTime',
+                distance: "500 m",
+                availableTime: '1-4',
               ),
             );
           },
@@ -342,8 +288,7 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Row buildRowTitleLeftRight(
-      BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

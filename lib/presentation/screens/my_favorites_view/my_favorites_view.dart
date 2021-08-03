@@ -194,7 +194,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             icon: favourites[index].photo,
             restaurantName: favourites[index].name,
             distance: "74 m",
-            packetNumber: favourites[index].boxes!.length == 0 ? 'tükendi' : '${favourites[index].boxes!.length} paket',
+            packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
             availableTime: '$startTime-$endTime',
           );
         });

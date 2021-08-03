@@ -181,7 +181,7 @@ class _MyNearViewState extends State<MyNearView> {
             restaurantName: restaurants[restaurantIndexOnMap].name,
             distance: "${distances[restaurantIndexOnMap].toInt()}m",
             packetNumber:
-                restaurants[restaurantIndexOnMap].boxes!.length == 0 ? 'tükendi' : '${restaurants[restaurantIndexOnMap].boxes!.length} paket',
+                0 == 0 ? 'tükendi' : '4 paket',
             availableTime: '$startTime-$endTime',
           ),
         ));
@@ -242,7 +242,7 @@ class _MyNearViewState extends State<MyNearView> {
             icon: restaurants[index].photo,
             restaurantName: restaurants[index].name,
             distance: "${distances[index].toInt()}m",
-            packetNumber: restaurants[index].boxes!.length == 0 ? 'tükendi' : '${restaurants[index].boxes!.length} paket',
+            packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
             availableTime: '$startTime-$endTime',
             border: Border.all(
               width: 1.0,
