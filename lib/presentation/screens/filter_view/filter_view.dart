@@ -51,7 +51,7 @@ class _FilterViewState extends State<FilterView> {
               Positioned(
                 child: CleanAndSaveButtons(),
                 bottom: 0,
-                top: 650,
+                top: 580,
                 left: 0,
                 right: 0,
               )

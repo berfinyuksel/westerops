@@ -1,12 +1,19 @@
+import 'dart:convert';
+
+import 'package:dongu_mobile/data/model/auth_token.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+//import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
 
 class AuthService {
-  GoogleSignInAccount? currentUser;
+  /*GoogleSignInAccount? currentUser;
   static final FirebaseAuth auth = FirebaseAuth.instance;
 
-  /*static Future<AccessToken?> loginWithFacebook() async {
+  static Future<AccessToken?> loginWithFacebook() async {
     final LoginResult result = await FacebookAuth.instance.login();
     if (result.status == LoginStatus.success) {
       // get the user data
@@ -56,10 +63,47 @@ class AuthService {
     try {
       await googleSignIn.signIn();
       print(googleSignIn.currentUser!.displayName);
+      SharedPrefs.setUserName(googleSignIn.currentUser!.displayName.toString());
+      SharedPrefs.setUserLastName(googleSignIn.currentUser!.displayName.toString());
+      SharedPrefs.setUserEmail(googleSignIn.currentUser!.email);
+    //SharedPrefs.setUserPhone(googleSignIn.currentUser!);
+
+
       print(googleSignIn.currentUser!.email);
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignIn.currentUser!.authentication;
+      // SharedPrefs.setToken(googleSignInAuthentication.idToken!);
+      print("token: " + googleSignInAuthentication.idToken!);
     } catch (error) {
       print(error);
     }
   }
+
+  Future postGoogleToken() async {
+    GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignIn.currentUser!.authentication;
+    String json = '{"auth_token":"$googleSignInAuthentication.idToken"}';
+    final response = await http
+        .post(Uri.parse("${UrlConstant.EN_URL}social_auth/google"), body: json);
+    if (response.statusCode == 200) {
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+      List<AuthToken> authToken = List<AuthToken>.from(
+          jsonBody.map((model) => AuthToken.fromJson(model)));
+      SharedPrefs.setUserName(googleSignIn.currentUser!.displayName.toString());
+      return authToken;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
 }
 
+class NetworkError implements Exception {
+  final String statusCode;
+  final String message;
+  NetworkError(this.statusCode, this.message);
+}

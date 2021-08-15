@@ -132,9 +132,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   ),
                   CustomButton(
                     onPressed: () async {
-                       showDialog(
-                          context: context,
-                          builder: (_) => CustomAlertDialogSuccessfullyChangedPassword());
+                      if (isCodeSent==true) {
+                         showDialog(
+                            context: context,
+                            builder: (_) =>
+                                CustomAlertDialogSuccessfullyChangedPassword());
+                      }
                       String phoneTR = '+90' + phoneController.text;
                       String phoneEN = '+1' + phoneController.text;
                       await _auth.verifyPhoneNumber(
@@ -176,6 +179,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         context.read<UserAuthCubit>().resetPassword(
                             passwordController.text, phoneController.text);
                       }
+                      
                     },
                     width: double.infinity,
                     title: isCodeSent
@@ -197,7 +201,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 ],
               ),
             ),
-            /* CustomButton(
+             /*CustomButton(
               title: "verify",
               color: Colors.red,
               textColor: Colors.white,
@@ -209,8 +213,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         verificationId: verificationId.toString(),
                         smsCode: codeController.text);
                 signInWithPhoneAuthCredential(phoneAuthCredential);
-              },
-            ),*/
+              },*/
             Positioned(
               top: context.height > 800
                   ? context.dynamicHeight(0.1)

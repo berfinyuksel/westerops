@@ -14,6 +14,8 @@ abstract class UserAuthenticationRepository {
   Future<List<User>> loginUser(String email, String password);
 
   Future<List<String>> resetPassword(String phone, String password);
+  Future<List<String>> changePassword(String newPassword, String oldPassword);
+  Future<List<String>> deleteAccountUser(String deletionReason);
 }
 
 class SampleUserAuthenticationRepository
@@ -25,15 +27,20 @@ class SampleUserAuthenticationRepository
   @override
   Future<List<User>> registerUser(String firstName, String lastName,
       String email, String phone, String password) async {
+    //  List<String> group = [];
+
     String json =
-        '{"first_name":"$firstName","last_name":"$lastName","email": "$email", "password": "$password","password2": "$password","phone_number": "$phone"}';
+        '{"first_name":"$firstName","last_name":"$lastName","email": "$email", "password": "$password","password2": "$password","phone_number": "$phone", "groups":["Customer"]}';
     final response = await http.post(
       Uri.parse(url),
       body: json,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        // 'Authorization': 'JWT ${SharedPrefs.setToken}'
       },
     );
+
+    print(response.statusCode);
     if (response.statusCode == 201) {
       return loginUser(phone, password);
     }
@@ -43,9 +50,14 @@ class SampleUserAuthenticationRepository
   @override
   Future<List<String>> updateUser(String firstName, String lastName,
       String email, String phone, String address, String birthday) async {
-    String json = '{"first_name":"$firstName","last_name":"$lastName","email": "$email","phone_number": "$phone","address":"$address","birthday":"$birthday"}';
-    final response = await http.put(
-      Uri.parse("$urlUpdate${SharedPrefs.getUserId}/"),
+    // List<String> group = ["Customer"];
+    // List<int> address = [1];
+    // List<int>? adminRole;
+    // String password = "12345678Q";
+    String json =
+        '{"first_name":"$firstName", "last_name": "$lastName", "email": "$email", "phone_number": "$phone", "birthdate": "$birthday"}';
+    final response = await http.patch(
+      Uri.parse("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
       body: json,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -59,7 +71,7 @@ class SampleUserAuthenticationRepository
       SharedPrefs.setUserName(firstName);
       SharedPrefs.setUserLastName(lastName);
       SharedPrefs.setUserPhone(phone);
-      SharedPrefs.setUserAddress(address);
+      //SharedPrefs.setUserAddress(address);
       SharedPrefs.setUserBirth(birthday);
       List<String> result = [];
       return result;
@@ -68,25 +80,23 @@ class SampleUserAuthenticationRepository
   }
 
   @override
-  Future<List<String>> resetPassword(String phone, String password) async {
-    String json = '{"password": "$password"}';
+  Future<List<String>> resetPassword(String password, String phone) async {
+
+    String json =
+        '{"password": "$password"}';
     final response = await http.patch(
-      Uri.parse("$urlUpdate${SharedPrefs.getUserId}/"),
+      Uri.parse(
+        ("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
+      ),
       body: json,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-
+    print(response.statusCode);
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(response.body);
-      var jsonResults = jsonBody['user'];
-      SharedPrefs.setUserId(jsonResults['id']);
-      SharedPrefs.setToken(jsonBody['token']);
-      
-      SharedPrefs.setUserPhone(phone);
-     // SharedPrefs.setUserPassword(password);
+      SharedPrefs.setUserPassword(password);
 
       List<String> result = [];
       return result;
@@ -96,7 +106,7 @@ class SampleUserAuthenticationRepository
 
   @override
   Future<List<User>> loginUser(String phone, String password) async {
-    String json = '{"phone_number": "$phone", "password": "$password"}';
+    String json = '{"credential": "$phone", "password": "$password"}';
     final response = await http.post(
       Uri.parse(urlLogin),
       body: json,
@@ -105,6 +115,7 @@ class SampleUserAuthenticationRepository
       },
     );
 
+    print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(response.body);
       var jsonResults = jsonBody['user'];
@@ -113,19 +124,77 @@ class SampleUserAuthenticationRepository
 
       User user = User.fromJson(jsonResults);
       SharedPrefs.setUserId(jsonResults['id']);
-      SharedPrefs.setUserAddress(jsonResults['address']);
+      //  SharedPrefs.setUserAddress(jsonResults['address']);
       SharedPrefs.setUserBirth(jsonResults['birthday'] == null
-          ? "yyyy-mm-dd"
+          ? "dd-mm-yyyy"
           : "${jsonResults['birthday']}");
       SharedPrefs.setUserEmail(user.email!);
       SharedPrefs.setUserName(user.firstName!);
       SharedPrefs.setUserLastName(user.lastName!);
       SharedPrefs.setUserPhone(phone);
       SharedPrefs.login();
+      print("User ID: ${SharedPrefs.getUserId}");
 
       List<User> users = [];
       users.add(user);
       return users;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
+
+  @override
+  Future<List<String>> changePassword(
+      String oldPassword, String newPassword) async {
+    String json =
+        '{"old_password": "$oldPassword", "new_password": "$newPassword"}';
+    final response = await http.patch(
+      Uri.parse("${UrlConstant.EN_URL}user/change-password/"),
+      body: json,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'JWT ${SharedPrefs.getToken}'
+      },
+    );
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final jsonBody = jsonDecode(response.body);
+      var jsonResults = jsonBody;
+
+      //  SharedPrefs.setUserAddress(jsonResults['address']);
+      // SharedPrefs.setUserBirth(jsonResults['birthday'] == null
+      //     ? "yyyy-mm-dd"
+      //     : "${jsonResults['birthday']}");
+      // SharedPrefs.setUserEmail(user.email!);
+      // SharedPrefs.setUserName(user.firstName!);
+      // SharedPrefs.setUserLastName(user.lastName!);
+      // SharedPrefs.setUserPhone(phone);
+      // SharedPrefs.login();
+      print("User ID: ${SharedPrefs.getUserId}");
+
+      List<String> users = [];
+      return users;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
+    @override
+  Future<List<String>> deleteAccountUser(String deletionReason) async {
+    String json = '{"user_deletion": "$deletionReason"}';
+    final response = await http.delete(
+      Uri.parse(
+        ("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
+      ),
+      body: json,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'JWT ${SharedPrefs.getToken}'
+      },
+    );
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+     // SharedPrefs.setUserPassword(password);
+
+      List<String> result = [];
+      return result;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
