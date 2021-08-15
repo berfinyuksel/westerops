@@ -199,6 +199,7 @@ class _LoginViewState extends State<LoginView> {
           GestureDetector(
             onTap: () {
               AuthService.loginWithGmail();
+              Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
@@ -206,7 +207,7 @@ class _LoginViewState extends State<LoginView> {
           ),
           GestureDetector(
             onTap: () {
-              //   AuthService.loginWithFacebook();
+              //  AuthService.loginWithFacebook();
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,

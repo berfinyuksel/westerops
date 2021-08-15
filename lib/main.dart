@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/filter_view/filter_view.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
 import 'package:dongu_mobile/presentation/screens/home_page_view/home_page_view.dart';
@@ -14,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'data/repositories/box_repository.dart';
 import 'data/repositories/order_repository.dart';
 import 'data/repositories/search_location_repository.dart';
 import 'data/repositories/store_repository.dart';
@@ -38,7 +42,7 @@ Future<void> main() async {
   await SharedPrefs.initialize();
   await Firebase.initializeApp();
   //fixed late arriving svg with future.wait function
-   Future.wait([
+  Future.wait([
     precachePicture(
       ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/permissions/location_image.svg'),
       null,
@@ -47,7 +51,7 @@ Future<void> main() async {
       ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/permissions/notification_image.svg'),
       null,
     ),
-     precachePicture(
+    precachePicture(
       ExactAssetPicture(SvgPicture.svgStringDecoder,
           'assets/images/onboardings/onboarding_forth/onboarding_forth_background.svg'),
       null,
@@ -70,6 +74,7 @@ Future<void> main() async {
     ),
     // other SVGs or images here
   ]);
+  HttpOverrides.global = new MyHttpOverrides();
   runApp(
     EasyLocalization(
       path: LocaleConstant.LANG_PATH,
@@ -91,6 +96,8 @@ class MyApp extends StatelessWidget {
                 SearchLocationCubit(SampleSearchLocationRepository())),
         BlocProvider<StoreCubit>(
             create: (context) => StoreCubit(SampleStoreRepository())),
+        BlocProvider<BoxCubit>(
+            create: (context) => BoxCubit(SampleBoxRepository())),
         BlocProvider<UserAuthCubit>(
             create: (context) =>
                 UserAuthCubit(SampleUserAuthenticationRepository())),
@@ -115,5 +122,13 @@ class MyApp extends StatelessWidget {
         );
       }),
     );
+  }
+}
+ class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

@@ -26,13 +26,12 @@ import '../my_favorites_view/components/address_text.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../search_view/components/horizontal_list_category_bar.dart';
 
-
-class HomePageView extends StatefulWidget {
+class TestPageView extends StatefulWidget {
   @override
-  _HomePageViewState createState() => _HomePageViewState();
+  _TestPageViewState createState() => _TestPageViewState();
 }
 
-class _HomePageViewState extends State<HomePageView> {
+class _TestPageViewState extends State<TestPageView> {
   bool scroolNearMe = false;
   bool scroolCategories = false;
   bool scroolOpportunities = false;
@@ -257,7 +256,7 @@ class _HomePageViewState extends State<HomePageView> {
                 backgroundImage: restaurants[index].background,
                 packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
                 restaurantName: restaurants[index].name,
-                grade:  "1",
+                grade: "1",
                 location: restaurants[index].city,
                 distance: "500 m",
                 availableTime: '1-4',

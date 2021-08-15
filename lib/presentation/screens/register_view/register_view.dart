@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -225,7 +227,10 @@ class _RegisterViewState extends State<RegisterView> {
                 ? phoneTR
                 : phoneEN,
                     passwordController.text);
-                _showMyDialog();
+               // _showMyDialog();
+              }
+              if(SharedPrefs.getUserId != 0){
+                 Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
               }
               // AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
             },
@@ -274,7 +279,8 @@ class _RegisterViewState extends State<RegisterView> {
               TextButton(
                 child: Text('Approve'),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                                Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+
                 },
               ),
             ],

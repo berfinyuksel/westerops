@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,7 +12,7 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../register_view/components/clipped_password_rules.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 class ChangePasswordView extends StatefulWidget {
   @override
   _ChangePasswordViewState createState() => _ChangePasswordViewState();
@@ -209,6 +210,12 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
+        onPressed: (){
+           context.read<UserAuthCubit>().changePassword(
+                passwordController.text,
+                newPasswordController.text
+              );
+        },
       ),
     );
   }

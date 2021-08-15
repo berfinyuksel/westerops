@@ -45,7 +45,9 @@ class SharedPrefs {
   static Future<void> setUserLastName(String lastName) async {
     _prefs.setString('userLastName', lastName);
   }
-
+  static Future<void> setUserPassword(String password) async {
+    _prefs.setString('userPassword', password);
+  }
   static Future<void> clearCache() async {
     _prefs.clear();
   }
@@ -57,7 +59,8 @@ class SharedPrefs {
   static String get getUserEmail => _prefs.getString('userEmail') ?? "";
   static String get getUserPhone => _prefs.getString('userPhone') ?? "";
   static String get getUserName => _prefs.getString('userName') ?? "";
-  static String get getUserBirth => _prefs.getString('userBirth') ?? "yyyy-mm-dd";
+  static String get getUserBirth => _prefs.getString('userBirth') ?? "dd-mm-yyyy";
   static String get getUserAddress => _prefs.getString('userAddress') ?? "Adana";
   static String get getUserLastName => _prefs.getString('userLastName') ?? "";
+  static String get getUserPassword => _prefs.getString('userPassword') ?? "";
 }

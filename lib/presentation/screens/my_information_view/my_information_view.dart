@@ -53,11 +53,16 @@ class _MyInformationViewState extends State<MyInformationView> {
             color: Colors.white,
             height: context.dynamicHeight(0.01),
           ),
-          buildTextFormField(context, LocaleKeys.inform_list_tile_name.locale, nameController),
-          buildTextFormField(context, LocaleKeys.inform_list_tile_surname.locale, surnameController),
-          buildTextFormField(context, LocaleKeys.inform_list_tile_birth.locale, birthController),
-          buildTextFormField(context, LocaleKeys.inform_list_tile_mail.locale, mailController),
-          buildTextFormField(context, LocaleKeys.inform_list_tile_phone.locale, phoneController),
+          buildTextFormField(
+              context, LocaleKeys.inform_list_tile_name.locale, nameController),
+          buildTextFormField(context,
+              LocaleKeys.inform_list_tile_surname.locale, surnameController),
+          buildTextFormField(context, LocaleKeys.inform_list_tile_birth.locale,
+              birthController),
+          buildTextFormField(
+              context, LocaleKeys.inform_list_tile_mail.locale, mailController),
+          buildTextFormField(context, LocaleKeys.inform_list_tile_phone.locale,
+              phoneController),
           Spacer(
             flex: 8,
           ),
@@ -75,12 +80,11 @@ class _MyInformationViewState extends State<MyInformationView> {
             flex: 15,
           ),
           buildButton(context),
-       
           Center(
             child: TextButton(
-              onPressed: (){
-                Navigator.pushNamed(
-                    context, RouteConstant.DELETE_ACCOUNT_VIEW);
+              onPressed: () {
+            
+                Navigator.pushNamed(context, RouteConstant.DELETE_ACCOUNT_VIEW);
               },
               child: LocaleText(
                 text: LocaleKeys.inform_delete_account,
@@ -88,7 +92,7 @@ class _MyInformationViewState extends State<MyInformationView> {
               ),
             ),
           ),
-               Center(
+          Center(
             child: TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, RouteConstant.DELETE_ACCOUNT_VIEW);
@@ -107,7 +111,8 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
-  Container buildTextFormField(BuildContext context, String labelText, TextEditingController controller) {
+  Container buildTextFormField(BuildContext context, String labelText,
+      TextEditingController controller) {
     return Container(
       height: context.dynamicHeight(0.06),
       color: Colors.white,
@@ -214,7 +219,8 @@ class _MyInformationViewState extends State<MyInformationView> {
 
   Padding buildButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.only(
+          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
       child: CustomButton(
         width: double.infinity,
         title: LocaleKeys.inform_button,
@@ -222,8 +228,14 @@ class _MyInformationViewState extends State<MyInformationView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
-          context.read<UserAuthCubit>().updateUser(nameController.text, surnameController.text, mailController.text, phoneController.text,
-              SharedPrefs.getUserAddress, birthController.text);
+          context.read<UserAuthCubit>().updateUser(
+                nameController.text,
+                surnameController.text,
+                mailController.text,
+                phoneController.text,
+                SharedPrefs.getUserAddress,
+                birthController.text,
+              );
           setState(() {
             isReadOnly = true;
           });

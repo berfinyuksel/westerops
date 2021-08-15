@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +13,7 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DeleteAccountView extends StatefulWidget {
   @override
@@ -52,7 +55,8 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
             children: buildRadioButtons(context),
           ),
           Spacer(flex: 2),
-          buildTextFormField(LocaleKeys.delete_account_hint_text.locale, textController),
+          buildTextFormField(
+              LocaleKeys.delete_account_hint_text.locale, textController),
           Spacer(flex: 91),
           buildCustomButton()
         ],
@@ -91,7 +95,12 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
       color: Colors.transparent,
       borderColor: Color(0xFFF36262),
       textColor: Color(0xFFF36262),
-      onPressed: () {},
+      onPressed: () async {
+        await context
+            .read<UserAuthCubit>()
+            .deleteAccountUser(selectedIndex.toString());
+        SharedPrefs.clearCache();
+      },
     );
   }
 
@@ -103,7 +112,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
       "Ürün çeşitliliğini yetersiz buldum",
       "İşletme çeşitliliğini yetersiz buldum",
       "Ödeme yöntemi bana uygun değil."
-      ];
+    ];
 
     for (int i = 0; i < 5; i++) {
       buttons.add(
@@ -136,7 +145,11 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
                     ),
                   ),
                   child: Container(
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: selectedIndex == i ? AppColors.greenColor : Colors.transparent),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: selectedIndex == i
+                            ? AppColors.greenColor
+                            : Colors.transparent),
                   ),
                 ),
                 LocaleText(
@@ -152,7 +165,8 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
     return buttons;
   }
 
-  Container buildTextFormField(String hintText, TextEditingController controller) {
+  Container buildTextFormField(
+      String hintText, TextEditingController controller) {
     return Container(
       height: context.dynamicHeight(0.052),
       color: Colors.white,
