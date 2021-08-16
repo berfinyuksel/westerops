@@ -5,5 +5,6 @@ class Geometry {
 
   Geometry({this.locationDetails});
 
-  Geometry.fromJson(Map<dynamic, dynamic> parsedJson) : locationDetails = LocationDetails.fromJson(parsedJson['location']);
+  Geometry.fromJson(Map<dynamic, dynamic> parsedJson)
+      : locationDetails = LocationDetails.fromJson(parsedJson['location']);
 }

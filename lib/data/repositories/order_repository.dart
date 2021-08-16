@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../model/box.dart';
+
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +22,10 @@ class SampleOrderRepository implements OrderRepository {
     final response = await http.post(
       Uri.parse(url),
       body: json,
-      headers: {'Content-Type': 'application/json', 'Authorization': 'JWT ${SharedPrefs.getToken}'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT ${SharedPrefs.getToken}'
+      },
     );
     print(response.statusCode);
     if (response.statusCode == 201) {
@@ -55,10 +59,14 @@ class SampleOrderRepository implements OrderRepository {
   Future<List<Box>> getBasket() async {
     final response = await http.get(
       Uri.parse(url),
-      headers: {'Content-Type': 'application/json', 'Authorization': 'JWT ${SharedPrefs.getToken}'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT ${SharedPrefs.getToken}'
+      },
     );
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
+      final jsonBody = jsonDecode(
+          utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
       List<Box> boxes = [];
       for (int i = 0; i < jsonBody.length; i++) {
         boxes.add(Box.fromJson(jsonBody[i]));

@@ -26,7 +26,8 @@ import 'info_tooltip.dart';
 class CustomCardAndBody extends StatefulWidget {
   final Store? restaurant;
   final Box? boxes;
-  const CustomCardAndBody({Key? key, this.restaurant, this.boxes}) : super(key: key);
+  const CustomCardAndBody({Key? key, this.restaurant, this.boxes})
+      : super(key: key);
 
   @override
   _CustomCardAndBodyState createState() => _CustomCardAndBodyState();
@@ -48,10 +49,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     _controller = TabController(length: 2, vsync: this);
     definedBoxes.clear();
     context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
+    print(widget.restaurant!.id!);
   }
 
   @override
-  Widget build(BuildContext context,) {
+  Widget build(
+    BuildContext context,
+  ) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -74,7 +78,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       } else if (state is GenericCompleted) {
         print(state.response);
         print(state.response.length);
-       // print(state.response[0].description);
+        //print(state.response[0].description);
         return Center(child: customBody(context, state));
       } else {
         final error = state as GenericError;
@@ -99,7 +103,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     );
   }
 
-  Column customCardTabView(BuildContext context,) {
+  Column customCardTabView(
+    BuildContext context,
+  ) {
     return Column(
       children: [
         tabBar(context),
@@ -352,7 +358,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           ],
         ),
         ListView.builder(
-          itemCount: state.response.length, //widget.restaurant!.boxes!.length,//state.response.lenght
+          itemCount: state.response
+              .length, //widget.restaurant!.boxes!.length,//state.response.lenght
           itemBuilder: (context, index) {
             return buildBox(context, index, state);
           },
@@ -392,9 +399,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       ],
     );
   }
+
 //parametrs changes
-  Container buildDefinedBox(
-      BuildContext context, int index, List<Box> definedBoxes, GenericCompleted state) {
+  Container buildDefinedBox(BuildContext context, int index,
+      List<Box> definedBoxes, GenericCompleted state) {
     return Container(
         //alignment: Alignment(-0.8, 0.0),
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
@@ -409,16 +417,19 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 LocaleText(
-                  text: definedBoxes[index].name!.name,
+                  text: widget.boxes!.name![index].toString(),
+
                   style: AppTextStyles.myInformationBodyTextStyle,
                 ),
                 LocaleText(
-                  text: definedBoxes[index].description,
+                  text: widget.boxes!.description.toString()[index],
+
                   style: AppTextStyles.subTitleStyle,
                   maxLines: 2,
                 ),
               ],
             ),
+            
             LocaleText(
               text: "07:00:20",
             ),
@@ -445,14 +456,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-             // widget.restaurant!.boxes![index].name!.name!,
-             "widget.boxes!.name.toString()",
+              widget.boxes!.name![index].toString(),
+
+//"widget.boxes!.name.toString()",
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             LocaleText(
-              text:
-                  // "Sor! sale day id: ${widget.restaurant!.boxes![0].saleDay!}",
-                  "Sor! sale day id: 123}"
+                text:
+                    // "Sor! sale day id: ${widget.restaurant!.boxes![0].saleDay!}",
+                    widget.boxes!.saleDay!.toString()[index],
             ),
             CustomButton(
               title: LocaleKeys.restaurant_detail_button_text,
@@ -589,7 +601,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     );
   }
 
-  Container packageContainer(BuildContext context,) {
+  Container packageContainer(
+    BuildContext context,
+  ) {
     return Container(
       alignment: Alignment(0.0, -0.11),
       width: context.dynamicWidht(0.19),
