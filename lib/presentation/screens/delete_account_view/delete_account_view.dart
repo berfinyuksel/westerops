@@ -99,7 +99,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
         await context
             .read<UserAuthCubit>()
             .deleteAccountUser(selectedIndex.toString());
-        SharedPrefs.clearCache();
+        //SharedPrefs.clearCache();
       },
     );
   }

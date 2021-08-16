@@ -42,6 +42,7 @@ class _HomePageViewState extends State<HomePageView> {
     super.initState();
     context.read<StoreCubit>().getStores();
     LocationService.getCurrentLocation();
+    
   }
 
   @override
@@ -237,7 +238,7 @@ class _HomePageViewState extends State<HomePageView> {
               scroolNearMe = !scroolNearMe;
             });
           }
-
+ 
           return scroolNearMe;
         },
         child: ListView.separated(

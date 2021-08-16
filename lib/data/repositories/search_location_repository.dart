@@ -11,11 +11,14 @@ class SampleSearchLocationRepository implements SearchLocationRepository {
 
   @override
   Future<List<SearchedLocations>> getLocations(String search) async {
-    final url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$search&types=address&components=country:tr&language=tr&key=$key';
+    final url =
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$search&types=address&components=country:tr&language=tr&key=$key';
     var response = await http.get(Uri.parse(url));
     var json = convert.jsonDecode(response.body);
     var jsonResults = json['predictions'] as List;
-    return jsonResults.map((place) => SearchedLocations.fromJson(place)).toList();
+    return jsonResults
+        .map((place) => SearchedLocations.fromJson(place))
+        .toList();
   }
 }
 

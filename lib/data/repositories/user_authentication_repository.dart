@@ -55,7 +55,7 @@ class SampleUserAuthenticationRepository
     // List<int>? adminRole;
     // String password = "12345678Q";
     String json =
-        '{"first_name":"$firstName", "last_name": "$lastName", "email": "$email", "phone_number": "$phone", "birthdate": "$birthday"}';
+        '{"first_name":"$firstName", "last_name": "$lastName", "email": "$email", "phone_number": "$phone"}';// "birthdate": "$birthday"
     final response = await http.patch(
       Uri.parse("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
       body: json,
@@ -178,15 +178,15 @@ class SampleUserAuthenticationRepository
   }
     @override
   Future<List<String>> deleteAccountUser(String deletionReason) async {
-    String json = '{"user_deletion": "$deletionReason"}';
+    String json = '{"deletion_reason": "$deletionReason"}';
     final response = await http.delete(
       Uri.parse(
-        ("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
+        ("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/user_deletion/"),
       ),
       body: json,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'JWT ${SharedPrefs.getToken}'
+        'Authorization': 'JWT ${SharedPrefs.getToken}',
       },
     );
     print(response.statusCode);

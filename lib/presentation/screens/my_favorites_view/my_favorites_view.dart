@@ -55,21 +55,22 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
 
   Builder buildBuilder() {
     return Builder(builder: (context) {
-      final GenericState state = context.watch<StoreCubit>().state;
+     final GenericState state = context.watch<StoreCubit>().state;
+      //final FiltersState filterState = context.watch<FiltersCubit>().state;
+
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
         List<Store> favourites = [];
-        for (int i = 0; i < state.response[0].results.length; i++) {
-          for (int j = 0; j < state.response[0].results[i].favourites.length; j++) {
-            if (state.response[0].results[i].favourites[j].user.email == SharedPrefs.getUserEmail) {
-              favourites.add(state.response[0].results[i]);
-            }
-          }
+        //List<double> distances = [];
+        print(state.response[0].address);
+        for (int i = 0; i < state.response.length; i++) {
+          favourites.add(state.response[i]);
         }
-        return Center(child: buildBody(context, favourites));
+
+        return Center(child: buildBody(context, favourites, state));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -77,7 +78,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     });
   }
 
-  Column buildBody(BuildContext context, List<Store> favourites) {
+  Column buildBody(BuildContext context, List<Store> favourites, GenericCompleted state) {
     return Column(
       children: [
         buildTitlesAndSearchBar(context),
@@ -184,18 +185,18 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     return ListView.builder(
         itemCount: favourites.length,
         itemBuilder: (context, index) {
-          String startTime = favourites[index].calendar![0].startDate!.split("T")[1];
-          String endTime = favourites[index].calendar![0].endDate!.split("T")[1];
+          // String startTime = favourites[index].calendar![0].startDate!.split("T")[1];
+          // String endTime = favourites[index].calendar![0].endDate!.split("T")[1];
 
-          startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
-          endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
+          // startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
+          // endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
 
           return RestaurantInfoListTile(
             icon: favourites[index].photo,
             restaurantName: favourites[index].name,
             distance: "74 m",
             packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
-            availableTime: '$startTime-$endTime',
+            availableTime: '1',
           );
         });
   }
