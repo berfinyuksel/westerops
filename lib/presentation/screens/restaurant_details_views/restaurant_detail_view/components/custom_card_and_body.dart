@@ -361,6 +361,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           itemCount: state.response
               .length, //widget.restaurant!.boxes!.length,//state.response.lenght
           itemBuilder: (context, index) {
+            print(state.response.length);
             return buildBox(context, index, state);
           },
           physics: NeverScrollableScrollPhysics(),
@@ -417,19 +418,16 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 LocaleText(
-                  text: widget.boxes!.name![index].toString(),
-
+                  text: state.response[index].text_name,
                   style: AppTextStyles.myInformationBodyTextStyle,
                 ),
                 LocaleText(
                   text: widget.boxes!.description.toString()[index],
-
                   style: AppTextStyles.subTitleStyle,
                   maxLines: 2,
                 ),
               ],
             ),
-            
             LocaleText(
               text: "07:00:20",
             ),
@@ -446,6 +444,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   }
 
   Container buildBox(BuildContext context, int index, GenericCompleted state) {
+    print("RESPONE :  ${state.response[0].text_name}");
+    print("SALE: ${state.response[0].sale_day}");
     return Container(
         //alignment: Alignment(-0.8, 0.0),
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
@@ -456,7 +456,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              widget.boxes!.name![index].toString(),
+              state.response[index].text_name,
 
 //"widget.boxes!.name.toString()",
               style: AppTextStyles.myInformationBodyTextStyle,
@@ -464,8 +464,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             LocaleText(
                 text:
                     // "Sor! sale day id: ${widget.restaurant!.boxes![0].saleDay!}",
-                    widget.boxes!.saleDay!.toString()[index],
-            ),
+                   state.response[index].sale_day.toString()),
             CustomButton(
               title: LocaleKeys.restaurant_detail_button_text,
               color: AppColors.greenColor,
@@ -476,7 +475,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 print(state.response.length);
                 context
                     .read<OrderCubit>()
-                    .addToBasket(widget.restaurant!.boxes![index].id!);
+                    .addToBasket(widget.restaurant!.boxes![index].id!.toString());
               },
             )
           ],

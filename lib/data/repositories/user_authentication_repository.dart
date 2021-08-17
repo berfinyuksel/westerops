@@ -55,7 +55,7 @@ class SampleUserAuthenticationRepository
     // List<int>? adminRole;
     // String password = "12345678Q";
     String json =
-        '{"first_name":"$firstName", "last_name": "$lastName", "email": "$email", "phone_number": "$phone"}';// "birthdate": "$birthday"
+        '{"first_name":"$firstName", "last_name": "$lastName", "email": "$email", "phone_number": "$phone"}'; // "birthdate": "$birthday"
     final response = await http.patch(
       Uri.parse("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
       body: json,
@@ -64,6 +64,7 @@ class SampleUserAuthenticationRepository
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
+    print(SharedPrefs.getUserPassword);
     print(response.statusCode);
 
     if (response.statusCode == 200) {
@@ -81,9 +82,7 @@ class SampleUserAuthenticationRepository
 
   @override
   Future<List<String>> resetPassword(String password, String phone) async {
-
-    String json =
-        '{"password": "$password"}';
+    String json = '{"password": "$password"}';
     final response = await http.patch(
       Uri.parse(
         ("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
@@ -176,7 +175,8 @@ class SampleUserAuthenticationRepository
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-    @override
+
+  @override
   Future<List<String>> deleteAccountUser(String deletionReason) async {
     String json = '{"deletion_reason": "$deletionReason"}';
     final response = await http.delete(
@@ -191,7 +191,7 @@ class SampleUserAuthenticationRepository
     );
     print(response.statusCode);
     if (response.statusCode == 200) {
-     // SharedPrefs.setUserPassword(password);
+      // SharedPrefs.setUserPassword(password);
 
       List<String> result = [];
       return result;

@@ -102,7 +102,7 @@ class _CartViewState extends State<CartView> {
                         ),
                       ),
                       onDismissed: (DismissDirection direction) {
-                        context.read<OrderCubit>().deleteBasket(state.response[index].id);
+                        context.read<OrderCubit>().deleteBasket(state.response[index].id, state.response[index]);
                       },
                       child: PastOrderDetailBasketListTile(
                         title: state.response[index].name,
