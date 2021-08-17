@@ -7,8 +7,8 @@ import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
 abstract class OrderRepository {
-  Future<List<String>> addToBasket(int boxId);
-  Future<List<Box>> deleteBasket(int boxId);
+  Future<List<String>> addToBasket(String boxId);
+  Future<List<Box>> deleteBasket(String boxId, List<int> allBoxId);
   Future<List<Box>> getBasket();
 }
 
@@ -16,11 +16,11 @@ class SampleOrderRepository implements OrderRepository {
   final url = "${UrlConstant.EN_URL}order/basket/";
 
   @override
-  Future<List<String>> addToBasket(int boxId) async {
-    String json = '{"box":"$boxId"}';
+  Future<List<String>> addToBasket(String boxId) async {
+    String json = '{"box_id":"$boxId"}';
 
     final response = await http.post(
-      Uri.parse(url),
+      Uri.parse("${UrlConstant.EN_URL}order/basket/add_box_to_basket/"),
       body: json,
       headers: {
         'Content-Type': 'application/json',
@@ -36,12 +36,13 @@ class SampleOrderRepository implements OrderRepository {
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 
-  Future<List<Box>> deleteBasket(int boxId) async {
-    print("http://localhost:8000/en/order/basket/$boxId/");
-    final response = await http.delete(
-      Uri.parse("$url$boxId/"),
-      headers: {'Authorization': 'JWT ${SharedPrefs.getToken}'},
-    );
+  Future<List<Box>> deleteBasket(String boxId, List<int> allBoxId) async {
+    String json = '{"box_id":"$boxId", "all_box_ids": "$allBoxId" }';
+    final response = await http.post(
+        Uri.parse("${UrlConstant.EN_URL}order/basket/remove_box_from_basket/"),
+        headers: {'Authorization': 'JWT ${SharedPrefs.getToken}'},
+        body: json);
+
     print(response.statusCode);
     if (response.statusCode == 201) {
       final jsonBody = jsonDecode(response.body);
@@ -58,7 +59,7 @@ class SampleOrderRepository implements OrderRepository {
 
   Future<List<Box>> getBasket() async {
     final response = await http.get(
-      Uri.parse(url),
+      Uri.parse("${UrlConstant.EN_URL}order/basket/"),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'JWT ${SharedPrefs.getToken}'
@@ -69,7 +70,11 @@ class SampleOrderRepository implements OrderRepository {
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
       List<Box> boxes = [];
       for (int i = 0; i < jsonBody.length; i++) {
-        boxes.add(Box.fromJson(jsonBody[i]));
+        print(jsonBody[i]);
+
+
+        // boxes.add(Box.fromJson(jsonBody[i]));
+
       }
       return boxes;
     }

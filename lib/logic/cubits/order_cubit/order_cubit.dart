@@ -7,7 +7,7 @@ class OrderCubit extends Cubit<GenericState> {
   final OrderRepository _orderRepository;
   OrderCubit(this._orderRepository) : super(GenericInitial());
 
-  Future<void> addToBasket(int boxId) async {
+  Future<void> addToBasket(String boxId) async {
     try {
       emit(GenericLoading());
       final response = await _orderRepository.addToBasket(boxId);
@@ -17,10 +17,10 @@ class OrderCubit extends Cubit<GenericState> {
     }
   }
 
-  Future<void> deleteBasket(int boxId) async {
+  Future<void> deleteBasket(String boxId,  List<int> allBoxId) async {
     try {
       emit(GenericLoading());
-      final response = await _orderRepository.deleteBasket(boxId);
+      final response = await _orderRepository.deleteBasket(boxId, allBoxId);
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));

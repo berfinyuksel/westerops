@@ -7,23 +7,23 @@ part 'box.g.dart';
 @JsonSerializable()
 class Box {
   int? id;
-  List<Meal>? meals;
-  String? name;
+  List<int>? meals;
+  String? text_name;
   String? description;
   bool? defined;
   bool? sold;
   int? store;
-  int? saleDay;
+  int? sale_day;
 
   Box({
     this.id,
     this.meals,
-    this.name,
+    this.text_name,
     this.description,
     this.defined,
     this.sold,
     this.store,
-    this.saleDay,
+    this.sale_day,
   });
 
   factory Box.fromJson(Map<String, dynamic> json) => _$BoxFromJson(json);
