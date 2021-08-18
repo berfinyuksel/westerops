@@ -302,6 +302,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   }
 
   ListView tabPackages(BuildContext context, GenericCompleted state) {
+    //column
     return ListView(
       children: [
         SizedBox(
@@ -487,7 +488,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         padding:
                             EdgeInsets.only(left: context.dynamicWidht(0.01)),
                         child: Text(
-                          '150 TL',
+                          '75 TL',
                           style: AppTextStyles.bodyBoldTextStyle.copyWith(
                               color: AppColors.borderAndDividerColor,
                               decoration: TextDecoration.lineThrough),
@@ -507,7 +508,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         padding:
                             EdgeInsets.only(left: context.dynamicWidht(0.01)),
                         child: Text(
-                          '150 TL',
+                          '35 TL',
                           style: AppTextStyles.bodyBoldTextStyle.copyWith(
                             color: AppColors.greenColor,
                           ),
