@@ -301,8 +301,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     );
   }
 
-  Column tabPackages(BuildContext context, GenericCompleted state) {
-    return Column(
+  ListView tabPackages(BuildContext context, GenericCompleted state) {
+    return ListView(
       children: [
         SizedBox(
           height: context.dynamicHeight(0.02),
@@ -357,6 +357,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             )
           ],
         ),
+        SizedBox(height: context.dynamicHeight(0.02)),
         ListView.builder(
           itemCount: state.response
               .length, //widget.restaurant!.boxes!.length,//state.response.lenght
@@ -450,34 +451,88 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         //alignment: Alignment(-0.8, 0.0),
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
         width: context.dynamicWidht(1),
-        height: context.dynamicHeight(0.075),
+        height: context.dynamicHeight(0.15),
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              state.response[index].text_name,
-
-//"widget.boxes!.name.toString()",
-              style: AppTextStyles.myInformationBodyTextStyle,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: context.dynamicHeight(0.021),
+                ),
+                Text(
+                  state.response[index].text_name,
+                  style: AppTextStyles.myInformationBodyTextStyle,
+                ),
+                LocaleText(
+                  text: "Paketin Tanımlanmasına Kalan Süre: ${state.response[index].sale_day.toString()}",
+                  style: AppTextStyles.subTitleStyle,
+                ),
+                SizedBox(height: context.dynamicHeight(0.020)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: context.dynamicWidht(0.16),
+                      height: context.dynamicHeight(0.04),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.0),
+                        color: AppColors.scaffoldBackgroundColor,
+                      ),
+                      child: Padding(
+                        padding:
+                            EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                        child: Text(
+                          '150 TL',
+                          style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                              color: AppColors.borderAndDividerColor,
+                              decoration: TextDecoration.lineThrough),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: context.dynamicWidht(0.04),),
+                    Container(
+                      alignment: Alignment.center,
+                      width: context.dynamicWidht(0.16),
+                      height: context.dynamicHeight(0.04),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.0),
+                        color: AppColors.scaffoldBackgroundColor,
+                      ),
+                      child: Padding(
+                        padding:
+                            EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                        child: Text(
+                          '150 TL',
+                          style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                            color: AppColors.greenColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            LocaleText(
-                text:
-                    // "Sor! sale day id: ${widget.restaurant!.boxes![0].saleDay!}",
-                   state.response[index].sale_day.toString()),
-            CustomButton(
-              title: LocaleKeys.restaurant_detail_button_text,
-              color: AppColors.greenColor,
-              textColor: AppColors.appBarColor,
-              width: context.dynamicWidht(0.28),
-              borderColor: AppColors.greenColor,
-              onPressed: () {
-                print(state.response.length);
-                context
-                    .read<OrderCubit>()
-                    .addToBasket(widget.restaurant!.boxes![index].id!.toString());
-              },
-            )
+            Padding(
+              padding: EdgeInsets.only(top: context.dynamicHeight(0.042)),
+              child: CustomButton(
+                title: LocaleKeys.restaurant_detail_button_text,
+                color: AppColors.greenColor,
+                textColor: AppColors.appBarColor,
+                width: context.dynamicWidht(0.28),
+                borderColor: AppColors.greenColor,
+                onPressed: () {
+                  print(widget.restaurant!.boxes![index].id!);
+                  context.read<OrderCubit>().addToBasket(
+                      widget.restaurant!.boxes![index].id!.toString());
+                },
+              ),
+            ),
           ],
         ));
   }
