@@ -50,7 +50,7 @@ class NotificationView extends StatelessWidget {
               ),
               allowButton(context),
               SizedBox(height: context.dynamicHeight(0.01),),
-              lateForNowButton(),
+              lateForNowButton(context),
             ],
           ),
         ),
@@ -58,9 +58,12 @@ class NotificationView extends StatelessWidget {
     );
   }
 
-  GestureDetector lateForNowButton() {
+  GestureDetector lateForNowButton(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+              Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
+
+      },
       child: AutoSizeText(
         LocaleKeys.premission_notification_button2.locale,
         style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),

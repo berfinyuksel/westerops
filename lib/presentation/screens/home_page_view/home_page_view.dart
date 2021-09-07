@@ -87,7 +87,7 @@ class _HomePageViewState extends State<HomePageView> {
           padding: EdgeInsets.only(
               left: context.dynamicWidht(0.06),
               right: context.dynamicWidht(0.06)),
-          child: buildRowTitleLeftRight(context, LocaleKeys.home_page_location,
+          child: buildRowTitleLeftRightLocation(context, LocaleKeys.home_page_location,
               LocaleKeys.home_page_edit),
         ),
         Padding(
@@ -127,7 +127,7 @@ class _HomePageViewState extends State<HomePageView> {
           padding: EdgeInsets.only(
               left: context.dynamicWidht(0.06),
               right: context.dynamicWidht(0.06)),
-          child: buildRowTitleLeftRight(context, LocaleKeys.home_page_closer,
+          child: buildRowTitleLeftRightNearMeAll(context, LocaleKeys.home_page_closer,
               LocaleKeys.home_page_see_all),
         ),
         Padding(
@@ -238,7 +238,7 @@ class _HomePageViewState extends State<HomePageView> {
               scroolNearMe = !scroolNearMe;
             });
           }
- 
+
           return scroolNearMe;
         },
         child: ListView.separated(
@@ -319,7 +319,34 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Row buildRowTitleLeftRight(
+  Row buildRowTitleLeftRightLocation(
+      BuildContext context, String titleLeft, String titleRight) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        LocaleText(
+          text: titleLeft,
+          style: AppTextStyles.bodyTitleStyle,
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+          },
+          child: LocaleText(
+            text: titleRight,
+            style: GoogleFonts.montserrat(
+              fontSize: 12.0,
+              color: AppColors.orangeColor,
+              fontWeight: FontWeight.w600,
+              height: 2.0,
+            ),
+            alignment: TextAlign.right,
+          ),
+        ),
+      ],
+    );
+  }
+    Row buildRowTitleLeftRightNearMeAll(
       BuildContext context, String titleLeft, String titleRight) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

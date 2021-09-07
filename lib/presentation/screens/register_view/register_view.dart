@@ -532,6 +532,7 @@ class _RegisterViewState extends State<RegisterView> {
     String phoneEN = '+1';
 
     return TextFormField(
+      keyboardType: TextInputType.number,
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       onTap: () {

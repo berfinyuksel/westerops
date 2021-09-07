@@ -520,6 +520,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               ],
             ),
             Padding(
+              //buy box
               padding: EdgeInsets.only(top: context.dynamicHeight(0.042)),
               child: CustomButton(
                 title: LocaleKeys.restaurant_detail_button_text,
@@ -528,9 +529,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 width: context.dynamicWidht(0.28),
                 borderColor: AppColors.greenColor,
                 onPressed: () {
-                  print(widget.restaurant!.boxes![index].id!);
+                  print(state.response);
                   context.read<OrderCubit>().addToBasket(
-                      widget.restaurant!.boxes![index].id!.toString());
+                      widget.boxes!.id!.toString());
                 },
               ),
             ),

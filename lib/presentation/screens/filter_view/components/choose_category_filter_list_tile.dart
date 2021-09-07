@@ -23,80 +23,138 @@ class ChooseCategoryFilterList extends StatefulWidget {
 class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
   @override
   Widget build(BuildContext context) {
-    return CustomExpansionTile(
-        expansionTileBody: Padding(
-          padding: EdgeInsets.only(left: context.dynamicWidht(0.074)),
-          child: Container(
-            height: 325,
-            child: Column(
-              children: [
-                SizedBox(height: context.dynamicHeight(0.01)),
-                buildRowCheckboxAndText(
-                    context, LocaleKeys.filters_choose_category_item9, "All"),
-                SizedBox(height: context.dynamicHeight(0.016)),
-                buildRowCheckboxAndText(
-                  context,
-                  LocaleKeys.filters_choose_category_item1,
-                  "Main Course",
-                ),
-                SizedBox(height: context.dynamicHeight(0.016)),
-                buildRowCheckboxAndText(
-                  context,
-                  LocaleKeys.filters_choose_category_item2,
-                  "Drinks",
-                ),
-                SizedBox(height: context.dynamicHeight(0.016)),
-                buildRowCheckboxAndText(
-                  context,
-                  LocaleKeys.filters_choose_category_item3,
-                  "Vegan",
-                ),
-                SizedBox(height: context.dynamicHeight(0.016)),
-                buildRowCheckboxAndText(
-                  context,
-                  LocaleKeys.filters_choose_category_item4,
-                  "Hamburger",
-                ),
-                SizedBox(height: context.dynamicHeight(0.016)),
-                buildRowCheckboxAndText(
-                  context,
-                  LocaleKeys.filters_choose_category_item5,
-                  "Dessert",
-                ),
-                SizedBox(height: context.dynamicHeight(0.016)),
-                buildRowCheckboxAndText(
-                  context,
-                  LocaleKeys.filters_choose_category_item6,
-                  "Pizza",
-                ),
-                SizedBox(height: context.dynamicHeight(0.016)),
-                buildRowCheckboxAndText(
-                  context,
-                  LocaleKeys.filters_choose_category_item7,
-                  "Chicken",
-                ),
-                SizedBox(height: context.dynamicHeight(0.016)),
-                buildRowCheckboxAndText(
-                  context,
-                  LocaleKeys.filters_choose_category_item8,
-                  "Coffee",
-                ),
-              //  SizedBox(height: context.dynamicHeight(0.030)),
-              ],
+    return Builder(builder: (context) {
+      final FiltersState state = context.watch<FiltersCubit>().state;
+
+      return CustomExpansionTile(
+          expansionTileBody: Padding(
+            padding: EdgeInsets.only(left: context.dynamicWidht(0.074)),
+            child: Container(
+              height: context.dynamicHeight(0.37),
+              child: Column(
+                children: [
+                  SizedBox(height: context.dynamicHeight(0.01)),
+                  buildRowCheckboxAndText(
+                      context, LocaleKeys.filters_choose_category_item9, "All", (){
+                        setState(() {
+                            state.checkList![16] = !state.checkList![16];
+                      state.checkList![10] = !state.checkList![10];
+                      state.checkList![11] = !state.checkList![11];
+                      state.checkList![12] = !state.checkList![12];
+                      state.checkList![13] = !state.checkList![13];
+                      state.checkList![14] = !state.checkList![14];
+                      state.checkList![15] = !state.checkList![15];
+                      state.checkList![9] = !state.checkList![9];
+                      state.checkList![8] = !state.checkList![8];
+                        });
+                      }),
+                  SizedBox(height: context.dynamicHeight(0.016)),
+                  buildRowCheckboxAndText(
+                    context,
+                    LocaleKeys.filters_choose_category_item1,
+                    "Main Course",(){
+                      setState(() {
+                state.checkList![8] = !state.checkList![8];
+                        
+                      });
+                    },
+                  ),
+                  SizedBox(height: context.dynamicHeight(0.016)),
+                  buildRowCheckboxAndText(
+                    context,
+                    LocaleKeys.filters_choose_category_item2,
+                    "Drinks",(){
+                      setState(() {
+                state.checkList![9] = !state.checkList![9];
+                        
+                      });
+                    }
+                  ),
+                  SizedBox(height: context.dynamicHeight(0.016)),
+                  buildRowCheckboxAndText(
+                    context,
+                    LocaleKeys.filters_choose_category_item3,
+                    "Vegan",(){
+                      setState(() {
+                state.checkList![10] = !state.checkList![10];
+                        
+                      });
+                    }
+                  ),
+                  SizedBox(height: context.dynamicHeight(0.016)),
+                  buildRowCheckboxAndText(
+                    context,
+                    LocaleKeys.filters_choose_category_item4,
+                    "Hamburger",(){
+                      setState(() {
+                state.checkList![11] = !state.checkList![11];
+                        
+                      });
+                    }
+                  ),
+                  SizedBox(height: context.dynamicHeight(0.016)),
+                  buildRowCheckboxAndText(
+                    context,
+                    LocaleKeys.filters_choose_category_item5,
+                    "Dessert",(){
+                      setState(() {
+                state.checkList![12] = !state.checkList![12];
+                        
+                      });
+                    }
+                  ),
+                  SizedBox(height: context.dynamicHeight(0.016)),
+                  buildRowCheckboxAndText(
+                    context,
+                    LocaleKeys.filters_choose_category_item6,
+                    "Pizza",(){
+                      setState(() {
+                state.checkList![13] = !state.checkList![13];
+                        
+                      });
+                    }
+                  ),
+                  SizedBox(height: context.dynamicHeight(0.016)),
+                  buildRowCheckboxAndText(
+                    context,
+                    LocaleKeys.filters_choose_category_item7,
+                    "Chicken",(){
+                      setState(() {
+                state.checkList![14] = !state.checkList![14];
+                        
+                      });
+                    }
+                  ),
+                  SizedBox(height: context.dynamicHeight(0.016)),
+                  buildRowCheckboxAndText(
+                    context,
+                    LocaleKeys.filters_choose_category_item8,
+                    "Coffee",(){
+                      setState(() {
+                state.checkList![15] = !state.checkList![15];
+                        
+                      });
+                    }
+                  ),
+                  //  SizedBox(height: context.dynamicHeight(0.030)),
+                ],
+              ),
             ),
           ),
-        ),
-        expansionTileTitle: LocaleKeys.filters_choose_category_title);
+          expansionTileTitle: LocaleKeys.filters_choose_category_title);
+    });
   }
 
-  Row buildRowCheckboxAndText(
-      BuildContext context, String text, String checkValue) {
+  Row buildRowCheckboxAndText(BuildContext context, String text,
+      String checkValue, VoidCallback onTap) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         buildCheckBox(context, checkValue),
         Spacer(flex: 2),
-        LocaleText(text: text, style: AppTextStyles.bodyTextStyle),
+        GestureDetector(
+            onTap: onTap,
+            child: LocaleText(text: text, style: AppTextStyles.bodyTextStyle)),
         Spacer(flex: 35),
       ],
     );

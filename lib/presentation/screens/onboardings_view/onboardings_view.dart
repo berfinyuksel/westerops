@@ -81,6 +81,7 @@ class _OnboardingsViewState extends State<OnboardingsView> {
             onTap: () {
               setState(() {
                 pageController.animateToPage(4, duration: Duration(milliseconds: 1000), curve: Curves.ease);
+
               });
             },
             child: LocaleText(
@@ -132,7 +133,7 @@ class _OnboardingsViewState extends State<OnboardingsView> {
       height: context.height,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
       child: PageView.builder(
-        physics: NeverScrollableScrollPhysics(),
+     //   physics: NeverScrollableScrollPhysics(),
         controller: pageController,
         scrollDirection: Axis.horizontal,
         itemCount: 5,

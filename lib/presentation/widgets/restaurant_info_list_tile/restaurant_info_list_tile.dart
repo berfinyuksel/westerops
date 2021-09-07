@@ -106,7 +106,7 @@ class RestaurantInfoListTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         RestrauntIcon(
-          icon: icon,
+          icon: "icon",// null
         ),
         Spacer(flex: 1),
         PacketNumber(

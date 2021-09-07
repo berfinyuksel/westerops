@@ -72,7 +72,10 @@ class _LocationViewState extends State<LocationView> {
 
   GestureDetector lateForNowButton() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+            //  Navigator.pushNamed(context, RouteConstant.HOME_PAGE_VIEW);
+
+      },
       child: AutoSizeText(
         LocaleKeys.premission_notification_button2.locale,
         style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),

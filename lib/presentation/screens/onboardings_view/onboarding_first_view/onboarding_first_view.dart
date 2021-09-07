@@ -10,8 +10,8 @@ import '../components/onboarding_text.dart';
 class OnboardingFirstView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
         children: [
           Positioned(
             top: 0,

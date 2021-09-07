@@ -19,10 +19,12 @@ class CustomScaffold extends StatefulWidget {
   String? title;
   Widget? body;
   bool? isDrawer;
+  bool? isNavBar;
   CustomScaffold({
     Key? key,
     this.title,
     this.body,
+    this.isNavBar,
     this.isDrawer,
   }) : super(key: key);
   @override
@@ -60,6 +62,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
       appBar: widget.isDrawer == null
@@ -80,12 +83,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           : widget.isDrawer!
               ? null
               : CustomDrawer(),
-      bottomNavigationBar: ClipRRect(
+      bottomNavigationBar: widget.isNavBar != null ? null :  ClipRRect(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(18.0),
           ),
           child: buildBottomNavigationBar()),
-      body: widget.body == null ? _widgetOptions.elementAt(_selectedIndex) : widget.body,
+      body: widget.body == null
+          ? _widgetOptions.elementAt(_selectedIndex)
+          : widget.body,
     );
   }
 
@@ -93,7 +98,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     return AppBar(
       iconTheme: IconThemeData(color: AppColors.greenColor, size: 20.0),
       elevation: 0,
-      bottomOpacity:0,
+      bottomOpacity: 0,
       leading: IconButton(
         icon: SvgPicture.asset(ImageConstant.BACK_ICON),
         onPressed: () => Navigator.of(context).pop(),
@@ -108,7 +113,6 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   AppBar buildAppBarWithInputTitle() {
     return AppBar(
-      
       actions: [
         Padding(
           padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
@@ -124,7 +128,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         ),
       ],
       iconTheme: IconThemeData(color: AppColors.greenColor, size: 20.0),
-        elevation: 0,
+      elevation: 0,
       bottomOpacity: 0,
       leading: IconButton(
         icon: SvgPicture.asset(ImageConstant.BACK_ICON),
@@ -140,7 +144,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   AppBar buildAppBarWithTitleList() {
     return AppBar(
-         elevation: 0,
+      elevation: 0,
       bottomOpacity: 0,
       actions: [
         Padding(
@@ -169,29 +173,27 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   }
 
   BottomNavigationBar buildBottomNavigationBar() {
-    return BottomNavigationBar(
+    return  BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       selectedItemColor: Colors.black,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            ImageConstant.NAVBAR_HOME,
-          ),
-          activeIcon: scaffoldKey.currentState == null
-              ? SvgPicture.asset(
-                  ImageConstant.NAVBAR_HOME,
-                )
-              : scaffoldKey.currentState!.isEndDrawerOpen
-                  ? SvgPicture.asset(
-                      ImageConstant.NAVBAR_HOME,
-                    )
-                  : SvgPicture.asset(
-                      ImageConstant.NAVBAR_HOME_ACTIVE,
-                    ),
-          label: LocaleKeys.bottom_nav_bar_item_1.locale,
-          backgroundColor: Colors.black
-          
-        ),
+            icon: SvgPicture.asset(
+              ImageConstant.NAVBAR_HOME,
+            ),
+            activeIcon: scaffoldKey.currentState == null
+                ? SvgPicture.asset(
+                    ImageConstant.NAVBAR_HOME,
+                  )
+                : scaffoldKey.currentState!.isEndDrawerOpen
+                    ? SvgPicture.asset(
+                        ImageConstant.NAVBAR_HOME,
+                      )
+                    : SvgPicture.asset(
+                        ImageConstant.NAVBAR_HOME_ACTIVE,
+                      ),
+            label: LocaleKeys.bottom_nav_bar_item_1.locale,
+            backgroundColor: Colors.black),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(ImageConstant.NAVBAR_SEARCH),
           activeIcon: scaffoldKey.currentState == null

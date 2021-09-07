@@ -108,7 +108,8 @@
         "body_list_tile_change_location": "Change Region",
         "body_list_tile_rate_app": "Rate App",
         "body_list_tile_about_app": "About App",
-        "body_list_tile_about_food_waste": "About Food Waste"
+        "body_list_tile_about_food_waste": "About Food Waste",
+        "filter_page_tile": "Filter"
     },
     "inform": {
         "title": "My Information",

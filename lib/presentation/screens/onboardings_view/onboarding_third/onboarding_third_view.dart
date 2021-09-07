@@ -13,8 +13,8 @@ class OnboardingThirdView extends StatelessWidget {
   const OnboardingThirdView({Key? key, this.carouselPoints}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
         children: [
           Positioned(
             top: 0,

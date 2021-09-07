@@ -65,6 +65,7 @@ class SampleOrderRepository implements OrderRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
+    print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
@@ -72,10 +73,10 @@ class SampleOrderRepository implements OrderRepository {
       for (int i = 0; i < jsonBody.length; i++) {
         print(jsonBody[i]);
 
-      //orderr
-        // boxes.add(Box.fromJson(jsonBody[i]));
-
+        //orderrr
+        boxes.add(Box.fromJson(jsonBody[i]));
       }
+      
       return boxes;
     }
     throw NetworkError(response.statusCode.toString(), response.body);

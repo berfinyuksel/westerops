@@ -94,7 +94,7 @@
         "button": "Restoranları Keşfet"
     },
     "custom_drawer": {
-        "title": "Profilim",
+        "title": "Profil",
         "login_button": "Giriş Yap",
         "register_button": "Üye Ol",
         "body_title_1": "Ayarlar",
@@ -108,7 +108,9 @@
         "body_list_tile_change_location": "Bölge Değiştir",
         "body_list_tile_rate_app": "Uygulamayı Değerlendir",
         "body_list_tile_about_app": "Uygulama Hakkında",
-        "body_list_tile_about_food_waste": "Gıda İsrafı Hakkında"
+        "body_list_tile_about_food_waste": "Gıda İsrafı Hakkında",
+        "filter_page_tile": "Filtrele"
+
     },
     "inform": {
         "title": "Bilgilerim",
