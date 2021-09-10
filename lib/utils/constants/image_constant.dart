@@ -162,4 +162,9 @@ class ImageConstant {
       "assets/images/notifications/itself.svg";
   static const NOTIFICATIONS_LIKE_ICON = "assets/images/notifications/like.svg";
   static const SPLASH_ANIMATION = "assets/splash/splash.json";
+  static const CARDS_COMPANY =
+      "assets/images/card_company/payment_cards_company.svg";
+  static const IYZICO_LOGO =
+      "assets/images/card_company/iyzico_logo.svg";
+        static const FREEZE_ACCOUNT_LOVE = "assets/images/freeze_account/freeze_account_love.svg";
 }

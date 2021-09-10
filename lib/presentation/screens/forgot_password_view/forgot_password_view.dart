@@ -54,6 +54,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     try {
       final authCredential =
           await _auth.signInWithCredential(phoneAuthCredential);
+      print(authCredential.user!.providerData);
       setState(() {
         showLoading = false;
       });
@@ -132,16 +133,18 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   ),
                   CustomButton(
                     onPressed: () async {
-                      if (isCodeSent==true) {
-                         showDialog(
+                      if (isCodeSent == true) {
+                        showDialog(
                             context: context,
                             builder: (_) =>
                                 CustomAlertDialogSuccessfullyChangedPassword());
                       }
                       String phoneTR = '+90' + phoneController.text;
                       String phoneEN = '+1' + phoneController.text;
+
                       await _auth.verifyPhoneNumber(
-                          phoneNumber: dropdownValue == 'TR' ? phoneTR : phoneEN,
+                          phoneNumber:
+                              dropdownValue == 'TR' ? phoneTR : phoneEN,
                           verificationCompleted: (phoneAuthCredential) async {
                             setState(() {
                               showLoading = false;
@@ -166,6 +169,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       setState(() {
                         isCodeSent = true;
                         showLoading = true;
+                        print( _auth.app.options);//session_key
+
                         /*FirebaseAuth.instance.sendPasswordResetEmail(
                             email: phoneController.text);*/
                       });
@@ -179,7 +184,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         context.read<UserAuthCubit>().resetPassword(
                             passwordController.text, phoneController.text);
                       }
-                      
                     },
                     width: double.infinity,
                     title: isCodeSent
@@ -192,7 +196,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         ? AppColors.disabledButtonColor
                         : AppColors.greenColor,
                     textColor: Colors.white,
-                    
                   ),
                   SizedBox(
                     height: context.dynamicHeight(0.02),
@@ -201,7 +204,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 ],
               ),
             ),
-             /*CustomButton(
+            /*CustomButton(
               title: "verify",
               color: Colors.red,
               textColor: Colors.white,
@@ -223,7 +226,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               child: Visibility(
                   visible: isRulesVisible,
                   child: ClippedPasswordRules(
-                      child: PasswordRules(passwordController: passwordController),)),
+                    child:
+                        PasswordRules(passwordController: passwordController),
+                  )),
             ),
           ],
         ),
@@ -389,7 +394,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   TextFormField buildTextFormField(
       String labelText, TextEditingController controller) {
-            String phoneTR = '+90';
+    String phoneTR = '+90';
     String phoneEN = '+1';
     return TextFormField(
       cursorColor: AppColors.cursorColor,

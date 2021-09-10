@@ -1,12 +1,6 @@
-import 'dart:convert';
 
-import 'package:dongu_mobile/data/model/box.dart';
 import 'package:dongu_mobile/data/model/store.dart';
-import 'package:dongu_mobile/data/repositories/store_repository.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
-import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
-import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -26,7 +20,6 @@ import '../my_favorites_view/components/address_text.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../search_view/components/horizontal_list_category_bar.dart';
 
-
 class HomePageView extends StatefulWidget {
   @override
   _HomePageViewState createState() => _HomePageViewState();
@@ -42,7 +35,6 @@ class _HomePageViewState extends State<HomePageView> {
     super.initState();
     context.read<StoreCubit>().getStores();
     LocationService.getCurrentLocation();
-    
   }
 
   @override
@@ -87,8 +79,8 @@ class _HomePageViewState extends State<HomePageView> {
           padding: EdgeInsets.only(
               left: context.dynamicWidht(0.06),
               right: context.dynamicWidht(0.06)),
-          child: buildRowTitleLeftRight(context, LocaleKeys.home_page_location,
-              LocaleKeys.home_page_edit),
+          child: buildRowTitleLeftRightLocation(context,
+              LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -127,8 +119,8 @@ class _HomePageViewState extends State<HomePageView> {
           padding: EdgeInsets.only(
               left: context.dynamicWidht(0.06),
               right: context.dynamicWidht(0.06)),
-          child: buildRowTitleLeftRight(context, LocaleKeys.home_page_closer,
-              LocaleKeys.home_page_see_all),
+          child: buildRowTitleLeftRightNearMeAll(context,
+              LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -238,7 +230,7 @@ class _HomePageViewState extends State<HomePageView> {
               scroolNearMe = !scroolNearMe;
             });
           }
- 
+
           return scroolNearMe;
         },
         child: ListView.separated(
@@ -256,11 +248,11 @@ class _HomePageViewState extends State<HomePageView> {
               child: RestaurantInfoCard(
                 restaurantIcon: restaurants[index].photo,
                 backgroundImage: restaurants[index].background,
-                packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
+                packetNumber: "${restaurants[index].id} paket",
                 restaurantName: restaurants[index].name,
-                grade:  "1",
+                grade: "1",
                 location: restaurants[index].city,
-                distance: "500 m",
+                distance: restaurants[index].latitude.toString(),
                 availableTime: '1-4',
               ),
             );
@@ -319,7 +311,35 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Row buildRowTitleLeftRight(
+  Row buildRowTitleLeftRightLocation(
+      BuildContext context, String titleLeft, String titleRight) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        LocaleText(
+          text: titleLeft,
+          style: AppTextStyles.bodyTitleStyle,
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+          },
+          child: LocaleText(
+            text: titleRight,
+            style: GoogleFonts.montserrat(
+              fontSize: 12.0,
+              color: AppColors.orangeColor,
+              fontWeight: FontWeight.w600,
+              height: 2.0,
+            ),
+            alignment: TextAlign.right,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row buildRowTitleLeftRightNearMeAll(
       BuildContext context, String titleLeft, String titleRight) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

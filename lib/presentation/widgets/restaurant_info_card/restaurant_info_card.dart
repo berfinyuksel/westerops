@@ -1,3 +1,5 @@
+
+
 import '../restaurant_info_list_tile/first_column/packet_number.dart';
 import '../restaurant_info_list_tile/first_column/restaurant_icon.dart';
 import '../restaurant_info_list_tile/second_column/package_delivery.dart';
@@ -66,7 +68,7 @@ class RestaurantInfoCard extends StatelessWidget {
               children: [
                 buildFirstRow(context, packetNumber!),
                 Spacer(flex: 9),
-                buildSecondRow(restaurantName!, restaurantIcon!),
+                buildSecondRow(restaurantName!, restaurantIcon!, context),
                 Spacer(flex: 1),
                 buildThirdRow(grade!, location!, distance!),
                 Divider(
@@ -122,17 +124,16 @@ class RestaurantInfoCard extends StatelessWidget {
     );
   }
 
-  Row buildSecondRow(String restaurantName, String restaurantIcon) {
+  Row buildSecondRow(String restaurantName, String restaurantIcon,BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         RestrauntIcon(
           icon: restaurantIcon,
         ),
-        Spacer(
-          flex: 1,
-        ),
+        
+        SizedBox(width: context.dynamicWidht(0.04),),
         Flexible(
           flex: 6,
           child: Text(

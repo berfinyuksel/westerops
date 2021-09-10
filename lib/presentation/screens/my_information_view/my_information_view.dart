@@ -95,7 +95,7 @@ class _MyInformationViewState extends State<MyInformationView> {
           Center(
             child: TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, RouteConstant.DELETE_ACCOUNT_VIEW);
+                Navigator.pushNamed(context, RouteConstant.FREEZE_ACCOUNT_VIEW);
               },
               child: LocaleText(
                 text: "Hesabımı Dondur",

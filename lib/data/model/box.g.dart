@@ -15,7 +15,7 @@ Box _$BoxFromJson(Map<String, dynamic> json) {
     defined: json['defined'] as bool?,
     sold: json['sold'] as bool?,
     store: json['store'] as int?,
-    sale_day: json['sale_day'] as int?,
+
   );
 }
 

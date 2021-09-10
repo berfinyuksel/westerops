@@ -1,6 +1,6 @@
 {
     "bottom_nav_bar": {
-        "item_1": "Anasayfa",
+        "item_1": "Ana Sayfa",
         "item_2": "Arama",
         "item_3": "Favorilerim",
         "item_4": "Bildirimlerim",
@@ -94,7 +94,7 @@
         "button": "Restoranları Keşfet"
     },
     "custom_drawer": {
-        "title": "Profilim",
+        "title": "Profil",
         "login_button": "Giriş Yap",
         "register_button": "Üye Ol",
         "body_title_1": "Ayarlar",
@@ -108,7 +108,9 @@
         "body_list_tile_change_location": "Bölge Değiştir",
         "body_list_tile_rate_app": "Uygulamayı Değerlendir",
         "body_list_tile_about_app": "Uygulama Hakkında",
-        "body_list_tile_about_food_waste": "Gıda İsrafı Hakkında"
+        "body_list_tile_about_food_waste": "Gıda İsrafı Hakkında",
+        "filter_page_tile": "Filtrele"
+
     },
     "inform": {
         "title": "Bilgilerim",
@@ -305,6 +307,13 @@
         "button": "Hesabımı Sil",
         "hint_text": "Başka bir sebepten.(Lütfen açıklayın)"
     },
+        "freeze_account": {
+            "title": "Hesabımı Dondur",
+            "text_1": "Gidiyor musun?",
+            "text_2": "Hesabını neden silmek istiyorsun? Lütfen yanıtla. Bilgilerini 30 gün süreyle saklayacağız. 30 gün içerisinde geri gelmeye karar verirsen, Döngü hesabını kullanmaya kaldığın yerden devam edebilirsin.",
+            "button": "Hesabımı Askıya Al",
+            "hint_text": "Başka bir sebepten.(Lütfen açıklayın)"
+        },
     "surprise_pack": {
         "surprise_pack_opened": "Sürpriz Paketin açıldı!",
         "surprise_pack": "Sürpriz Paket",

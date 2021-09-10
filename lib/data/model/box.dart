@@ -23,7 +23,7 @@ class Box {
     this.defined,
     this.sold,
     this.store,
-    this.sale_day,
+
   });
 
   factory Box.fromJson(Map<String, dynamic> json) => _$BoxFromJson(json);

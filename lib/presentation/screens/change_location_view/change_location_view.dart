@@ -32,7 +32,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: LocaleKeys.change_location_title,
-      body: Column(
+      body: Column( 
         children: [
           Spacer(
             flex: 3,

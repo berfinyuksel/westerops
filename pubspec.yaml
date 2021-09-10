@@ -86,6 +86,8 @@ flutter:
     - assets/images/order_receiving/
     - assets/images/delete_account/
     - assets/images/surprise_pack/
+    - assets/images/card_company/
+    - assets/images/freeze_account/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

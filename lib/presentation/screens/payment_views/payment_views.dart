@@ -23,7 +23,8 @@ class PaymentViews extends StatefulWidget {
   _PaymentViewsState createState() => _PaymentViewsState();
 }
 
-class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMixin {
+class _PaymentViewsState extends State<PaymentViews>
+    with TickerProviderStateMixin {
   TabController? tabController;
   bool checkboxValue = false;
   bool checkboxInfoValue = false;
@@ -52,9 +53,13 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
           buildTabsContainer(context),
           buildDeliveryType(context, state),
           buildTabBars(state),
-          Spacer(),
-          Visibility(visible: tabController!.index != 2, child: buildButton(context)),
-          Visibility(visible: tabController!.index == 2, child: buildBottomCard(context)),
+          // Spacer(),
+        tabController!.index != 1 ? Spacer(): SizedBox(height: context.dynamicHeight(0.06),)  ,
+          Visibility(
+              visible: tabController!.index != 2, child: buildButton(context)),
+          Visibility(
+              visible: tabController!.index == 2,
+              child: buildBottomCard(context)),
         ],
       ),
     );
@@ -65,7 +70,10 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
       width: double.infinity,
       height: context.dynamicHeight(0.29),
       padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06), top: context.dynamicHeight(0.01), bottom: context.dynamicHeight(0.04)),
+          left: context.dynamicWidht(0.06),
+          right: context.dynamicWidht(0.06),
+          top: context.dynamicHeight(0.01),
+          bottom: context.dynamicHeight(0.04)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(18.0),
@@ -77,7 +85,9 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              LocaleText(text: LocaleKeys.payment_payment_order_amount, style: AppTextStyles.bodyTextStyle),
+              LocaleText(
+                  text: LocaleKeys.payment_payment_order_amount,
+                  style: AppTextStyles.bodyTextStyle),
               PaymentTotalPrice(
                 price: 70.50,
                 withDecimal: true,
@@ -90,9 +100,11 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
             color: AppColors.borderAndDividerColor,
           ),
           Spacer(flex: 5),
-          buildRowCheckBoxAgreement(context, "Ön Bilgilendirme Koşulları", "’nı okudum, onaylıyorum.", "info"),
+          buildRowCheckBoxAgreement(context, "Ön Bilgilendirme Koşulları",
+              "’nı okudum, onaylıyorum.", "info"),
           Spacer(flex: 4),
-          buildRowCheckBoxAgreement(context, "Mesafeli Satış Sözleşmesi", "’nı okudum, onaylıyorum.", "agreement"),
+          buildRowCheckBoxAgreement(context, "Mesafeli Satış Sözleşmesi",
+              "’nı okudum, onaylıyorum.", "agreement"),
           Spacer(flex: 9),
           buildRowTotalPayment(context),
         ],
@@ -100,7 +112,8 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
     );
   }
 
-  Row buildRowCheckBoxAgreement(BuildContext context, String underlinedText, String text, String checkValue) {
+  Row buildRowCheckBoxAgreement(BuildContext context, String underlinedText,
+      String text, String checkValue) {
     return Row(
       children: [
         buildCheckBox(context, checkValue),
@@ -185,12 +198,17 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         CustomButton(
           width: context.dynamicWidht(0.5),
           title: LocaleKeys.payment_payment_pay,
-          color: checkboxAgreementValue && checkboxInfoValue ? AppColors.greenColor : AppColors.disabledButtonColor,
+          color: checkboxAgreementValue && checkboxInfoValue
+              ? AppColors.greenColor
+              : AppColors.disabledButtonColor,
           textColor: Colors.white,
-          borderColor: checkboxAgreementValue && checkboxInfoValue ? AppColors.greenColor : AppColors.disabledButtonColor,
+          borderColor: checkboxAgreementValue && checkboxInfoValue
+              ? AppColors.greenColor
+              : AppColors.disabledButtonColor,
           onPressed: () {
             if (checkboxAgreementValue && checkboxInfoValue) {
-              Navigator.pushReplacementNamed(context, RouteConstant.ORDER_RECEIVING_VIEW);
+              Navigator.pushReplacementNamed(
+                  context, RouteConstant.ORDER_RECEIVING_VIEW);
             }
           },
         ),
@@ -254,17 +272,21 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
       height: context.dynamicHeight(0.1),
       width: double.infinity,
       child: Row(
-        mainAxisAlignment: tabController!.index == 2 ?  MainAxisAlignment.center
-            :  MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: tabController!.index == 2
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.spaceBetween,
         children: [
           buildGetIt(context, state),
-         tabController!.index == 0 || tabController!.index == 1 ? buildPackageDelivery(context, state) : SizedBox()
+          tabController!.index == 0 || tabController!.index == 1
+              ? buildPackageDelivery(context, state)
+              : SizedBox()
         ],
       ),
     );
   }
 
-  GestureDetector buildPackageDelivery(BuildContext context, PaymentState state) {
+  GestureDetector buildPackageDelivery(
+      BuildContext context, PaymentState state) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -290,22 +312,29 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         child: tabController!.index == 2
             ? LocaleText(
                 text: "Kapıda Ödeme",
-                style: AppTextStyles.bodyTextStyle.copyWith(color: !state.isOnline! ? AppColors.greenColor : AppColors.textColor))
+                style: AppTextStyles.bodyTextStyle.copyWith(
+                    color: !state.isOnline!
+                        ? AppColors.greenColor
+                        : AppColors.textColor))
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SvgPicture.asset(
                     ImageConstant.PACKAGE_DELIVERY_ICON,
-                    color: !state.isGetIt! ? AppColors.greenColor : AppColors.iconColor,
+                    color: !state.isGetIt!
+                        ? AppColors.greenColor
+                        : AppColors.iconColor,
                     height: 28,
-                  
                     fit: BoxFit.fill,
                   ),
                   Padding(
-                   padding: EdgeInsets.only(right: context.dynamicWidht(0.06)),
+                    padding: EdgeInsets.only(right: context.dynamicWidht(0.06)),
                     child: LocaleText(
                         text: LocaleKeys.payment_package_delivery,
-                        style: AppTextStyles.bodyTextStyle.copyWith(color: !state.isGetIt! ? AppColors.greenColor : AppColors.textColor)),
+                        style: AppTextStyles.bodyTextStyle.copyWith(
+                            color: !state.isGetIt!
+                                ? AppColors.greenColor
+                                : AppColors.textColor)),
                   ),
                 ],
               ),
@@ -329,7 +358,7 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
       child: Container(
         alignment: Alignment.center,
         height: context.dynamicHeight(0.052),
-        width:  context.dynamicWidht( tabController!.index == 2 ? 0.85  : 0.45) ,
+        width: context.dynamicWidht(tabController!.index == 2 ? 0.85 : 0.45),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           color: Colors.white,
@@ -341,21 +370,29 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         child: tabController!.index == 2
             ? LocaleText(
                 text: "Online Ödeme",
-                style: AppTextStyles.bodyTextStyle.copyWith(color: state.isOnline! ? AppColors.greenColor : AppColors.textColor))
+                style: AppTextStyles.bodyTextStyle.copyWith(
+                    color: state.isOnline!
+                        ? AppColors.greenColor
+                        : AppColors.textColor))
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SvgPicture.asset(
                     ImageConstant.PACKAGE_ICON,
-                    color: state.isGetIt! ? AppColors.greenColor : AppColors.iconColor,
+                    color: state.isGetIt!
+                        ? AppColors.greenColor
+                        : AppColors.iconColor,
                     height: 30,
                     fit: BoxFit.fill,
                   ),
                   Padding(
-                     padding: EdgeInsets.only(right: context.dynamicWidht(0.04)),
+                    padding: EdgeInsets.only(right: context.dynamicWidht(0.04)),
                     child: LocaleText(
                       text: LocaleKeys.payment_get_it,
-                      style: AppTextStyles.bodyTextStyle.copyWith(color: state.isGetIt! ? AppColors.greenColor : AppColors.textColor),
+                      style: AppTextStyles.bodyTextStyle.copyWith(
+                          color: state.isGetIt!
+                              ? AppColors.greenColor
+                              : AppColors.textColor),
                     ),
                   ),
                 ],
@@ -391,24 +428,33 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         text: LocaleKeys.payment_tab_1,
         style: GoogleFonts.montserrat(
           fontSize: 16.0,
-          color: tabController!.index == 0 ? AppColors.orangeColor : AppColors.textColor,
-          fontWeight: tabController!.index == 0 ? FontWeight.w600 : FontWeight.w300,
+          color: tabController!.index == 0
+              ? AppColors.orangeColor
+              : AppColors.textColor,
+          fontWeight:
+              tabController!.index == 0 ? FontWeight.w600 : FontWeight.w300,
         ),
       ),
       LocaleText(
         text: LocaleKeys.payment_tab_2,
         style: GoogleFonts.montserrat(
           fontSize: 16.0,
-          color: tabController!.index == 1 ? AppColors.orangeColor : AppColors.textColor,
-          fontWeight: tabController!.index == 1 ? FontWeight.w600 : FontWeight.w300,
+          color: tabController!.index == 1
+              ? AppColors.orangeColor
+              : AppColors.textColor,
+          fontWeight:
+              tabController!.index == 1 ? FontWeight.w600 : FontWeight.w300,
         ),
       ),
       LocaleText(
         text: LocaleKeys.payment_tab_3,
         style: GoogleFonts.montserrat(
           fontSize: 16.0,
-          color: tabController!.index == 2 ? AppColors.orangeColor : AppColors.textColor,
-          fontWeight: tabController!.index == 2 ? FontWeight.w600 : FontWeight.w300,
+          color: tabController!.index == 2
+              ? AppColors.orangeColor
+              : AppColors.textColor,
+          fontWeight:
+              tabController!.index == 2 ? FontWeight.w600 : FontWeight.w300,
         ),
       )
     ];
@@ -434,6 +480,13 @@ class _PaymentViewsState extends State<PaymentViews> with TickerProviderStateMix
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
+          setState(() {
+            if (tabController!.index ==0) {
+            tabController!.index = 1;
+            }else if(tabController!.index == 1){
+            tabController!.index = 2;
+            }
+          });
         },
       ),
     );

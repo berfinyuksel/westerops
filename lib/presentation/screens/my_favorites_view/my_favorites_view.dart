@@ -55,7 +55,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
 
   Builder buildBuilder() {
     return Builder(builder: (context) {
-     final GenericState state = context.watch<StoreCubit>().state;
+      final GenericState state = context.watch<StoreCubit>().state;
       //final FiltersState filterState = context.watch<FiltersCubit>().state;
 
       if (state is GenericInitial) {
@@ -78,7 +78,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     });
   }
 
-  Column buildBody(BuildContext context, List<Store> favourites, GenericCompleted state) {
+  Column buildBody(
+      BuildContext context, List<Store> favourites, GenericCompleted state) {
     return Column(
       children: [
         buildTitlesAndSearchBar(context),
@@ -107,12 +108,14 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          final GoogleMapController controller = await _mapController.future;
+                          final GoogleMapController controller =
+                              await _mapController.future;
                           setState(() {
                             latitude = LocationService.latitude!;
                             longitude = LocationService.longitude!;
 
-                            controller.animateCamera(CameraUpdate.newCameraPosition(
+                            controller
+                                .animateCamera(CameraUpdate.newCameraPosition(
                               CameraPosition(
                                 target: LatLng(latitude, longitude),
                                 zoom: 17.0,
@@ -120,7 +123,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                             ));
                           });
                         },
-                        child: SvgPicture.asset(ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                        child: SvgPicture.asset(
+                            ImageConstant.COMMONS_MY_LOCATION_BUTTON),
                       ),
                       Visibility(
                           visible: isShowBottomInfo,
@@ -130,16 +134,21 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                                   isShowBottomInfo = false;
                                 });
                               },
-                              child: Container(color: Colors.black.withOpacity(0.2)))),
+                              child: Container(
+                                  color: Colors.black.withOpacity(0.2)))),
                     ],
                   ),
-                  Visibility(visible: isShowBottomInfo, child: buildBottomInfo(context))
+                  Visibility(
+                      visible: isShowBottomInfo,
+                      child: buildBottomInfo(context))
                 ],
               ),
             ),
           ),
         ),
-        Visibility(visible: !isShowOnMap, child: Expanded(child: buildListViewRestaurantInfo(favourites))),
+        Visibility(
+            visible: !isShowOnMap,
+            child: Expanded(child: buildListViewRestaurantInfo(favourites))),
       ],
     );
   }
@@ -155,7 +164,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildRowTitleLeftRight(context, LocaleKeys.my_favorites_location, LocaleKeys.my_favorites_edit),
+          buildRowTitleLeftRight(context, LocaleKeys.my_favorites_location,
+              LocaleKeys.my_favorites_edit),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -171,7 +181,11 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           ),
           SizedBox(height: context.dynamicHeight(0.03)),
           buildRowTitleLeftRight(
-              context, LocaleKeys.my_favorites_body_title, isShowOnMap ? LocaleKeys.my_near_show_list : LocaleKeys.my_favorites_show_map),
+              context,
+              LocaleKeys.my_favorites_body_title,
+              isShowOnMap
+                  ? LocaleKeys.my_near_show_list
+                  : LocaleKeys.my_favorites_show_map),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -201,7 +215,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         });
   }
 
-  Row buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRight(
+      BuildContext context, String titleLeft, String titleRight) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -273,9 +288,12 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   }
 
   void setCustomMarker() async {
-    markerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
-    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_MARKER);
-    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
+    markerIcon =
+        await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
+    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_MARKER);
+    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
     getLocation();
   }
 
@@ -298,16 +316,19 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         ));
   }
 
-  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(String assetName) async {
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
+      String assetName) async {
     // Read SVG file as String
-    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
+    String svgString =
+        await DefaultAssetBundle.of(context).loadString(assetName);
     // Create DrawableRoot from SVG String
     DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
 
     // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
     MediaQueryData queryData = MediaQuery.of(context);
     double devicePixelRatio = queryData.devicePixelRatio;
-    double width = 64 * devicePixelRatio; // where 32 is your SVG's original width
+    double width =
+        64 * devicePixelRatio; // where 32 is your SVG's original width
     double height = 64 * devicePixelRatio; // same thing
 
     // Convert to ui.Picture

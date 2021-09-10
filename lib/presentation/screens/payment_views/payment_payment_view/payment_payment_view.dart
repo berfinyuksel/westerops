@@ -1,3 +1,5 @@
+
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -159,6 +161,25 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
             ],
           ),
         ),
+       payWithAnotherCard ? Padding(
+         padding: EdgeInsets.symmetric(
+                   
+                    vertical: context.dynamicHeight(0.01)),
+         child: Row(
+           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+           children: [
+             SvgPicture.asset(ImageConstant.IYZICO_LOGO),
+             Text(
+                       "Ödeme sistemimiz iyzico tarafından \nSağlanmaktadır ve işlem güvenliğiniz\nİyzico güvencesi altındadır.", style: AppTextStyles.subTitleStyle,),
+                
+           ],
+         ),
+       ) : Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: context.dynamicWidht(0.065),
+                    vertical: context.dynamicHeight(0.02)),
+                child: SvgPicture.asset(ImageConstant.CARDS_COMPANY),
+              )  ,
         buildAnotherCardButton(context),
       ],
     );

@@ -21,38 +21,61 @@ class _SortFilterListState extends State<SortFilterList> {
   // List<bool> checkList = [false,false,false];
   @override
   Widget build(BuildContext context) {
-    return CustomExpansionTile(
-        expansionTileBody: Padding(
-          padding: EdgeInsets.only(left: context.dynamicWidht(0.074)),
-          child: Column(
-            children: [
-              SizedBox(height: context.dynamicHeight(0.01)),
-              buildRowCheckboxAndText(
-                  context, LocaleKeys.filters_sort_item1, "Sort by Distance"),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                  context, LocaleKeys.filters_sort_item2, "Favorites"),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                  context, LocaleKeys.filters_sort_item3, "User Point"),
-              SizedBox(height: context.dynamicHeight(0.016)),
-              buildRowCheckboxAndText(
-                  context, LocaleKeys.filters_sort_item4, "New Guest"),
-              SizedBox(height: context.dynamicHeight(0.030)),
-            ],
+    return Builder(builder: (context) {
+      final FiltersState state = context.watch<FiltersCubit>().state;
+
+    return  CustomExpansionTile(
+          expansionTileBody: Padding(
+            padding: EdgeInsets.only(left: context.dynamicWidht(0.074)),
+            child: Column(
+              children: [
+                SizedBox(height: context.dynamicHeight(0.01)),
+                buildRowCheckboxAndText(
+                    context, LocaleKeys.filters_sort_item1, "Sort by Distance",
+                    () {
+                  setState(() {
+                    state.checkList![0] = !state.checkList![0];
+                  });
+                }),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(
+                    context, LocaleKeys.filters_sort_item2, "Favorites", () {
+                      setState(() {
+                        state.checkList![1] = !state.checkList![1];
+                      });
+                    }),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(context, LocaleKeys.filters_sort_item3,
+                    "User Point", () {
+                      setState(() {
+                        state.checkList![2] = !state.checkList![2];
+                      });
+                    }),
+                SizedBox(height: context.dynamicHeight(0.016)),
+                buildRowCheckboxAndText(
+                    context, LocaleKeys.filters_sort_item4, "New Guest", () {
+                      setState(() {
+                        state.checkList![3] = !state.checkList![3];
+                      });
+                    }),
+                SizedBox(height: context.dynamicHeight(0.030)),
+              ],
+            ),
           ),
-        ),
-        expansionTileTitle: LocaleKeys.filters_sort_title);
+          expansionTileTitle: LocaleKeys.filters_sort_title);
+    });
   }
 
-  Row buildRowCheckboxAndText(
-      BuildContext context, String text, String checkValue) {
+  Row buildRowCheckboxAndText(BuildContext context, String text,
+      String checkValue, VoidCallback onPressed) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         buildCheckBox(context, checkValue),
         Spacer(flex: 2),
-        LocaleText(text: text, style: AppTextStyles.bodyTextStyle),
+        GestureDetector(
+            onTap: onPressed,
+            child: LocaleText(text: text, style: AppTextStyles.bodyTextStyle)),
         Spacer(flex: 35),
       ],
     );

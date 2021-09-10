@@ -77,6 +77,9 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             height: context.dynamicHeight(0.02),
           ),
           buildButtonDeliveryAndBillingAddress(context, LocaleKeys.payment_address_button_add_bill),
+             SizedBox(
+            height: context.dynamicHeight(0.02),
+          ),
         ],
       ),
     );
