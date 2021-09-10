@@ -160,14 +160,20 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         ),
       ],
       iconTheme: IconThemeData(color: AppColors.greenColor),
-      leading: IconButton(
+      leading:  _selectedIndex == 1 ||
+              _selectedIndex == 2 ||
+              _selectedIndex == 3 ||
+              _selectedIndex == 4 ? IconButton(
         icon: SvgPicture.asset(ImageConstant.BACK_ICON),
         onPressed: () => Navigator.of(context).pop(),
-      ),
-      title: LocaleText(
+      ) : Text(""),
+      title:  _selectedIndex == 1 || _selectedIndex == 2 || _selectedIndex == 3 ||
+              _selectedIndex == 4
+          ? LocaleText(
         text: _titles.elementAt(_selectedIndex)!,
         style: AppTextStyles.appBarTitleStyle,
-      ),
+      ) : SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
+     // title: SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
       centerTitle: true,
     );
   }
@@ -181,79 +187,41 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             icon: SvgPicture.asset(
               ImageConstant.NAVBAR_HOME,
             ),
-            activeIcon: scaffoldKey.currentState == null
-                ? SvgPicture.asset(
-                    ImageConstant.NAVBAR_HOME,
-                  )
-                : scaffoldKey.currentState!.isEndDrawerOpen
-                    ? SvgPicture.asset(
-                        ImageConstant.NAVBAR_HOME,
-                      )
-                    : SvgPicture.asset(
-                        ImageConstant.NAVBAR_HOME_ACTIVE,
-                      ),
+            activeIcon:  SvgPicture.asset(
+              ImageConstant.NAVBAR_HOME_ACTIVE,
+            ),
             label: LocaleKeys.bottom_nav_bar_item_1.locale,
             backgroundColor: Colors.black),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(ImageConstant.NAVBAR_SEARCH),
-          activeIcon: scaffoldKey.currentState == null
-              ? SvgPicture.asset(
-                  ImageConstant.NAVBAR_SEARCH,
-                )
-              : scaffoldKey.currentState!.isEndDrawerOpen
-                  ? SvgPicture.asset(ImageConstant.NAVBAR_SEARCH)
-                  : SvgPicture.asset(
-                      ImageConstant.NAVBAR_SEARCH_ACTIVE,
-                    ),
+          activeIcon: SvgPicture.asset(
+            ImageConstant.NAVBAR_SEARCH_ACTIVE,
+          ),
           label: LocaleKeys.bottom_nav_bar_item_2.locale,
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             ImageConstant.NAVBAR_FAVORITES,
           ),
-          activeIcon: scaffoldKey.currentState == null
-              ? SvgPicture.asset(
-                  ImageConstant.NAVBAR_FAVORITES,
-                )
-              : scaffoldKey.currentState!.isEndDrawerOpen
-                  ? SvgPicture.asset(
-                      ImageConstant.NAVBAR_FAVORITES,
-                    )
-                  : SvgPicture.asset(ImageConstant.NAVBAR_FAVORITES_ACTIVE),
+          activeIcon: SvgPicture.asset(ImageConstant.NAVBAR_FAVORITES_ACTIVE) ,
           label: LocaleKeys.bottom_nav_bar_item_3.locale,
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             ImageConstant.NAVBAR_NOTIFACATIONS,
           ),
-          activeIcon: scaffoldKey.currentState == null
-              ? SvgPicture.asset(
-                  ImageConstant.NAVBAR_NOTIFACATIONS,
-                )
-              : scaffoldKey.currentState!.isEndDrawerOpen
-                  ? SvgPicture.asset(
-                      ImageConstant.NAVBAR_NOTIFACATIONS,
-                    )
-                  : SvgPicture.asset(
-                      ImageConstant.NAVBAR_NOTIFACATIONS_ACTIVE,
-                    ),
+          activeIcon:  SvgPicture.asset(
+            ImageConstant.NAVBAR_NOTIFACATIONS_ACTIVE,
+          ),
           label: LocaleKeys.bottom_nav_bar_item_4.locale,
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             ImageConstant.NAVBAR_BASKET,
           ),
-          activeIcon: scaffoldKey.currentState == null
-              ? SvgPicture.asset(
-                  ImageConstant.NAVBAR_BASKET,
-                )
-              : scaffoldKey.currentState!.isEndDrawerOpen
-                  ? SvgPicture.asset(
-                      ImageConstant.NAVBAR_BASKET,
-                    )
-                  : SvgPicture.asset(
-                      ImageConstant.NAVBAR_BASKET_ACTIVE,
-                    ),
+          activeIcon: SvgPicture.asset(
+            ImageConstant.NAVBAR_BASKET_ACTIVE,
+          ),
           label: LocaleKeys.bottom_nav_bar_item_5.locale,
         ),
       ],

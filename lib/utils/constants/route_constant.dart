@@ -16,6 +16,7 @@ class RouteConstant {
   static const FOOD_WASTE_VIEW = '/foodWaste';
   static const FOOD_WASTE_EXPANDED_VIEW = '/foodWasteExpanded';
   static const FORGOT_PASSWORD_VIEW = '/forgotPass';
+  static const FREEZE_ACCOUNT_VIEW = '/freezeAccount';
   static const GENERAL_SETTINGS_VIEW = '/generalSettings';
   static const HELP_CENTER_VIEW = '/helpCenter';
   static const HOME_PAGE_VIEW = '/homePage';

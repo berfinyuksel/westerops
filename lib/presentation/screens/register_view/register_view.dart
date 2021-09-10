@@ -78,7 +78,9 @@ class _RegisterViewState extends State<RegisterView> {
               child: Visibility(
                   visible: isRulesVisible,
                   child: ClippedPasswordRules(
-                      child: PasswordRules(passwordController: passwordController),)),
+                    child:
+                        PasswordRules(passwordController: passwordController),
+                  )),
             ),
           ],
         ),
@@ -223,13 +225,11 @@ class _RegisterViewState extends State<RegisterView> {
                     firstName,
                     lastName,
                     emailController.text,
-                  dropdownValue == 'TR'
-                ? phoneTR
-                : phoneEN,
+                    dropdownValue == 'TR' ? phoneTR : phoneEN,
                     passwordController.text);
-               // _showMyDialog();
+                // _showMyDialog();
               }
-              if(SharedPrefs.getUserId != 0){
+              if (SharedPrefs.getUserId != 0) {
                 Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
               }
               // AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
@@ -279,8 +279,7 @@ class _RegisterViewState extends State<RegisterView> {
               TextButton(
                 child: Text('Approve'),
                 onPressed: () {
-                                Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
-
+                  Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
                 },
               ),
             ],
@@ -314,47 +313,55 @@ class _RegisterViewState extends State<RegisterView> {
                       Text(
                           'Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.',
                           style: AppTextStyles.bodyTitleStyle),
-                      Text.rich(
-                        TextSpan(
-                          style: GoogleFonts.montserrat(
-                            fontSize: 14.0,
-                            color: AppColors.textColor,
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            Navigator.pushNamed(
+                                context, RouteConstant.LOGIN_VIEW);
+                          });
+                        },
+                        child: Text.rich(
+                          TextSpan(
+                            style: GoogleFonts.montserrat(
+                              fontSize: 14.0,
+                              color: AppColors.textColor,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'Hesabınıza ',
+                                style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'giriş yapabilir',
+                                style: GoogleFonts.montserrat(
+                                  color: AppColors.orangeColor,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' ',
+                                style: GoogleFonts.montserrat(
+                                  color: AppColors.orangeColor,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'veya \nhatırlamıyorsanız ',
+                                style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'şifrenizi \nyenileyebilirsiniz.',
+                                style: GoogleFonts.montserrat(
+                                  color: AppColors.orangeColor,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
                           ),
-                          children: [
-                            TextSpan(
-                              text: 'Hesabınıza ',
-                              style: GoogleFonts.montserrat(
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'giriş yapabilir',
-                              style: GoogleFonts.montserrat(
-                                color: AppColors.orangeColor,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            TextSpan(
-                              text: ' ',
-                              style: GoogleFonts.montserrat(
-                                color: AppColors.orangeColor,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'veya \nhatırlamıyorsanız ',
-                              style: GoogleFonts.montserrat(
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'şifrenizi \nyenileyebilirsiniz.',
-                              style: GoogleFonts.montserrat(
-                                color: AppColors.orangeColor,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                     ],
@@ -532,7 +539,6 @@ class _RegisterViewState extends State<RegisterView> {
     String phoneEN = '+1';
 
     return TextFormField(
-      keyboardType: TextInputType.number,
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       onTap: () {

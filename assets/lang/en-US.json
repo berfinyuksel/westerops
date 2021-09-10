@@ -306,6 +306,13 @@
         "button": "Delete My Account",
         "hint_text": "You can add another description"
     },
+        "freeze_account": {
+            "title": "Freeze My Account",
+            "text_1": "Are you leaving?",
+            "text_2": "Why do you want to delete your account? Please choose. Your information will be stored for 30 days. If you come back within 30 days, you can log into your account as if nothing had happened.",
+            "button": "Freeze My Account",
+            "hint_text": "You can add another description"
+        },
     "surprise_pack": {
         "surprise_pack_opened": "Your Surprise Package has been opened!",
         "surprise_pack": "Surprise Package",

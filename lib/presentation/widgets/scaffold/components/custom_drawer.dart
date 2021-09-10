@@ -72,7 +72,7 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () {
                   //  SharedPrefs.getIsLogined == false ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
                   //     :
-                  Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+                  //Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
                 },
               ),
               SizedBox(

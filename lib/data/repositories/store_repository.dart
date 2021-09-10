@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dongu_mobile/data/model/store.dart';
-import 'package:dongu_mobile/data/model/store.dart';
+
 
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;

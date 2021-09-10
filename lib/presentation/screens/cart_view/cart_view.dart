@@ -45,7 +45,7 @@ class _CartViewState extends State<CartView> {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
         if (state.response.length == 0) {
-          return EmptyCartView();
+          return buildBody(context, state); //return EmptyCartView();
         } else {
           return Center(child: buildBody(context, state));
         }
@@ -147,9 +147,16 @@ class _CartViewState extends State<CartView> {
               SizedBox(
                 height: context.dynamicHeight(0.02),
               ),
+                Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: context.dynamicWidht(0.065),
+                    vertical: context.dynamicHeight(0.02)),
+                child: SvgPicture.asset(ImageConstant.CARDS_COMPANY),
+              ),
             ],
           ),
         ),
+        
         Spacer(),
         buildButton(context),
       ],

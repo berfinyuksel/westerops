@@ -45,9 +45,8 @@ class _LoginViewState extends State<LoginView> {
             top: context.dynamicHeight(0.06),
             left: 0,
             child: IconButton(
-              icon: SvgPicture.asset(ImageConstant.BACK_ICON,
-                  color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
+              icon: Icon(Icons.close, color: Colors.white),
+              onPressed: () => Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
             ),
           ),
           Positioned(

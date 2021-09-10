@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/freeze_account_view/freeze_account_view.dart';
 import 'package:dongu_mobile/presentation/screens/splash_view/splash_view.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +83,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => DeleteAccountView());
       case RouteConstant.FILTER_VIEW:
         return MaterialPageRoute(builder: (_) => FilterView());
+          case RouteConstant.FREEZE_ACCOUNT_VIEW:
+        return MaterialPageRoute(builder: (_) => FreezeAccountView());
       case RouteConstant.FOOD_CATEGORIES_VIEW:
         return MaterialPageRoute(builder: (_) => FoodCategories());
       case RouteConstant.FOOD_WASTE_EXPANDED_VIEW:
@@ -111,7 +114,7 @@ class AppRouter {
       case RouteConstant.NOTIFICATION_VIEW:
         return MaterialPageRoute(builder: (_) => NotificationView());
       case RouteConstant.ONBOARDINGS_VIEW:
-        return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? LoginView() : OnboardingsView());
+        return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? CustomScaffold() : OnboardingsView());
       case RouteConstant.ORDER_DELIVERED_VIEW:
         return MaterialPageRoute(builder: (_) => OrderDeliveredView());
       case RouteConstant.ORDER_RECEIVED_VIEW:
@@ -141,7 +144,7 @@ class AppRouter {
       case RouteConstant.SURPRISE_PACK_VIEW:
         return MaterialPageRoute(builder: (_) => SurprisePackView());
             case RouteConstant.SPLASH_VIEW:
-        return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? LoginView() : SplashView());
+        return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? CustomScaffold() : SplashView());
 
       default:
         return null;

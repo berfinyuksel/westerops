@@ -20,44 +20,31 @@ Store _$StoreFromJson(Map<String, dynamic> json) {
         .toList(),
     storeOwner: json['storeOwner'] as String?,
     name: json['name'] as String?,
-    nameEn: json['nameEn'] as String?,
-    nameTr: json['nameTr'] as String?,
+ 
     photo: json['photo'] as String?,
-    photoEn: json['photoEn'] as String?,
-    photoTr: json['photoTr'] as String?,
+ 
     background: json['background'] as String?,
-    backgroundEn: json['backgroundEn'] as String?,
-    backgroundTr: json['backgroundTr'] as String?,
+  
     description: json['description'] as String?,
-    descriptionEn: json['descriptionEn'] as String?,
-    descriptionTr: json['descriptionTr'] as String?,
+
     joinedTime: json['joinedTime'] as String?,
-    joinedTimeEn: json['joinedTimeEn'] as String?,
-    joinedTimeTr: json['joinedTimeTr'] as String?,
+
     address: json['address'] as String?,
-    addressEn: json['addressEn'] as String?,
-    addressTr: json['addressTr'] as String?,
+
     postCode: json['postCode'] as String?,
-    postCodeEn: json['postCodeEn'] as String?,
-    postCodeTr: json['postCodeTr'] as String?,
+ 
     city: json['city'] as String?,
-    cityEn: json['cityEn'] as String?,
-    cityTr: json['cityTr'] as String?,
+
     phoneNumber: json['phoneNumber'] as String?,
-    phoneNumberEn: json['phoneNumberEn'] as String?,
-    phoneNumberTr: json['phoneNumberTr'] as String?,
+
     phoneNumber2: json['phoneNumber2'] as String?,
-    phoneNumber2En: json['phoneNumber2En'] as String?,
-    phoneNumber2Tr: json['phoneNumber2Tr'] as String?,
+
     email: json['email'] as String?,
-    emailEn: json['emailEn'] as String?,
-    emailTr: json['emailTr'] as String?,
+
     websiteLink: json['websiteLink'] as String?,
-    websiteLinkEn: json['websiteLinkEn'] as String?,
-    websiteLinkTr: json['websiteLinkTr'] as String?,
+
     status: json['status'] as String?,
-    statusEn: json['statusEn'] as String?,
-    statusTr: json['statusTr'] as String?,
+
     cancelCount: json['cancelCount'] as int?,
     createdAt: json['createdAt'] as String?,
     latitude: (json['latitude'] as num?)?.toDouble(),
@@ -72,44 +59,31 @@ Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
       'calendar': instance.calendar,
       'storeOwner': instance.storeOwner,
       'name': instance.name,
-      'nameEn': instance.nameEn,
-      'nameTr': instance.nameTr,
+
       'photo': instance.photo,
-      'photoEn': instance.photoEn,
-      'photoTr': instance.photoTr,
+
       'background': instance.background,
-      'backgroundEn': instance.backgroundEn,
-      'backgroundTr': instance.backgroundTr,
+
       'description': instance.description,
-      'descriptionEn': instance.descriptionEn,
-      'descriptionTr': instance.descriptionTr,
+ 
       'joinedTime': instance.joinedTime,
-      'joinedTimeEn': instance.joinedTimeEn,
-      'joinedTimeTr': instance.joinedTimeTr,
+
       'address': instance.address,
-      'addressEn': instance.addressEn,
-      'addressTr': instance.addressTr,
+
       'postCode': instance.postCode,
-      'postCodeEn': instance.postCodeEn,
-      'postCodeTr': instance.postCodeTr,
+
       'city': instance.city,
-      'cityEn': instance.cityEn,
-      'cityTr': instance.cityTr,
+
       'phoneNumber': instance.phoneNumber,
-      'phoneNumberEn': instance.phoneNumberEn,
-      'phoneNumberTr': instance.phoneNumberTr,
+
       'phoneNumber2': instance.phoneNumber2,
-      'phoneNumber2En': instance.phoneNumber2En,
-      'phoneNumber2Tr': instance.phoneNumber2Tr,
+  
       'email': instance.email,
-      'emailEn': instance.emailEn,
-      'emailTr': instance.emailTr,
+
       'websiteLink': instance.websiteLink,
-      'websiteLinkEn': instance.websiteLinkEn,
-      'websiteLinkTr': instance.websiteLinkTr,
+
       'status': instance.status,
-      'statusEn': instance.statusEn,
-      'statusTr': instance.statusTr,
+
       'cancelCount': instance.cancelCount,
       'createdAt': instance.createdAt,
       'latitude': instance.latitude,

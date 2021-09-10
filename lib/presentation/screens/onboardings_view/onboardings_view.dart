@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -56,7 +57,7 @@ class _OnboardingsViewState extends State<OnboardingsView> {
           flex: 140,
           child: CustomButton(
             onPressed: () {
-              //SharedPrefs.onboardingShown();
+              SharedPrefs.onboardingShown();
               Navigator.pushReplacementNamed(context, RouteConstant.NOTIFICATION_VIEW);
             },
             title: LocaleKeys.onboardings_forth_button,

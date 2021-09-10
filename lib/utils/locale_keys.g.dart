@@ -96,6 +96,7 @@ abstract class  LocaleKeys {
   static const custom_drawer_body_list_tile_rate_app = 'custom_drawer.body_list_tile_rate_app';
   static const custom_drawer_body_list_tile_about_app = 'custom_drawer.body_list_tile_about_app';
   static const custom_drawer_body_list_tile_about_food_waste = 'custom_drawer.body_list_tile_about_food_waste';
+  static const custom_drawer_filter_page_tile = 'custom_drawer.filter_page_tile';
   static const custom_drawer = 'custom_drawer';
   static const inform_title = 'inform.title';
   static const inform_body_title_1 = 'inform.body_title_1';
@@ -270,6 +271,12 @@ abstract class  LocaleKeys {
   static const delete_account_button = 'delete_account.button';
   static const delete_account_hint_text = 'delete_account.hint_text';
   static const delete_account = 'delete_account';
+  static const freeze_account_title = 'freeze_account.title';
+  static const freeze_account_text_1 = 'freeze_account.text_1';
+  static const freeze_account_text_2 = 'freeze_account.text_2';
+  static const freeze_account_button = 'freeze_account.button';
+  static const freeze_account_hint_text = 'freeze_account.hint_text';
+  static const freeze_account = 'freeze_account';
   static const surprise_pack_surprise_pack_opened = 'surprise_pack.surprise_pack_opened';
   static const surprise_pack_surprise_pack = 'surprise_pack.surprise_pack';
   static const surprise_pack_button_reject = 'surprise_pack.button_reject';

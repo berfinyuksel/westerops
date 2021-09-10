@@ -2,7 +2,9 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
 import 'package:dongu_mobile/utils/clippers/password_rules_clipper.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -532,6 +534,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   print(state.response);
                   context.read<OrderCubit>().addToBasket(
                       widget.boxes!.id!.toString());
+
                 },
               ),
             ),

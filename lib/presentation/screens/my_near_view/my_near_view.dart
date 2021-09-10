@@ -73,17 +73,17 @@ class _MyNearViewState extends State<MyNearView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        print(state.response[0]);
-        for (int i = 0; i < state.response[0].results.length; i++) {
-          if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
-            restaurants.add(state.response[0].results[i]);
-            distances.add(Haversine.distance(
-                LocationService.latitude!,
-                LocationService.longitude!,
-                state.response[0].results[i].latitude,
-                state.response[0].results[i].longitude));
-          }
-        }
+        print(state.response[0]); 
+        // for (int i = 0; i < state.response[0].results.length; i++) {
+        //   if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
+        //     restaurants.add(state.response[0].results[i]);
+        //     distances.add(Haversine.distance(
+        //         LocationService.latitude!,
+        //         LocationService.longitude!,
+        //         state.response[0].results[i].latitude,
+        //         state.response[0].results[i].longitude));
+        //   }
+        // }
         return Center(child: buildBody(context));
       } else {
         final error = state as GenericError;
@@ -172,13 +172,13 @@ class _MyNearViewState extends State<MyNearView> {
 
   Positioned buildBottomInfo(
       BuildContext context, List<Store> restaurants, List<double> distances) {
-    String startTime =
-        restaurants[restaurantIndexOnMap].calendar![0].startDate!.split("T")[1];
-    String endTime =
-        restaurants[restaurantIndexOnMap].calendar![0].endDate!.split("T")[1];
+    // String startTime =
+    //     restaurants[restaurantIndexOnMap].calendar![0].startDate!.split("T")[1];
+    // String endTime =
+    //     restaurants[restaurantIndexOnMap].calendar![0].endDate!.split("T")[1];
 
-    startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
-    endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
+    // startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
+    // endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
 
     return Positioned(
         right: 0,
@@ -190,11 +190,11 @@ class _MyNearViewState extends State<MyNearView> {
           padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
           color: Colors.white,
           child: RestaurantInfoListTile(
-            icon: restaurants[restaurantIndexOnMap].photo,
-            restaurantName: restaurants[restaurantIndexOnMap].name,
-            distance: "${distances[restaurantIndexOnMap].toInt()}m",
+            icon:" restaurants[restaurantIndexOnMap].photo",
+            restaurantName: "restaurants[restaurantIndexOnMap].name",
+            distance: "4m",
             packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
-            availableTime: '$startTime-$endTime',
+            availableTime: '2',
           ),
         ));
   }
