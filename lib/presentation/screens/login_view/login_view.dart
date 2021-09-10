@@ -46,7 +46,8 @@ class _LoginViewState extends State<LoginView> {
             left: 0,
             child: IconButton(
               icon: Icon(Icons.close, color: Colors.white),
-              onPressed: () => Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
+              onPressed: () =>
+                  Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
             ),
           ),
           Positioned(
@@ -130,10 +131,9 @@ class _LoginViewState extends State<LoginView> {
             onPressed: () async {
               String phoneTR = '+90' + phoneController.text;
               String phoneEN = '+1' + phoneController.text;
-              await context
-                  .read<UserAuthCubit>()
-                  .loginUser(
-                  dropdownValue == 'TR' ? phoneTR : phoneEN, passwordController.text);
+              await context.read<UserAuthCubit>().loginUser(
+                  dropdownValue == 'TR' ? phoneTR : phoneEN,
+                  passwordController.text);
               if (SharedPrefs.getIsLogined) {
                 Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
               }
@@ -272,11 +272,11 @@ class _LoginViewState extends State<LoginView> {
 
   TextFormField buildTextFormField(
       String labelText, TextEditingController controller) {
-            String phoneTR = '+90';
+    String phoneTR = '+90';
     String phoneEN = '+1';
     return TextFormField(
-      keyboardType: TextInputType.number,
-    //  focusNode: FocusScope.of(context).focusedChild!.children.first,
+      // keyboardType: TextInputType.number,
+      //  focusNode: FocusScope.of(context).focusedChild!.children.first,
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       controller: controller,
