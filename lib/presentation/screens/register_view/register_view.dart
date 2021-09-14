@@ -229,9 +229,9 @@ class _RegisterViewState extends State<RegisterView> {
                     passwordController.text);
                 // _showMyDialog();
               }
-              if (SharedPrefs.getUserId != 0) {
-                Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
-              }
+            
+                Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+              
               // AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
             },
           ),

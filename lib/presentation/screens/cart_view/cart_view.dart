@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,6 +25,8 @@ class CartView extends StatefulWidget {
   _CartViewState createState() => _CartViewState();
 }
 
+List<int> d = [76312,76319,76530,76531];
+
 class _CartViewState extends State<CartView> {
   @override
   void initState() {
@@ -45,13 +48,36 @@ class _CartViewState extends State<CartView> {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
         if (state.response.length == 0) {
-          return buildBody(context, state); //return EmptyCartView();
+          return EmptyCartView();
         } else {
           return Center(child: buildBody(context, state));
         }
       } else {
         final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
+  
+        return  SharedPrefs.getIsLogined == false ? Center(child: 
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+        
+          children: [
+            Text("Sepete ürün eklemek\n için lütfen giriş yapınız.", style: AppTextStyles.headlineStyle,),
+            SizedBox(height:context.dynamicHeight(0.02)),
+               CustomButton(
+                    width: context.dynamicWidht(0.4),
+                    title: LocaleKeys.login_text_login,
+                    textColor: Colors.white,
+                    color: AppColors.greenColor,
+                    borderColor: AppColors.greenColor,
+                    onPressed: ()  {
+                     
+                        Navigator.pushNamed(
+                            context, RouteConstant.LOGIN_VIEW);
+                      }
+                    ,
+                  ),
+          ],
+        ))   : CartView();//Center(child: Text("${error.message}\n${error.statusCode}"));
+         
       }
     });
   }
@@ -94,18 +120,23 @@ class _CartViewState extends State<CartView> {
                       background: Container(
                         color: AppColors.redColor,
                         alignment: Alignment.centerRight,
-                        padding: EdgeInsets.only(right: context.dynamicWidht(0.06)),
+                        padding:
+                            EdgeInsets.only(right: context.dynamicWidht(0.06)),
                         child: LocaleText(
                           text: LocaleKeys.my_notifications_delete_text_text,
-                          style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                          style: AppTextStyles.bodyTextStyle.copyWith(
+                              color: Colors.white, fontWeight: FontWeight.bold),
                           alignment: TextAlign.end,
                         ),
                       ),
                       onDismissed: (DismissDirection direction) {
-                        context.read<OrderCubit>().deleteBasket(state.response[index].id, state.response[index]);
+                        
+                        context
+                            .read<OrderCubit>()
+                            .deleteBasket("${state.response[index].id}");
                       },
                       child: PastOrderDetailBasketListTile(
-                        title: state.response[index].name,
+                        title: state.response[index].text_name,
                         price: 35,
                         withDecimal: false,
                         subTitle: "",
@@ -129,7 +160,7 @@ class _CartViewState extends State<CartView> {
               ),
               PastOrderDetailPaymentListTile(
                 title: LocaleKeys.past_order_detail_payment_2,
-                price: 4.50, 
+                price: 4.50,
                 lineTrough: true,
                 withDecimal: true,
               ),
@@ -147,7 +178,7 @@ class _CartViewState extends State<CartView> {
               SizedBox(
                 height: context.dynamicHeight(0.02),
               ),
-                Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: context.dynamicWidht(0.065),
                     vertical: context.dynamicHeight(0.02)),
@@ -156,7 +187,6 @@ class _CartViewState extends State<CartView> {
             ],
           ),
         ),
-        
         Spacer(),
         buildButton(context),
       ],
