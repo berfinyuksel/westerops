@@ -51,6 +51,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     _controller = TabController(length: 2, vsync: this);
     definedBoxes.clear();
     context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
+    // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
     print(widget.restaurant!.id!);
   }
 
@@ -449,7 +450,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Container buildBox(BuildContext context, int index, GenericCompleted state) {
     print("RESPONE :  ${state.response[0].text_name}");
-    print("SALE: ${state.response[0].sale_day}");
+
     return Container(
         //alignment: Alignment(-0.8, 0.0),
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
@@ -471,7 +472,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   style: AppTextStyles.myInformationBodyTextStyle,
                 ),
                 LocaleText(
-                  text: "Paketin Tanımlanmasına Kalan Süre: ${state.response[index].sale_day.toString()}",
+                  text:
+                      "Paketin Tanımlanmasına Kalan Süre: 0}",
                   style: AppTextStyles.subTitleStyle,
                 ),
                 SizedBox(height: context.dynamicHeight(0.020)),
@@ -497,7 +499,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         ),
                       ),
                     ),
-                    SizedBox(width: context.dynamicWidht(0.04),),
+                    SizedBox(
+                      width: context.dynamicWidht(0.04),
+                    ),
                     Container(
                       alignment: Alignment.center,
                       width: context.dynamicWidht(0.16),
@@ -531,10 +535,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 width: context.dynamicWidht(0.28),
                 borderColor: AppColors.greenColor,
                 onPressed: () {
-                  print(state.response);
+                  print("RESPONE: ${state.response[0].id}");
+                  print("RESPONE: ${state.response[1].id}");
+                  print("RESPONE: ${state.response[index].id}");
                   context.read<OrderCubit>().addToBasket(
-                      widget.boxes!.id!.toString());
-
+                      "${state.response[index].id}");
                 },
               ),
             ),

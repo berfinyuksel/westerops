@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:dongu_mobile/data/model/box_order.dart';
+
 import '../model/box.dart';
 
 import '../shared/shared_prefs.dart';
@@ -8,8 +10,8 @@ import 'package:http/http.dart' as http;
 
 abstract class OrderRepository {
   Future<List<String>> addToBasket(String boxId);
-  Future<List<Box>> deleteBasket(String boxId, List<int> allBoxId);
-  Future<List<Box>> getBasket();
+  Future<List<BoxOrder>> deleteBasket(String boxId);
+  Future<List<BoxOrder>> getBasket();
 }
 
 class SampleOrderRepository implements OrderRepository {
@@ -18,6 +20,7 @@ class SampleOrderRepository implements OrderRepository {
   @override
   Future<List<String>> addToBasket(String boxId) async {
     String json = '{"box_id":"$boxId"}';
+    print("Hİİ");
 
     final response = await http.post(
       Uri.parse("${UrlConstant.EN_URL}order/basket/add_box_to_basket/"),
@@ -27,8 +30,8 @@ class SampleOrderRepository implements OrderRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print(response.statusCode);
-    if (response.statusCode == 201) {
+    print("ADD BASKET status ${response.statusCode}");
+    if (response.statusCode == 200) {
       List<String> boxes = [];
       boxes.add("box");
       return boxes;
@@ -36,28 +39,32 @@ class SampleOrderRepository implements OrderRepository {
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 
-  Future<List<Box>> deleteBasket(String boxId, List<int> allBoxId) async {
-    String json = '{"box_id":"$boxId", "all_box_ids": "$allBoxId" }';
+  Future<List<BoxOrder>> deleteBasket(String boxId) async {
+    String json = '{"box_id":"$boxId" }';
     final response = await http.post(
         Uri.parse("${UrlConstant.EN_URL}order/basket/remove_box_from_basket/"),
-        headers: {'Authorization': 'JWT ${SharedPrefs.getToken}'},
+        headers: {
+          'Authorization': 'JWT ${SharedPrefs.getToken}',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
         body: json);
 
-    print(response.statusCode);
-    if (response.statusCode == 201) {
+    print("DELETE BASKET ${response.statusCode}");
+    if (response.statusCode == 200) {
       final jsonBody = jsonDecode(response.body);
-      var jsonResults = jsonBody['boxes'];
-      print(jsonResults);
-      List<Box> boxes = [];
-      for (int i = 0; i < jsonResults.length; i++) {
-        boxes.add(Box.fromJson(jsonResults[i]));
-      }
-      return boxes;
+
+     // var jsonResults = jsonBody['boxes'];
+      // print(jsonResults);
+      // List<BoxOrder> boxes = [];
+      // for (int i = 0; i < jsonResults.length; i++) {
+      //   boxes.add(BoxOrder.fromJson(jsonResults[i]));
+      // }
+      // return boxes;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 
-  Future<List<Box>> getBasket() async {
+  Future<List<BoxOrder>> getBasket() async {
     final response = await http.get(
       Uri.parse("${UrlConstant.EN_URL}order/basket/"),
       headers: {
@@ -65,18 +72,17 @@ class SampleOrderRepository implements OrderRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print(response.statusCode);
+    print("GET BASKET STATUS ${response.statusCode}");
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(
-          utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
-      List<Box> boxes = [];
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+      print(jsonBody); //utf8.decode for turkish characters
+      List<BoxOrder> boxes = [];
       for (int i = 0; i < jsonBody.length; i++) {
-        print(jsonBody[i]);
+        print(jsonBody[0]);
 
         //orderrr
-        //boxes.add(Box.fromJson(jsonBody[i]));
+        boxes.add(BoxOrder.fromJson(jsonBody[i]));
       }
-      
       return boxes;
     }
     throw NetworkError(response.statusCode.toString(), response.body);

@@ -1,21 +1,21 @@
+import 'package:dongu_mobile/data/model/store.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'meal.dart';
-
-part 'box.g.dart';
+part 'box_order.g.dart';
 
 @JsonSerializable()
-class Box {
+class BoxOrder {
   int? id;
   List<Meal>? meals;
   String? text_name;
   String? description;
   bool? defined;
   bool? sold;
-  int? store;
+  Store? store;
 
 
-  Box({
+  BoxOrder({
     this.id,
     this.meals,
     this.text_name,
@@ -23,9 +23,7 @@ class Box {
     this.defined,
     this.sold,
     this.store,
-
   });
-
-  factory Box.fromJson(Map<String, dynamic> json) => _$BoxFromJson(json);
-  toJson() => _$BoxToJson(this);
+  factory BoxOrder.fromJson(Map<String, dynamic> json) => _$BoxOrderFromJson(json);
+  toJson() => _$BoxOrderToJson(this);
 }
