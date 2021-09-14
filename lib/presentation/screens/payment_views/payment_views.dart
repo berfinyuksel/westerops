@@ -54,7 +54,7 @@ class _PaymentViewsState extends State<PaymentViews>
           buildDeliveryType(context, state),
           buildTabBars(state),
           // Spacer(),
-        tabController!.index != 1 ? Spacer(): SizedBox(height: context.dynamicHeight(0.06),)  ,
+        tabController!.index != 1 ? SizedBox(height: context.dynamicHeight(0.03) ,): SizedBox(height: context.dynamicHeight(0.06),)  ,
           Visibility(
               visible: tabController!.index != 2, child: buildButton(context)),
           Visibility(
