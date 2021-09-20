@@ -284,11 +284,11 @@ class _LoginViewState extends State<LoginView> {
 
   TextFormField buildTextFormField(
       String labelText, TextEditingController controller) {
-            String phoneTR = '+90';
+    String phoneTR = '+90';
     String phoneEN = '+1';
     return TextFormField(
-   //   keyboardType: TextInputType.number,
-    //  focusNode: FocusScope.of(context).focusedChild!.children.first,
+      // keyboardType: TextInputType.number,
+      //  focusNode: FocusScope.of(context).focusedChild!.children.first,
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       controller: controller,
