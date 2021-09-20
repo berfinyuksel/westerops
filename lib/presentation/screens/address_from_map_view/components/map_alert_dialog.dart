@@ -15,7 +15,8 @@ class MapAlertDialog extends StatelessWidget {
   final String? address;
   final String? district;
 
-  const MapAlertDialog({Key? key, this.address, this.district}) : super(key: key);
+  const MapAlertDialog({Key? key, this.address, this.district})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -37,7 +38,8 @@ class MapAlertDialog extends StatelessWidget {
             ),
             Spacer(flex: 1),
             LocaleText(
-              text: "Adresiniz haritada işaretlenen konuma göre\nkaydedilecektir. Konum işaretinin doğru\nolduğuna emin misiniz?",
+              text:
+                  "Adresiniz haritada işaretlenen konuma göre\nkaydedilecektir. Konum işaretinin doğru\nolduğuna emin misiniz?",
               style: AppTextStyles.bodyBoldTextStyle,
               alignment: TextAlign.center,
             ),
@@ -60,6 +62,9 @@ class MapAlertDialog extends StatelessWidget {
           textColor: AppColors.greenColor,
           borderColor: AppColors.greenColor,
           title: LocaleKeys.surprise_pack_alert_button1,
+          onPressed: () {
+            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+          },
         ),
         CustomButton(
           width: context.dynamicWidht(0.35),
@@ -68,7 +73,9 @@ class MapAlertDialog extends StatelessWidget {
           borderColor: AppColors.greenColor,
           title: LocaleKeys.surprise_pack_alert_button2,
           onPressed: () {
-            Navigator.pushNamed(context, RouteConstant.ADDRESS_DETAIL_VIEW, arguments: ScreenArguments("Yeni Adres Ekle", district!, address!));
+            Navigator.pushNamed(context, RouteConstant.ADDRESS_DETAIL_VIEW,
+                arguments:
+                    ScreenArguments("Yeni Adres Ekle", district!, address!));
           },
         ),
       ],

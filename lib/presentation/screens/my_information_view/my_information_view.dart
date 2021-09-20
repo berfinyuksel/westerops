@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/my_information_view/components/update_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,7 +29,7 @@ class _MyInformationViewState extends State<MyInformationView> {
   TextEditingController birthController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   bool isReadOnly = true;
-
+  bool isVisibilty = false;
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -67,23 +68,22 @@ class _MyInformationViewState extends State<MyInformationView> {
             flex: 8,
           ),
           buildChangePassword(context),
-          Spacer(
-            flex: 8,
-          ),
-          buildSocialAuthTitle(context),
-          Spacer(flex: 2),
-          SocialAuthListTile(
-            title: LocaleKeys.inform_list_tile_remove_link,
-            image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
-          ),
+          // Spacer(
+          //   flex: 8,
+          // ),
+          // buildSocialAuthTitle(context),
+          // Spacer(flex: 2),
+          // SocialAuthListTile(
+          //   title: LocaleKeys.inform_list_tile_remove_link,
+          //   image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
+          // ),
           Spacer(
             flex: 15,
           ),
-          buildButton(context),
+          Visibility(visible: isVisibilty, child: buildButton(context)),
           Center(
             child: TextButton(
               onPressed: () {
-            
                 Navigator.pushNamed(context, RouteConstant.DELETE_ACCOUNT_VIEW);
               },
               child: LocaleText(
@@ -167,6 +167,7 @@ class _MyInformationViewState extends State<MyInformationView> {
             onTap: () {
               setState(() {
                 isReadOnly = false;
+                isVisibilty = !isVisibilty;
               });
             },
             child: LocaleText(
@@ -239,6 +240,9 @@ class _MyInformationViewState extends State<MyInformationView> {
           setState(() {
             isReadOnly = true;
           });
+          showDialog(
+              context: context,
+              builder: (_) => CustomAlertDialogUpdateInform());
         },
       ),
     );

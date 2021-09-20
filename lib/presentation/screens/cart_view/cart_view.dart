@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/presentation/screens/cart_view/not_logged_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -55,28 +56,7 @@ class _CartViewState extends State<CartView> {
       } else {
         final error = state as GenericError;
   
-        return  SharedPrefs.getIsLogined == false ? Center(child: 
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-        
-          children: [
-            Text("Sepete ürün eklemek\n için lütfen giriş yapınız.", style: AppTextStyles.headlineStyle,),
-            SizedBox(height:context.dynamicHeight(0.02)),
-               CustomButton(
-                    width: context.dynamicWidht(0.4),
-                    title: LocaleKeys.login_text_login,
-                    textColor: Colors.white,
-                    color: AppColors.greenColor,
-                    borderColor: AppColors.greenColor,
-                    onPressed: ()  {
-                     
-                        Navigator.pushNamed(
-                            context, RouteConstant.LOGIN_VIEW);
-                      }
-                    ,
-                  ),
-          ],
-        ))   : CartView();//Center(child: Text("${error.message}\n${error.statusCode}"));
+        return  SharedPrefs.getIsLogined == false ? NotLoggedInEmptyCartView()  : CartView();//Center(child: Text("${error.message}\n${error.statusCode}"));
          
       }
     });
@@ -130,7 +110,6 @@ class _CartViewState extends State<CartView> {
                         ),
                       ),
                       onDismissed: (DismissDirection direction) {
-                        
                         context
                             .read<OrderCubit>()
                             .deleteBasket("${state.response[index].id}");

@@ -242,7 +242,8 @@
         "button_empty": "Restoranları Gör",
         "button": "Devam Et",
         "empty_cart": "Upps! Sepetin boş.",
-        "choose_restaurant": "Haydi!\nSana yakın restoran ve kafelerden birini seç."
+        "choose_restaurant": "Haydi!\nSana yakın restoran ve kafelerden birini seç.",
+        "not_logged_in": "Upps! Sepete ürün eklemek için oturum açmalısın."
     },
     "payment": {
         "tab_1": "Adres",

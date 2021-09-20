@@ -214,6 +214,7 @@ abstract class  LocaleKeys {
   static const cart_button = 'cart.button';
   static const cart_empty_cart = 'cart.empty_cart';
   static const cart_choose_restaurant = 'cart.choose_restaurant';
+  static const cart_not_logged_in = 'cart.not_logged_in';
   static const cart = 'cart';
   static const payment_tab_1 = 'payment.tab_1';
   static const payment_tab_2 = 'payment.tab_2';

@@ -64,7 +64,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     return Scaffold(
 
       key: scaffoldKey,
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: widget.isDrawer == null
           ? widget.title == null
               ? _titles.elementAt(_selectedIndex) == null
