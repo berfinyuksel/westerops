@@ -142,9 +142,11 @@ class _HomePageViewState extends State<HomePageView> {
             padding: scroolNearMe
                 ? EdgeInsets.only(
                     left: context.dynamicWidht(0.01),
+                    right: context.dynamicWidht(0.06)
                   )
                 : EdgeInsets.only(
                     left: context.dynamicWidht(0.06),
+                    right: context.dynamicWidht(0.01),
                   ) ,
 
             child: buildListViewNearMe(context, restaurants, distances, state),
@@ -173,12 +175,12 @@ class _HomePageViewState extends State<HomePageView> {
           Padding(
             padding: scroolCategories
                 ? EdgeInsets.only(
-                    left: context.dynamicWidht(0.02),
-                    right: context.dynamicWidht(0.02),
+                    left: context.dynamicWidht(0.01),
+                    right: context.dynamicWidht(0.04),
                   )
                 : EdgeInsets.only(
                     left: context.dynamicWidht(0.06),
-                    right: context.dynamicWidht(0.06),
+                    right: context.dynamicWidht(0.01),
                   ),
             child: Container(
                 height: context.dynamicHeight(0.16),
@@ -215,12 +217,12 @@ class _HomePageViewState extends State<HomePageView> {
           Padding(
             padding: scroolOpportunities
                 ? EdgeInsets.only(
-                    left: context.dynamicWidht(0.02),
-                    right: context.dynamicWidht(0.02),
+                    left: context.dynamicWidht(0.01),
+                    right: context.dynamicWidht(0.06),
                   )
                 : EdgeInsets.only(
                     left: context.dynamicWidht(0.06),
-                    right: context.dynamicWidht(0.06),
+                    right: context.dynamicWidht(0.01),
                   ),
             child: buildListViewOpportunities(context, restaurants, distances),
           ),
