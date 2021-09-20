@@ -34,79 +34,90 @@ class _MyInformationViewState extends State<MyInformationView> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: LocaleKeys.inform_title,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Spacer(
-            flex: 4,
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06),
+      body: GestureDetector(
+        onTap: (){
+          FocusScope.of(context).unfocus();
+
+        },
+        child: SingleChildScrollView(
+          child: Container(
+            height: context.dynamicHeight(0.8),
+            child: Column(
+             // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Spacer(
+                  flex: 4,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: context.dynamicWidht(0.06),
+                    right: context.dynamicWidht(0.06),
+                  ),
+                  child: buildRowTitleAndEdit(),
+                ),
+                Spacer(
+                  flex: 2,
+                ),
+                Container(
+                  color: Colors.white,
+                  height: context.dynamicHeight(0.01),
+                ),
+                buildTextFormField(
+                    context, LocaleKeys.inform_list_tile_name.locale, nameController),
+                buildTextFormField(context,
+                    LocaleKeys.inform_list_tile_surname.locale, surnameController),
+                buildTextFormField(context, LocaleKeys.inform_list_tile_birth.locale,
+                    birthController),
+                buildTextFormField(
+                    context, LocaleKeys.inform_list_tile_mail.locale, mailController),
+                buildTextFormField(context, LocaleKeys.inform_list_tile_phone.locale,
+                    phoneController),
+                Spacer(
+                  flex: 8,
+                ),
+                buildChangePassword(context),
+                // Spacer(
+                //   flex: 8,
+                // ),
+                // buildSocialAuthTitle(context),
+                // Spacer(flex: 2),
+                // SocialAuthListTile(
+                //   title: LocaleKeys.inform_list_tile_remove_link,
+                //   image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
+                // ),
+                Spacer(
+                  flex: 15,
+                ),
+                Visibility(visible: isVisibilty, child: buildButton(context)),
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, RouteConstant.DELETE_ACCOUNT_VIEW);
+                    },
+                    child: LocaleText(
+                      text: LocaleKeys.inform_delete_account,
+                      style: AppTextStyles.bodyTextStyle,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, RouteConstant.FREEZE_ACCOUNT_VIEW);
+                    },
+                    child: LocaleText(
+                      text: "Hesabımı Dondur",
+                      style: AppTextStyles.bodyTextStyle,
+                    ),
+                  ),
+                ),
+                Spacer(
+                  flex: 8,
+                ),
+              ],
             ),
-            child: buildRowTitleAndEdit(),
           ),
-          Spacer(
-            flex: 2,
-          ),
-          Container(
-            color: Colors.white,
-            height: context.dynamicHeight(0.01),
-          ),
-          buildTextFormField(
-              context, LocaleKeys.inform_list_tile_name.locale, nameController),
-          buildTextFormField(context,
-              LocaleKeys.inform_list_tile_surname.locale, surnameController),
-          buildTextFormField(context, LocaleKeys.inform_list_tile_birth.locale,
-              birthController),
-          buildTextFormField(
-              context, LocaleKeys.inform_list_tile_mail.locale, mailController),
-          buildTextFormField(context, LocaleKeys.inform_list_tile_phone.locale,
-              phoneController),
-          Spacer(
-            flex: 8,
-          ),
-          buildChangePassword(context),
-          // Spacer(
-          //   flex: 8,
-          // ),
-          // buildSocialAuthTitle(context),
-          // Spacer(flex: 2),
-          // SocialAuthListTile(
-          //   title: LocaleKeys.inform_list_tile_remove_link,
-          //   image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
-          // ),
-          Spacer(
-            flex: 15,
-          ),
-          Visibility(visible: isVisibilty, child: buildButton(context)),
-          Center(
-            child: TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, RouteConstant.DELETE_ACCOUNT_VIEW);
-              },
-              child: LocaleText(
-                text: LocaleKeys.inform_delete_account,
-                style: AppTextStyles.bodyTextStyle,
-              ),
-            ),
-          ),
-          Center(
-            child: TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, RouteConstant.FREEZE_ACCOUNT_VIEW);
-              },
-              child: LocaleText(
-                text: "Hesabımı Dondur",
-                style: AppTextStyles.bodyTextStyle,
-              ),
-            ),
-          ),
-          Spacer(
-            flex: 8,
-          ),
-        ],
+        ),
       ),
     );
   }
