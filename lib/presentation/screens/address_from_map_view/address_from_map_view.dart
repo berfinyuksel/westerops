@@ -63,84 +63,91 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: LocaleKeys.address_from_map_title,
-      body: Column(
-        children: [
-          Stack(
-            alignment: Alignment(0, -0.965),
-            children: [
-              Container(
-                height: context.dynamicHeight(0.7),
-                width: double.infinity,
-                child: Stack(
-                  alignment: Alignment(0.81, 0.88),
-                  children: [
-                    GoogleMap(
-                      myLocationButtonEnabled: false,
-                      onCameraMove: (object) {
-                        latitude = object.target.latitude;
-                        longitude = object.target.longitude;
-                        final Marker marker = Marker(
-                          icon: markerIcon!,
-                          markerId: markerId,
-                          position: LatLng(latitude, longitude),
-                        );
-                        setState(() {
-                          markers.clear();
-                          markers[markerId] = marker;
-                        });
-                      },
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(latitude, longitude),
-                        zoom: 17.0,
-                      ),
-                      onMapCreated: (GoogleMapController controller) {
-                        _mapController.complete(controller);
-                      },
-                      mapType: MapType.normal,
-                      markers: Set<Marker>.of(markers.values),
-                    ),
-                    GestureDetector(
-                        onTap: () async {
-                          final GoogleMapController controller = await _mapController.future;
+    return GestureDetector(
+      onTap: (){
+          FocusScope.of(context).unfocus();
+
+      },
+      child: CustomScaffold(
+        title: LocaleKeys.address_from_map_title,
+        body: ListView(
+          children: [
+            Stack(
+              alignment: Alignment(0, -0.965),
+              children: [
+                Container(
+                  height: context.dynamicHeight(0.7),
+                  width: double.infinity,
+                  child: Stack(
+                    alignment: Alignment(0.81, 0.88),
+                    children: [
+                      GoogleMap(
+                        myLocationButtonEnabled: false,
+                        onCameraMove: (object) {
+                          latitude = object.target.latitude;
+                          longitude = object.target.longitude;
+                          final Marker marker = Marker(
+                            icon: markerIcon!,
+                            markerId: markerId,
+                            position: LatLng(latitude, longitude),
+                          );
                           setState(() {
-                            latitude = LocationService.latitude!;
-                            longitude = LocationService.longitude!;
-
-                            controller.animateCamera(CameraUpdate.newCameraPosition(
-                              CameraPosition(
-                                target: LatLng(latitude, longitude),
-                                zoom: 17.0,
-                              ),
-                            ));
-                            final Marker marker = Marker(
-                              icon: markerIcon!,
-                              markerId: markerId,
-                              position: LatLng(latitude, longitude),
-                            );
-
                             markers.clear();
-
                             markers[markerId] = marker;
                           });
                         },
-                        child: SvgPicture.asset(ImageConstant.COMMONS_MY_LOCATION_BUTTON)),
-                  ],
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(latitude, longitude),
+                          zoom: 17.0,
+                        ),
+                        onMapCreated: (GoogleMapController controller) {
+                          _mapController.complete(controller);
+                        },
+                        mapType: MapType.normal,
+                        markers: Set<Marker>.of(markers.values),
+                      ),
+                      GestureDetector(
+                          onTap: () async {
+                            final GoogleMapController controller = await _mapController.future;
+                            setState(() {
+                              latitude = LocationService.latitude!;
+                              longitude = LocationService.longitude!;
+    
+                              controller.animateCamera(CameraUpdate.newCameraPosition(
+                                CameraPosition(
+                                  target: LatLng(latitude, longitude),
+                                  zoom: 17.0,
+                                ),
+                              ));
+                              final Marker marker = Marker(
+                                icon: markerIcon!,
+                                markerId: markerId,
+                                position: LatLng(latitude, longitude),
+                              );
+    
+                              markers.clear();
+    
+                              markers[markerId] = marker;
+                            });
+                          },
+                          child: SvgPicture.asset(ImageConstant.COMMONS_MY_LOCATION_BUTTON)),
+                    ],
+                  ),
                 ),
-              ),
-              buildSearchBar(context),
-              Positioned(
-                right: 0,
-                left: 0,
-                top: context.dynamicHeight(0.07),
-                child: buildBuilder(),
-              )
-            ],
-          ),
-          Spacer(),
-          buildButton(context),
-        ],
+                buildSearchBar(context),
+                Positioned(
+                  right: 0,
+                  left: 0,
+                  top: context.dynamicHeight(0.07),
+                  child: buildBuilder(),
+                )
+              ],
+            ),
+           // Spacer(),
+            SizedBox(height: context.dynamicHeight(0.02),),
+            buildButton(context),
+          ],
+        ),
       ),
     );
   }

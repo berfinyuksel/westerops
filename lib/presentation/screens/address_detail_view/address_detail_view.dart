@@ -40,47 +40,58 @@ class _AddressDetailViewState extends State<AddressDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: widget.title,
-      body: Padding(
-        padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-            right: context.dynamicWidht(0.06),
-            top: context.dynamicHeight(0.02),
-            bottom: context.dynamicHeight(0.03)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            LocaleText(
-              text: "Adres",
-              style: AppTextStyles.bodyTitleStyle,
+    return GestureDetector(
+      onTap: (){
+          FocusScope.of(context).unfocus();
+
+      },
+      child: CustomScaffold(
+        title: widget.title,
+        body: Padding(
+          padding: EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+              right: context.dynamicWidht(0.06),
+              top: context.dynamicHeight(0.02),
+              bottom: context.dynamicHeight(0.03)),
+          child: SingleChildScrollView(
+            child: Container(
+              height: context.dynamicHeight(0.75),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  LocaleText(
+                    text: "Adres",
+                    style: AppTextStyles.bodyTitleStyle,
+                  ),
+                  Spacer(flex: 5),
+                  buildDropDown(context),
+                  Spacer(flex: 10),
+                  buildTextFormField("VKN/TCKN", tcController),
+                  Spacer(flex: 10),
+                  buildTextFormField("Adres İsmi", addressNameController),
+                  Spacer(flex: 10),
+                  buildTextFormField("İlçe", districtController),
+                  Spacer(flex: 10),
+                  buildTextFormField("Adres", addressController),
+                  Spacer(flex: 10),
+                  buildTextFormField("No., Daire", daireNoController),
+                  Spacer(flex: 10),
+                  buildTextFormField("Adres Açıklaması", descriptionController),
+                  Spacer(
+                    flex: 33,
+                  ),
+                  CustomButton(
+                    width: double.infinity,
+                    title: "Kaydet",
+                    color: AppColors.greenColor,
+                    borderColor: AppColors.greenColor,
+                    textColor: Colors.white,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
-            Spacer(flex: 10),
-            buildDropDown(context),
-            Spacer(flex: 20),
-            buildTextFormField("VKN/TCKN", tcController),
-            Spacer(flex: 20),
-            buildTextFormField("Adres İsmi", addressNameController),
-            Spacer(flex: 20),
-            buildTextFormField("İlçe", districtController),
-            Spacer(flex: 20),
-            buildTextFormField("Adres", addressController),
-            Spacer(flex: 20),
-            buildTextFormField("No., Daire", daireNoController),
-            Spacer(flex: 20),
-            buildTextFormField("Adres Açıklaması", descriptionController),
-            Spacer(
-              flex: 66,
-            ),
-            CustomButton(
-              width: double.infinity,
-              title: "Kaydet",
-              color: AppColors.greenColor,
-              borderColor: AppColors.greenColor,
-              textColor: Colors.white,
-              onPressed: () {},
-            ),
-          ],
+          ),
         ),
       ),
     );

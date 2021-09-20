@@ -66,27 +66,33 @@ class _SearchViewState extends State<SearchView> {
     return buildBody(context);
   }
 
-  Column buildBody(BuildContext context) {
-    return Column(
-      children: [
-        searchBar(context),
-        Visibility(
-            visible: visible, child: searchHistoryAndCleanTexts(context)),
-        Visibility(visible: visible, child: dividerOne(context)),
-        Visibility(visible: visible, child: Spacer(flex: 2)),
-        searchListViewBuilder(),
-        Spacer(flex: 4),
-        Visibility(visible: visible, child: popularSearchText(context)),
-        Visibility(visible: visible, child: dividerSecond(context)),
-        Spacer(flex: 4),
-        Visibility(visible: visible, child: horizontalListTrend(context)),
-        Spacer(flex: 4),
-        Visibility(visible: visible, child: categoriesText(context)),
-        Visibility(visible: visible, child: dividerThird(context)),
-        Spacer(flex: 1),
-        Visibility(visible: visible, child: horizontalListCategory(context)),
-        Spacer(flex: 14),
-      ],
+  GestureDetector buildBody(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+          FocusScope.of(context).unfocus();
+        
+      },
+      child: Column(
+        children: [
+          searchBar(context),
+          Visibility(
+              visible: visible, child: searchHistoryAndCleanTexts(context)),
+          Visibility(visible: visible, child: dividerOne(context)),
+          Visibility(visible: visible, child: Spacer(flex: 2)),
+          searchListViewBuilder(),
+          Spacer(flex: 4),
+          Visibility(visible: visible, child: popularSearchText(context)),
+          Visibility(visible: visible, child: dividerSecond(context)),
+          Spacer(flex: 4),
+          Visibility(visible: visible, child: horizontalListTrend(context)),
+          Spacer(flex: 4),
+          Visibility(visible: visible, child: categoriesText(context)),
+          Visibility(visible: visible, child: dividerThird(context)),
+          Spacer(flex: 1),
+          Visibility(visible: visible, child: horizontalListCategory(context)),
+          Spacer(flex: 14),
+        ],
+      ),
     );
   }
 

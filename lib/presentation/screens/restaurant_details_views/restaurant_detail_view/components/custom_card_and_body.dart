@@ -315,7 +315,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           children: [
             Column(
               children: [
-                packageCourierAndFavoriteContainer(context),
+                packageCourierAndFavoriteContainer(context, state),
                 SizedBox(
                   height: context.dynamicHeight(0.04),
                 ),
@@ -472,8 +472,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   style: AppTextStyles.myInformationBodyTextStyle,
                 ),
                 LocaleText(
-                  text:
-                      "Paketin Tanımlanmasına Kalan Süre: 0}",
+                  text: "Paketin Tanımlanmasına Kalan Süre: 0}",
                   style: AppTextStyles.subTitleStyle,
                 ),
                 SizedBox(height: context.dynamicHeight(0.020)),
@@ -538,8 +537,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   print("RESPONE: ${state.response[0].id}");
                   print("RESPONE: ${state.response[1].id}");
                   print("RESPONE: ${state.response[index].id}");
-                  context.read<OrderCubit>().addToBasket(
-                      "${state.response[index].id}");
+                  context
+                      .read<OrderCubit>()
+                      .addToBasket("${state.response[index].id}");
+                 // Navigator.pushNamed(context, RouteConstant.CART_VIEW);
                 },
               ),
             ),
@@ -765,7 +766,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ));
   }
 
-  Container packageCourierAndFavoriteContainer(BuildContext context) {
+  Container packageCourierAndFavoriteContainer(
+      BuildContext context, GenericState state) {
     return Container(
       width: context.dynamicWidht(1),
       height: context.dynamicHeight(0.065),

@@ -47,6 +47,7 @@ class _RegisterViewState extends State<RegisterView> {
             if (isRulesVisible) {
               isRulesVisible = false;
             }
+            FocusScope.of(context).unfocus();
           });
         },
         child: Stack(
@@ -89,168 +90,175 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Container buildCardBody(BuildContext context) {
+  SingleChildScrollView buildCardBody(BuildContext context) {
     String phoneTR = '+90' + phoneController.text;
     String phoneEN = '+1' + phoneController.text;
 
-    return Container(
-      padding: EdgeInsets.only(
-        bottom: context.dynamicHeight(0.02),
-      ),
-      height: context.dynamicHeight(0.69),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(18.0),
-        ),
-        color: Colors.white,
-      ),
-      child: Column(
-        children: [
-          Spacer(
-            flex: 2,
+    return SingleChildScrollView(
+      reverse: true,
+      child: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+          padding: EdgeInsets.only(
+            bottom: context.dynamicHeight(0.02),
           ),
-          LocaleText(
-            text: LocaleKeys.register_text_register,
-            maxLines: 1,
-            style: AppTextStyles.appBarTitleStyle,
+          height: context.dynamicHeight(0.69),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(18.0),
+            ),
+            color: Colors.white,
           ),
-          Spacer(
-            flex: 2,
-          ),
-          Divider(
-            height: 0,
-            thickness: 4,
-            color: AppColors.borderAndDividerColor,
-          ),
-          Spacer(
-            flex: 2,
-          ),
-          Expanded(
-            flex: 5,
-            child: Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  buildDropDown(context),
-                  Container(
-                    height: context.dynamicHeight(0.06),
-                    width: context.dynamicWidht(0.57),
-                    child: buildTextFormField(
-                        LocaleKeys.register_phone.locale, phoneController),
-                  ),
-                ],
+          child: Column(
+            children: [
+              Spacer(
+                flex: 2,
               ),
-            ),
-          ),
-          Spacer(
-            flex: 2,
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: buildTextFormField(
-                  LocaleKeys.register_full_name.locale, nameController),
-            ),
-          ),
-          Spacer(
-            flex: 2,
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: buildTextFormField(
-                  LocaleKeys.register_email.locale, emailController),
-            ),
-          ),
-          Spacer(
-            flex: 2,
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: buildTextFormFieldPassword(
-                  LocaleKeys.register_password.locale),
-            ),
-          ),
-          Spacer(
-            flex: 2,
-          ),
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildCheckBox(context),
-                Spacer(
-                  flex: 1,
+              LocaleText(
+                text: LocaleKeys.register_text_register,
+                maxLines: 1,
+                style: AppTextStyles.appBarTitleStyle,
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Divider(
+                height: 0,
+                thickness: 4,
+                color: AppColors.borderAndDividerColor,
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 5,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildDropDown(context),
+                      Container(
+                        height: context.dynamicHeight(0.06),
+                        width: context.dynamicWidht(0.57),
+                        child: buildTextFormField(
+                            LocaleKeys.register_phone.locale, phoneController),
+                      ),
+                    ],
+                  ),
                 ),
-                ConsentText(),
-              ],
-            ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06)),
+                  child: buildTextFormField(
+                      LocaleKeys.register_full_name.locale, nameController),
+                ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06)),
+                  child: buildTextFormField(
+                      LocaleKeys.register_email.locale, emailController),
+                ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06)),
+                  child: buildTextFormFieldPassword(
+                      LocaleKeys.register_password.locale),
+                ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: context.dynamicWidht(0.06)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    buildCheckBox(context),
+                    Spacer(
+                      flex: 1,
+                    ),
+                    ConsentText(),
+                  ],
+                ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              CustomButton(
+                width: context.dynamicWidht(0.4),
+                title: LocaleKeys.register_text_register,
+                textColor: Colors.white,
+                color: checkboxValue
+                    ? AppColors.greenColor
+                    : AppColors.disabledButtonColor,
+                borderColor: checkboxValue
+                    ? AppColors.greenColor
+                    : AppColors.disabledButtonColor,
+                onPressed: () {
+                  bool numberControl =
+                      passwordController.text.contains(RegExp(r'[0-9]'));
+                  bool uppercaseControl =
+                      passwordController.text.contains(RegExp(r'[A-Z]'));
+                  bool lengthControl = passwordController.text.length > 7;
+                  if (checkboxValue &&
+                      numberControl &&
+                      uppercaseControl &&
+                      lengthControl) {
+                    String firstName = nameController.text.split(" ")[0];
+                    String lastName = nameController.text.split(" ")[1];
+                    context.read<UserAuthCubit>().registerUser(
+                        firstName,
+                        lastName,
+                        emailController.text,
+                        dropdownValue == 'TR' ? phoneTR : phoneEN,
+                        passwordController.text);
+                    // _showMyDialog();
+                  }
+
+                  Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+
+                  // AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
+                },
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              ContractText(),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 4,
+                child: buildSocialAuths(context),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+            ],
           ),
-          Spacer(
-            flex: 2,
-          ),
-          CustomButton(
-            width: context.dynamicWidht(0.4),
-            title: LocaleKeys.register_text_register,
-            textColor: Colors.white,
-            color: checkboxValue
-                ? AppColors.greenColor
-                : AppColors.disabledButtonColor,
-            borderColor: checkboxValue
-                ? AppColors.greenColor
-                : AppColors.disabledButtonColor,
-            onPressed: () {
-              bool numberControl =
-                  passwordController.text.contains(RegExp(r'[0-9]'));
-              bool uppercaseControl =
-                  passwordController.text.contains(RegExp(r'[A-Z]'));
-              bool lengthControl = passwordController.text.length > 7;
-              if (checkboxValue &&
-                  numberControl &&
-                  uppercaseControl &&
-                  lengthControl) {
-                String firstName = nameController.text.split(" ")[0];
-                String lastName = nameController.text.split(" ")[1];
-                context.read<UserAuthCubit>().registerUser(
-                    firstName,
-                    lastName,
-                    emailController.text,
-                    dropdownValue == 'TR' ? phoneTR : phoneEN,
-                    passwordController.text);
-                // _showMyDialog();
-              }
-            
-                Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
-              
-              // AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
-            },
-          ),
-          Spacer(
-            flex: 2,
-          ),
-          ContractText(),
-          Spacer(
-            flex: 2,
-          ),
-          Expanded(
-            flex: 4,
-            child: buildSocialAuths(context),
-          ),
-          Spacer(
-            flex: 2,
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -70,7 +70,12 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           favourites.add(state.response[i]);
         }
 
-        return Center(child: buildBody(context, favourites, state));
+        return GestureDetector(
+          onTap: (){
+          FocusScope.of(context).unfocus();
+
+          },
+          child: Center(child: buildBody(context, favourites, state)));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
