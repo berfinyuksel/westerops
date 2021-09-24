@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,7 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScope.of(context).unfocus();
         },
         child: Stack(
@@ -51,7 +52,8 @@ class _LoginViewState extends State<LoginView> {
               left: 0,
               child: IconButton(
                 icon: Icon(Icons.close, color: Colors.white),
-                onPressed: () => Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
+                onPressed: () =>
+                    Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
               ),
             ),
             Positioned(
@@ -70,7 +72,8 @@ class _LoginViewState extends State<LoginView> {
     return SingleChildScrollView(
       reverse: true,
       child: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom) ,
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
           padding: EdgeInsets.only(
             bottom: context.dynamicHeight(0.02),
@@ -102,8 +105,8 @@ class _LoginViewState extends State<LoginView> {
               Expanded(
                 flex: 4,
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -124,8 +127,8 @@ class _LoginViewState extends State<LoginView> {
               Expanded(
                 flex: 4,
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06)),
                   child: buildTextFormField(
                       LocaleKeys.register_password.locale, passwordController),
                 ),
@@ -140,10 +143,10 @@ class _LoginViewState extends State<LoginView> {
                 onPressed: () async {
                   String phoneTR = '+90' + phoneController.text;
                   String phoneEN = '+1' + phoneController.text;
-                  await context
-                      .read<UserAuthCubit>()
-                      .loginUser(
-                      dropdownValue == 'TR' ? phoneTR : phoneEN, passwordController.text);
+                  await context.read<UserAuthCubit>().loginUser(
+                      dropdownValue == 'TR' ? phoneTR : phoneEN,
+                      passwordController.text);
+                  _showMyDialog();
                   if (SharedPrefs.getIsLogined) {
                     Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
                   }
@@ -152,7 +155,8 @@ class _LoginViewState extends State<LoginView> {
               Spacer(flex: 1),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, RouteConstant.FORGOT_PASSWORD_VIEW);
+                  Navigator.pushNamed(
+                      context, RouteConstant.FORGOT_PASSWORD_VIEW);
                 },
                 child: LocaleText(
                   text: LocaleKeys.login_forgot_pass,
@@ -181,7 +185,8 @@ class _LoginViewState extends State<LoginView> {
                     TextSpan(
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushNamed(context, RouteConstant.REGISTER_VIEW);
+                          Navigator.pushNamed(
+                              context, RouteConstant.REGISTER_VIEW);
                         },
                       text: LocaleKeys.login_sign_up.locale,
                       style: GoogleFonts.montserrat(
@@ -198,6 +203,130 @@ class _LoginViewState extends State<LoginView> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        final GenericState state = context.watch<UserAuthCubit>().state;
+        if (state is GenericInitial) {
+          return Container();
+        } else if (state is GenericLoading) {
+          return Container();
+        } else if (state is GenericCompleted) {
+          return AlertDialog(
+            title: Text('Hosgeldiniz'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('This is a demo alert dialog.'),
+                  Text('Would you like to approve of this message?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Approve'),
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+                },
+              ),
+            ],
+          );
+        } else {
+          return AlertDialog(
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: context.dynamicWidht(0.047),
+                vertical: context.dynamicHeight(0.03)),
+            content: Container(
+              alignment: Alignment.center,
+              height: context.dynamicHeight(0.15),
+              width: context.dynamicWidht(0.8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.0),
+                color: Colors.white,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Spacer(
+                    flex: 2,
+                  ),
+                  SvgPicture.asset(ImageConstant.COMMONS_WARNING_ICON),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'Şifrenizin veya telefon \nnumaranızın yanlış olduğunu \nfarkettik.',
+                          style: AppTextStyles.bodyTitleStyle),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            Navigator.pushNamed(
+                                context, RouteConstant.LOGIN_VIEW);
+                          });
+                        },
+                        child: Text.rich(
+                          TextSpan(
+                            style: GoogleFonts.montserrat(
+                              fontSize: 14.0,
+                              color: AppColors.textColor,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'Yeni iseniz ',
+                                style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'üye olabilir',
+                                style: GoogleFonts.montserrat(
+                                  color: AppColors.orangeColor,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' ',
+                                style: GoogleFonts.montserrat(
+                                  color: AppColors.orangeColor,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'veya \nhatırlamıyorsanız ',
+                                style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'şifrenizi \nyenileyebilirsiniz.',
+                                style: GoogleFonts.montserrat(
+                                  color: AppColors.orangeColor,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(
+                    flex: 5,
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 
@@ -284,11 +413,11 @@ class _LoginViewState extends State<LoginView> {
 
   TextFormField buildTextFormField(
       String labelText, TextEditingController controller) {
-            String phoneTR = '+90';
+    String phoneTR = '+90';
     String phoneEN = '+1';
     return TextFormField(
-   //   keyboardType: TextInputType.number,
-    //  focusNode: FocusScope.of(context).focusedChild!.children.first,
+      //   keyboardType: TextInputType.number,
+      //  focusNode: FocusScope.of(context).focusedChild!.children.first,
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       controller: controller,

@@ -115,7 +115,7 @@ class _CartViewState extends State<CartView> {
                             .deleteBasket("${state.response[index].id}");
                       },
                       child: PastOrderDetailBasketListTile(
-                        title: state.response[index].text_name,
+                        title: "${state.response[index].text_name}",
                         price: 35,
                         withDecimal: false,
                         subTitle: "",

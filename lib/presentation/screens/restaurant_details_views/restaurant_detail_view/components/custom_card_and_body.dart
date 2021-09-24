@@ -2,6 +2,7 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
 import 'package:dongu_mobile/utils/clippers/password_rules_clipper.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
@@ -423,7 +424,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 LocaleText(
-                  text: state.response[index].text_name,
+                  text: "${state.response[index].text_name}",
                   style: AppTextStyles.myInformationBodyTextStyle,
                 ),
                 LocaleText(
@@ -468,7 +469,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   height: context.dynamicHeight(0.021),
                 ),
                 Text(
-                  state.response[index].text_name,
+                  "${state.response[index].text_name}",
                   style: AppTextStyles.myInformationBodyTextStyle,
                 ),
                 LocaleText(
@@ -540,7 +541,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   context
                       .read<OrderCubit>()
                       .addToBasket("${state.response[index].id}");
-                 // Navigator.pushNamed(context, RouteConstant.CART_VIEW);
                 },
               ),
             ),
