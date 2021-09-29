@@ -62,7 +62,6 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       key: scaffoldKey,
       resizeToAvoidBottomInset: true,
       appBar: widget.isDrawer == null
@@ -83,11 +82,13 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           : widget.isDrawer!
               ? null
               : CustomDrawer(),
-      bottomNavigationBar: widget.isNavBar != null ? null :  ClipRRect(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(18.0),
-          ),
-          child: buildBottomNavigationBar()),
+      bottomNavigationBar: widget.isNavBar != null
+          ? null
+          : ClipRRect(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(18.0),
+              ),
+              child: buildBottomNavigationBar()),
       body: widget.body == null
           ? _widgetOptions.elementAt(_selectedIndex)
           : widget.body,
@@ -160,26 +161,31 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         ),
       ],
       iconTheme: IconThemeData(color: AppColors.greenColor),
-      leading:  _selectedIndex == 1 ||
+      leading: _selectedIndex == 1 ||
               _selectedIndex == 2 ||
               _selectedIndex == 3 ||
-              _selectedIndex == 4 ? IconButton(
-        icon: SvgPicture.asset(ImageConstant.BACK_ICON),
-        onPressed: () => Navigator.of(context).pop(),
-      ) : Text(""),
-      title:  _selectedIndex == 1 || _selectedIndex == 2 || _selectedIndex == 3 ||
+              _selectedIndex == 4
+          ? IconButton(
+              icon: SvgPicture.asset(ImageConstant.BACK_ICON),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          : Text(""),
+      title: _selectedIndex == 1 ||
+              _selectedIndex == 2 ||
+              _selectedIndex == 3 ||
               _selectedIndex == 4
           ? LocaleText(
-        text: _titles.elementAt(_selectedIndex)!,
-        style: AppTextStyles.appBarTitleStyle,
-      ) : SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
-     // title: SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
+              text: _titles.elementAt(_selectedIndex)!,
+              style: AppTextStyles.appBarTitleStyle,
+            )
+          : SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
+      // title: SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
       centerTitle: true,
     );
   }
 
   BottomNavigationBar buildBottomNavigationBar() {
-    return  BottomNavigationBar(
+    return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       selectedItemColor: Colors.black,
       items: <BottomNavigationBarItem>[
@@ -187,7 +193,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             icon: SvgPicture.asset(
               ImageConstant.NAVBAR_HOME,
             ),
-            activeIcon:  SvgPicture.asset(
+            activeIcon: SvgPicture.asset(
               ImageConstant.NAVBAR_HOME_ACTIVE,
             ),
             label: LocaleKeys.bottom_nav_bar_item_1.locale,
@@ -203,14 +209,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           icon: SvgPicture.asset(
             ImageConstant.NAVBAR_FAVORITES,
           ),
-          activeIcon: SvgPicture.asset(ImageConstant.NAVBAR_FAVORITES_ACTIVE) ,
+          activeIcon: SvgPicture.asset(ImageConstant.NAVBAR_FAVORITES_ACTIVE),
           label: LocaleKeys.bottom_nav_bar_item_3.locale,
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             ImageConstant.NAVBAR_NOTIFACATIONS,
           ),
-          activeIcon:  SvgPicture.asset(
+          activeIcon: SvgPicture.asset(
             ImageConstant.NAVBAR_NOTIFACATIONS_ACTIVE,
           ),
           label: LocaleKeys.bottom_nav_bar_item_4.locale,

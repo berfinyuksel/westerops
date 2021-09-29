@@ -10,7 +10,8 @@ class MyOrdersListTileBuilder extends StatefulWidget {
   MyOrdersListTileBuilder({Key? key}) : super(key: key);
 
   @override
-  _MyOrdersListTileBuilderState createState() => _MyOrdersListTileBuilderState();
+  _MyOrdersListTileBuilderState createState() =>
+      _MyOrdersListTileBuilderState();
 }
 
 class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
@@ -33,7 +34,7 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
         itemCount: value.length,
         itemBuilder: (context, index) {
           return Container(
-            height: context.dynamicHeight(0.097),
+            height: context.dynamicHeight(0.1),
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.065),
             ),
@@ -45,10 +46,13 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
                   child: Container(
                     color: AppColors.redColor,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.038), horizontal: context.dynamicWidht(0.048)),
+                      padding: EdgeInsets.symmetric(
+                          vertical: context.dynamicHeight(0.038),
+                          horizontal: context.dynamicWidht(0.048)),
                       child: LocaleText(
                         text: LocaleKeys.my_notifications_delete_text_text,
-                        style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                        style: AppTextStyles.bodyTextStyle.copyWith(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                         alignment: TextAlign.end,
                       ),
                     ),
@@ -67,10 +71,17 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [buildTitle(context, index)[index], buildDateTrailing(context, index)[index]],
+                        children: [
+                          buildTitle(context, index)[index],
+                          buildDateTrailing(context, index)[index]
+                        ],
                       ),
                       Row(
-                        children: [Expanded(child: buildDescriptionSubtitle(context, index)[index])],
+                        children: [
+                          Expanded(
+                              child: buildDescriptionSubtitle(
+                                  context, index)[index])
+                        ],
                       ),
                     ],
                   ),
@@ -126,7 +137,8 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
       padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
       child: LocaleText(
         text: LocaleKeys.my_notifications_my_orders_forgetRate,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor),
         alignment: TextAlign.start,
       ),
     );
@@ -170,7 +182,12 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
 
   buildDateTrailing(BuildContext context, index) {
     List<Widget> dateText = [];
-    List<String> date = ["15 Mart 2021", "16 Mart 2021", "17 Mart 2021", "21 Mart 2021"];
+    List<String> date = [
+      "15 Mart 2021",
+      "16 Mart 2021",
+      "17 Mart 2021",
+      "21 Mart 2021"
+    ];
 
     for (int i = 0; i <= 4; i++) {
       dateText.add(
