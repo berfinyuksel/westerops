@@ -23,6 +23,7 @@ import 'data/repositories/search_location_repository.dart';
 import 'data/repositories/store_repository.dart';
 import 'data/repositories/user_authentication_repository.dart';
 import 'data/repositories/user_operatios_repository.dart';
+import 'data/services/locator.dart';
 import 'data/shared/shared_prefs.dart';
 import 'logic/cubits/filters_cubit/filters_cubit.dart';
 import 'logic/cubits/order_cubit/order_cubit.dart';
@@ -35,9 +36,11 @@ import 'presentation/router/app_router.dart';
 import 'utils/constants/locale_constant.dart';
 import 'utils/theme/app_theme.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await setUpLocator();
   await EasyLocalization.ensureInitialized();
   await SharedPrefs.initialize();
   await Firebase.initializeApp();
