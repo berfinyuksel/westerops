@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/cart_view/not_logged_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,9 +27,10 @@ class CartView extends StatefulWidget {
   _CartViewState createState() => _CartViewState();
 }
 
-List<int> d = [76312,76319,76530,76531];
+List<int> d = [76312, 76319, 76530, 76531];
 
 class _CartViewState extends State<CartView> {
+  List<String> menuList = SharedPrefs.getMenuList;
   @override
   void initState() {
     super.initState();
@@ -55,9 +57,11 @@ class _CartViewState extends State<CartView> {
         }
       } else {
         final error = state as GenericError;
-  
-        return  SharedPrefs.getIsLogined == false ? NotLoggedInEmptyCartView()  : CartView();//Center(child: Text("${error.message}\n${error.statusCode}"));
-         
+
+        return SharedPrefs.getIsLogined == false
+            ? NotLoggedInEmptyCartView()
+            : CartView(); //Center(child: Text("${error.message}\n${error.statusCode}"));
+
       }
     });
   }
@@ -113,6 +117,10 @@ class _CartViewState extends State<CartView> {
                         context
                             .read<OrderCubit>()
                             .deleteBasket("${state.response[index].id}");
+
+                        context.read<BasketCounterCubit>().decrement();
+                        menuList.remove(state.response[index].id.toString());
+                        SharedPrefs.setMenuList(menuList);
                       },
                       child: PastOrderDetailBasketListTile(
                         title: "${state.response[index].text_name}",

@@ -48,7 +48,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   bool isFavourite = false;
   int favouriteId = 0;
   bool showInfo = false;
-  List<String> menuList = [];
+  List<String>? menuList = SharedPrefs.getMenuList;
 
   TabController? _controller;
   @override
@@ -546,14 +546,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         .addToBasket("${state.response[index].id}");
                     int menuItem = state.response[index].id;
                     if (statusCode == StatusCode.success) {
-                      if (!menuList.contains(menuItem.toString())) {
+                      if (!menuList!.contains(menuItem.toString())) {
                         context.read<BasketCounterCubit>().increment();
                         SharedPrefs.setCounter(counterState + 1);
-                        menuList.add(menuItem.toString());
-                        SharedPrefs.setMenuList(menuList);
+                        menuList!.add(menuItem.toString());
+                        SharedPrefs.setMenuList(menuList!);
                         print(SharedPrefs.getMenuList);
-                        print(menuList);
-                        print(counterState);
                         print("Successss");
                         print(menuItem);
                       } else {

@@ -253,8 +253,34 @@ class _CustomScaffoldState extends State<CustomScaffold> {
               }),
             ],
           ),
-          activeIcon: SvgPicture.asset(
-            ImageConstant.NAVBAR_BASKET_ACTIVE,
+          activeIcon: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              SvgPicture.asset(
+                ImageConstant.NAVBAR_BASKET_ACTIVE,
+              ),
+              Builder(builder: (context) {
+                final counterState = context.watch<BasketCounterCubit>().state;
+
+                return Visibility(
+                  visible: counterState > 0,
+                  child: Container(
+                    height: 14,
+                    width: 14,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.orangeColor),
+                    child: Text(
+                      counterState.toString(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
+                    ),
+                  ),
+                );
+              }),
+            ],
           ),
           label: LocaleKeys.bottom_nav_bar_item_5.locale,
         ),
