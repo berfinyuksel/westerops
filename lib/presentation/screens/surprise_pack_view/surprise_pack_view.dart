@@ -48,19 +48,21 @@ class _SurprisePackViewState extends State<SurprisePackView> {
         ),
         LocaleText(
           text: LocaleKeys.surprise_pack_surprise_pack_opened,
-          style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w400, color: AppColors.orangeColor),
+          style: AppTextStyles.appBarTitleStyle.copyWith(
+              fontWeight: FontWeight.w400, color: AppColors.orangeColor),
           alignment: TextAlign.center,
         ),
         Spacer(
           flex: 2,
         ),
         buildOrderNumber(),
-        SvgPicture.asset(ImageConstant.SURPRISE_PACK, height: context.dynamicHeight(0.4)),
+        SvgPicture.asset(ImageConstant.SURPRISE_PACK,
+            height: context.dynamicHeight(0.4)),
         buildCountDown(context),
         Spacer(
           flex: 5,
         ),
-       // Container(child: Text("data"),),
+        // Container(child: Text("data"),),
         buildBottomCard(context),
       ],
     );
@@ -109,7 +111,13 @@ class _SurprisePackViewState extends State<SurprisePackView> {
           textColor: AppColors.redColor,
           borderColor: AppColors.redColor,
           onPressed: () {
-            showDialog(context: context, builder: (_) => CustomAlertDialog());
+            showDialog(
+                context: context,
+                builder: (_) => CustomAlertDialog(
+                    imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                    textMessage: LocaleKeys.surprise_pack_alert_text,
+                    buttonOneTitle: LocaleKeys.surprise_pack_alert_button1,
+                    buttonTwoTittle: LocaleKeys.surprise_pack_alert_button2));
           },
         ),
         CustomButton(
@@ -169,10 +177,17 @@ class _SurprisePackViewState extends State<SurprisePackView> {
           Spacer(flex: 5),
           SvgPicture.asset(ImageConstant.ORDER_RECEIVED_CLOCK_ICON),
           Spacer(flex: 1),
-          LocaleText(text: LocaleKeys.order_received_count_down, style: AppTextStyles.bodyTitleStyle),
+          LocaleText(
+              text: LocaleKeys.order_received_count_down,
+              style: AppTextStyles.bodyTitleStyle),
           Spacer(flex: 1),
-          Text('0$hour:${minute < 10 ? "0$minute" : minute}:${second < 10 ? "0$second" : second}', style: AppTextStyles.appBarTitleStyle),
-          Text(" kaldı.",style: AppTextStyles.bodyTitleStyle,),
+          Text(
+              '0$hour:${minute < 10 ? "0$minute" : minute}:${second < 10 ? "0$second" : second}',
+              style: AppTextStyles.appBarTitleStyle),
+          Text(
+            " kaldı.",
+            style: AppTextStyles.bodyTitleStyle,
+          ),
           Spacer(flex: 5),
         ],
       ),

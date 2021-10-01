@@ -6,11 +6,6 @@ class BasketCounterCubit extends Cubit<int> {
 
   void increment() => emit(state + 1);
   void decrement() => emit(state - 1);
-  void addToMenuList(List menuList, int menuId) {
-    if (!menuList.contains(menuId)) {
-      return menuList.add(menuId);
-    }
-  }
 
   void setCounter(int count) {
     emit(count);
