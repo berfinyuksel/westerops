@@ -1,5 +1,7 @@
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/filter_view/filter_view.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
@@ -16,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/repositories/box_repository.dart';
 import 'data/repositories/order_repository.dart';
@@ -36,7 +39,6 @@ import 'presentation/router/app_router.dart';
 import 'utils/constants/locale_constant.dart';
 import 'utils/theme/app_theme.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -47,11 +49,13 @@ Future<void> main() async {
   //fixed late arriving svg with future.wait function
   Future.wait([
     precachePicture(
-      ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/permissions/location_image.svg'),
+      ExactAssetPicture(SvgPicture.svgStringDecoder,
+          'assets/images/permissions/location_image.svg'),
       null,
     ),
     precachePicture(
-      ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/permissions/notification_image.svg'),
+      ExactAssetPicture(SvgPicture.svgStringDecoder,
+          'assets/images/permissions/notification_image.svg'),
       null,
     ),
     precachePicture(
@@ -59,7 +63,7 @@ Future<void> main() async {
           'assets/images/onboardings/onboarding_forth/onboarding_forth_background.svg'),
       null,
     ),
-     precachePicture(
+    precachePicture(
       ExactAssetPicture(SvgPicture.svgStringDecoder,
           'assets/images/order_receiving/background.svg'),
       null,
@@ -94,6 +98,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
                 SearchLocationCubit(SampleSearchLocationRepository())),
@@ -113,6 +118,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<FiltersCubit>(create: (context) => FiltersCubit())
       ],
       child: Builder(builder: (context) {
+        context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Dongu App',
@@ -127,7 +133,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
- class MyHttpOverrides extends HttpOverrides {
+
+class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)

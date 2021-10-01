@@ -1,5 +1,7 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/my_notifications_view/my_notifications_view.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../screens/cart_view/cart_view.dart';
 import '../../screens/home_page_view/home_page_view.dart';
 import '../../screens/my_favorites_view/my_favorites_view.dart';
@@ -222,8 +224,34 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           label: LocaleKeys.bottom_nav_bar_item_4.locale,
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            ImageConstant.NAVBAR_BASKET,
+          icon: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              SvgPicture.asset(
+                ImageConstant.NAVBAR_BASKET,
+              ),
+              Builder(builder: (context) {
+                final counterState = context.watch<BasketCounterCubit>().state;
+
+                return Visibility(
+                  visible: counterState > 0,
+                  child: Container(
+                    height: 14,
+                    width: 14,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.orangeColor),
+                    child: Text(
+                      counterState.toString(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
+                    ),
+                  ),
+                );
+              }),
+            ],
           ),
           activeIcon: SvgPicture.asset(
             ImageConstant.NAVBAR_BASKET_ACTIVE,
