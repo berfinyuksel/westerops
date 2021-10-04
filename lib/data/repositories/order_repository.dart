@@ -90,14 +90,15 @@ class SampleOrderRepository implements OrderRepository {
   }
 
   Future<List<BoxOrder>> clearBasket() async {
-    final response = await http.get(
-      Uri.parse("${UrlConstant.EN_URL}order/basket/clear-basket/"),
+    final response = await http.post(
+      Uri.parse("${UrlConstant.EN_URL}order/basket/remove_all_boxes/"),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
     print("CLEAR BASKET STATUS ${response.statusCode}");
+    print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       print(jsonBody); //utf8.decode for turkish characters
