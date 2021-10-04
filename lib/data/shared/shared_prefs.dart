@@ -45,11 +45,26 @@ class SharedPrefs {
   static Future<void> setUserLastName(String lastName) async {
     _prefs.setString('userLastName', lastName);
   }
+
   static Future<void> setUserPassword(String password) async {
     _prefs.setString('userPassword', password);
   }
+
   static Future<void> clearCache() async {
     _prefs.clear();
+  }
+
+  static Future<void> setCounter(int counter) async {
+    _prefs.setInt('counter', counter);
+  }
+
+  static Future<void> setMenuId(int menuId) async {
+    _prefs.setInt('menuId', menuId);
+  }
+
+  static Future<List<String>> setMenuList(List<String> menuList) async {
+    _prefs.setStringList('menuList', menuList);
+    return menuList;
   }
 
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
@@ -59,8 +74,13 @@ class SharedPrefs {
   static String get getUserEmail => _prefs.getString('userEmail') ?? "";
   static String get getUserPhone => _prefs.getString('userPhone') ?? "";
   static String get getUserName => _prefs.getString('userName') ?? "";
-  static String get getUserBirth => _prefs.getString('userBirth') ?? "dd-mm-yyyy";
-  static String get getUserAddress => _prefs.getString('userAddress') ?? "Adana";
+  static String get getUserBirth =>
+      _prefs.getString('userBirth') ?? "dd-mm-yyyy";
+  static String get getUserAddress =>
+      _prefs.getString('userAddress') ?? "Adana";
   static String get getUserLastName => _prefs.getString('userLastName') ?? "";
   static String get getUserPassword => _prefs.getString('userPassword') ?? "";
+  static int get getCounter => _prefs.getInt('counter') ?? 0;
+  static int get getMenuId => _prefs.getInt('menuId') ?? 0;
+  static List<String> get getMenuList => _prefs.getStringList('menuList') ?? [];
 }

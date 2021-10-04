@@ -90,118 +90,122 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 left: context.dynamicWidht(0.06),
                 right: context.dynamicWidht(0.06),
               ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      buildDropDown(context),
-                      Container(
-                        height: context.dynamicHeight(0.06),
-                        width: context.dynamicWidht(0.64),
-                        color: Colors.white,
-                        child: buildTextFormField(
-                            LocaleKeys.forgot_password_phone.locale,
-                            phoneController),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: context.dynamicHeight(0.02),
-                  ),
-                  Visibility(
-                      visible: isCodeSent,
-                      child: Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildDropDown(context),
+                        Container(
+                          height: context.dynamicHeight(0.06),
+                          width: context.dynamicWidht(0.64),
                           color: Colors.white,
                           child: buildTextFormField(
-                              LocaleKeys.forgot_password_activation_code.locale,
-                              codeController))),
-                  Visibility(
-                    visible: isCodeSent,
-                    child: SizedBox(
+                              LocaleKeys.forgot_password_phone.locale,
+                              phoneController),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
                       height: context.dynamicHeight(0.02),
                     ),
-                  ),
-                  Visibility(
+                    Visibility(
+                        visible: isCodeSent,
+                        child: Container(
+                            color: Colors.white,
+                            child: buildTextFormField(
+                                LocaleKeys
+                                    .forgot_password_activation_code.locale,
+                                codeController))),
+                    Visibility(
                       visible: isCodeSent,
-                      child: Container(
-                          color: Colors.white,
-                          child: buildTextFormFieldPassword(
-                              LocaleKeys.forgot_password_new_password.locale))),
-                  SizedBox(
-                    height: context.dynamicHeight(0.02),
-                  ),
-                  CustomButton(
-                    onPressed: () async {
-                      if (isCodeSent == true) {
-                        showDialog(
-                            context: context,
-                            builder: (_) =>
-                                CustomAlertDialogSuccessfullyChangedPassword());
-                      }
-                      String phoneTR = '+90' + phoneController.text;
-                      String phoneEN = '+1' + phoneController.text;
+                      child: SizedBox(
+                        height: context.dynamicHeight(0.02),
+                      ),
+                    ),
+                    Visibility(
+                        visible: isCodeSent,
+                        child: Container(
+                            color: Colors.white,
+                            child: buildTextFormFieldPassword(LocaleKeys
+                                .forgot_password_new_password.locale))),
+                    SizedBox(
+                      height: context.dynamicHeight(0.02),
+                    ),
+                    CustomButton(
+                      onPressed: () async {
+                        if (isCodeSent == true) {
+                          showDialog(
+                              context: context,
+                              builder: (_) =>
+                                  CustomAlertDialogSuccessfullyChangedPassword());
+                        }
+                        String phoneTR = '+90' + phoneController.text;
+                        String phoneEN = '+1' + phoneController.text;
 
-                      await _auth.verifyPhoneNumber(
-                          phoneNumber:
-                              dropdownValue == 'TR' ? phoneTR : phoneEN,
-                          verificationCompleted: (phoneAuthCredential) async {
-                            setState(() {
-                              showLoading = false;
-                            });
-                            //signInWithPhoneAuthCredential(phoneAuthCredential);
-                          },
-                          verificationFailed: (verificationFailed) async {
-                            setState(() {
-                              showLoading = false;
-                            });
-                            // ignore: deprecated_member_use
-                          },
-                          codeSent: (verificationId, resendingToken) async {
-                            setState(() {
-                              showLoading = false;
-                              currentState =
-                                  MobileVerificationState.SHOW_OTP_FORM_STATE;
-                              this.verificationId = verificationId;
-                            });
-                          },
-                          codeAutoRetrievalTimeout: (verificationId) async {});
-                      setState(() {
-                        isCodeSent = true;
-                        showLoading = true;
-                        print( _auth.app.options);//session_key
+                        await _auth.verifyPhoneNumber(
+                            phoneNumber:
+                                dropdownValue == 'TR' ? phoneTR : phoneEN,
+                            verificationCompleted: (phoneAuthCredential) async {
+                              setState(() {
+                                showLoading = false;
+                              });
+                              //signInWithPhoneAuthCredential(phoneAuthCredential);
+                            },
+                            verificationFailed: (verificationFailed) async {
+                              setState(() {
+                                showLoading = false;
+                              });
+                              // ignore: deprecated_member_use
+                            },
+                            codeSent: (verificationId, resendingToken) async {
+                              setState(() {
+                                showLoading = false;
+                                currentState =
+                                    MobileVerificationState.SHOW_OTP_FORM_STATE;
+                                this.verificationId = verificationId;
+                              });
+                            },
+                            codeAutoRetrievalTimeout:
+                                (verificationId) async {});
+                        setState(() {
+                          isCodeSent = true;
+                          showLoading = true;
+                          print(_auth.app.options); //session_key
 
-                        /*FirebaseAuth.instance.sendPasswordResetEmail(
-                            email: phoneController.text);*/
-                      });
-                      if (codeController.text.isNotEmpty) {
-                        PhoneAuthCredential phoneAuthCredential =
-                            PhoneAuthProvider.credential(
-                                verificationId: verificationId.toString(),
-                                smsCode: codeController.text);
-                        signInWithPhoneAuthCredential(phoneAuthCredential);
+                          /*FirebaseAuth.instance.sendPasswordResetEmail(
+                              email: phoneController.text);*/
+                        });
+                        if (codeController.text.isNotEmpty) {
+                          PhoneAuthCredential phoneAuthCredential =
+                              PhoneAuthProvider.credential(
+                                  verificationId: verificationId.toString(),
+                                  smsCode: codeController.text);
+                          signInWithPhoneAuthCredential(phoneAuthCredential);
 
-                        context.read<UserAuthCubit>().resetPassword(
-                            passwordController.text, phoneController.text);
-                      }
-                    },
-                    width: double.infinity,
-                    title: isCodeSent
-                        ? LocaleKeys.forgot_password_reset_password
-                        : LocaleKeys.forgot_password_send_code,
-                    color: isCodeSent
-                        ? AppColors.disabledButtonColor
-                        : AppColors.greenColor,
-                    borderColor: isCodeSent
-                        ? AppColors.disabledButtonColor
-                        : AppColors.greenColor,
-                    textColor: Colors.white,
-                  ),
-                  SizedBox(
-                    height: context.dynamicHeight(0.02),
-                  ),
-                  buildVisibilitySendAgainCode,
-                ],
+                          context.read<UserAuthCubit>().resetPassword(
+                              passwordController.text, phoneController.text);
+                        }
+                      },
+                      width: double.infinity,
+                      title: isCodeSent
+                          ? LocaleKeys.forgot_password_reset_password
+                          : LocaleKeys.forgot_password_send_code,
+                      color: isCodeSent
+                          ? AppColors.disabledButtonColor
+                          : AppColors.greenColor,
+                      borderColor: isCodeSent
+                          ? AppColors.disabledButtonColor
+                          : AppColors.greenColor,
+                      textColor: Colors.white,
+                    ),
+                    SizedBox(
+                      height: context.dynamicHeight(0.02),
+                    ),
+                    buildVisibilitySendAgainCode,
+                  ],
+                ),
               ),
             ),
             /*CustomButton(

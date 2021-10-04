@@ -236,7 +236,7 @@ class _RegisterViewState extends State<RegisterView> {
                         phoneController.text,
                         passwordController.text);
                     _showMyDialog();
-                  //Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+                    //Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
 
                   }
                   //  AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
@@ -300,7 +300,7 @@ class _RegisterViewState extends State<RegisterView> {
                 vertical: context.dynamicHeight(0.03)),
             content: Container(
               alignment: Alignment.center,
-              height: context.dynamicHeight(0.15),
+              height: context.dynamicHeight(0.17),
               width: context.dynamicWidht(0.8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4.0),

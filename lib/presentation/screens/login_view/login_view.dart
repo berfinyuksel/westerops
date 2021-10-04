@@ -243,7 +243,7 @@ class _LoginViewState extends State<LoginView> {
                 vertical: context.dynamicHeight(0.03)),
             content: Container(
               alignment: Alignment.center,
-              height: context.dynamicHeight(0.15),
+              height: context.dynamicHeight(0.17),
               width: context.dynamicWidht(0.8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4.0),
@@ -260,6 +260,7 @@ class _LoginViewState extends State<LoginView> {
                     flex: 2,
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
