@@ -4,16 +4,6 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
-  - FBSDKCoreKit (9.1.0):
-    - FBSDKCoreKit/Basics (= 9.1.0)
-    - FBSDKCoreKit/Core (= 9.1.0)
-  - FBSDKCoreKit/Basics (9.1.0)
-  - FBSDKCoreKit/Core (9.1.0):
-    - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (9.1.0):
-    - FBSDKLoginKit/Login (= 9.1.0)
-  - FBSDKLoginKit/Login (9.1.0):
-    - FBSDKCoreKit (~> 9.1.0)
   - Firebase/Auth (7.3.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 7.3.0)
@@ -41,10 +31,6 @@ PODS:
     - GoogleUtilities/Logger (~> 7.0)
     - nanopb (~> 2.30908.0)
   - Flutter (1.0.0)
-  - flutter_facebook_auth (2.0.0):
-    - FBSDKCoreKit (~> 9.1.0)
-    - FBSDKLoginKit (~> 9.1.0)
-    - Flutter
   - geocoding (1.0.5):
     - Flutter
   - geolocator (6.2.0):
@@ -102,7 +88,6 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
-  - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
   - geocoding (from `.symlinks/plugins/geocoding/ios`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
@@ -113,8 +98,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AppAuth
-    - FBSDKCoreKit
-    - FBSDKLoginKit
     - Firebase
     - FirebaseAuth
     - FirebaseCore
@@ -135,8 +118,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
-  flutter_facebook_auth:
-    :path: ".symlinks/plugins/flutter_facebook_auth/ios"
   geocoding:
     :path: ".symlinks/plugins/geocoding/ios"
   geolocator:
@@ -152,8 +133,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
-  FBSDKCoreKit: a00fe2efd780c195a5e09201bf51c56106245b40
-  FBSDKLoginKit: d98498c598ec09de657385a9349a1f21119b7f86
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   firebase_auth: d09964a120e218411768f5ca2d3ce938abd319f2
   firebase_core: b5d81dfd4fb2d6f700e67de34d9a633ae325c4e9
@@ -161,7 +140,6 @@ SPEC CHECKSUMS:
   FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
   FirebaseCoreDiagnostics: 5662a3823ffcc0acbaa9a21ba5ed302fac634705
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  flutter_facebook_auth: 4b170c07b7fce791497093fcc3f134fb215f3f07
   geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
   geolocator: f5e3de65e241caba7ce3e8a618803387bda73384
   google_maps_flutter: c7f9c73576de1fbe152a227bfd6e6c4ae8088619
