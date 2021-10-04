@@ -460,96 +460,97 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     print("RESPONE :  ${state.response[0].text_name}");
 
     return Container(
-        //alignment: Alignment(-0.8, 0.0),
-        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-        width: context.dynamicWidht(1),
-        height: context.dynamicHeight(0.15),
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: context.dynamicHeight(0.021),
-                ),
-                Text(
-                  "${state.response[index].text_name}",
-                  style: AppTextStyles.myInformationBodyTextStyle,
-                ),
-                LocaleText(
-                  text: "Paketin Tanımlanmasına Kalan Süre: 0}",
-                  style: AppTextStyles.subTitleStyle,
-                ),
-                SizedBox(height: context.dynamicHeight(0.020)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      width: context.dynamicWidht(0.16),
-                      height: context.dynamicHeight(0.04),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        color: AppColors.scaffoldBackgroundColor,
+      //alignment: Alignment(-0.8, 0.0),
+      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+      width: context.dynamicWidht(1),
+      height: context.dynamicHeight(0.15),
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: context.dynamicHeight(0.021),
+              ),
+              Text(
+                "${state.response[index].text_name}",
+                style: AppTextStyles.myInformationBodyTextStyle,
+              ),
+              LocaleText(
+                text: "Paketin Tanımlanmasına Kalan Süre: 0}",
+                style: AppTextStyles.subTitleStyle,
+              ),
+              SizedBox(height: context.dynamicHeight(0.020)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: context.dynamicWidht(0.16),
+                    height: context.dynamicHeight(0.04),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: AppColors.scaffoldBackgroundColor,
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                      child: Text(
+                        '75 TL',
+                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                            color: AppColors.borderAndDividerColor,
+                            decoration: TextDecoration.lineThrough),
                       ),
-                      child: Padding(
-                        padding:
-                            EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                        child: Text(
-                          '75 TL',
-                          style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                              color: AppColors.borderAndDividerColor,
-                              decoration: TextDecoration.lineThrough),
+                    ),
+                  ),
+                  SizedBox(
+                    width: context.dynamicWidht(0.04),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: context.dynamicWidht(0.16),
+                    height: context.dynamicHeight(0.04),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: AppColors.scaffoldBackgroundColor,
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                      child: Text(
+                        '35 TL',
+                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                          color: AppColors.greenColor,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: context.dynamicWidht(0.04),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: context.dynamicWidht(0.16),
-                      height: context.dynamicHeight(0.04),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        color: AppColors.scaffoldBackgroundColor,
-                      ),
-                      child: Padding(
-                        padding:
-                            EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                        child: Text(
-                          '35 TL',
-                          style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                            color: AppColors.greenColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-              //buy box
-              padding: EdgeInsets.only(top: context.dynamicHeight(0.042)),
-              child: Builder(builder: (context) {
-                final counterState = context.watch<BasketCounterCubit>().state;
-                return CustomButton(
-                  title: LocaleKeys.restaurant_detail_button_text,
-                  color: AppColors.greenColor,
-                  textColor: AppColors.appBarColor,
-                  width: context.dynamicWidht(0.28),
-                  borderColor: AppColors.greenColor,
-                  onPressed: () async {
-                    StatusCode statusCode = await sl<BasketRepository>()
-                        .addToBasket("${state.response[index].id}");
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Padding(
+            //buy box
+            padding: EdgeInsets.only(top: context.dynamicHeight(0.042)),
+            child: Builder(builder: (context) {
+              final counterState = context.watch<BasketCounterCubit>().state;
+              return CustomButton(
+                title: LocaleKeys.restaurant_detail_button_text,
+                color: AppColors.greenColor,
+                textColor: AppColors.appBarColor,
+                width: context.dynamicWidht(0.28),
+                borderColor: AppColors.greenColor,
+                onPressed: () async {
+                  StatusCode statusCode = await sl<BasketRepository>()
+                      .addToBasket("${state.response[index].id}");
 
-                    int menuItem = state.response[index].id;
-                    print(statusCode);
-                    if (statusCode == StatusCode.success) {
+                  int menuItem = state.response[index].id;
+                  print(statusCode);
+                  switch (statusCode) {
+                    case StatusCode.success:
                       if (!menuList!.contains(menuItem.toString())) {
                         context.read<BasketCounterCubit>().increment();
                         SharedPrefs.setCounter(counterState + 1);
@@ -562,7 +563,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         print("real Successss");
                         print(SharedPrefs.getMenuList);
                       }
-                    } else if (statusCode == StatusCode.unauthecticated) {
+                      break;
+                    case StatusCode.unauthecticated:
                       showDialog(
                         context: context,
                         builder: (_) => CustomAlertDialog(
@@ -579,7 +581,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                                   .pushNamed(RouteConstant.REGISTER_VIEW);
                             }),
                       );
-                    } else {
+                      break;
+                    default:
                       showDialog(
                           context: context,
                           builder: (_) => CustomAlertDialog(
@@ -600,15 +603,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                               textMessage: 'Farklı restoranın ürününü seçtiniz',
                               buttonOneTitle: "Alışverişe devam et",
                               buttonTwoTittle: "Sepeti boşalt"));
-
                       print("Errorrr");
-                    }
-                  },
-                );
-              }),
-            ),
-          ],
-        ));
+                  }
+                },
+              );
+            }),
+          ),
+        ],
+      ),
+    );
   }
 
   TabBar tabBar(BuildContext context) {

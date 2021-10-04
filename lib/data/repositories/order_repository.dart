@@ -78,13 +78,15 @@ class SampleOrderRepository implements OrderRepository {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       print(jsonBody); //utf8.decode for turkish characters
       List<BoxOrder> boxes = [];
-      for (int i = 0; i < jsonBody.length; i++) {
-        print(jsonBody[0]);
-
-        //orderrr
-        boxes.add(BoxOrder.fromJson(jsonBody[i]));
+      if ('Y' == jsonBody[0]) {
+        return boxes;
+      } else {
+        for (int i = 0; i < jsonBody.length; i++) {
+          //orderrr
+          boxes.add(BoxOrder.fromJson(jsonBody[i]));
+        }
+        return boxes;
       }
-      return boxes;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
@@ -103,12 +105,6 @@ class SampleOrderRepository implements OrderRepository {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       print(jsonBody); //utf8.decode for turkish characters
       List<BoxOrder> boxes = [];
-      for (int i = 0; i < jsonBody.length; i++) {
-        print(jsonBody[0]);
-
-        //CLEAR
-        boxes.clear();
-      }
       return boxes;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
