@@ -68,9 +68,8 @@ class _SearchViewState extends State<SearchView> {
 
   GestureDetector buildBody(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-          FocusScope.of(context).unfocus();
-        
+      onTap: () {
+        FocusScope.of(context).unfocus();
       },
       child: Column(
         children: [
@@ -146,13 +145,9 @@ class _SearchViewState extends State<SearchView> {
 
   Padding horizontalListTrend(BuildContext context) {
     return Padding(
-      padding: scroolTrend
-          ? EdgeInsets.only(
-              left: context.dynamicWidht(0.00),
-            )
-          : EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-            ),
+      padding: EdgeInsets.symmetric(
+        horizontal: context.dynamicWidht(0.04),
+      ),
       child: Container(
           height: context.dynamicHeight(0.04),
           child: NotificationListener(
@@ -231,14 +226,13 @@ class _SearchViewState extends State<SearchView> {
         horizontal: context.dynamicWidht(0.06),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           LocaleText(
             text: LocaleKeys.search_text1,
             style: AppTextStyles.bodyTitleStyle,
           ),
-          Spacer(
-            flex: 18,
-          ),
+          Spacer(),
           LocaleText(
             text: LocaleKeys.search_text2,
             style: AppTextStyles.bodyTitleStyle
@@ -273,6 +267,8 @@ class _SearchViewState extends State<SearchView> {
               : TextButton(
                   onPressed: () {
                     setState(() {
+                      FocusScope.of(context).unfocus();
+
                       visible = !visible;
                     });
                   },

@@ -1,4 +1,3 @@
-
 import 'package:dongu_mobile/data/model/store.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:flutter/material.dart';
@@ -70,9 +69,8 @@ class _HomePageViewState extends State<HomePageView> {
   GestureDetector buildBody(BuildContext context, List<Store> restaurants,
       List<double> distances, GenericCompleted state) {
     return GestureDetector(
-      onTap:(){
-          FocusScope.of(context).unfocus();
-
+      onTap: () {
+        FocusScope.of(context).unfocus();
       },
       child: ListView(
         padding: EdgeInsets.only(
@@ -142,13 +140,11 @@ class _HomePageViewState extends State<HomePageView> {
             padding: scroolNearMe
                 ? EdgeInsets.only(
                     left: context.dynamicWidht(0.01),
-                    right: context.dynamicWidht(0.06)
-                  )
+                    right: context.dynamicWidht(0.06))
                 : EdgeInsets.only(
                     left: context.dynamicWidht(0.06),
                     right: context.dynamicWidht(0.01),
-                  ) ,
-
+                  ),
             child: buildListViewNearMe(context, restaurants, distances, state),
           ),
           SizedBox(height: context.dynamicHeight(0.04)),
@@ -247,6 +243,7 @@ class _HomePageViewState extends State<HomePageView> {
           return scroolNearMe;
         },
         child: ListView.separated(
+          padding: EdgeInsets.symmetric(horizontal: 20),
           controller: _controller,
           itemCount: restaurants.length,
           scrollDirection: Axis.horizontal,
@@ -293,6 +290,7 @@ class _HomePageViewState extends State<HomePageView> {
           return scroolOpportunities;
         },
         child: ListView.separated(
+          padding: EdgeInsets.symmetric(horizontal: 20),
           controller: _controller,
           itemCount: restaurants.length,
           scrollDirection: Axis.horizontal,

@@ -12,10 +12,12 @@ class SpecialForMeListTileBuilder extends StatefulWidget {
   SpecialForMeListTileBuilder({Key? key}) : super(key: key);
 
   @override
-  _SpecialForMeListTileBuilderState createState() => _SpecialForMeListTileBuilderState();
+  _SpecialForMeListTileBuilderState createState() =>
+      _SpecialForMeListTileBuilderState();
 }
 
-class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilder> {
+class _SpecialForMeListTileBuilderState
+    extends State<SpecialForMeListTileBuilder> {
   var value = <String>["", "", "", ""];
 
   @override
@@ -33,7 +35,7 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
         itemCount: value.length,
         itemBuilder: (context, index) {
           return Container(
-            height: context.dynamicHeight(0.1),
+            height: context.dynamicHeight(0.13),
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.065),
             ),
@@ -41,14 +43,17 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
             child: Dismissible(
                 direction: DismissDirection.endToStart,
                 background: Padding(
-                padding: EdgeInsets.only(left: context.dynamicWidht(0.65)),
+                  padding: EdgeInsets.only(left: context.dynamicWidht(0.65)),
                   child: Container(
                     color: AppColors.redColor,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.038), horizontal: context.dynamicWidht(0.058)),
+                      padding: EdgeInsets.symmetric(
+                          vertical: context.dynamicHeight(0.038),
+                          horizontal: context.dynamicWidht(0.058)),
                       child: LocaleText(
                         text: LocaleKeys.my_notifications_delete_text_text,
-                        style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                        style: AppTextStyles.bodyTextStyle.copyWith(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                         alignment: TextAlign.end,
                       ),
                     ),
@@ -63,18 +68,24 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
                 child: Container(
                   padding: EdgeInsets.only(
                     top: context.dynamicHeight(0.011),
-
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [buildTitle(context, index)[index], buildDateTrailing(context, index)[index]],
+                        children: [
+                          buildTitle(context, index)[index],
+                          buildDateTrailing(context, index)[index]
+                        ],
                       ),
-         
                       Row(
-                        children: [buildIconsLeading(context, index)[index], Expanded(child: buildDescriptionSubtitle(context, index)[index])],
+                        children: [
+                          buildIconsLeading(context, index)[index],
+                          Expanded(
+                              child: buildDescriptionSubtitle(
+                                  context, index)[index])
+                        ],
                       ),
                     ],
                   ),
@@ -120,7 +131,12 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
 
   buildDateTrailing(BuildContext context, index) {
     List<Widget> dateText = [];
-    List<String> date = ["15 Mart 2021", "16 Mart 2021", "17 Mart 2021", "21 Mart 2021"];
+    List<String> date = [
+      "15 Mart 2021",
+      "16 Mart 2021",
+      "17 Mart 2021",
+      "21 Mart 2021"
+    ];
 
     for (int i = 0; i <= 4; i++) {
       dateText.add(
@@ -161,8 +177,8 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
   LocaleText favoriteText() {
     return LocaleText(
       text: LocaleKeys.my_notifications_special_for_me_favorite,
-      style: AppTextStyles.bodyTextStyle
-          .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
+      style: AppTextStyles.bodyTextStyle.copyWith(
+          fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
       maxLines: 2,
       alignment: TextAlign.start,
     );
@@ -171,8 +187,8 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
   LocaleText pawsAnimalsText() {
     return LocaleText(
       text: LocaleKeys.my_notifications_special_for_me_pawsAnimals,
-      style: AppTextStyles.bodyTextStyle
-          .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
+      style: AppTextStyles.bodyTextStyle.copyWith(
+          fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
       maxLines: 2,
       alignment: TextAlign.start,
     );
@@ -181,8 +197,8 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
   LocaleText discountSeventyText() {
     return LocaleText(
       text: LocaleKeys.my_notifications_special_for_me_discountSeventy,
-      style: AppTextStyles.bodyTextStyle
-          .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
+      style: AppTextStyles.bodyTextStyle.copyWith(
+          fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
       maxLines: 2,
       alignment: TextAlign.start,
     );
@@ -191,8 +207,8 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
   LocaleText discountFiftyText() {
     return LocaleText(
       text: LocaleKeys.my_notifications_special_for_me_discountFifty,
-      style: AppTextStyles.bodyTextStyle
-          .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
+      style: AppTextStyles.bodyTextStyle.copyWith(
+          fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
       alignment: TextAlign.start,
       maxLines: 2,
     );
@@ -203,25 +219,29 @@ class _SpecialForMeListTileBuilderState extends State<SpecialForMeListTileBuilde
     List<Widget> title = [
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_title,
-        style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
+        style:
+            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
         alignment: TextAlign.start,
         maxLines: 2,
       ),
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_title,
-        style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
+        style:
+            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
         maxLines: 2,
         alignment: TextAlign.start,
       ),
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_title,
-        style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
+        style:
+            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
         maxLines: 2,
         alignment: TextAlign.start,
       ),
       LocaleText(
         text: LocaleKeys.my_notifications_special_for_me_title,
-        style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
+        style:
+            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
         alignment: TextAlign.start,
         maxLines: 2,
       ),
