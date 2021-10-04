@@ -7,6 +7,7 @@ import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
+import 'package:dongu_mobile/presentation/screens/login_view/login_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:dongu_mobile/utils/clippers/password_rules_clipper.dart';
@@ -547,7 +548,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         .addToBasket("${state.response[index].id}");
 
                     int menuItem = state.response[index].id;
-
+                    print(statusCode);
                     if (statusCode == StatusCode.success) {
                       if (!menuList!.contains(menuItem.toString())) {
                         context.read<BasketCounterCubit>().increment();
@@ -561,6 +562,23 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         print("real Successss");
                         print(SharedPrefs.getMenuList);
                       }
+                    } else if (statusCode == StatusCode.unauthecticated) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => CustomAlertDialog(
+                            textMessage: 'Giris yapmalisiniz',
+                            buttonOneTitle: 'Giris yap',
+                            buttonTwoTittle: 'Kayit ol',
+                            imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                            onPressedOne: () {
+                              Navigator.of(context)
+                                  .pushNamed(RouteConstant.LOGIN_VIEW);
+                            },
+                            onPressedTwo: () {
+                              Navigator.of(context)
+                                  .pushNamed(RouteConstant.REGISTER_VIEW);
+                            }),
+                      );
                     } else {
                       showDialog(
                           context: context,
