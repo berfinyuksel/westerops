@@ -8,6 +8,7 @@ import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:dongu_mobile/utils/clippers/password_rules_clipper.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
@@ -544,7 +545,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   onPressed: () async {
                     StatusCode statusCode = await sl<BasketRepository>()
                         .addToBasket("${state.response[index].id}");
+
                     int menuItem = state.response[index].id;
+
                     if (statusCode == StatusCode.success) {
                       if (!menuList!.contains(menuItem.toString())) {
                         context.read<BasketCounterCubit>().increment();
@@ -559,9 +562,27 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         print(SharedPrefs.getMenuList);
                       }
                     } else {
-                      SharedPrefs.setCounter(0);
-                      SharedPrefs.setMenuList([]);
-                      context.read<BasketCounterCubit>().setCounter(0);
+                      showDialog(
+                          context: context,
+                          builder: (_) => CustomAlertDialog(
+                              onPressedOne: () {
+                                Navigator.pop(context);
+                              },
+                              onPressedTwo: () {
+                                context.read<OrderCubit>().clearBasket();
+                                menuList!.clear();
+                                SharedPrefs.setCounter(0);
+                                SharedPrefs.setMenuList([]);
+                                context
+                                    .read<BasketCounterCubit>()
+                                    .setCounter(0);
+                                Navigator.pop(context);
+                              },
+                              imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                              textMessage: 'Farklı restoranın ürününü seçtiniz',
+                              buttonOneTitle: "Alışverişe devam et",
+                              buttonTwoTittle: "Sepeti boşalt"));
+
                       print("Errorrr");
                     }
                   },

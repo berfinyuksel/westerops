@@ -1,5 +1,8 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/src/provider.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
@@ -10,6 +13,21 @@ import '../../../widgets/button/custom_button.dart';
 import '../../../widgets/text/locale_text.dart';
 
 class CustomAlertDialog extends StatelessWidget {
+  final String? textMessage;
+  final String? buttonOneTitle;
+  final String? buttonTwoTittle;
+  final String? imagePath;
+  final VoidCallback? onPressedOne;
+  final VoidCallback? onPressedTwo;
+
+  CustomAlertDialog({
+    required this.textMessage,
+    required this.buttonOneTitle,
+    required this.buttonTwoTittle,
+    required this.imagePath,
+    required this.onPressedOne,
+    required this.onPressedTwo,
+  });
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -28,11 +46,11 @@ class CustomAlertDialog extends StatelessWidget {
               flex: 8,
             ),
             SvgPicture.asset(
-              ImageConstant.SURPRISE_PACK_ALERT,
+              imagePath!,
               height: context.dynamicHeight(0.134),
             ),
             LocaleText(
-              text: LocaleKeys.surprise_pack_alert_text,
+              text: textMessage,
               style: AppTextStyles.bodyBoldTextStyle,
               alignment: TextAlign.center,
             ),
@@ -49,25 +67,29 @@ class CustomAlertDialog extends StatelessWidget {
     );
   }
 
-  Row buildButtons(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        CustomButton(
-          width: context.dynamicWidht(0.35),
-          color: Colors.transparent,
-          textColor: AppColors.greenColor,
-          borderColor: AppColors.greenColor,
-          title: LocaleKeys.surprise_pack_alert_button1,
-        ),
-        CustomButton(
-          width: context.dynamicWidht(0.35),
-          color: AppColors.greenColor,
-          textColor: Colors.white,
-          borderColor: AppColors.greenColor,
-          title: LocaleKeys.surprise_pack_alert_button2,
-        ),
-      ],
-    );
+  Builder buildButtons(BuildContext context) {
+    return Builder(builder: (context) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CustomButton(
+            onPressed: onPressedOne,
+            width: context.dynamicWidht(0.35),
+            color: Colors.transparent,
+            textColor: AppColors.greenColor,
+            borderColor: AppColors.greenColor,
+            title: buttonOneTitle,
+          ),
+          CustomButton(
+            onPressed: onPressedTwo,
+            width: context.dynamicWidht(0.35),
+            color: AppColors.greenColor,
+            textColor: Colors.white,
+            borderColor: AppColors.greenColor,
+            title: this.buttonTwoTittle,
+          ),
+        ],
+      );
+    });
   }
 }
