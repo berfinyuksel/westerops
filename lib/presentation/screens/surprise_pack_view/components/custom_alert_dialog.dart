@@ -17,12 +17,16 @@ class CustomAlertDialog extends StatelessWidget {
   final String? buttonOneTitle;
   final String? buttonTwoTittle;
   final String? imagePath;
+  final VoidCallback? onPressedOne;
+  final VoidCallback? onPressedTwo;
 
   CustomAlertDialog({
     required this.textMessage,
     required this.buttonOneTitle,
     required this.buttonTwoTittle,
     required this.imagePath,
+    required this.onPressedOne,
+    required this.onPressedTwo,
   });
   @override
   Widget build(BuildContext context) {
@@ -69,9 +73,7 @@ class CustomAlertDialog extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CustomButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: onPressedOne,
             width: context.dynamicWidht(0.35),
             color: Colors.transparent,
             textColor: AppColors.greenColor,
@@ -79,12 +81,7 @@ class CustomAlertDialog extends StatelessWidget {
             title: buttonOneTitle,
           ),
           CustomButton(
-            onPressed: () {
-              SharedPrefs.setCounter(0);
-              SharedPrefs.setMenuList([]);
-              context.read<BasketCounterCubit>().setCounter(0);
-              Navigator.pop(context);
-            },
+            onPressed: onPressedTwo,
             width: context.dynamicWidht(0.35),
             color: AppColors.greenColor,
             textColor: Colors.white,

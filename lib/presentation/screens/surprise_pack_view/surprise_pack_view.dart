@@ -114,6 +114,8 @@ class _SurprisePackViewState extends State<SurprisePackView> {
             showDialog(
                 context: context,
                 builder: (_) => CustomAlertDialog(
+                    onPressedOne: () {},
+                    onPressedTwo: () {},
                     imagePath: ImageConstant.SURPRISE_PACK_ALERT,
                     textMessage: LocaleKeys.surprise_pack_alert_text,
                     buttonOneTitle: LocaleKeys.surprise_pack_alert_button1,

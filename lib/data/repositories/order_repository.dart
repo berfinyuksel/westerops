@@ -12,6 +12,7 @@ abstract class OrderRepository {
   Future<List<String>> addToBasket(String boxId);
   Future<List<BoxOrder>> deleteBasket(String boxId);
   Future<List<BoxOrder>> getBasket();
+  Future<List<BoxOrder>> clearBasket();
 }
 
 class SampleOrderRepository implements OrderRepository {
@@ -53,7 +54,7 @@ class SampleOrderRepository implements OrderRepository {
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(response.body);
 
-     // var jsonResults = jsonBody['boxes'];
+      // var jsonResults = jsonBody['boxes'];
       // print(jsonResults);
       // List<BoxOrder> boxes = [];
       // for (int i = 0; i < jsonResults.length; i++) {
@@ -82,6 +83,30 @@ class SampleOrderRepository implements OrderRepository {
 
         //orderrr
         boxes.add(BoxOrder.fromJson(jsonBody[i]));
+      }
+      return boxes;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
+
+  Future<List<BoxOrder>> clearBasket() async {
+    final response = await http.get(
+      Uri.parse("${UrlConstant.EN_URL}order/basket/clear-basket/"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT ${SharedPrefs.getToken}'
+      },
+    );
+    print("CLEAR BASKET STATUS ${response.statusCode}");
+    if (response.statusCode == 200) {
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+      print(jsonBody); //utf8.decode for turkish characters
+      List<BoxOrder> boxes = [];
+      for (int i = 0; i < jsonBody.length; i++) {
+        print(jsonBody[0]);
+
+        //CLEAR
+        boxes.clear();
       }
       return boxes;
     }

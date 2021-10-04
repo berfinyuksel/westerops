@@ -36,4 +36,14 @@ class OrderCubit extends Cubit<GenericState> {
       emit(GenericError(e.message, e.statusCode));
     }
   }
+
+  Future<void> clearBasket() async {
+    try {
+      emit(GenericLoading());
+      final response = await _orderRepository.clearBasket();
+      emit(GenericCompleted(response));
+    } on NetworkError catch (e) {
+      emit(GenericError(e.message, e.statusCode));
+    }
+  }
 }

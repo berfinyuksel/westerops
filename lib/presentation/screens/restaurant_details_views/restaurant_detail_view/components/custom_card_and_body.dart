@@ -545,7 +545,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   onPressed: () async {
                     StatusCode statusCode = await sl<BasketRepository>()
                         .addToBasket("${state.response[index].id}");
+
                     int menuItem = state.response[index].id;
+
                     if (statusCode == StatusCode.success) {
                       if (!menuList!.contains(menuItem.toString())) {
                         context.read<BasketCounterCubit>().increment();
@@ -563,6 +565,19 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       showDialog(
                           context: context,
                           builder: (_) => CustomAlertDialog(
+                              onPressedOne: () {
+                                Navigator.pop(context);
+                              },
+                              onPressedTwo: () {
+                                context.read<OrderCubit>().clearBasket();
+                                menuList!.clear();
+                                SharedPrefs.setCounter(0);
+                                SharedPrefs.setMenuList([]);
+                                context
+                                    .read<BasketCounterCubit>()
+                                    .setCounter(0);
+                                Navigator.pop(context);
+                              },
                               imagePath: ImageConstant.SURPRISE_PACK_ALERT,
                               textMessage: 'Farklı restoranın ürününü seçtiniz',
                               buttonOneTitle: "Alışverişe devam et",
