@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/services/auth_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
@@ -232,14 +233,13 @@ class _RegisterViewState extends State<RegisterView> {
                         firstName,
                         lastName,
                         emailController.text,
-                        dropdownValue == 'TR' ? phoneTR : phoneEN,
+                        phoneController.text,
                         passwordController.text);
-                    // _showMyDialog();
+                    _showMyDialog();
+                  //Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+
                   }
-
-                  Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
-
-                  // AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
+                  //  AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
                 },
               ),
               Spacer(

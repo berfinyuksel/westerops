@@ -138,6 +138,9 @@ class SampleUserAuthenticationRepository
       users.add(user);
       return users;
     }
+    else{
+      
+    }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 

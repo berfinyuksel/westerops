@@ -76,7 +76,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           height: context.dynamicHeight(0.01),
         ),
         GetItAddressListTile(
-          restaurantName: "Canım Büfe",
+          restaurantName: "Canım Büfe", 
           address: "Kuruçeşme, Muallim Cad., No:18 Beşiktaş/İstanbul",
         ),
         SizedBox(
