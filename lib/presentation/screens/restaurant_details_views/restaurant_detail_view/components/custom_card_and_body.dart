@@ -1,9 +1,11 @@
 import 'package:dongu_mobile/data/repositories/basket_repository.dart';
+
 import 'package:dongu_mobile/data/repositories/order_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/buy_button_state.dart/buy_button_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
@@ -374,8 +376,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           itemCount: state.response
               .length, //widget.restaurant!.boxes!.length,//state.response.lenght
           itemBuilder: (context, index) {
+            List<bool> buttonActiveList = [];
+            for (int i = 0; i < state.response.length; i++) {
+              buttonActiveList.add(true);
+            }
+
             print(state.response.length);
-            return buildBox(context, index, state);
+            return buildBox(context, index, state, buttonActiveList);
           },
           physics: NeverScrollableScrollPhysics(),
           //   primary: false,
@@ -456,7 +463,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ));
   }
 
-  Container buildBox(BuildContext context, int index, GenericCompleted state) {
+  Container buildBox(BuildContext context, int index, GenericCompleted state,
+      List<bool> buttonActiveList) {
     print("RESPONE :  ${state.response[0].text_name}");
 
     return Container(
@@ -538,73 +546,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             child: Builder(builder: (context) {
               final counterState = context.watch<BasketCounterCubit>().state;
               return CustomButton(
+                isActive: true,
                 title: LocaleKeys.restaurant_detail_button_text,
                 color: AppColors.greenColor,
-                textColor: AppColors.appBarColor,
+                textColor: Colors.white,
                 width: context.dynamicWidht(0.28),
                 borderColor: AppColors.greenColor,
                 onPressed: () async {
-                  StatusCode statusCode = await sl<BasketRepository>()
-                      .addToBasket("${state.response[index].id}");
-
-                  int menuItem = state.response[index].id;
-                  print(statusCode);
-                  switch (statusCode) {
-                    case StatusCode.success:
-                      if (!menuList!.contains(menuItem.toString())) {
-                        context.read<BasketCounterCubit>().increment();
-                        SharedPrefs.setCounter(counterState + 1);
-                        menuList!.add(menuItem.toString());
-                        SharedPrefs.setMenuList(menuList!);
-                        print(SharedPrefs.getMenuList);
-                        print("Successss");
-                        print(menuItem);
-                      } else {
-                        print("real Successss");
-                        print(SharedPrefs.getMenuList);
-                      }
-                      break;
-                    case StatusCode.unauthecticated:
-                      showDialog(
-                        context: context,
-                        builder: (_) => CustomAlertDialog(
-                            textMessage: 'Giris yapmalisiniz',
-                            buttonOneTitle: 'Giris yap',
-                            buttonTwoTittle: 'Kayit ol',
-                            imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                            onPressedOne: () {
-                              Navigator.of(context)
-                                  .pushNamed(RouteConstant.LOGIN_VIEW);
-                            },
-                            onPressedTwo: () {
-                              Navigator.of(context)
-                                  .pushNamed(RouteConstant.REGISTER_VIEW);
-                            }),
-                      );
-                      break;
-                    default:
-                      showDialog(
-                          context: context,
-                          builder: (_) => CustomAlertDialog(
-                              onPressedOne: () {
-                                Navigator.pop(context);
-                              },
-                              onPressedTwo: () {
-                                context.read<OrderCubit>().clearBasket();
-                                menuList!.clear();
-                                SharedPrefs.setCounter(0);
-                                SharedPrefs.setMenuList([]);
-                                context
-                                    .read<BasketCounterCubit>()
-                                    .setCounter(0);
-                                Navigator.pop(context);
-                              },
-                              imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                              textMessage: 'Farklı restoranın ürününü seçtiniz',
-                              buttonOneTitle: "Alışverişe devam et",
-                              buttonTwoTittle: "Sepeti boşalt"));
-                      print("Errorrr");
-                  }
+                  await pressedBuyButton(state, index, context, counterState);
                 },
               );
             }),
@@ -612,6 +561,69 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ],
       ),
     );
+  }
+
+  Future<void> pressedBuyButton(GenericCompleted<dynamic> state, int index,
+      BuildContext context, int counterState) async {
+    StatusCode statusCode =
+        await sl<BasketRepository>().addToBasket("${state.response[index].id}");
+    int menuItem = state.response[index].id;
+    print(statusCode);
+    switch (statusCode) {
+      case StatusCode.success:
+        if (!menuList!.contains(menuItem.toString())) {
+          context.read<BasketCounterCubit>().increment();
+          SharedPrefs.setCounter(counterState + 1);
+          menuList!.add(menuItem.toString());
+          SharedPrefs.setMenuList(menuList!);
+
+          print(SharedPrefs.getMenuList);
+          print("Successss");
+          print(menuItem);
+        } else {
+          print("real Successss");
+          print(SharedPrefs.getMenuList);
+        }
+        break;
+      case StatusCode.unauthecticated:
+        showDialog(
+          context: context,
+          builder: (_) => CustomAlertDialog(
+              textMessage: 'Giriş yapmalısınız',
+              buttonOneTitle: 'Giriş yap',
+              buttonTwoTittle: 'Kayıt ol',
+              imagePath: ImageConstant.SURPRISE_PACK,
+              onPressedOne: () {
+                Navigator.of(context).pushNamed(RouteConstant.LOGIN_VIEW);
+              },
+              onPressedTwo: () {
+                Navigator.of(context).pushNamed(RouteConstant.REGISTER_VIEW);
+              }),
+        );
+        break;
+      default:
+        showDialog(
+            context: context,
+            builder: (_) => CustomAlertDialog(
+                onPressedOne: () {
+                  Navigator.pop(context);
+                },
+                onPressedTwo: () {
+                  context.read<OrderCubit>().clearBasket();
+
+                  menuList!.clear();
+                  SharedPrefs.setCounter(0);
+                  SharedPrefs.setMenuList([]);
+                  context.read<BasketCounterCubit>().setCounter(0);
+
+                  Navigator.pop(context);
+                },
+                imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                textMessage: 'Farklı restoranın ürününü seçtiniz',
+                buttonOneTitle: "Alışverişe devam et",
+                buttonTwoTittle: "Sepeti boşalt"));
+        print("Errorrr");
+    }
   }
 
   TabBar tabBar(BuildContext context) {

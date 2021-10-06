@@ -49,6 +49,7 @@ class CustomAlertDialog extends StatelessWidget {
               imagePath!,
               height: context.dynamicHeight(0.134),
             ),
+            SizedBox(height: 10),
             LocaleText(
               text: textMessage,
               style: AppTextStyles.bodyBoldTextStyle,

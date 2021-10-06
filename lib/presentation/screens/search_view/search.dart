@@ -29,8 +29,8 @@ class _SearchViewState extends State<SearchView> {
   ];
   var items = <String>[];
 
-  bool scroolCategories = false;
-  bool scroolTrend = false;
+  bool scroolCategories = true;
+  bool scroolTrend = true;
   bool visible = true;
   @override
   void initState() {
@@ -68,9 +68,8 @@ class _SearchViewState extends State<SearchView> {
 
   GestureDetector buildBody(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-          FocusScope.of(context).unfocus();
-        
+      onTap: () {
+        FocusScope.of(context).unfocus();
       },
       child: Column(
         children: [
@@ -100,21 +99,26 @@ class _SearchViewState extends State<SearchView> {
     return Padding(
       padding: scroolCategories
           ? EdgeInsets.only(
-              left: context.dynamicWidht(0.00),
+              left: 26,
+              right: 0,
             )
           : EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
+              left: 0,
+              right: 26,
             ),
       child: Container(
           height: context.dynamicHeight(0.19),
-          child: NotificationListener(
-              onNotification: (t) {
-                if (scroolCategories == false) {
-                  setState(() {
-                    scroolCategories = !scroolCategories;
-                  });
-                }
-                return scroolCategories;
+          child: NotificationListener<ScrollUpdateNotification>(
+              onNotification: (ScrollUpdateNotification notification) {
+                setState(() {
+                  if (notification.metrics.pixels > 1) {
+                    scroolCategories = false;
+                  } else if (notification.metrics.pixels < 1) {
+                    scroolCategories = true;
+                  }
+                });
+
+                return true;
               },
               child: CustomHorizontalListCategory())),
     );
@@ -148,21 +152,26 @@ class _SearchViewState extends State<SearchView> {
     return Padding(
       padding: scroolTrend
           ? EdgeInsets.only(
-              left: context.dynamicWidht(0.00),
+              left: 26,
+              right: 0,
             )
           : EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
+              left: 0,
+              right: 26,
             ),
       child: Container(
           height: context.dynamicHeight(0.04),
-          child: NotificationListener(
-              onNotification: (t) {
-                if (scroolTrend == false) {
-                  setState(() {
-                    scroolTrend = !scroolTrend;
-                  });
-                }
-                return scroolTrend;
+          child: NotificationListener<ScrollUpdateNotification>(
+              onNotification: (ScrollUpdateNotification notification) {
+                setState(() {
+                  if (notification.metrics.pixels > 1) {
+                    scroolTrend = false;
+                  } else if (notification.metrics.pixels < 1) {
+                    scroolTrend = true;
+                  }
+                });
+
+                return true;
               },
               child: CustomHorizontalListTrend())),
     );
@@ -272,6 +281,7 @@ class _SearchViewState extends State<SearchView> {
               ? null
               : TextButton(
                   onPressed: () {
+                    FocusScope.of(context).unfocus();
                     setState(() {
                       visible = !visible;
                     });

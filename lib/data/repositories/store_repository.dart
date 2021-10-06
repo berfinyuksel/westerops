@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dongu_mobile/data/model/store.dart';
 
-
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,6 +17,7 @@ class SampleStoreRepository implements StoreRepository {
     final response = await http.get(
       Uri.parse(url),
     );
+    print(response.body);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters

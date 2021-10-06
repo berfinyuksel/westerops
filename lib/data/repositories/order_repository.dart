@@ -51,6 +51,7 @@ class SampleOrderRepository implements OrderRepository {
         body: json);
 
     print("DELETE BASKET ${response.statusCode}");
+
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(response.body);
 
@@ -76,9 +77,10 @@ class SampleOrderRepository implements OrderRepository {
     print("GET BASKET STATUS ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-      print(jsonBody); //utf8.decode for turkish characters
       List<BoxOrder> boxes = [];
-      if ('Y' == jsonBody[0]) {
+      if (jsonBody.isEmpty) {
+        return boxes;
+      } else if ('Y' == jsonBody[0]) {
         return boxes;
       } else {
         for (int i = 0; i < jsonBody.length; i++) {

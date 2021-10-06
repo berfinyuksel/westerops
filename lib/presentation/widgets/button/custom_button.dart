@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/extensions/context_extension.dart';
@@ -10,13 +11,14 @@ class CustomButton extends StatelessWidget {
   final Color? color;
   final Color? borderColor;
   final Color? textColor;
-
   final VoidCallback? onPressed;
-  const CustomButton({
+  final bool isActive;
+  CustomButton({
     Key? key,
     this.width,
     this.title,
     this.color,
+    this.isActive = true,
     this.textColor,
     this.onPressed,
     this.borderColor,
@@ -29,7 +31,7 @@ class CustomButton extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: color,
+        color: isActive ? color : Colors.transparent,
         border: Border.all(
           width: 2.0,
           color: borderColor!,
@@ -39,7 +41,8 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         child: LocaleText(
           text: title,
-          style: AppTextStyles.bodyTitleStyle.copyWith(color: textColor!),
+          style: AppTextStyles.bodyTitleStyle
+              .copyWith(color: isActive ? textColor! : AppColors.greenColor),
         ),
       ),
     );

@@ -17,7 +17,8 @@ class MyNotificationsView extends StatefulWidget {
   _MyNotificationsViewState createState() => _MyNotificationsViewState();
 }
 
-class _MyNotificationsViewState extends State<MyNotificationsView> with SingleTickerProviderStateMixin {
+class _MyNotificationsViewState extends State<MyNotificationsView>
+    with SingleTickerProviderStateMixin {
   TabController? _controller;
   @override
   void initState() {
@@ -36,14 +37,14 @@ class _MyNotificationsViewState extends State<MyNotificationsView> with SingleTi
         tabBarPadding(context),
         Expanded(
           child: TabBarView(controller: _controller, children: [
-            Column(
-              children: [MyOrdersListTileBuilder()],
+            SingleChildScrollView(
+              child: MyOrdersListTileBuilder(),
             ),
-            Column(
-              children: [AllListTileBuilder()],
+            SingleChildScrollView(
+              child: AllListTileBuilder(),
             ),
-            Column(
-              children: [SpecialForMeListTileBuilder()],
+            SingleChildScrollView(
+              child: SpecialForMeListTileBuilder(),
             ),
           ]),
         ),
@@ -53,7 +54,10 @@ class _MyNotificationsViewState extends State<MyNotificationsView> with SingleTi
 
   Padding tabBarPadding(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: context.dynamicWidht(0.065), right: context.dynamicWidht(0.065), top: context.dynamicHeight(0.028)),
+      padding: EdgeInsets.only(
+          left: context.dynamicWidht(0.065),
+          right: context.dynamicWidht(0.065),
+          top: context.dynamicHeight(0.028)),
       child: tabBarContainer(context),
     );
   }
@@ -88,10 +92,13 @@ class _MyNotificationsViewState extends State<MyNotificationsView> with SingleTi
 
   TabBar tabBar(BuildContext context) {
     return TabBar(
-        labelPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
+        labelPadding:
+            EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
         indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(width: 3, color: AppColors.orangeColor), insets: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.060))),
-            indicatorPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.01)),
+            borderSide: BorderSide(width: 3, color: AppColors.orangeColor),
+            insets:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.060))),
+        indicatorPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.01)),
         labelColor: AppColors.orangeColor,
         labelStyle: AppTextStyles.bodyTitleStyle,
         unselectedLabelColor: AppColors.textColor,

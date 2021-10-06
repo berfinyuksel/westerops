@@ -21,7 +21,8 @@ class CustomSearchBar extends StatelessWidget {
       this.controller,
       this.onTap,
       this.onChanged,
-      this.textButton, this.containerPadding})
+      this.textButton,
+      this.containerPadding})
       : super(key: key);
 
   @override
@@ -46,12 +47,11 @@ class CustomSearchBar extends StatelessWidget {
             style: AppTextStyles.bodyTextStyle,
             decoration: InputDecoration(
                 prefixIcon: Padding(
-                  padding: EdgeInsets.only(right:context.dynamicWidht(0.04)),
+                  padding: EdgeInsets.only(right: context.dynamicWidht(0.04)),
                   child: SvgPicture.asset(
                     ImageConstant.COMMONS_SEARCH_ICON,
                   ),
                 ),
-                
                 border: buildOutlineInputBorder(),
                 focusedBorder: buildOutlineInputBorder(),
                 enabledBorder: buildOutlineInputBorder(),
@@ -62,8 +62,10 @@ class CustomSearchBar extends StatelessWidget {
                 hintText: "Yemek, restoran ara"),
           ),
         ),
-        SizedBox(width: context.dynamicWidht(0.01),),
-        textButton?? SizedBox()
+        SizedBox(
+          width: context.dynamicWidht(0.01),
+        ),
+        textButton ?? SizedBox()
       ],
     );
   }

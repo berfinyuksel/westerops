@@ -1,4 +1,3 @@
-
 import 'package:dongu_mobile/data/model/store.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,7 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
-  bool scroolNearMe = false;
+  bool scroolNearMe = true;
   bool scroolCategories = false;
   bool scroolOpportunities = false;
   ScrollController? _controller;
@@ -70,44 +69,33 @@ class _HomePageViewState extends State<HomePageView> {
   GestureDetector buildBody(BuildContext context, List<Store> restaurants,
       List<double> distances, GenericCompleted state) {
     return GestureDetector(
-      onTap:(){
-          FocusScope.of(context).unfocus();
-
+      onTap: () {
+        FocusScope.of(context).unfocus();
       },
       child: ListView(
-        padding: EdgeInsets.only(
-          top: context.dynamicHeight(0.02),
-          bottom: context.dynamicHeight(0.02),
-        ),
+        padding: EdgeInsets.symmetric(vertical: 26),
         children: [
           Padding(
-            padding: EdgeInsets.only(
-                left: context.dynamicWidht(0.06),
-                right: context.dynamicWidht(0.06)),
+            padding: EdgeInsets.symmetric(horizontal: 24),
             child: buildRowTitleLeftRightLocation(context,
                 LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
           ),
           Padding(
-            padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-            ),
+            padding: EdgeInsets.only(left: 26),
             child: Divider(
               thickness: 4,
               color: AppColors.borderAndDividerColor,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(
-                left: context.dynamicWidht(0.06),
-                right: context.dynamicWidht(0.06)),
+            padding: EdgeInsets.symmetric(horizontal: 26),
             child: AddressText(),
           ),
           SizedBox(height: context.dynamicHeight(0.03)),
           Padding(
-            padding: EdgeInsets.only(
-                left: context.dynamicWidht(0.06),
-                right: context.dynamicWidht(0.06)),
+            padding: EdgeInsets.symmetric(horizontal: 26),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 buildSearchBar(context),
                 Spacer(),
@@ -121,16 +109,12 @@ class _HomePageViewState extends State<HomePageView> {
           ),
           SizedBox(height: context.dynamicHeight(0.03)),
           Padding(
-            padding: EdgeInsets.only(
-                left: context.dynamicWidht(0.06),
-                right: context.dynamicWidht(0.06)),
+            padding: EdgeInsets.symmetric(horizontal: 26),
             child: buildRowTitleLeftRightNearMeAll(context,
                 LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
           ),
           Padding(
-            padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-            ),
+            padding: EdgeInsets.only(left: 26),
             child: Divider(
               thickness: 4,
               color: AppColors.borderAndDividerColor,
@@ -141,21 +125,18 @@ class _HomePageViewState extends State<HomePageView> {
           Padding(
             padding: scroolNearMe
                 ? EdgeInsets.only(
-                    left: context.dynamicWidht(0.01),
-                    right: context.dynamicWidht(0.06)
+                    left: 26,
+                    right: 0,
                   )
                 : EdgeInsets.only(
-                    left: context.dynamicWidht(0.06),
-                    right: context.dynamicWidht(0.01),
-                  ) ,
-
+                    left: 0,
+                    right: 26,
+                  ),
             child: buildListViewNearMe(context, restaurants, distances, state),
           ),
           SizedBox(height: context.dynamicHeight(0.04)),
           Padding(
-            padding: EdgeInsets.only(
-                left: context.dynamicWidht(0.06),
-                right: context.dynamicWidht(0.06)),
+            padding: EdgeInsets.symmetric(horizontal: 26),
             child: LocaleText(
               text: LocaleKeys.home_page_categories,
               style: AppTextStyles.bodyTitleStyle,
@@ -163,9 +144,7 @@ class _HomePageViewState extends State<HomePageView> {
           ),
           Padding(
             // scroll edildiğinde 0 olacak
-            padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-            ),
+            padding: EdgeInsets.only(left: 26),
             child: Divider(
               thickness: 4,
               color: AppColors.borderAndDividerColor,
@@ -175,39 +154,38 @@ class _HomePageViewState extends State<HomePageView> {
           Padding(
             padding: scroolCategories
                 ? EdgeInsets.only(
-                    left: context.dynamicWidht(0.01),
-                    right: context.dynamicWidht(0.04),
+                    left: 0,
+                    right: 26,
                   )
                 : EdgeInsets.only(
-                    left: context.dynamicWidht(0.06),
-                    right: context.dynamicWidht(0.01),
+                    left: 26,
+                    right: 0,
                   ),
             child: Container(
                 height: context.dynamicHeight(0.16),
-                child: NotificationListener(
-                    onNotification: (t) {
-                      if (scroolCategories == false) {
-                        setState(() {
-                          scroolCategories = !scroolCategories;
-                        });
-                      }
-                      return scroolCategories;
+                child: NotificationListener<ScrollUpdateNotification>(
+                    onNotification: (ScrollUpdateNotification notification) {
+                      setState(() {
+                        if (notification.metrics.pixels > 1) {
+                          scroolCategories = false;
+                        } else if (notification.metrics.pixels < 1) {
+                          scroolCategories = true;
+                        }
+                      });
+
+                      return true;
                     },
                     child: CustomHorizontalListCategory())),
           ),
           Padding(
-            padding: EdgeInsets.only(
-                left: context.dynamicWidht(0.06),
-                right: context.dynamicWidht(0.06)),
+            padding: EdgeInsets.symmetric(horizontal: 26),
             child: LocaleText(
               text: LocaleKeys.home_page_opportunities,
               style: AppTextStyles.bodyTitleStyle,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-            ),
+            padding: EdgeInsets.only(left: 26),
             child: Divider(
               thickness: 4,
               color: AppColors.borderAndDividerColor,
@@ -217,12 +195,12 @@ class _HomePageViewState extends State<HomePageView> {
           Padding(
             padding: scroolOpportunities
                 ? EdgeInsets.only(
-                    left: context.dynamicWidht(0.01),
-                    right: context.dynamicWidht(0.06),
+                    left: 26,
+                    right: 0,
                   )
                 : EdgeInsets.only(
-                    left: context.dynamicWidht(0.06),
-                    right: context.dynamicWidht(0.01),
+                    left: 0,
+                    right: 26,
                   ),
             child: buildListViewOpportunities(context, restaurants, distances),
           ),
@@ -236,15 +214,17 @@ class _HomePageViewState extends State<HomePageView> {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
-      child: NotificationListener(
-        onNotification: (t) {
-          if (scroolNearMe == false) {
-            setState(() {
-              scroolNearMe = !scroolNearMe;
-            });
-          }
+      child: NotificationListener<ScrollUpdateNotification>(
+        onNotification: (ScrollUpdateNotification notification) {
+          setState(() {
+            if (notification.metrics.pixels > 1) {
+              scroolNearMe = false;
+            } else if (notification.metrics.pixels < 1) {
+              scroolNearMe = true;
+            }
+          });
 
-          return scroolNearMe;
+          return true;
         },
         child: ListView.separated(
           controller: _controller,
@@ -261,7 +241,7 @@ class _HomePageViewState extends State<HomePageView> {
               child: RestaurantInfoCard(
                 restaurantIcon: restaurants[index].photo,
                 backgroundImage: restaurants[index].background,
-                packetNumber: "${restaurants[index].id} paket",
+                packetNumber: " paket",
                 restaurantName: restaurants[index].name,
                 grade: "1",
                 location: restaurants[index].city,
@@ -283,14 +263,17 @@ class _HomePageViewState extends State<HomePageView> {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
-      child: NotificationListener(
-        onNotification: (t) {
-          if (scroolOpportunities == false) {
-            setState(() {
-              scroolOpportunities = !scroolOpportunities;
-            });
-          }
-          return scroolOpportunities;
+      child: NotificationListener<ScrollUpdateNotification>(
+        onNotification: (ScrollUpdateNotification notification) {
+          setState(() {
+            if (notification.metrics.pixels > 1) {
+              scroolOpportunities = false;
+            } else if (notification.metrics.pixels < 1) {
+              scroolOpportunities = true;
+            }
+          });
+
+          return true;
         },
         child: ListView.separated(
           controller: _controller,
