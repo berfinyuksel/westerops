@@ -98,37 +98,42 @@ class _CartViewState extends State<CartView> {
                   shrinkWrap: true,
                   itemCount: state.response.length,
                   itemBuilder: (context, index) {
-                    return Dismissible(
-                      direction: DismissDirection.endToStart,
-                      key: UniqueKey(),
-                      background: Container(
-                        color: AppColors.redColor,
-                        alignment: Alignment.centerRight,
-                        padding:
-                            EdgeInsets.only(right: context.dynamicWidht(0.06)),
-                        child: LocaleText(
-                          text: LocaleKeys.my_notifications_delete_text_text,
-                          style: AppTextStyles.bodyTextStyle.copyWith(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                          alignment: TextAlign.end,
+                    return Builder(builder: (context) {
+                      final counterState =
+                          context.watch<BasketCounterCubit>().state;
+                      return Dismissible(
+                        direction: DismissDirection.endToStart,
+                        key: UniqueKey(),
+                        background: Container(
+                          color: AppColors.redColor,
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.only(
+                              right: context.dynamicWidht(0.06)),
+                          child: LocaleText(
+                            text: LocaleKeys.my_notifications_delete_text_text,
+                            style: AppTextStyles.bodyTextStyle.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                            alignment: TextAlign.end,
+                          ),
                         ),
-                      ),
-                      onDismissed: (DismissDirection direction) {
-                        context
-                            .read<OrderCubit>()
-                            .deleteBasket("${state.response[index].id}");
-
-                        context.read<BasketCounterCubit>().decrement();
-                        menuList.remove(state.response[index].id.toString());
-                        SharedPrefs.setMenuList(menuList);
-                      },
-                      child: PastOrderDetailBasketListTile(
-                        title: "${state.response[index].text_name}",
-                        price: 35,
-                        withDecimal: false,
-                        subTitle: "",
-                      ),
-                    );
+                        onDismissed: (DismissDirection direction) {
+                          context
+                              .read<OrderCubit>()
+                              .deleteBasket("${state.response[index].id}");
+                          context.read<BasketCounterCubit>().decrement();
+                          SharedPrefs.setCounter(counterState - 1);
+                          menuList.remove(state.response[index].id.toString());
+                          SharedPrefs.setMenuList(menuList);
+                        },
+                        child: PastOrderDetailBasketListTile(
+                          title: "${state.response[index].text_name}",
+                          price: 35,
+                          withDecimal: false,
+                          subTitle: "",
+                        ),
+                      );
+                    });
                   }),
               SizedBox(
                 height: context.dynamicHeight(0.04),

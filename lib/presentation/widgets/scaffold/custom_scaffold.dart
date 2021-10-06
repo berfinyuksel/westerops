@@ -163,13 +163,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         ),
       ],
       iconTheme: IconThemeData(color: AppColors.greenColor),
-      leading: _selectedIndex == 1 ||
-              _selectedIndex == 2 ||
-              _selectedIndex == 3 ||
-              _selectedIndex == 4
+      leading: _selectedIndex == 2 || _selectedIndex == 3 || _selectedIndex == 4
           ? IconButton(
               icon: SvgPicture.asset(ImageConstant.BACK_ICON),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 0;
+                });
+              },
             )
           : Text(""),
       title: _selectedIndex == 1 ||

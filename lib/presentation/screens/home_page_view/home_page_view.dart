@@ -27,7 +27,7 @@ class HomePageView extends StatefulWidget {
 class _HomePageViewState extends State<HomePageView> {
   bool scroolNearMe = true;
   bool scroolCategories = false;
-  bool scroolOpportunities = false;
+  bool scroolOpportunities = true;
   ScrollController? _controller;
   @override
   void initState() {
