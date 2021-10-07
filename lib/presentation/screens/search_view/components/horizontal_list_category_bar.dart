@@ -10,6 +10,7 @@ class CustomHorizontalListCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: EdgeInsets.symmetric(horizontal: 20),
       scrollDirection: Axis.horizontal,
       children: [
         CategoryItem(

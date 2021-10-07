@@ -240,14 +240,13 @@ class _SearchViewState extends State<SearchView> {
         horizontal: context.dynamicWidht(0.06),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           LocaleText(
             text: LocaleKeys.search_text1,
             style: AppTextStyles.bodyTitleStyle,
           ),
-          Spacer(
-            flex: 18,
-          ),
+          Spacer(),
           LocaleText(
             text: LocaleKeys.search_text2,
             style: AppTextStyles.bodyTitleStyle
@@ -283,6 +282,8 @@ class _SearchViewState extends State<SearchView> {
                   onPressed: () {
                     FocusScope.of(context).unfocus();
                     setState(() {
+                      FocusScope.of(context).unfocus();
+
                       visible = !visible;
                     });
                   },

@@ -144,7 +144,7 @@ class _LoginViewState extends State<LoginView> {
                   String phoneTR = '+90' + phoneController.text;
                   String phoneEN = '+1' + phoneController.text;
                   await context.read<UserAuthCubit>().loginUser(
-                      dropdownValue == 'TR' ? phoneTR : phoneEN,
+                      phoneController.text,
                       passwordController.text);
                   _showMyDialog();
                   if (SharedPrefs.getIsLogined) {
@@ -445,7 +445,7 @@ class _LoginViewState extends State<LoginView> {
     String phoneTR = '+90';
     String phoneEN = '+1';
     return TextFormField(
-      //   keyboardType: TextInputType.number,
+      // keyboardType: TextInputType.number,
       //  focusNode: FocusScope.of(context).focusedChild!.children.first,
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),

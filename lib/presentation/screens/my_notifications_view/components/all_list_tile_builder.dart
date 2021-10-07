@@ -28,10 +28,11 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
     return listViewBuilder(value);
   }
 
-  ListView listViewBuilder(
+  Expanded listViewBuilder(
     List<String> value,
   ) {
-    return ListView.builder(
+    return Expanded(
+      child: ListView.builder(
         shrinkWrap: true,
         itemCount: value.length,
         itemBuilder: (context, index) {
@@ -100,7 +101,9 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                   ),
                 )),
           );
-        });
+        },
+      ),
+    );
   }
 
   buildTitle(BuildContext context, index) {

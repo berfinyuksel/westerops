@@ -227,6 +227,7 @@ class _HomePageViewState extends State<HomePageView> {
           return true;
         },
         child: ListView.separated(
+          padding: EdgeInsets.symmetric(horizontal: 20),
           controller: _controller,
           itemCount: restaurants.length,
           scrollDirection: Axis.horizontal,
@@ -276,6 +277,7 @@ class _HomePageViewState extends State<HomePageView> {
           return true;
         },
         child: ListView.separated(
+          padding: EdgeInsets.symmetric(horizontal: 20),
           controller: _controller,
           itemCount: restaurants.length,
           scrollDirection: Axis.horizontal,
