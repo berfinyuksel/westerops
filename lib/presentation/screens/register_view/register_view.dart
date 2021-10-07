@@ -271,23 +271,51 @@ class _RegisterViewState extends State<RegisterView> {
           return Container();
         } else if (state is GenericCompleted) {
           return AlertDialog(
-            title: Text('Hosgeldiniz'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text('This is a demo alert dialog.'),
-                  Text('Would you like to approve of this message?'),
+            contentPadding: EdgeInsets.zero,
+            content: Container(
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+              width: context.dynamicWidht(0.87),
+              height: context.dynamicHeight(0.29),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18.0),
+                color: Colors.white,
+              ),
+              child: Column(
+                children: [
+                  Spacer(
+                    flex: 8,
+                  ),
+                  SvgPicture.asset(
+                    ImageConstant.SURPRISE_PACK,
+                    height: context.dynamicHeight(0.134),
+                  ),
+                  SizedBox(height: 10),
+                  LocaleText(
+                    text: "Hoş geldiniz",
+                    style: AppTextStyles.bodyBoldTextStyle,
+                    alignment: TextAlign.center,
+                  ),
+                  Spacer(
+                    flex: 35,
+                  ),
+                  CustomButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, RouteConstant.CUSTOM_SCAFFOLD);
+                    },
+                    width: context.dynamicWidht(0.35),
+                    color: AppColors.greenColor,
+                    textColor: Colors.white,
+                    borderColor: AppColors.greenColor,
+                    title: "Ana Sayfa",
+                  ),
+                  Spacer(
+                    flex: 20,
+                  ),
                 ],
               ),
             ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Approve'),
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
-                },
-              ),
-            ],
           );
         } else {
           return AlertDialog(

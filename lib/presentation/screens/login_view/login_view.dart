@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -217,23 +218,51 @@ class _LoginViewState extends State<LoginView> {
           return Container();
         } else if (state is GenericCompleted) {
           return AlertDialog(
-            title: Text('Hosgeldiniz'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text('This is a demo alert dialog.'),
-                  Text('Would you like to approve of this message?'),
+            contentPadding: EdgeInsets.zero,
+            content: Container(
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+              width: context.dynamicWidht(0.87),
+              height: context.dynamicHeight(0.29),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18.0),
+                color: Colors.white,
+              ),
+              child: Column(
+                children: [
+                  Spacer(
+                    flex: 8,
+                  ),
+                  SvgPicture.asset(
+                    ImageConstant.SURPRISE_PACK,
+                    height: context.dynamicHeight(0.134),
+                  ),
+                  SizedBox(height: 10),
+                  LocaleText(
+                    text: "Hoş geldiniz",
+                    style: AppTextStyles.bodyBoldTextStyle,
+                    alignment: TextAlign.center,
+                  ),
+                  Spacer(
+                    flex: 35,
+                  ),
+                  CustomButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, RouteConstant.CUSTOM_SCAFFOLD);
+                    },
+                    width: context.dynamicWidht(0.35),
+                    color: AppColors.greenColor,
+                    textColor: Colors.white,
+                    borderColor: AppColors.greenColor,
+                    title: "Ana Sayfa",
+                  ),
+                  Spacer(
+                    flex: 20,
+                  ),
                 ],
               ),
             ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Approve'),
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
-                },
-              ),
-            ],
           );
         } else {
           return AlertDialog(
