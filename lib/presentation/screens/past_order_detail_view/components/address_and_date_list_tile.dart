@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -20,10 +21,15 @@ class AddressAndDateListTile extends StatelessWidget {
         left: context.dynamicWidht(0.06),
         right: context.dynamicWidht(0.06),
       ),
-      trailing: SvgPicture.asset(
-        ImageConstant.PAST_ORDER_DETAIL_ICON,
-        color: Colors.red,
-        cacheColorFilter: false,
+      trailing: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, RouteConstant.SWIPE_VIEW);
+        },
+        child: SvgPicture.asset(
+          ImageConstant.PAST_ORDER_DETAIL_ICON,
+          color: Colors.red,
+          cacheColorFilter: false,
+        ),
       ),
       tileColor: Colors.white,
       title: AddressText(),

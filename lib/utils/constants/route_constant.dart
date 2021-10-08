@@ -40,4 +40,5 @@ class RouteConstant {
   static const SURPRISE_PACK_CANCELED_VIEW = '/surpriseCanceled';
   static const SURPRISE_PACK_VIEW = '/surprise';
   static const SPLASH_VIEW = '/';
+  static const SWIPE_VIEW = '/swipe';
 }

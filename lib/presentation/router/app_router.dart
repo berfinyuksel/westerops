@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/presentation/screens/freeze_account_view/freeze_account_view.dart';
 import 'package:dongu_mobile/presentation/screens/splash_view/splash_view.dart';
+import 'package:dongu_mobile/presentation/screens/swipe_view/swipe_view.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -143,9 +144,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SurprisePackCanceled());
       case RouteConstant.SURPRISE_PACK_VIEW:
         return MaterialPageRoute(builder: (_) => SurprisePackView());
-            case RouteConstant.SPLASH_VIEW:
+      case RouteConstant.SPLASH_VIEW:
+        return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? CustomScaffold() : SplashView());case RouteConstant.SPLASH_VIEW:
         return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? CustomScaffold() : SplashView());
-
+      case RouteConstant.SWIPE_VIEW:
+        return MaterialPageRoute(builder: (_) => SwipeView());
       default:
         return null;
     }
