@@ -11,6 +11,7 @@ import 'package:dongu_mobile/presentation/screens/register_view/register_view.da
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/restaurant_detail_view/restaurant_detail_view.dart';
 import 'package:dongu_mobile/presentation/screens/splash_view/splash_view.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_view/surprise_pack_view.dart';
+import 'package:dongu_mobile/presentation/screens/swipe_view/swipe_view.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -128,7 +129,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           onGenerateRoute: _appRouter.onGenerateRoute,
-          //home: SplashView(),
+          //home: SwipeView(),
         );
       }),
     );

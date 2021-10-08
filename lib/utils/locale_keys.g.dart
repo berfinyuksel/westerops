@@ -425,5 +425,7 @@ abstract class  LocaleKeys {
   static const my_notifications_special_for_me_favorite = 'my_notifications.special_for_me.favorite';
   static const my_notifications_special_for_me = 'my_notifications.special_for_me';
   static const my_notifications = 'my_notifications';
+  static const swipe_title = 'swipe.title';
+  static const swipe = 'swipe';
 
 }
