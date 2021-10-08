@@ -376,11 +376,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           itemCount: state.response
               .length, //widget.restaurant!.boxes!.length,//state.response.lenght
           itemBuilder: (context, index) {
-            List<bool> buttonActiveList = [];
-            for (int i = 0; i < state.response.length; i++) {
-              buttonActiveList.add(true);
-            }
-
+            context.read<BuyButtonCubit>().addToStateList(false);
+            List<bool> buttonActiveList = context.watch<BuyButtonCubit>().state;
             print(state.response.length);
             return buildBox(context, index, state, buttonActiveList);
           },
@@ -543,28 +540,40 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           Padding(
             //buy box
             padding: EdgeInsets.only(top: context.dynamicHeight(0.042)),
-            child: Builder(builder: (context) {
-              final counterState = context.watch<BasketCounterCubit>().state;
-              return CustomButton(
-                isActive: true,
-                title: LocaleKeys.restaurant_detail_button_text,
-                color: AppColors.greenColor,
-                textColor: Colors.white,
-                width: context.dynamicWidht(0.28),
-                borderColor: AppColors.greenColor,
-                onPressed: () async {
-                  await pressedBuyButton(state, index, context, counterState);
-                },
-              );
-            }),
+            child: Builder(
+              builder: (context) {
+                bool buttonStatus = buttonActiveList.elementAt(index);
+                final counterState = context.watch<BasketCounterCubit>().state;
+                return CustomButton(
+                  title: buttonStatus
+                      ? "Sepetimde"
+                      : LocaleKeys.restaurant_detail_button_text,
+                  color:
+                      buttonStatus ? Colors.transparent : AppColors.greenColor,
+                  textColor: buttonStatus ? AppColors.greenColor : Colors.white,
+                  width: context.dynamicWidht(0.28),
+                  borderColor: AppColors.greenColor,
+                  onPressed: () async {
+                    await pressedBuyButton(state, index, context, counterState,
+                        buttonActiveList, buttonStatus);
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),
     );
   }
 
-  Future<void> pressedBuyButton(GenericCompleted<dynamic> state, int index,
-      BuildContext context, int counterState) async {
+  Future<void> pressedBuyButton(
+    GenericCompleted<dynamic> state,
+    int index,
+    BuildContext context,
+    int counterState,
+    List<bool> buttonActiveList,
+    bool buttonStatus,
+  ) async {
     StatusCode statusCode =
         await sl<BasketRepository>().addToBasket("${state.response[index].id}");
     int menuItem = state.response[index].id;
@@ -577,6 +586,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           menuList!.add(menuItem.toString());
           SharedPrefs.setMenuList(menuList!);
 
+          buttonStatus = !buttonStatus;
+          buttonActiveList[index] = buttonStatus;
+          context.read<BuyButtonCubit>().changeStatus(buttonActiveList);
           print(SharedPrefs.getMenuList);
           print("Successss");
           print(menuItem);

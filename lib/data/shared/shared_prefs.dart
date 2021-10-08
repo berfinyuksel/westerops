@@ -67,6 +67,11 @@ class SharedPrefs {
     return menuList;
   }
 
+  static Future<bool> setButtonStatus(bool buttonStatus) async {
+    _prefs.setBool("buttonStatus", buttonStatus);
+    return buttonStatus;
+  }
+
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
@@ -83,4 +88,5 @@ class SharedPrefs {
   static int get getCounter => _prefs.getInt('counter') ?? 0;
   static int get getMenuId => _prefs.getInt('menuId') ?? 0;
   static List<String> get getMenuList => _prefs.getStringList('menuList') ?? [];
+  static bool get getButtonStatus => _prefs.getBool("buttonStatus") ?? false;
 }
