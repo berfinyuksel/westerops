@@ -69,7 +69,7 @@ class _CartViewState extends State<CartView> {
     return Column(
       children: [
         Container(
-          height: context.dynamicHeight(0.7),
+          height: context.dynamicHeight(0.69),
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(
