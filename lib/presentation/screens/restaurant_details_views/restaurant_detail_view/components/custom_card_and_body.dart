@@ -588,6 +588,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           print("Successss");
           print(menuItem);
         } else {
+          context
+              .read<OrderCubit>()
+              .deleteBasket("${state.response[index].id}");
+          context.read<BasketCounterCubit>().decrement();
+          SharedPrefs.setCounter(counterState - 1);
+          menuList!.remove(state.response[index].id.toString());
+          SharedPrefs.setMenuList(menuList!);
           print("real Successss");
           print(SharedPrefs.getMenuList);
         }
