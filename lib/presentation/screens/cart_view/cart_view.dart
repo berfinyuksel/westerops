@@ -1,6 +1,6 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/buy_button_state.dart/buy_button_cubit.dart';
+
 import 'package:dongu_mobile/presentation/screens/cart_view/not_logged_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,8 +27,6 @@ class CartView extends StatefulWidget {
   @override
   _CartViewState createState() => _CartViewState();
 }
-
-List<int> d = [76312, 76319, 76530, 76531];
 
 class _CartViewState extends State<CartView> {
   List<String> menuList = SharedPrefs.getMenuList;
@@ -100,9 +98,6 @@ class _CartViewState extends State<CartView> {
                   itemCount: state.response.length,
                   itemBuilder: (context, index) {
                     return Builder(builder: (context) {
-                      List<bool> buttonActiveList =
-                          context.watch<BuyButtonCubit>().state;
-
                       final counterState =
                           context.watch<BasketCounterCubit>().state;
 
@@ -123,13 +118,6 @@ class _CartViewState extends State<CartView> {
                           ),
                         ),
                         onDismissed: (DismissDirection direction) {
-                          bool buttonStatus = buttonActiveList[index];
-                          buttonStatus = !buttonStatus;
-                          buttonActiveList[index] = buttonStatus;
-                          context
-                              .read<BuyButtonCubit>()
-                              .changeStatus(buttonActiveList);
-
                           context
                               .read<OrderCubit>()
                               .deleteBasket("${state.response[index].id}");
