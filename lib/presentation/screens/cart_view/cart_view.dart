@@ -105,7 +105,6 @@ class _CartViewState extends State<CartView> {
 
                       final counterState =
                           context.watch<BasketCounterCubit>().state;
-                      var isActive = context.watch<BuyButtonCubit>().state;
 
                       return Dismissible(
                         direction: DismissDirection.endToStart,
@@ -138,8 +137,6 @@ class _CartViewState extends State<CartView> {
                           SharedPrefs.setCounter(counterState - 1);
                           menuList.remove(state.response[index].id.toString());
                           SharedPrefs.setMenuList(menuList);
-                          List ahmet = context.watch<BuyButtonCubit>().state;
-                          ahmet[index] = isActive;
                         },
                         child: PastOrderDetailBasketListTile(
                           title: "${state.response[index].text_name}",
