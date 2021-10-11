@@ -54,7 +54,7 @@ class _RegisterViewState extends State<RegisterView> {
         child: Stack(
           children: [
             Positioned(
-              top: -30,
+              top: -25,
               left: 0,
               right: 0,
               child: buildBackground,

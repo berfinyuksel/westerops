@@ -65,7 +65,8 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
   Container tabBarContainer(BuildContext context) {
     return Container(
       width: context.dynamicWidht(0.87),
-      height: context.dynamicHeight(0.071),
+      height: 63,
+      padding: EdgeInsets.only(top: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(18.0),

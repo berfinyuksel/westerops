@@ -62,9 +62,7 @@ class CustomSearchBar extends StatelessWidget {
                 hintText: "Yemek, restoran ara"),
           ),
         ),
-        SizedBox(
-          width: context.dynamicWidht(0.01),
-        ),
+        Spacer(),
         textButton ?? SizedBox()
       ],
     );

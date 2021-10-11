@@ -21,7 +21,6 @@ class LocationView extends StatefulWidget {
 }
 
 class _LocationViewState extends State<LocationView> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,11 +49,13 @@ class _LocationViewState extends State<LocationView> {
               Spacer(
                 flex: 1,
               ),
-              Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.06),
-                  ),
-                  child: descriptionText()),
+              SingleChildScrollView(
+                child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06),
+                    ),
+                    child: descriptionText()),
+              ),
               Spacer(
                 flex: 4,
               ),
@@ -73,12 +74,12 @@ class _LocationViewState extends State<LocationView> {
   GestureDetector lateForNowButton() {
     return GestureDetector(
       onTap: () {
-            //  Navigator.pushNamed(context, RouteConstant.HOME_PAGE_VIEW);
-
+        //  Navigator.pushNamed(context, RouteConstant.HOME_PAGE_VIEW);
       },
       child: AutoSizeText(
         LocaleKeys.premission_notification_button2.locale,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
       ),
     );
   }
@@ -119,8 +120,11 @@ class _LocationViewState extends State<LocationView> {
     return Container(
       //padding: EdgeInsets.only(top: context.dynamicHeight(1)),
       //padding: EdgeInsets.only(top: context.dynamicHeight(0.10)),
-      padding: EdgeInsets.only(right: context.dynamicWidht(0.06), left: context.dynamicWidht(0.06)),
-      child: SvgPicture.asset(ImageConstant.LOCATION_IMAGE, ),
+      padding: EdgeInsets.only(
+          right: context.dynamicWidht(0.06), left: context.dynamicWidht(0.06)),
+      child: SvgPicture.asset(
+        ImageConstant.LOCATION_IMAGE,
+      ),
     );
   }
 
