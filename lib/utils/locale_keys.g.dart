@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const bottom_nav_bar_item_1 = 'bottom_nav_bar.item_1';
   static const bottom_nav_bar_item_2 = 'bottom_nav_bar.item_2';
   static const bottom_nav_bar_item_3 = 'bottom_nav_bar.item_3';
@@ -12,18 +12,24 @@ abstract class  LocaleKeys {
   static const onboardings_skip = 'onboardings.skip';
   static const onboardings_onboarding_text1 = 'onboardings.onboarding.text1';
   static const onboardings_onboarding_text2 = 'onboardings.onboarding.text2';
-  static const onboardings_onboarding_text_headline = 'onboardings.onboarding.text_headline';
+  static const onboardings_onboarding_text_headline =
+      'onboardings.onboarding.text_headline';
   static const onboardings_onboarding = 'onboardings.onboarding';
-  static const onboardings_first_text_headline = 'onboardings.first.text_headline';
+  static const onboardings_first_text_headline =
+      'onboardings.first.text_headline';
   static const onboardings_first_text_first = 'onboardings.first.text_first';
   static const onboardings_first = 'onboardings.first';
-  static const onboardings_second_text_headline = 'onboardings.second.text_headline';
-  static const onboardings_second_text_second = 'onboardings.second.text_second';
+  static const onboardings_second_text_headline =
+      'onboardings.second.text_headline';
+  static const onboardings_second_text_second =
+      'onboardings.second.text_second';
   static const onboardings_second = 'onboardings.second';
-  static const onboardings_third_text_headline = 'onboardings.third.text_headline';
+  static const onboardings_third_text_headline =
+      'onboardings.third.text_headline';
   static const onboardings_third_text_third = 'onboardings.third.text_third';
   static const onboardings_third = 'onboardings.third';
-  static const onboardings_forth_text_headline = 'onboardings.forth.text_headline';
+  static const onboardings_forth_text_headline =
+      'onboardings.forth.text_headline';
   static const onboardings_forth_text_forth = 'onboardings.forth.text_forth';
   static const onboardings_forth_button = 'onboardings.forth.button';
   static const onboardings_forth = 'onboardings.forth';
@@ -53,12 +59,15 @@ abstract class  LocaleKeys {
   static const register_social_auth = 'register.social_auth';
   static const register = 'register';
   static const forgot_password_phone = 'forgot_password.phone';
-  static const forgot_password_activation_code = 'forgot_password.activation_code';
+  static const forgot_password_activation_code =
+      'forgot_password.activation_code';
   static const forgot_password_new_password = 'forgot_password.new_password';
-  static const forgot_password_reset_password = 'forgot_password.reset_password';
+  static const forgot_password_reset_password =
+      'forgot_password.reset_password';
   static const forgot_password_send_again = 'forgot_password.send_again';
   static const forgot_password_send_code = 'forgot_password.send_code';
-  static const forgot_password_successfully_changed = 'forgot_password.successfully_changed';
+  static const forgot_password_successfully_changed =
+      'forgot_password.successfully_changed';
   static const forgot_password_ok = 'forgot_password.ok';
   static const forgot_password = 'forgot_password';
   static const food_waste_title = 'food_waste.title';
@@ -86,17 +95,28 @@ abstract class  LocaleKeys {
   static const custom_drawer_register_button = 'custom_drawer.register_button';
   static const custom_drawer_body_title_1 = 'custom_drawer.body_title_1';
   static const custom_drawer_body_title_2 = 'custom_drawer.body_title_2';
-  static const custom_drawer_body_list_tile_inform = 'custom_drawer.body_list_tile_inform';
-  static const custom_drawer_body_list_tile_past_orders = 'custom_drawer.body_list_tile_past_orders';
-  static const custom_drawer_body_list_tile_adresses = 'custom_drawer.body_list_tile_adresses';
-  static const custom_drawer_body_list_tile_cards = 'custom_drawer.body_list_tile_cards';
-  static const custom_drawer_body_list_tile_general_settings = 'custom_drawer.body_list_tile_general_settings';
-  static const custom_drawer_body_list_tile_language_settings = 'custom_drawer.body_list_tile_language_settings';
-  static const custom_drawer_body_list_tile_change_location = 'custom_drawer.body_list_tile_change_location';
-  static const custom_drawer_body_list_tile_rate_app = 'custom_drawer.body_list_tile_rate_app';
-  static const custom_drawer_body_list_tile_about_app = 'custom_drawer.body_list_tile_about_app';
-  static const custom_drawer_body_list_tile_about_food_waste = 'custom_drawer.body_list_tile_about_food_waste';
-  static const custom_drawer_filter_page_tile = 'custom_drawer.filter_page_tile';
+  static const custom_drawer_body_list_tile_inform =
+      'custom_drawer.body_list_tile_inform';
+  static const custom_drawer_body_list_tile_past_orders =
+      'custom_drawer.body_list_tile_past_orders';
+  static const custom_drawer_body_list_tile_adresses =
+      'custom_drawer.body_list_tile_adresses';
+  static const custom_drawer_body_list_tile_cards =
+      'custom_drawer.body_list_tile_cards';
+  static const custom_drawer_body_list_tile_general_settings =
+      'custom_drawer.body_list_tile_general_settings';
+  static const custom_drawer_body_list_tile_language_settings =
+      'custom_drawer.body_list_tile_language_settings';
+  static const custom_drawer_body_list_tile_change_location =
+      'custom_drawer.body_list_tile_change_location';
+  static const custom_drawer_body_list_tile_rate_app =
+      'custom_drawer.body_list_tile_rate_app';
+  static const custom_drawer_body_list_tile_about_app =
+      'custom_drawer.body_list_tile_about_app';
+  static const custom_drawer_body_list_tile_about_food_waste =
+      'custom_drawer.body_list_tile_about_food_waste';
+  static const custom_drawer_filter_page_tile =
+      'custom_drawer.filter_page_tile';
   static const custom_drawer = 'custom_drawer';
   static const inform_title = 'inform.title';
   static const inform_body_title_1 = 'inform.body_title_1';
@@ -107,24 +127,31 @@ abstract class  LocaleKeys {
   static const inform_list_tile_birth = 'inform.list_tile_birth';
   static const inform_list_tile_mail = 'inform.list_tile_mail';
   static const inform_list_tile_phone = 'inform.list_tile_phone';
-  static const inform_list_tile_change_password = 'inform.list_tile_change_password';
+  static const inform_list_tile_change_password =
+      'inform.list_tile_change_password';
   static const inform_list_tile_remove_link = 'inform.list_tile_remove_link';
   static const inform_button = 'inform.button';
   static const inform_delete_account = 'inform.delete_account';
   static const inform = 'inform';
   static const change_password_title = 'change_password.title';
-  static const change_password_current_password = 'change_password.current_password';
+  static const change_password_current_password =
+      'change_password.current_password';
   static const change_password_new_password = 'change_password.new_password';
-  static const change_password_new_password_again = 'change_password.new_password_again';
+  static const change_password_new_password_again =
+      'change_password.new_password_again';
   static const change_password_button = 'change_password.button';
   static const change_password = 'change_password';
   static const past_order_title = 'past_order.title';
   static const past_order = 'past_order';
   static const past_order_detail_title = 'past_order_detail.title';
-  static const past_order_detail_body_title_1 = 'past_order_detail.body_title_1';
-  static const past_order_detail_body_title_2 = 'past_order_detail.body_title_2';
-  static const past_order_detail_body_title_3 = 'past_order_detail.body_title_3';
-  static const past_order_detail_body_title_4 = 'past_order_detail.body_title_4';
+  static const past_order_detail_body_title_1 =
+      'past_order_detail.body_title_1';
+  static const past_order_detail_body_title_2 =
+      'past_order_detail.body_title_2';
+  static const past_order_detail_body_title_3 =
+      'past_order_detail.body_title_3';
+  static const past_order_detail_body_title_4 =
+      'past_order_detail.body_title_4';
   static const past_order_detail_evaluate_1 = 'past_order_detail.evaluate_1';
   static const past_order_detail_evaluate_2 = 'past_order_detail.evaluate_2';
   static const past_order_detail_evaluate_3 = 'past_order_detail.evaluate_3';
@@ -147,17 +174,20 @@ abstract class  LocaleKeys {
   static const general_settings_body_title_1 = 'general_settings.body_title_1';
   static const general_settings_body_title_2 = 'general_settings.body_title_2';
   static const general_settings_body_title_3 = 'general_settings.body_title_3';
-  static const general_settings_contact_confirmation = 'general_settings.contact_confirmation';
+  static const general_settings_contact_confirmation =
+      'general_settings.contact_confirmation';
   static const general_settings_sms = 'general_settings.sms';
   static const general_settings_email = 'general_settings.email';
   static const general_settings_phone_call = 'general_settings.phone_call';
-  static const general_settings_phone_call_subtitle = 'general_settings.phone_call_subtitle';
+  static const general_settings_phone_call_subtitle =
+      'general_settings.phone_call_subtitle';
   static const general_settings_notification = 'general_settings.notification';
   static const general_settings_location = 'general_settings.location';
   static const general_settings = 'general_settings';
   static const about_app_title = 'about_app.title';
   static const about_app_website = 'about_app.website';
-  static const about_app_website_trailing_text = 'about_app.website_trailing_text';
+  static const about_app_website_trailing_text =
+      'about_app.website_trailing_text';
   static const about_app_contract = 'about_app.contract';
   static const about_app_clarification = 'about_app.clarification';
   static const about_app_help_center = 'about_app.help_center';
@@ -180,9 +210,12 @@ abstract class  LocaleKeys {
   static const help_center_list_tile_title_7 = 'help_center.list_tile_title_7';
   static const help_center_list_tile_title_8 = 'help_center.list_tile_title_8';
   static const help_center_list_tile_title_9 = 'help_center.list_tile_title_9';
-  static const help_center_list_tile_title_10 = 'help_center.list_tile_title_10';
-  static const help_center_list_tile_title_11 = 'help_center.list_tile_title_11';
-  static const help_center_list_tile_subtitle_1 = 'help_center.list_tile_subtitle_1';
+  static const help_center_list_tile_title_10 =
+      'help_center.list_tile_title_10';
+  static const help_center_list_tile_title_11 =
+      'help_center.list_tile_title_11';
+  static const help_center_list_tile_subtitle_1 =
+      'help_center.list_tile_subtitle_1';
   static const help_center = 'help_center';
   static const change_location_title = 'change_location.title';
   static const change_location_hint_text = 'change_location.hint_text';
@@ -227,16 +260,21 @@ abstract class  LocaleKeys {
   static const payment_address_change = 'payment.address.change';
   static const payment_address_show_on_map = 'payment.address.show_on_map';
   static const payment_address_billing_info = 'payment.address.billing_info';
-  static const payment_address_button_add_address = 'payment.address.button_add_address';
-  static const payment_address_button_add_bill = 'payment.address.button_add_bill';
-  static const payment_address_use_as_billing = 'payment.address.use_as_billing';
+  static const payment_address_button_add_address =
+      'payment.address.button_add_address';
+  static const payment_address_button_add_bill =
+      'payment.address.button_add_bill';
+  static const payment_address_use_as_billing =
+      'payment.address.use_as_billing';
   static const payment_address = 'payment.address';
-  static const payment_delivery_delivery_time = 'payment.delivery.delivery_time';
+  static const payment_delivery_delivery_time =
+      'payment.delivery.delivery_time';
   static const payment_delivery = 'payment.delivery';
   static const payment_payment_choose_card = 'payment.payment.choose_card';
   static const payment_payment_cancel = 'payment.payment.cancel';
   static const payment_payment_name_card = 'payment.payment.name_card';
-  static const payment_payment_pay_another_card = 'payment.payment.pay_another_card';
+  static const payment_payment_pay_another_card =
+      'payment.payment.pay_another_card';
   static const payment_payment_order_amount = 'payment.payment.order_amount';
   static const payment_payment_to_be_paid = 'payment.payment.to_be_paid';
   static const payment_payment_pay = 'payment.payment.pay';
@@ -245,7 +283,8 @@ abstract class  LocaleKeys {
   static const payment_payment_credit = 'payment.payment.credit';
   static const payment_payment_name_on_card = 'payment.payment.name_on_card';
   static const payment_payment_card_number = 'payment.payment.card_number';
-  static const payment_payment_add_to_registered_cards = 'payment.payment.add_to_registered_cards';
+  static const payment_payment_add_to_registered_cards =
+      'payment.payment.add_to_registered_cards';
   static const payment_payment = 'payment.payment';
   static const payment = 'payment';
   static const order_received_headline = 'order_received.headline';
@@ -253,11 +292,13 @@ abstract class  LocaleKeys {
   static const order_received_subtitle = 'order_received.subtitle';
   static const order_received_count_down = 'order_received.count_down';
   static const order_received_order_summary = 'order_received.order_summary';
-  static const order_received_take_from_restaurant = 'order_received.take_from_restaurant';
+  static const order_received_take_from_restaurant =
+      'order_received.take_from_restaurant';
   static const order_received_item_number = 'order_received.item_number';
   static const order_received_order_amount = 'order_received.order_amount';
   static const order_received_total_amount = 'order_received.total_amount';
-  static const order_received_delivery_address = 'order_received.delivery_address';
+  static const order_received_delivery_address =
+      'order_received.delivery_address';
   static const order_received_show_on_map = 'order_received.show_on_map';
   static const order_received_button_1 = 'order_received.button_1';
   static const order_received_button_2 = 'order_received.button_2';
@@ -278,7 +319,8 @@ abstract class  LocaleKeys {
   static const freeze_account_button = 'freeze_account.button';
   static const freeze_account_hint_text = 'freeze_account.hint_text';
   static const freeze_account = 'freeze_account';
-  static const surprise_pack_surprise_pack_opened = 'surprise_pack.surprise_pack_opened';
+  static const surprise_pack_surprise_pack_opened =
+      'surprise_pack.surprise_pack_opened';
   static const surprise_pack_surprise_pack = 'surprise_pack.surprise_pack';
   static const surprise_pack_button_reject = 'surprise_pack.button_reject';
   static const surprise_pack_button_accept = 'surprise_pack.button_accept';
@@ -286,10 +328,14 @@ abstract class  LocaleKeys {
   static const surprise_pack_alert_button2 = 'surprise_pack.alert_button2';
   static const surprise_pack_alert_text = 'surprise_pack.alert_text';
   static const surprise_pack = 'surprise_pack';
-  static const surprise_pack_canceled_canceled_your_pack = 'surprise_pack_canceled.canceled_your_pack';
-  static const surprise_pack_canceled_button_buy = 'surprise_pack_canceled.button_buy';
-  static const surprise_pack_canceled_button_send = 'surprise_pack_canceled.button_send';
-  static const surprise_pack_canceled_pack_canceled = 'surprise_pack_canceled.pack_canceled';
+  static const surprise_pack_canceled_canceled_your_pack =
+      'surprise_pack_canceled.canceled_your_pack';
+  static const surprise_pack_canceled_button_buy =
+      'surprise_pack_canceled.button_buy';
+  static const surprise_pack_canceled_button_send =
+      'surprise_pack_canceled.button_send';
+  static const surprise_pack_canceled_pack_canceled =
+      'surprise_pack_canceled.pack_canceled';
   static const surprise_pack_canceled = 'surprise_pack_canceled';
   static const address_from_map_title = 'address_from_map.title';
   static const address_from_map_hint_text = 'address_from_map.hint_text';
@@ -297,8 +343,10 @@ abstract class  LocaleKeys {
   static const address_from_map = 'address_from_map';
   static const premission_notification_text1 = 'premission_notification.text1';
   static const premission_notification_text2 = 'premission_notification.text2';
-  static const premission_notification_button1 = 'premission_notification.button1';
-  static const premission_notification_button2 = 'premission_notification.button2';
+  static const premission_notification_button1 =
+      'premission_notification.button1';
+  static const premission_notification_button2 =
+      'premission_notification.button2';
   static const premission_notification = 'premission_notification';
   static const premission_location_text1 = 'premission_location.text1';
   static const premission_location_text2 = 'premission_location.text2';
@@ -321,9 +369,12 @@ abstract class  LocaleKeys {
   static const filters_package_price_item2 = 'filters.package_price.item2';
   static const filters_package_price_item3 = 'filters.package_price.item3';
   static const filters_package_price = 'filters.package_price';
-  static const filters_package_delivery_title = 'filters.package_delivery.title';
-  static const filters_package_delivery_item1 = 'filters.package_delivery.item1';
-  static const filters_package_delivery_item2 = 'filters.package_delivery.item2';
+  static const filters_package_delivery_title =
+      'filters.package_delivery.title';
+  static const filters_package_delivery_item1 =
+      'filters.package_delivery.item1';
+  static const filters_package_delivery_item2 =
+      'filters.package_delivery.item2';
   static const filters_package_delivery = 'filters.package_delivery';
   static const filters_payment_method_title = 'filters.payment_method.title';
   static const filters_payment_method_item1 = 'filters.payment_method.item1';
@@ -381,51 +432,94 @@ abstract class  LocaleKeys {
   static const restaurant_detail_sub_title2 = 'restaurant_detail.sub_title2';
   static const restaurant_detail_sub_text4 = 'restaurant_detail.sub_text4';
   static const restaurant_detail_sub_text5 = 'restaurant_detail.sub_text5';
-  static const restaurant_detail_detail_tab_title1 = 'restaurant_detail.detail_tab.title1';
-  static const restaurant_detail_detail_tab_title2 = 'restaurant_detail.detail_tab.title2';
-  static const restaurant_detail_detail_tab_title3 = 'restaurant_detail.detail_tab.title3';
-  static const restaurant_detail_detail_tab_title4 = 'restaurant_detail.detail_tab.title4';
-  static const restaurant_detail_detail_tab_title5 = 'restaurant_detail.detail_tab.title5';
-  static const restaurant_detail_detail_tab_title6 = 'restaurant_detail.detail_tab.title6';
-  static const restaurant_detail_detail_tab_sub_title1 = 'restaurant_detail.detail_tab.sub_title1';
-  static const restaurant_detail_detail_tab_sub_title2 = 'restaurant_detail.detail_tab.sub_title2';
-  static const restaurant_detail_detail_tab_sub_title3 = 'restaurant_detail.detail_tab.sub_title3';
-  static const restaurant_detail_detail_tab_sub_title4 = 'restaurant_detail.detail_tab.sub_title4';
-  static const restaurant_detail_detail_tab_sub_title5 = 'restaurant_detail.detail_tab.sub_title5';
+  static const restaurant_detail_detail_tab_title1 =
+      'restaurant_detail.detail_tab.title1';
+  static const restaurant_detail_detail_tab_title2 =
+      'restaurant_detail.detail_tab.title2';
+  static const restaurant_detail_detail_tab_title3 =
+      'restaurant_detail.detail_tab.title3';
+  static const restaurant_detail_detail_tab_title4 =
+      'restaurant_detail.detail_tab.title4';
+  static const restaurant_detail_detail_tab_title5 =
+      'restaurant_detail.detail_tab.title5';
+  static const restaurant_detail_detail_tab_title6 =
+      'restaurant_detail.detail_tab.title6';
+  static const restaurant_detail_detail_tab_sub_title1 =
+      'restaurant_detail.detail_tab.sub_title1';
+  static const restaurant_detail_detail_tab_sub_title2 =
+      'restaurant_detail.detail_tab.sub_title2';
+  static const restaurant_detail_detail_tab_sub_title3 =
+      'restaurant_detail.detail_tab.sub_title3';
+  static const restaurant_detail_detail_tab_sub_title4 =
+      'restaurant_detail.detail_tab.sub_title4';
+  static const restaurant_detail_detail_tab_sub_title5 =
+      'restaurant_detail.detail_tab.sub_title5';
   static const restaurant_detail_detail_tab = 'restaurant_detail.detail_tab';
   static const restaurant_detail = 'restaurant_detail';
-  static const restaurant_food_categories_text1 = 'restaurant_food_categories.text1';
-  static const restaurant_food_categories_text2 = 'restaurant_food_categories.text2';
-  static const restaurant_food_categories_text3 = 'restaurant_food_categories.text3';
-  static const restaurant_food_categories_text4 = 'restaurant_food_categories.text4';
+  static const restaurant_food_categories_text1 =
+      'restaurant_food_categories.text1';
+  static const restaurant_food_categories_text2 =
+      'restaurant_food_categories.text2';
+  static const restaurant_food_categories_text3 =
+      'restaurant_food_categories.text3';
+  static const restaurant_food_categories_text4 =
+      'restaurant_food_categories.text4';
   static const restaurant_food_categories = 'restaurant_food_categories';
-  static const my_notifications_tab_bar_title_title1 = 'my_notifications.tab_bar_title.title1';
-  static const my_notifications_tab_bar_title_title2 = 'my_notifications.tab_bar_title.title2';
-  static const my_notifications_tab_bar_title_title3 = 'my_notifications.tab_bar_title.title3';
-  static const my_notifications_tab_bar_title = 'my_notifications.tab_bar_title';
-  static const my_notifications_delete_text_text = 'my_notifications.delete_text.text';
+  static const my_notifications_tab_bar_title_title1 =
+      'my_notifications.tab_bar_title.title1';
+  static const my_notifications_tab_bar_title_title2 =
+      'my_notifications.tab_bar_title.title2';
+  static const my_notifications_tab_bar_title_title3 =
+      'my_notifications.tab_bar_title.title3';
+  static const my_notifications_tab_bar_title =
+      'my_notifications.tab_bar_title';
+  static const my_notifications_delete_text_text =
+      'my_notifications.delete_text.text';
   static const my_notifications_delete_text = 'my_notifications.delete_text';
-  static const my_notifications_my_orders_title = 'my_notifications.my_orders.title';
-  static const my_notifications_my_orders_courierItsWay = 'my_notifications.my_orders.courierItsWay';
-  static const my_notifications_my_orders_forgetRate = 'my_notifications.my_orders.forgetRate';
+  static const my_notifications_my_orders_title =
+      'my_notifications.my_orders.title';
+  static const my_notifications_my_orders_courierItsWay =
+      'my_notifications.my_orders.courierItsWay';
+  static const my_notifications_my_orders_forgetRate =
+      'my_notifications.my_orders.forgetRate';
   static const my_notifications_my_orders = 'my_notifications.my_orders';
-  static const my_notifications_all_list_title1 = 'my_notifications.all_list.title1';
-  static const my_notifications_all_list_title2 = 'my_notifications.all_list.title2';
-  static const my_notifications_all_list_title3 = 'my_notifications.all_list.title3';
-  static const my_notifications_all_list_lastThirtyMins = 'my_notifications.all_list.lastThirtyMins';
-  static const my_notifications_all_list_lastThirtyMinsApprove = 'my_notifications.all_list.lastThirtyMinsApprove';
-  static const my_notifications_all_list_firstBuyer = 'my_notifications.all_list.firstBuyer';
-  static const my_notifications_all_list_courierItsWay = 'my_notifications.all_list.courierItsWay';
-  static const my_notifications_all_list_forgetRate = 'my_notifications.all_list.forgetRate';
+  static const my_notifications_all_list_title1 =
+      'my_notifications.all_list.title1';
+  static const my_notifications_all_list_title2 =
+      'my_notifications.all_list.title2';
+  static const my_notifications_all_list_title3 =
+      'my_notifications.all_list.title3';
+  static const my_notifications_all_list_lastThirtyMins =
+      'my_notifications.all_list.lastThirtyMins';
+  static const my_notifications_all_list_lastThirtyMinsApprove =
+      'my_notifications.all_list.lastThirtyMinsApprove';
+  static const my_notifications_all_list_firstBuyer =
+      'my_notifications.all_list.firstBuyer';
+  static const my_notifications_all_list_courierItsWay =
+      'my_notifications.all_list.courierItsWay';
+  static const my_notifications_all_list_forgetRate =
+      'my_notifications.all_list.forgetRate';
   static const my_notifications_all_list = 'my_notifications.all_list';
-  static const my_notifications_special_for_me_title = 'my_notifications.special_for_me.title';
-  static const my_notifications_special_for_me_discountFifty = 'my_notifications.special_for_me.discountFifty';
-  static const my_notifications_special_for_me_discountSeventy = 'my_notifications.special_for_me.discountSeventy';
-  static const my_notifications_special_for_me_pawsAnimals = 'my_notifications.special_for_me.pawsAnimals';
-  static const my_notifications_special_for_me_favorite = 'my_notifications.special_for_me.favorite';
-  static const my_notifications_special_for_me = 'my_notifications.special_for_me';
+  static const my_notifications_special_for_me_title =
+      'my_notifications.special_for_me.title';
+  static const my_notifications_special_for_me_discountFifty =
+      'my_notifications.special_for_me.discountFifty';
+  static const my_notifications_special_for_me_discountSeventy =
+      'my_notifications.special_for_me.discountSeventy';
+  static const my_notifications_special_for_me_pawsAnimals =
+      'my_notifications.special_for_me.pawsAnimals';
+  static const my_notifications_special_for_me_favorite =
+      'my_notifications.special_for_me.favorite';
+  static const my_notifications_special_for_me =
+      'my_notifications.special_for_me';
   static const my_notifications = 'my_notifications';
-  static const swipe_title = 'swipe.title';
+  static const swipe_text1 = 'swipe.text1';
+  static const swipe_text2 = 'swipe.text2';
+  static const swipe_orderNo = 'swipe.orderNo';
+  static const swipe_swipeButton = 'swipe.swipeButton';
+  static const swipe_text3 = 'swipe.text3';
+  static const swipe_text4 = 'swipe.text4';
+  static const swipe_totalAmount = 'swipe.totalAmount';
+  static const swipe_price = 'swipe.price';
   static const swipe = 'swipe';
-
 }

@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -22,7 +23,10 @@ class _SwipeViewState extends State<SwipeView> {
         children: [
           Container(
             color: AppColors.scaffoldBackgroundColor,
-            child: SvgPicture.asset(ImageConstant.ORDER_RECEIVING_BACKGROUND,fit: BoxFit.cover,),
+            child: SvgPicture.asset(
+              ImageConstant.ORDER_RECEIVING_BACKGROUND,
+              fit: BoxFit.cover,
+            ),
             width: double.infinity,
           ),
           Center(
@@ -31,8 +35,8 @@ class _SwipeViewState extends State<SwipeView> {
                 Spacer(
                   flex: 7,
                 ),
-                Text(
-                  "Siparişinizi Teslim Alın",
+                LocaleText(
+                  text: LocaleKeys.swipe_text1,
                   style: AppTextStyles.appBarTitleStyle.copyWith(
                       fontWeight: FontWeight.w500,
                       color: AppColors.orangeColor),
@@ -40,14 +44,14 @@ class _SwipeViewState extends State<SwipeView> {
                 Spacer(
                   flex: 4,
                 ),
-                Text(
-                  "Sipariş Numarası:",
+                LocaleText(
+                  text: LocaleKeys.swipe_text2,
                   style: AppTextStyles.myInformationBodyTextStyle.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text(
-                  "86123345",
+                LocaleText(
+                  text: LocaleKeys.swipe_orderNo,
                   style: AppTextStyles.headlineStyle,
                 ),
                 Spacer(
@@ -58,7 +62,7 @@ class _SwipeViewState extends State<SwipeView> {
                   flex: 30,
                 ),
                 Dismissible(
-                      key: UniqueKey(),
+                  key: UniqueKey(),
                   direction: DismissDirection.startToEnd,
                   child: Container(
                     //curve: Curve,
@@ -77,7 +81,8 @@ class _SwipeViewState extends State<SwipeView> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Siparişi tamamlamak için kaydırın",
+                            LocaleText(
+                                text: LocaleKeys.swipe_swipeButton,
                                 style: AppTextStyles.bodyTitleStyle
                                     .copyWith(color: AppColors.appBarColor)),
                             SizedBox(
@@ -121,15 +126,16 @@ class _SwipeViewState extends State<SwipeView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Anadolu Lezzetleri",
+            LocaleText(
+              text: LocaleKeys.swipe_text3,
               style: AppTextStyles.myInformationBodyTextStyle
                   .copyWith(fontWeight: FontWeight.w500),
             ),
             Spacer(
               flex: 7,
             ),
-            Text("Pastırmalı Kuru Fasulye, 1 porsiyon Kornişon Turşu",
+            LocaleText(
+                text: LocaleKeys.swipe_text4,
                 style: AppTextStyles.subTitleStyle),
             Spacer(
               flex: 40,
@@ -149,8 +155,8 @@ class _SwipeViewState extends State<SwipeView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Toplam Tutar:",
+                  LocaleText(
+                    text: LocaleKeys.swipe_totalAmount,
                     style: AppTextStyles.myInformationBodyTextStyle
                         .copyWith(fontWeight: FontWeight.w500),
                   ),
@@ -165,8 +171,8 @@ class _SwipeViewState extends State<SwipeView> {
                     child: Padding(
                       padding:
                           EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                      child: Text(
-                        '35,25 TL',
+                      child: LocaleText(
+                        text: LocaleKeys.swipe_price,
                         style: AppTextStyles.bodyBoldTextStyle.copyWith(
                           color: AppColors.greenColor,
                         ),

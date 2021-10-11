@@ -483,5 +483,16 @@
             "pawsAnimals": "The income of the packages you buy today\n reaches our patili friends.",
             "favorite": "Favorite Restaurant has 10 packages today.\n Hurry, become a partner in this Cycle!"
         }
+    },
+    "swipe":{
+        "text1": "Get Your Order Delivered",
+        "text2": "Order Number:",
+        "orderNo":"86123345",
+        "swipeButton":"Swipe to complete order",
+        "text3":"Anadolu Lezzetleri",
+        "text4":"Pastırmalı Kuru Fasulye, 1 porsiyon Kornişon Turşu",
+        "totalAmount":"Total Amount:",
+        "price":"35,25 TL"
     }
+    
 }

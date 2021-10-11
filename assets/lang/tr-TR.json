@@ -484,5 +484,15 @@
             "pawsAnimals": "Bugün satın aldığın paketlerin geliri\npatili dostlarımıza ulaşıyor.",
             "favorite": "Favori Restoranının bugün 10 paketi var.\nAcele et bu Döngü’ye sen de ortak ol!"
         }
+    },
+    "swipe":{
+        "text1": "Siparişinizi Teslim Alın",
+        "text2": "Sipariş Numarası:",
+        "orderNo":"86123345",
+        "swipeButton":"Siparişi tamamlamak için kaydırın",
+        "text3":"Anadolu Lezzetleri",
+        "text4":"Pastırmalı Kuru Fasulye, 1 porsiyon Kornişon Turşu",
+        "totalAmount":"Toplam Tutar:",
+        "price":"35,25 TL"
     }
 }
