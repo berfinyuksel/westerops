@@ -265,7 +265,7 @@ class _SearchViewState extends State<SearchView> {
         ),
         child: CustomSearchBar(
           containerPadding:
-              visible ? context.dynamicWidht(0.85) : context.dynamicWidht(0.71),
+              visible ? context.dynamicWidht(0.85) : context.dynamicWidht(0.70),
           onTap: () {
             setState(() {
               visible = !visible;

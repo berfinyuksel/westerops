@@ -26,7 +26,7 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> {
   bool scroolNearMe = true;
-  bool scroolCategories = false;
+  bool scroolCategories = true;
   bool scroolOpportunities = true;
   ScrollController? _controller;
   @override
@@ -154,12 +154,12 @@ class _HomePageViewState extends State<HomePageView> {
           Padding(
             padding: scroolCategories
                 ? EdgeInsets.only(
-                    left: 0,
-                    right: 26,
-                  )
-                : EdgeInsets.only(
                     left: 26,
                     right: 0,
+                  )
+                : EdgeInsets.only(
+                    left: 0,
+                    right: 26,
                   ),
             child: Container(
                 height: context.dynamicHeight(0.16),

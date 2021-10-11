@@ -42,7 +42,7 @@ class _LoginViewState extends State<LoginView> {
         child: Stack(
           children: [
             Positioned(
-              top: -50,
+              top: -60,
               left: 0,
               right: 0,
               child: buildBackground,
@@ -143,9 +143,9 @@ class _LoginViewState extends State<LoginView> {
                 onPressed: () async {
                   String phoneTR = '+90' + phoneController.text;
                   String phoneEN = '+1' + phoneController.text;
-                  await context.read<UserAuthCubit>().loginUser(
-                      phoneController.text,
-                      passwordController.text);
+                  await context
+                      .read<UserAuthCubit>()
+                      .loginUser(phoneController.text, passwordController.text);
                   _showMyDialog();
                   if (SharedPrefs.getIsLogined) {
                     Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
@@ -271,8 +271,8 @@ class _LoginViewState extends State<LoginView> {
                 vertical: context.dynamicHeight(0.03)),
             content: Container(
               alignment: Alignment.center,
-              height: context.dynamicHeight(0.17),
-              width: context.dynamicWidht(0.8),
+              height: context.dynamicHeight(0.15),
+              width: context.dynamicWidht(0.99),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4.0),
                 color: Colors.white,
@@ -292,7 +292,7 @@ class _LoginViewState extends State<LoginView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                          'Şifrenizin veya telefon \nnumaranızın yanlış olduğunu \nfarkettik.',
+                          'Şifrenizin veya telefon\nnumaranızın yanlış\nolduğunu farkettik.',
                           style: AppTextStyles.bodyTitleStyle),
                       GestureDetector(
                         onTap: () {
@@ -392,7 +392,7 @@ class _LoginViewState extends State<LoginView> {
       decoration: BoxDecoration(),
       child: SvgPicture.asset(
         ImageConstant.LOGIN_BACKGROUND,
-        fit: BoxFit.fill,
+        fit: BoxFit.contain,
       ),
     );
   }
