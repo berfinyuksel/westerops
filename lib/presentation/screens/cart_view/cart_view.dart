@@ -1,7 +1,7 @@
 import 'package:dongu_mobile/data/model/store.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
+
 import 'package:dongu_mobile/presentation/screens/cart_view/not_logged_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,9 +28,6 @@ class CartView extends StatefulWidget {
   @override
   _CartViewState createState() => _CartViewState();
 }
-
-List<int> d = [76312, 76319, 76530, 76531];
-Store? restoranTitle;
 
 class _CartViewState extends State<CartView> {
   List<String> menuList = SharedPrefs.getMenuList;
@@ -73,7 +70,7 @@ class _CartViewState extends State<CartView> {
     return Column(
       children: [
         Container(
-          height: context.dynamicHeight(0.7),
+          height: context.dynamicHeight(0.69),
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(
@@ -104,6 +101,7 @@ class _CartViewState extends State<CartView> {
                     return Builder(builder: (context) {
                       final counterState =
                           context.watch<BasketCounterCubit>().state;
+
                       return Dismissible(
                         direction: DismissDirection.endToStart,
                         key: UniqueKey(),

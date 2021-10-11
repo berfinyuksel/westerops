@@ -5,7 +5,7 @@ import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/buy_button_state.dart/buy_button_cubit.dart';
+
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
@@ -376,13 +376,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           itemCount: state.response
               .length, //widget.restaurant!.boxes!.length,//state.response.lenght
           itemBuilder: (context, index) {
-            List<bool> buttonActiveList = [];
-            for (int i = 0; i < state.response.length; i++) {
-              buttonActiveList.add(true);
-            }
-
             print(state.response.length);
-            return buildBox(context, index, state, buttonActiveList);
+            return buildBox(context, index, state);
           },
           physics: NeverScrollableScrollPhysics(),
           //   primary: false,
@@ -463,8 +458,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ));
   }
 
-  Container buildBox(BuildContext context, int index, GenericCompleted state,
-      List<bool> buttonActiveList) {
+  Container buildBox(
+    BuildContext context,
+    int index,
+    GenericCompleted state,
+  ) {
     print("RESPONE :  ${state.response[0].text_name}");
 
     return Container(
@@ -543,20 +541,30 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           Padding(
             //buy box
             padding: EdgeInsets.only(top: context.dynamicHeight(0.042)),
-            child: Builder(builder: (context) {
-              final counterState = context.watch<BasketCounterCubit>().state;
-              return CustomButton(
-                isActive: true,
-                title: LocaleKeys.restaurant_detail_button_text,
-                color: AppColors.greenColor,
-                textColor: Colors.white,
-                width: context.dynamicWidht(0.28),
-                borderColor: AppColors.greenColor,
-                onPressed: () async {
-                  await pressedBuyButton(state, index, context, counterState);
-                },
-              );
-            }),
+            child: Builder(
+              builder: (context) {
+                int menuItem = state.response[index].id;
+
+                final counterState = context.watch<BasketCounterCubit>().state;
+                return CustomButton(
+                  title: menuList!.contains(menuItem.toString())
+                      ? "Sepetimde"
+                      : LocaleKeys.restaurant_detail_button_text,
+                  color: menuList!.contains(menuItem.toString())
+                      ? Colors.transparent
+                      : AppColors.greenColor,
+                  textColor: menuList!.contains(menuItem.toString())
+                      ? AppColors.greenColor
+                      : Colors.white,
+                  width: context.dynamicWidht(0.28),
+                  borderColor: AppColors.greenColor,
+                  onPressed: () async {
+                    await pressedBuyButton(
+                        state, index, context, counterState, menuItem);
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -564,10 +572,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   }
 
   Future<void> pressedBuyButton(GenericCompleted<dynamic> state, int index,
-      BuildContext context, int counterState) async {
+      BuildContext context, int counterState, int menuItem) async {
     StatusCode statusCode =
         await sl<BasketRepository>().addToBasket("${state.response[index].id}");
-    int menuItem = state.response[index].id;
     print(statusCode);
     switch (statusCode) {
       case StatusCode.success:
@@ -581,6 +588,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           print("Successss");
           print(menuItem);
         } else {
+          context
+              .read<OrderCubit>()
+              .deleteBasket("${state.response[index].id}");
+          context.read<BasketCounterCubit>().decrement();
+          SharedPrefs.setCounter(counterState - 1);
+          menuList!.remove(state.response[index].id.toString());
+          SharedPrefs.setMenuList(menuList!);
           print("real Successss");
           print(SharedPrefs.getMenuList);
         }
