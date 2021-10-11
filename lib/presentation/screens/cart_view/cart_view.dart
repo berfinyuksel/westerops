@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/model/store.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 
@@ -82,7 +83,7 @@ class _CartViewState extends State<CartView> {
               SizedBox(
                 height: context.dynamicHeight(0.01),
               ),
-              buildRestaurantListTile(context),
+              buildRestaurantListTile(context, state),
               SizedBox(
                 height: context.dynamicHeight(0.04),
               ),
@@ -205,21 +206,30 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  ListTile buildRestaurantListTile(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-      ),
-      trailing: SvgPicture.asset(
-        ImageConstant.COMMONS_FORWARD_ICON,
-      ),
-      tileColor: Colors.white,
-      title: LocaleText(
-        text: "Canım Büfe",
-        style: AppTextStyles.bodyTextStyle,
-      ),
-      onTap: () {},
-    );
+  ListView buildRestaurantListTile(
+      BuildContext context, GenericCompleted state) {
+    return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: state.response.length,
+        itemBuilder: (context, index) {
+          return Builder(builder: (context) {
+            return ListTile(
+              contentPadding: EdgeInsets.only(
+                left: context.dynamicWidht(0.06),
+                right: context.dynamicWidht(0.06),
+              ),
+              trailing: SvgPicture.asset(
+                ImageConstant.COMMONS_FORWARD_ICON,
+              ),
+              tileColor: Colors.white,
+              title: LocaleText(
+                text: "${state.response[index].text_name}",
+                style: AppTextStyles.bodyTextStyle,
+              ),
+              onTap: () {},
+            );
+          });
+        });
   }
 }
