@@ -1,5 +1,7 @@
+import 'package:dongu_mobile/data/model/store.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/cart_view/not_logged_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,7 @@ class CartView extends StatefulWidget {
 }
 
 List<int> d = [76312, 76319, 76530, 76531];
+Store? restoranTitle;
 
 class _CartViewState extends State<CartView> {
   List<String> menuList = SharedPrefs.getMenuList;
@@ -83,7 +86,7 @@ class _CartViewState extends State<CartView> {
               SizedBox(
                 height: context.dynamicHeight(0.01),
               ),
-              buildRestaurantListTile(context),
+              buildRestaurantListTile(context, state),
               SizedBox(
                 height: context.dynamicHeight(0.04),
               ),
@@ -205,21 +208,30 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  ListTile buildRestaurantListTile(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-      ),
-      trailing: SvgPicture.asset(
-        ImageConstant.COMMONS_FORWARD_ICON,
-      ),
-      tileColor: Colors.white,
-      title: LocaleText(
-        text: "Canım Büfe",
-        style: AppTextStyles.bodyTextStyle,
-      ),
-      onTap: () {},
-    );
+  ListView buildRestaurantListTile(
+      BuildContext context, GenericCompleted state) {
+    return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: state.response.length,
+        itemBuilder: (context, index) {
+          return Builder(builder: (context) {
+            return ListTile(
+              contentPadding: EdgeInsets.only(
+                left: context.dynamicWidht(0.06),
+                right: context.dynamicWidht(0.06),
+              ),
+              trailing: SvgPicture.asset(
+                ImageConstant.COMMONS_FORWARD_ICON,
+              ),
+              tileColor: Colors.white,
+              title: LocaleText(
+                text: "${state.response[index].text_name}",
+                style: AppTextStyles.bodyTextStyle,
+              ),
+              onTap: () {},
+            );
+          });
+        });
   }
 }
