@@ -49,7 +49,7 @@ class OnboardingFirstView extends StatelessWidget {
           Expanded(
             flex: 8,
             child: OnboardingText(
-              text: LocaleKeys.onboardings_first_text_first ,
+              text: LocaleKeys.onboardings_first_text_first,
             ),
           ),
           Spacer(flex: 6),

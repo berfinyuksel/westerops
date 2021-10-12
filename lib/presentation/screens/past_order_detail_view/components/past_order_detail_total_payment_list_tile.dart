@@ -34,7 +34,8 @@ class PastOrderDetailTotalPaymentListTile extends StatelessWidget {
         ),
         child: Text(
           '${withDecimal! ? price!.toStringAsFixed(2) : price!.toStringAsFixed(0)} TL',
-          style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.greenColor),
+          style: AppTextStyles.bodyBoldTextStyle
+              .copyWith(color: AppColors.greenColor),
         ),
       ),
       tileColor: Colors.white,
@@ -42,7 +43,6 @@ class PastOrderDetailTotalPaymentListTile extends StatelessWidget {
         text: title!,
         style: AppTextStyles.myInformationBodyTextStyle,
       ),
-      onTap: () {},
     );
   }
 }

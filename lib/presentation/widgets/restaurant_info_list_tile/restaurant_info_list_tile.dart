@@ -118,11 +118,11 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
         GradeAndLocation(),
         Spacer(flex: 1),
         PackageDelivery(
-          width: context.dynamicWidht(0.08),
-          height: context.dynamicHeight(0.026),
-          image: ImageConstant.COMMONS_GET_IT_ICON,
-          backgroundColor: AppColors.greenColor,
+          width: context.dynamicWidht(0.1),
+          height: context.dynamicHeight(0.03),
+          image: ImageConstant.RESTAURANT_PACKAGE_ICON,
           color: Colors.white,
+          backgroundColor: AppColors.greenColor,
         ),
       ],
     );
@@ -140,7 +140,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
         PacketNumber(
           text: packetNumber,
           width: context.dynamicWidht(0.175),
-          height: context.dynamicHeight(0.026),
+          height: context.dynamicHeight(0.03),
         ),
       ],
     );

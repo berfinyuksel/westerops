@@ -27,7 +27,7 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
         right: context.dynamicWidht(0.06),
       ),
       trailing: Container(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.center,
         width: context.dynamicWidht(0.16),
         height: context.dynamicHeight(0.04),
         decoration: BoxDecoration(
@@ -35,11 +35,14 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
           color: AppColors.scaffoldBackgroundColor,
         ),
         child: Padding(
-          padding: EdgeInsets.only(left:context.dynamicWidht(0.01)),
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.01)),
           child: Text(
             '${withDecimal! ? price!.toStringAsFixed(2) : price!.toStringAsFixed(0)} TL',
-            style: AppTextStyles.bodyBoldTextStyle
-                .copyWith(color: AppColors.greenColor, decoration: lineTrough! ? TextDecoration.lineThrough : TextDecoration.none),
+            style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                color: AppColors.greenColor,
+                decoration: lineTrough!
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none),
           ),
         ),
       ),
@@ -48,7 +51,6 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
         text: title!,
         style: AppTextStyles.bodyTextStyle,
       ),
-      onTap: () {},
     );
   }
 }

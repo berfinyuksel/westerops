@@ -54,7 +54,13 @@ class _PaymentViewsState extends State<PaymentViews>
           buildDeliveryType(context, state),
           buildTabBars(state),
           // Spacer(),
-        tabController!.index != 1 ? SizedBox(height: context.dynamicHeight(0.03) ,): SizedBox(height: context.dynamicHeight(0.06),)  ,
+          tabController!.index != 1
+              ? SizedBox(
+                  height: context.dynamicHeight(0.03),
+                )
+              : SizedBox(
+                  height: context.dynamicHeight(0.06),
+                ),
           Visibility(
               visible: tabController!.index != 2, child: buildButton(context)),
           Visibility(
@@ -277,6 +283,7 @@ class _PaymentViewsState extends State<PaymentViews>
             : MainAxisAlignment.spaceBetween,
         children: [
           buildGetIt(context, state),
+          Spacer(),
           tabController!.index == 0 || tabController!.index == 1
               ? buildPackageDelivery(context, state)
               : SizedBox()
@@ -298,6 +305,7 @@ class _PaymentViewsState extends State<PaymentViews>
         });
       },
       child: Container(
+        padding: EdgeInsets.only(left: context.dynamicWidht(0.02)),
         alignment: Alignment.center,
         height: context.dynamicHeight(0.052),
         width: context.dynamicWidht(0.42),
@@ -327,8 +335,9 @@ class _PaymentViewsState extends State<PaymentViews>
                     height: 28,
                     fit: BoxFit.fill,
                   ),
+                  Spacer(),
                   Padding(
-                    padding: EdgeInsets.only(right: context.dynamicWidht(0.06)),
+                    padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
                     child: LocaleText(
                         text: LocaleKeys.payment_package_delivery,
                         style: AppTextStyles.bodyTextStyle.copyWith(
@@ -358,7 +367,7 @@ class _PaymentViewsState extends State<PaymentViews>
       child: Container(
         alignment: Alignment.center,
         height: context.dynamicHeight(0.052),
-        width: context.dynamicWidht(tabController!.index == 2 ? 0.85 : 0.45),
+        width: context.dynamicWidht(tabController!.index == 2 ? 0.82 : 0.42),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           color: Colors.white,
@@ -481,10 +490,10 @@ class _PaymentViewsState extends State<PaymentViews>
         textColor: Colors.white,
         onPressed: () {
           setState(() {
-            if (tabController!.index ==0) {
-            tabController!.index = 1;
-            }else if(tabController!.index == 1){
-            tabController!.index = 2;
+            if (tabController!.index == 0) {
+              tabController!.index = 1;
+            } else if (tabController!.index == 1) {
+              tabController!.index = 2;
             }
           });
         },

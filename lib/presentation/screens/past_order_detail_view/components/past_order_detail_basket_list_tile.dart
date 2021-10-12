@@ -26,19 +26,17 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
         right: context.dynamicWidht(0.06),
       ),
       trailing: Container(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.center,
         width: context.dynamicWidht(0.16),
         height: context.dynamicHeight(0.04),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
           color: AppColors.scaffoldBackgroundColor,
         ),
-        child: Padding(
-          padding: EdgeInsets.only(left: context.dynamicWidht(0.01)),
-          child: Text(
-            '${withDecimal! ? price!.toStringAsFixed(2) : price!.toStringAsFixed(0)} TL',
-            style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.greenColor),
-          ),
+        child: Text(
+          '${withDecimal! ? price!.toStringAsFixed(2) : price!.toStringAsFixed(0)} TL',
+          style: AppTextStyles.bodyBoldTextStyle
+              .copyWith(color: AppColors.greenColor),
         ),
       ),
       tileColor: Colors.white,
@@ -50,7 +48,6 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
         subTitle!,
         style: AppTextStyles.subTitleStyle,
       ),
-      onTap: () {},
     );
   }
 }

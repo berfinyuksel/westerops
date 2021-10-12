@@ -28,7 +28,6 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
         text: LocaleKeys.payment_delivery_delivery_time,
         style: AppTextStyles.myInformationBodyTextStyle,
       ),
-      onTap: () {},
     );
   }
 }
