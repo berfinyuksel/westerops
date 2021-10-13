@@ -412,7 +412,8 @@
         "kind8": "Drink",
         "kind9": "Dessert",
         "kind10": "Coffee",
-        "cancel_button": "Cancel"
+        "cancel_button": "Cancel",
+        "search_history_clean": "You have no search history"
     },
     "restaurant_detail": {
         "text1": "Packets",

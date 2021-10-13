@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/extensions/context_extension.dart';
@@ -78,18 +79,18 @@ class _SearchViewState extends State<SearchView> {
               visible: visible, child: searchHistoryAndCleanTexts(context)),
           Visibility(visible: visible, child: dividerOne(context)),
           Visibility(visible: visible, child: Spacer(flex: 2)),
-          searchListViewBuilder(),
-          Spacer(flex: 4),
+          items.length == 0 ? emptySearchHistory() : searchListViewBuilder(),
+          Spacer(flex: 15),
           Visibility(visible: visible, child: popularSearchText(context)),
           Visibility(visible: visible, child: dividerSecond(context)),
           Spacer(flex: 4),
           Visibility(visible: visible, child: horizontalListTrend(context)),
-          Spacer(flex: 4),
+          Spacer(flex: 15),
           Visibility(visible: visible, child: categoriesText(context)),
           Visibility(visible: visible, child: dividerThird(context)),
           Spacer(flex: 1),
           Visibility(visible: visible, child: horizontalListCategory(context)),
-          Spacer(flex: 14),
+          Spacer(flex: 10),
         ],
       ),
     );
@@ -247,10 +248,17 @@ class _SearchViewState extends State<SearchView> {
             style: AppTextStyles.bodyTitleStyle,
           ),
           Spacer(),
-          LocaleText(
-            text: LocaleKeys.search_text2,
-            style: AppTextStyles.bodyTitleStyle
-                .copyWith(color: AppColors.orangeColor, fontSize: 12),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                items.clear();
+              });
+            },
+            child: LocaleText(
+              text: LocaleKeys.search_text2,
+              style: AppTextStyles.bodyTitleStyle
+                  .copyWith(color: AppColors.orangeColor, fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -265,7 +273,7 @@ class _SearchViewState extends State<SearchView> {
         ),
         child: CustomSearchBar(
           containerPadding:
-              visible ? context.dynamicWidht(0.85) : context.dynamicWidht(0.70),
+              visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.70),
           onTap: () {
             setState(() {
               visible = !visible;
@@ -293,5 +301,19 @@ class _SearchViewState extends State<SearchView> {
                         .copyWith(color: AppColors.orangeColor, fontSize: 12),
                   )),
         ));
+  }
+
+  emptySearchHistory() {
+    return Container(
+      height: context.dynamicHeight(0.05),
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: LocaleText(
+            text: LocaleKeys.search_search_history_clean,
+            style: AppTextStyles.bodyTextStyle
+                .copyWith(color: AppColors.cursorColor)),
+      ),
+    );
   }
 }

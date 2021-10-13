@@ -413,7 +413,8 @@
         "kind8": "İçecek",
         "kind9": "Tatlı",
         "kind10": "Kahve",
-        "cancel_button": "Vazgeç"
+        "cancel_button": "Vazgeç",
+        "search_history_clean": "Arama geçmişiniz bulunmamaktadır."
     },
     "restaurant_detail": {
         "text1": "Paketler",
