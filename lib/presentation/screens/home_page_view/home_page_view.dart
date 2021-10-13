@@ -57,7 +57,6 @@ class _HomePageViewState extends State<HomePageView> {
         for (int i = 0; i < state.response.length; i++) {
           restaurants.add(state.response[i]);
         }
-
         return Center(child: buildBody(context, restaurants, distances, state));
       } else {
         final error = state as GenericError;

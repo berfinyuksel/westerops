@@ -55,17 +55,9 @@ class _PaymentViewsState extends State<PaymentViews>
           buildTabsContainer(context),
           buildDeliveryType(context, state),
           buildTabBars(state),
-          // Spacer(),
-          tabController!.index != 1
-              ? SizedBox(
-                  height: context.dynamicHeight(0.02),
-                )
-              : SizedBox(
-                  height: context.dynamicHeight(0.04),
-                ),
+          Spacer(),
           Visibility(
               visible: tabController!.index != 2, child: buildButton(context)),
-
           Visibility(
               visible: tabController!.index == 2,
               child: buildBottomCard(context)),
@@ -590,9 +582,8 @@ class _PaymentViewsState extends State<PaymentViews>
 
   Padding buildButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+      padding: EdgeInsets.symmetric(
+        horizontal: context.dynamicWidht(0.06),
       ),
       child: CustomButton(
         width: double.infinity,

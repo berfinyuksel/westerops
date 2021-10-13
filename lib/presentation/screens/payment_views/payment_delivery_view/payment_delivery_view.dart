@@ -22,65 +22,59 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: context.dynamicHeight(0.02),
-      ),
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          DeliveryAvailableTimeListTile(),
-          SizedBox(
-            height: context.dynamicHeight(0.04),
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        DeliveryAvailableTimeListTile(),
+        SizedBox(
+          height: context.dynamicHeight(0.03),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              LocaleText(
+                text: "Bugün - 23 Mart 2021",
+                style: AppTextStyles.bodyTitleStyle,
+              ),
+              SizedBox(
+                height: context.dynamicHeight(0.01),
+              ),
+              Visibility(
+                visible: widget.isGetIt!,
+                child: Column(
+                  children: [
+                    DeliveryCustomButton(
+                      width: double.infinity,
+                      title: "18:00 - 21:00",
+                      color: AppColors.greenColor.withOpacity(0.4),
+                    ),
+                    SizedBox(
+                      height: context.dynamicHeight(0.02),
+                    ),
+                    WarningContainer(
+                      text:
+                          "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
+                    ),
+                    SizedBox(
+                      height: context.dynamicHeight(0.02),
+                    ),
+                  ],
+                ),
+              ),
+              buildAvailableDeliveryTimes(context),
+              /*     SizedBox(
+                height: context.dynamicHeight(0.02),
+              ),
+              WarningContainer(
+                text:
+                    "Belirtilen saat içerisinde \nrestorandan paketinizi 1 saat içinde \nalmadığınız durumda siparişiniz \niptal edilip tekrar satışa sunulacaktır.",
+              ), */
+            ],
           ),
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                LocaleText(
-                  text: "Bugün - 23 Mart 2021",
-                  style: AppTextStyles.bodyTitleStyle,
-                ),
-                SizedBox(
-                  height: context.dynamicHeight(0.01),
-                ),
-                Visibility(
-                  visible: widget.isGetIt!,
-                  child: Column(
-                    children: [
-                      DeliveryCustomButton(
-                        width: double.infinity,
-                        title: "18:00 - 21:00",
-                        color: AppColors.greenColor.withOpacity(0.4),
-                      ),
-                      SizedBox(
-                        height: context.dynamicHeight(0.02),
-                      ),
-                      WarningContainer(
-                        text:
-                            "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
-                      ),
-                      SizedBox(
-                        height: context.dynamicHeight(0.02),
-                      ),
-                    ],
-                  ),
-                ),
-                buildAvailableDeliveryTimes(context),
-                /*     SizedBox(
-                  height: context.dynamicHeight(0.02),
-                ),
-                WarningContainer(
-                  text:
-                      "Belirtilen saat içerisinde \nrestorandan paketinizi 1 saat içinde \nalmadığınız durumda siparişiniz \niptal edilip tekrar satışa sunulacaktır.",
-                ), */
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
