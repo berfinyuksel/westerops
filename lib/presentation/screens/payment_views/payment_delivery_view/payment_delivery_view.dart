@@ -34,7 +34,8 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
             height: context.dynamicHeight(0.04),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -58,7 +59,8 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                         height: context.dynamicHeight(0.02),
                       ),
                       WarningContainer(
-                        text: "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
+                        text:
+                            "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
                       ),
                       SizedBox(
                         height: context.dynamicHeight(0.02),
@@ -67,13 +69,13 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                   ),
                 ),
                 buildAvailableDeliveryTimes(context),
-                SizedBox(
+                /*     SizedBox(
                   height: context.dynamicHeight(0.02),
                 ),
                 WarningContainer(
                   text:
                       "Belirtilen saat içerisinde \nrestorandan paketinizi 1 saat içinde \nalmadığınız durumda siparişiniz \niptal edilip tekrar satışa sunulacaktır.",
-                ),
+                ), */
               ],
             ),
           ),
@@ -89,7 +91,8 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
         shrinkWrap: true,
         crossAxisSpacing: context.dynamicWidht(0.046),
         mainAxisSpacing: context.dynamicHeight(0.02),
-        childAspectRatio: context.dynamicWidht(0.4) / context.dynamicHeight(0.05),
+        childAspectRatio:
+            context.dynamicWidht(0.4) / context.dynamicHeight(0.05),
         crossAxisCount: 2,
         physics: NeverScrollableScrollPhysics(),
         children: buildDeliveryButtons(context),
@@ -106,8 +109,11 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
       buttons.add(
         DeliveryCustomButton(
           width: context.dynamicWidht(0.4),
-          title: "$hourLeft:${i % 2 == 1 ? "30" : "00"} - $hourRight:${i % 2 == 1 ? "00" : "30"}",
-          color: selectedIndex == i ? AppColors.greenColor.withOpacity(0.4) : Color(0xFFE4E4E4).withOpacity(0.7),
+          title:
+              "$hourLeft:${i % 2 == 1 ? "30" : "00"} - $hourRight:${i % 2 == 1 ? "00" : "30"}",
+          color: selectedIndex == i
+              ? AppColors.greenColor.withOpacity(0.4)
+              : Color(0xFFE4E4E4).withOpacity(0.7),
           onPressed: () {
             setState(() {
               selectedIndex = i;

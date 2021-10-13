@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../logic/cubits/payment_cubit/payment_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
@@ -48,7 +49,8 @@ class _PaymentViewsState extends State<PaymentViews>
         top: context.dynamicHeight(0.02),
         bottom: tabController!.index == 2 ? 0 : context.dynamicHeight(0.04),
       ),
-      child: ListView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildTabsContainer(context),
           buildDeliveryType(context, state),
@@ -56,13 +58,14 @@ class _PaymentViewsState extends State<PaymentViews>
           // Spacer(),
           tabController!.index != 1
               ? SizedBox(
-                  height: context.dynamicHeight(0.03),
+                  height: context.dynamicHeight(0.02),
                 )
               : SizedBox(
-                  height: context.dynamicHeight(0.06),
+                  height: context.dynamicHeight(0.04),
                 ),
           Visibility(
               visible: tabController!.index != 2, child: buildButton(context)),
+
           Visibility(
               visible: tabController!.index == 2,
               child: buildBottomCard(context)),
@@ -71,58 +74,165 @@ class _PaymentViewsState extends State<PaymentViews>
     );
   }
 
-  Container buildBottomCard(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: context.dynamicHeight(0.29),
-      padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06),
-          right: context.dynamicWidht(0.06),
-          top: context.dynamicHeight(0.01),
-          bottom: context.dynamicHeight(0.04)),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(18.0),
+  GestureDetector buildBottomCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () => showConfirmationBottomSheet(context),
+      child: Container(
+        width: double.infinity,
+        height: context.dynamicHeight(0.17),
+        padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+            right: context.dynamicWidht(0.06),
+            top: context.dynamicHeight(0.01),
+            bottom: context.dynamicHeight(0.04)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(18.0),
+          ),
+          color: Colors.white,
         ),
-        color: Colors.white,
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              LocaleText(
-                  text: LocaleKeys.payment_payment_order_amount,
-                  style: AppTextStyles.bodyTextStyle),
-              PaymentTotalPrice(
-                price: 70.50,
-                withDecimal: true,
+        child: Column(
+          children: [
+            Container(
+              height: 3,
+              width: context.dynamicWidht(0.15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(1.5),
+                color: Color(0xFF707070),
               ),
-            ],
-          ),
-          Divider(
-            height: context.dynamicHeight(0.01),
-            thickness: 2,
-            color: AppColors.borderAndDividerColor,
-          ),
-          Spacer(flex: 5),
-          buildRowCheckBoxAgreement(context, "Ön Bilgilendirme Koşulları",
-              "’nı okudum, onaylıyorum.", "info"),
-          Spacer(flex: 4),
-          buildRowCheckBoxAgreement(context, "Mesafeli Satış Sözleşmesi",
-              "’nı okudum, onaylıyorum.", "agreement"),
-          Spacer(flex: 9),
-          buildRowTotalPayment(context),
-        ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                LocaleText(
+                    text: LocaleKeys.payment_payment_order_amount,
+                    style: AppTextStyles.bodyTextStyle),
+                PaymentTotalPrice(
+                  price: 70.50,
+                  withDecimal: true,
+                ),
+              ],
+            ),
+            Divider(
+              height: context.dynamicHeight(0.01),
+              thickness: 2,
+              color: AppColors.borderAndDividerColor,
+            ),
+            Spacer(),
+            Row(
+              children: [
+                Container(
+                  height: context.dynamicHeight(0.052),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: LocaleText(
+                          text: LocaleKeys.payment_payment_to_be_paid,
+                          style: AppTextStyles.myInformationBodyTextStyle,
+                          maxLines: 1,
+                        ),
+                      ),
+                      Expanded(
+                        child: LocaleText(
+                          text: '70,50 TL',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 18.0,
+                            color: AppColors.greenColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Spacer(),
+                CustomButton(
+                  width: context.dynamicWidht(0.5),
+                  title: LocaleKeys.payment_payment_pay,
+                  color: checkboxAgreementValue && checkboxInfoValue
+                      ? AppColors.greenColor
+                      : AppColors.disabledButtonColor,
+                  textColor: Colors.white,
+                  borderColor: checkboxAgreementValue && checkboxInfoValue
+                      ? AppColors.greenColor
+                      : AppColors.disabledButtonColor,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
+  Future<dynamic> showConfirmationBottomSheet(BuildContext context) {
+    return showMaterialModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (BuildContext builder) {
+          return StatefulBuilder(builder: (context, StateSetter myState) {
+            return Container(
+              height: context.dynamicHeight(0.2),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(18.0),
+                ),
+                color: Colors.white,
+              ),
+              child: Column(
+                children: [
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Container(
+                    height: 3,
+                    width: context.dynamicWidht(0.3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(1.5),
+                      color: Color(0xFF707070),
+                    ),
+                  ),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  buildRowCheckBoxAgreement(
+                      context,
+                      "Ön Bilgilendirme Koşulları",
+                      "’nı okudum, onaylıyorum.",
+                      "info",
+                      myState),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  buildRowCheckBoxAgreement(
+                      context,
+                      "Mesafeli Satış Sözleşmesi",
+                      "’nı okudum, onaylıyorum.",
+                      "agreement",
+                      myState),
+                  Spacer(
+                    flex: 4,
+                  ),
+                  buildRowTotalPayment(context),
+                  Spacer(
+                    flex: 4,
+                  ),
+                ],
+              ),
+            );
+          });
+        });
+  }
+
   Row buildRowCheckBoxAgreement(BuildContext context, String underlinedText,
-      String text, String checkValue) {
+      String text, String checkValue, StateSetter myState) {
     return Row(
       children: [
-        buildCheckBox(context, checkValue),
+        buildCheckBox(context, checkValue, myState),
         Spacer(flex: 1),
         AcceptAgreementText(
           underlinedText: underlinedText,
@@ -134,7 +244,8 @@ class _PaymentViewsState extends State<PaymentViews>
     );
   }
 
-  Container buildCheckBox(BuildContext context, String checkValue) {
+  Container buildCheckBox(
+      BuildContext context, String checkValue, StateSetter myState) {
     return Container(
       height: context.dynamicWidht(0.04),
       width: context.dynamicWidht(0.04),
@@ -155,6 +266,7 @@ class _PaymentViewsState extends State<PaymentViews>
                   ? checkboxAgreementValue
                   : checkboxAddCardValue,
           onChanged: (value) {
+            myState(() {});
             setState(() {
               if (checkValue == "info") {
                 checkboxInfoValue = value!;
@@ -227,7 +339,7 @@ class _PaymentViewsState extends State<PaymentViews>
       padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
       child: Row(
         children: [
-          buildCheckBox(context, "card"),
+          //buildCheckBox(context, "card", myState),
           SizedBox(width: context.dynamicWidht(0.02)),
           LocaleText(
             text: LocaleKeys.payment_payment_add_to_registered_cards,

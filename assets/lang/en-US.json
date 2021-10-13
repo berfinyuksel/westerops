@@ -293,7 +293,7 @@
         "delivery_address": "Delivery Address",
         "show_on_map": "Show on Map",
         "button_1": "My Past Orders",
-        "button_2": "Continue to Save Our World"
+        "button_2": "Home"
     },
     "order_delivered": {
         "headline_text": "Thanks for\nhelping us\nprotect the world!",

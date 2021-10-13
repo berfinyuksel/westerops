@@ -30,7 +30,6 @@ class GetItAddressListTile extends StatelessWidget {
         address!,
         style: AppTextStyles.subTitleStyle,
       ),
-      onTap: () {},
     );
   }
 }

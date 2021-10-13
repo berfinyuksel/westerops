@@ -1,5 +1,3 @@
-
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -44,7 +42,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.4),
+      height: context.dynamicHeight(0.48),
       child: ListView(
         children: [
           SizedBox(
@@ -82,21 +80,28 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        buildCashOrCreditListTile(context, LocaleKeys.payment_payment_cash, "cash"),
-        buildCashOrCreditListTile(context, LocaleKeys.payment_payment_credit, "credit"),
+        buildCashOrCreditListTile(
+            context, LocaleKeys.payment_payment_cash, "cash"),
+        buildCashOrCreditListTile(
+            context, LocaleKeys.payment_payment_credit, "credit"),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        WarningContainer(text: "Ödeme şekliniz sipariş teslimatı\nesnasında kapıda değiştirilemez."),
+        WarningContainer(
+            text:
+                "Ödeme şekliniz sipariş teslimatı\nesnasında kapıda değiştirilemez."),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        WarningContainer(text: "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız."),
+        WarningContainer(
+            text:
+                "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız."),
       ],
     );
   }
 
-  ListTile buildCashOrCreditListTile(BuildContext context, String text, String cashOrCredit) {
+  ListTile buildCashOrCreditListTile(
+      BuildContext context, String text, String cashOrCredit) {
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -107,7 +112,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         text: text,
         style: AppTextStyles.myInformationBodyTextStyle,
       ),
-      trailing: selectedCashOrCredit == cashOrCredit ? SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_TICK) : null,
+      trailing: selectedCashOrCredit == cashOrCredit
+          ? SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_TICK)
+          : null,
       onTap: () {
         setState(() {
           selectedCashOrCredit = cashOrCredit;
@@ -122,7 +129,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       children: [
         buildBodyTitle(
           context,
-          payWithAnotherCard ? LocaleKeys.payment_payment_pay_another_card : LocaleKeys.payment_payment_choose_card,
+          payWithAnotherCard
+              ? LocaleKeys.payment_payment_pay_another_card
+              : LocaleKeys.payment_payment_choose_card,
         ),
         SizedBox(
           height: context.dynamicHeight(0.01),
@@ -147,7 +156,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
                 visible: checkboxAddCardValue,
                 child: Column(
                   children: [
-                    buildTextFormField(LocaleKeys.payment_payment_name_card, cardNameController),
+                    buildTextFormField(LocaleKeys.payment_payment_name_card,
+                        cardNameController),
                     SizedBox(
                       height: context.dynamicHeight(0.02),
                     ),
@@ -161,25 +171,30 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
             ],
           ),
         ),
-       payWithAnotherCard ? Padding(
-         padding: EdgeInsets.symmetric(
-                   
-                    vertical: context.dynamicHeight(0.01)),
-         child: Row(
-           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-           children: [
-             SvgPicture.asset(ImageConstant.IYZICO_LOGO),
-             Text(
-                       "Ödeme sistemimiz iyzico tarafından \nSağlanmaktadır ve işlem güvenliğiniz\nİyzico güvencesi altındadır.", style: AppTextStyles.subTitleStyle,),
-                
-           ],
-         ),
-       ) : Padding(
+        payWithAnotherCard
+            ? Padding(
+                padding:
+                    EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SvgPicture.asset(ImageConstant.IYZICO_LOGO),
+                    Text(
+                      "Ödeme sistemimiz iyzico tarafından \nSağlanmaktadır ve işlem güvenliğiniz\nİyzico güvencesi altındadır.",
+                      style: AppTextStyles.subTitleStyle,
+                    ),
+                  ],
+                ),
+              )
+            : Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: context.dynamicWidht(0.065),
                     vertical: context.dynamicHeight(0.02)),
                 child: SvgPicture.asset(ImageConstant.CARDS_COMPANY),
-              )  ,
+              ),
+        SizedBox(
+          height: context.dynamicHeight(0.03),
+        ),
         buildAnotherCardButton(context),
       ],
     );
@@ -204,11 +219,13 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   Column buildPayWithAnotherCard(BuildContext context) {
     return Column(
       children: [
-        buildTextFormField(LocaleKeys.payment_payment_name_on_card.locale, nameController),
+        buildTextFormField(
+            LocaleKeys.payment_payment_name_on_card.locale, nameController),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        buildTextFormField(LocaleKeys.payment_payment_card_number.locale, cardController),
+        buildTextFormField(
+            LocaleKeys.payment_payment_card_number.locale, cardController),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
@@ -230,7 +247,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  Container buildDropDown(BuildContext context, String dropdownValue, List<String> items) {
+  Container buildDropDown(
+      BuildContext context, String dropdownValue, List<String> items) {
     return Container(
       height: context.dynamicHeight(0.06),
       width: context.dynamicWidht(0.22),
@@ -245,7 +263,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       ),
       child: DropdownButton<String>(
         underline: Text(""),
-        value: dropdownValue == dropdownMonthValue ? dropdownMonthValue : dropdownYearValue,
+        value: dropdownValue == dropdownMonthValue
+            ? dropdownMonthValue
+            : dropdownYearValue,
         icon: Padding(
           padding: EdgeInsets.only(left: context.dynamicWidht(0.04)),
           child: const Icon(Icons.keyboard_arrow_down),
@@ -275,14 +295,16 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  Padding buildTextFormField(String labelText, TextEditingController controller) {
+  Padding buildTextFormField(
+      String labelText, TextEditingController controller) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
       child: Container(
         color: Colors.white,
         child: TextFormField(
           cursorColor: AppColors.cursorColor,
-          style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+          style:
+              AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
           controller: controller,
           decoration: InputDecoration(
             labelText: labelText,
@@ -314,7 +336,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         controller: cvvController,
         decoration: InputDecoration(
           suffixIcon: Container(
-            padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+            padding:
+                EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
             child: SvgPicture.asset(
               ImageConstant.PAYMENT_CVV_ICON,
             ),
@@ -322,11 +345,13 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           hintText: "CVV/CV2 ",
           hintStyle: AppTextStyles.bodyTextStyle,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
             borderRadius: BorderRadius.circular(4.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
             borderRadius: BorderRadius.circular(4.0),
           ),
           border: OutlineInputBorder(
@@ -340,12 +365,15 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
   buildCards() {
     List<Widget> cards = [];
-    cards.add(buildCardListTile(cards, "İş Bankası Kartım", "492134******3434", cards.length));
-    cards.add(buildCardListTile(cards, "Garanti Bankası Kartım", "492134******3434", cards.length));
+    cards.add(buildCardListTile(
+        cards, "İş Bankası Kartım", "492134******3434", cards.length));
+    cards.add(buildCardListTile(
+        cards, "Garanti Bankası Kartım", "492134******3434", cards.length));
     return cards;
   }
 
-  ListTile buildCardListTile(List<Widget> cards, String text, String cardNumber, int index) {
+  ListTile buildCardListTile(
+      List<Widget> cards, String text, String cardNumber, int index) {
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -360,7 +388,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         cardNumber,
         style: AppTextStyles.myInformationBodyTextStyle,
       ),
-      trailing: selectedIndex == cards.length ? SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_TICK) : null,
+      trailing: selectedIndex == cards.length
+          ? SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_TICK)
+          : null,
       onTap: () {
         setState(() {
           selectedIndex = index;
@@ -377,7 +407,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       ),
       child: CustomButton(
         width: double.infinity,
-        title: payWithAnotherCard ? LocaleKeys.payment_payment_cancel : LocaleKeys.payment_payment_pay_another_card,
+        title: payWithAnotherCard
+            ? LocaleKeys.payment_payment_cancel
+            : LocaleKeys.payment_payment_pay_another_card,
         color: Colors.transparent,
         borderColor: AppColors.greenColor,
         textColor: AppColors.greenColor,

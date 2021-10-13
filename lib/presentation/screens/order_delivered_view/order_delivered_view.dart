@@ -34,7 +34,9 @@ class OrderDeliveredView extends StatelessWidget {
                 Spacer(flex: 72),
                 LocaleText(
                   text: LocaleKeys.order_received_headline,
-                  style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w400, color: AppColors.orangeColor),
+                  style: AppTextStyles.appBarTitleStyle.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.orangeColor),
                   alignment: TextAlign.center,
                 ),
                 buildOrderNumber(),
@@ -56,7 +58,10 @@ class OrderDeliveredView extends StatelessWidget {
                 ),
                 Spacer(flex: 29),
                 Padding(
-                  padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06), bottom: context.dynamicHeight(0.04)),
+                  padding: EdgeInsets.only(
+                      left: context.dynamicWidht(0.06),
+                      right: context.dynamicWidht(0.06),
+                      bottom: context.dynamicHeight(0.04)),
                   child: CustomButton(
                     width: double.infinity,
                     title: LocaleKeys.order_delivered_button,
