@@ -67,7 +67,7 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
                 child: Container(
                   padding: EdgeInsets.only(top: context.dynamicHeight(0.011)),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
