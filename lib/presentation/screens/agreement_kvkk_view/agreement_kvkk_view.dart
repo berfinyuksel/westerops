@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/extensions/context_extension.dart';
@@ -8,6 +9,7 @@ import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import '../agreement_view/components/accept_agreement_text.dart';
 import 'components/agreement_scrollbar_listview.dart';
+import '../../../utils/extensions/string_extension.dart';
 
 class AgreementKvkkView extends StatefulWidget {
   @override
@@ -43,8 +45,9 @@ class _AgreementKvkkViewState extends State<AgreementKvkkView> {
                 buildCheckBox(context),
                 Spacer(flex: 1),
                 AcceptAgreementText(
-                  underlinedText: "Sözleşme",
-                  text: "yi okudum, onaylıyorum",
+                  underlinedText:
+                      LocaleKeys.agreement_kvkk_underlined_text.locale,
+                  text: LocaleKeys.agreement_kvkk_text.locale,
                 ),
                 Spacer(flex: 5),
               ],
@@ -52,7 +55,7 @@ class _AgreementKvkkViewState extends State<AgreementKvkkView> {
             Spacer(flex: 63),
             CustomButton(
               width: context.dynamicWidht(0.86),
-              title: "Onaylıyorum",
+              title: LocaleKeys.agreement_kvkk_confirmation_button,
               color: AppColors.greenColor,
               borderColor: AppColors.greenColor,
               textColor: Colors.white,

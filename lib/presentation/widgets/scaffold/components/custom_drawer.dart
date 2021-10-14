@@ -16,7 +16,9 @@ import 'drawer_list_tile.dart';
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
     Key? key,
-  }) : super(key: key,);
+  }) : super(
+          key: key,
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class CustomDrawer extends StatelessWidget {
       child: Drawer(
         child: CustomScaffold(
           isDrawer: true,
-          title:  LocaleKeys.custom_drawer_title,
+          title: LocaleKeys.custom_drawer_title,
           body: ListView(
             padding: EdgeInsets.only(bottom: context.dynamicHeight(0.05)),
             children: <Widget>[
@@ -148,7 +150,7 @@ class CustomDrawer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
       child: CustomButton(
         width: double.infinity,
-        title: "Çıkış Yap",
+        title: LocaleKeys.custom_drawer_log_out_button,
         color: Colors.transparent,
         borderColor: AppColors.greenColor,
         textColor: AppColors.greenColor,

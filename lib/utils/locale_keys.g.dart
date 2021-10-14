@@ -97,6 +97,7 @@ abstract class  LocaleKeys {
   static const custom_drawer_body_list_tile_about_app = 'custom_drawer.body_list_tile_about_app';
   static const custom_drawer_body_list_tile_about_food_waste = 'custom_drawer.body_list_tile_about_food_waste';
   static const custom_drawer_filter_page_tile = 'custom_drawer.filter_page_tile';
+  static const custom_drawer_log_out_button = 'custom_drawer.log_out_button';
   static const custom_drawer = 'custom_drawer';
   static const inform_title = 'inform.title';
   static const inform_body_title_1 = 'inform.body_title_1';
@@ -140,6 +141,10 @@ abstract class  LocaleKeys {
   static const address_title = 'address.title';
   static const address_body_title = 'address.body_title';
   static const address_button = 'address.button';
+  static const address_text_1 = 'address.text_1';
+  static const address_text_2 = 'address.text_2';
+  static const address_text_3 = 'address.text_3';
+  static const address_text_4 = 'address.text_4';
   static const address = 'address';
   static const language_settings_title = 'language_settings.title';
   static const language_settings = 'language_settings';
@@ -269,12 +274,22 @@ abstract class  LocaleKeys {
   static const delete_account_title = 'delete_account.title';
   static const delete_account_text_1 = 'delete_account.text_1';
   static const delete_account_text_2 = 'delete_account.text_2';
+  static const delete_account_text_3 = 'delete_account.text_3';
+  static const delete_account_text_4 = 'delete_account.text_4';
+  static const delete_account_text_5 = 'delete_account.text_5';
+  static const delete_account_text_6 = 'delete_account.text_6';
+  static const delete_account_text_7 = 'delete_account.text_7';
   static const delete_account_button = 'delete_account.button';
   static const delete_account_hint_text = 'delete_account.hint_text';
   static const delete_account = 'delete_account';
   static const freeze_account_title = 'freeze_account.title';
   static const freeze_account_text_1 = 'freeze_account.text_1';
   static const freeze_account_text_2 = 'freeze_account.text_2';
+  static const freeze_account_text_3 = 'freeze_account.text_3';
+  static const freeze_account_text_4 = 'freeze_account.text_4';
+  static const freeze_account_text_5 = 'freeze_account.text_5';
+  static const freeze_account_text_6 = 'freeze_account.text_6';
+  static const freeze_account_text_7 = 'freeze_account.text_7';
   static const freeze_account_button = 'freeze_account.button';
   static const freeze_account_hint_text = 'freeze_account.hint_text';
   static const freeze_account = 'freeze_account';
@@ -435,5 +450,9 @@ abstract class  LocaleKeys {
   static const swipe_totalAmount = 'swipe.totalAmount';
   static const swipe_price = 'swipe.price';
   static const swipe = 'swipe';
+  static const agreement_kvkk_confirmation_button = 'agreement_kvkk.confirmation_button';
+  static const agreement_kvkk_underlined_text = 'agreement_kvkk.underlined_text';
+  static const agreement_kvkk_text = 'agreement_kvkk.text';
+  static const agreement_kvkk = 'agreement_kvkk';
 
 }

@@ -171,12 +171,11 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           height: context.dynamicHeight(0.04),
         ),
         buildButton(
-          context,
-          LocaleKeys.order_received_button_1,
-          Colors.transparent,
-          AppColors.greenColor,
-          () {},
-        ),
+            context,
+            LocaleKeys.order_received_button_1,
+            Colors.transparent,
+            AppColors.greenColor,
+            () => Navigator.pushNamed(context, RouteConstant.PAST_ORDER_VIEW)),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),

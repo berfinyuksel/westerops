@@ -107,11 +107,11 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
   buildRadioButtons(BuildContext context) {
     List<Widget> buttons = [];
     List<String> des = [
-      "Uygulamadan memnun kalmadım.",
-      "İşletmelerle sorun yaşadım",
-      "Ürün çeşitliliğini yetersiz buldum",
-      "İşletme çeşitliliğini yetersiz buldum",
-      "Ödeme yöntemi bana uygun değil."
+      LocaleKeys.delete_account_text_3,
+      LocaleKeys.delete_account_text_4,
+      LocaleKeys.delete_account_text_5,
+      LocaleKeys.delete_account_text_6,
+      LocaleKeys.delete_account_text_7,
     ];
 
     for (int i = 0; i < 5; i++) {
