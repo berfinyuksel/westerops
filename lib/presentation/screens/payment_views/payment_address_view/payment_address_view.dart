@@ -31,8 +31,14 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
           SizedBox(
             height: context.dynamicHeight(0.04),
           ),
-          buildRowTitleLeftRight(context, widget.isGetIt! ? LocaleKeys.payment_address_from_address : LocaleKeys.payment_address_to_address,
-              widget.isGetIt! ? LocaleKeys.payment_address_show_on_map : LocaleKeys.payment_address_change),
+          buildRowTitleLeftRight(
+              context,
+              widget.isGetIt!
+                  ? LocaleKeys.payment_address_from_address
+                  : LocaleKeys.payment_address_to_address,
+              widget.isGetIt!
+                  ? LocaleKeys.payment_address_show_on_map
+                  : LocaleKeys.payment_address_change),
           SizedBox(
             height: context.dynamicHeight(0.01),
           ),
@@ -49,19 +55,21 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
               AddressListTile(
                 title: "Ev",
                 subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)",
-                subtitle: "\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n",
+                subtitle:
+                    "\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n",
               ),
               SizedBox(
                 height: context.dynamicHeight(0.02),
               ),
-              buildButtonDeliveryAndBillingAddress(context, LocaleKeys.payment_address_button_add_address),
+              buildButtonDeliveryAndBillingAddress(
+                  context, LocaleKeys.payment_address_button_add_address),
               SizedBox(
                 height: context.dynamicHeight(0.02),
               ),
               buildRowCheckBox(context),
             ]),
           ),
-          SizedBox(
+/*           SizedBox(
             height: context.dynamicHeight(0.04),
           ),
           buildRowTitleLeftRight(context, LocaleKeys.payment_address_billing_info, LocaleKeys.payment_address_change),
@@ -79,7 +87,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
           buildButtonDeliveryAndBillingAddress(context, LocaleKeys.payment_address_button_add_bill),
              SizedBox(
             height: context.dynamicHeight(0.02),
-          ),
+          ), */
         ],
       ),
     );
@@ -101,7 +109,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
     );
   }
 
-  Padding buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
+  Padding buildRowTitleLeftRight(
+      BuildContext context, String titleLeft, String titleRight) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -131,7 +140,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
     );
   }
 
-  Padding buildButtonDeliveryAndBillingAddress(BuildContext context, String title) {
+  Padding buildButtonDeliveryAndBillingAddress(
+      BuildContext context, String title) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -143,8 +153,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
         color: Colors.transparent,
         borderColor: AppColors.greenColor,
         textColor: AppColors.greenColor,
-        onPressed: () {
-        },
+        onPressed: () {},
       ),
     );
   }

@@ -1,9 +1,16 @@
 import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/services/location_service.dart';
+import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -26,6 +33,18 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   int hour = 1;
   int minute = 51;
   int second = 30;
+  bool isShowOnMap = false;
+  bool isShowBottomInfo = false;
+
+  double latitude = 0;
+  double longitude = 0;
+  late Completer<GoogleMapController> _mapController;
+  Map<MarkerId, Marker> markers = Map<MarkerId, Marker>();
+  late BitmapDescriptor markerIcon;
+  late BitmapDescriptor restaurantMarkerIcon;
+  late BitmapDescriptor restaurantSoldoutMarkerIcon;
+  final MarkerId markerId = MarkerId("my_location");
+  final MarkerId restaurantMarkerId = MarkerId("rest_1");
 
   @override
   void initState() {
@@ -71,24 +90,103 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         buildRowTitleLeftRight(
             context,
             LocaleKeys.order_received_delivery_address,
-            LocaleKeys.order_received_show_on_map),
+            isShowOnMap
+                ? LocaleKeys.order_received_order_summary
+                : LocaleKeys.order_received_show_on_map),
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        GetItAddressListTile(
-          restaurantName: "Canım Büfe", 
-          address: "Kuruçeşme, Muallim Cad., No:18 Beşiktaş/İstanbul",
+        Visibility(
+          visible: !isShowOnMap,
+          child: GetItAddressListTile(
+            restaurantName: "Canım Büfe",
+            address: "Kuruçeşme, Muallim Cad., No:18 Beşiktaş/İstanbul",
+          ),
+        ),
+        Visibility(
+          visible: isShowOnMap,
+          child: Expanded(
+            child: Container(
+              height: context.dynamicHeight(0.54),
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  Stack(
+                    alignment: Alignment(0.81, 0.88),
+                    children: [
+                      GoogleMap(
+                        myLocationButtonEnabled: false,
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(latitude, longitude),
+                          zoom: 17.0,
+                        ),
+                        onMapCreated: (GoogleMapController controller) {
+                          _mapController.complete(controller);
+                        },
+                        mapType: MapType.normal,
+                        markers: Set<Marker>.of(markers.values),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          final GoogleMapController controller =
+                              await _mapController.future;
+                          setState(() {
+                            latitude = LocationService.latitude!;
+                            longitude = LocationService.longitude!;
+
+                            controller
+                                .animateCamera(CameraUpdate.newCameraPosition(
+                              CameraPosition(
+                                target: LatLng(latitude, longitude),
+                                zoom: 17.0,
+                              ),
+                            ));
+                          });
+                        },
+                        child: SvgPicture.asset(
+                            ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                      ),
+                      Visibility(
+                          visible: isShowBottomInfo,
+                          child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isShowBottomInfo = false;
+                                });
+                              },
+                              child: Container(
+                                  color: Colors.black.withOpacity(0.2)))),
+                    ],
+                  ),
+                  Visibility(
+                    visible: isShowBottomInfo,
+                    child: buildBottomInfo(context),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
         SizedBox(
           height: context.dynamicHeight(0.04),
         ),
-        buildButton(context, LocaleKeys.order_received_button_1,
-            Colors.transparent, AppColors.greenColor),
+        buildButton(
+          context,
+          LocaleKeys.order_received_button_1,
+          Colors.transparent,
+          AppColors.greenColor,
+          () {},
+        ),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        buildButton(context, LocaleKeys.order_received_button_2,
-            AppColors.greenColor, Colors.white),
+        buildButton(
+          context,
+          LocaleKeys.order_received_button_2,
+          AppColors.greenColor,
+          Colors.white,
+          () => Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
+        ),
         SizedBox(
           height: context.dynamicHeight(0.06),
         ),
@@ -167,8 +265,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     );
   }
 
-  Padding buildButton(
-      BuildContext context, String title, Color color, Color textColor) {
+  Padding buildButton(BuildContext context, String title, Color color,
+      Color textColor, VoidCallback onPressedd) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -180,7 +278,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         color: color,
         borderColor: AppColors.greenColor,
         textColor: textColor,
-        onPressed: () {},
+        onPressed: onPressedd,
       ),
     );
   }
@@ -201,7 +299,13 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             style: AppTextStyles.bodyTitleStyle,
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              setState(() {
+                isShowOnMap = !isShowOnMap;
+                _mapController = Completer<GoogleMapController>();
+                setCustomMarker();
+              });
+            },
             child: LocaleText(
               text: titleRight,
               style: GoogleFonts.montserrat(
@@ -221,11 +325,123 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       shadowColor: Colors.transparent,
       leading: IconButton(
         icon: SvgPicture.asset(ImageConstant.COMMONS_CLOSE_ICON),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () =>
+            Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
       ),
       title: SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
       centerTitle: true,
     );
+  }
+
+  void setCustomMarker() async {
+    markerIcon =
+        await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
+    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_MARKER);
+    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
+    getLocation();
+  }
+
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
+      String assetName) async {
+    // Read SVG file as String
+    String svgString =
+        await DefaultAssetBundle.of(context).loadString(assetName);
+    // Create DrawableRoot from SVG String
+    DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
+
+    // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
+    MediaQueryData queryData = MediaQuery.of(context);
+    double devicePixelRatio = queryData.devicePixelRatio;
+    double width =
+        64 * devicePixelRatio; // where 32 is your SVG's original width
+    double height = 64 * devicePixelRatio; // same thing
+
+    // Convert to ui.Picture
+    ui.Picture picture = svgDrawableRoot.toPicture(size: Size(width, height));
+
+    // Convert to ui.Image. toImage() takes width and height as parameters
+    // you need to find the best size to suit your needs and take into account the
+    // screen DPI
+    ui.Image image = await picture.toImage(width.toInt(), height.toInt());
+    ByteData? bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    return BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
+  }
+
+  Future<void> getLocation() async {
+    await LocationService.getCurrentLocation();
+    final GoogleMapController controller = await _mapController.future;
+    setState(() {
+      latitude = LocationService.latitude!;
+      longitude = LocationService.longitude!;
+
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(latitude, longitude),
+          zoom: 17.0,
+        ),
+      ));
+      final Marker marker = Marker(
+        onTap: () {
+          setState(() {
+            isShowBottomInfo = false;
+          });
+        },
+        infoWindow: InfoWindow(title: "Benim Konumum"),
+        icon: markerIcon,
+        markerId: markerId,
+        position: LatLng(latitude, longitude),
+      );
+      markers[markerId] = marker;
+      for (int i = 1; i < 3; i++) {
+        Marker restMarker = Marker(
+          onTap: () {
+            setState(() {
+              isShowBottomInfo = !isShowBottomInfo;
+            });
+          },
+          icon: restaurantMarkerIcon,
+          markerId: MarkerId("rest_$i"),
+          position: LatLng(latitude + i * 0.0005, longitude + i * 0.0005),
+        );
+        markers[MarkerId("rest_$i")] = restMarker;
+      }
+      for (int i = 1; i < 3; i++) {
+        Marker restMarker = Marker(
+          onTap: () {
+            setState(() {
+              isShowBottomInfo = !isShowBottomInfo;
+            });
+          },
+          icon: restaurantSoldoutMarkerIcon,
+          markerId: MarkerId("rest_${3 + i}"),
+          position: LatLng(latitude - i * 0.0005, longitude - i * 0.0005),
+        );
+        markers[MarkerId("rest_${3 + i}")] = restMarker;
+      }
+    });
+  }
+
+  Positioned buildBottomInfo(
+    BuildContext context,
+  ) {
+    return Positioned(
+        right: 0,
+        left: 0,
+        bottom: 0,
+        child: Container(
+          width: double.infinity,
+          height: context.dynamicHeight(0.176),
+          padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+          color: Colors.white,
+          child: RestaurantInfoListTile(
+            restaurantName: "Mini Burger",
+            distance: "74m",
+            packetNumber: "4 paket",
+            availableTime: "18:00-21:00",
+          ),
+        ));
   }
 
   void startTimer() {

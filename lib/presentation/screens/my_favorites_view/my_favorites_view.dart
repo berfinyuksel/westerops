@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -181,7 +182,11 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             children: [
               buildSearchBar(context),
               Spacer(),
-              SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+                  },
+                  child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON)),
             ],
           ),
           SizedBox(height: context.dynamicHeight(0.03)),

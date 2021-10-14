@@ -71,7 +71,8 @@ class OnboardingView extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: AutoSizeText.rich(
         TextSpan(
-          style: AppTextStyles.headlineStyle.copyWith(color: AppColors.textColor),
+          style:
+              AppTextStyles.headlineStyle.copyWith(color: AppColors.textColor),
           children: [
             TextSpan(
               text: LocaleKeys.onboardings_onboarding_text1.locale,
@@ -90,7 +91,8 @@ class OnboardingView extends StatelessWidget {
           ],
         ),
         textAlign: TextAlign.center,
-        maxLines: 4,
+        maxLines: 5,
+        maxFontSize: 25,
       ),
     );
   }

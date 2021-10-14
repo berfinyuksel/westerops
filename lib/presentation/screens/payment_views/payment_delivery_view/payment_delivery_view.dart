@@ -22,63 +22,59 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: context.dynamicHeight(0.02),
-      ),
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          DeliveryAvailableTimeListTile(),
-          SizedBox(
-            height: context.dynamicHeight(0.04),
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        DeliveryAvailableTimeListTile(),
+        SizedBox(
+          height: context.dynamicHeight(0.03),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              LocaleText(
+                text: "Bugün - 23 Mart 2021",
+                style: AppTextStyles.bodyTitleStyle,
+              ),
+              SizedBox(
+                height: context.dynamicHeight(0.01),
+              ),
+              Visibility(
+                visible: widget.isGetIt!,
+                child: Column(
+                  children: [
+                    DeliveryCustomButton(
+                      width: double.infinity,
+                      title: "18:00 - 21:00",
+                      color: AppColors.greenColor.withOpacity(0.4),
+                    ),
+                    SizedBox(
+                      height: context.dynamicHeight(0.02),
+                    ),
+                    WarningContainer(
+                      text:
+                          "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
+                    ),
+                    SizedBox(
+                      height: context.dynamicHeight(0.02),
+                    ),
+                  ],
+                ),
+              ),
+              buildAvailableDeliveryTimes(context),
+              /*     SizedBox(
+                height: context.dynamicHeight(0.02),
+              ),
+              WarningContainer(
+                text:
+                    "Belirtilen saat içerisinde \nrestorandan paketinizi 1 saat içinde \nalmadığınız durumda siparişiniz \niptal edilip tekrar satışa sunulacaktır.",
+              ), */
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                LocaleText(
-                  text: "Bugün - 23 Mart 2021",
-                  style: AppTextStyles.bodyTitleStyle,
-                ),
-                SizedBox(
-                  height: context.dynamicHeight(0.01),
-                ),
-                Visibility(
-                  visible: widget.isGetIt!,
-                  child: Column(
-                    children: [
-                      DeliveryCustomButton(
-                        width: double.infinity,
-                        title: "18:00 - 21:00",
-                        color: AppColors.greenColor.withOpacity(0.4),
-                      ),
-                      SizedBox(
-                        height: context.dynamicHeight(0.02),
-                      ),
-                      WarningContainer(
-                        text: "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
-                      ),
-                      SizedBox(
-                        height: context.dynamicHeight(0.02),
-                      ),
-                    ],
-                  ),
-                ),
-                buildAvailableDeliveryTimes(context),
-                SizedBox(
-                  height: context.dynamicHeight(0.02),
-                ),
-                WarningContainer(
-                  text:
-                      "Belirtilen saat içerisinde \nrestorandan paketinizi 1 saat içinde \nalmadığınız durumda siparişiniz \niptal edilip tekrar satışa sunulacaktır.",
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -89,7 +85,8 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
         shrinkWrap: true,
         crossAxisSpacing: context.dynamicWidht(0.046),
         mainAxisSpacing: context.dynamicHeight(0.02),
-        childAspectRatio: context.dynamicWidht(0.4) / context.dynamicHeight(0.05),
+        childAspectRatio:
+            context.dynamicWidht(0.4) / context.dynamicHeight(0.05),
         crossAxisCount: 2,
         physics: NeverScrollableScrollPhysics(),
         children: buildDeliveryButtons(context),
@@ -106,8 +103,11 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
       buttons.add(
         DeliveryCustomButton(
           width: context.dynamicWidht(0.4),
-          title: "$hourLeft:${i % 2 == 1 ? "30" : "00"} - $hourRight:${i % 2 == 1 ? "00" : "30"}",
-          color: selectedIndex == i ? AppColors.greenColor.withOpacity(0.4) : Color(0xFFE4E4E4).withOpacity(0.7),
+          title:
+              "$hourLeft:${i % 2 == 1 ? "30" : "00"} - $hourRight:${i % 2 == 1 ? "00" : "30"}",
+          color: selectedIndex == i
+              ? AppColors.greenColor.withOpacity(0.4)
+              : Color(0xFFE4E4E4).withOpacity(0.7),
           onPressed: () {
             setState(() {
               selectedIndex = i;

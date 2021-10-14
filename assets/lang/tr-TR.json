@@ -294,7 +294,7 @@
         "delivery_address": "Teslim Alınacak Adres",
         "show_on_map": "Haritada Göster",
         "button_1": "Geçmiş Siparişlerim",
-        "button_2": "Dünyamızı Kurtarmaya Devam Et"
+        "button_2": "Ana Sayfa"
     },
     "order_delivered": {
         "headline_text": "Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",

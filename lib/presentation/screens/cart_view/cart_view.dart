@@ -3,6 +3,8 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 
 import 'package:dongu_mobile/presentation/screens/cart_view/not_logged_in_view.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -50,10 +52,14 @@ class _CartViewState extends State<CartView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
+        List<Store> itemList = [];
+        for (int i = 0; i < state.response.length; i++) {
+          itemList.add(state.response[i].store);
+        }
         if (state.response.length == 0) {
           return EmptyCartView();
         } else {
-          return Center(child: buildBody(context, state));
+          return Center(child: buildBody(context, state, itemList));
         }
       } else {
         final error = state as GenericError;
@@ -66,7 +72,8 @@ class _CartViewState extends State<CartView> {
     });
   }
 
-  Column buildBody(BuildContext context, GenericCompleted state) {
+  Column buildBody(
+      BuildContext context, GenericCompleted state, List<Store> itemList) {
     return Column(
       children: [
         Container(
@@ -83,7 +90,7 @@ class _CartViewState extends State<CartView> {
               SizedBox(
                 height: context.dynamicHeight(0.01),
               ),
-              buildRestaurantListTile(context, state),
+              buildRestaurantListTile(context, state, itemList),
               SizedBox(
                 height: context.dynamicHeight(0.04),
               ),
@@ -118,14 +125,31 @@ class _CartViewState extends State<CartView> {
                             alignment: TextAlign.end,
                           ),
                         ),
-                        onDismissed: (DismissDirection direction) {
-                          context
-                              .read<OrderCubit>()
-                              .deleteBasket("${state.response[index].id}");
-                          context.read<BasketCounterCubit>().decrement();
-                          SharedPrefs.setCounter(counterState - 1);
-                          menuList.remove(state.response[index].id.toString());
-                          SharedPrefs.setMenuList(menuList);
+                        confirmDismiss: (DismissDirection direction) {
+                          return showDialog(
+                            context: context,
+                            builder: (_) => CustomAlertDialog(
+                                textMessage:
+                                    'Sepetinizdeki ürünü silmek\nistediğinize emin misiniz?',
+                                buttonOneTitle: 'Vazgeç',
+                                buttonTwoTittle: 'Eminim',
+                                imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                                onPressedOne: () {
+                                  Navigator.of(context).pop();
+                                },
+                                onPressedTwo: () {
+                                  context.read<OrderCubit>().deleteBasket(
+                                      "${state.response[index].id}");
+                                  context
+                                      .read<BasketCounterCubit>()
+                                      .decrement();
+                                  SharedPrefs.setCounter(counterState - 1);
+                                  menuList.remove(
+                                      state.response[index].id.toString());
+                                  SharedPrefs.setMenuList(menuList);
+                                  Navigator.of(context).pop();
+                                }),
+                          );
                         },
                         child: PastOrderDetailBasketListTile(
                           title: "${state.response[index].text_name}",
@@ -207,7 +231,7 @@ class _CartViewState extends State<CartView> {
   }
 
   ListView buildRestaurantListTile(
-      BuildContext context, GenericCompleted state) {
+      BuildContext context, GenericCompleted state, List<Store> itemList) {
     return ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -227,7 +251,15 @@ class _CartViewState extends State<CartView> {
                 text: "${state.response[index].text_name}",
                 style: AppTextStyles.bodyTextStyle,
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteConstant.RESTAURANT_DETAIL,
+                  arguments: ScreenArgumentsRestaurantDetail(
+                    itemList[index],
+                  ),
+                );
+              },
             );
           });
         });

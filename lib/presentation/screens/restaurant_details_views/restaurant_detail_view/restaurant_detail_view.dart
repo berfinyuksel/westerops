@@ -27,7 +27,8 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
                     color: Colors.black,
                     height: context.dynamicHeight(0.16),
                     width: context.dynamicWidht(1),
-                    child: Image.network(widget.restaurant!.background!, fit: BoxFit.fill)),
+                    child: Image.network(widget.restaurant!.background!,
+                        fit: BoxFit.fill)),
                 Column(
                   children: [
                     //spacer8-9
