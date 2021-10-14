@@ -21,6 +21,7 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
 import '../../widgets/text/locale_text.dart';
 import 'components/address_text.dart';
+import '../../../utils/extensions/string_extension.dart';
 
 class MyFavoritesView extends StatefulWidget {
   @override
@@ -71,11 +72,10 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         }
 
         return GestureDetector(
-          onTap: (){
-          FocusScope.of(context).unfocus();
-
-          },
-          child: Center(child: buildBody(context, favourites, state)));
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Center(child: buildBody(context, favourites, state)));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -274,7 +274,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             errorBorder: buildOutlineInputBorder(),
             disabledBorder: buildOutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.046)),
-            hintText: "Yemek, restoran ara"),
+            hintText: LocaleKeys.my_near_hint_text.locale),
       ),
     );
   }

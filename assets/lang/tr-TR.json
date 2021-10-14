@@ -109,7 +109,9 @@
         "body_list_tile_rate_app": "Uygulamayı Değerlendir",
         "body_list_tile_about_app": "Uygulama Hakkında",
         "body_list_tile_about_food_waste": "Gıda İsrafı Hakkında",
-        "filter_page_tile": "Filtrele"
+        "filter_page_tile": "Filtrele",
+        "log_out_button": "Çıkış Yap"
+
 
     },
     "inform": {
@@ -158,7 +160,11 @@
     "address": {
         "title": "Adreslerim",
         "body_title": "Kayıtlı Adreslerim",
-        "button": "Yeni Adres Ekle"
+        "button": "Yeni Adres Ekle",
+        "text_1":"Ev",
+        "text_2":"İş Yerim",
+        "text_3": "Beşiktaş (Kuruçeşme, Muallim Cad.)",
+        "text_4":"\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n"
     },
     "language_settings": {
         "title": "Dil Ayarları"
@@ -305,6 +311,11 @@
         "title": "Hesabımı Sil",
         "text_1": "Gidiyor musun?",
         "text_2": "Hesabını neden silmek istiyorsun? Lütfen yanıtla. Bilgilerini 30 gün süreyle saklayacağız. 30 gün içerisinde geri gelmeye karar verirsen, Döngü hesabını kullanmaya kaldığın yerden devam edebilirsin.",
+        "text_3": "Uygulamadan memnun kalmadım.",
+        "text_4": "İşletmelerle sorun yaşadım.",
+        "text_5": "Ürün çeşitliliğini yetersiz buldum.",
+        "text_6": "İşletme çeşitliliğini yetersiz buldum.",
+        "text_7": "Ödeme yöntemi bana uygun değil.",
         "button": "Hesabımı Sil",
         "hint_text": "Başka bir sebepten.(Lütfen açıklayın)"
     },
@@ -312,6 +323,11 @@
             "title": "Hesabımı Dondur",
             "text_1": "Gidiyor musun?",
             "text_2": "Hesabını neden silmek istiyorsun? Lütfen yanıtla. Bilgilerini 30 gün süreyle saklayacağız. 30 gün içerisinde geri gelmeye karar verirsen, Döngü hesabını kullanmaya kaldığın yerden devam edebilirsin.",
+            "text_3": "Uygulamadan memnun kalmadım.",
+            "text_4":"İşletmelerle sorun yaşadım.",
+            "text_5":"Ürün çeşitliliğini yetersiz buldum.",
+            "text_6":"İşletme çeşitliliğini yetersiz buldum.",
+            "text_7":"Ödeme yöntemi bana uygun değil.",
             "button": "Hesabımı Askıya Al",
             "hint_text": "Başka bir sebepten.(Lütfen açıklayın)"
         },
@@ -494,5 +510,10 @@
         "text4":"Pastırmalı Kuru Fasulye, 1 porsiyon Kornişon Turşu",
         "totalAmount":"Toplam Tutar:",
         "price":"35,25 TL"
+    },
+    "agreement_kvkk":{
+        "confirmation_button":"Onaylıyorum",
+        "underlined_text":"Sözleşme",
+        "text": "yi okudum, onaylıyorum"
     }
 }

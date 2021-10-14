@@ -35,15 +35,14 @@ class _MyInformationViewState extends State<MyInformationView> {
     return CustomScaffold(
       title: LocaleKeys.inform_title,
       body: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScope.of(context).unfocus();
-
         },
         child: SingleChildScrollView(
           child: Container(
             height: context.dynamicHeight(0.8),
             child: Column(
-             // crossAxisAlignment: CrossAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Spacer(
                   flex: 4,
@@ -62,16 +61,18 @@ class _MyInformationViewState extends State<MyInformationView> {
                   color: Colors.white,
                   height: context.dynamicHeight(0.01),
                 ),
-                buildTextFormField(
-                    context, LocaleKeys.inform_list_tile_name.locale, nameController),
                 buildTextFormField(context,
-                    LocaleKeys.inform_list_tile_surname.locale, surnameController),
-                buildTextFormField(context, LocaleKeys.inform_list_tile_birth.locale,
-                    birthController),
+                    LocaleKeys.inform_list_tile_name.locale, nameController),
                 buildTextFormField(
-                    context, LocaleKeys.inform_list_tile_mail.locale, mailController),
-                buildTextFormField(context, LocaleKeys.inform_list_tile_phone.locale,
-                    phoneController),
+                    context,
+                    LocaleKeys.inform_list_tile_surname.locale,
+                    surnameController),
+                buildTextFormField(context,
+                    LocaleKeys.inform_list_tile_birth.locale, birthController),
+                buildTextFormField(context,
+                    LocaleKeys.inform_list_tile_mail.locale, mailController),
+                buildTextFormField(context,
+                    LocaleKeys.inform_list_tile_phone.locale, phoneController),
                 Spacer(
                   flex: 8,
                 ),
@@ -92,7 +93,8 @@ class _MyInformationViewState extends State<MyInformationView> {
                 Center(
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, RouteConstant.DELETE_ACCOUNT_VIEW);
+                      Navigator.pushNamed(
+                          context, RouteConstant.DELETE_ACCOUNT_VIEW);
                     },
                     child: LocaleText(
                       text: LocaleKeys.inform_delete_account,
@@ -103,10 +105,11 @@ class _MyInformationViewState extends State<MyInformationView> {
                 Center(
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, RouteConstant.FREEZE_ACCOUNT_VIEW);
+                      Navigator.pushNamed(
+                          context, RouteConstant.FREEZE_ACCOUNT_VIEW);
                     },
                     child: LocaleText(
-                      text: "Hesabımı Dondur",
+                      text: LocaleKeys.freeze_account_title,
                       style: AppTextStyles.bodyTextStyle,
                     ),
                   ),

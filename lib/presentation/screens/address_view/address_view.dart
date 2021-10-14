@@ -8,6 +8,7 @@ import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import 'components/address_view_title.dart';
 import 'components/adress_list_tile.dart';
+import '../../../utils/extensions/string_extension.dart';
 
 class AddressView extends StatelessWidget {
   @override
@@ -41,14 +42,14 @@ class AddressView extends StatelessWidget {
       child: ListView(
         children: [
           AddressListTile(
-            title: "Ev",
-            subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)",
-            subtitle: "\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n",
+            title: LocaleKeys.address_text_1,
+            subtitleBold: LocaleKeys.address_text_3.locale,
+            subtitle: LocaleKeys.address_text_4.locale,
           ),
           AddressListTile(
-            title: "İş yerim",
-            subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)",
-            subtitle: "\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n",
+            title: LocaleKeys.address_text_2,
+            subtitleBold: LocaleKeys.address_text_3.locale,
+            subtitle: LocaleKeys.address_text_4.locale,
           ),
         ],
       ),
@@ -57,7 +58,8 @@ class AddressView extends StatelessWidget {
 
   Padding buildButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.only(
+          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
       child: CustomButton(
         width: double.infinity,
         title: LocaleKeys.address_button,

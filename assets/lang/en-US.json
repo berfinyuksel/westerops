@@ -74,7 +74,7 @@
     "food_waste": {
         "title": "Food Waste",
         "text1": "Food waste; It means that the food produced turns into waste before it is consumed.",
-        "text2": "Üretim, işleme, satış veya tüketim süreçlerinde, gıda israfına yol açan pek çok sebep ortaya çıkabiliyor.",
+        "text2": "In the production, processing, sale or consumption processes, there are many reasons that lead to food waste.",
         "text3": "Many reasons that lead to food waste can arise in production, processing, sales or consumption processes.",
         "button": "Get more information",
         "skip": "Skip for now"
@@ -109,7 +109,8 @@
         "body_list_tile_rate_app": "Rate App",
         "body_list_tile_about_app": "About App",
         "body_list_tile_about_food_waste": "About Food Waste",
-        "filter_page_tile": "Filter"
+        "filter_page_tile": "Filter",
+        "log_out_button": "Log Out"
     },
     "inform": {
         "title": "My Information",
@@ -157,7 +158,11 @@
     "address": {
         "title": "My Adresses",
         "body_title": "My Recorded Addresses",
-        "button": "Add New Address"
+        "button": "Add New Address",
+        "text_1":"Home",
+        "text_2":"My Office",
+        "text_3": "Beşiktaş (Kuruçeşme, Muallim Cad.)",
+        "text_4":"\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n" 
     },
     "language_settings": {
         "title": "Language Settings"
@@ -304,6 +309,11 @@
         "title": "Delete My Account",
         "text_1": "Are you leaving?",
         "text_2": "Why do you want to delete your account? Please choose. Your information will be stored for 30 days. If you come back within 30 days, you can log into your account as if nothing had happened.",
+        "text_3": "I am not satisfied with the application.",
+        "text_4": "I had problems with businesses",
+        "text_5": "Product variety was insufficient.",
+        "text_6": "Business variety was insufficient.",
+        "text_7": "Payment method is not suitable for me.",
         "button": "Delete My Account",
         "hint_text": "You can add another description"
     },
@@ -311,6 +321,11 @@
         "title": "Freeze My Account",
         "text_1": "Are you leaving?",
         "text_2": "Why do you want to delete your account? Please choose. Your information will be stored for 30 days. If you come back within 30 days, you can log into your account as if nothing had happened.",
+        "text_3":"I am not satisfied with the application.",
+        "text_4":"I had problems with businesses",
+        "text_5":"Product variety was insufficient.",
+        "text_6":"Business variety was insufficient.",
+        "text_7":"Payment method is not suitable for me.",
         "button": "Freeze My Account",
         "hint_text": "You can add another description"
     },
@@ -493,6 +508,11 @@
         "text4":"Pastırmalı Kuru Fasulye, 1 porsiyon Kornişon Turşu",
         "totalAmount":"Total Amount:",
         "price":"35,25 TL"
+    },
+    "agreement_kvkk":{
+        "confirmation_button":"I approve",
+        "underlined_text":"Sözleşme",
+        "text": "yi okudum, onaylıyorum"
     }
     
 }

@@ -18,6 +18,7 @@ import '../../widgets/text/locale_text.dart';
 import '../my_favorites_view/components/address_text.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../search_view/components/horizontal_list_category_bar.dart';
+import '../../../utils/extensions/string_extension.dart';
 
 class HomePageView extends StatefulWidget {
   @override
@@ -388,7 +389,7 @@ class _HomePageViewState extends State<HomePageView> {
             errorBorder: buildOutlineInputBorder(),
             disabledBorder: buildOutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.046)),
-            hintText: "Yemek, restoran ara"),
+            hintText: LocaleKeys.my_near_hint_text.locale),
       ),
     );
   }
