@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,19 +77,27 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           height: context.dynamicHeight(0.01),
         ),
         GetItAddressListTile(
-          restaurantName: "Canım Büfe", 
+          restaurantName: "Canım Büfe",
           address: "Kuruçeşme, Muallim Cad., No:18 Beşiktaş/İstanbul",
         ),
         SizedBox(
           height: context.dynamicHeight(0.04),
         ),
-        buildButton(context, LocaleKeys.order_received_button_1,
-            Colors.transparent, AppColors.greenColor),
+        buildButton(
+            context,
+            LocaleKeys.order_received_button_1,
+            Colors.transparent,
+            AppColors.greenColor,
+            () => Navigator.pushNamed(context, RouteConstant.PAST_ORDER_VIEW)),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        buildButton(context, LocaleKeys.order_received_button_2,
-            AppColors.greenColor, Colors.white),
+        buildButton(
+            context,
+            LocaleKeys.order_received_button_2,
+            AppColors.greenColor,
+            Colors.white,
+            () => Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD)),
         SizedBox(
           height: context.dynamicHeight(0.06),
         ),
@@ -167,8 +176,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     );
   }
 
-  Padding buildButton(
-      BuildContext context, String title, Color color, Color textColor) {
+  Padding buildButton(BuildContext context, String title, Color color,
+      Color textColor, VoidCallback onPressedd) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -180,7 +189,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         color: color,
         borderColor: AppColors.greenColor,
         textColor: textColor,
-        onPressed: () {},
+        onPressed: onPressedd,
       ),
     );
   }
