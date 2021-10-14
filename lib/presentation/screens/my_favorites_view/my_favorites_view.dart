@@ -71,11 +71,10 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         }
 
         return GestureDetector(
-          onTap: (){
-          FocusScope.of(context).unfocus();
-
-          },
-          child: Center(child: buildBody(context, favourites, state)));
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Center(child: buildBody(context, favourites, state)));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -144,8 +143,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                     ],
                   ),
                   Visibility(
-                      visible: isShowBottomInfo,
-                      child: buildBottomInfo(context))
+                    visible: isShowBottomInfo,
+                    child: buildBottomInfo(context, favourites),
+                  ),
                 ],
               ),
             ),
@@ -211,11 +211,13 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           // endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
 
           return RestaurantInfoListTile(
+            index: index,
+            favourites: favourites,
             icon: favourites[index].photo,
             restaurantName: favourites[index].name,
             distance: "74 m",
             packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
-            availableTime: '1',
+            availableTime: '18:00 - 20:00',
           );
         });
   }
@@ -302,7 +304,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     getLocation();
   }
 
-  Positioned buildBottomInfo(BuildContext context) {
+  Positioned buildBottomInfo(BuildContext context, List<Store> favourites) {
     return Positioned(
         right: 0,
         left: 0,

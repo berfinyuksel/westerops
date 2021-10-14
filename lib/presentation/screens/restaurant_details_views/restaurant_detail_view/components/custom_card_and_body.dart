@@ -46,8 +46,8 @@ class CustomCardAndBody extends StatefulWidget {
 
 class _CustomCardAndBodyState extends State<CustomCardAndBody>
     with SingleTickerProviderStateMixin {
-  String startTime = '';
-  String endTime = '';
+  String startTime = '18:00';
+  String endTime = '20:00';
   List<Box> definedBoxes = [];
   bool isFavourite = false;
   int favouriteId = 0;
@@ -69,6 +69,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   Widget build(
     BuildContext context,
   ) {
+    final GenericState state = context.watch<BoxCubit>().state;
+
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -76,7 +78,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         });
       },
       child: Column(
-        children: [customCard(context), buildBuilder()],
+        children: [
+          customCard(context),
+          SizedBox(
+            height: 20,
+          ),
+          packageCourierAndFavoriteContainer(context, state),
+          buildBuilder(),
+        ],
       ),
     );
   }
@@ -325,9 +334,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           children: [
             Column(
               children: [
-                packageCourierAndFavoriteContainer(context, state),
                 SizedBox(
-                  height: context.dynamicHeight(0.04),
+                  height: 20,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
@@ -367,7 +375,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               alignment: Alignment(-0.05, 0),
               child: Visibility(
                   visible: showInfo,
-                  child: ClippedPasswordRules(child: Text("data"))),
+                  child: ClippedPasswordRules(
+                      child: SingleChildScrollView(
+                    child: Text(
+                        "Sürpriz Paketler ile alakalı bilgilendirme buraya gelecek"),
+                  ))),
             )
           ],
         ),
@@ -499,7 +511,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     height: context.dynamicHeight(0.04),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4.0),
-                      color: AppColors.scaffoldBackgroundColor,
+                      color: Colors.white,
                     ),
                     child: Padding(
                       padding:
@@ -507,8 +519,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       child: Text(
                         '75 TL',
                         style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                            color: AppColors.borderAndDividerColor,
-                            decoration: TextDecoration.lineThrough),
+                            decoration: TextDecoration.lineThrough,
+                            color: AppColors.unSelectedpackageDeliveryColor),
                       ),
                     ),
                   ),
