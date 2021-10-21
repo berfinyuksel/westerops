@@ -118,10 +118,7 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 SearchStoreCubit(SampleSearchStoreRepository())),
         BlocProvider<SearchCubit>(
-            create: (context) =>
-                SearchCubit(SampleSearchRepository())),
-        BlocProvider<StoreCubit>(
-            create: (context) => StoreCubit(SampleStoreRepository())),
+            create: (context) => SearchCubit(SampleSearchRepository())),
         BlocProvider<BoxCubit>(
             create: (context) => BoxCubit(SampleBoxRepository())),
         BlocProvider<UserAuthCubit>(

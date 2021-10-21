@@ -4,7 +4,6 @@ import 'package:dongu_mobile/data/model/search_store.dart';
 import 'dart:io';
 import 'package:device_info/device_info.dart';
 
-import 'package:dongu_mobile/data/model/store.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
