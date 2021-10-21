@@ -63,6 +63,12 @@ class _SwipeViewState extends State<SwipeView> {
                 ),
                 Dismissible(
                   key: UniqueKey(),
+                  onDismissed: (value) {
+                   setState(() {
+                      Navigator.pushNamed(
+                          context, RouteConstant.WAS_DELIVERED_VIEW);
+                   });
+                  },
                   direction: DismissDirection.startToEnd,
                   child: Container(
                     //curve: Curve,
