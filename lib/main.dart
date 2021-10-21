@@ -1,7 +1,13 @@
 import 'dart:io';
 
+import 'package:dongu_mobile/data/repositories/address_repository.dart';
+import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
+import 'package:dongu_mobile/data/repositories/user_address_repository.dart';
+import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 
 import 'package:dongu_mobile/presentation/screens/filter_view/filter_view.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
@@ -23,8 +29,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/repositories/box_repository.dart';
 import 'data/repositories/order_repository.dart';
+
 import 'data/repositories/search_location_repository.dart';
-import 'data/repositories/store_repository.dart';
+
 import 'data/repositories/user_authentication_repository.dart';
 import 'data/repositories/user_operatios_repository.dart';
 import 'data/services/locator.dart';
@@ -33,7 +40,7 @@ import 'logic/cubits/filters_cubit/filters_cubit.dart';
 import 'logic/cubits/order_cubit/order_cubit.dart';
 import 'logic/cubits/payment_cubit/payment_cubit.dart';
 import 'logic/cubits/search_location_cubit/search_location_cubit.dart';
-import 'logic/cubits/store_cubit/store_cubit.dart';
+
 import 'logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'logic/cubits/user_operations_cubit/user_operations_cubit.dart';
 import 'presentation/router/app_router.dart';
@@ -103,8 +110,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
                 SearchLocationCubit(SampleSearchLocationRepository())),
-        BlocProvider<StoreCubit>(
-            create: (context) => StoreCubit(SampleStoreRepository())),
+        BlocProvider<SearchStoreCubit>(
+            create: (context) =>
+                SearchStoreCubit(SampleSearchStoreRepository())),
         BlocProvider<BoxCubit>(
             create: (context) => BoxCubit(SampleBoxRepository())),
         BlocProvider<UserAuthCubit>(
@@ -115,6 +123,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<UserOperationsCubit>(
             create: (context) =>
                 UserOperationsCubit(SampleUserOperationsRepository())),
+        BlocProvider<AddressCubit>(
+            create: (context) => AddressCubit(SampleAdressRepository())),
+        BlocProvider<UserAddressCubit>(
+            create: (context) =>
+                UserAddressCubit(SampleUserAdressRepository())),
         BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
         BlocProvider<FiltersCubit>(create: (context) => FiltersCubit())
       ],

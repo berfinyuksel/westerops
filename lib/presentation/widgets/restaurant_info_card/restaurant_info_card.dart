@@ -1,5 +1,3 @@
-
-
 import '../restaurant_info_list_tile/first_column/packet_number.dart';
 import '../restaurant_info_list_tile/first_column/restaurant_icon.dart';
 import '../restaurant_info_list_tile/second_column/package_delivery.dart';
@@ -22,6 +20,9 @@ class RestaurantInfoCard extends StatelessWidget {
   final String? availableTime;
   final String? backgroundImage;
   final String? restaurantIcon;
+  final int? minDiscountedOrderPrice;
+  final int? minOrderPrice;
+
   const RestaurantInfoCard({
     Key? key,
     this.packetNumber,
@@ -32,6 +33,8 @@ class RestaurantInfoCard extends StatelessWidget {
     this.availableTime,
     this.backgroundImage,
     this.restaurantIcon,
+    this.minDiscountedOrderPrice,
+    this.minOrderPrice,
   }) : super(key: key);
 
   @override
@@ -53,17 +56,22 @@ class RestaurantInfoCard extends StatelessWidget {
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
             child: Image.network(
               backgroundImage!,
               alignment: Alignment.topCenter,
               fit: BoxFit.fill,
               width: context.dynamicWidht(0.64),
-              height: context.height > 800 ? context.dynamicHeight(0.16) : context.dynamicHeight(0.14),
+              height: context.height > 800
+                  ? context.dynamicHeight(0.16)
+                  : context.dynamicHeight(0.14),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.011), horizontal: context.dynamicWidht(0.023)),
+            padding: EdgeInsets.symmetric(
+                vertical: context.dynamicHeight(0.011),
+                horizontal: context.dynamicWidht(0.023)),
             child: Column(
               children: [
                 buildFirstRow(context, packetNumber!),
@@ -95,6 +103,8 @@ class RestaurantInfoCard extends StatelessWidget {
           height: context.dynamicHeight(0.04),
         ),
         OldAndNewPrices(
+          minDiscountedOrderPrice: minDiscountedOrderPrice,
+          minOrderPrice: minOrderPrice,
           width: context.dynamicWidht(0.16),
           height: context.dynamicHeight(0.04),
           textStyle: AppTextStyles.bodyBoldTextStyle,
@@ -124,7 +134,8 @@ class RestaurantInfoCard extends StatelessWidget {
     );
   }
 
-  Row buildSecondRow(String restaurantName, String restaurantIcon,BuildContext context) {
+  Row buildSecondRow(
+      String restaurantName, String restaurantIcon, BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -132,8 +143,9 @@ class RestaurantInfoCard extends StatelessWidget {
         RestrauntIcon(
           icon: restaurantIcon,
         ),
-        
-        SizedBox(width: context.dynamicWidht(0.04),),
+        SizedBox(
+          width: context.dynamicWidht(0.04),
+        ),
         Flexible(
           flex: 6,
           child: Text(

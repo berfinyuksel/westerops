@@ -1,4 +1,5 @@
-import 'package:dongu_mobile/data/model/store.dart';
+import 'package:dongu_mobile/data/model/search_store.dart';
+
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class RestaurantInfoListTile extends StatefulWidget {
   final Border? border;
   final String? icon;
   final int? index;
-  final List<Store>? favourites;
+  final List<SearchStore>? favourites;
   const RestaurantInfoListTile({
     Key? key,
     @required this.packetNumber,

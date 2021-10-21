@@ -1,4 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/services/location_service.dart';
+import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/extensions/context_extension.dart';
@@ -7,6 +10,7 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddressDetailView extends StatefulWidget {
   final String title;
@@ -23,13 +27,14 @@ class AddressDetailView extends StatefulWidget {
 }
 
 class _AddressDetailViewState extends State<AddressDetailView> {
-  String dropdownValue = "Adres";
+  int adressType = 1;
   TextEditingController tcController = TextEditingController();
   TextEditingController addressNameController = TextEditingController();
   TextEditingController districtController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController daireNoController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
 
   @override
   void initState() {
@@ -41,9 +46,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-          FocusScope.of(context).unfocus();
-
+      onTap: () {
+        FocusScope.of(context).unfocus();
       },
       child: CustomScaffold(
         title: widget.title,
@@ -64,7 +68,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                     style: AppTextStyles.bodyTitleStyle,
                   ),
                   Spacer(flex: 5),
-                  buildDropDown(context),
+                  buildDropDown(context, adressType),
                   Spacer(flex: 10),
                   buildTextFormField("VKN/TCKN", tcController),
                   Spacer(flex: 10),
@@ -74,9 +78,9 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                   Spacer(flex: 10),
                   buildTextFormField("Adres", addressController),
                   Spacer(flex: 10),
-                  buildTextFormField("No., Daire", daireNoController),
-                  Spacer(flex: 10),
                   buildTextFormField("Adres Açıklaması", descriptionController),
+                  Spacer(flex: 10),
+                  buildTextFormField("Telefon Numarası", phoneNumberController),
                   Spacer(
                     flex: 33,
                   ),
@@ -86,7 +90,20 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                     color: AppColors.greenColor,
                     borderColor: AppColors.greenColor,
                     textColor: Colors.white,
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<AddressCubit>().addAddress(
+                          addressNameController.text,
+                          adressType,
+                          addressController.text,
+                          descriptionController.text,
+                          "-",
+                          "-",
+                          districtController.text,
+                          phoneNumberController.text,
+                          tcController.text,
+                          LocationService.latitude,
+                          LocationService.longitude);
+                    },
                   ),
                 ],
               ),
@@ -97,7 +114,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
     );
   }
 
-  Container buildDropDown(BuildContext context) {
+  Container buildDropDown(BuildContext context, int dropdownValue) {
     return Container(
       height: context.dynamicHeight(0.06),
       width: double.infinity,
@@ -123,7 +140,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
             ),
           ),
           Expanded(
-            child: DropdownButton<String>(
+            child: DropdownButton<int>(
               isExpanded: true,
               underline: Text(""),
               value: dropdownValue,
@@ -133,16 +150,16 @@ class _AddressDetailViewState extends State<AddressDetailView> {
               ),
               iconSize: 17,
               style: AppTextStyles.myInformationBodyTextStyle,
-              onChanged: (String? newValue) {
+              onChanged: (int? newValue) {
                 setState(() {
                   dropdownValue = newValue!;
                 });
               },
-              items: <String>['Adres', 'Fatura Adresi'].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
+              items: <int>[1, 2].map<DropdownMenuItem<int>>((int value) {
+                return DropdownMenuItem<int>(
                   value: value,
                   child: AutoSizeText(
-                    value,
+                    value == 1 ? "Adres" : "Fatura Adresi",
                     style: AppTextStyles.myInformationBodyTextStyle,
                     maxLines: 1,
                   ),
@@ -155,21 +172,29 @@ class _AddressDetailViewState extends State<AddressDetailView> {
     );
   }
 
-  Container buildTextFormField(String labelText, TextEditingController controller) {
+  Container buildTextFormField(
+      String labelText, TextEditingController controller) {
     return Container(
-      height: controller == descriptionController ? context.dynamicHeight(0.11) : context.dynamicHeight(0.06),
+      height:
+          controller == descriptionController || controller == addressController
+              ? context.dynamicHeight(0.11)
+              : context.dynamicHeight(0.06),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.borderAndDividerColor, width: 2),
         borderRadius: BorderRadius.circular(4.0),
         color: Colors.white,
       ),
       child: TextFormField(
-        maxLines: controller == descriptionController ? context.dynamicHeight(0.11).toInt() : null,
+        maxLines: controller == descriptionController ||
+                controller == addressController
+            ? context.dynamicHeight(0.11).toInt()
+            : null,
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
         controller: controller,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05), vertical: 0),
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: context.dynamicWidht(0.05), vertical: 0),
             labelText: labelText,
             labelStyle: AppTextStyles.bodyTextStyle,
             enabledBorder: InputBorder.none,

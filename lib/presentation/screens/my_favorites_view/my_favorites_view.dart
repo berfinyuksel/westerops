@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,10 +12,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../data/model/store.dart';
 import '../../../data/services/location_service.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
-import '../../../logic/cubits/store_cubit/store_cubit.dart';
+
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
@@ -47,7 +48,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   @override
   void initState() {
     super.initState();
-    context.read<StoreCubit>().getStores();
+    context.read<SearchStoreCubit>().getSearchStore();
   }
 
   @override
@@ -57,7 +58,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
 
   Builder buildBuilder() {
     return Builder(builder: (context) {
-      final GenericState state = context.watch<StoreCubit>().state;
+      final GenericState state = context.watch<SearchStoreCubit>().state;
       //final FiltersState filterState = context.watch<FiltersCubit>().state;
 
       if (state is GenericInitial) {
@@ -65,7 +66,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        List<Store> favourites = [];
+        List<SearchStore> favourites = [];
         //List<double> distances = [];
         print(state.response[0].address);
         for (int i = 0; i < state.response.length; i++) {
@@ -84,8 +85,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     });
   }
 
-  Column buildBody(
-      BuildContext context, List<Store> favourites, GenericCompleted state) {
+  Column buildBody(BuildContext context, List<SearchStore> favourites,
+      GenericCompleted state) {
     return Column(
       children: [
         buildTitlesAndSearchBar(context),
@@ -117,8 +118,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                           final GoogleMapController controller =
                               await _mapController.future;
                           setState(() {
-                            latitude = LocationService.latitude!;
-                            longitude = LocationService.longitude!;
+                            latitude = LocationService.latitude;
+                            longitude = LocationService.longitude;
 
                             controller
                                 .animateCamera(CameraUpdate.newCameraPosition(
@@ -206,7 +207,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     );
   }
 
-  ListView buildListViewRestaurantInfo(List<Store> favourites) {
+  ListView buildListViewRestaurantInfo(List<SearchStore> favourites) {
     return ListView.builder(
         itemCount: favourites.length,
         itemBuilder: (context, index) {
@@ -310,7 +311,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     getLocation();
   }
 
-  Positioned buildBottomInfo(BuildContext context, List<Store> favourites) {
+  Positioned buildBottomInfo(
+      BuildContext context, List<SearchStore> favourites) {
     return Positioned(
         right: 0,
         left: 0,
@@ -359,8 +361,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     await LocationService.getCurrentLocation();
     final GoogleMapController controller = await _mapController.future;
     setState(() {
-      latitude = LocationService.latitude!;
-      longitude = LocationService.longitude!;
+      latitude = LocationService.latitude;
+      longitude = LocationService.longitude;
 
       controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(

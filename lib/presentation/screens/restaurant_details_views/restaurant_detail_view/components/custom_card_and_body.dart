@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/repositories/basket_repository.dart';
 
 import 'package:dongu_mobile/data/repositories/order_repository.dart';
@@ -7,7 +8,6 @@ import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cu
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
 import 'package:dongu_mobile/presentation/screens/login_view/login_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
@@ -20,7 +20,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../register_view/components/clipped_password_rules.dart';
 import '../../../../../data/model/box.dart';
-import '../../../../../data/model/store.dart';
+
 import '../../../../../logic/cubits/order_cubit/order_cubit.dart';
 import '../../../../../logic/cubits/user_operations_cubit/user_operations_cubit.dart';
 import '../../../../../utils/constants/image_constant.dart';
@@ -35,7 +35,7 @@ import 'custom_circular_progress.dart';
 import 'info_tooltip.dart';
 
 class CustomCardAndBody extends StatefulWidget {
-  final Store? restaurant;
+  final SearchStore? restaurant;
   final Box? boxes;
   const CustomCardAndBody({Key? key, this.restaurant, this.boxes})
       : super(key: key);

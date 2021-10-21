@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
-import 'package:dongu_mobile/data/model/store.dart';
+import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/store_cubit/store_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+
 import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,7 +47,7 @@ class _MyNearViewState extends State<MyNearView> {
 
   bool isShowOnMap = false;
   bool isShowBottomInfo = false;
-  List<Store> restaurants = [];
+  List<SearchStore> restaurants = [];
   List<double> distances = [];
   int restaurantIndexOnMap = 1;
 
@@ -65,7 +66,7 @@ class _MyNearViewState extends State<MyNearView> {
 
   Builder buildBuilder() {
     return Builder(builder: (context) {
-      final GenericState state = context.watch<StoreCubit>().state;
+      final GenericState state = context.watch<SearchStoreCubit>().state;
       if (state is GenericInitial) {
         LocationService.getCurrentLocation();
 
@@ -73,7 +74,7 @@ class _MyNearViewState extends State<MyNearView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        print(state.response[0]); 
+        print(state.response[0]);
         // for (int i = 0; i < state.response[0].results.length; i++) {
         //   if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
         //     restaurants.add(state.response[0].results[i]);
@@ -124,8 +125,8 @@ class _MyNearViewState extends State<MyNearView> {
                           final GoogleMapController controller =
                               await _mapController.future;
                           setState(() {
-                            latitude = LocationService.latitude!;
-                            longitude = LocationService.longitude!;
+                            latitude = LocationService.latitude;
+                            longitude = LocationService.longitude;
 
                             controller
                                 .animateCamera(CameraUpdate.newCameraPosition(
@@ -170,8 +171,8 @@ class _MyNearViewState extends State<MyNearView> {
     );
   }
 
-  Positioned buildBottomInfo(
-      BuildContext context, List<Store> restaurants, List<double> distances) {
+  Positioned buildBottomInfo(BuildContext context,
+      List<SearchStore> restaurants, List<double> distances) {
     // String startTime =
     //     restaurants[restaurantIndexOnMap].calendar![0].startDate!.split("T")[1];
     // String endTime =
@@ -190,7 +191,7 @@ class _MyNearViewState extends State<MyNearView> {
           padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
           color: Colors.white,
           child: RestaurantInfoListTile(
-            icon:" restaurants[restaurantIndexOnMap].photo",
+            icon: " restaurants[restaurantIndexOnMap].photo",
             restaurantName: "restaurants[restaurantIndexOnMap].name",
             distance: "4m",
             packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
@@ -242,14 +243,14 @@ class _MyNearViewState extends State<MyNearView> {
   }
 
   ListView buildListViewRestaurantInfo(
-      List<Store> restaurants, List<double> distances) {
+      List<SearchStore> restaurants, List<double> distances) {
     return ListView.builder(
         itemCount: restaurants.length,
         itemBuilder: (context, index) {
-          String startTime =
-              restaurants[index].calendar![0].startDate!.split("T")[1];
-          String endTime =
-              restaurants[index].calendar![0].endDate!.split("T")[1];
+          String? startTime =
+              restaurants[index].calendar?[0].startDate?.split("T")[1] ?? '-';
+          String? endTime =
+              restaurants[index].calendar?[0].endDate?.split("T")[1] ?? '-';
 
           startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
           endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
@@ -379,8 +380,8 @@ class _MyNearViewState extends State<MyNearView> {
     await LocationService.getCurrentLocation();
     final GoogleMapController controller = await _mapController.future;
     setState(() {
-      latitude = LocationService.latitude!;
-      longitude = LocationService.longitude!;
+      latitude = LocationService.latitude;
+      longitude = LocationService.longitude;
 
       controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(

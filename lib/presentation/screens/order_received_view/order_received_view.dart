@@ -131,8 +131,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                           final GoogleMapController controller =
                               await _mapController.future;
                           setState(() {
-                            latitude = LocationService.latitude!;
-                            longitude = LocationService.longitude!;
+                            latitude = LocationService.latitude;
+                            longitude = LocationService.longitude;
 
                             controller
                                 .animateCamera(CameraUpdate.newCameraPosition(
@@ -372,8 +372,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     await LocationService.getCurrentLocation();
     final GoogleMapController controller = await _mapController.future;
     setState(() {
-      latitude = LocationService.latitude!;
-      longitude = LocationService.longitude!;
+      latitude = LocationService.latitude;
+      longitude = LocationService.longitude;
 
       controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(

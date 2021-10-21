@@ -38,7 +38,8 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   String searchedText = "";
   bool isSearchesShown = true;
 
-  Completer<GoogleMapController> _mapController = Completer<GoogleMapController>();
+  Completer<GoogleMapController> _mapController =
+      Completer<GoogleMapController>();
 
   Map<MarkerId, Marker> markers = Map<MarkerId, Marker>();
   BitmapDescriptor? markerIcon;
@@ -64,19 +65,18 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-          FocusScope.of(context).unfocus();
-
+      onTap: () {
+        FocusScope.of(context).unfocus();
       },
       child: CustomScaffold(
         title: LocaleKeys.address_from_map_title,
-        body: ListView(
+        body: Column(
           children: [
             Stack(
               alignment: Alignment(0, -0.965),
               children: [
                 Container(
-                  height: context.dynamicHeight(0.7),
+                  height: context.dynamicHeight(0.66),
                   width: double.infinity,
                   child: Stack(
                     alignment: Alignment(0.81, 0.88),
@@ -108,12 +108,14 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
                       ),
                       GestureDetector(
                           onTap: () async {
-                            final GoogleMapController controller = await _mapController.future;
+                            final GoogleMapController controller =
+                                await _mapController.future;
                             setState(() {
-                              latitude = LocationService.latitude!;
-                              longitude = LocationService.longitude!;
-    
-                              controller.animateCamera(CameraUpdate.newCameraPosition(
+                              latitude = LocationService.latitude;
+                              longitude = LocationService.longitude;
+
+                              controller
+                                  .animateCamera(CameraUpdate.newCameraPosition(
                                 CameraPosition(
                                   target: LatLng(latitude, longitude),
                                   zoom: 17.0,
@@ -124,13 +126,14 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
                                 markerId: markerId,
                                 position: LatLng(latitude, longitude),
                               );
-    
+
                               markers.clear();
-    
+
                               markers[markerId] = marker;
                             });
                           },
-                          child: SvgPicture.asset(ImageConstant.COMMONS_MY_LOCATION_BUTTON)),
+                          child: SvgPicture.asset(
+                              ImageConstant.COMMONS_MY_LOCATION_BUTTON)),
                     ],
                   ),
                 ),
@@ -143,8 +146,10 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
                 )
               ],
             ),
-           // Spacer(),
-            SizedBox(height: context.dynamicHeight(0.02),),
+            // Spacer(),
+            SizedBox(
+              height: context.dynamicHeight(0.02),
+            ),
             buildButton(context),
           ],
         ),
@@ -164,7 +169,9 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
             shrinkWrap: true,
             itemCount: state.response.length > 4 ? 5 : state.response.length,
             itemBuilder: (context, index) {
-              return state.response.length == 0 || !isSearchesShown ? Container() : buildGestureDetector(state, index, context);
+              return state.response.length == 0 || !isSearchesShown
+                  ? Container()
+                  : buildGestureDetector(state, index, context);
             });
       } else {
         final error = state as GenericError;
@@ -173,7 +180,8 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
     });
   }
 
-  GestureDetector buildGestureDetector(GenericCompleted state, int index, BuildContext context) {
+  GestureDetector buildGestureDetector(
+      GenericCompleted state, int index, BuildContext context) {
     return GestureDetector(
       onTap: () async {
         Place place = await getPlace(state.response[index].placeId);
@@ -308,7 +316,8 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   }
 
   Future<Place> getPlace(String placeId) async {
-    var url = 'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=AIzaSyDmbISvHTI8ohyLzmek96__1ACHqTNkPLg';
+    var url =
+        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=AIzaSyDmbISvHTI8ohyLzmek96__1ACHqTNkPLg';
     var response = await http.get(Uri.parse(url));
     var json = convert.jsonDecode(response.body);
     var jsonResult = json['result'] as Map<String, dynamic>;
@@ -316,20 +325,24 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   }
 
   void setCustomMarker() async {
-    markerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
+    markerIcon =
+        await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
     getLocation();
   }
 
-  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(String assetName) async {
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
+      String assetName) async {
     // Read SVG file as String
-    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
+    String svgString =
+        await DefaultAssetBundle.of(context).loadString(assetName);
     // Create DrawableRoot from SVG String
     DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
 
     // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
     MediaQueryData queryData = MediaQuery.of(context);
     double devicePixelRatio = queryData.devicePixelRatio;
-    double width = 64 * devicePixelRatio; // where 32 is your SVG's original width
+    double width =
+        64 * devicePixelRatio; // where 32 is your SVG's original width
     double height = 64 * devicePixelRatio; // same thing
 
     // Convert to ui.Picture
@@ -347,8 +360,8 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
     await LocationService.getCurrentLocation();
     final GoogleMapController controller = await _mapController.future;
     setState(() {
-      latitude = LocationService.latitude!;
-      longitude = LocationService.longitude!;
+      latitude = LocationService.latitude;
+      longitude = LocationService.longitude;
 
       controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(

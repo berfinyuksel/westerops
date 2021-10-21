@@ -8,11 +8,16 @@ class OldAndNewPrices extends StatelessWidget {
   final TextStyle? textStyle;
   final double? width;
   final double? height;
+  final int? minDiscountedOrderPrice;
+  final int? minOrderPrice;
+
   const OldAndNewPrices({
     Key? key,
     this.textStyle,
     this.width,
     this.height,
+    this.minDiscountedOrderPrice,
+    this.minOrderPrice,
   }) : super(key: key);
 
   @override
@@ -21,8 +26,9 @@ class OldAndNewPrices extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          '75 TL',
-          style: textStyle!.copyWith(color: Color(0xFFBCBCBC), decoration: TextDecoration.lineThrough),
+          '$minOrderPrice TL',
+          style: textStyle!.copyWith(
+              color: Color(0xFFBCBCBC), decoration: TextDecoration.lineThrough),
         ),
         Container(
           alignment: Alignment.center,
@@ -34,8 +40,9 @@ class OldAndNewPrices extends StatelessWidget {
             color: AppColors.scaffoldBackgroundColor,
           ),
           child: Text(
-            '35 TL',
-            style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.greenColor),
+            '$minDiscountedOrderPrice TL',
+            style: AppTextStyles.bodyBoldTextStyle
+                .copyWith(color: AppColors.greenColor),
           ),
         ),
       ],

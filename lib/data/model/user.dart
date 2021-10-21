@@ -6,7 +6,12 @@ class User {
   String? email;
   List<Favourite>? favourites;
 
-  User({this.firstName, this.lastName, this.email, this.favourites});
+  User({
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.favourites,
+  });
 
   User.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];
@@ -23,6 +28,7 @@ class User {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['first_name'] = this.firstName;
+
     data['last_name'] = this.lastName;
     data['email'] = this.email;
     if (this.favourites != null) {

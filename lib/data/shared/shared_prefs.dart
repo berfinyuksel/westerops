@@ -67,6 +67,50 @@ class SharedPrefs {
     return menuList;
   }
 
+  static Future<void> setAddressName(String name) async {
+    _prefs.setString('addressName', name);
+  }
+
+  static Future<void> setAddressType(int type) async {
+    _prefs.setInt('addressType', type);
+  }
+
+  static Future<void> setAddress(String address) async {
+    _prefs.setString('address', address);
+  }
+
+  static Future<void> setAddressDescription(String description) async {
+    _prefs.setString('addressDescription', description);
+  }
+
+  static Future<void> setAddressCountry(String country) async {
+    _prefs.setString('addressCountry', country);
+  }
+
+  static Future<void> setAddressCity(String city) async {
+    _prefs.setString('addressCity', city);
+  }
+
+  static Future<void> setAddressProvince(String province) async {
+    _prefs.setString('addressProvince', province);
+  }
+
+  static Future<void> setAddressTcknVkn(String tcknVkn) async {
+    _prefs.setString('addressTcknVkn', tcknVkn);
+  }
+
+  static Future<void> setAddressPhoneNumber(String phoneNumber) async {
+    _prefs.setString('addressPhoneNumber', phoneNumber);
+  }
+
+  static Future<void> setAddressLatitude(double latitude) async {
+    _prefs.setDouble('addressLatitude', latitude);
+  }
+
+  static Future<void> setAddressLongitude(double longitude) async {
+    _prefs.setDouble('addressLongitude', longitude);
+  }
+
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
@@ -83,4 +127,22 @@ class SharedPrefs {
   static int get getCounter => _prefs.getInt('counter') ?? 0;
   static int get getMenuId => _prefs.getInt('menuId') ?? 0;
   static List<String> get getMenuList => _prefs.getStringList('menuList') ?? [];
+  static String get getAdressName => _prefs.getString('addressName') ?? "";
+  static int get getAddressType => _prefs.getInt('addressType') ?? 0;
+  static String get getAddress => _prefs.getString('address') ?? "";
+  static String get getAddressDescription =>
+      _prefs.getString('addressDescription') ?? "";
+  static String get getAddressCountry =>
+      _prefs.getString('addressCountry') ?? "";
+  static String get getAddressCity => _prefs.getString('addressCity') ?? "";
+  static String get getAddressProvince =>
+      _prefs.getString('addressProvince') ?? "";
+  static String get getAddressTcknVkn =>
+      _prefs.getString('addressTcknVkn') ?? "";
+  static String get getAddressPhoneNumber =>
+      _prefs.getString('addressPhoneNumber') ?? "";
+  static double get getAddressLatitude =>
+      _prefs.getDouble('addressLatitude') ?? 0.0;
+  static double get getAddressLongitude =>
+      _prefs.getDouble('addressLongitude') ?? 0.0;
 }

@@ -70,7 +70,7 @@ class _SpecialForMeListTileBuilderState
                     top: context.dynamicHeight(0.011),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

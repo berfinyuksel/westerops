@@ -11,24 +11,28 @@ import '../../../widgets/text/locale_text.dart';
 class AddressListTile extends StatelessWidget {
   final String? title;
   final String? subtitleBold;
-  final String? subtitle;
+
+  final String? address;
+  final String? phoneNumber;
+  final String? description;
 
   const AddressListTile({
     Key? key,
     this.title,
     this.subtitleBold,
-    this.subtitle,
+    this.address,
+    this.phoneNumber,
+    this.description,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-        top: context.dynamicHeight(0.01),
-        bottom: context.dynamicHeight(0.01)
-      ),
+          left: context.dynamicWidht(0.06),
+          right: context.dynamicWidht(0.06),
+          top: context.dynamicHeight(0.01),
+          bottom: context.dynamicHeight(0.01)),
       trailing: Container(
         height: double.infinity,
         width: context.dynamicWidht(0.03),
@@ -44,15 +48,25 @@ class AddressListTile extends StatelessWidget {
       ),
       subtitle: AutoSizeText.rich(
         TextSpan(
-          style: AppTextStyles.headlineStyle.copyWith(color: AppColors.textColor),
+          style:
+              AppTextStyles.headlineStyle.copyWith(color: AppColors.textColor),
           children: [
             TextSpan(
               text: subtitleBold,
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
-           // TextSpan(text: "       "), bosluk verilecek 
+            // TextSpan(text: "       "), bosluk verilecek
+
             TextSpan(
-              text: subtitle,
+              text: address,
+              style: AppTextStyles.subTitleStyle,
+            ),
+            TextSpan(
+              text: phoneNumber,
+              style: AppTextStyles.subTitleStyle,
+            ),
+            TextSpan(
+              text: description,
               style: AppTextStyles.subTitleStyle,
             ),
           ],

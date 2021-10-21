@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/data/model/store.dart';
+import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'meal.dart';
@@ -12,8 +12,7 @@ class BoxOrder {
   String? description;
   bool? defined;
   bool? sold;
-  Store? store;
-
+  SearchStore? store;
 
   BoxOrder({
     this.id,
@@ -24,6 +23,7 @@ class BoxOrder {
     this.sold,
     this.store,
   });
-  factory BoxOrder.fromJson(Map<String, dynamic> json) => _$BoxOrderFromJson(json);
+  factory BoxOrder.fromJson(Map<String, dynamic> json) =>
+      _$BoxOrderFromJson(json);
   toJson() => _$BoxOrderToJson(this);
 }

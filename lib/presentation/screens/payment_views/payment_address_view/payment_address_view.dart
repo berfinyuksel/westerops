@@ -55,7 +55,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
               AddressListTile(
                 title: "Ev",
                 subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)",
-                subtitle:
+                address:
                     "\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n",
               ),
               SizedBox(

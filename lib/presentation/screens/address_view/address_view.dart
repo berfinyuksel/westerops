@@ -1,4 +1,9 @@
+import 'package:dongu_mobile/data/model/user_address.dart';
+
+import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../logic/cubits/generic_state/generic_state.dart';
 
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -10,7 +15,18 @@ import 'components/address_view_title.dart';
 import 'components/adress_list_tile.dart';
 import '../../../utils/extensions/string_extension.dart';
 
-class AddressView extends StatelessWidget {
+class AddressView extends StatefulWidget {
+  @override
+  State<AddressView> createState() => _AddressViewState();
+}
+
+class _AddressViewState extends State<AddressView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserAddressCubit>().getUserAddress();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -39,20 +55,32 @@ class AddressView extends StatelessWidget {
       padding: EdgeInsets.only(
         top: context.dynamicHeight(0.01),
       ),
-      child: ListView(
-        children: [
-          AddressListTile(
-            title: LocaleKeys.address_text_1,
-            subtitleBold: LocaleKeys.address_text_3.locale,
-            subtitle: LocaleKeys.address_text_4.locale,
-          ),
-          AddressListTile(
-            title: LocaleKeys.address_text_2,
-            subtitleBold: LocaleKeys.address_text_3.locale,
-            subtitle: LocaleKeys.address_text_4.locale,
-          ),
-        ],
-      ),
+      child: Builder(builder: (context) {
+        final GenericState state = context.watch<UserAddressCubit>().state;
+        if (state is GenericInitial) {
+          return Text("aaa");
+        } else if (state is GenericLoading) {
+          return Center(child: CircularProgressIndicator());
+        } else if (state is GenericCompleted) {
+          List<Result> list = [];
+          for (var i = 0; i < state.response.length; i++) {
+            list.add(state.response[i]);
+          }
+          print(state.response.length);
+          return ListView.builder(
+              itemCount: list.length,
+              itemBuilder: (context, index) {
+                return AddressListTile(
+                  title: list[index].name,
+                  subtitleBold: "${list[index].province}",
+                  address: "\n${list[index].address}",
+                  phoneNumber: "\n${list[index].phoneNumber}",
+                  description: "\n${list[index].description}",
+                );
+              });
+        } else
+          return Container();
+      }),
     );
   }
 

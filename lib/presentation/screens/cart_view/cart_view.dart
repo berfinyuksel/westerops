@@ -1,4 +1,5 @@
-import 'package:dongu_mobile/data/model/store.dart';
+import 'package:dongu_mobile/data/model/search_store.dart';
+
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 
@@ -52,7 +53,7 @@ class _CartViewState extends State<CartView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        List<Store> itemList = [];
+        List<SearchStore> itemList = [];
         for (int i = 0; i < state.response.length; i++) {
           itemList.add(state.response[i].store);
         }
@@ -72,8 +73,8 @@ class _CartViewState extends State<CartView> {
     });
   }
 
-  Column buildBody(
-      BuildContext context, GenericCompleted state, List<Store> itemList) {
+  Column buildBody(BuildContext context, GenericCompleted state,
+      List<SearchStore> itemList) {
     return Column(
       children: [
         Container(
@@ -230,8 +231,8 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  ListView buildRestaurantListTile(
-      BuildContext context, GenericCompleted state, List<Store> itemList) {
+  ListView buildRestaurantListTile(BuildContext context, GenericCompleted state,
+      List<SearchStore> itemList) {
     return ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,

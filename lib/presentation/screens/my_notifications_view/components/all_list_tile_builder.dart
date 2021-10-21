@@ -80,7 +80,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                   child: Container(
                     padding: EdgeInsets.only(top: context.dynamicHeight(0.011)),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
