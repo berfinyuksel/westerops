@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/my_notifications_view/my_notifications_view.dart';
+import 'package:dongu_mobile/presentation/screens/search_view/search_demo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../screens/cart_view/cart_view.dart';
 import '../../screens/home_page_view/home_page_view.dart';
@@ -39,7 +40,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   bool homePageActiveIcon = true;
   List<Widget> _widgetOptions = <Widget>[
     HomePageView(),
-    SearchView(),
+    SearchViewDemo(),
     MyFavoritesView(),
     MyNotificationsView(),
     CartView(),

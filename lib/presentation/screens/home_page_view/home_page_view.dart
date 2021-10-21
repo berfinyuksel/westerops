@@ -1,11 +1,16 @@
 import 'dart:math';
 
 import 'package:dongu_mobile/data/model/search_store.dart';
+import 'dart:io';
+import 'package:device_info/device_info.dart';
+
+import 'package:dongu_mobile/data/model/store.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,6 +46,26 @@ class _HomePageViewState extends State<HomePageView> {
     context.read<SearchStoreCubit>().getSearchStore();
 
     LocationService.getCurrentLocation();
+    getDeviceIdentifier();
+  }
+
+  Future<List<String>> getDeviceIdentifier() async {
+    String? identifier;
+    final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
+    try {
+      if (Platform.isAndroid) {
+        var build = await deviceInfoPlugin.androidInfo;
+
+        identifier = build.androidId;
+        print(identifier); //UUID for Android
+      } else if (Platform.isIOS) {
+        var data = await deviceInfoPlugin.iosInfo;
+        identifier = data.identifierForVendor; //UUID for iOS
+      }
+    } on PlatformException {
+      print('Failed to get platform version');
+    }
+    return [identifier!];
   }
 
   @override

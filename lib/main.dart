@@ -8,6 +8,10 @@ import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cu
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
+import 'package:dongu_mobile/data/repositories/search_repository.dart';
+import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 
 import 'package:dongu_mobile/presentation/screens/filter_view/filter_view.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
@@ -113,6 +117,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<SearchStoreCubit>(
             create: (context) =>
                 SearchStoreCubit(SampleSearchStoreRepository())),
+        BlocProvider<SearchCubit>(
+            create: (context) =>
+                SearchCubit(SampleSearchRepository())),
+        BlocProvider<StoreCubit>(
+            create: (context) => StoreCubit(SampleStoreRepository())),
         BlocProvider<BoxCubit>(
             create: (context) => BoxCubit(SampleBoxRepository())),
         BlocProvider<UserAuthCubit>(
