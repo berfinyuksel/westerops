@@ -1,7 +1,10 @@
-class ScreenArguments {
-  final String title;
-  final String district;
-  final String description;
+import 'package:dongu_mobile/data/model/user_address.dart';
 
-  ScreenArguments(this.title, this.district, this.description);
+class ScreenArguments {
+  final String? title;
+  final String? district;
+  final String? description;
+  final Result? list;
+
+  ScreenArguments({this.title, this.district, this.description, this.list});
 }

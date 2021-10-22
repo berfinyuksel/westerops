@@ -49,6 +49,7 @@ class AddressCubit extends Cubit<GenericState> {
   }
 
   Future<void> updateAddress(
+      int id,
       String name,
       int type,
       String address,
@@ -63,6 +64,7 @@ class AddressCubit extends Cubit<GenericState> {
     try {
       emit(GenericLoading());
       final response = await _addressRepository.updateAddress(
+          id,
           name,
           type,
           address,
@@ -80,10 +82,10 @@ class AddressCubit extends Cubit<GenericState> {
     }
   }
 
-  Future<void> deleteAddress() async {
+  Future<void> deleteAddress(int? id) async {
     try {
       emit(GenericLoading());
-      final response = await _addressRepository.deleteAddress();
+      final response = await _addressRepository.deleteAddress(id);
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));

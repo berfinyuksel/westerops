@@ -139,6 +139,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
+
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Dongu App',

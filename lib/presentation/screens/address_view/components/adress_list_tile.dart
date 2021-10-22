@@ -8,10 +8,13 @@ import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/text/locale_text.dart';
 
-class AddressListTile extends StatelessWidget {
+class AddressListTile extends StatefulWidget {
+  final Widget? trailing;
+  final Widget? leading;
+
   final String? title;
   final String? subtitleBold;
-
+  final VoidCallback? onTap;
   final String? address;
   final String? phoneNumber;
   final String? description;
@@ -19,31 +22,33 @@ class AddressListTile extends StatelessWidget {
   const AddressListTile({
     Key? key,
     this.title,
+    this.leading,
+    this.trailing,
     this.subtitleBold,
     this.address,
     this.phoneNumber,
     this.description,
+    this.onTap,
   }) : super(key: key);
 
   @override
+  State<AddressListTile> createState() => _AddressListTileState();
+}
+
+class _AddressListTileState extends State<AddressListTile> {
+  @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: widget.leading,
       contentPadding: EdgeInsets.only(
           left: context.dynamicWidht(0.06),
           right: context.dynamicWidht(0.06),
           top: context.dynamicHeight(0.01),
           bottom: context.dynamicHeight(0.01)),
-      trailing: Container(
-        height: double.infinity,
-        width: context.dynamicWidht(0.03),
-        child: SvgPicture.asset(
-          ImageConstant.COMMONS_FORWARD_ICON,
-          fit: BoxFit.fitWidth,
-        ),
-      ),
+      trailing: widget.trailing,
       tileColor: Colors.white,
       title: LocaleText(
-        text: title,
+        text: widget.title,
         style: AppTextStyles.subTitleStyle,
       ),
       subtitle: AutoSizeText.rich(
@@ -52,21 +57,21 @@ class AddressListTile extends StatelessWidget {
               AppTextStyles.headlineStyle.copyWith(color: AppColors.textColor),
           children: [
             TextSpan(
-              text: subtitleBold,
+              text: widget.subtitleBold,
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             // TextSpan(text: "       "), bosluk verilecek
 
             TextSpan(
-              text: address,
+              text: widget.address,
               style: AppTextStyles.subTitleStyle,
             ),
             TextSpan(
-              text: phoneNumber,
+              text: widget.phoneNumber,
               style: AppTextStyles.subTitleStyle,
             ),
             TextSpan(
-              text: description,
+              text: widget.description,
               style: AppTextStyles.subTitleStyle,
             ),
           ],
@@ -74,7 +79,7 @@ class AddressListTile extends StatelessWidget {
         textAlign: TextAlign.start,
         maxLines: 7,
       ),
-      onTap: () {},
+      onTap: widget.onTap,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/address_update_view/address_update_view.dart';
 import 'package:dongu_mobile/presentation/screens/freeze_account_view/freeze_account_view.dart';
 import 'package:dongu_mobile/presentation/screens/splash_view/splash_view.dart';
 import 'package:dongu_mobile/presentation/screens/swipe_view/swipe_view.dart';
@@ -53,14 +54,22 @@ class AppRouter {
     switch (routeSettings.name) {
       case RouteConstant.ABOUT_APP_VIEW:
         return MaterialPageRoute(builder: (_) => AboutAppView());
+      case RouteConstant.ADDRESS_UPDATE_VIEW:
+        final ScreenArguments args = routeSettings.arguments as ScreenArguments;
+
+        return MaterialPageRoute(
+          builder: (_) => AddressUpdateView(
+            addressList: args.list!,
+          ),
+        );
       case RouteConstant.ADDRESS_DETAIL_VIEW:
         final ScreenArguments args = routeSettings.arguments as ScreenArguments;
 
         return MaterialPageRoute(
           builder: (_) => AddressDetailView(
-            title: args.title,
-            address: args.description,
-            district: args.district,
+            title: args.title!,
+            address: args.description!,
+            district: args.district!,
           ),
         );
       case RouteConstant.ADDRESS_FROM_MAP_VIEW:
@@ -85,7 +94,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => DeleteAccountView());
       case RouteConstant.FILTER_VIEW:
         return MaterialPageRoute(builder: (_) => FilterView());
-          case RouteConstant.FREEZE_ACCOUNT_VIEW:
+      case RouteConstant.FREEZE_ACCOUNT_VIEW:
         return MaterialPageRoute(builder: (_) => FreezeAccountView());
       case RouteConstant.FOOD_CATEGORIES_VIEW:
         return MaterialPageRoute(builder: (_) => FoodCategories());
@@ -116,7 +125,10 @@ class AppRouter {
       case RouteConstant.NOTIFICATION_VIEW:
         return MaterialPageRoute(builder: (_) => NotificationView());
       case RouteConstant.ONBOARDINGS_VIEW:
-        return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? CustomScaffold() : OnboardingsView());
+        return MaterialPageRoute(
+            builder: (_) => SharedPrefs.getIsOnboardingShown
+                ? CustomScaffold()
+                : OnboardingsView());
       case RouteConstant.ORDER_DELIVERED_VIEW:
         return MaterialPageRoute(builder: (_) => OrderDeliveredView());
       case RouteConstant.ORDER_RECEIVED_VIEW:
@@ -132,7 +144,8 @@ class AppRouter {
       case RouteConstant.REGISTER_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterView());
       case RouteConstant.RESTAURANT_DETAIL:
-        final ScreenArgumentsRestaurantDetail args = routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+        final ScreenArgumentsRestaurantDetail args =
+            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
 
         return MaterialPageRoute(
           builder: (_) => RestaurantDetailView(
@@ -146,8 +159,15 @@ class AppRouter {
       case RouteConstant.SURPRISE_PACK_VIEW:
         return MaterialPageRoute(builder: (_) => SurprisePackView());
       case RouteConstant.SPLASH_VIEW:
-        return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? CustomScaffold() : SplashView());case RouteConstant.SPLASH_VIEW:
-        return MaterialPageRoute(builder: (_) => SharedPrefs.getIsOnboardingShown ? CustomScaffold() : SplashView());
+        return MaterialPageRoute(
+            builder: (_) => SharedPrefs.getIsOnboardingShown
+                ? CustomScaffold()
+                : SplashView());
+      case RouteConstant.SPLASH_VIEW:
+        return MaterialPageRoute(
+            builder: (_) => SharedPrefs.getIsOnboardingShown
+                ? CustomScaffold()
+                : SplashView());
       case RouteConstant.SWIPE_VIEW:
         return MaterialPageRoute(builder: (_) => SwipeView());
       case RouteConstant.WAS_DELIVERED_VIEW:

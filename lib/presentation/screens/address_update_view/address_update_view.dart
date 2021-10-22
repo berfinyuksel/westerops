@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/model/user_address.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
@@ -12,21 +13,19 @@ import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddressDetailView extends StatefulWidget {
-  final String title;
-  final String district;
-  final String address;
-  const AddressDetailView({
+class AddressUpdateView extends StatefulWidget {
+  final Result addressList;
+
+  const AddressUpdateView({
     Key? key,
-    required this.title,
-    required this.district,
-    required this.address,
+    required this.addressList,
   }) : super(key: key);
   @override
-  _AddressDetailViewState createState() => _AddressDetailViewState();
+  _AddressUpdateViewState createState() => _AddressUpdateViewState();
 }
 
-class _AddressDetailViewState extends State<AddressDetailView> {
+class _AddressUpdateViewState extends State<AddressUpdateView> {
+  Result? addressList;
   int adressType = 1;
   TextEditingController tcController = TextEditingController();
   TextEditingController addressNameController = TextEditingController();
@@ -35,12 +34,11 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   TextEditingController daireNoController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
-    districtController.text = widget.district;
-    addressController.text = widget.address;
+
+    addressList = widget.addressList;
   }
 
   @override
@@ -50,7 +48,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         FocusScope.of(context).unfocus();
       },
       child: CustomScaffold(
-        title: widget.title,
+        title: "Adresini Düzenle",
         body: Padding(
           padding: EdgeInsets.only(
               left: context.dynamicWidht(0.06),
@@ -70,28 +68,35 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                   Spacer(flex: 5),
                   buildDropDown(context, adressType),
                   Spacer(flex: 10),
-                  buildTextFormField("VKN/TCKN", tcController),
+                  buildTextFormField(
+                      addressList!.tcknVkn!, "VKN/TCKN", tcController),
                   Spacer(flex: 10),
-                  buildTextFormField("Adres İsmi", addressNameController),
+                  buildTextFormField(
+                      addressList!.name!, "Adres İsmi", addressNameController),
                   Spacer(flex: 10),
-                  buildTextFormField("İlçe", districtController),
+                  buildTextFormField(
+                      addressList!.province!, "İlçe", districtController),
                   Spacer(flex: 10),
-                  buildTextFormField("Adres", addressController),
+                  buildTextFormField(
+                      addressList!.address!, "Adres", addressController),
                   Spacer(flex: 10),
-                  buildTextFormField("Adres Açıklaması", descriptionController),
+                  buildTextFormField(addressList!.description!,
+                      "Adres Açıklaması", descriptionController),
                   Spacer(flex: 10),
-                  buildTextFormField("Telefon Numarası", phoneNumberController),
+                  buildTextFormField(addressList!.phoneNumber!,
+                      "Telefon Numarası", phoneNumberController),
                   Spacer(
                     flex: 33,
                   ),
                   CustomButton(
                     width: double.infinity,
-                    title: "Kaydet",
+                    title: "Düzenle",
                     color: AppColors.greenColor,
                     borderColor: AppColors.greenColor,
                     textColor: Colors.white,
                     onPressed: () {
-                      context.read<AddressCubit>().addAddress(
+                      context.read<AddressCubit>().updateAddress(
+                          addressList!.id!,
                           addressNameController.text,
                           adressType,
                           addressController.text,
@@ -174,7 +179,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   }
 
   Container buildTextFormField(
-      String labelText, TextEditingController controller) {
+      String helperText, String labelText, TextEditingController controller) {
     return Container(
       height:
           controller == descriptionController || controller == addressController
@@ -198,6 +203,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                 horizontal: context.dynamicWidht(0.05), vertical: 0),
             labelText: labelText,
             labelStyle: AppTextStyles.bodyTextStyle,
+            hintText: helperText,
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
             border: InputBorder.none),

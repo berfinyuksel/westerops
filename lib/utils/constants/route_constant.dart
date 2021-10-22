@@ -1,6 +1,8 @@
 class RouteConstant {
   static const ABOUT_APP_VIEW = '/about';
   static const ADDRESS_DETAIL_VIEW = '/address_detail';
+  static const ADDRESS_UPDATE_VIEW = '/address_update';
+
   static const ADDRESS_FROM_MAP_VIEW = '/addressMap';
   static const ADDRESS_VIEW = '/address';
   static const AGREEMENT_KVKK_VIEW = '/kvkk';

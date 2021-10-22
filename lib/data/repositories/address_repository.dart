@@ -10,6 +10,7 @@ enum StatusCode { success, error }
 
 abstract class AdressRepository {
   Future<List<AddressValues>> updateAddress(
+    int id,
     String name,
     int type,
     String address,
@@ -39,7 +40,7 @@ abstract class AdressRepository {
   Future<List<AddressValues>> getActiveAddress();
   Future<List<AddressValues>> changeActiveAddress(int activeAdressId);
 
-  Future<List<AddressValues>> deleteAddress();
+  Future<List<AddressValues>> deleteAddress(int? id);
 }
 
 class SampleAdressRepository implements AdressRepository {
@@ -89,6 +90,7 @@ class SampleAdressRepository implements AdressRepository {
 
   @override
   Future<List<AddressValues>> updateAddress(
+    int id,
     String name,
     int type,
     String address,
@@ -106,7 +108,7 @@ class SampleAdressRepository implements AdressRepository {
     String json =
         '{"name":"$name","type":"$type","address": "$address","description": "$description","country": "$country","city": "$city","province":"$province","phone_number":"$phoneNumber","tckn_vkn":"$tcknVkn","latitude":"$latitude","longitude":"$longitude"}';
     final response = await http.put(
-      Uri.parse("${UrlConstant.EN_URL}user/address/${SharedPrefs.getUserId}/"),
+      Uri.parse("${UrlConstant.EN_URL}user/address/$id/"),
       body: json,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -170,6 +172,7 @@ class SampleAdressRepository implements AdressRepository {
   @override
   Future<List<AddressValues>> changeActiveAddress(int activeAddressId) async {
     //  List<String> group = [];
+    String json = '{"active_address": "$activeAddressId"}';
 
     final response = await http.post(
       Uri.parse("${UrlConstant.EN_URL}user/address/change_address/"),
@@ -188,10 +191,12 @@ class SampleAdressRepository implements AdressRepository {
   }
 
   @override
-  Future<List<AddressValues>> deleteAddress() async {
+  Future<List<AddressValues>> deleteAddress(int? id) async {
+    String json = '{"id":"$id" }';
+
     final response = await http.delete(
       Uri.parse(
-        ("${UrlConstant.EN_URL}user/address/${SharedPrefs.getUserId}/"),
+        ("${UrlConstant.EN_URL}user/address/$id/"),
       ),
       body: json,
       headers: <String, String>{

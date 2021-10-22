@@ -64,6 +64,7 @@ class MapAlertDialog extends StatelessWidget {
           title: LocaleKeys.surprise_pack_alert_button1,
           onPressed: () {
             Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+            Navigator.of(context).pop();
           },
         ),
         CustomButton(
@@ -74,8 +75,11 @@ class MapAlertDialog extends StatelessWidget {
           title: LocaleKeys.surprise_pack_alert_button2,
           onPressed: () {
             Navigator.pushNamed(context, RouteConstant.ADDRESS_DETAIL_VIEW,
-                arguments:
-                    ScreenArguments("Yeni Adres Ekle", district!, address!));
+                arguments: ScreenArguments(
+                  title: "Yeni Adres Ekle",
+                  district: district!,
+                  description: address!,
+                ));
           },
         ),
       ],
