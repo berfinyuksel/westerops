@@ -145,7 +145,7 @@ class _LoginViewState extends State<LoginView> {
                   String phoneEN = '+1' + phoneController.text;
                   await context
                       .read<UserAuthCubit>()
-                      .loginUser(phoneController.text, passwordController.text);
+                      .loginUser(phoneTR, passwordController.text);
                   _showMyDialog();
                   if (SharedPrefs.getIsLogined) {
                     Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);

@@ -150,7 +150,31 @@ class _MyInformationViewState extends State<MyInformationView> {
       ),
     );
   }
-
+  Container buildTextFormFieldPhoneNumber(BuildContext context,
+      TextEditingController controller) {
+    return Container(
+      height: context.dynamicHeight(0.06),
+      color: Colors.white,
+      child: TextFormField(
+        readOnly: isReadOnly,
+        style: AppTextStyles.myInformationBodyTextStyle,
+        cursorColor: AppColors.cursorColor,
+        onTap: () {
+          setState(() {});
+        },
+        controller: controller,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+          labelText: "Telefon numarası",
+          hintStyle: AppTextStyles.myInformationBodyTextStyle,
+          labelStyle: AppTextStyles.bodyTextStyle,
+          enabledBorder: buildOutlineInputBorder(),
+          focusedBorder: buildOutlineInputBorder(),
+          border: buildOutlineInputBorder(),
+        ),
+      ),
+    );
+  }
   @override
   void initState() {
     super.initState();
