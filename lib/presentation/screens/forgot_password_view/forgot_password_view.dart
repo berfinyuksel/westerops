@@ -143,7 +143,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         }
                         String phoneTR = '+90' + phoneController.text;
                         String phoneEN = '+1' + phoneController.text;
-
+ 
                         await _auth.verifyPhoneNumber(
                             phoneNumber:
                                 dropdownValue == 'TR' ? phoneTR : phoneEN,
@@ -172,7 +172,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         setState(() {
                           isCodeSent = true;
                           showLoading = true;
-                          print(_auth.app.options); //session_key
+                          print("SESSION KEY : ${_auth.tenantId}"); //session_key
 
                           /*FirebaseAuth.instance.sendPasswordResetEmail(
                               email: phoneController.text);*/
@@ -180,7 +180,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         if (codeController.text.isNotEmpty) {
                           PhoneAuthCredential phoneAuthCredential =
                               PhoneAuthProvider.credential(
-                                  verificationId: verificationId.toString(),
+                                 verificationId: verificationId.toString(),
                                   smsCode: codeController.text);
                           signInWithPhoneAuthCredential(phoneAuthCredential);
 

@@ -41,14 +41,13 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
   bool scroolCategories = true;
   bool scroolTrend = true;
   bool visible = true;
+  bool isClean = false;
   @override
   void initState() {
     items.addAll(duplicateItems);
     super.initState();
     searches = allSearches;
     context.read<SearchCubit>().getSearches(controller!.text);
-
-
   }
 
   void filterSearchResults(String query) {
@@ -86,21 +85,31 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
       },
       child: Column(
         children: [
+          Spacer(flex: 3,),
           searchBar(context),
+          // Spacer(
+          //   flex: 3,
+          // ),
           Visibility(
               visible: visible, child: searchHistoryAndCleanTexts(context)),
+      
           Visibility(visible: visible, child: dividerOne(context)),
+        //  Spacer(flex:2),
           Visibility(visible: visible, child: Spacer(flex: 2)),
-          searches.length == 0 ? emptySearchHistory() : searchListViewBuilder(),
-          Spacer(flex: 15),
+          items.length == 0 ? emptySearchHistory() : searchListViewBuilder(),
+         isClean ? Spacer(flex: 20) : Spacer(flex: 40,),
           Visibility(visible: visible, child: popularSearchText(context)),
           Visibility(visible: visible, child: dividerSecond(context)),
-          Spacer(flex: 4),
+          //Spacer(flex: 2),
           Visibility(visible: visible, child: horizontalListTrend(context)),
-          Spacer(flex: 15),
+          isClean
+              ? Spacer(flex: 20)
+              : Spacer(
+                  flex: 40,
+                ),
           Visibility(visible: visible, child: categoriesText(context)),
           Visibility(visible: visible, child: dividerThird(context)),
-          Spacer(flex: 1),
+        //  Spacer(flex: 1),
           Visibility(visible: visible, child: horizontalListCategory(context)),
           Spacer(flex: 10),
         ],
@@ -223,13 +232,13 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.06),
+             // vertical: context.dynamicHeight(0.00006)
             ),
             decoration: BoxDecoration(color: Colors.white),
             child: buildSearch(search),
           );
         });
   }
-
 
   Padding dividerOne(BuildContext context) {
     return Padding(
@@ -252,7 +261,9 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           LocaleText(
-            text: SharedPrefs.getIsLogined ? LocaleKeys.search_text1 : "Popüler Aramalar",
+            text: SharedPrefs.getIsLogined
+                ? LocaleKeys.search_text1
+                : "Popüler Aramalar",
             style: AppTextStyles.bodyTitleStyle,
           ),
           Spacer(),
@@ -260,6 +271,8 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
             onTap: () {
               setState(() {
                 items.clear();
+                items.remove(searches.length);
+                isClean = !isClean;
               });
             },
             child: LocaleText(
@@ -281,7 +294,7 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
         ),
         child: CustomSearchBar(
           containerPadding:
-              visible ? context.dynamicWidht(0.85) : context.dynamicWidht(0.70),
+              visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.70),
           onTap: () {
             setState(() {
               visible = !visible;
@@ -318,14 +331,14 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
       child: Padding(
         padding: const EdgeInsets.only(left: 25),
         child: LocaleText(
-            text: "LocaleKeys.search_search_history_clean",
+            text: LocaleKeys.search_search_history_clean,
             style: AppTextStyles.bodyTextStyle
                 .copyWith(color: AppColors.cursorColor)),
       ),
     );
   }
 
-    void searchSearch(String query) {
+  void searchSearch(String query) {
     final search = allSearches.where((searches) {
       final mealLower = searches.meal.toLowerCase();
       final restaurantLower = searches.restaurant.toLowerCase();
@@ -340,7 +353,8 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
       this.searches = search;
     });
   }
-    Widget buildSearch(Search searches) => ListTile(
+
+  Widget buildSearch(Search searches) => ListTile(
         // leading: Image.network(
         //   searches.urlImage,
         //   fit: BoxFit.cover,
