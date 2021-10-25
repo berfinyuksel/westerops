@@ -21,15 +21,6 @@ class FoodWasteView extends StatelessWidget {
       endDrawer: CustomDrawer(),
       appBar: AppBar(
         elevation: 0,
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
-            child: IconButton(
-              icon: SvgPicture.asset(ImageConstant.COMMONS_DRAWER_ICON),
-              onPressed: () => scaffoldKey.currentState!.openEndDrawer(),
-            ),
-          ),
-        ],
         leading: IconButton(
           icon: SvgPicture.asset(ImageConstant.BACK_ICON),
           onPressed: () => Navigator.of(context).pop(),
@@ -79,7 +70,8 @@ class FoodWasteView extends StatelessWidget {
               borderColor: AppColors.greenColor,
               textColor: AppColors.greenColor,
               onPressed: () {
-                Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_EXPANDED_VIEW);
+                Navigator.pushNamed(
+                    context, RouteConstant.FOOD_WASTE_EXPANDED_VIEW);
               },
             ),
             Spacer(flex: 1),
