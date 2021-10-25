@@ -74,7 +74,7 @@ class _LocationViewState extends State<LocationView> {
   GestureDetector lateForNowButton() {
     return GestureDetector(
       onTap: () {
-        //  Navigator.pushNamed(context, RouteConstant.HOME_PAGE_VIEW);
+        Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_VIEW);
       },
       child: AutoSizeText(
         LocaleKeys.premission_notification_button2.locale,
@@ -93,7 +93,7 @@ class _LocationViewState extends State<LocationView> {
       title: LocaleKeys.premission_location_button1.locale,
       onPressed: () async {
         await Geolocator.requestPermission();
-        Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+        Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_VIEW);
       },
     );
   }
