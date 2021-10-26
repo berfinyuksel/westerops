@@ -1,7 +1,10 @@
 import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/data/model/store_boxes.dart';
+import 'package:dongu_mobile/data/repositories/address_repository.dart';
 
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
 
 import 'package:dongu_mobile/presentation/screens/cart_view/not_logged_in_view.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
@@ -34,6 +37,8 @@ class CartView extends StatefulWidget {
 
 class _CartViewState extends State<CartView> {
   List<String> menuList = SharedPrefs.getMenuList;
+  List<SearchStore> itemList = [];
+
   @override
   void initState() {
     super.initState();
@@ -53,7 +58,6 @@ class _CartViewState extends State<CartView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        List<SearchStore> itemList = [];
         for (int i = 0; i < state.response.length; i++) {
           itemList.add(state.response[i].store);
         }
@@ -107,9 +111,15 @@ class _CartViewState extends State<CartView> {
                   itemCount: state.response.length,
                   itemBuilder: (context, index) {
                     return Builder(builder: (context) {
+                      context
+                          .read<StoreBoxesCubit>()
+                          .getStoreBoxes(itemList[index].id!);
+
                       final counterState =
                           context.watch<BasketCounterCubit>().state;
-
+                      print(itemList[index]
+                          .packageSettings
+                          ?.minDiscountedOrderPrice);
                       return Dismissible(
                         direction: DismissDirection.endToStart,
                         key: UniqueKey(),
@@ -233,36 +243,46 @@ class _CartViewState extends State<CartView> {
 
   ListView buildRestaurantListTile(BuildContext context, GenericCompleted state,
       List<SearchStore> itemList) {
+    List<String?> restaurantNames = [];
+
     return ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: state.response.length,
         itemBuilder: (context, index) {
-          return Builder(builder: (context) {
-            return ListTile(
-              contentPadding: EdgeInsets.only(
-                left: context.dynamicWidht(0.06),
-                right: context.dynamicWidht(0.06),
-              ),
-              trailing: SvgPicture.asset(
-                ImageConstant.COMMONS_FORWARD_ICON,
-              ),
-              tileColor: Colors.white,
-              title: LocaleText(
-                text: "${state.response[index].text_name}",
-                style: AppTextStyles.bodyTextStyle,
-              ),
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  RouteConstant.RESTAURANT_DETAIL,
-                  arguments: ScreenArgumentsRestaurantDetail(
-                    itemList[index],
-                  ),
-                );
-              },
+          if (!restaurantNames.contains(itemList[index].name)) {
+            restaurantNames.add(itemList[index].name);
+            SharedPrefs.setDeliveredRestaurantAddressId(itemList[index].id!);
+            return Builder(builder: (context) {
+              return ListTile(
+                contentPadding: EdgeInsets.only(
+                  left: context.dynamicWidht(0.06),
+                  right: context.dynamicWidht(0.06),
+                ),
+                trailing: SvgPicture.asset(
+                  ImageConstant.COMMONS_FORWARD_ICON,
+                ),
+                tileColor: Colors.white,
+                title: LocaleText(
+                  text: "${itemList[index].name}",
+                  style: AppTextStyles.bodyTextStyle,
+                ),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteConstant.RESTAURANT_DETAIL,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      itemList[index],
+                    ),
+                  );
+                },
+              );
+            });
+          } else
+            return SizedBox(
+              height: 0,
+              width: 0,
             );
-          });
         });
   }
 }

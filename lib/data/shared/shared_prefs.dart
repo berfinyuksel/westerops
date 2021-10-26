@@ -111,6 +111,10 @@ class SharedPrefs {
     _prefs.setDouble('addressLongitude', longitude);
   }
 
+  static Future<void> setDeliveredRestaurantAddressId(int id) async {
+    _prefs.setInt('deliveredRestaurantId', id);
+  }
+
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
@@ -145,4 +149,6 @@ class SharedPrefs {
       _prefs.getDouble('addressLatitude') ?? 0.0;
   static double get getAddressLongitude =>
       _prefs.getDouble('addressLongitude') ?? 0.0;
+  static int get getDeliveredRestaurantAddressId =>
+      _prefs.getInt('deliveredRestaurantId') ?? 0;
 }

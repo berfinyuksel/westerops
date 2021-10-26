@@ -1,4 +1,6 @@
 import 'package:dongu_mobile/data/model/user_address.dart';
+import 'package:dongu_mobile/data/repositories/change_active_address_repository.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
@@ -29,6 +31,7 @@ class AddressView extends StatefulWidget {
 }
 
 class _AddressViewState extends State<AddressView> {
+  List<int> boolList = [];
   @override
   void initState() {
     super.initState();
@@ -71,10 +74,8 @@ class _AddressViewState extends State<AddressView> {
           return Center(child: CircularProgressIndicator());
         } else if (state is GenericCompleted) {
           List<Result> list = [];
-          List<int> boolList = [];
           for (var i = 0; i < state.response.length; i++) {
             list.add(state.response[i]);
-            boolList.add(0);
           }
 
           return list.length != 0
@@ -86,11 +87,13 @@ class _AddressViewState extends State<AddressView> {
                       direction: DismissDirection.endToStart,
                       key: UniqueKey(),
                       child: AddressListTile(
-                        leading: boolList[index] == 1
-                            ? SvgPicture.asset(
-                                ImageConstant.COMMONS_CHECK_ICON,
-                                fit: BoxFit.fitWidth,
-                              )
+                        leading: boolList.length != 0
+                            ? boolList[index] == 1
+                                ? SvgPicture.asset(
+                                    ImageConstant.COMMONS_CHECK_ICON,
+                                    fit: BoxFit.fitWidth,
+                                  )
+                                : SizedBox(height: 0, width: 0)
                             : SizedBox(height: 0, width: 0),
                         trailing: Container(
                           height: double.infinity,
@@ -110,13 +113,8 @@ class _AddressViewState extends State<AddressView> {
                         ),
                         onTap: () {
                           setState(() {
-                            context
-                                .read<AddressCubit>()
-                                .changeActiveAddress(list[index].id!);
-                            boolList[index] == 0
-                                ? boolList[index] = 1
-                                : boolList[index] = 0;
-                            print(boolList);
+                            changeAddressActivation(
+                                list[index].id!, index, list.length);
                           });
                         },
                         title: list[index].name,
@@ -191,5 +189,27 @@ class _AddressViewState extends State<AddressView> {
         },
       ),
     );
+  }
+
+  changeAddressActivation(int id, int index, int length) async {
+    StatusCode statusCode =
+        await sl<ChangeActiveAddressRepository>().changeActiveAddress(id);
+    for (var i = 0; i < length; i++) {
+      boolList.add(0);
+    }
+    if (statusCode == StatusCode.success) {
+      for (int i = 0; i < boolList.length; i++) {
+        setState(() {
+          if (i == index) {
+            boolList[i] = 1;
+          } else {
+            boolList[i] = 0;
+          }
+        });
+      }
+
+      context.read<AddressCubit>().getActiveAddress();
+      print('success');
+    }
   }
 }

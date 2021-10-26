@@ -286,7 +286,7 @@ class _HomePageViewState extends State<HomePageView> {
                 restaurantName: restaurants[index].name,
                 grade: restaurants[index].avgReview.toString(),
                 location: restaurants[index].city,
-                distance: '${buildDistance(restaurants, index)} m',
+                distance: '${buildDistance(restaurants, index)}',
                 availableTime: '18:00-20:00',
               ),
             );
@@ -354,7 +354,7 @@ class _HomePageViewState extends State<HomePageView> {
                   restaurantName: restaurants[index].name,
                   grade: "4.7",
                   location: restaurants[index].city,
-                  distance: restaurants[index].distanceFromStore,
+                  distance: restaurants[index].distanceFromStore ?? "22 m",
                   availableTime:
                       '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
                 );

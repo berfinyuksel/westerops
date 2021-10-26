@@ -8,6 +8,7 @@ import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cu
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
 import 'package:dongu_mobile/presentation/screens/login_view/login_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
@@ -100,6 +101,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       } else if (state is GenericCompleted) {
         print(state.response);
         print(state.response.length);
+        List list = state.response;
         //print(state.response[0].description);
         return Center(child: customBody(context, state));
       } else {
