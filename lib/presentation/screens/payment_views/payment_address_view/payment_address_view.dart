@@ -49,15 +49,17 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
       List<SearchStore> restaurants = [];
       List<SearchStore> deliveredRestaurant = [];
       int? restaurantId = SharedPrefs.getDeliveredRestaurantAddressId;
+      print(state.response);
       for (int i = 0; i < state.response.length; i++) {
         restaurants.add(state.response[i]);
       }
+
       for (var i = 0; i < restaurants.length; i++) {
         if (restaurants[i].id == restaurantId) {
           deliveredRestaurant.add(restaurants[i]);
-          print(restaurants[i]);
         }
       }
+      print(deliveredRestaurant);
       return Center(
         child: buildBody(context, deliveredRestaurant),
       );
@@ -74,52 +76,55 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
           context.watch<AddressCubit>().state;
 
       if (activeAddressState is GenericCompleted) {
-        return Container(
-          height: context.dynamicHeight(0.57),
-          child: ListView(
-            children: [
-              SizedBox(
-                height: context.dynamicHeight(0.04),
-              ),
-              buildRowTitleLeftRight(
-                  context,
-                  widget.isGetIt!
-                      ? LocaleKeys.payment_address_from_address
-                      : LocaleKeys.payment_address_to_address,
-                  widget.isGetIt!
-                      ? LocaleKeys.payment_address_show_on_map
-                      : LocaleKeys.payment_address_change),
-              SizedBox(
-                height: context.dynamicHeight(0.01),
-              ),
-              Visibility(
-                visible: widget.isGetIt!,
-                child: GetItAddressListTile(
-                  restaurantName: deliveredRestaurant[0].name,
-                  address:
-                      '${deliveredRestaurant[0].address} ${deliveredRestaurant[0].province}',
+        if (deliveredRestaurant.isEmpty) {
+          return Text("Restoran adresi bulunamadı");
+        } else
+          return Container(
+            height: context.dynamicHeight(0.57),
+            child: ListView(
+              children: [
+                SizedBox(
+                  height: context.dynamicHeight(0.04),
                 ),
-              ),
-              Visibility(
-                visible: !widget.isGetIt!,
-                child: Column(children: [
-                  AddressListTile(
-                    title: activeAddressState.response[0].name,
-                    subtitleBold: activeAddressState.response[0].province,
+                buildRowTitleLeftRight(
+                    context,
+                    widget.isGetIt!
+                        ? LocaleKeys.payment_address_from_address
+                        : LocaleKeys.payment_address_to_address,
+                    widget.isGetIt!
+                        ? LocaleKeys.payment_address_show_on_map
+                        : LocaleKeys.payment_address_change),
+                SizedBox(
+                  height: context.dynamicHeight(0.01),
+                ),
+                Visibility(
+                  visible: widget.isGetIt!,
+                  child: GetItAddressListTile(
+                    restaurantName: deliveredRestaurant[0].name,
                     address:
-                        "\n${activeAddressState.response[0].address}\n${activeAddressState.response[0].phoneNumber}\n${activeAddressState.response[0].description}",
+                        '${deliveredRestaurant[0].address} ${deliveredRestaurant[0].province}',
                   ),
-                  SizedBox(
-                    height: context.dynamicHeight(0.02),
-                  ),
-                  buildButtonDeliveryAndBillingAddress(
-                      context, LocaleKeys.payment_address_button_add_address),
-                  SizedBox(
-                    height: context.dynamicHeight(0.02),
-                  ),
-                  buildRowCheckBox(context),
-                ]),
-              ),
+                ),
+                Visibility(
+                  visible: !widget.isGetIt!,
+                  child: Column(children: [
+                    AddressListTile(
+                      title: activeAddressState.response[0].name,
+                      subtitleBold: activeAddressState.response[0].province,
+                      address:
+                          "\n${activeAddressState.response[0].address}\n${activeAddressState.response[0].phoneNumber}\n${activeAddressState.response[0].description}",
+                    ),
+                    SizedBox(
+                      height: context.dynamicHeight(0.02),
+                    ),
+                    buildButtonDeliveryAndBillingAddress(
+                        context, LocaleKeys.payment_address_button_add_address),
+                    SizedBox(
+                      height: context.dynamicHeight(0.02),
+                    ),
+                    buildRowCheckBox(context),
+                  ]),
+                ),
 /*           SizedBox(
               height: context.dynamicHeight(0.04),
             ),
@@ -139,9 +144,9 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                SizedBox(
               height: context.dynamicHeight(0.02),
             ), */
-            ],
-          ),
-        );
+              ],
+            ),
+          );
       } else if (activeAddressState is GenericInitial) {
         return Container();
       } else if (activeAddressState is GenericLoading) {

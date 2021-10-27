@@ -54,6 +54,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   int favouriteId = 0;
   bool showInfo = false;
   List<String>? menuList = SharedPrefs.getMenuList;
+  List<String> sumOfPrices = [];
 
   TabController? _controller;
   @override
@@ -477,7 +478,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     int index,
     GenericCompleted state,
   ) {
-    print("RESPONE :  ${state.response[0].text_name}");
+    print("RESPONE :  ${state.response[0].textName}");
 
     return Container(
       //alignment: Alignment(-0.8, 0.0),
@@ -496,7 +497,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 height: context.dynamicHeight(0.021),
               ),
               Text(
-                "${state.response[index].text_name}",
+                "${state.response[index].textName}",
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               LocaleText(
@@ -519,7 +520,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       padding:
                           EdgeInsets.only(left: context.dynamicWidht(0.01)),
                       child: Text(
-                        '75 TL',
+                        "75 TL",
                         style: AppTextStyles.bodyBoldTextStyle.copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: AppColors.unSelectedpackageDeliveryColor),
@@ -541,7 +542,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       padding:
                           EdgeInsets.only(left: context.dynamicWidht(0.01)),
                       child: Text(
-                        '35 TL',
+                        '35 aaaTL',
                         style: AppTextStyles.bodyBoldTextStyle.copyWith(
                           color: AppColors.greenColor,
                         ),

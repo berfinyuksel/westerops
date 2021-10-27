@@ -7,6 +7,7 @@ import 'package:device_info/device_info.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/home_page_view/components/order_status_bar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,6 +40,7 @@ class _HomePageViewState extends State<HomePageView> {
   bool scroolCategories = true;
   bool scroolOpportunities = true;
   ScrollController? _controller;
+  bool activeOrder = false;
   @override
   void initState() {
     super.initState();
@@ -106,8 +108,9 @@ class _HomePageViewState extends State<HomePageView> {
       },
       child: Builder(builder: (context) {
         return ListView(
-          padding: EdgeInsets.symmetric(vertical: 26),
           children: [
+            Visibility(visible: activeOrder, child: OrderStatusBar()),
+            SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: buildRowTitleLeftRightLocation(context,

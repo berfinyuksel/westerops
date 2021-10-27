@@ -9,6 +9,7 @@ import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cu
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 import 'package:dongu_mobile/data/repositories/search_repository.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
@@ -113,6 +114,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
+        BlocProvider<SumPriceOrderCubit>(create: (_) => SumPriceOrderCubit()),
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
                 SearchLocationCubit(SampleSearchLocationRepository())),

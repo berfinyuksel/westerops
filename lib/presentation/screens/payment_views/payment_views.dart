@@ -1,3 +1,6 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -31,6 +34,7 @@ class _PaymentViewsState extends State<PaymentViews>
   bool checkboxInfoValue = false;
   bool checkboxAgreementValue = false;
   bool checkboxAddCardValue = false;
+  List<String>? menuList = SharedPrefs.getMenuList;
 
   @override
   Widget build(BuildContext context) {
@@ -305,23 +309,31 @@ class _PaymentViewsState extends State<PaymentViews>
             ],
           ),
         ),
-        CustomButton(
-          width: context.dynamicWidht(0.5),
-          title: LocaleKeys.payment_payment_pay,
-          color: checkboxAgreementValue && checkboxInfoValue
-              ? AppColors.greenColor
-              : AppColors.disabledButtonColor,
-          textColor: Colors.white,
-          borderColor: checkboxAgreementValue && checkboxInfoValue
-              ? AppColors.greenColor
-              : AppColors.disabledButtonColor,
-          onPressed: () {
-            if (checkboxAgreementValue && checkboxInfoValue) {
-              Navigator.pushReplacementNamed(
-                  context, RouteConstant.ORDER_RECEIVING_VIEW);
-            }
-          },
-        ),
+        Builder(builder: (context) {
+          return CustomButton(
+            width: context.dynamicWidht(0.5),
+            title: LocaleKeys.payment_payment_pay,
+            color: checkboxAgreementValue && checkboxInfoValue
+                ? AppColors.greenColor
+                : AppColors.disabledButtonColor,
+            textColor: Colors.white,
+            borderColor: checkboxAgreementValue && checkboxInfoValue
+                ? AppColors.greenColor
+                : AppColors.disabledButtonColor,
+            onPressed: () {
+              if (checkboxAgreementValue && checkboxInfoValue) {
+                context.read<OrderCubit>().clearBasket();
+
+                menuList!.clear();
+                SharedPrefs.setCounter(0);
+                SharedPrefs.setMenuList([]);
+                context.read<BasketCounterCubit>().setCounter(0);
+                Navigator.pushReplacementNamed(
+                    context, RouteConstant.ORDER_RECEIVING_VIEW);
+              }
+            },
+          );
+        }),
       ],
     );
   }

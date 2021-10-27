@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/model/user_address.dart';
 import 'package:dongu_mobile/data/repositories/change_active_address_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
@@ -87,14 +88,6 @@ class _AddressViewState extends State<AddressView> {
                       direction: DismissDirection.endToStart,
                       key: UniqueKey(),
                       child: AddressListTile(
-                        leading: boolList.length != 0
-                            ? boolList[index] == 1
-                                ? SvgPicture.asset(
-                                    ImageConstant.COMMONS_CHECK_ICON,
-                                    fit: BoxFit.fitWidth,
-                                  )
-                                : SizedBox(height: 0, width: 0)
-                            : SizedBox(height: 0, width: 0),
                         trailing: Container(
                           height: double.infinity,
                           width: context.dynamicWidht(0.03),
@@ -105,10 +98,20 @@ class _AddressViewState extends State<AddressView> {
                                   arguments:
                                       ScreenArguments(list: list[index]));
                             },
-                            child: SvgPicture.asset(
-                              ImageConstant.COMMONS_FORWARD_ICON,
-                              fit: BoxFit.fitWidth,
-                            ),
+                            child: boolList.length != 0
+                                ? boolList[index] == 1
+                                    ? SvgPicture.asset(
+                                        ImageConstant.COMMONS_CHECK_ICON,
+                                        fit: BoxFit.fitWidth,
+                                      )
+                                    : SvgPicture.asset(
+                                        ImageConstant.COMMONS_FORWARD_ICON,
+                                        fit: BoxFit.fitWidth,
+                                      )
+                                : SvgPicture.asset(
+                                    ImageConstant.COMMONS_FORWARD_ICON,
+                                    fit: BoxFit.fitWidth,
+                                  ),
                           ),
                         ),
                         onTap: () {
@@ -194,6 +197,7 @@ class _AddressViewState extends State<AddressView> {
   changeAddressActivation(int id, int index, int length) async {
     StatusCode statusCode =
         await sl<ChangeActiveAddressRepository>().changeActiveAddress(id);
+
     for (var i = 0; i < length; i++) {
       boolList.add(0);
     }
