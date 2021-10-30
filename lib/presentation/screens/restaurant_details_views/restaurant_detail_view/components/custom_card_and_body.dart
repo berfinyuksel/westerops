@@ -46,8 +46,6 @@ class CustomCardAndBody extends StatefulWidget {
 
 class _CustomCardAndBodyState extends State<CustomCardAndBody>
     with SingleTickerProviderStateMixin {
-  String startTime = '18:00';
-  String endTime = '20:00';
   List<Box> definedBoxes = [];
   bool isFavourite = false;
   int favouriteId = 0;
@@ -215,7 +213,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               style: AppTextStyles.subTitleStyle,
             ),
             subtitle: LocaleText(
-              text: "$startTime-$endTime",
+              text:
+                  "${widget.restaurant!.packageSettings!.deliveryTimeStart} - ${widget.restaurant!.packageSettings!.deliveryTimeEnd}",
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -240,24 +239,30 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
           ),
         ),
-        Container(
-          color: AppColors.appBarColor,
-          width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.065),
-          padding:
-              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
-          child: ListTile(
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
-            title: LocaleText(
-              text: LocaleKeys.restaurant_detail_detail_tab_title3,
-              style: AppTextStyles.subTitleStyle,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context)
+                .pushNamed(RouteConstant.ABOUT_WORKING_HOUR_VIEW);
+          },
+          child: Container(
+            color: AppColors.appBarColor,
+            width: context.dynamicWidht(1),
+            height: context.dynamicHeight(0.07),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+              title: LocaleText(
+                text: LocaleKeys.restaurant_detail_detail_tab_title3,
+                style: AppTextStyles.subTitleStyle,
+              ),
+              subtitle: LocaleText(
+                text: LocaleKeys.restaurant_detail_detail_tab_sub_title2,
+                style: AppTextStyles.myInformationBodyTextStyle,
+              ),
+              trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
             ),
-            subtitle: LocaleText(
-              text: LocaleKeys.restaurant_detail_detail_tab_sub_title2,
-              style: AppTextStyles.myInformationBodyTextStyle,
-            ),
-            trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
           ),
         ),
         Container(
@@ -517,7 +522,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       padding:
                           EdgeInsets.only(left: context.dynamicWidht(0.01)),
                       child: Text(
-                        '75 TL',
+                        '${state.response[index]}',
                         style: AppTextStyles.bodyBoldTextStyle.copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: AppColors.unSelectedpackageDeliveryColor),
@@ -686,6 +691,16 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   }
 
   Row foodRatingRow(BuildContext context) {
+    List<int> mealPoints = [];
+    for (var i = 0; i < widget.restaurant!.review!.length; i++) {
+      int mealPoint = widget.restaurant!.review![i].qualityPoint!;
+      mealPoints.add(mealPoint);
+    }
+    int totalMealPoints =
+        mealPoints.fold(0, (previousValue, element) => previousValue + element);
+
+    String avgMealPoint = (totalMealPoints / widget.restaurant!.review!.length)
+        .toStringAsFixed(1);
     return Row(
       children: [
         LocaleText(
@@ -697,7 +712,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         CustomCircularProgress(
           valueColor: AppColors.cursorColor,
-          ratingText: "4.1",
+          ratingText: avgMealPoint,
           value: 1,
         )
         /*SvgPicture.asset(ImageConstant.RESTAURANT_FOOD_RATING_ICON),*/
@@ -706,6 +721,17 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   }
 
   Row qualityRatingRow(BuildContext context) {
+    List<int> qualityPoints = [];
+    for (var i = 0; i < widget.restaurant!.review!.length; i++) {
+      int qualityPoint = widget.restaurant!.review![i].qualityPoint!;
+      qualityPoints.add(qualityPoint);
+    }
+    int totalQualityPoints = qualityPoints.fold(
+        0, (previousValue, element) => previousValue + element);
+
+    String avgQualityPoint =
+        (totalQualityPoints / widget.restaurant!.review!.length)
+            .toStringAsFixed(1);
     return Row(
       children: [
         LocaleText(
@@ -717,7 +743,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         CustomCircularProgress(
           valueColor: AppColors.pinkColor,
-          ratingText: "4.1",
+          ratingText: avgQualityPoint,
           value: 1,
         ),
       ],
@@ -725,6 +751,17 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   }
 
   Row serviceRatingRow(BuildContext context) {
+    List<int> servicePoints = [];
+    for (var i = 0; i < widget.restaurant!.review!.length; i++) {
+      int servicePoint = widget.restaurant!.review![i].servicePoint!;
+      servicePoints.add(servicePoint);
+    }
+    int totalServicePoints = servicePoints.fold(
+        0, (previousValue, element) => previousValue + element);
+
+    String avgServicePoint =
+        (totalServicePoints / widget.restaurant!.review!.length)
+            .toStringAsFixed(1);
     return Row(
       children: [
         LocaleText(
@@ -737,7 +774,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         CustomCircularProgress(
           value: 1,
           valueColor: AppColors.greenColor,
-          ratingText: "4.1",
+          ratingText: avgServicePoint,
         ),
       ],
     );
@@ -753,7 +790,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         color: AppColors.scaffoldBackgroundColor,
       ),
       child: Text(
-        "35 TL",
+        widget.restaurant!.packageSettings!.minDiscountedOrderPrice.toString() +
+            " TL",
         textAlign: TextAlign.center,
         style: AppTextStyles.bodyBoldTextStyle
             .copyWith(fontWeight: FontWeight.w700, color: AppColors.greenColor),
@@ -763,7 +801,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Text oldPriceText() {
     return Text(
-      "75 TL",
+      widget.restaurant!.packageSettings!.minOrderPrice.toString() + " TL",
       style: AppTextStyles.bodyBoldTextStyle.copyWith(
           decoration: TextDecoration.lineThrough,
           color: AppColors.unSelectedpackageDeliveryColor),
@@ -773,20 +811,37 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   Container packageContainer(
     BuildContext context,
   ) {
-    return Container(
-      alignment: Alignment(0.0, -0.11),
-      width: context.dynamicWidht(0.19),
-      height: context.dynamicHeight(0.04),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        color: AppColors.orangeColor,
-      ),
-      child: Text(
-        "${widget.restaurant!.id} paket",
-        style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
-        textAlign: TextAlign.center,
-      ),
-    );
+    return widget.restaurant!.storeMeals?.length != 0
+        ? Container(
+            alignment: Alignment(0.0, -0.11),
+            width: context.dynamicWidht(0.19),
+            height: context.dynamicHeight(0.04),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: AppColors.orangeColor,
+            ),
+            child: Text(
+              "${widget.restaurant!.storeMeals?.length} paket",
+              style:
+                  AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          )
+        : Container(
+            alignment: Alignment(0.0, -0.11),
+            width: context.dynamicWidht(0.19),
+            height: context.dynamicHeight(0.04),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: AppColors.yellowColor,
+            ),
+            child: Text(
+              "tükendi",
+              style:
+                  AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          );
   }
 
   Container clockContainer(BuildContext context) {
@@ -802,7 +857,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         children: [
           SvgPicture.asset(ImageConstant.COMMONS_TIME_ICON),
           Text(
-            "$startTime-$endTime",
+            "${widget.restaurant!.packageSettings!.deliveryTimeStart!}-${widget.restaurant!.packageSettings!.deliveryTimeEnd}",
             textAlign: TextAlign.center,
             style: AppTextStyles.bodyBoldTextStyle
                 .copyWith(color: AppColors.yellowColor),
@@ -821,7 +876,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         SizedBox(width: context.dynamicWidht(0.02)),
         Text(
-          "4.7",
+          widget.restaurant!.avgReview!.toString(),
           style: AppTextStyles.bodyTextStyle,
         )
       ],

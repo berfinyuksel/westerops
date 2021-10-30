@@ -15,8 +15,24 @@ class AboutWorkingHourView extends StatefulWidget {
 class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
   @override
   Widget build(BuildContext context) {
-    var days = <String>["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
-    var date = <String>["15 Mart 2021", "16 Mart 2021", "17 Mart 2021", "18 Mart 2021", "19 Mart 2021", "20 Mart 2021", "21 Mart 2021"];
+    var days = <String>[
+      "Pazartesi",
+      "Salı",
+      "Çarşamba",
+      "Perşembe",
+      "Cuma",
+      "Cumartesi",
+      "Pazar"
+    ];
+    var date = <String>[
+      "15 Mart 2021",
+      "16 Mart 2021",
+      "17 Mart 2021",
+      "18 Mart 2021",
+      "19 Mart 2021",
+      "20 Mart 2021",
+      "21 Mart 2021"
+    ];
     var clocks = <String>[
       "12.00 - 03.00",
       "12.00 - 03.00",
@@ -28,6 +44,7 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
     ];
 
     return CustomScaffold(
+      title: "Çalışma Saatleri",
       body: Padding(
         padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
         child: Column(
@@ -41,7 +58,8 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
     );
   }
 
-  ListView aboutWorkingHoursListViewBuilder(List<String> items, List<String> date, List<String> clock) {
+  ListView aboutWorkingHoursListViewBuilder(
+      List<String> items, List<String> date, List<String> clock) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: items.length,
@@ -54,12 +72,14 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
             child: ListTile(
               title: LocaleText(
                 text: "${date[index]}",
-                style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
+                style: AppTextStyles.subTitleStyle
+                    .copyWith(fontWeight: FontWeight.normal),
                 alignment: TextAlign.start,
               ),
               subtitle: LocaleText(
                 text: "${items[index]}",
-                style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+                style: AppTextStyles.bodyTextStyle
+                    .copyWith(fontWeight: FontWeight.bold),
                 alignment: TextAlign.start,
               ),
               trailing: Column(
@@ -69,7 +89,8 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
                   ),
                   LocaleText(
                     text: "${clock[index]}",
-                    style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.bold),
+                    style: AppTextStyles.bodyTextStyle
+                        .copyWith(fontWeight: FontWeight.bold),
                     alignment: TextAlign.start,
                   ),
                 ],

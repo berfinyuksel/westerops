@@ -14,7 +14,6 @@ class Box {
   bool? sold;
   int? store;
 
-
   Box({
     this.id,
     this.meals,
@@ -23,7 +22,6 @@ class Box {
     this.defined,
     this.sold,
     this.store,
-
   });
 
   factory Box.fromJson(Map<String, dynamic> json) => _$BoxFromJson(json);

@@ -8,7 +8,10 @@ class CustomCircularProgress extends StatelessWidget {
   final String ratingText;
   final double value;
   const CustomCircularProgress(
-      {Key? key, required this.valueColor, required this.ratingText, required this.value})
+      {Key? key,
+      required this.valueColor,
+      required this.ratingText,
+      required this.value})
       : super(key: key);
 
   @override
@@ -26,7 +29,7 @@ class CustomCircularProgress extends StatelessWidget {
           Positioned(
             top: 7,
             bottom: 0,
-            left: 10,
+            left: 6.5,
             right: 0,
             child: Text(
               ratingText,
