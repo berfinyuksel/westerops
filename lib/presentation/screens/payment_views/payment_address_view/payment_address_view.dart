@@ -155,6 +155,16 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
         print('wwwwalalalalalal');
         final error = activeAddressState as GenericError;
         print(error.message);
+        if (error.statusCode == 204.toString()) {
+          return Column(
+            children: [
+              SizedBox(height: 20),
+              LocaleText(
+                text: "Aktif adres belirleyiniz",
+              ),
+            ],
+          );
+        }
         print(error.statusCode);
 
         return Center(child: Text("${error.message}\n${error.statusCode}"));

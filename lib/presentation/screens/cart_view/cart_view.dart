@@ -1,11 +1,14 @@
 import 'package:dongu_mobile/data/model/box_order.dart';
+import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/model/store_boxes.dart';
+import 'package:dongu_mobile/data/model/store_courier_hours.dart';
 import 'package:dongu_mobile/data/repositories/address_repository.dart';
 
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 
 import 'package:dongu_mobile/presentation/screens/cart_view/not_logged_in_view.dart';
@@ -42,10 +45,15 @@ class _CartViewState extends State<CartView> {
   List<String> menuList = SharedPrefs.getMenuList;
   List<BoxOrder> itemList = [];
   List<String> sumOfPricesString = SharedPrefs.getSumPrice;
+  List<int> sumOfPricesInt = [];
+
+  double courierPrice = 4.5;
+  double bagPrice = 0.5;
 
   @override
   void initState() {
     super.initState();
+
     context.read<OrderCubit>().getBasket();
   }
 
@@ -118,7 +126,9 @@ class _CartViewState extends State<CartView> {
                       context
                           .read<StoreBoxesCubit>()
                           .getStoreBoxes(itemList[index].id!);
-
+                      context
+                          .read<StoreCourierCubit>()
+                          .getCourierHours(itemList[index].store!.id!);
                       final counterState =
                           context.watch<BasketCounterCubit>().state;
                       print(itemList[index]
@@ -153,6 +163,21 @@ class _CartViewState extends State<CartView> {
                                   Navigator.of(context).pop();
                                 },
                                 onPressedTwo: () {
+                                  sumOfPricesString.remove(itemList[index]
+                                      .packageSetting!
+                                      .minDiscountedOrderPrice!
+                                      .toString());
+                                  SharedPrefs.setSumPrice(sumOfPricesString);
+                                  for (var i = 0;
+                                      i < sumOfPricesString.length;
+                                      i++) {
+                                    sumOfPricesInt
+                                        .add(int.parse(sumOfPricesString[i]));
+                                  }
+                                  context
+                                      .read<SumPriceOrderCubit>()
+                                      .sumprice(sumOfPricesInt);
+
                                   context.read<OrderCubit>().deleteBasket(
                                       "${state.response[index].id}");
                                   context
@@ -189,6 +214,7 @@ class _CartViewState extends State<CartView> {
               ),
               Builder(builder: (context) {
                 final state = context.watch<SumPriceOrderCubit>().state;
+
                 return PastOrderDetailPaymentListTile(
                   title: LocaleKeys.past_order_detail_payment_1,
                   price: state.toDouble(),
@@ -198,21 +224,25 @@ class _CartViewState extends State<CartView> {
               }),
               PastOrderDetailPaymentListTile(
                 title: LocaleKeys.past_order_detail_payment_2,
-                price: 4.50,
+                price: courierPrice,
                 lineTrough: true,
                 withDecimal: true,
               ),
               PastOrderDetailPaymentListTile(
                 title: "${LocaleKeys.past_order_detail_payment_3.locale} (2)*",
-                price: 0.50,
+                price: bagPrice,
                 lineTrough: false,
                 withDecimal: true,
               ),
-              PastOrderDetailTotalPaymentListTile(
-                title: LocaleKeys.past_order_detail_payment_4,
-                price: 70.50,
-                withDecimal: true,
-              ),
+              Builder(builder: (context) {
+                final state = context.watch<SumPriceOrderCubit>().state;
+
+                return PastOrderDetailTotalPaymentListTile(
+                  title: LocaleKeys.past_order_detail_payment_4,
+                  price: (state.toDouble() - courierPrice + bagPrice),
+                  withDecimal: true,
+                );
+              }),
               SizedBox(
                 height: context.dynamicHeight(0.02),
               ),
@@ -268,7 +298,15 @@ class _CartViewState extends State<CartView> {
             return Builder(builder: (context) {
               final GenericState stateOfSearchStore =
                   context.watch<SearchStoreCubit>().state;
+
               if (stateOfSearchStore is GenericCompleted) {
+                List<SearchStore> chosenRestaurat = [];
+                for (var i = 0; i < stateOfSearchStore.response.length; i++) {
+                  if (stateOfSearchStore.response[i].id ==
+                      itemList[index].store!.id) {
+                    chosenRestaurat.add(stateOfSearchStore.response[i]);
+                  }
+                }
                 return ListTile(
                     contentPadding: EdgeInsets.only(
                       left: context.dynamicWidht(0.06),
@@ -287,7 +325,7 @@ class _CartViewState extends State<CartView> {
                         context,
                         RouteConstant.RESTAURANT_DETAIL,
                         arguments: ScreenArgumentsRestaurantDetail(
-                          stateOfSearchStore.response[index],
+                          chosenRestaurat[0],
                         ),
                       );
                     });

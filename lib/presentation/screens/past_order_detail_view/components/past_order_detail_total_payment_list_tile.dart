@@ -26,7 +26,7 @@ class PastOrderDetailTotalPaymentListTile extends StatelessWidget {
       ),
       trailing: Container(
         alignment: Alignment.center,
-        width: context.dynamicWidht(0.16),
+        width: context.dynamicWidht(0.20),
         height: context.dynamicHeight(0.04),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),

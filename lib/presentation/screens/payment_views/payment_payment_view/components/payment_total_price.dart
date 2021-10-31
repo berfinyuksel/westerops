@@ -19,7 +19,7 @@ class PaymentTotalPrice extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.02)),
-      width: context.dynamicWidht(0.18),
+      width: context.dynamicWidht(0.25),
       height: context.dynamicHeight(0.04),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
@@ -27,7 +27,8 @@ class PaymentTotalPrice extends StatelessWidget {
       ),
       child: AutoSizeText(
         '${withDecimal! ? price!.toStringAsFixed(2) : price!.toStringAsFixed(0)} TL',
-        style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.greenColor),
+        style: AppTextStyles.bodyBoldTextStyle
+            .copyWith(color: AppColors.greenColor),
         maxLines: 1,
       ),
     );
