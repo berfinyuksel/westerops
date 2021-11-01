@@ -23,6 +23,7 @@ class CustomScaffold extends StatefulWidget {
   Widget? body;
   bool? isDrawer;
   bool? isNavBar;
+
   CustomScaffold({
     Key? key,
     this.title,
