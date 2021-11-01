@@ -4,8 +4,6 @@ import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/home_page_view/home_page_view.dart';
 import 'package:dongu_mobile/presentation/screens/login_view/login_view.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
-import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -139,11 +137,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           showDialog(
                               context: context,
                               builder: (_) =>
-                                  CustomAlertDialogSuccessfullyChangedPassword());
+                              CustomAlertDialogSuccessfullyChangedPassword());
+
                         }
                         String phoneTR = '+90' + phoneController.text;
                         String phoneEN = '+1' + phoneController.text;
- 
+
                         await _auth.verifyPhoneNumber(
                             phoneNumber:
                                 dropdownValue == 'TR' ? phoneTR : phoneEN,
@@ -166,13 +165,16 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                     MobileVerificationState.SHOW_OTP_FORM_STATE;
                                 this.verificationId = verificationId;
                               });
+                              print("CURRENT STATE : ${verificationId}");
+                              //SMS button send verification id
                             },
                             codeAutoRetrievalTimeout:
                                 (verificationId) async {});
                         setState(() {
                           isCodeSent = true;
                           showLoading = true;
-                          print("SESSION KEY : ${_auth.tenantId}"); //session_key
+                          print(
+                              "SESSION KEY : ${_auth.tenantId}"); //session_key
 
                           /*FirebaseAuth.instance.sendPasswordResetEmail(
                               email: phoneController.text);*/
@@ -180,14 +182,16 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         if (codeController.text.isNotEmpty) {
                           PhoneAuthCredential phoneAuthCredential =
                               PhoneAuthProvider.credential(
-                                 verificationId: verificationId.toString(),
+                                  verificationId: verificationId.toString(),
                                   smsCode: codeController.text);
                           signInWithPhoneAuthCredential(phoneAuthCredential);
-
+                          print(
+                              "SESSION INFO : ${phoneAuthCredential.verificationId}");
                           context.read<UserAuthCubit>().resetPassword(
                               passwordController.text, phoneController.text);
                         }
                       },
+
                       width: double.infinity,
                       title: isCodeSent
                           ? LocaleKeys.forgot_password_reset_password
