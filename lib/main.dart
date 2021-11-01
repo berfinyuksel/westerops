@@ -8,6 +8,7 @@ import 'package:dongu_mobile/data/repositories/user_address_repository.dart';
 import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
@@ -42,7 +43,7 @@ import 'data/repositories/order_repository.dart';
 import 'data/repositories/search_location_repository.dart';
 
 import 'data/repositories/user_authentication_repository.dart';
-import 'data/repositories/user_operatios_repository.dart';
+import 'data/repositories/favourite_repository.dart';
 import 'data/services/locator.dart';
 import 'data/shared/shared_prefs.dart';
 import 'logic/cubits/filters_cubit/filters_cubit.dart';
@@ -51,7 +52,7 @@ import 'logic/cubits/payment_cubit/payment_cubit.dart';
 import 'logic/cubits/search_location_cubit/search_location_cubit.dart';
 
 import 'logic/cubits/user_auth_cubit/user_auth_cubit.dart';
-import 'logic/cubits/user_operations_cubit/user_operations_cubit.dart';
+
 import 'presentation/router/app_router.dart';
 import 'utils/constants/locale_constant.dart';
 import 'utils/theme/app_theme.dart';
@@ -137,9 +138,8 @@ class MyApp extends StatelessWidget {
                 UserAuthCubit(SampleUserAuthenticationRepository())),
         BlocProvider<OrderCubit>(
             create: (context) => OrderCubit(SampleOrderRepository())),
-        BlocProvider<UserOperationsCubit>(
-            create: (context) =>
-                UserOperationsCubit(SampleUserOperationsRepository())),
+        BlocProvider<FavoriteCubit>(
+            create: (context) => FavoriteCubit(SampleFavoriteRepository())),
         BlocProvider<AddressCubit>(
             create: (context) => AddressCubit(SampleAdressRepository())),
         BlocProvider<UserAddressCubit>(

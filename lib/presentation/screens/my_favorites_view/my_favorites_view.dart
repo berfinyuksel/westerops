@@ -3,7 +3,9 @@ import 'dart:ui' as ui;
 
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,9 +47,12 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
 
   bool isShowOnMap = false;
   bool isShowBottomInfo = false;
+
+  int? itemCount;
   @override
   void initState() {
     super.initState();
+    context.read<FavoriteCubit>().getFavorite();
     context.read<SearchStoreCubit>().getSearchStore();
   }
 
@@ -156,7 +161,34 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         ),
         Visibility(
             visible: !isShowOnMap,
-            child: Expanded(child: buildListViewRestaurantInfo(favourites))),
+            child: Builder(builder: (context) {
+              final GenericState stateOfFavorites =
+                  context.watch<FavoriteCubit>().state;
+
+              if (stateOfFavorites is GenericInitial) {
+                return Container();
+              } else if (stateOfFavorites is GenericLoading) {
+                return Center(child: CircularProgressIndicator());
+              } else if (stateOfFavorites is GenericCompleted) {
+                List<SearchStore> favouriteRestaurant = [];
+                for (var i = 0; i < favourites.length; i++) {
+                  for (var j = 0; j < stateOfFavorites.response.length; j++) {
+                    if (favourites[i].id == stateOfFavorites.response[j].id) {
+                      favouriteRestaurant.add(favourites[j]);
+                    }
+                  }
+                }
+                itemCount = favouriteRestaurant.length;
+                print(favouriteRestaurant);
+                return Expanded(
+                    child: buildListViewRestaurantInfo(
+                        favourites, favouriteRestaurant));
+              } else {
+                final error = stateOfFavorites as GenericError;
+                return Center(
+                    child: Text("${error.message}\n${error.statusCode}"));
+              }
+            })),
       ],
     );
   }
@@ -207,24 +239,27 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     );
   }
 
-  ListView buildListViewRestaurantInfo(List<SearchStore> favourites) {
+  ListView buildListViewRestaurantInfo(
+    List<SearchStore> favourites,
+    List<SearchStore> favouriteRestaurant,
+  ) {
+    print(itemCount);
     return ListView.builder(
-        itemCount: favourites.length,
+        itemCount: favouriteRestaurant.length,
         itemBuilder: (context, index) {
-          // String startTime = favourites[index].calendar![0].startDate!.split("T")[1];
-          // String endTime = favourites[index].calendar![0].endDate!.split("T")[1];
-
-          // startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
-          // endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
-
           return RestaurantInfoListTile(
-            index: index,
-            favourites: favourites,
-            icon: favourites[index].photo,
-            restaurantName: favourites[index].name,
-            distance: "74 m",
+            onPressed: () {
+              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                  arguments: ScreenArgumentsRestaurantDetail(
+                    favouriteRestaurant[index],
+                  ));
+            },
+            icon: favouriteRestaurant[index].photo,
+            restaurantName: favouriteRestaurant[index].name,
+            distance: favouriteRestaurant[index].distanceFromStore,
             packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
-            availableTime: '18:00 - 20:00',
+            availableTime:
+                '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
           );
         });
   }
@@ -323,6 +358,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
           color: Colors.white,
           child: RestaurantInfoListTile(
+            onPressed: () {},
             restaurantName: "Mini Burger",
             distance: "74m",
             packetNumber: "4 paket",

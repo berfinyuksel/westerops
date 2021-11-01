@@ -18,22 +18,21 @@ import 'third_column/meters.dart';
 import 'third_column/old_and_new_prices.dart';
 
 class RestaurantInfoListTile extends StatefulWidget {
+  final VoidCallback? onPressed;
   final String? packetNumber;
   final String? restaurantName;
   final String? distance;
   final String? availableTime;
   final Border? border;
   final String? icon;
-  final int? index;
-  final List<SearchStore>? favourites;
+
   const RestaurantInfoListTile({
     Key? key,
     @required this.packetNumber,
     @required this.restaurantName,
     @required this.distance,
     @required this.availableTime,
-    this.favourites,
-    this.index,
+    @required this.onPressed,
     this.border,
     this.icon,
   }) : super(key: key);
@@ -67,12 +66,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
           buildThirdColumn(context, widget.distance!, widget.availableTime!),
           Spacer(flex: 2),
           IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                    arguments: ScreenArgumentsRestaurantDetail(
-                      widget.favourites![widget.index!],
-                    ));
-              },
+              onPressed: widget.onPressed,
               icon: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON))
         ],
       ),

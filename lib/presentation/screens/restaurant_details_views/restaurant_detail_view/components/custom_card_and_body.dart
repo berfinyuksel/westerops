@@ -6,6 +6,7 @@ import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
 
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
@@ -25,7 +26,7 @@ import '../../../register_view/components/clipped_password_rules.dart';
 import '../../../../../data/model/box.dart';
 
 import '../../../../../logic/cubits/order_cubit/order_cubit.dart';
-import '../../../../../logic/cubits/user_operations_cubit/user_operations_cubit.dart';
+
 import '../../../../../utils/constants/image_constant.dart';
 import '../../../../../utils/extensions/context_extension.dart';
 import '../../../../../utils/extensions/string_extension.dart';
@@ -66,7 +67,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     definedBoxes.clear();
     context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
     context.read<SearchStoreCubit>().getSearchStore();
-
+    context.read<FavoriteCubit>().getFavorite();
     // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
     print(widget.restaurant!.id!);
   }
@@ -1035,28 +1036,53 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               SizedBox(
                 width: context.dynamicWidht(0.02),
               ),
-              GestureDetector(
-                onTap: () {
-                  if (isFavourite) {
-                    context
-                        .read<UserOperationsCubit>()
-                        .deleteFromFavourites(favouriteId);
-                  } else {
-                    context
-                        .read<UserOperationsCubit>()
-                        .addToFavorite(widget.restaurant!.id!);
+              Builder(builder: (context) {
+                final GenericState stateOfFavorites =
+                    context.watch<FavoriteCubit>().state;
+
+                if (stateOfFavorites is GenericInitial) {
+                  return Container();
+                } else if (stateOfFavorites is GenericLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (stateOfFavorites is GenericCompleted) {
+                  for (var i = 0; i < stateOfFavorites.response.length; i++) {
+                    if (stateOfFavorites.response[i].id ==
+                        widget.restaurant!.id) {
+                      isFavourite = true;
+                    } else if (stateOfFavorites.response[i].id == null) {
+                      isFavourite = false;
+                    } else {
+                      isFavourite = false;
+                    }
                   }
-                  setState(() {
-                    isFavourite = !isFavourite;
-                  });
-                },
-                child: SvgPicture.asset(
-                  ImageConstant.RESTAURANT_FAVORITE_ICON,
-                  color: isFavourite
-                      ? AppColors.orangeColor
-                      : AppColors.unSelectedpackageDeliveryColor,
-                ),
-              )
+                  return GestureDetector(
+                    onTap: () {
+                      if (isFavourite) {
+                        context
+                            .read<FavoriteCubit>()
+                            .deleteFavorite(widget.restaurant!.id);
+                      } else {
+                        context
+                            .read<FavoriteCubit>()
+                            .addFavorite(widget.restaurant!.id!);
+                      }
+                      setState(() {
+                        isFavourite = !isFavourite;
+                      });
+                    },
+                    child: SvgPicture.asset(
+                      ImageConstant.RESTAURANT_FAVORITE_ICON,
+                      color: isFavourite
+                          ? AppColors.orangeColor
+                          : AppColors.unSelectedpackageDeliveryColor,
+                    ),
+                  );
+                } else {
+                  final error = stateOfFavorites as GenericError;
+                  return Center(
+                      child: Text("${error.message}\n${error.statusCode}"));
+                }
+              })
             ],
           )
         ],
