@@ -2,11 +2,16 @@ import 'dart:io';
 
 import 'package:dongu_mobile/data/repositories/address_repository.dart';
 import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
+import 'package:dongu_mobile/data/repositories/store_boxes_repository.dart';
+import 'package:dongu_mobile/data/repositories/store_courier_hours_repository.dart';
 import 'package:dongu_mobile/data/repositories/user_address_repository.dart';
 import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 import 'package:dongu_mobile/data/repositories/search_repository.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
@@ -111,12 +116,18 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
+        BlocProvider<SumPriceOrderCubit>(create: (_) => SumPriceOrderCubit()),
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
                 SearchLocationCubit(SampleSearchLocationRepository())),
+        BlocProvider<StoreCourierCubit>(
+            create: (context) =>
+                StoreCourierCubit(SampleStoreCourierHoursRepository())),
         BlocProvider<SearchStoreCubit>(
             create: (context) =>
                 SearchStoreCubit(SampleSearchStoreRepository())),
+        BlocProvider<StoreBoxesCubit>(
+            create: (context) => StoreBoxesCubit(SampleStoreBoxesRepository())),
         BlocProvider<SearchCubit>(
             create: (context) => SearchCubit(SampleSearchRepository())),
         BlocProvider<BoxCubit>(
@@ -139,6 +150,11 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
+        List<int> sumPrices = [];
+        for (var i = 0; i < SharedPrefs.getSumPrice.length; i++) {
+          sumPrices.add(int.parse(SharedPrefs.getSumPrice[i]));
+        }
+        context.read<SumPriceOrderCubit>().sumprice(sumPrices);
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,

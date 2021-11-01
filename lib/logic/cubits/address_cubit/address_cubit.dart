@@ -101,15 +101,4 @@ class AddressCubit extends Cubit<GenericState> {
       emit(GenericError(e.message, e.statusCode));
     }
   }
-
-  Future<void> changeActiveAddress(int activeAddressId) async {
-    try {
-      emit(GenericLoading());
-      final response =
-          await _addressRepository.changeActiveAddress(activeAddressId);
-      emit(GenericCompleted(response));
-    } on NetworkError catch (e) {
-      emit(GenericError(e.message, e.statusCode));
-    }
-  }
 }

@@ -8,6 +8,9 @@ import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cu
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
 import 'package:dongu_mobile/presentation/screens/login_view/login_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
@@ -53,6 +56,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   int favouriteId = 0;
   bool showInfo = false;
   List<String>? menuList = SharedPrefs.getMenuList;
+  List<String> sumOfPricesString = [];
+  List<int> sumOfPricesInt = [];
+  int? priceOfMenu = null ?? 0;
 
   TabController? _controller;
   @override
@@ -61,6 +67,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     _controller = TabController(length: 2, vsync: this);
     definedBoxes.clear();
     context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
+    context.read<SearchStoreCubit>().getSearchStore();
+
     // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
     print(widget.restaurant!.id!);
   }
@@ -100,6 +108,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       } else if (state is GenericCompleted) {
         print(state.response);
         print(state.response.length);
+
         //print(state.response[0].description);
         return Center(child: customBody(context, state));
       } else {
@@ -475,7 +484,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     int index,
     GenericCompleted state,
   ) {
-    print("RESPONE :  ${state.response[0].text_name}");
+    print("RESPONE :  ${state.response[0].textName}");
 
     return Container(
       //alignment: Alignment(-0.8, 0.0),
@@ -494,7 +503,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 height: context.dynamicHeight(0.021),
               ),
               Text(
-                "${state.response[index].text_name}",
+                "${state.response[index].textName}",
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               LocaleText(
@@ -502,52 +511,88 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 style: AppTextStyles.subTitleStyle,
               ),
               SizedBox(height: context.dynamicHeight(0.020)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    width: context.dynamicWidht(0.16),
-                    height: context.dynamicHeight(0.04),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.0),
-                      color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                      child: Text(
-                        '75 TL',
-                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            color: AppColors.unSelectedpackageDeliveryColor),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: context.dynamicWidht(0.04),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: context.dynamicWidht(0.16),
-                    height: context.dynamicHeight(0.04),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.0),
-                      color: AppColors.scaffoldBackgroundColor,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                      child: Text(
-                        '35 TL',
-                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                          color: AppColors.greenColor,
+              Builder(builder: (context) {
+                final GenericState stateOfSearchStore =
+                    context.watch<SearchStoreCubit>().state;
+
+                if (stateOfSearchStore is GenericInitial) {
+                  return Container();
+                } else if (stateOfSearchStore is GenericLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (stateOfSearchStore is GenericCompleted) {
+                  List<SearchStore> chosenRestaurat = [];
+                  for (var i = 0; i < stateOfSearchStore.response.length; i++) {
+                    if (stateOfSearchStore.response[i].id ==
+                        state.response[index].store) {
+                      chosenRestaurat.add(stateOfSearchStore.response[i]);
+                      priceOfMenu = chosenRestaurat[0]
+                          .packageSettings!
+                          .minDiscountedOrderPrice;
+                    }
+                  }
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        width: context.dynamicWidht(0.16),
+                        height: context.dynamicHeight(0.04),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                          child: Text(
+                            chosenRestaurat[0]
+                                    .packageSettings!
+                                    .minOrderPrice
+                                    .toString() +
+                                " TL",
+                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                                decoration: TextDecoration.lineThrough,
+                                color:
+                                    AppColors.unSelectedpackageDeliveryColor),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
+                      SizedBox(
+                        width: context.dynamicWidht(0.04),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        width: context.dynamicWidht(0.16),
+                        height: context.dynamicHeight(0.04),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0),
+                          color: AppColors.scaffoldBackgroundColor,
+                        ),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                          child: Text(
+                            chosenRestaurat[0]
+                                    .packageSettings!
+                                    .minDiscountedOrderPrice
+                                    .toString() +
+                                " TL",
+                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                              color: AppColors.greenColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                  ;
+                } else {
+                  final error = stateOfSearchStore as GenericError;
+                  return Center(
+                      child: Text("${error.message}\n${error.statusCode}"));
+                }
+              }),
             ],
           ),
           Padding(
@@ -591,15 +636,23 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     switch (statusCode) {
       case StatusCode.success:
         if (!menuList!.contains(menuItem.toString())) {
+          sumOfPricesInt.add(priceOfMenu!);
+          context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
+          sumOfPricesString.add(sumOfPricesInt.last.toString());
+          SharedPrefs.setSumPrice(sumOfPricesString);
+
           context.read<BasketCounterCubit>().increment();
           SharedPrefs.setCounter(counterState + 1);
           menuList!.add(menuItem.toString());
           SharedPrefs.setMenuList(menuList!);
 
-          print(SharedPrefs.getMenuList);
           print("Successss");
-          print(menuItem);
         } else {
+          sumOfPricesInt.remove(priceOfMenu!);
+          sumOfPricesString.remove(priceOfMenu.toString());
+          context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
+
+          SharedPrefs.setSumPrice(sumOfPricesString);
           context
               .read<OrderCubit>()
               .deleteBasket("${state.response[index].id}");
@@ -636,6 +689,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 },
                 onPressedTwo: () {
                   context.read<OrderCubit>().clearBasket();
+                  sumOfPricesInt.clear();
+                  sumOfPricesString.clear();
+                  SharedPrefs.setSumPrice([]);
+                  context.read<SumPriceOrderCubit>().sumprice([]);
 
                   menuList!.clear();
                   SharedPrefs.setCounter(0);

@@ -1,3 +1,7 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -31,6 +35,7 @@ class _PaymentViewsState extends State<PaymentViews>
   bool checkboxInfoValue = false;
   bool checkboxAgreementValue = false;
   bool checkboxAddCardValue = false;
+  List<String>? menuList = SharedPrefs.getMenuList;
 
   @override
   Widget build(BuildContext context) {
@@ -83,78 +88,83 @@ class _PaymentViewsState extends State<PaymentViews>
           ),
           color: Colors.white,
         ),
-        child: Column(
-          children: [
-            Container(
-              height: 3,
-              width: context.dynamicWidht(0.15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(1.5),
-                color: Color(0xFF707070),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                LocaleText(
-                    text: LocaleKeys.payment_payment_order_amount,
-                    style: AppTextStyles.bodyTextStyle),
-                PaymentTotalPrice(
-                  price: 70.50,
-                  withDecimal: true,
+        child: Builder(builder: (context) {
+          final stateOfSumPrice = context.watch<SumPriceOrderCubit>().state;
+
+          return Column(
+            children: [
+              Container(
+                height: 3,
+                width: context.dynamicWidht(0.15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(1.5),
+                  color: Color(0xFF707070),
                 ),
-              ],
-            ),
-            Divider(
-              height: context.dynamicHeight(0.01),
-              thickness: 2,
-              color: AppColors.borderAndDividerColor,
-            ),
-            Spacer(),
-            Row(
-              children: [
-                Container(
-                  height: context.dynamicHeight(0.052),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: LocaleText(
-                          text: LocaleKeys.payment_payment_to_be_paid,
-                          style: AppTextStyles.myInformationBodyTextStyle,
-                          maxLines: 1,
-                        ),
-                      ),
-                      Expanded(
-                        child: LocaleText(
-                          text: '70,50 TL',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18.0,
-                            color: AppColors.greenColor,
-                            fontWeight: FontWeight.w600,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  LocaleText(
+                      text: LocaleKeys.payment_payment_order_amount,
+                      style: AppTextStyles.bodyTextStyle),
+                  PaymentTotalPrice(
+                    price: stateOfSumPrice.toDouble(),
+                    withDecimal: true,
+                  ),
+                ],
+              ),
+              Divider(
+                height: context.dynamicHeight(0.01),
+                thickness: 2,
+                color: AppColors.borderAndDividerColor,
+              ),
+              Spacer(),
+              Row(
+                children: [
+                  Container(
+                    height: context.dynamicHeight(0.052),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: LocaleText(
+                            text: LocaleKeys.payment_payment_to_be_paid,
+                            style: AppTextStyles.myInformationBodyTextStyle,
+                            maxLines: 1,
                           ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: LocaleText(
+                            text:
+                                '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 18.0,
+                              color: AppColors.greenColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Spacer(),
-                CustomButton(
-                  width: context.dynamicWidht(0.5),
-                  title: LocaleKeys.payment_payment_pay,
-                  color: checkboxAgreementValue && checkboxInfoValue
-                      ? AppColors.greenColor
-                      : AppColors.disabledButtonColor,
-                  textColor: Colors.white,
-                  borderColor: checkboxAgreementValue && checkboxInfoValue
-                      ? AppColors.greenColor
-                      : AppColors.disabledButtonColor,
-                ),
-              ],
-            ),
-          ],
-        ),
+                  Spacer(),
+                  CustomButton(
+                    width: context.dynamicWidht(0.5),
+                    title: LocaleKeys.payment_payment_pay,
+                    color: checkboxAgreementValue && checkboxInfoValue
+                        ? AppColors.greenColor
+                        : AppColors.disabledButtonColor,
+                    textColor: Colors.white,
+                    borderColor: checkboxAgreementValue && checkboxInfoValue
+                        ? AppColors.greenColor
+                        : AppColors.disabledButtonColor,
+                  ),
+                ],
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
@@ -305,23 +315,31 @@ class _PaymentViewsState extends State<PaymentViews>
             ],
           ),
         ),
-        CustomButton(
-          width: context.dynamicWidht(0.5),
-          title: LocaleKeys.payment_payment_pay,
-          color: checkboxAgreementValue && checkboxInfoValue
-              ? AppColors.greenColor
-              : AppColors.disabledButtonColor,
-          textColor: Colors.white,
-          borderColor: checkboxAgreementValue && checkboxInfoValue
-              ? AppColors.greenColor
-              : AppColors.disabledButtonColor,
-          onPressed: () {
-            if (checkboxAgreementValue && checkboxInfoValue) {
-              Navigator.pushReplacementNamed(
-                  context, RouteConstant.ORDER_RECEIVING_VIEW);
-            }
-          },
-        ),
+        Builder(builder: (context) {
+          return CustomButton(
+            width: context.dynamicWidht(0.5),
+            title: LocaleKeys.payment_payment_pay,
+            color: checkboxAgreementValue && checkboxInfoValue
+                ? AppColors.greenColor
+                : AppColors.disabledButtonColor,
+            textColor: Colors.white,
+            borderColor: checkboxAgreementValue && checkboxInfoValue
+                ? AppColors.greenColor
+                : AppColors.disabledButtonColor,
+            onPressed: () {
+              if (checkboxAgreementValue && checkboxInfoValue) {
+                context.read<OrderCubit>().clearBasket();
+
+                menuList!.clear();
+                SharedPrefs.setCounter(0);
+                SharedPrefs.setMenuList([]);
+                context.read<BasketCounterCubit>().setCounter(0);
+                Navigator.pushReplacementNamed(
+                    context, RouteConstant.ORDER_RECEIVING_VIEW);
+              }
+            },
+          );
+        }),
       ],
     );
   }

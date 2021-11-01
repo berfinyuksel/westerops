@@ -23,8 +23,9 @@ class Meters extends StatelessWidget {
           ),
         ),
         Text(
-          " ${distance!}",
-          style: AppTextStyles.subTitleBoldStyle.copyWith(color: AppColors.orangeColor),
+          " ${distance!} m",
+          style: AppTextStyles.subTitleBoldStyle
+              .copyWith(color: AppColors.orangeColor),
         )
       ],
     );

@@ -1,11 +1,11 @@
 // To parse this JSON data, do
 //
-//     final box = boxFromJson(jsonString);
+//     final storeBoxes = storeBoxesFromJson(jsonString);
 
 import 'dart:convert';
 
-class Box {
-  Box({
+class StoreBoxes {
+  StoreBoxes({
     this.id,
     this.saleDay,
     this.meals,
@@ -27,11 +27,12 @@ class Box {
   int? name;
   int? store;
 
-  factory Box.fromRawJson(String str) => Box.fromJson(json.decode(str));
+  factory StoreBoxes.fromRawJson(String str) =>
+      StoreBoxes.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Box.fromJson(Map<String, dynamic> json) => Box(
+  factory StoreBoxes.fromJson(Map<String, dynamic> json) => StoreBoxes(
         id: json["id"],
         saleDay: SaleDay.fromJson(json["sale_day"]),
         meals: List<Meal>.from(json["meals"].map((x) => Meal.fromJson(x))),
@@ -73,7 +74,7 @@ class Meal {
   String? name;
   String? description;
   int? price;
-  dynamic photo;
+  String? photo;
   bool? favorite;
   int? store;
   int? category;
@@ -88,7 +89,7 @@ class Meal {
         name: json["name"],
         description: json["description"] == null ? null : json["description"],
         price: json["price"],
-        photo: json["photo"],
+        photo: json["photo"] == null ? null : json["photo"],
         favorite: json["favorite"],
         store: json["store"],
         category: json["category"],
@@ -100,7 +101,7 @@ class Meal {
         "name": name,
         "description": description == null ? null : description,
         "price": price,
-        "photo": photo,
+        "photo": photo == null ? null : photo,
         "favorite": favorite,
         "store": store,
         "category": category,
@@ -124,10 +125,10 @@ class SaleDay {
   DateTime? startDate;
   DateTime? endDate;
   int? store;
-  dynamic timeLabel;
+  dynamic? timeLabel;
   bool? isActive;
   int? boxCount;
-  String? detail;
+  dynamic? detail;
 
   factory SaleDay.fromRawJson(String str) => SaleDay.fromJson(json.decode(str));
 
@@ -141,7 +142,7 @@ class SaleDay {
         timeLabel: json["time_label"],
         isActive: json["is_active"],
         boxCount: json["box_count"],
-        detail: json["detail"] == null ? null : json["detail"],
+        detail: json["detail"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -152,6 +153,6 @@ class SaleDay {
         "time_label": timeLabel,
         "is_active": isActive,
         "box_count": boxCount,
-        "detail": detail == null ? null : detail,
+        "detail": detail,
       };
 }
