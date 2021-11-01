@@ -120,6 +120,11 @@ class SharedPrefs {
     return sumPrice;
   }
 
+  static Future<List<String>> setFavoriteIdList(List<String> favorites) async {
+    _prefs.setStringList('favorites', favorites);
+    return favorites;
+  }
+
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
@@ -157,4 +162,6 @@ class SharedPrefs {
   static int get getDeliveredRestaurantAddressId =>
       _prefs.getInt('deliveredRestaurantId') ?? 0;
   static List<String> get getSumPrice => _prefs.getStringList('sumPrice') ?? [];
+  static List<String> get getFavorites =>
+      _prefs.getStringList('favorites') ?? [];
 }

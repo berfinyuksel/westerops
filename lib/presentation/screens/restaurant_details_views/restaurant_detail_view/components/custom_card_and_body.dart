@@ -1057,6 +1057,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   }
                   return GestureDetector(
                     onTap: () {
+                      print('object');
+                      print(widget.restaurant!.id);
                       if (isFavourite) {
                         context
                             .read<FavoriteCubit>()

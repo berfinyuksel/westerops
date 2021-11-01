@@ -25,6 +25,8 @@ class RestaurantInfoListTile extends StatefulWidget {
   final String? availableTime;
   final Border? border;
   final String? icon;
+  final int? minOrderPrice;
+  final int? minDiscountedOrderPrice;
 
   const RestaurantInfoListTile({
     Key? key,
@@ -33,6 +35,8 @@ class RestaurantInfoListTile extends StatefulWidget {
     @required this.distance,
     @required this.availableTime,
     @required this.onPressed,
+    @required this.minOrderPrice,
+    @required this.minDiscountedOrderPrice,
     this.border,
     this.icon,
   }) : super(key: key);
@@ -89,6 +93,8 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
         ),
         Spacer(flex: 1),
         OldAndNewPrices(
+          minOrderPrice: widget.minOrderPrice,
+          minDiscountedOrderPrice: widget.minDiscountedOrderPrice,
           textStyle: AppTextStyles.subTitleBoldStyle,
           width: context.dynamicWidht(0.11),
           height: context.dynamicHeight(0.026),

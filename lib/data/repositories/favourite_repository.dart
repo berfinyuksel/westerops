@@ -29,6 +29,11 @@ class SampleFavoriteRepository implements FavoriteRepository {
 
       return boxes;
     }
+    if (response.statusCode == 400) {
+      List<Favourite> boxes = [];
+
+      return boxes;
+    }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 

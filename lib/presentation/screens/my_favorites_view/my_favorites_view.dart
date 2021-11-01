@@ -48,7 +48,6 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   bool isShowOnMap = false;
   bool isShowBottomInfo = false;
 
-  int? itemCount;
   @override
   void initState() {
     super.initState();
@@ -178,11 +177,15 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                     }
                   }
                 }
-                itemCount = favouriteRestaurant.length;
+                List<String> favoriteListForShared = [];
+                for (var i = 0; i < favouriteRestaurant.length; i++) {
+                  favoriteListForShared
+                      .add(favouriteRestaurant[i].id.toString());
+                }
+                SharedPrefs.setFavoriteIdList(favoriteListForShared);
                 print(favouriteRestaurant);
                 return Expanded(
-                    child: buildListViewRestaurantInfo(
-                        favourites, favouriteRestaurant));
+                    child: buildListViewRestaurantInfo(favouriteRestaurant));
               } else {
                 final error = stateOfFavorites as GenericError;
                 return Center(
@@ -240,14 +243,17 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   }
 
   ListView buildListViewRestaurantInfo(
-    List<SearchStore> favourites,
     List<SearchStore> favouriteRestaurant,
   ) {
-    print(itemCount);
     return ListView.builder(
         itemCount: favouriteRestaurant.length,
         itemBuilder: (context, index) {
           return RestaurantInfoListTile(
+            minDiscountedOrderPrice: favouriteRestaurant[index]
+                .packageSettings!
+                .minDiscountedOrderPrice,
+            minOrderPrice:
+                favouriteRestaurant[index].packageSettings!.minOrderPrice,
             onPressed: () {
               Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                   arguments: ScreenArgumentsRestaurantDetail(

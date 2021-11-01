@@ -155,7 +155,11 @@ class MyApp extends StatelessWidget {
           sumPrices.add(int.parse(SharedPrefs.getSumPrice[i]));
         }
         context.read<SumPriceOrderCubit>().sumprice(sumPrices);
-
+        for (var i = 0; i < SharedPrefs.getFavorites.length; i++) {
+          context
+              .read<FavoriteCubit>()
+              .addFavorite(int.parse(SharedPrefs.getFavorites[i]));
+        }
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Dongu App',
