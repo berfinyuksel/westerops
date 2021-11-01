@@ -1,22 +1,36 @@
-import 'user.dart';
-
 class Favourite {
-  User? user;
   int? id;
+  String? name;
+  String? city;
+  String? province;
+  String? phoneNumber;
+  String? status;
 
-  Favourite({this.user, this.id});
+  Favourite(
+      {this.id,
+      this.name,
+      this.city,
+      this.province,
+      this.phoneNumber,
+      this.status});
 
   Favourite.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    name = json['name'];
+    city = json['city'];
+    province = json['province'];
+    phoneNumber = json['phone_number'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    if (this.user != null) {
-      data['store'] = this.user!.toJson();
-    }
+    data['name'] = this.name;
+    data['city'] = this.city;
+    data['province'] = this.province;
+    data['phone_number'] = this.phoneNumber;
+    data['status'] = this.status;
     return data;
   }
 }
