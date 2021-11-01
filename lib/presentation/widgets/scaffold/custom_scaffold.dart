@@ -121,15 +121,6 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       actions: [
         Padding(
           padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
-          child: IconButton(
-            icon: SvgPicture.asset(ImageConstant.COMMONS_DRAWER_ICON),
-            onPressed: () {
-              setState(() {
-                homePageActiveIcon = false;
-              });
-              return scaffoldKey.currentState!.openEndDrawer();
-            },
-          ),
         ),
       ],
       iconTheme: IconThemeData(color: AppColors.greenColor, size: 20.0),
