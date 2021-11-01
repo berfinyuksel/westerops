@@ -1,3 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -75,14 +77,29 @@ class FoodWasteView extends StatelessWidget {
               },
             ),
             Spacer(flex: 1),
-            LocaleText(
+            /* LocaleText(
               text: LocaleKeys.food_waste_skip,
               style: AppTextStyles.bodyTextStyle,
               alignment: TextAlign.center,
             ),
+            */
+            lateForNowButton(context),
             Spacer(flex: 2),
           ],
         ),
+      ),
+    );
+  }
+
+  GestureDetector lateForNowButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+      },
+      child: AutoSizeText(
+        LocaleKeys.food_waste_skip.locale,
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
       ),
     );
   }
