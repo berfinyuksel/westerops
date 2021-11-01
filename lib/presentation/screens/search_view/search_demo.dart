@@ -92,7 +92,7 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
           // ),
           Visibility(
               visible: visible, child: searchHistoryAndCleanTexts(context)),
-      
+    
           Visibility(visible: visible, child: dividerOne(context)),
         //  Spacer(flex:2),
           Visibility(visible: visible, child: Spacer(flex: 2)),

@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^2.0.0
   google_maps_flutter: ^2.1.0
   google_sign_in: ^5.0.4
+  googleapis: ^6.0.0
   http: ^0.13.1
   json_serializable: any
   lottie: ^1.1.0
