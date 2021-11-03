@@ -5,6 +5,8 @@ import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 
 import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
@@ -196,6 +198,9 @@ class _MyNearViewState extends State<MyNearView> {
             distance: "4m",
             packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
             availableTime: '2',
+            minDiscountedOrderPrice: 0,
+            minOrderPrice: 0,
+            onPressed: () {},
           ),
         ));
   }
@@ -264,6 +269,14 @@ class _MyNearViewState extends State<MyNearView> {
               width: 1.0,
               color: AppColors.borderAndDividerColor,
             ),
+            minDiscountedOrderPrice: null,
+            minOrderPrice: null,
+            onPressed: () {
+              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                  arguments: ScreenArgumentsRestaurantDetail(
+                    restaurants[index],
+                  ));
+            },
           );
         });
   }
