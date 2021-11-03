@@ -128,7 +128,7 @@ class RestaurantInfoCard extends StatelessWidget {
         ),
         Spacer(flex: 14),
         Meters(
-          distance: distance,
+          distance: "${(double.parse(distance) / 1000).toStringAsFixed(2)}",
         ),
       ],
     );

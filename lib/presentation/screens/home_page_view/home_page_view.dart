@@ -8,6 +8,7 @@ import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/order_status_bar.dart';
+import 'package:dongu_mobile/utils/haversine.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -283,14 +284,24 @@ class _HomePageViewState extends State<HomePageView> {
                     ));
               },
               child: RestaurantInfoCard(
+                minDiscountedOrderPrice:
+                    restaurants[index].packageSettings?.minDiscountedOrderPrice,
+                minOrderPrice:
+                    restaurants[index].packageSettings?.minOrderPrice,
                 restaurantIcon: restaurants[index].photo,
                 backgroundImage: restaurants[index].background,
                 packetNumber: "3 paket",
                 restaurantName: restaurants[index].name,
                 grade: restaurants[index].avgReview.toString(),
                 location: restaurants[index].city,
-                distance: '${buildDistance(restaurants, index)}',
-                availableTime: '18:00-20:00',
+                distance: Haversine.distance(
+                        restaurants[index].latitude!,
+                        restaurants[index].longitude,
+                        LocationService.latitude,
+                        LocationService.longitude)
+                    .toString(),
+                availableTime:
+                    '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
               ),
             );
           },
@@ -300,18 +311,6 @@ class _HomePageViewState extends State<HomePageView> {
         ),
       ),
     );
-  }
-
-  String buildDistance(List<SearchStore> restaurants, int index) {
-    double? restaurantLat = restaurants[index].latitude;
-    double? restaurantLong = restaurants[index].longitude;
-    double? currentLat = LocationService.latitude;
-    double? currentLong = LocationService.longitude;
-
-    return (sqrt(
-      ((restaurantLat! - currentLat) * (restaurantLat - currentLat)) +
-          ((restaurantLong! - currentLong) * (restaurantLong - currentLong)),
-    ).toStringAsFixed(2).toString());
   }
 
   Container buildListViewOpportunities(BuildContext context,
@@ -355,9 +354,14 @@ class _HomePageViewState extends State<HomePageView> {
                   backgroundImage: restaurants[index].background,
                   packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
                   restaurantName: restaurants[index].name,
-                  grade: "4.7",
+                  grade: restaurants[index].avgReview.toString(),
                   location: restaurants[index].city,
-                  distance: restaurants[index].distanceFromStore ?? "22 m",
+                  distance: Haversine.distance(
+                          restaurants[index].latitude!,
+                          restaurants[index].longitude,
+                          LocationService.latitude,
+                          LocationService.longitude)
+                      .toString(),
                   availableTime:
                       '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
                 );

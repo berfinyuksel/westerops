@@ -24,6 +24,8 @@ class ImageConstant {
       "assets/images/commons/restaurant_soldout_marker.svg";
   static const COMMONS_MY_LOCATION_BUTTON =
       "assets/images/commons/my_location_button.svg";
+  static const COMMONS_ALLOW_LOCATION_ICON =
+      "assets/images/commons/allow_location_icon.svg";
   static const DONGU_LOGO = "assets/images/commons/dongu_logo.svg";
   static const ONBOARDING_BACKGROUND =
       "assets/images/onboardings/onboarding/onboarding_background.svg";
@@ -164,7 +166,7 @@ class ImageConstant {
   static const SPLASH_ANIMATION = "assets/splash/splash.json";
   static const CARDS_COMPANY =
       "assets/images/card_company/payment_cards_company.svg";
-  static const IYZICO_LOGO =
-      "assets/images/card_company/iyzico_logo.svg";
-        static const FREEZE_ACCOUNT_LOVE = "assets/images/freeze_account/freeze_account_love.svg";
+  static const IYZICO_LOGO = "assets/images/card_company/iyzico_logo.svg";
+  static const FREEZE_ACCOUNT_LOVE =
+      "assets/images/freeze_account/freeze_account_love.svg";
 }
