@@ -295,43 +295,55 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
           ),
         ),
-        Container(
-          color: AppColors.appBarColor,
-          width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.069),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-          child: ListTile(
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
-            title: LocaleText(
-              text: LocaleKeys.restaurant_detail_detail_tab_title5,
-              style: AppTextStyles.subTitleStyle,
+        GestureDetector(
+          onTap: () {
+            print(DateTime.now());
+            Navigator.of(context).pushNamed(RouteConstant.STORE_INFO_VIEW);
+          },
+          child: Container(
+            color: AppColors.appBarColor,
+            width: context.dynamicWidht(1),
+            height: context.dynamicHeight(0.069),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+              title: LocaleText(
+                text: LocaleKeys.restaurant_detail_detail_tab_title5,
+                style: AppTextStyles.subTitleStyle,
+              ),
+              subtitle: LocaleText(
+                text: "İşletme Adı " + widget.restaurant!.name!,
+                style: AppTextStyles.myInformationBodyTextStyle,
+              ),
+              trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
             ),
-            subtitle: LocaleText(
-              text: LocaleKeys.restaurant_detail_detail_tab_sub_title4,
-              style: AppTextStyles.myInformationBodyTextStyle,
-            ),
-            trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
           ),
         ),
-        Container(
-          color: AppColors.appBarColor,
-          width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.085),
-          padding:
-              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
-          child: ListTile(
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
-            title: LocaleText(
-              text: LocaleKeys.restaurant_detail_detail_tab_title6,
-              style: AppTextStyles.subTitleStyle,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW);
+          },
+          child: Container(
+            color: AppColors.appBarColor,
+            width: context.dynamicWidht(1),
+            height: context.dynamicHeight(0.085),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+              title: LocaleText(
+                text: LocaleKeys.restaurant_detail_detail_tab_title6,
+                style: AppTextStyles.subTitleStyle,
+              ),
+              subtitle: LocaleText(
+                text: LocaleKeys.restaurant_detail_detail_tab_sub_title5,
+                style: AppTextStyles.myInformationBodyTextStyle,
+              ),
+              trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
             ),
-            subtitle: LocaleText(
-              text: LocaleKeys.restaurant_detail_detail_tab_sub_title5,
-              style: AppTextStyles.myInformationBodyTextStyle,
-            ),
-            trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
           ),
         ),
       ],
@@ -771,7 +783,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         CustomCircularProgress(
           valueColor: AppColors.cursorColor,
           ratingText: avgMealPoint,
-          value: 1,
+          value: double.parse(avgMealPoint) / 5,
         )
         /*SvgPicture.asset(ImageConstant.RESTAURANT_FOOD_RATING_ICON),*/
       ],
@@ -802,7 +814,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         CustomCircularProgress(
           valueColor: AppColors.pinkColor,
           ratingText: avgQualityPoint,
-          value: 1,
+          value: double.parse(avgQualityPoint) / 5,
         ),
       ],
     );
@@ -830,7 +842,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           width: context.dynamicWidht(0.02),
         ),
         CustomCircularProgress(
-          value: 1,
+          value: double.parse(avgServicePoint) / 5,
           valueColor: AppColors.greenColor,
           ratingText: avgServicePoint,
         ),

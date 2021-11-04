@@ -20,6 +20,7 @@ class _FoodCategoriesState extends State<FoodCategories> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      title: "Gıda Kategorileri",
       body: Column(
         children: [
           Padding(
@@ -170,7 +171,8 @@ class _FoodCategoriesState extends State<FoodCategories> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(right: context.dynamicWidht(0.65),
+                padding: EdgeInsets.only(
+                    right: context.dynamicWidht(0.65),
                     left: context.dynamicWidht(0.075)),
                 child: LocaleText(
                   text: LocaleKeys.restaurant_food_categories_text2,

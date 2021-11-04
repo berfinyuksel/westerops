@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/presentation/screens/address_update_view/address_update_view.dart';
 import 'package:dongu_mobile/presentation/screens/freeze_account_view/freeze_account_view.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/about_working_hours/about_working_hours_view.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/store_info_view/store_info_view.dart';
 import 'package:dongu_mobile/presentation/screens/splash_view/splash_view.dart';
 import 'package:dongu_mobile/presentation/screens/swipe_view/swipe_view.dart';
 import 'package:dongu_mobile/presentation/screens/was_delivered_view/was_delivered_view.dart';
@@ -175,6 +176,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SwipeView());
       case RouteConstant.WAS_DELIVERED_VIEW:
         return MaterialPageRoute(builder: (_) => WasDeliveredView());
+      case RouteConstant.STORE_INFO_VIEW:
+        return MaterialPageRoute(builder: (_) => StoreInfoView());
       default:
         return null;
     }
