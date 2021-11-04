@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/model/favourite.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/repositories/basket_repository.dart';
 
@@ -58,6 +59,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   List<String> sumOfPricesString = [];
   List<int> sumOfPricesInt = [];
   int? priceOfMenu = null ?? 0;
+  List<String>? favouritedRestaurants = SharedPrefs.getFavorites;
 
   TabController? _controller;
   @override
@@ -1075,10 +1077,19 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         context
                             .read<FavoriteCubit>()
                             .deleteFavorite(widget.restaurant!.id);
+                        favouritedRestaurants!
+                            .remove(widget.restaurant!.id.toString());
+                        SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
+                        print(SharedPrefs.getFavorites);
                       } else {
                         context
                             .read<FavoriteCubit>()
                             .addFavorite(widget.restaurant!.id!);
+                        favouritedRestaurants!
+                            .add(widget.restaurant!.id.toString());
+                        SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
+
+                        print(SharedPrefs.getFavorites);
                       }
                       setState(() {
                         isFavourite = !isFavourite;
@@ -1093,6 +1104,19 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   );
                 } else {
                   final error = stateOfFavorites as GenericError;
+                  if (error.statusCode == "401") {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+                      },
+                      child: SvgPicture.asset(
+                        ImageConstant.RESTAURANT_FAVORITE_ICON,
+                        color: isFavourite
+                            ? AppColors.orangeColor
+                            : AppColors.unSelectedpackageDeliveryColor,
+                      ),
+                    );
+                  }
                   return Center(
                       child: Text("${error.message}\n${error.statusCode}"));
                 }

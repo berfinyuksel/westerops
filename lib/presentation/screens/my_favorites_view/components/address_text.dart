@@ -86,6 +86,28 @@ class _AddressTextState extends State<AddressText> {
               ],
             ),
           );
+        } else if (error.statusCode == "401") {
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+            },
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6.0),
+                  child: LocaleText(
+                    text: "Giriş Yapınız",
+                    style: GoogleFonts.montserrat(
+                      color: AppColors.yellowColor,
+                      fontWeight: FontWeight.w500,
+                      decorationThickness: 2,
+                      height: 2.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
         }
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }

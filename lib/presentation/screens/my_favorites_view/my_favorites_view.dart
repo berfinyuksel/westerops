@@ -173,7 +173,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                 for (var i = 0; i < favourites.length; i++) {
                   for (var j = 0; j < stateOfFavorites.response.length; j++) {
                     if (favourites[i].id == stateOfFavorites.response[j].id) {
-                      favouriteRestaurant.add(favourites[j]);
+                      favouriteRestaurant.add(favourites[i]);
                     }
                   }
                 }
@@ -185,7 +185,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                 SharedPrefs.setFavoriteIdList(favoriteListForShared);
                 print(favouriteRestaurant);
                 return Expanded(
-                    child: buildListViewRestaurantInfo(favouriteRestaurant));
+                    child: favouriteRestaurant.isNotEmpty
+                        ? buildListViewRestaurantInfo(favouriteRestaurant)
+                        : Text("Favori restoranınız bulunmamaktadır."));
               } else {
                 final error = stateOfFavorites as GenericError;
                 return Center(
