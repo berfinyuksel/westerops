@@ -1,3 +1,8 @@
+import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../restaurant_info_list_tile/first_column/packet_number.dart';
 import '../restaurant_info_list_tile/first_column/restaurant_icon.dart';
 import '../restaurant_info_list_tile/second_column/package_delivery.dart';
@@ -11,7 +16,7 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class RestaurantInfoCard extends StatelessWidget {
+class RestaurantInfoCard extends StatefulWidget {
   final String? packetNumber;
   final String? restaurantName;
   final String? grade;
@@ -22,10 +27,16 @@ class RestaurantInfoCard extends StatelessWidget {
   final String? restaurantIcon;
   final int? minDiscountedOrderPrice;
   final int? minOrderPrice;
+  final Color? getItPackageIconColor;
+  final Color? getItPackageBGColor;
+  final Color? courierPackageIconColor;
+  final Color? courierPackageBGColor;
+  final int? restaurantId;
 
   const RestaurantInfoCard({
     Key? key,
     this.packetNumber,
+    this.restaurantId,
     this.restaurantName,
     this.grade,
     this.location,
@@ -35,7 +46,21 @@ class RestaurantInfoCard extends StatelessWidget {
     this.restaurantIcon,
     this.minDiscountedOrderPrice,
     this.minOrderPrice,
+    this.courierPackageBGColor,
+    this.courierPackageIconColor,
+    this.getItPackageBGColor,
+    this.getItPackageIconColor,
   }) : super(key: key);
+
+  @override
+  State<RestaurantInfoCard> createState() => _RestaurantInfoCardState();
+}
+
+class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +84,7 @@ class RestaurantInfoCard extends StatelessWidget {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
             child: Image.network(
-              backgroundImage!,
+              widget.backgroundImage!,
               alignment: Alignment.topCenter,
               fit: BoxFit.fill,
               width: context.dynamicWidht(0.64),
@@ -74,16 +99,18 @@ class RestaurantInfoCard extends StatelessWidget {
                 horizontal: context.dynamicWidht(0.023)),
             child: Column(
               children: [
-                buildFirstRow(context, packetNumber!),
+                buildFirstRow(context, widget.packetNumber!),
                 Spacer(flex: 9),
-                buildSecondRow(restaurantName!, restaurantIcon!, context),
+                buildSecondRow(
+                    widget.restaurantName!, widget.restaurantIcon!, context),
                 Spacer(flex: 1),
-                buildThirdRow(grade!, location!, distance!),
+                buildThirdRow(
+                    widget.grade!, widget.location!, widget.distance!),
                 Divider(
                   thickness: 2,
                   color: AppColors.borderAndDividerColor,
                 ),
-                buildForthRow(context, availableTime!)
+                buildForthRow(context, widget.availableTime!)
               ],
             ),
           ),
@@ -103,8 +130,8 @@ class RestaurantInfoCard extends StatelessWidget {
           height: context.dynamicHeight(0.04),
         ),
         OldAndNewPrices(
-          minDiscountedOrderPrice: minDiscountedOrderPrice,
-          minOrderPrice: minOrderPrice,
+          minDiscountedOrderPrice: widget.minDiscountedOrderPrice,
+          minOrderPrice: widget.minOrderPrice,
           width: context.dynamicWidht(0.16),
           height: context.dynamicHeight(0.04),
           textStyle: AppTextStyles.bodyBoldTextStyle,
@@ -171,8 +198,8 @@ class RestaurantInfoCard extends StatelessWidget {
         Spacer(),
         PackageDelivery(
           image: ImageConstant.RESTAURANT_PACKAGE_ICON,
-          color: Colors.white,
-          backgroundColor: AppColors.greenColor,
+          color: widget.getItPackageIconColor,
+          backgroundColor: widget.getItPackageBGColor,
           width: context.dynamicWidht(0.1),
           height: context.dynamicHeight(0.03),
         ),
@@ -180,8 +207,8 @@ class RestaurantInfoCard extends StatelessWidget {
           margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
           child: PackageDelivery(
             image: ImageConstant.COMMONS_CARRIER_ICON,
-            color: AppColors.unSelectedpackageDeliveryColor,
-            backgroundColor: Colors.white,
+            color: widget.courierPackageIconColor,
+            backgroundColor: widget.courierPackageBGColor,
             width: context.dynamicWidht(0.1),
             height: context.dynamicHeight(0.03),
           ),

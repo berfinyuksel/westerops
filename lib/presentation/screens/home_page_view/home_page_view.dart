@@ -7,6 +7,7 @@ import 'package:device_info/device_info.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/order_status_bar.dart';
 import 'package:dongu_mobile/utils/haversine.dart';
 
@@ -284,6 +285,31 @@ class _HomePageViewState extends State<HomePageView> {
                     ));
               },
               child: RestaurantInfoCard(
+                restaurantId: restaurants[index].id,
+                courierPackageBGColor:
+                    restaurants[index].packageSettings!.deliveryType == "2" ||
+                            restaurants[index].packageSettings!.deliveryType ==
+                                "3"
+                        ? AppColors.greenColor
+                        : Colors.white,
+                courierPackageIconColor:
+                    restaurants[index].packageSettings!.deliveryType == "2" ||
+                            restaurants[index].packageSettings!.deliveryType ==
+                                "3"
+                        ? Colors.white
+                        : AppColors.unSelectedpackageDeliveryColor,
+                getItPackageBGColor:
+                    restaurants[index].packageSettings!.deliveryType == "1" ||
+                            restaurants[index].packageSettings!.deliveryType ==
+                                "3"
+                        ? AppColors.greenColor
+                        : Colors.white,
+                getItPackageIconColor:
+                    restaurants[index].packageSettings!.deliveryType == "1" ||
+                            restaurants[index].packageSettings!.deliveryType ==
+                                "3"
+                        ? Colors.white
+                        : AppColors.unSelectedpackageDeliveryColor,
                 minDiscountedOrderPrice:
                     restaurants[index].packageSettings?.minDiscountedOrderPrice,
                 minOrderPrice:
@@ -345,6 +371,39 @@ class _HomePageViewState extends State<HomePageView> {
               },
               child: Builder(builder: (context) {
                 return RestaurantInfoCard(
+                  restaurantId: restaurants[index].id,
+                  courierPackageBGColor:
+                      restaurants[index].packageSettings!.deliveryType == "2" ||
+                              restaurants[index]
+                                      .packageSettings!
+                                      .deliveryType ==
+                                  "3"
+                          ? AppColors.greenColor
+                          : Colors.white,
+                  courierPackageIconColor:
+                      restaurants[index].packageSettings!.deliveryType == "2" ||
+                              restaurants[index]
+                                      .packageSettings!
+                                      .deliveryType ==
+                                  "3"
+                          ? Colors.white
+                          : AppColors.unSelectedpackageDeliveryColor,
+                  getItPackageBGColor:
+                      restaurants[index].packageSettings!.deliveryType == "1" ||
+                              restaurants[index]
+                                      .packageSettings!
+                                      .deliveryType ==
+                                  "3"
+                          ? AppColors.greenColor
+                          : Colors.white,
+                  getItPackageIconColor:
+                      restaurants[index].packageSettings!.deliveryType == "1" ||
+                              restaurants[index]
+                                      .packageSettings!
+                                      .deliveryType ==
+                                  "3"
+                          ? Colors.white
+                          : AppColors.unSelectedpackageDeliveryColor,
                   minDiscountedOrderPrice: restaurants[index]
                       .packageSettings
                       ?.minDiscountedOrderPrice,

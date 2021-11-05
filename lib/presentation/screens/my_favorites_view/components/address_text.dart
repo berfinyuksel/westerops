@@ -34,7 +34,7 @@ class _AddressTextState extends State<AddressText> {
       if (stateOfAddress is GenericInitial) {
         return Container();
       } else if (stateOfAddress is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return SizedBox(height: 0, width: 0);
       } else if (stateOfAddress is GenericCompleted) {
         return Text.rich(
           TextSpan(

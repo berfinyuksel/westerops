@@ -78,6 +78,7 @@ class SampleOrderRepository implements OrderRepository {
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       List<BoxOrder> boxes = [];
+
       if (jsonBody.isEmpty) {
         return boxes;
       } else if ('Y' == jsonBody[0]) {

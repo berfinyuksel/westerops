@@ -88,7 +88,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       },
       child: Column(
         children: [
-          customCard(context),
+          customCard(context, state),
           SizedBox(
             height: 20,
           ),
@@ -119,7 +119,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     });
   }
 
-  Container customCard(BuildContext context) {
+  Container customCard(BuildContext context, GenericState state) {
     return Container(
       //0.86 372.0 & 0.23 214
       width: context.dynamicWidht(0.86),
@@ -131,13 +131,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         color: Colors.white,
       ),
-      child: customCardTabView(context),
+      child: customCardTabView(context, state),
     );
   }
 
-  Column customCardTabView(
-    BuildContext context,
-  ) {
+  Column customCardTabView(BuildContext context, GenericState state) {
     return Column(
       children: [
         tabBar(context),
@@ -176,7 +174,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   clockContainer(context),
-                  packageContainer(context),
+                  packageContainer(context, state),
                   oldPriceText(),
                   newPriceText(context),
                 ],
@@ -785,7 +783,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         CustomCircularProgress(
           valueColor: AppColors.cursorColor,
           ratingText: avgMealPoint,
-          value: double.parse(avgMealPoint) / 5,
+          value: double.parse(avgMealPoint) / 5.0,
         )
         /*SvgPicture.asset(ImageConstant.RESTAURANT_FOOD_RATING_ICON),*/
       ],
@@ -880,40 +878,44 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     );
   }
 
-  Container packageContainer(
-    BuildContext context,
-  ) {
-    return widget.restaurant!.storeMeals?.length != 0
-        ? Container(
-            alignment: Alignment(0.0, -0.11),
-            width: context.dynamicWidht(0.19),
-            height: context.dynamicHeight(0.04),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: AppColors.orangeColor,
-            ),
-            child: Text(
-              "${widget.restaurant!.storeMeals?.length} paket",
-              style:
-                  AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          )
-        : Container(
-            alignment: Alignment(0.0, -0.11),
-            width: context.dynamicWidht(0.19),
-            height: context.dynamicHeight(0.04),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: AppColors.yellowColor,
-            ),
-            child: Text(
-              "tükendi",
-              style:
-                  AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          );
+  Container packageContainer(BuildContext context, GenericState state) {
+    if (state is GenericCompleted) {
+      return state.response.length != 0
+          ? Container(
+              alignment: Alignment(0.0, -0.11),
+              width: context.dynamicWidht(0.19),
+              height: context.dynamicHeight(0.04),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: AppColors.orangeColor,
+              ),
+              child: Text(
+                "${state.response.length} paket",
+                style: AppTextStyles.bodyBoldTextStyle
+                    .copyWith(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(
+              alignment: Alignment(0.0, -0.11),
+              width: context.dynamicWidht(0.19),
+              height: context.dynamicHeight(0.04),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: AppColors.yellowColor,
+              ),
+              child: Text(
+                "tükendi",
+                style: AppTextStyles.bodyBoldTextStyle
+                    .copyWith(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            );
+    } else
+      return Container(
+        width: 0,
+        height: 0,
+      );
   }
 
   Container clockContainer(BuildContext context) {
@@ -1013,12 +1015,23 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 height: context.dynamicHeight(0.039),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: AppColors.greenColor,
+                  color: widget.restaurant!.packageSettings!.deliveryType ==
+                              "1" ||
+                          widget.restaurant!.packageSettings!.deliveryType ==
+                              "3"
+                      ? AppColors.greenColor
+                      : Colors.white,
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(context.dynamicHeight(0.004)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_PACKAGE_ICON,
+                    color: widget.restaurant!.packageSettings!.deliveryType ==
+                                "1" ||
+                            widget.restaurant!.packageSettings!.deliveryType ==
+                                "3"
+                        ? Colors.white
+                        : AppColors.unSelectedpackageDeliveryColor,
                   ),
                 ),
               ),
@@ -1030,12 +1043,23 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 height: context.dynamicHeight(0.039),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: AppColors.greenColor,
+                  color: widget.restaurant!.packageSettings!.deliveryType ==
+                              "2" ||
+                          widget.restaurant!.packageSettings!.deliveryType ==
+                              "3"
+                      ? AppColors.greenColor
+                      : Colors.white,
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(context.dynamicHeight(0.006)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_COURIER_ICON,
+                    color: widget.restaurant!.packageSettings!.deliveryType ==
+                                "2" ||
+                            widget.restaurant!.packageSettings!.deliveryType ==
+                                "3"
+                        ? Colors.white
+                        : AppColors.unSelectedpackageDeliveryColor,
                   ),
                 ),
               ),
