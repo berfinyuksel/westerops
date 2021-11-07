@@ -16,6 +16,7 @@ import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_
 import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
 import 'package:dongu_mobile/presentation/screens/login_view/login_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:dongu_mobile/utils/clippers/password_rules_clipper.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
@@ -239,11 +240,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             contentPadding:
                 EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
-              text: LocaleKeys.restaurant_detail_detail_tab_title1,
+              text: LocaleKeys.restaurant_detail_detail_tab_title2,
               style: AppTextStyles.subTitleStyle,
             ),
             subtitle: LocaleText(
-              text: LocaleKeys.restaurant_detail_detail_tab_sub_title1,
+              text: widget.restaurant!.packageSettings!.deliveryType == "3"
+                  ? "Gel Al Paket - Kapıda Paket"
+                  : widget.restaurant!.packageSettings!.deliveryType == "1"
+                      ? "Gel Al Paket"
+                      : "Kapıda Paket",
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -252,7 +257,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         GestureDetector(
           onTap: () {
             Navigator.of(context)
-                .pushNamed(RouteConstant.ABOUT_WORKING_HOUR_VIEW);
+                .pushNamed(RouteConstant.ABOUT_WORKING_HOUR_VIEW,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      widget.restaurant!,
+                    ));
           },
           child: Container(
             color: AppColors.appBarColor,
@@ -297,8 +305,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         GestureDetector(
           onTap: () {
-            print(DateTime.now());
-            Navigator.of(context).pushNamed(RouteConstant.STORE_INFO_VIEW);
+            Navigator.of(context).pushNamed(RouteConstant.STORE_INFO_VIEW,
+                arguments: ScreenArgumentsRestaurantDetail(
+                  widget.restaurant!,
+                ));
           },
           child: Container(
             color: AppColors.appBarColor,

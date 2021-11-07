@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
@@ -6,7 +7,8 @@ import '../../../widgets/scaffold/custom_scaffold.dart';
 import '../../../widgets/text/locale_text.dart';
 
 class StoreInfoView extends StatefulWidget {
-  const StoreInfoView({Key? key}) : super(key: key);
+  final SearchStore? restaurant;
+  const StoreInfoView({Key? key, this.restaurant}) : super(key: key);
 
   @override
   _StoreInfoViewState createState() => _StoreInfoViewState();
@@ -15,21 +17,23 @@ class StoreInfoView extends StatefulWidget {
 class _StoreInfoViewState extends State<StoreInfoView> {
   @override
   Widget build(BuildContext context) {
-    var days = <String>[
+    var title = <String>[
       "İşletme Adı",
       "Adres",
       "Web Sitesi",
       "E-mail",
       "Telefon",
-      "Telefon2",
+      "Telefon 2",
     ];
-    var date = <String>[
-      "Canım Büfe",
-      "Örnek Mahalle, Örnek Caddesi, Örnek Sokak\nNo:123  Beşiktaş, 340000 İstanbul",
-      "ornek.com.tr",
-      "ornek@ornek.com",
-      "+90 212 111 11 11",
-      "+90 555 555 55 55",
+    var info = <String>[
+      widget.restaurant!.name.toString(),
+      widget.restaurant!.address.toString() +
+          ", " +
+          widget.restaurant!.address.toString(),
+      widget.restaurant!.websiteLink.toString(),
+      widget.restaurant!.email.toString(),
+      widget.restaurant!.phoneNumber.toString(),
+      widget.restaurant!.phoneNumber2.toString(),
     ];
 
     return CustomScaffold(
@@ -39,7 +43,7 @@ class _StoreInfoViewState extends State<StoreInfoView> {
         child: Column(
           children: [
             Expanded(
-              child: aboutWorkingHoursListViewBuilder(date, days),
+              child: aboutWorkingHoursListViewBuilder(info, title),
             )
           ],
         ),
@@ -48,7 +52,7 @@ class _StoreInfoViewState extends State<StoreInfoView> {
   }
 
   ListView aboutWorkingHoursListViewBuilder(
-      List<String> items, List<String> date) {
+      List<String> items, List<String> title) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: items.length,
@@ -60,7 +64,7 @@ class _StoreInfoViewState extends State<StoreInfoView> {
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
               title: LocaleText(
-                text: "${date[index]}",
+                text: "${title[index]}",
                 style: AppTextStyles.subTitleStyle
                     .copyWith(fontWeight: FontWeight.normal),
                 alignment: TextAlign.start,

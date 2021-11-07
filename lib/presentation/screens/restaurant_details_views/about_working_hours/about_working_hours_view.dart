@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
@@ -6,7 +7,9 @@ import '../../../widgets/scaffold/custom_scaffold.dart';
 import '../../../widgets/text/locale_text.dart';
 
 class AboutWorkingHourView extends StatefulWidget {
-  const AboutWorkingHourView({Key? key}) : super(key: key);
+  final SearchStore? restaurant;
+
+  const AboutWorkingHourView({Key? key, this.restaurant}) : super(key: key);
 
   @override
   _AboutWorkingHourViewState createState() => _AboutWorkingHourViewState();
@@ -15,6 +18,18 @@ class AboutWorkingHourView extends StatefulWidget {
 class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
   @override
   Widget build(BuildContext context) {
+    List<String> dateOfNow =
+        DateTime.now().toIso8601String().split("T").toList();
+    String? dateOfNowStringCalendar;
+    print(dateOfNow);
+    for (var i = 0; i < widget.restaurant!.calendar!.length; i++) {
+      List<String> listOfStoreCalendar =
+          widget.restaurant!.calendar![i].startDate!.split("T").toList();
+      if (listOfStoreCalendar[0] == dateOfNow[0]) {
+        dateOfNowStringCalendar = listOfStoreCalendar[0];
+      }
+    }
+
     var days = <String>[
       "Pazartesi",
       "Salı",
@@ -50,7 +65,8 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
         child: Column(
           children: [
             Expanded(
-              child: aboutWorkingHoursListViewBuilder(days, date, clocks),
+              child: aboutWorkingHoursListViewBuilder(
+                  days, date, clocks, dateOfNowStringCalendar),
             )
           ],
         ),
@@ -58,8 +74,8 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
     );
   }
 
-  ListView aboutWorkingHoursListViewBuilder(
-      List<String> items, List<String> date, List<String> clock) {
+  ListView aboutWorkingHoursListViewBuilder(List<String> items,
+      List<String> date, List<String> clock, String? dateOfNowStringCalendar) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: items.length,
@@ -71,7 +87,7 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
               title: LocaleText(
-                text: "${date[index]}",
+                text: dateOfNowStringCalendar,
                 style: AppTextStyles.subTitleStyle
                     .copyWith(fontWeight: FontWeight.normal),
                 alignment: TextAlign.start,

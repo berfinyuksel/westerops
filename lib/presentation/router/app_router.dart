@@ -140,7 +140,14 @@ class AppRouter {
       case RouteConstant.PAST_ORDER_DETAIL_VIEW:
         return MaterialPageRoute(builder: (_) => PastOrderDetailView());
       case RouteConstant.ABOUT_WORKING_HOUR_VIEW:
-        return MaterialPageRoute(builder: (_) => AboutWorkingHourView());
+        final ScreenArgumentsRestaurantDetail args =
+            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+
+        return MaterialPageRoute(
+          builder: (_) => AboutWorkingHourView(
+            restaurant: args.restaurant,
+          ),
+        );
       case RouteConstant.PAST_ORDER_VIEW:
         return MaterialPageRoute(builder: (_) => PastOrderView());
       case RouteConstant.PAYMENTS_VIEW:
@@ -177,7 +184,15 @@ class AppRouter {
       case RouteConstant.WAS_DELIVERED_VIEW:
         return MaterialPageRoute(builder: (_) => WasDeliveredView());
       case RouteConstant.STORE_INFO_VIEW:
-        return MaterialPageRoute(builder: (_) => StoreInfoView());
+        final ScreenArgumentsRestaurantDetail args =
+            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+
+        return MaterialPageRoute(
+          builder: (_) => StoreInfoView(
+            restaurant: args.restaurant,
+          ),
+        );
+        ;
       default:
         return null;
     }
