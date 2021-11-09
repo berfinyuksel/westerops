@@ -100,6 +100,9 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                 Visibility(
                   visible: widget.isGetIt!,
                   child: GetItAddressListTile(
+                    userAddress:
+                        '${deliveredRestaurant[0].address} ${deliveredRestaurant[0].province}',
+                    userAddressName: deliveredRestaurant[0].name,
                     restaurantName: deliveredRestaurant[0].name,
                     address:
                         '${deliveredRestaurant[0].address} ${deliveredRestaurant[0].province}',

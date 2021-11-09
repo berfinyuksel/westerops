@@ -8,7 +8,7 @@ class BasketRepository {
   final url = "${UrlConstant.EN_URL}order/basket/";
 
   Future<StatusCode> addToBasket(String boxId) async {
-    String json = '{"box_id":"$boxId"}';
+    String json = '{"box_id":"$boxId","billing_address":"","address":""}';
 
     final response = await http.post(
       Uri.parse("${UrlConstant.EN_URL}order/basket/add_box_to_basket/"),

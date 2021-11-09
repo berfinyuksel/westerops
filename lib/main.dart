@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dongu_mobile/data/repositories/address_repository.dart';
+import 'package:dongu_mobile/data/repositories/order_received_repository.dart';
 import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
 import 'package:dongu_mobile/data/repositories/store_boxes_repository.dart';
 import 'package:dongu_mobile/data/repositories/store_courier_hours_repository.dart';
@@ -9,6 +10,7 @@ import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
@@ -121,6 +123,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
                 SearchLocationCubit(SampleSearchLocationRepository())),
+        BlocProvider<OrderReceivedCubit>(
+            create: (context) =>
+                OrderReceivedCubit(SampleOrderReceivedRepository())),
         BlocProvider<StoreCourierCubit>(
             create: (context) =>
                 StoreCourierCubit(SampleStoreCourierHoursRepository())),

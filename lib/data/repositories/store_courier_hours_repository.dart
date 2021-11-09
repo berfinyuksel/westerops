@@ -8,8 +8,6 @@ import 'package:http/http.dart' as http;
 abstract class StoreCourierHoursRepository {
   Future<List<StoreCourierHours>> getCourierHours(int storeId);
   Future<List<StoreCourierHours>> updateCourierHours(
-    bool isAvailable,
-    int storeId,
     int courierHourId,
   );
 }
@@ -40,10 +38,9 @@ class SampleStoreCourierHoursRepository implements StoreCourierHoursRepository {
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 
-  Future<List<StoreCourierHours>> updateCourierHours(
-      bool isAvailable, int storeId, int courierHourId) async {
-    String json = '{ "is_available": $isAvailable, "store": $storeId }';
-    final response = await http.put(
+  Future<List<StoreCourierHours>> updateCourierHours(int courierHourId) async {
+    String json = '{"is_available":false}';
+    final response = await http.patch(
         Uri.parse(
             "${UrlConstant.EN_URL}store/courier_time_interval/$courierHourId/"),
         headers: {

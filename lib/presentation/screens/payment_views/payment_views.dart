@@ -1,6 +1,9 @@
+import 'package:dongu_mobile/data/repositories/store_courier_hours_repository.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -303,14 +306,19 @@ class _PaymentViewsState extends State<PaymentViews>
                 ),
               ),
               Expanded(
-                child: LocaleText(
-                  text: '70,50 TL',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 18.0,
-                    color: AppColors.greenColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Builder(builder: (context) {
+                  final stateOfSumPrice =
+                      context.watch<SumPriceOrderCubit>().state;
+
+                  return LocaleText(
+                    text: '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 18.0,
+                      color: AppColors.greenColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                }),
               ),
             ],
           ),
@@ -328,8 +336,14 @@ class _PaymentViewsState extends State<PaymentViews>
                 : AppColors.disabledButtonColor,
             onPressed: () {
               if (checkboxAgreementValue && checkboxInfoValue) {
-                context.read<OrderCubit>().clearBasket();
+                SharedPrefs.setOrderBar(true);
 
+                context
+                    .read<OrderReceivedCubit>()
+                    .createOrder(SharedPrefs.getDeliveryType);
+                context
+                    .read<StoreCourierCubit>()
+                    .updateCourierHours(SharedPrefs.getCourierHourId);
                 menuList!.clear();
                 SharedPrefs.setCounter(0);
                 SharedPrefs.setMenuList([]);

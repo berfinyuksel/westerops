@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:dongu_mobile/data/model/box_order.dart';
-
-import '../model/box.dart';
+import 'package:dongu_mobile/data/model/order_received.dart';
 
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
@@ -11,6 +10,8 @@ import 'package:http/http.dart' as http;
 abstract class OrderRepository {
   Future<List<String>> addToBasket(String boxId);
   Future<List<BoxOrder>> deleteBasket(String boxId);
+
+
   Future<List<BoxOrder>> getBasket();
   Future<List<BoxOrder>> clearBasket();
 }
@@ -78,10 +79,12 @@ class SampleOrderRepository implements OrderRepository {
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       List<BoxOrder> boxes = [];
+      print(jsonBody);
 
       if (jsonBody.isEmpty) {
         return boxes;
-      } else if ('Y' == jsonBody[0]) {
+      } else if ('Y' == jsonBody[0] ||
+          "Sepetinde ürün bulunmamaktadır!" == jsonBody) {
         return boxes;
       } else {
         for (int i = 0; i < jsonBody.length; i++) {

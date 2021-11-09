@@ -19,13 +19,10 @@ class StoreCourierCubit extends Cubit<GenericState> {
     }
   }
 
-  Future<void> getSearchStore(
-      bool isAvailable, int storeId, int courierHourId) async {
+  Future<void> updateCourierHours(int courierHourId) async {
     try {
       emit(GenericLoading());
       final response = await _storeCourierHoursRepository.updateCourierHours(
-        isAvailable,
-        storeId,
         courierHourId,
       );
       emit(GenericCompleted(response));

@@ -1,6 +1,7 @@
 import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/model/store_courier_hours.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
@@ -25,8 +26,11 @@ class PaymentDeliveryView extends StatefulWidget {
 }
 
 class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
-  int selectedIndex = 0;
+  int selectedIndex = 100;
   List<StoreCourierHours>? chosenRestaurantList;
+  int deliveryType = 0;
+  bool selectedGetit = false;
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -95,10 +99,27 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                             }
 
                             return DeliveryCustomButton(
+                              onPressed: () {
+                                setState(() {
+                                  String timeInterval =
+                                      "${chosenRestaurant[0].packageSettings!.deliveryTimeStart} - ${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}";
+                                  SharedPrefs.setTimeIntervalForGetIt(
+                                      timeInterval);
+                                  SharedPrefs.setCountDownString(
+                                      chosenRestaurant[0]
+                                          .packageSettings!
+                                          .deliveryTimeEnd!);
+                                  selectedGetit = !selectedGetit;
+                                  deliveryType = 1;
+                                  SharedPrefs.setDeliveryType(deliveryType);
+                                });
+                              },
                               width: double.infinity,
                               title:
                                   "${chosenRestaurant[0].packageSettings!.deliveryTimeStart} - ${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}",
-                              color: AppColors.greenColor.withOpacity(0.4),
+                              color: selectedGetit == true
+                                  ? AppColors.greenColor.withOpacity(0.4)
+                                  : Colors.white,
                             );
                           } else {
                             final error = stateOfRestaurants as GenericError;
@@ -164,10 +185,23 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                     width: context.dynamicWidht(0.4),
                     title:
                         "${list[index].startDate!.format("H:i")} - ${list[index].endDate!.format("H:i")}",
-                    color: list[index].isAvailable!
-                        ? AppColors.greenColor.withOpacity(0.4)
+                    color: list[index].isAvailable == true
+                        ? selectedIndex == index
+                            ? AppColors.greenColor.withOpacity(0.4)
+                            : Colors.white
                         : Color(0xFFE4E4E4).withOpacity(0.7),
-                    onPressed: () {},
+                    onPressed: list[index].isAvailable == true
+                        ? () {
+                            setState(() {});
+                            SharedPrefs.setCountDownString(
+                                list[index].endDate!.format("H:i"));
+                            deliveryType = 2;
+                            selectedIndex = index;
+                            SharedPrefs.setCourierHourId(
+                                list[selectedIndex].id!);
+                            SharedPrefs.setDeliveryType(deliveryType);
+                          }
+                        : null,
                   );
                 },
               );

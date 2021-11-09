@@ -125,6 +125,27 @@ class SharedPrefs {
     return favorites;
   }
 
+  static Future<void> setCourierHourId(int id) async {
+    _prefs.setInt('courierHourId', id);
+  }
+
+  static Future<void> setDeliveryType(int deliveryType) async {
+    _prefs.setInt('deliveryType', deliveryType);
+  }
+
+  static Future<void> setTimeIntervalForGetIt(
+      String timeIntervalForGetIt) async {
+    _prefs.setString('timeIntervalForGetIt', timeIntervalForGetIt);
+  }
+
+  static Future<void> setCountDownString(String countDownString) async {
+    _prefs.setString('countDownString', countDownString);
+  }
+
+  static Future<void> setOrderBar(bool orderActive) async {
+    _prefs.setBool('orderActive', orderActive);
+  }
+
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
@@ -164,4 +185,11 @@ class SharedPrefs {
   static List<String> get getSumPrice => _prefs.getStringList('sumPrice') ?? [];
   static List<String> get getFavorites =>
       _prefs.getStringList('favorites') ?? [];
+  static int get getCourierHourId => _prefs.getInt('courierHourId') ?? 0;
+  static int get getDeliveryType => _prefs.getInt('deliveryType') ?? 0;
+  static String get getTimeIntervalForGetIt =>
+      _prefs.getString('timeIntervalForGetIt') ?? "";
+  static String get getCountDownString =>
+      _prefs.getString('countDownString') ?? "";
+  static bool get getOrderBar => _prefs.getBool('orderActive') ?? false;
 }
