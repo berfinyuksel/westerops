@@ -6,6 +6,7 @@ import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
@@ -25,74 +26,79 @@ class OrderStatusBar extends StatefulWidget {
 class _OrderStatusBarState extends State<OrderStatusBar> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      height: 93,
-      color: AppColors.greenColor,
-      child: Builder(builder: (context) {
-        final state = context.watch<OrderReceivedCubit>().state;
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(RouteConstant.PAST_ORDER_VIEW);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        height: 93,
+        color: AppColors.greenColor,
+        child: Builder(builder: (context) {
+          final state = context.watch<OrderReceivedCubit>().state;
 
-        if (state is GenericInitial) {
-          return Container();
-        } else if (state is GenericLoading) {
-          return Center(child: CircularProgressIndicator());
-        } else if (state is GenericCompleted) {
-          List<OrderReceived> orderInfo = [];
-          for (var i = 0; i < state.response.length; i++) {
-            orderInfo.add(state.response[i]);
-          }
+          if (state is GenericInitial) {
+            return Container();
+          } else if (state is GenericLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is GenericCompleted) {
+            List<OrderReceived> orderInfo = [];
+            for (var i = 0; i < state.response.length; i++) {
+              orderInfo.add(state.response[i]);
+            }
 
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  LocaleText(
-                    text: 'Aktif Siparişin',
-                    style: AppTextStyles.subTitleBoldStyle,
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    LocaleText(
+                      text: 'Aktif Siparişin',
+                      style: AppTextStyles.subTitleBoldStyle,
+                    ),
+                    LocaleText(
+                      text:
+                          '${orderInfo.last.address!.name} - ${orderInfo.last.buyingTime!.format(EuropeanDateFormats.standard)}',
+                      style: AppTextStyles.subTitleBoldStyle,
+                    ),
+                    LocaleText(
+                      text: orderInfo.last.boxes![0].store!.name,
+                      style: AppTextStyles.bodyBoldTextStyle
+                          .copyWith(color: Colors.white),
+                    ),
+                  ],
+                ),
+                buildCountDown(context),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                  width: 69,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.0),
+                    color: AppColors.scaffoldBackgroundColor,
                   ),
-                  LocaleText(
-                    text:
-                        '${orderInfo.last.address!.name} - ${orderInfo.last.buyingTime!.format(EuropeanDateFormats.standard)}',
-                    style: AppTextStyles.subTitleBoldStyle,
-                  ),
-                  LocaleText(
-                    text: orderInfo.last.boxes![0].store!.name,
+                  child: Text(
+                    '${orderInfo.last.cost} TL',
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(color: Colors.white),
+                        .copyWith(color: AppColors.greenColor),
                   ),
-                ],
-              ),
-              buildCountDown(context),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                width: 69,
-                height: 36,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.0),
-                  color: AppColors.scaffoldBackgroundColor,
                 ),
-                child: Text(
-                  '${orderInfo.last.cost} TL',
-                  style: AppTextStyles.bodyBoldTextStyle
-                      .copyWith(color: AppColors.greenColor),
+                SvgPicture.asset(
+                  ImageConstant.COMMONS_FORWARD_ICON,
+                  fit: BoxFit.fitWidth,
+                  color: Colors.white,
                 ),
-              ),
-              SvgPicture.asset(
-                ImageConstant.COMMONS_FORWARD_ICON,
-                fit: BoxFit.fitWidth,
-                color: Colors.white,
-              ),
-            ],
-          );
-        } else {
-          final error = state as GenericError;
-          return Center(child: Text("${error.message}\n${error.statusCode}"));
-        }
-      }),
+              ],
+            );
+          } else {
+            final error = state as GenericError;
+            return Center(child: Text("${error.message}\n${error.statusCode}"));
+          }
+        }),
+      ),
     );
   }
 
