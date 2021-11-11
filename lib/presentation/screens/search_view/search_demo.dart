@@ -38,8 +38,12 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
 
   late List<Search> searches;
   String query = '';
-  bool scroolCategories = true;
-  bool scroolTrend = true;
+  bool scroolCategoriesLeft = true;
+  bool scroolCategoriesRight = false;
+
+  bool scroolTrendLeft = true;
+  bool scroolTrendRight = false;
+
   bool visible = true;
   bool isClean = false;
   @override
@@ -85,19 +89,25 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
       },
       child: Column(
         children: [
-          Spacer(flex: 3,),
+          Spacer(
+            flex: 3,
+          ),
           searchBar(context),
           // Spacer(
           //   flex: 3,
           // ),
           Visibility(
               visible: visible, child: searchHistoryAndCleanTexts(context)),
-    
+
           Visibility(visible: visible, child: dividerOne(context)),
-        //  Spacer(flex:2),
+          //  Spacer(flex:2),
           Visibility(visible: visible, child: Spacer(flex: 2)),
           items.length == 0 ? emptySearchHistory() : searchListViewBuilder(),
-         isClean ? Spacer(flex: 20) : Spacer(flex: 40,),
+          isClean
+              ? Spacer(flex: 20)
+              : Spacer(
+                  flex: 40,
+                ),
           Visibility(visible: visible, child: popularSearchText(context)),
           Visibility(visible: visible, child: dividerSecond(context)),
           //Spacer(flex: 2),
@@ -109,7 +119,7 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
                 ),
           Visibility(visible: visible, child: categoriesText(context)),
           Visibility(visible: visible, child: dividerThird(context)),
-        //  Spacer(flex: 1),
+          //  Spacer(flex: 1),
           Visibility(visible: visible, child: horizontalListCategory(context)),
           Spacer(flex: 10),
         ],
@@ -119,24 +129,31 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
 
   Padding horizontalListCategory(BuildContext context) {
     return Padding(
-      padding: scroolCategories
+      padding: scroolCategoriesLeft == true
           ? EdgeInsets.only(
               left: 26,
               right: 0,
             )
-          : EdgeInsets.only(
-              left: 0,
-              right: 26,
-            ),
+          : scroolCategoriesRight == true
+              ? EdgeInsets.only(
+                  left: 0,
+                  right: 26,
+                )
+              : EdgeInsets.only(),
       child: Container(
           height: context.dynamicHeight(0.19),
           child: NotificationListener<ScrollUpdateNotification>(
               onNotification: (ScrollUpdateNotification notification) {
                 setState(() {
-                  if (notification.metrics.pixels > 1) {
-                    scroolCategories = false;
-                  } else if (notification.metrics.pixels < 1) {
-                    scroolCategories = true;
+                  if (notification.metrics.pixels <= 0) {
+                    scroolCategoriesLeft = true;
+                  } else {
+                    scroolCategoriesLeft = false;
+                  }
+                  if (notification.metrics.pixels >= 364) {
+                    scroolCategoriesRight = true;
+                  } else {
+                    scroolCategoriesRight = false;
                   }
                 });
 
@@ -172,24 +189,31 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
 
   Padding horizontalListTrend(BuildContext context) {
     return Padding(
-      padding: scroolTrend
+      padding: scroolTrendLeft == true
           ? EdgeInsets.only(
               left: 26,
               right: 0,
             )
-          : EdgeInsets.only(
-              left: 0,
-              right: 26,
-            ),
+          : scroolTrendRight == true
+              ? EdgeInsets.only(
+                  left: 0,
+                  right: 26,
+                )
+              : EdgeInsets.only(),
       child: Container(
           height: context.dynamicHeight(0.04),
           child: NotificationListener<ScrollUpdateNotification>(
               onNotification: (ScrollUpdateNotification notification) {
                 setState(() {
-                  if (notification.metrics.pixels > 1) {
-                    scroolTrend = false;
-                  } else if (notification.metrics.pixels < 1) {
-                    scroolTrend = true;
+                  if (notification.metrics.pixels <= 0) {
+                    scroolTrendLeft = true;
+                  } else {
+                    scroolTrendLeft = false;
+                  }
+                  if (notification.metrics.pixels >= 79.5) {
+                    scroolTrendRight = true;
+                  } else {
+                    scroolTrendRight = false;
                   }
                 });
 
@@ -232,7 +256,7 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.06),
-             // vertical: context.dynamicHeight(0.00006)
+              // vertical: context.dynamicHeight(0.00006)
             ),
             decoration: BoxDecoration(color: Colors.white),
             child: buildSearch(search),
