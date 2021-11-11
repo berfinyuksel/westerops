@@ -259,7 +259,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             onPressed: () {
               Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                   arguments: ScreenArgumentsRestaurantDetail(
-                    favouriteRestaurant[index],
+                    restaurant: favouriteRestaurant[index],
                   ));
             },
             icon: favouriteRestaurant[index].photo,

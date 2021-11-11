@@ -75,59 +75,67 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                     visible: widget.isGetIt!,
                     child: Column(
                       children: [
-                        Builder(builder: (context) {
-                          final GenericState stateOfRestaurants =
-                              context.watch<SearchStoreCubit>().state;
+                        list.length != 0
+                            ? Builder(builder: (context) {
+                                final GenericState stateOfRestaurants =
+                                    context.watch<SearchStoreCubit>().state;
 
-                          if (stateOfRestaurants is GenericInitial) {
-                            return Container();
-                          } else if (stateOfRestaurants is GenericLoading) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (stateOfRestaurants is GenericCompleted) {
-                            List<SearchStore> restaurants = [];
-                            List<SearchStore> chosenRestaurant = [];
+                                if (stateOfRestaurants is GenericInitial) {
+                                  return Container();
+                                } else if (stateOfRestaurants
+                                    is GenericLoading) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                } else if (stateOfRestaurants
+                                    is GenericCompleted) {
+                                  List<SearchStore> restaurants = [];
+                                  List<SearchStore> chosenRestaurant = [];
 
-                            for (int i = 0;
-                                i < stateOfRestaurants.response.length;
-                                i++) {
-                              restaurants.add(stateOfRestaurants.response[i]);
-                            }
-                            for (var i = 0; i < restaurants.length; i++) {
-                              if (list[0].storeId == restaurants[i].id) {
-                                chosenRestaurant.add(restaurants[i]);
-                              }
-                            }
+                                  for (int i = 0;
+                                      i < stateOfRestaurants.response.length;
+                                      i++) {
+                                    restaurants
+                                        .add(stateOfRestaurants.response[i]);
+                                  }
+                                  for (var i = 0; i < restaurants.length; i++) {
+                                    if (list[0].storeId == restaurants[i].id) {
+                                      chosenRestaurant.add(restaurants[i]);
+                                    }
+                                  }
 
-                            return DeliveryCustomButton(
-                              onPressed: () {
-                                setState(() {
-                                  String timeInterval =
-                                      "${chosenRestaurant[0].packageSettings!.deliveryTimeStart} - ${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}";
-                                  SharedPrefs.setTimeIntervalForGetIt(
-                                      timeInterval);
-                                  SharedPrefs.setCountDownString(
-                                      chosenRestaurant[0]
-                                          .packageSettings!
-                                          .deliveryTimeEnd!);
-                                  selectedGetit = !selectedGetit;
-                                  deliveryType = 1;
-                                  SharedPrefs.setDeliveryType(deliveryType);
-                                });
-                              },
-                              width: double.infinity,
-                              title:
-                                  "${chosenRestaurant[0].packageSettings!.deliveryTimeStart} - ${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}",
-                              color: selectedGetit == true
-                                  ? AppColors.greenColor.withOpacity(0.4)
-                                  : Colors.white,
-                            );
-                          } else {
-                            final error = stateOfRestaurants as GenericError;
-                            return Center(
-                                child: Text(
-                                    "${error.message}\n${error.statusCode}"));
-                          }
-                        }),
+                                  return DeliveryCustomButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        String timeInterval =
+                                            "${chosenRestaurant[0].packageSettings!.deliveryTimeStart} - ${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}";
+                                        SharedPrefs.setTimeIntervalForGetIt(
+                                            timeInterval);
+                                        SharedPrefs.setCountDownString(
+                                            chosenRestaurant[0]
+                                                .packageSettings!
+                                                .deliveryTimeEnd!);
+                                        selectedGetit = !selectedGetit;
+                                        deliveryType = 1;
+                                        SharedPrefs.setDeliveryType(
+                                            deliveryType);
+                                      });
+                                    },
+                                    width: double.infinity,
+                                    title:
+                                        "${chosenRestaurant[0].packageSettings!.deliveryTimeStart} - ${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}",
+                                    color: selectedGetit == true
+                                        ? AppColors.greenColor.withOpacity(0.4)
+                                        : Colors.white,
+                                  );
+                                } else {
+                                  final error =
+                                      stateOfRestaurants as GenericError;
+                                  return Center(
+                                      child: Text(
+                                          "${error.message}\n${error.statusCode}"));
+                                }
+                              })
+                            : SizedBox(height: 0, width: 0),
                         SizedBox(
                           height: context.dynamicHeight(0.02),
                         ),

@@ -259,7 +259,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             Navigator.of(context)
                 .pushNamed(RouteConstant.ABOUT_WORKING_HOUR_VIEW,
                     arguments: ScreenArgumentsRestaurantDetail(
-                      widget.restaurant!,
+                      restaurant: widget.restaurant!,
                     ));
           },
           child: Container(
@@ -307,7 +307,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           onTap: () {
             Navigator.of(context).pushNamed(RouteConstant.STORE_INFO_VIEW,
                 arguments: ScreenArgumentsRestaurantDetail(
-                  widget.restaurant!,
+                  restaurant: widget.restaurant!,
                 ));
           },
           child: Container(
@@ -668,18 +668,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
           sumOfPricesString.add(sumOfPricesInt.last.toString());
           SharedPrefs.setSumPrice(sumOfPricesString);
-
           context.read<BasketCounterCubit>().increment();
           SharedPrefs.setCounter(counterState + 1);
           menuList!.add(menuItem.toString());
           SharedPrefs.setMenuList(menuList!);
-
           print("Successss");
         } else {
           sumOfPricesInt.remove(priceOfMenu!);
           sumOfPricesString.remove(priceOfMenu.toString());
           context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
-
           SharedPrefs.setSumPrice(sumOfPricesString);
           context
               .read<OrderCubit>()
@@ -960,7 +957,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         SizedBox(width: context.dynamicWidht(0.02)),
         Text(
-          widget.restaurant!.avgReview!.toString(),
+          widget.restaurant!.avgReview!.toStringAsFixed(1),
           style: AppTextStyles.bodyTextStyle,
         )
       ],

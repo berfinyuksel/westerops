@@ -47,9 +47,6 @@ class _CartViewState extends State<CartView> {
   List<String> sumOfPricesString = SharedPrefs.getSumPrice;
   List<int> sumOfPricesInt = [];
 
-  double courierPrice = 4.5;
-  double bagPrice = 0.5;
-
   @override
   void initState() {
     super.initState();
@@ -222,24 +219,12 @@ class _CartViewState extends State<CartView> {
                   withDecimal: false,
                 );
               }),
-              PastOrderDetailPaymentListTile(
-                title: LocaleKeys.past_order_detail_payment_2,
-                price: courierPrice,
-                lineTrough: true,
-                withDecimal: true,
-              ),
-              PastOrderDetailPaymentListTile(
-                title: "${LocaleKeys.past_order_detail_payment_3.locale} (2)*",
-                price: bagPrice,
-                lineTrough: false,
-                withDecimal: true,
-              ),
               Builder(builder: (context) {
                 final state = context.watch<SumPriceOrderCubit>().state;
 
                 return PastOrderDetailTotalPaymentListTile(
                   title: LocaleKeys.past_order_detail_payment_4,
-                  price: (state.toDouble() - courierPrice + bagPrice),
+                  price: (state.toDouble()),
                   withDecimal: true,
                 );
               }),
@@ -325,7 +310,7 @@ class _CartViewState extends State<CartView> {
                         context,
                         RouteConstant.RESTAURANT_DETAIL,
                         arguments: ScreenArgumentsRestaurantDetail(
-                          chosenRestaurat[0],
+                          restaurant: chosenRestaurat[0],
                         ),
                       );
                     });

@@ -40,7 +40,6 @@ class SearchStore {
     this.refCode,
     this.isVoted,
     this.user,
-    this.boxes,
   });
 
   int? id;
@@ -79,8 +78,6 @@ class SearchStore {
 
   bool? isVoted;
   int? user;
-
-  List<int>? boxes;
 
   factory SearchStore.fromRawJson(String str) =>
       SearchStore.fromJson(json.decode(str));
@@ -152,9 +149,6 @@ class SearchStore {
         refCode: json["ref_code"] == null ? null : json["ref_code"],
         isVoted: json["is_voted"] == null ? null : json["is_voted"],
         user: json["user"] == null ? null : json["user"],
-        boxes: json["boxes"] == null
-            ? null
-            : List<int>.from(json["boxes"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {

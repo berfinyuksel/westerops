@@ -1,7 +1,14 @@
+import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
@@ -19,6 +26,9 @@ import 'components/past_order_detail_total_payment_list_tile.dart';
 import 'components/thanks_for_evaluation_container.dart';
 
 class PastOrderDetailView extends StatefulWidget {
+  final OrderReceived? orderInfo;
+
+  const PastOrderDetailView({Key? key, this.orderInfo}) : super(key: key);
   @override
   _PastOrderDetailViewState createState() => _PastOrderDetailViewState();
 }
@@ -44,7 +54,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
       ),
       children: [
         AddressAndDateListTile(
-          date: "27 Şubat 2021  20:08",
+          date:
+              '${widget.orderInfo!.buyingTime!.format(EuropeanDateFormats.standard)}',
         ),
         SizedBox(
           height: context.dynamicHeight(0.03),
@@ -59,14 +70,21 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         SizedBox(
           height: context.dynamicHeight(0.03),
         ),
-        buildRowTitleLeftRight(context, LocaleKeys.past_order_detail_body_title_2, LocaleKeys.past_order_detail_edit),
+        buildRowTitleLeftRight(
+            context,
+            LocaleKeys.past_order_detail_body_title_2,
+            LocaleKeys.past_order_detail_edit),
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_1, "service"),
-        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_2, "quality"),
-        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_3, "taste"),
-        Visibility(visible: editVisibility, child: ThanksForEvaluationContainer()),
+        buildStarListTile(
+            context, LocaleKeys.past_order_detail_evaluate_1, "service"),
+        buildStarListTile(
+            context, LocaleKeys.past_order_detail_evaluate_2, "quality"),
+        buildStarListTile(
+            context, LocaleKeys.past_order_detail_evaluate_3, "taste"),
+        Visibility(
+            visible: editVisibility, child: ThanksForEvaluationContainer()),
         Visibility(
           visible: editVisibility,
           child: Column(
@@ -94,18 +112,18 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        PastOrderDetailBasketListTile(
-          title: "Anadolu Lezzetleri",
-          price: 35,
-          withDecimal: false,
-          subTitle: "Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu",
-        ),
-        PastOrderDetailBasketListTile(
-          title: "Vegan 4 Paket",
-          price: 35,
-          withDecimal: false,
-          subTitle: "Brokoli Salatası, Vegan Sos\nSoya Soslu Fasulye",
-        ),
+        ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.orderInfo!.boxes!.length,
+            itemBuilder: (BuildContext context, index) {
+              return PastOrderDetailBasketListTile(
+                title: widget.orderInfo!.boxes![index].textName,
+                price:
+                    (widget.orderInfo!.cost! / widget.orderInfo!.boxes!.length),
+                withDecimal: false,
+                subTitle: "Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu",
+              );
+            }),
         SizedBox(
           height: context.dynamicHeight(0.03),
         ),
@@ -117,25 +135,13 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         ),
         PastOrderDetailPaymentListTile(
           title: LocaleKeys.past_order_detail_payment_1,
-          price: 70,
+          price: widget.orderInfo!.cost!.toDouble(),
           lineTrough: false,
           withDecimal: false,
         ),
-        PastOrderDetailPaymentListTile(
-          title: LocaleKeys.past_order_detail_payment_2,
-          price: 4.50,
-          lineTrough: true,
-          withDecimal: true,
-        ),
-        PastOrderDetailPaymentListTile(
-          title: "${LocaleKeys.past_order_detail_payment_3.locale} (2)*",
-          price: 0.50,
-          lineTrough: false,
-          withDecimal: true,
-        ),
         PastOrderDetailTotalPaymentListTile(
           title: LocaleKeys.past_order_detail_payment_4,
-          price: 70.50,
+          price: widget.orderInfo!.cost!.toDouble(),
           withDecimal: true,
         ),
         SizedBox(
@@ -147,23 +153,25 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
 
   Padding buildButtonSecond(BuildContext context) {
     return Padding(
-              padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
-              child: CustomButton(
-                width: double.infinity,
-                title: LocaleKeys.past_order_detail_button_2,
-                color: Colors.transparent,
-                borderColor: AppColors.greenColor,
-                textColor: AppColors.greenColor,
-                onPressed: () {
-                  setState(() {
-                    editVisibility = true;
-                  });
-                },
-              ),
-            );
+      padding: EdgeInsets.only(
+          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+      child: CustomButton(
+        width: double.infinity,
+        title: LocaleKeys.past_order_detail_button_2,
+        color: Colors.transparent,
+        borderColor: AppColors.greenColor,
+        textColor: AppColors.greenColor,
+        onPressed: () {
+          setState(() {
+            editVisibility = true;
+          });
+        },
+      ),
+    );
   }
 
-  ListTile buildStarListTile(BuildContext context, String title, String whichStars) {
+  ListTile buildStarListTile(
+      BuildContext context, String title, String whichStars) {
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -193,7 +201,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         ],
       ),
       tileColor: Colors.white,
-      title: LocaleText(text: title, style: AppTextStyles.myInformationBodyTextStyle),
+      title: LocaleText(
+          text: title, style: AppTextStyles.myInformationBodyTextStyle),
       onTap: () {},
     );
   }
@@ -229,25 +238,59 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
     );
   }
 
-  ListTile buildRestaurantListTile(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-      ),
-      trailing: SvgPicture.asset(
-        ImageConstant.COMMONS_FORWARD_ICON,
-      ),
-      tileColor: Colors.white,
-      title: LocaleText(
-        text: "Canım Büfe",
-        style: AppTextStyles.bodyTextStyle,
-      ),
-      onTap: () {},
-    );
+  Builder buildRestaurantListTile(BuildContext context) {
+    return Builder(builder: (context) {
+      final GenericState stateOfSearchStore =
+          context.watch<SearchStoreCubit>().state;
+
+      if (stateOfSearchStore is GenericCompleted) {
+        List<SearchStore> chosenRestaurat = [];
+        for (var i = 0; i < stateOfSearchStore.response.length; i++) {
+          if (stateOfSearchStore.response[i].id ==
+              widget.orderInfo!.boxes![0].store!.id) {
+            chosenRestaurat.add(stateOfSearchStore.response[i]);
+          }
+        }
+        return ListTile(
+          contentPadding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+            right: context.dynamicWidht(0.06),
+          ),
+          trailing: SvgPicture.asset(
+            ImageConstant.COMMONS_FORWARD_ICON,
+          ),
+          tileColor: Colors.white,
+          title: LocaleText(
+            text: widget.orderInfo!.boxes!.length != 0
+                ? widget.orderInfo!.boxes![0].store!.name
+                : '',
+            style: AppTextStyles.bodyTextStyle,
+          ),
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.pushNamed(
+              context,
+              RouteConstant.RESTAURANT_DETAIL,
+              arguments: ScreenArgumentsRestaurantDetail(
+                restaurant: chosenRestaurat[0],
+              ),
+            );
+          },
+        );
+      } else if (stateOfSearchStore is GenericInitial) {
+        return Container();
+      } else if (stateOfSearchStore is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else {
+        final error = stateOfSearchStore as GenericError;
+
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
-  Padding buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight) {
+  Padding buildRowTitleLeftRight(
+      BuildContext context, String titleLeft, String titleRight) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -288,7 +331,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
     return Visibility(
       visible: !editVisibility,
       child: Padding(
-        padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+        padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+            right: context.dynamicWidht(0.06)),
         child: CustomButton(
           width: double.infinity,
           title: LocaleKeys.past_order_detail_button_1,

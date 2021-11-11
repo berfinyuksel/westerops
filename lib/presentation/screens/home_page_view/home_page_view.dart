@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'dart:io';
 import 'package:device_info/device_info.dart';
@@ -7,9 +9,11 @@ import 'package:device_info/device_info.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/home_page_view/components/order_status_bar.dart';
+
 import 'package:dongu_mobile/utils/haversine.dart';
 
 import 'package:flutter/material.dart';
@@ -43,12 +47,11 @@ class _HomePageViewState extends State<HomePageView> {
   bool scroolCategories = true;
   bool scroolOpportunities = true;
   ScrollController? _controller;
-
+  int? duration;
   @override
   void initState() {
     super.initState();
     context.read<SearchStoreCubit>().getSearchStore();
-
     LocationService.getCurrentLocation();
     getDeviceIdentifier();
   }
@@ -113,7 +116,8 @@ class _HomePageViewState extends State<HomePageView> {
         return ListView(
           children: [
             Visibility(
-                visible: SharedPrefs.getOrderBar, child: OrderStatusBar()),
+                visible: context.watch<OrderBarCubit>().state,
+                child: buildOrderStatusBar()),
             SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
@@ -253,6 +257,83 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
+  Widget buildOrderStatusBar() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(RouteConstant.PAST_ORDER_VIEW);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        height: 93,
+        color: AppColors.greenColor,
+        child: Builder(builder: (context) {
+          final stateOfOrder = context.watch<OrderReceivedCubit>().state;
+
+          if (stateOfOrder is GenericInitial) {
+            return Container();
+          } else if (stateOfOrder is GenericLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (stateOfOrder is GenericCompleted) {
+            List<OrderReceived> orderInfo = [];
+            for (var i = 0; i < stateOfOrder.response.length; i++) {
+              orderInfo.add(stateOfOrder.response[i]);
+            }
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    LocaleText(
+                      text: 'Aktif Siparişin',
+                      style: AppTextStyles.subTitleBoldStyle,
+                    ),
+                    LocaleText(
+                      text:
+                          '${orderInfo.last.address!.name} - ${orderInfo.last.buyingTime!.format(EuropeanDateFormats.standard)}',
+                      style: AppTextStyles.subTitleBoldStyle,
+                    ),
+                    LocaleText(
+                      text: orderInfo.last.boxes![0].store!.name,
+                      style: AppTextStyles.bodyBoldTextStyle
+                          .copyWith(color: Colors.white),
+                    ),
+                  ],
+                ),
+                buildCountDown(context),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                  width: 69,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.0),
+                    color: AppColors.scaffoldBackgroundColor,
+                  ),
+                  child: Text(
+                    '${orderInfo.last.cost} TL',
+                    style: AppTextStyles.bodyBoldTextStyle
+                        .copyWith(color: AppColors.greenColor),
+                  ),
+                ),
+                SvgPicture.asset(
+                  ImageConstant.COMMONS_FORWARD_ICON,
+                  fit: BoxFit.fitWidth,
+                  color: Colors.white,
+                ),
+              ],
+            );
+          } else {
+            final error = stateOfOrder as GenericError;
+            return Center(child: Text("${error.message}\n${error.statusCode}"));
+          }
+        }),
+      ),
+    );
+  }
+
   Container buildListViewNearMe(
       BuildContext context,
       List<SearchStore> restaurants,
@@ -283,7 +364,7 @@ class _HomePageViewState extends State<HomePageView> {
               onTap: () {
                 Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                     arguments: ScreenArgumentsRestaurantDetail(
-                      restaurants[index],
+                      restaurant: restaurants[index],
                     ));
               },
               child: RestaurantInfoCard(
@@ -320,7 +401,7 @@ class _HomePageViewState extends State<HomePageView> {
                 backgroundImage: restaurants[index].background,
                 packetNumber: "3 paket",
                 restaurantName: restaurants[index].name,
-                grade: restaurants[index].avgReview.toString(),
+                grade: restaurants[index].avgReview!.toStringAsFixed(1),
                 location: restaurants[index].city,
                 distance: Haversine.distance(
                         restaurants[index].latitude!,
@@ -368,7 +449,7 @@ class _HomePageViewState extends State<HomePageView> {
               onTap: () {
                 Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                     arguments: ScreenArgumentsRestaurantDetail(
-                      restaurants[index],
+                      restaurant: restaurants[index],
                     ));
               },
               child: Builder(builder: (context) {
@@ -415,7 +496,7 @@ class _HomePageViewState extends State<HomePageView> {
                   backgroundImage: restaurants[index].background,
                   packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
                   restaurantName: restaurants[index].name,
-                  grade: restaurants[index].avgReview.toString(),
+                  grade: restaurants[index].avgReview!.toStringAsFixed(1),
                   location: restaurants[index].city,
                   distance: Haversine.distance(
                           restaurants[index].latitude!,
@@ -532,5 +613,51 @@ class _HomePageViewState extends State<HomePageView> {
         color: AppColors.borderAndDividerColor,
       ),
     );
+  }
+
+  Text buildCountDown(BuildContext context) {
+    List<int> timeNowHourCompo = buildTimeNow();
+    String cachedTimeForDelivery = SharedPrefs.getCountDownString;
+    List<String> cachedTimeForDeliveryStringList =
+        cachedTimeForDelivery.split(":").toList();
+    cachedTimeForDeliveryStringList.add("00");
+    print(cachedTimeForDeliveryStringList);
+    List<int> cachedTimeForDeliveryIntList = [];
+    for (var i = 0; i < cachedTimeForDeliveryStringList.length; i++) {
+      cachedTimeForDeliveryIntList
+          .add(int.parse(cachedTimeForDeliveryStringList[i]));
+    }
+
+    int hour = (cachedTimeForDeliveryIntList[0] - timeNowHourCompo[0]);
+    int minute = (cachedTimeForDeliveryIntList[1] - timeNowHourCompo[1]);
+    int second = (cachedTimeForDeliveryIntList[2] - timeNowHourCompo[2]);
+    int duration = ((hour * 60 * 60) + (minute * 60) + (second));
+    int mathedHour = (duration ~/ (60 * 60));
+    int mathedMinute = (duration - (mathedHour * 60 * 60)) ~/ 60;
+
+    int mathedSeconds =
+        (duration - (mathedMinute * 60) - (mathedHour * 60 * 60));
+    if (duration <= 0) {
+      context.read<OrderBarCubit>().stateOfBar(false);
+    }
+    String countDown =
+        '${mathedHour < 10 ? "0$mathedHour" : "$mathedHour"}:${mathedMinute < 10 ? "0$mathedMinute" : "$mathedMinute"}:${mathedSeconds < 10 ? "0$mathedSeconds" : "$mathedSeconds"}';
+    return Text(
+      countDown,
+      style: AppTextStyles.subTitleBoldStyle,
+    );
+  }
+
+  List<int> buildTimeNow() {
+    String timeNow = DateTime.now().toIso8601String();
+    List<String> timeNowList = timeNow.split("T").toList();
+    List<String> timeNowHourList = timeNowList[1].split(".").toList();
+    List<String> timeNowComponentsList = timeNowHourList[0].split(":").toList();
+    List<int> timeNowHourComponentList = [];
+
+    timeNowComponentsList.forEach((e) {
+      timeNowHourComponentList.add(int.parse(e));
+    });
+    return timeNowHourComponentList;
   }
 }

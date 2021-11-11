@@ -10,7 +10,6 @@ class GetItAddressListTile extends StatelessWidget {
   final String? address;
   final String? userAddressName;
   final String? userAddress;
-
   const GetItAddressListTile({
     Key? key,
     this.restaurantName,
@@ -31,11 +30,11 @@ class GetItAddressListTile extends StatelessWidget {
         ),
         tileColor: Colors.white,
         title: LocaleText(
-          text: state.isOnline! ? restaurantName : userAddressName,
+          text: state.isOnline! ? userAddressName : restaurantName,
           style: AppTextStyles.myInformationBodyTextStyle,
         ),
         subtitle: Text(
-          state.isOnline! ? address! : userAddress!,
+          state.isOnline! ? userAddress! : address!,
           style: AppTextStyles.subTitleStyle,
         ),
       );

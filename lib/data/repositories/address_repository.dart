@@ -6,8 +6,6 @@ import '../../utils/constants/url_constant.dart';
 import '../model/address.dart';
 import '../shared/shared_prefs.dart';
 
-enum StatusCode { success, error }
-
 abstract class AdressRepository {
   Future<List<AddressValues>> updateAddress(
     int id,
