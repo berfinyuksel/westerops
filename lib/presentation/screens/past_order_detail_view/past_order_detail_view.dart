@@ -1,9 +1,15 @@
 import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/data/repositories/cancel_order_repository.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/avg_review_cubit/avg_review_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -38,6 +44,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
   int starDegreeQuality = 3;
   int starDegreeTaste = 3;
   bool editVisibility = false;
+  String mealNames = '';
 
   @override
   Widget build(BuildContext context) {
@@ -116,12 +123,23 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
             shrinkWrap: true,
             itemCount: widget.orderInfo!.boxes!.length,
             itemBuilder: (BuildContext context, index) {
+              List<String> meals = [];
+              if (widget.orderInfo!.boxes![index].meals!.isNotEmpty) {
+                for (var i = 0;
+                    i < widget.orderInfo!.boxes![index].meals!.length;
+                    i++) {
+                  meals.add(widget.orderInfo!.boxes![index].meals![i].name!);
+                }
+                mealNames = meals.join('\n');
+              }
               return PastOrderDetailBasketListTile(
                 title: widget.orderInfo!.boxes![index].textName,
                 price:
                     (widget.orderInfo!.cost! / widget.orderInfo!.boxes!.length),
                 withDecimal: false,
-                subTitle: "Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu",
+                subTitle: widget.orderInfo!.boxes![index].meals!.isEmpty
+                    ? ""
+                    : mealNames,
               );
             }),
         SizedBox(
@@ -147,6 +165,150 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         SizedBox(
           height: context.dynamicHeight(0.03),
         ),
+        Visibility(
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: context.dynamicWidht(0.06),
+                right: context.dynamicWidht(0.06)),
+            child: Builder(builder: (context) {
+              return CustomButton(
+                  width: double.infinity,
+                  title: 'Siparisi Iptal Et',
+                  color: Colors.transparent,
+                  borderColor: AppColors.greenColor,
+                  textColor: AppColors.greenColor,
+                  onPressed: () async {
+                    StatusCode statusCode = await sl<CancelOrderRepository>()
+                        .cancelOrder(widget.orderInfo!.id!);
+                    switch (statusCode) {
+                      case StatusCode.success:
+                        showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                  contentPadding: EdgeInsets.zero,
+                                  content: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: context.dynamicWidht(0.04)),
+                                    width: context.dynamicWidht(0.87),
+                                    height: context.dynamicHeight(0.29),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Spacer(
+                                          flex: 8,
+                                        ),
+                                        SvgPicture.asset(
+                                          ImageConstant.SURPRISE_PACK,
+                                          height: context.dynamicHeight(0.134),
+                                        ),
+                                        SizedBox(height: 10),
+                                        LocaleText(
+                                          text:
+                                              "Siparisiniz Basariyla iptal edildi Texti",
+                                          style:
+                                              AppTextStyles.bodyBoldTextStyle,
+                                          alignment: TextAlign.center,
+                                        ),
+                                        Spacer(
+                                          flex: 35,
+                                        ),
+                                        CustomButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(context,
+                                                RouteConstant.CUSTOM_SCAFFOLD);
+                                          },
+                                          width: context.dynamicWidht(0.35),
+                                          color: AppColors.greenColor,
+                                          textColor: Colors.white,
+                                          borderColor: AppColors.greenColor,
+                                          title: "Tamam",
+                                        ),
+                                        Spacer(
+                                          flex: 20,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                        break;
+                      case StatusCode.unauthecticated:
+                        showDialog(
+                          context: context,
+                          builder: (_) => CustomAlertDialog(
+                              textMessage: 'Giriş yapmalısınız',
+                              buttonOneTitle: 'Giriş yap',
+                              buttonTwoTittle: 'Kayıt ol',
+                              imagePath: ImageConstant.SURPRISE_PACK,
+                              onPressedOne: () {
+                                Navigator.of(context)
+                                    .pushNamed(RouteConstant.LOGIN_VIEW);
+                              },
+                              onPressedTwo: () {
+                                Navigator.of(context)
+                                    .pushNamed(RouteConstant.REGISTER_VIEW);
+                              }),
+                        );
+                        break;
+                      default:
+                        showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                  contentPadding: EdgeInsets.zero,
+                                  content: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: context.dynamicWidht(0.04)),
+                                    width: context.dynamicWidht(0.87),
+                                    height: context.dynamicHeight(0.29),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Spacer(
+                                          flex: 8,
+                                        ),
+                                        SvgPicture.asset(
+                                          ImageConstant.SURPRISE_PACK_ALERT,
+                                          height: context.dynamicHeight(0.134),
+                                        ),
+                                        SizedBox(height: 10),
+                                        LocaleText(
+                                          text:
+                                              "Siparisinizi Iptal Edemiyoruz Texti",
+                                          style:
+                                              AppTextStyles.bodyBoldTextStyle,
+                                          alignment: TextAlign.center,
+                                        ),
+                                        Spacer(
+                                          flex: 35,
+                                        ),
+                                        CustomButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(context,
+                                                RouteConstant.CUSTOM_SCAFFOLD);
+                                          },
+                                          width: context.dynamicWidht(0.35),
+                                          color: AppColors.greenColor,
+                                          textColor: Colors.white,
+                                          borderColor: AppColors.greenColor,
+                                          title: "Tamam",
+                                        ),
+                                        Spacer(
+                                          flex: 20,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                    }
+                  });
+            }),
+          ),
+        ),
       ],
     );
   }
@@ -165,6 +327,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
           setState(() {
             editVisibility = true;
           });
+          Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
         },
       ),
     );
@@ -341,6 +504,14 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
           borderColor: AppColors.greenColor,
           textColor: Colors.white,
           onPressed: () {
+            context.read<AvgReviewCubit>().postReview(
+                  starDegreeTaste,
+                  starDegreeService,
+                  starDegreeQuality,
+                  widget.orderInfo!.id!,
+                  SharedPrefs.getUserId,
+                  widget.orderInfo!.boxes![0].store!.id!,
+                );
             setState(() {
               editVisibility = true;
             });

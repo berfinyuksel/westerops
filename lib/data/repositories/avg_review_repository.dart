@@ -2,7 +2,7 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
-enum StatusCode { success, error, unauthecticated }
+enum StatusCode { success, error, unauthecticated, created }
 
 class AvgReviewRepository {
   Future<StatusCode> postReview(
@@ -29,6 +29,8 @@ class AvgReviewRepository {
     switch (response.statusCode) {
       case 200:
         return StatusCode.success;
+      case 201:
+        return StatusCode.created;
       case 401:
         return StatusCode.unauthecticated;
       default:
@@ -36,7 +38,7 @@ class AvgReviewRepository {
     }
   }
 
-  Future<StatusCode> getReview(String boxId) async {
+  Future<StatusCode> getReview() async {
     final response = await http.post(
       Uri.parse("${UrlConstant.EN_URL}store​/review​/"),
       headers: {

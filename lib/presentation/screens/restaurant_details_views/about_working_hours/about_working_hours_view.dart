@@ -1,10 +1,13 @@
 import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/time_interval_cubit/time_interval_cubit.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/scaffold/custom_scaffold.dart';
 import '../../../widgets/text/locale_text.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AboutWorkingHourView extends StatefulWidget {
   final SearchStore? restaurant;
@@ -17,9 +20,16 @@ class AboutWorkingHourView extends StatefulWidget {
 
 class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
   @override
+  void initState() {
+    super.initState();
+    context.read<TimeIntervalCubit>().getTimeInterval(widget.restaurant!.id!);
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<String> dateOfNow =
         DateTime.now().toIso8601String().split("T").toList();
+
     String? dateOfNowStringCalendar;
     print(dateOfNow);
     for (var i = 0; i < widget.restaurant!.calendar!.length; i++) {
@@ -39,6 +49,7 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
       "Cumartesi",
       "Pazar"
     ];
+
     var date = <String>[
       "15 Mart 2021",
       "16 Mart 2021",
@@ -48,6 +59,7 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
       "20 Mart 2021",
       "21 Mart 2021"
     ];
+
     var clocks = <String>[
       "12.00 - 03.00",
       "12.00 - 03.00",
@@ -58,24 +70,40 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
       "12.00 - 03.00",
     ];
 
-    return CustomScaffold(
-      title: "Çalışma Saatleri",
-      body: Padding(
-        padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
-        child: Column(
-          children: [
-            Expanded(
-              child: aboutWorkingHoursListViewBuilder(
-                  days, date, clocks, dateOfNowStringCalendar),
-            )
-          ],
-        ),
-      ),
-    );
+    return Builder(builder: (context) {
+      final state = context.watch<TimeIntervalCubit>().state;
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        return CustomScaffold(
+          title: "Çalışma Saatleri",
+          body: Padding(
+            padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
+            child: Column(
+              children: [
+                Expanded(
+                  child: aboutWorkingHoursListViewBuilder(
+                      days, date, clocks, dateOfNowStringCalendar, state),
+                )
+              ],
+            ),
+          ),
+        );
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
-  ListView aboutWorkingHoursListViewBuilder(List<String> items,
-      List<String> date, List<String> clock, String? dateOfNowStringCalendar) {
+  ListView aboutWorkingHoursListViewBuilder(
+      List<String> items,
+      List<String> date,
+      List<String> clock,
+      String? dateOfNowStringCalendar,
+      GenericCompleted state) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: items.length,

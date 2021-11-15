@@ -19,7 +19,7 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return chosenRestaurantList == null
+    return chosenRestaurantList != null
         ? Builder(builder: (context) {
             final GenericState stateOfRestaurants =
                 context.watch<SearchStoreCubit>().state;

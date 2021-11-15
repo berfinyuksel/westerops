@@ -1,28 +1,26 @@
 import 'dart:convert';
 
-import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/data/model/time_interval.dart';
 
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
-abstract class SearchStoreRepository {
-  Future<List<SearchStore>> getSearchStores();
+abstract class TimeIntervalRepository {
+  Future<List<TimeInterval>> getTimeInterval(int storeId);
 }
 
-class SampleSearchStoreRepository implements SearchStoreRepository {
-  final url = "${UrlConstant.EN_URL}store/searchstore/";
-
+class SampleTimeIntervalRepository implements TimeIntervalRepository {
   @override
-  Future<List<SearchStore>> getSearchStores() async {
+  Future<List<TimeInterval>> getTimeInterval(int storeId) async {
     final response = await http.get(
-      Uri.parse(url),
+      Uri.parse("${UrlConstant.EN_URL}store/time_interval/?store=$storeId"),
     );
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
 
-      List<SearchStore> searchStoreLists = List<SearchStore>.from(
-          jsonBody[0].map((model) => SearchStore.fromJson(model)));
+      List<TimeInterval> searchStoreLists = List<TimeInterval>.from(
+          jsonBody.map((model) => TimeInterval.fromJson(model)));
 
       return searchStoreLists;
     }

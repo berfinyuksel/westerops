@@ -1,12 +1,15 @@
 import 'dart:io';
 
 import 'package:dongu_mobile/data/repositories/address_repository.dart';
+import 'package:dongu_mobile/data/repositories/avg_review_repository.dart';
 import 'package:dongu_mobile/data/repositories/order_received_repository.dart';
 import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
 import 'package:dongu_mobile/data/repositories/store_boxes_repository.dart';
 import 'package:dongu_mobile/data/repositories/store_courier_hours_repository.dart';
+import 'package:dongu_mobile/data/repositories/time_interval_repository.dart';
 import 'package:dongu_mobile/data/repositories/user_address_repository.dart';
 import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/avg_review_cubit/avg_review_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
@@ -16,6 +19,7 @@ import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/time_interval_cubit/time_interval_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 import 'package:dongu_mobile/data/repositories/search_repository.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
@@ -125,6 +129,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
                 SearchLocationCubit(SampleSearchLocationRepository())),
+        BlocProvider<TimeIntervalCubit>(
+            create: (context) =>
+                TimeIntervalCubit(SampleTimeIntervalRepository())),
+        BlocProvider<AvgReviewCubit>(
+            create: (context) => AvgReviewCubit(AvgReviewRepository())),
         BlocProvider<OrderReceivedCubit>(
             create: (context) =>
                 OrderReceivedCubit(SampleOrderReceivedRepository())),

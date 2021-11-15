@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/payment_cubit/payment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,11 +31,13 @@ class GetItAddressListTile extends StatelessWidget {
         ),
         tileColor: Colors.white,
         title: LocaleText(
-          text: state.isOnline! ? userAddressName : restaurantName,
+          text: SharedPrefs.getDeliveryType == 2
+              ? userAddressName
+              : restaurantName,
           style: AppTextStyles.myInformationBodyTextStyle,
         ),
         subtitle: Text(
-          state.isOnline! ? userAddress! : address!,
+          SharedPrefs.getDeliveryType == 2 ? userAddress! : address!,
           style: AppTextStyles.subTitleStyle,
         ),
       );
