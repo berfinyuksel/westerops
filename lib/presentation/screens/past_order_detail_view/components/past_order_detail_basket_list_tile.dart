@@ -11,6 +11,8 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
   final String? subTitle;
   final bool? withDecimal;
   final bool? withMinOrderPrice;
+  final double? leftPadding;
+  final double? rightPadding;
 
   const PastOrderDetailBasketListTile({
     Key? key,
@@ -19,6 +21,8 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
     this.subTitle,
     this.withDecimal,
     this.withMinOrderPrice = false,
+    this.leftPadding,
+    this.rightPadding,
   }) : super(key: key);
 
   @override

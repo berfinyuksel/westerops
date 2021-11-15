@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
@@ -12,6 +14,8 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/text/locale_text.dart';
 
 class WasDeliveredView extends StatefulWidget {
+  final OrderReceived? orderInfo;
+  const WasDeliveredView({Key? key, this.orderInfo}) : super(key: key);
   @override
   _WasDeliveredViewState createState() => _WasDeliveredViewState();
 }
@@ -42,7 +46,9 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                       fontWeight: FontWeight.w600,
                       color: AppColors.orangeColor),
                 ),
-                Spacer(flex: 4,),
+                Spacer(
+                  flex: 4,
+                ),
                 LocaleText(
                   text: "Sipariş Numarası:",
                   style: AppTextStyles.myInformationBodyTextStyle.copyWith(
@@ -50,7 +56,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                   ),
                 ),
                 LocaleText(
-                  text: LocaleKeys.swipe_orderNo,
+                  text: widget.orderInfo!.refCode!.toString(),
                   style: AppTextStyles.headlineStyle,
                 ),
                 Container(
@@ -59,20 +65,22 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                 Spacer(
                   flex: 4,
                 ),
-                
+
                 LocaleText(
-                  text:"Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",
+                  text:
+                      "Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",
                   style: AppTextStyles.headlineStyle,
                   maxLines: 3,
                   alignment: TextAlign.center,
                 ),
-                Spacer(flex: 2,),
+                Spacer(
+                  flex: 2,
+                ),
 
                 LocaleText(
                   text:
                       "Gezegenimizi korumak çıktığımız bu yolda\nbizi yalnız bırakmadığın için teşekkürler!\nŞimdi sıra siparişini puanlamada!",
                   alignment: TextAlign.center,
-
                   style: AppTextStyles.bodyTextStyle
                       .copyWith(fontWeight: FontWeight.w600),
                   maxLines: 3,
@@ -87,13 +95,20 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                   width: context.dynamicWidht(0.86),
                   color: AppColors.greenColor,
                   borderColor: AppColors.greenColor,
-                  onPressed: (){},
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
+                            arguments: ScreenArgumentsRestaurantDetail(
+                              orderInfo: widget.orderInfo,
+                            ));
+                    Navigator.of(context).pop();
+                  },
                 ),
                 Spacer(
                   flex: 4,
                 ),
 
-               // infoCard(context),
+                // infoCard(context),
               ],
             ),
           )

@@ -1,3 +1,8 @@
+import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/data/repositories/update_order_repository.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/past_order_detail_basket_list_tile.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -11,11 +16,16 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/text/locale_text.dart';
 
 class SwipeView extends StatefulWidget {
+  final OrderReceived? orderInfo;
+  const SwipeView({Key? key, this.orderInfo}) : super(key: key);
+
   @override
   _SwipeViewState createState() => _SwipeViewState();
 }
 
 class _SwipeViewState extends State<SwipeView> {
+  String mealNames = '';
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -51,7 +61,7 @@ class _SwipeViewState extends State<SwipeView> {
                   ),
                 ),
                 LocaleText(
-                  text: LocaleKeys.swipe_orderNo,
+                  text: widget.orderInfo!.refCode.toString(),
                   style: AppTextStyles.headlineStyle,
                 ),
                 Spacer(
@@ -64,16 +74,21 @@ class _SwipeViewState extends State<SwipeView> {
                 Dismissible(
                   key: UniqueKey(),
                   onDismissed: (value) {
-                   setState(() {
+                    setState(() {
                       Navigator.pushNamed(
-                          context, RouteConstant.WAS_DELIVERED_VIEW);
-                   });
+                          context, RouteConstant.WAS_DELIVERED_VIEW,
+                          arguments: ScreenArgumentsRestaurantDetail(
+                            orderInfo: widget.orderInfo,
+                          ));
+                    });
+                    sl<UpdateOrderRepository>()
+                        .updateOrderStatus(widget.orderInfo!.id!, 6);
                   },
                   direction: DismissDirection.startToEnd,
                   child: Container(
                     //curve: Curve,
                     height: context.dynamicHeight(0.12),
-                    width: context.dynamicWidht(0.87),
+                    width: context.dynamicWidht(0.9),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4.0),
                       color: AppColors.greenColor,
@@ -83,7 +98,7 @@ class _SwipeViewState extends State<SwipeView> {
                       ),
                     ),
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: null,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -126,73 +141,80 @@ class _SwipeViewState extends State<SwipeView> {
       height: context.dynamicHeight(0.16),
       width: double.infinity,
       color: Colors.white,
-      child: Padding(
-        padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.07), top: context.dynamicWidht(0.04)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            LocaleText(
-              text: LocaleKeys.swipe_text3,
-              style: AppTextStyles.myInformationBodyTextStyle
-                  .copyWith(fontWeight: FontWeight.w500),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.orderInfo!.boxes!.length,
+              itemBuilder: (BuildContext context, index) {
+                List<String> meals = [];
+                if (widget.orderInfo!.boxes![index].meals!.isNotEmpty) {
+                  for (var i = 0;
+                      i < widget.orderInfo!.boxes![index].meals!.length;
+                      i++) {
+                    meals.add(widget.orderInfo!.boxes![index].meals![i].name!);
+                  }
+                  mealNames = meals.join('\n');
+                }
+                return PastOrderDetailBasketListTile(
+                  title: widget.orderInfo!.boxes![index].textName,
+                  price: (widget.orderInfo!.cost! /
+                      widget.orderInfo!.boxes!.length),
+                  withDecimal: false,
+                  subTitle: widget.orderInfo!.boxes![index].meals!.isEmpty
+                      ? ""
+                      : mealNames,
+                );
+              }),
+          Spacer(
+            flex: 40,
+          ),
+          Divider(
+            height: context.dynamicHeight(0.001),
+            thickness: 1,
+          ),
+          Spacer(
+            flex: 20,
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+              right: context.dynamicWidht(0.06),
             ),
-            Spacer(
-              flex: 7,
-            ),
-            LocaleText(
-                text: LocaleKeys.swipe_text4,
-                style: AppTextStyles.subTitleStyle),
-            Spacer(
-              flex: 40,
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: context.dynamicWidht(0.065)),
-              child: Divider(
-                height: context.dynamicHeight(0.001),
-                thickness: 1,
-              ),
-            ),
-            Spacer(
-              flex: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: context.dynamicWidht(0.065)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  LocaleText(
-                    text: LocaleKeys.swipe_totalAmount,
-                    style: AppTextStyles.myInformationBodyTextStyle
-                        .copyWith(fontWeight: FontWeight.w500),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                LocaleText(
+                  text: LocaleKeys.swipe_totalAmount,
+                  style: AppTextStyles.myInformationBodyTextStyle
+                      .copyWith(fontWeight: FontWeight.w500),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  width: context.dynamicWidht(0.16),
+                  height: context.dynamicHeight(0.04),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.0),
+                    color: AppColors.scaffoldBackgroundColor,
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: context.dynamicWidht(0.16),
-                    height: context.dynamicHeight(0.04),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.0),
-                      color: AppColors.scaffoldBackgroundColor,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                      child: LocaleText(
-                        text: LocaleKeys.swipe_price,
-                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                          color: AppColors.greenColor,
-                        ),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                    child: LocaleText(
+                      text: LocaleKeys.swipe_price,
+                      style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                        color: AppColors.greenColor,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Spacer(
-              flex: 25,
-            ),
-          ],
-        ),
+          ),
+          Spacer(
+            flex: 25,
+          ),
+        ],
       ),
     );
   }

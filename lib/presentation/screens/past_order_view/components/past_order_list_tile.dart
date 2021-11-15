@@ -12,12 +12,14 @@ class PastOrderListTile extends StatelessWidget {
   final String? subtitle;
   final String? price;
   final VoidCallback? onTap;
+  final bool? statusSituationForCancel;
   const PastOrderListTile({
     Key? key,
     this.title,
     this.subtitle,
     this.price,
     this.onTap,
+    this.statusSituationForCancel = false,
   }) : super(key: key);
 
   @override
@@ -31,6 +33,25 @@ class PastOrderListTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
+          Visibility(
+              visible: statusSituationForCancel!,
+              child: Container(
+                alignment: Alignment.center,
+                width: context.dynamicWidht(0.16),
+                height: context.dynamicHeight(0.04),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.0),
+                  color: AppColors.scaffoldBackgroundColor,
+                ),
+                child: Text(
+                  'Iptal',
+                  style: AppTextStyles.bodyBoldTextStyle
+                      .copyWith(color: AppColors.redColor),
+                ),
+              )),
+          SizedBox(
+            width: 5,
+          ),
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.only(right: context.dynamicWidht(0.07)),
@@ -42,7 +63,8 @@ class PastOrderListTile extends StatelessWidget {
             ),
             child: Text(
               '$price TL',
-              style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.greenColor),
+              style: AppTextStyles.bodyBoldTextStyle
+                  .copyWith(color: AppColors.greenColor),
             ),
           ),
           SvgPicture.asset(

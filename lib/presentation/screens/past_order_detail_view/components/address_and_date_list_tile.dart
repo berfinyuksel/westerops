@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,13 +9,21 @@ import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../my_favorites_view/components/address_text.dart';
 
-class AddressAndDateListTile extends StatelessWidget {
+class AddressAndDateListTile extends StatefulWidget {
   final String? date;
+  final OrderReceived? orderInfo;
+
   const AddressAndDateListTile({
     Key? key,
     this.date,
+    this.orderInfo,
   }) : super(key: key);
 
+  @override
+  State<AddressAndDateListTile> createState() => _AddressAndDateListTileState();
+}
+
+class _AddressAndDateListTileState extends State<AddressAndDateListTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -23,7 +33,10 @@ class AddressAndDateListTile extends StatelessWidget {
       ),
       trailing: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, RouteConstant.SWIPE_VIEW);
+          Navigator.of(context).pushNamed(RouteConstant.SWIPE_VIEW,
+              arguments: ScreenArgumentsRestaurantDetail(
+                orderInfo: widget.orderInfo,
+              ));
         },
         child: SvgPicture.asset(
           ImageConstant.PAST_ORDER_DETAIL_ICON,
@@ -34,7 +47,7 @@ class AddressAndDateListTile extends StatelessWidget {
       tileColor: Colors.white,
       title: AddressText(),
       subtitle: Text(
-        date!,
+        widget.date!,
         style: AppTextStyles.subTitleStyle,
       ),
       onTap: () {},

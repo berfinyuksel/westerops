@@ -57,6 +57,12 @@ class _PastOrderViewState extends State<PastOrderView> {
                               ));
                     },
                     child: PastOrderListTile(
+                      statusSituationForCancel:
+                          orderInfo[index].status == '5' ||
+                                  orderInfo[index].status == '4' ||
+                                  orderInfo[index].status == '0'
+                              ? true
+                              : false,
                       title:
                           "${orderInfo[index].address!.name} - ${orderInfo[index].buyingTime!.format(EuropeanDateFormats.standard)}",
                       subtitle: orderInfo[index].boxes!.length != 0

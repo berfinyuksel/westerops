@@ -1,7 +1,7 @@
 import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
-import 'package:dongu_mobile/data/repositories/cancel_order_repository.dart';
+import 'package:dongu_mobile/data/repositories/update_order_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/avg_review_cubit/avg_review_cubit.dart';
@@ -61,6 +61,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
       ),
       children: [
         AddressAndDateListTile(
+          orderInfo: widget.orderInfo,
           date:
               '${widget.orderInfo!.buyingTime!.format(EuropeanDateFormats.standard)}',
         ),
@@ -177,134 +178,158 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                   color: Colors.transparent,
                   borderColor: AppColors.greenColor,
                   textColor: AppColors.greenColor,
-                  onPressed: () async {
-                    StatusCode statusCode = await sl<CancelOrderRepository>()
-                        .cancelOrder(widget.orderInfo!.id!);
-                    switch (statusCode) {
-                      case StatusCode.success:
-                        showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                                  contentPadding: EdgeInsets.zero,
-                                  content: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: context.dynamicWidht(0.04)),
-                                    width: context.dynamicWidht(0.87),
-                                    height: context.dynamicHeight(0.29),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      color: Colors.white,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Spacer(
-                                          flex: 8,
-                                        ),
-                                        SvgPicture.asset(
-                                          ImageConstant.SURPRISE_PACK,
-                                          height: context.dynamicHeight(0.134),
-                                        ),
-                                        SizedBox(height: 10),
-                                        LocaleText(
-                                          text:
-                                              "Siparisiniz Basariyla iptal edildi Texti",
-                                          style:
-                                              AppTextStyles.bodyBoldTextStyle,
-                                          alignment: TextAlign.center,
-                                        ),
-                                        Spacer(
-                                          flex: 35,
-                                        ),
-                                        CustomButton(
-                                          onPressed: () {
-                                            Navigator.pushNamed(context,
-                                                RouteConstant.CUSTOM_SCAFFOLD);
-                                          },
-                                          width: context.dynamicWidht(0.35),
-                                          color: AppColors.greenColor,
-                                          textColor: Colors.white,
-                                          borderColor: AppColors.greenColor,
-                                          title: "Tamam",
-                                        ),
-                                        Spacer(
-                                          flex: 20,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ));
-                        break;
-                      case StatusCode.unauthecticated:
-                        showDialog(
-                          context: context,
-                          builder: (_) => CustomAlertDialog(
-                              textMessage: 'Giriş yapmalısınız',
-                              buttonOneTitle: 'Giriş yap',
-                              buttonTwoTittle: 'Kayıt ol',
-                              imagePath: ImageConstant.SURPRISE_PACK,
-                              onPressedOne: () {
-                                Navigator.of(context)
-                                    .pushNamed(RouteConstant.LOGIN_VIEW);
-                              },
-                              onPressedTwo: () {
-                                Navigator.of(context)
-                                    .pushNamed(RouteConstant.REGISTER_VIEW);
-                              }),
-                        );
-                        break;
-                      default:
-                        showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                                  contentPadding: EdgeInsets.zero,
-                                  content: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: context.dynamicWidht(0.04)),
-                                    width: context.dynamicWidht(0.87),
-                                    height: context.dynamicHeight(0.29),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      color: Colors.white,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Spacer(
-                                          flex: 8,
-                                        ),
-                                        SvgPicture.asset(
-                                          ImageConstant.SURPRISE_PACK_ALERT,
-                                          height: context.dynamicHeight(0.134),
-                                        ),
-                                        SizedBox(height: 10),
-                                        LocaleText(
-                                          text:
-                                              "Siparisinizi Iptal Edemiyoruz Texti",
-                                          style:
-                                              AppTextStyles.bodyBoldTextStyle,
-                                          alignment: TextAlign.center,
-                                        ),
-                                        Spacer(
-                                          flex: 35,
-                                        ),
-                                        CustomButton(
-                                          onPressed: () {
-                                            Navigator.pushNamed(context,
-                                                RouteConstant.CUSTOM_SCAFFOLD);
-                                          },
-                                          width: context.dynamicWidht(0.35),
-                                          color: AppColors.greenColor,
-                                          textColor: Colors.white,
-                                          borderColor: AppColors.greenColor,
-                                          title: "Tamam",
-                                        ),
-                                        Spacer(
-                                          flex: 20,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ));
-                    }
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => CustomAlertDialog(
+                          textMessage:
+                              'Siparisi iptal etmek\nistediğinize emin misiniz?',
+                          buttonOneTitle: 'Vazgeç',
+                          buttonTwoTittle: 'Eminim',
+                          imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                          onPressedOne: () {
+                            Navigator.of(context).pop();
+                          },
+                          onPressedTwo: () async {
+                            StatusCode statusCode =
+                                await sl<UpdateOrderRepository>()
+                                    .cancelOrder(widget.orderInfo!.id!);
+                            switch (statusCode) {
+                              case StatusCode.success:
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                          contentPadding: EdgeInsets.zero,
+                                          content: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal:
+                                                    context.dynamicWidht(0.04)),
+                                            width: context.dynamicWidht(0.87),
+                                            height: context.dynamicHeight(0.29),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              color: Colors.white,
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Spacer(
+                                                  flex: 8,
+                                                ),
+                                                SvgPicture.asset(
+                                                  ImageConstant.SURPRISE_PACK,
+                                                  height: context
+                                                      .dynamicHeight(0.134),
+                                                ),
+                                                SizedBox(height: 10),
+                                                LocaleText(
+                                                  text:
+                                                      "Siparisiniz Basariyla iptal edildi Texti",
+                                                  style: AppTextStyles
+                                                      .bodyBoldTextStyle,
+                                                  alignment: TextAlign.center,
+                                                ),
+                                                Spacer(
+                                                  flex: 35,
+                                                ),
+                                                CustomButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  width: context
+                                                      .dynamicWidht(0.35),
+                                                  color: AppColors.greenColor,
+                                                  textColor: Colors.white,
+                                                  borderColor:
+                                                      AppColors.greenColor,
+                                                  title: "Tamam",
+                                                ),
+                                                Spacer(
+                                                  flex: 20,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ));
+                                break;
+                              case StatusCode.unauthecticated:
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => CustomAlertDialog(
+                                      textMessage: 'Giriş yapmalısınız',
+                                      buttonOneTitle: 'Giriş yap',
+                                      buttonTwoTittle: 'Kayıt ol',
+                                      imagePath: ImageConstant.SURPRISE_PACK,
+                                      onPressedOne: () {
+                                        Navigator.of(context).pushNamed(
+                                            RouteConstant.LOGIN_VIEW);
+                                      },
+                                      onPressedTwo: () {
+                                        Navigator.of(context).pushNamed(
+                                            RouteConstant.REGISTER_VIEW);
+                                      }),
+                                );
+                                break;
+                              default:
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                          contentPadding: EdgeInsets.zero,
+                                          content: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal:
+                                                    context.dynamicWidht(0.04)),
+                                            width: context.dynamicWidht(0.87),
+                                            height: context.dynamicHeight(0.29),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              color: Colors.white,
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Spacer(
+                                                  flex: 8,
+                                                ),
+                                                SvgPicture.asset(
+                                                  ImageConstant
+                                                      .SURPRISE_PACK_ALERT,
+                                                  height: context
+                                                      .dynamicHeight(0.134),
+                                                ),
+                                                SizedBox(height: 10),
+                                                LocaleText(
+                                                  text:
+                                                      "Siparisinizi Iptal Edemiyoruz Texti",
+                                                  style: AppTextStyles
+                                                      .bodyBoldTextStyle,
+                                                  alignment: TextAlign.center,
+                                                ),
+                                                Spacer(
+                                                  flex: 35,
+                                                ),
+                                                CustomButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  width: context
+                                                      .dynamicWidht(0.35),
+                                                  color: AppColors.greenColor,
+                                                  textColor: Colors.white,
+                                                  borderColor:
+                                                      AppColors.greenColor,
+                                                  title: "Tamam",
+                                                ),
+                                                Spacer(
+                                                  flex: 20,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ));
+                            }
+                          }),
+                    );
                   });
             }),
           ),

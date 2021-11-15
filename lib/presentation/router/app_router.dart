@@ -187,9 +187,23 @@ class AppRouter {
                 ? CustomScaffold()
                 : SplashView());
       case RouteConstant.SWIPE_VIEW:
-        return MaterialPageRoute(builder: (_) => SwipeView());
+        final ScreenArgumentsRestaurantDetail args =
+            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+
+        return MaterialPageRoute(
+          builder: (_) => SwipeView(
+            orderInfo: args.orderInfo,
+          ),
+        );
       case RouteConstant.WAS_DELIVERED_VIEW:
-        return MaterialPageRoute(builder: (_) => WasDeliveredView());
+        final ScreenArgumentsRestaurantDetail args =
+            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+
+        return MaterialPageRoute(
+          builder: (_) => WasDeliveredView(
+            orderInfo: args.orderInfo,
+          ),
+        );
       case RouteConstant.STORE_INFO_VIEW:
         final ScreenArgumentsRestaurantDetail args =
             routeSettings.arguments as ScreenArgumentsRestaurantDetail;
