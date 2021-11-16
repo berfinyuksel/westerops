@@ -8,18 +8,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CategoryItem extends StatelessWidget {
   final String? imagePath;
   final String? categoryName;
+  final int? color;
 
   const CategoryItem({
     Key? key,
     required this.imagePath,
     required this.categoryName,
+    required this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SvgPicture.asset(imagePath!),
+        CircleAvatar(
+            radius: 38,
+            backgroundColor: Color(color!),
+            child: Image.network(imagePath!)),
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),

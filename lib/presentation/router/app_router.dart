@@ -1,4 +1,6 @@
 import 'package:dongu_mobile/presentation/screens/address_update_view/address_update_view.dart';
+import 'package:dongu_mobile/presentation/screens/categories_view/categories_view.dart';
+import 'package:dongu_mobile/presentation/screens/categories_view/screen_arguments_categories/screen_arguments_categories.dart';
 import 'package:dongu_mobile/presentation/screens/freeze_account_view/freeze_account_view.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/about_working_hours/about_working_hours_view.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/store_info_view/store_info_view.dart';
@@ -126,6 +128,15 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => MyNearView());
       case RouteConstant.NOTIFICATION_VIEW:
         return MaterialPageRoute(builder: (_) => NotificationView());
+      case RouteConstant.CATEGORIES_VIEW:
+        final ScreenArgumentsCategories args =
+            routeSettings.arguments as ScreenArgumentsCategories;
+
+        return MaterialPageRoute(
+          builder: (_) => CategoriesView(
+            category: args.categories,
+          ),
+        );
       case RouteConstant.ONBOARDINGS_VIEW:
         return MaterialPageRoute(
             builder: (_) => SharedPrefs.getIsOnboardingShown

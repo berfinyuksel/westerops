@@ -45,4 +45,5 @@ class RouteConstant {
   static const SWIPE_VIEW = '/swipe';
   static const WAS_DELIVERED_VIEW = '/wasDelivered';
   static const STORE_INFO_VIEW = '/storeInfoView';
+  static const CATEGORIES_VIEW = '/categories';
 }
