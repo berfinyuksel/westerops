@@ -3,6 +3,7 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import 'package:flutter/material.dart';
@@ -336,8 +337,7 @@ class _PaymentViewsState extends State<PaymentViews>
                 : AppColors.disabledButtonColor,
             onPressed: () {
               if (checkboxAgreementValue && checkboxInfoValue) {
-                SharedPrefs.setOrderBar(true);
-
+                context.read<OrderBarCubit>().stateOfBar(true);
                 context
                     .read<OrderReceivedCubit>()
                     .createOrder(SharedPrefs.getDeliveryType);

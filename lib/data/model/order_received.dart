@@ -8,6 +8,8 @@ class OrderReceived {
   OrderReceived({
     this.id,
     this.boxes,
+    this.courierTime,
+    this.review,
     this.buyingTime,
     this.status,
     this.deliveryType,
@@ -17,19 +19,23 @@ class OrderReceived {
     this.isVoted,
     this.user,
     this.address,
+    this.billingAddress,
   });
 
   int? id;
   List<Box>? boxes;
+  dynamic? courierTime;
+  List<Review>? review;
   DateTime? buyingTime;
   String? status;
   String? deliveryType;
   int? cost;
   int? refCode;
-  DateTime? boxesDefinedTime;
+  dynamic? boxesDefinedTime;
   bool? isVoted;
   User? user;
   Address? address;
+  dynamic? billingAddress;
 
   factory OrderReceived.fromRawJson(String str) =>
       OrderReceived.fromJson(json.decode(str));
@@ -39,33 +45,36 @@ class OrderReceived {
   factory OrderReceived.fromJson(Map<String, dynamic> json) => OrderReceived(
         id: json["id"],
         boxes: List<Box>.from(json["boxes"].map((x) => Box.fromJson(x))),
+        courierTime: json["courier_time"],
+        review:
+            List<Review>.from(json["review"].map((x) => Review.fromJson(x))),
         buyingTime: DateTime.parse(json["buying_time"]),
         status: json["status"],
         deliveryType: json["delivery_type"],
         cost: json["cost"],
         refCode: json["ref_code"],
-        boxesDefinedTime: json["boxes_defined_time"] == null
-            ? null
-            : DateTime.parse(json["boxes_defined_time"]),
+        boxesDefinedTime: json["boxes_defined_time"],
         isVoted: json["is_voted"],
         user: User.fromJson(json["user"]),
         address: Address.fromJson(json["address"]),
+        billingAddress: json["billing_address"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "boxes": List<dynamic>.from(boxes!.map((x) => x.toJson())),
+        "courier_time": courierTime,
+        "review": List<dynamic>.from(review!.map((x) => x.toJson())),
         "buying_time": buyingTime!.toIso8601String(),
         "status": status,
         "delivery_type": deliveryType,
         "cost": cost,
         "ref_code": refCode,
-        "boxes_defined_time": boxesDefinedTime == null
-            ? null
-            : boxesDefinedTime!.toIso8601String(),
+        "boxes_defined_time": boxesDefinedTime,
         "is_voted": isVoted,
         "user": user!.toJson(),
         "address": address!.toJson(),
+        "billing_address": billingAddress,
       };
 }
 
@@ -152,7 +161,7 @@ class Box {
   });
 
   int? id;
-  String? description;
+  dynamic? description;
   bool? defined;
   bool? sold;
   String? checkTaskId;
@@ -160,7 +169,7 @@ class Box {
   Name? name;
   Store? store;
   SaleDay? saleDay;
-  List<dynamic>? meals;
+  List<Meal>? meals;
 
   factory Box.fromRawJson(String str) => Box.fromJson(json.decode(str));
 
@@ -176,7 +185,7 @@ class Box {
         name: Name.fromJson(json["name"]),
         store: Store.fromJson(json["store"]),
         saleDay: SaleDay.fromJson(json["sale_day"]),
-        meals: List<dynamic>.from(json["meals"].map((x) => x)),
+        meals: List<Meal>.from(json["meals"].map((x) => Meal.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -189,7 +198,59 @@ class Box {
         "name": name!.toJson(),
         "store": store!.toJson(),
         "sale_day": saleDay!.toJson(),
-        "meals": List<dynamic>.from(meals!.map((x) => x)),
+        "meals": List<dynamic>.from(meals!.map((x) => x.toJson())),
+      };
+}
+
+class Meal {
+  Meal({
+    this.id,
+    this.name,
+    this.description,
+    this.price,
+    this.photo,
+    this.favorite,
+    this.store,
+    this.category,
+    this.tag,
+  });
+
+  int? id;
+  String? name;
+  dynamic? description;
+  int? price;
+  dynamic? photo;
+  bool? favorite;
+  int? store;
+  int? category;
+  List<dynamic>? tag;
+
+  factory Meal.fromRawJson(String str) => Meal.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Meal.fromJson(Map<String, dynamic> json) => Meal(
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        price: json["price"],
+        photo: json["photo"],
+        favorite: json["favorite"],
+        store: json["store"],
+        category: json["category"],
+        tag: List<dynamic>.from(json["tag"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "price": price,
+        "photo": photo,
+        "favorite": favorite,
+        "store": store,
+        "category": category,
+        "tag": List<dynamic>.from(tag!.map((x) => x)),
       };
 }
 
@@ -356,7 +417,7 @@ class Store {
         status: json["status"],
         cancelCount: json["cancel_count"],
         createdAt: DateTime.parse(json["created_at"]),
-        avgReview: json["avg_review"],
+        avgReview: json["avg_review"].toDouble(),
         latitude: json["latitude"].toDouble(),
         longitude: json["longitude"].toDouble(),
         storeOwner: json["store_owner"],
@@ -386,6 +447,50 @@ class Store {
         "longitude": longitude,
         "store_owner": storeOwner,
         "favorited_by": List<dynamic>.from(favoritedBy!.map((x) => x)),
+      };
+}
+
+class Review {
+  Review({
+    this.id,
+    this.mealPoint,
+    this.servicePoint,
+    this.qualityPoint,
+    this.order,
+    this.user,
+    this.store,
+  });
+
+  int? id;
+  int? mealPoint;
+  int? servicePoint;
+  int? qualityPoint;
+  int? order;
+  int? user;
+  int? store;
+
+  factory Review.fromRawJson(String str) => Review.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Review.fromJson(Map<String, dynamic> json) => Review(
+        id: json["id"],
+        mealPoint: json["meal_point"],
+        servicePoint: json["service_point"],
+        qualityPoint: json["quality_point"],
+        order: json["order"],
+        user: json["user"],
+        store: json["store"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "meal_point": mealPoint,
+        "service_point": servicePoint,
+        "quality_point": qualityPoint,
+        "order": order,
+        "user": user,
+        "store": store,
       };
 }
 

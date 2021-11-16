@@ -4,9 +4,12 @@ import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
+enum StatusCode { success, error, unauthecticated }
+
 abstract class OrderReceivedRepository {
   Future<List<OrderReceived>> getOrder();
   Future<List<OrderReceived>> createOrder(int deliveryType);
+
 }
 
 class SampleOrderReceivedRepository implements OrderReceivedRepository {
@@ -33,6 +36,7 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
 
     throw NetworkError(response.statusCode.toString(), response.body);
   }
+
 
   Future<List<OrderReceived>> getOrder() async {
     final response = await http.get(

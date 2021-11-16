@@ -42,26 +42,23 @@ class CustomAlertDialog extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Spacer(
-              flex: 8,
+            SizedBox(height: 30),
+            Container(
+              height: 45,
+              width: 90,
+              child: SvgPicture.asset(
+                imagePath!,
+              ),
             ),
-            SvgPicture.asset(
-              imagePath!,
-              height: context.dynamicHeight(0.134),
-            ),
-            SizedBox(height: 10),
+            SizedBox(height: 30),
             LocaleText(
               text: textMessage,
               style: AppTextStyles.bodyBoldTextStyle,
               alignment: TextAlign.center,
             ),
-            Spacer(
-              flex: 35,
-            ),
+            SizedBox(height: 30),
             buildButtons(context),
-            Spacer(
-              flex: 20,
-            ),
+            SizedBox(height: 20),
           ],
         ),
       ),

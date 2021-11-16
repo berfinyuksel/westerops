@@ -274,7 +274,7 @@ class _MyNearViewState extends State<MyNearView> {
             onPressed: () {
               Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                   arguments: ScreenArgumentsRestaurantDetail(
-                    restaurants[index],
+                    restaurant: restaurants[index],
                   ));
             },
           );

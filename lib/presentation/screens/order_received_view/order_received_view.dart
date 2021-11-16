@@ -10,6 +10,7 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/payment_cubit/payment_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
@@ -306,7 +307,9 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     int mathedMinute = (duration - (mathedHour * 60 * 60)) ~/ 60;
     int mathedSeconds =
         (duration - (mathedMinute * 60) - (mathedHour * 60 * 60));
-
+    if (duration <= 0) {
+      context.read<OrderBarCubit>().stateOfBar(false);
+    }
     return Container(
       width: double.infinity,
       height: context.dynamicHeight(0.1),
