@@ -22,6 +22,62 @@ class CategoriesView extends StatelessWidget {
     return builBody();
   }
 
+  Widget builBody() {
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<SearchStoreCubit>().state;
+
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        List<SearchStore> restaurants = [];
+        List<SearchStore> categorizedRestaurants = [];
+
+        for (int i = 0; i < state.response.length; i++) {
+          restaurants.add(state.response[i]);
+        }
+        for (var i = 0; i < restaurants.length; i++) {
+          for (var j = 0; j < restaurants[i].categories!.length; j++) {
+            if (restaurants[i].categories![j].name == category.id) {
+              categorizedRestaurants.add(restaurants[i]);
+            }
+          }
+        }
+        return buildCustomScaffold(context, categorizedRestaurants);
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
+  }
+
+  CustomScaffold buildCustomScaffold(
+      BuildContext context, List<SearchStore> categorizedRestaurants) {
+    return CustomScaffold(
+      title: 'Kategoriler',
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: context.dynamicWidht(0.06),
+          right: context.dynamicWidht(0.06),
+          top: context.dynamicHeight(0.02),
+          bottom: context.dynamicHeight(0.02),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildTitle(category.name!),
+            Divider(
+              thickness: 4,
+              color: AppColors.borderAndDividerColor,
+            ),
+            buildRestaurantList(categorizedRestaurants),
+          ],
+        ),
+      ),
+    );
+  }
+
   LocaleText buildTitle(String title) {
     return LocaleText(
       text: title,
@@ -54,56 +110,5 @@ class CategoriesView extends StatelessWidget {
                 '${categorizedRestaurants[index].packageSettings!.deliveryTimeStart} - ${categorizedRestaurants[index].packageSettings!.deliveryTimeEnd}',
           );
         });
-  }
-
-  Widget builBody() {
-    return Builder(builder: (context) {
-      final GenericState state = context.watch<SearchStoreCubit>().state;
-
-      if (state is GenericInitial) {
-        return Container();
-      } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
-      } else if (state is GenericCompleted) {
-        List<SearchStore> restaurants = [];
-        List<SearchStore> categorizedRestaurants = [];
-
-        for (int i = 0; i < state.response.length; i++) {
-          restaurants.add(state.response[i]);
-        }
-        for (var i = 0; i < restaurants.length; i++) {
-          for (var j = 0; j < restaurants[i].categories!.length; j++) {
-            if (restaurants[i].categories![j].name == category.id) {
-              categorizedRestaurants.add(restaurants[i]);
-            }
-          }
-        }
-        return CustomScaffold(
-          title: 'Kategoriler',
-          body: Padding(
-            padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06),
-              top: context.dynamicHeight(0.02),
-              bottom: context.dynamicHeight(0.02),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildTitle(category.name!),
-                Divider(
-                  thickness: 4,
-                  color: AppColors.borderAndDividerColor,
-                ),
-                buildRestaurantList(categorizedRestaurants),
-              ],
-            ),
-          ),
-        );
-      } else {
-        final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    });
   }
 }
