@@ -150,7 +150,7 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
                   } else {
                     scroolCategoriesLeft = false;
                   }
-                  if (notification.metrics.pixels >= 364) {
+                  if (notification.metrics.pixels >= 65) {
                     scroolCategoriesRight = true;
                   } else {
                     scroolCategoriesRight = false;

@@ -103,7 +103,7 @@ class CategoriesView extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                       arguments: ScreenArgumentsRestaurantDetail(
-                        categorizedRestaurants[index],
+                        restaurant: categorizedRestaurants[index],
                       ));
                 },
                 icon: categorizedRestaurants[index].photo,

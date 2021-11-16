@@ -225,7 +225,7 @@ class _HomePageViewState extends State<HomePageView> {
                           } else {
                             scroolCategoriesLeft = false;
                           }
-                          if (notification.metrics.pixels >= 338) {
+                          if (notification.metrics.pixels >= 91) {
                             scroolCategoriesRight = true;
                           } else {
                             scroolCategoriesRight = false;
