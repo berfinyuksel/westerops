@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'dart:io';
 import 'package:device_info/device_info.dart';
@@ -39,9 +37,15 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
-  bool scroolNearMe = true;
-  bool scroolCategories = true;
-  bool scroolOpportunities = true;
+  bool scroolNearMeLeft = true;
+  bool scroolNearMeRight = false;
+
+  bool scroolCategoriesLeft = true;
+  bool scroolCategoriesRight = false;
+
+  bool scroolOpportunitiesLeft = true;
+  bool scroolOpportunitiesRight = false;
+
   ScrollController? _controller;
 
   @override
@@ -164,15 +168,17 @@ class _HomePageViewState extends State<HomePageView> {
             SizedBox(height: context.dynamicHeight(0.02)),
             //bool scrool = false;
             Padding(
-              padding: scroolNearMe
+              padding: scroolNearMeLeft == true
                   ? EdgeInsets.only(
                       left: 26,
                       right: 0,
                     )
-                  : EdgeInsets.only(
-                      left: 0,
-                      right: 26,
-                    ),
+                  : scroolNearMeRight == true
+                      ? EdgeInsets.only(
+                          left: 0,
+                          right: 26,
+                        )
+                      : EdgeInsets.only(),
               child:
                   buildListViewNearMe(context, restaurants, distances, state),
             ),
@@ -194,24 +200,31 @@ class _HomePageViewState extends State<HomePageView> {
             ),
             SizedBox(height: context.dynamicHeight(0.01)),
             Padding(
-              padding: scroolCategories
+              padding: scroolCategoriesLeft == true
                   ? EdgeInsets.only(
                       left: 26,
                       right: 0,
                     )
-                  : EdgeInsets.only(
-                      left: 0,
-                      right: 26,
-                    ),
+                  : scroolCategoriesRight == true
+                      ? EdgeInsets.only(
+                          left: 0,
+                          right: 26,
+                        )
+                      : EdgeInsets.only(),
               child: Container(
                   height: context.dynamicHeight(0.16),
                   child: NotificationListener<ScrollUpdateNotification>(
                       onNotification: (ScrollUpdateNotification notification) {
                         setState(() {
-                          if (notification.metrics.pixels > 1) {
-                            scroolCategories = false;
-                          } else if (notification.metrics.pixels < 1) {
-                            scroolCategories = true;
+                          if (notification.metrics.pixels <= 0) {
+                            scroolCategoriesLeft = true;
+                          } else {
+                            scroolCategoriesLeft = false;
+                          }
+                          if (notification.metrics.pixels >= 338) {
+                            scroolCategoriesRight = true;
+                          } else {
+                            scroolCategoriesRight = false;
                           }
                         });
 
@@ -235,15 +248,17 @@ class _HomePageViewState extends State<HomePageView> {
             ),
             SizedBox(height: context.dynamicHeight(0.01)),
             Padding(
-              padding: scroolOpportunities
+              padding: scroolOpportunitiesLeft == true
                   ? EdgeInsets.only(
                       left: 26,
                       right: 0,
                     )
-                  : EdgeInsets.only(
-                      left: 0,
-                      right: 26,
-                    ),
+                  : scroolOpportunitiesRight == true
+                      ? EdgeInsets.only(
+                          left: 0,
+                          right: 26,
+                        )
+                      : EdgeInsets.only(),
               child:
                   buildListViewOpportunities(context, restaurants, distances),
             ),
@@ -263,14 +278,17 @@ class _HomePageViewState extends State<HomePageView> {
       height: context.dynamicHeight(0.29),
       child: NotificationListener<ScrollUpdateNotification>(
         onNotification: (ScrollUpdateNotification notification) {
-          setState(() {
-            if (notification.metrics.pixels > 1) {
-              scroolNearMe = false;
-            } else if (notification.metrics.pixels < 1) {
-              scroolNearMe = true;
-            }
-          });
-
+          setState(() {});
+          if (notification.metrics.pixels <= 0) {
+            scroolNearMeLeft = true;
+          } else {
+            scroolNearMeLeft = false;
+          }
+          if (notification.metrics.pixels >= 630) {
+            scroolNearMeRight = true;
+          } else {
+            scroolNearMeRight = false;
+          }
           return true;
         },
         child: ListView.separated(
@@ -320,7 +338,7 @@ class _HomePageViewState extends State<HomePageView> {
                 backgroundImage: restaurants[index].background,
                 packetNumber: "3 paket",
                 restaurantName: restaurants[index].name,
-                grade: restaurants[index].avgReview.toString(),
+                grade: restaurants[index].avgReview!.toStringAsFixed(1),
                 location: restaurants[index].city,
                 distance: Haversine.distance(
                         restaurants[index].latitude!,
@@ -349,10 +367,15 @@ class _HomePageViewState extends State<HomePageView> {
       child: NotificationListener<ScrollUpdateNotification>(
         onNotification: (ScrollUpdateNotification notification) {
           setState(() {
-            if (notification.metrics.pixels > 1) {
-              scroolOpportunities = false;
-            } else if (notification.metrics.pixels < 1) {
-              scroolOpportunities = true;
+            if (notification.metrics.pixels <= 0) {
+              scroolOpportunitiesLeft = true;
+            } else {
+              scroolOpportunitiesLeft = false;
+            }
+            if (notification.metrics.pixels >= 630) {
+              scroolOpportunitiesRight = true;
+            } else {
+              scroolOpportunitiesRight = false;
             }
           });
 
@@ -415,7 +438,7 @@ class _HomePageViewState extends State<HomePageView> {
                   backgroundImage: restaurants[index].background,
                   packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
                   restaurantName: restaurants[index].name,
-                  grade: restaurants[index].avgReview.toString(),
+                  grade: restaurants[index].avgReview!.toStringAsFixed(1),
                   location: restaurants[index].city,
                   distance: Haversine.distance(
                           restaurants[index].latitude!,
