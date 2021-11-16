@@ -1,5 +1,10 @@
+import 'package:dongu_mobile/data/model/category_name.dart';
+import 'package:dongu_mobile/presentation/screens/categories_view/screen_arguments_categories/screen_arguments_categories.dart';
+import 'package:dongu_mobile/presentation/screens/home_page_view/components/category_item.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:googleapis/books/v1.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
@@ -10,7 +15,8 @@ import '../../../widgets/scaffold/custom_scaffold.dart';
 import '../../../widgets/text/locale_text.dart';
 
 class FoodCategories extends StatefulWidget {
-  FoodCategories({Key? key}) : super(key: key);
+  final List<Result>? categories;
+  FoodCategories({Key? key, required this.categories}) : super(key: key);
 
   @override
   _FoodCategoriesState createState() => _FoodCategoriesState();
@@ -28,96 +34,34 @@ class _FoodCategoriesState extends State<FoodCategories> {
                 top: context.dynamicWidht(0.04),
                 left: context.dynamicWidht(0.07),
                 right: context.dynamicWidht(0.07)),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        SvgPicture.asset(ImageConstant.FOOD_ICON),
-                        SizedBox(
-                          height: context.dynamicHeight(0.01),
-                        ),
-                        LocaleText(
-                          text: LocaleKeys.search_kind3,
-                          style: AppTextStyles.subTitleStyle,
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        SvgPicture.asset(ImageConstant.DRINK_ICON),
-                        SizedBox(
-                          height: context.dynamicHeight(0.01),
-                        ),
-                        LocaleText(
-                          text: LocaleKeys.search_kind8,
-                          style: AppTextStyles.subTitleStyle,
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        SvgPicture.asset(ImageConstant.VEGAN_ICON),
-                        SizedBox(
-                          height: context.dynamicHeight(0.01),
-                        ),
-                        LocaleText(
-                          text: LocaleKeys.search_kind6,
-                          style: AppTextStyles.subTitleStyle,
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        SvgPicture.asset(ImageConstant.HAMBURGER_ICON),
-                        SizedBox(
-                          height: context.dynamicHeight(0.01),
-                        ),
-                        LocaleText(
-                          text: LocaleKeys.search_kind1,
-                          style: AppTextStyles.subTitleStyle,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: context.dynamicWidht(0.04),
-                ),
-                Row(
-                  children: [
-                    Column(
-                      children: [
-                        SvgPicture.asset(ImageConstant.CHICKEN_ICON),
-                        SizedBox(
-                          height: context.dynamicHeight(0.01),
-                        ),
-                        LocaleText(
-                          text: LocaleKeys.search_kind5,
-                          style: AppTextStyles.subTitleStyle,
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      width: context.dynamicWidht(0.04),
-                    ),
-                    Column(
-                      children: [
-                        SvgPicture.asset(ImageConstant.DESSERT_ICON),
-                        SizedBox(
-                          height: context.dynamicHeight(0.01),
-                        ),
-                        LocaleText(
-                          text: LocaleKeys.search_kind9,
-                          style: AppTextStyles.subTitleStyle,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+            child: GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                childAspectRatio:
+                    context.dynamicWidht(0.07) / context.dynamicHeight(0.05),
+                crossAxisSpacing: context.dynamicWidht(0.046),
+                mainAxisSpacing: context.dynamicHeight(0.02),
+              ),
+              itemCount: widget.categories!.length,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      RouteConstant.CATEGORIES_VIEW,
+                      arguments: ScreenArgumentsCategories(
+                          categories: widget.categories![index]),
+                    );
+                  },
+                  child: CategoryItem(
+                    imagePath: widget.categories![index].photo,
+                    categoryName: widget.categories![index].name,
+                    color: buildColorOfCategoryItem(
+                        widget.categories![index].color),
+                  ),
+                );
+              },
             ),
           ),
           SizedBox(
@@ -209,4 +153,109 @@ class _FoodCategoriesState extends State<FoodCategories> {
       ),
     );
   }
+
+  buildColorOfCategoryItem(String? color) {
+    List<String> colorValueList = color!.split('#').toList();
+    List colorValueTotalList = [];
+    colorValueTotalList.add('0xFF');
+    colorValueTotalList.add(colorValueList[1]);
+    String colorValueFormatted = colorValueTotalList.join('');
+    int colorValueFormattedInt = int.tryParse(colorValueFormatted)!;
+    return colorValueFormattedInt;
+  }
 }
+/* 
+
+Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        SvgPicture.asset(ImageConstant.FOOD_ICON),
+                        SizedBox(
+                          height: context.dynamicHeight(0.01),
+                        ),
+                        LocaleText(
+                          text: LocaleKeys.search_kind3,
+                          style: AppTextStyles.subTitleStyle,
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        SvgPicture.asset(ImageConstant.DRINK_ICON),
+                        SizedBox(
+                          height: context.dynamicHeight(0.01),
+                        ),
+                        LocaleText(
+                          text: LocaleKeys.search_kind8,
+                          style: AppTextStyles.subTitleStyle,
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        SvgPicture.asset(ImageConstant.VEGAN_ICON),
+                        SizedBox(
+                          height: context.dynamicHeight(0.01),
+                        ),
+                        LocaleText(
+                          text: LocaleKeys.search_kind6,
+                          style: AppTextStyles.subTitleStyle,
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        SvgPicture.asset(ImageConstant.HAMBURGER_ICON),
+                        SizedBox(
+                          height: context.dynamicHeight(0.01),
+                        ),
+                        LocaleText(
+                          text: LocaleKeys.search_kind1,
+                          style: AppTextStyles.subTitleStyle,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: context.dynamicWidht(0.04),
+                ),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        SvgPicture.asset(ImageConstant.CHICKEN_ICON),
+                        SizedBox(
+                          height: context.dynamicHeight(0.01),
+                        ),
+                        LocaleText(
+                          text: LocaleKeys.search_kind5,
+                          style: AppTextStyles.subTitleStyle,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: context.dynamicWidht(0.04),
+                    ),
+                    Column(
+                      children: [
+                        SvgPicture.asset(ImageConstant.DESSERT_ICON),
+                        SizedBox(
+                          height: context.dynamicHeight(0.01),
+                        ),
+                        LocaleText(
+                          text: LocaleKeys.search_kind9,
+                          style: AppTextStyles.subTitleStyle,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+             */

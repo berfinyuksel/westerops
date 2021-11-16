@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/model/category_name.dart';
 import 'package:dongu_mobile/data/model/favourite.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/repositories/basket_repository.dart';
@@ -7,6 +8,7 @@ import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
 
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
@@ -14,6 +16,7 @@ import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
+import 'package:dongu_mobile/presentation/screens/categories_view/screen_arguments_categories/screen_arguments_categories.dart';
 import 'package:dongu_mobile/presentation/screens/login_view/login_view.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
@@ -323,9 +326,44 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ),
           ),
         ),
-        GestureDetector(
+        buildCategoriesSection(context),
+      ],
+    );
+  }
+
+  Builder buildCategoriesSection(BuildContext context) {
+    return Builder(builder: (context) {
+      final stateOfCategories = context.watch<CategoryNameCubit>().state;
+
+      if (stateOfCategories is GenericInitial) {
+        return Container();
+      } else if (stateOfCategories is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (stateOfCategories is GenericCompleted) {
+        List<Result> categoryList = [];
+        List<Result> relatedCategories = [];
+        for (var i = 0; i < stateOfCategories.response.length; i++) {
+          categoryList.add(stateOfCategories.response[i]);
+        }
+
+        for (var i = 0; i < categoryList.length; i++) {
+          for (var j = 0; j < widget.restaurant!.categories!.length; j++) {
+            if (categoryList[i].id == widget.restaurant!.categories![j].name) {
+              relatedCategories.add(categoryList[i]);
+            }
+          }
+        }
+        List<String> nameList = [];
+        for (var i = 0; i < relatedCategories.length; i++) {
+          nameList.add(relatedCategories[i].name!);
+        }
+        String categoryNames = nameList.join(', ');
+        print(categoryNames);
+        return GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW);
+            Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
+                arguments: ScreenArgumentsCategories(
+                    categoriesList: relatedCategories));
           },
           child: Container(
             color: AppColors.appBarColor,
@@ -341,15 +379,18 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 style: AppTextStyles.subTitleStyle,
               ),
               subtitle: LocaleText(
-                text: LocaleKeys.restaurant_detail_detail_tab_sub_title5,
+                text: categoryNames,
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
             ),
           ),
-        ),
-      ],
-    );
+        );
+      } else {
+        final error = stateOfCategories as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
   ListView tabPackages(BuildContext context, GenericCompleted state) {

@@ -49,7 +49,8 @@ class _CustomHorizontalListCategoryState
               onTap: () {
                 Navigator.of(context).pushNamed(
                   RouteConstant.CATEGORIES_VIEW,
-                  arguments: ScreenArgumentsCategories(results[index]),
+                  arguments:
+                      ScreenArgumentsCategories(categories: results[index]),
                 );
               },
               child: CategoryItem(

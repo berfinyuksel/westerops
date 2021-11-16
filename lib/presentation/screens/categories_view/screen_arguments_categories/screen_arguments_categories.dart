@@ -1,8 +1,8 @@
 import 'package:dongu_mobile/data/model/category_name.dart';
 
 class ScreenArgumentsCategories {
-  final Result categories;
-  ScreenArgumentsCategories(
-    this.categories,
-  );
+  final Result? categories;
+  final List<Result>? categoriesList;
+
+  ScreenArgumentsCategories({this.categories, this.categoriesList});
 }
