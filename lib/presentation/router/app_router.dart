@@ -101,7 +101,14 @@ class AppRouter {
       case RouteConstant.FREEZE_ACCOUNT_VIEW:
         return MaterialPageRoute(builder: (_) => FreezeAccountView());
       case RouteConstant.FOOD_CATEGORIES_VIEW:
-        return MaterialPageRoute(builder: (_) => FoodCategories());
+        final ScreenArgumentsCategories args =
+            routeSettings.arguments as ScreenArgumentsCategories;
+
+        return MaterialPageRoute(
+          builder: (_) => FoodCategories(
+            categories: args.categoriesList,
+          ),
+        );
       case RouteConstant.FOOD_WASTE_EXPANDED_VIEW:
         return MaterialPageRoute(builder: (_) => FoodWasteExpandedView());
       case RouteConstant.FOOD_WASTE_VIEW:
