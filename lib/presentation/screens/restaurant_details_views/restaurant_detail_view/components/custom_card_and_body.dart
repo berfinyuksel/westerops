@@ -948,7 +948,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         SizedBox(width: context.dynamicWidht(0.02)),
         Text(
-          widget.restaurant!.avgReview!.toString(),
+          widget.restaurant!.avgReview!.toStringAsFixed(1),
           style: AppTextStyles.bodyTextStyle,
         )
       ],

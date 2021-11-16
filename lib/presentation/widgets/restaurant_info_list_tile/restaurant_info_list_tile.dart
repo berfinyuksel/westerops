@@ -51,7 +51,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
     return Container(
       decoration: BoxDecoration(color: Colors.white, border: widget.border),
       padding: EdgeInsets.fromLTRB(
-        28,
+        12,
         context.dynamicHeight(0.02),
         0,
         context.dynamicHeight(0.02),
@@ -63,7 +63,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
         children: [
           buildFirstColumn(context, widget.packetNumber!, widget.icon!),
           SizedBox(
-            width: 10,
+            width: 5,
           ),
           buildSecondColumn(context, widget.restaurantName!),
           Spacer(flex: 6),

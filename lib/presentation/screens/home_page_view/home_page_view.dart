@@ -292,7 +292,7 @@ class _HomePageViewState extends State<HomePageView> {
                 backgroundImage: restaurants[index].background,
                 packetNumber: "3 paket",
                 restaurantName: restaurants[index].name,
-                grade: restaurants[index].avgReview.toString(),
+                grade: restaurants[index].avgReview!.toStringAsFixed(1),
                 location: restaurants[index].city,
                 distance: Haversine.distance(
                         restaurants[index].latitude!,
@@ -354,7 +354,7 @@ class _HomePageViewState extends State<HomePageView> {
                   backgroundImage: restaurants[index].background,
                   packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
                   restaurantName: restaurants[index].name,
-                  grade: restaurants[index].avgReview.toString(),
+                  grade: restaurants[index].avgReview!.toStringAsFixed(1),
                   location: restaurants[index].city,
                   distance: Haversine.distance(
                           restaurants[index].latitude!,
