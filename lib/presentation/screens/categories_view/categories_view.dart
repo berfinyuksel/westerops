@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/data/model/category_name.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
@@ -9,6 +10,7 @@ import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +75,9 @@ class CategoriesView extends StatelessWidget {
               thickness: 4,
               color: AppColors.borderAndDividerColor,
             ),
+            SizedBox(
+              height: 10,
+            ),
             buildRestaurantList(categorizedRestaurants),
           ],
         ),
@@ -94,6 +99,17 @@ class CategoriesView extends StatelessWidget {
             itemCount: categorizedRestaurants.length,
             itemBuilder: (context, index) {
               return RestaurantInfoListTile(
+                deliveryType: int.parse(categorizedRestaurants[index]
+                        .packageSettings!
+                        .deliveryType ??
+                    '3'),
+                packetNumber: categorizedRestaurants[index]
+                            .calendar!
+                            .first
+                            .boxCount ==
+                        0
+                    ? 'tükendi'
+                    : '${categorizedRestaurants[index].calendar!.first.boxCount} paket',
                 minDiscountedOrderPrice: categorizedRestaurants[index]
                     .packageSettings!
                     .minDiscountedOrderPrice,
@@ -108,8 +124,12 @@ class CategoriesView extends StatelessWidget {
                 },
                 icon: categorizedRestaurants[index].photo,
                 restaurantName: categorizedRestaurants[index].name,
-                distance: categorizedRestaurants[index].distanceFromStore,
-                packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
+                distance: Haversine.distance(
+                        categorizedRestaurants[index].latitude!,
+                        categorizedRestaurants[index].longitude,
+                        LocationService.latitude,
+                        LocationService.longitude)
+                    .toStringAsFixed(2),
                 availableTime:
                     '${categorizedRestaurants[index].packageSettings!.deliveryTimeStart} - ${categorizedRestaurants[index].packageSettings!.deliveryTimeEnd}',
               );

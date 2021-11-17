@@ -11,7 +11,6 @@ class Meters extends StatelessWidget {
     Key? key,
     this.distance,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Row(

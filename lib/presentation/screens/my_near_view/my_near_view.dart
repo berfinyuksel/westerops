@@ -193,6 +193,7 @@ class _MyNearViewState extends State<MyNearView> {
           padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
           color: Colors.white,
           child: RestaurantInfoListTile(
+            deliveryType: 3,
             icon: " restaurants[restaurantIndexOnMap].photo",
             restaurantName: "restaurants[restaurantIndexOnMap].name",
             distance: "4m",
@@ -260,6 +261,7 @@ class _MyNearViewState extends State<MyNearView> {
           startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
           endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
           return RestaurantInfoListTile(
+            deliveryType: 3,
             icon: restaurants[index].photo,
             restaurantName: restaurants[index].name,
             distance: "${distances[index].toInt()}m",
