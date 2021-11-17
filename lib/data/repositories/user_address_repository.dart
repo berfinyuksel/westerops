@@ -26,13 +26,10 @@ class SampleUserAdressRepository implements UserAdressRepository {
     if (response.statusCode == 200) {
       print(response);
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-      print("a");
-      print(jsonBody);
-      print(jsonBody['results']);
 
       List<Result> rest = List<Result>.from(
           jsonBody['results'].map<Result>((model) => Result.fromJson(model)));
-      print("b");
+
       return rest;
     }
 

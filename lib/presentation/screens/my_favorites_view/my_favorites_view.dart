@@ -187,7 +187,27 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                 return Expanded(
                     child: favouriteRestaurant.isNotEmpty
                         ? buildListViewRestaurantInfo(favouriteRestaurant)
-                        : Text("Favori restoranınız bulunmamaktadır."));
+                        : Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 40,
+                                ),
+                                SvgPicture.asset(
+                                    ImageConstant.SURPRISE_PACK_ALERT),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                LocaleText(
+                                  alignment: TextAlign.center,
+                                  text: "Favori restoranınız bulunmamaktadır.",
+                                  style:
+                                      AppTextStyles.myInformationBodyTextStyle,
+                                ),
+                              ],
+                            ),
+                          ));
               } else {
                 final error = stateOfFavorites as GenericError;
                 return Center(

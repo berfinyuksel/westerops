@@ -168,8 +168,24 @@ class _AddressViewState extends State<AddressView> {
                       },
                     );
                   })
-              : Container(
-                  child: Text("Henüz Kayıtlı Adresiniz Bulunmamaktadır."),
+              : Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 40,
+                      ),
+                      SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      LocaleText(
+                        alignment: TextAlign.center,
+                        text: "Henüz Kayıtlı Adresiniz Bulunmamaktadır.",
+                        style: AppTextStyles.myInformationBodyTextStyle,
+                      ),
+                    ],
+                  ),
                 );
         } else
           return Container();
