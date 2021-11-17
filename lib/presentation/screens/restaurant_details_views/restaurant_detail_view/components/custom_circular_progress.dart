@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 class CustomCircularProgress extends StatelessWidget {
   final Color valueColor;
-  final String ratingText;
-  final double value;
+  final String? ratingText;
+  final double? value;
   const CustomCircularProgress(
       {Key? key,
       required this.valueColor,
@@ -22,7 +22,7 @@ class CustomCircularProgress extends StatelessWidget {
       child: Stack(
         children: [
           CircularProgressIndicator(
-            value: value,
+            value: value ?? 0.0,
             backgroundColor: AppColors.unSelectedpackageDeliveryColor,
             valueColor: AlwaysStoppedAnimation<Color>(valueColor),
           ),
@@ -32,7 +32,7 @@ class CustomCircularProgress extends StatelessWidget {
             left: 6.5,
             right: 0,
             child: Text(
-              ratingText,
+              ratingText ?? "0.0",
               style: AppTextStyles.subTitleStyle
                   .copyWith(fontWeight: FontWeight.w600),
             ),

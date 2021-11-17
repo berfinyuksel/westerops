@@ -76,7 +76,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     context.read<SearchStoreCubit>().getSearchStore();
     context.read<FavoriteCubit>().getFavorite();
     // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
-    print(widget.restaurant!.id!);
   }
 
   @override
@@ -112,9 +111,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        print(state.response);
-        print(state.response.length);
-
         //print(state.response[0].description);
         return Center(child: customBody(context, state));
       } else {
@@ -367,7 +363,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           nameList.add(relatedCategories[i].name!);
         }
         String categoryNames = nameList.join(', ');
-        print(categoryNames);
+
         return GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
@@ -417,9 +413,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       }
     }
 
-    print('aaaaaaa');
-    print(surpriseBoxes.length);
-    print(definedBoxess.length);
     return ListView(
       children: [
         SizedBox(
@@ -479,11 +472,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           ],
         ),
         SizedBox(height: context.dynamicHeight(0.02)),
+        Visibility(
+            visible: surpriseBoxes.isEmpty,
+            child: Center(
+              child: Text('Surpriz paket bulunmamaktadir'),
+            )),
         ListView.builder(
           itemCount: surpriseBoxes
               .length, //widget.restaurant!.boxes!.length,//state.response.lenght
           itemBuilder: (context, index) {
-            print(state.response.length);
             return buildBox(context, index, state, surpriseBoxes);
           },
           physics: NeverScrollableScrollPhysics(),
@@ -512,6 +509,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ],
           ),
         ),
+        SizedBox(height: context.dynamicHeight(0.02)),
+        Visibility(
+            visible: definedBoxess.isEmpty,
+            child: Center(
+              child: Text('Tanimli paket bulunmamaktadir'),
+            )),
         ListView.builder(
           itemCount: definedBoxess.length,
           itemBuilder: (context, index) {
@@ -846,7 +849,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     int totalMealPoints =
         mealPoints.fold(0, (previousValue, element) => previousValue + element);
 
-    String avgMealPoint = (totalMealPoints / widget.restaurant!.review!.length)
+    String? avgMealPoint = (totalMealPoints / widget.restaurant!.review!.length)
         .toStringAsFixed(1);
     return Row(
       children: [
@@ -859,8 +862,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         CustomCircularProgress(
           valueColor: AppColors.cursorColor,
-          ratingText: avgMealPoint,
-          value: double.parse(avgMealPoint) / 5.0,
+          ratingText: mealPoints.isNotEmpty ? avgMealPoint : '0.0',
+          value: mealPoints.isNotEmpty ? double.parse(avgMealPoint) / 5.0 : 0.0,
         )
         /*SvgPicture.asset(ImageConstant.RESTAURANT_FOOD_RATING_ICON),*/
       ],
@@ -890,8 +893,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         CustomCircularProgress(
           valueColor: AppColors.pinkColor,
-          ratingText: avgQualityPoint,
-          value: double.parse(avgQualityPoint) / 5,
+          ratingText: qualityPoints.isNotEmpty ? avgQualityPoint : '0.0',
+          value: qualityPoints.isNotEmpty
+              ? double.parse(avgQualityPoint) / 5
+              : 0.0,
         ),
       ],
     );
@@ -919,9 +924,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           width: context.dynamicWidht(0.02),
         ),
         CustomCircularProgress(
-          value: double.parse(avgServicePoint) / 5,
+          value: servicePoints.isNotEmpty
+              ? double.parse(avgServicePoint) / 5
+              : 0.0,
           valueColor: AppColors.greenColor,
-          ratingText: avgServicePoint,
+          ratingText: servicePoints.isNotEmpty ? avgServicePoint : '0.0',
         ),
       ],
     );

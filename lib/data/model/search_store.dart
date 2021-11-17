@@ -91,7 +91,7 @@ class SearchStore {
             : List<Calendar>.from(
                 json["calendar"].map((x) => Calendar.fromJson(x))),
         review: json["review"] == null
-            ? null
+            ? []
             : List<Review>.from(json["review"].map((x) => Review.fromJson(x))),
 /*         favoritedBy: json["favorited_by"] == null
             ? null
@@ -373,9 +373,9 @@ class Review {
   String toRawJson() => json.encode(toJson());
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
-        mealPoint: json["meal_point"],
-        servicePoint: json["service_point"],
-        qualityPoint: json["quality_point"],
+        mealPoint: json["meal_point"] ?? 0.0,
+        servicePoint: json["service_point"] ?? 0.0,
+        qualityPoint: json["quality_point"] ?? 0.0,
         user: User.fromJson(json["user"]),
       );
 
