@@ -11,6 +11,7 @@ import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart'
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
+import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/first_column/packet_number.dart';
 
 import 'package:dongu_mobile/utils/haversine.dart';
 
@@ -52,6 +53,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   ScrollController? _controller;
   int? duration;
+
   @override
   void initState() {
     super.initState();
@@ -266,6 +268,7 @@ class _HomePageViewState extends State<HomePageView> {
               child:
                   buildListViewOpportunities(context, restaurants, distances),
             ),
+            SizedBox(height: context.dynamicHeight(0.01)),
           ],
         );
       }),
@@ -440,8 +443,11 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Container buildListViewOpportunities(BuildContext context,
-      List<SearchStore> restaurants, List<double> distances) {
+  Container buildListViewOpportunities(
+    BuildContext context,
+    List<SearchStore> restaurants,
+    List<double> distances,
+  ) {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
@@ -476,6 +482,16 @@ class _HomePageViewState extends State<HomePageView> {
                     ));
               },
               child: Builder(builder: (context) {
+                // var boxcount = restaurants[index].calendar!.first.boxCount;
+                // String now = DateTime.now().toString();
+                //
+                // if (now == restaurants[index].calendar!.first.startDate) {
+
+                // }
+                // }else if(now != restaurants[index].calendar!.first.startDate){
+                //
+                // }
+
                 return RestaurantInfoCard(
                   restaurantId: restaurants[index].id,
                   courierPackageBGColor:
@@ -517,7 +533,12 @@ class _HomePageViewState extends State<HomePageView> {
                       restaurants[index].packageSettings?.minOrderPrice,
                   restaurantIcon: restaurants[index].photo,
                   backgroundImage: restaurants[index].background,
-                  packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
+                  // packetNumber:"${boxcount.toString()} paket",
+                  packetNumber: "1 paket",
+                  // restaurants[index].calendar?.first.boxCount == null &&
+                  //         restaurants[index].calendar!.first.boxCount == 0
+                  //     ? "tükendi"
+                  //     : "${boxcount.toString()} paket",
                   restaurantName: restaurants[index].name,
                   grade: restaurants[index].avgReview!.toStringAsFixed(1),
                   location: restaurants[index].city,

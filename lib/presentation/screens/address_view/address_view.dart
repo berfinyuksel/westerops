@@ -169,7 +169,13 @@ class _AddressViewState extends State<AddressView> {
                     );
                   })
               : Container(
-                  child: Text("Henüz Kayıtlı Adresiniz Bulunmamaktadır."),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0, top: 10.0),
+                    child: LocaleText(
+                      text: "Henüz kayıtlı adresiniz bulunmamaktadır.",
+                      style: AppTextStyles.bodyTextStyle,
+                    ),
+                  ),
                 );
         } else
           return Container();

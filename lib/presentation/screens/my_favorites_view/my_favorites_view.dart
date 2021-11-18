@@ -188,6 +188,15 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                     child: favouriteRestaurant.isNotEmpty
                         ? buildListViewRestaurantInfo(favouriteRestaurant)
                         : Text("Favori restoranınız bulunmamaktadır."));
+              } else if (SharedPrefs.getIsLogined) {
+                return Center(
+                  child: LocaleText(
+                    text:
+                        "Favori restoranlarınızı görüntülemek için giriş yapınız",
+                    style: AppTextStyles.bodyTextStyle
+                        .copyWith(color: AppColors.cursorColor),
+                  ),
+                );
               } else {
                 final error = stateOfFavorites as GenericError;
                 return Center(
