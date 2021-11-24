@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/repositories/update_order_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/past_order_detail_basket_list_tile.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
@@ -8,7 +9,7 @@ import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -74,6 +75,8 @@ class _SwipeViewState extends State<SwipeView> {
                 Dismissible(
                   key: UniqueKey(),
                   onDismissed: (value) {
+                    context.read<OrderBarCubit>().stateOfBar(false);
+
                     setState(() {
                       Navigator.pushNamed(
                           context, RouteConstant.WAS_DELIVERED_VIEW,

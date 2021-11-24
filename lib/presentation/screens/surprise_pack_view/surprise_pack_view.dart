@@ -1,10 +1,15 @@
 import 'dart:async';
-
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/data/repositories/update_order_repository.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
@@ -14,8 +19,11 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/text/locale_text.dart';
 import 'components/custom_alert_dialog.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SurprisePackView extends StatefulWidget {
+  final String? payload;
+  SurprisePackView({Key? key, this.payload});
   @override
   _SurprisePackViewState createState() => _SurprisePackViewState();
 }
@@ -34,13 +42,31 @@ class _SurprisePackViewState extends State<SurprisePackView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(context),
-      body: buildBody(context),
-    );
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<OrderReceivedCubit>().state;
+
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        List<OrderReceived> orderInfo = [];
+        for (var i = 0; i < state.response.length; i++) {
+          orderInfo.add(state.response[i]);
+        }
+
+        return Scaffold(
+          appBar: buildAppBar(context),
+          body: buildBody(context, orderInfo),
+        );
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
-  Column buildBody(BuildContext context) {
+  Column buildBody(BuildContext context, List<OrderReceived> orderInfo) {
     return Column(
       children: [
         Spacer(
@@ -55,7 +81,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
         Spacer(
           flex: 2,
         ),
-        buildOrderNumber(),
+        buildOrderNumber(orderInfo),
         SvgPicture.asset(ImageConstant.SURPRISE_PACK,
             height: context.dynamicHeight(0.4)),
         buildCountDown(context),
@@ -63,12 +89,13 @@ class _SurprisePackViewState extends State<SurprisePackView> {
           flex: 5,
         ),
         // Container(child: Text("data"),),
-        buildBottomCard(context),
+        buildBottomCard(context, orderInfo),
       ],
     );
   }
 
-  Container buildBottomCard(BuildContext context) {
+  Container buildBottomCard(
+      BuildContext context, List<OrderReceived> orderInfo) {
     return Container(
       width: double.infinity,
       height: context.dynamicHeight(0.26),
@@ -86,12 +113,12 @@ class _SurprisePackViewState extends State<SurprisePackView> {
           Spacer(
             flex: 39,
           ),
-          buildFirstRow(context),
-          buildSecondRow(context),
+          buildFirstRow(context, orderInfo),
+          buildSecondRow(context, orderInfo),
           Spacer(
             flex: 58,
           ),
-          buildButtonsRow(context),
+          buildButtonsRow(context, orderInfo),
           Spacer(
             flex: 40,
           ),
@@ -100,7 +127,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     );
   }
 
-  Row buildButtonsRow(BuildContext context) {
+  Row buildButtonsRow(BuildContext context, List<OrderReceived> orderInfo) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -114,8 +141,15 @@ class _SurprisePackViewState extends State<SurprisePackView> {
             showDialog(
                 context: context,
                 builder: (_) => CustomAlertDialog(
-                    onPressedOne: () {},
-                    onPressedTwo: () {},
+                    onPressedOne: () {
+                      Navigator.of(context).pop();
+                    },
+                    onPressedTwo: () {
+                      sl<UpdateOrderRepository>()
+                          .updateOrderStatus(orderInfo.last.id!, 5);
+                      Navigator.of(context)
+                          .pushNamed(RouteConstant.SURPRISE_PACK_CANCELED_VIEW);
+                    },
                     imagePath: ImageConstant.SURPRISE_PACK_ALERT,
                     textMessage: LocaleKeys.surprise_pack_alert_text,
                     buttonOneTitle: LocaleKeys.surprise_pack_alert_button1,
@@ -128,19 +162,36 @@ class _SurprisePackViewState extends State<SurprisePackView> {
           color: AppColors.greenColor,
           textColor: Colors.white,
           borderColor: AppColors.greenColor,
+          onPressed: () {
+            sl<UpdateOrderRepository>()
+                .updateOrderStatus(orderInfo.last.id!, 3);
+            Navigator.of(context)
+                .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      orderInfo: orderInfo.last,
+                    ));
+          },
         ),
       ],
     );
   }
 
-  Padding buildSecondRow(BuildContext context) {
+  Padding buildSecondRow(BuildContext context, List<OrderReceived> orderInfo) {
+    List<String> meals = [];
+    String mealNames = "";
+    if (orderInfo.last.boxes!.last.meals!.isNotEmpty) {
+      for (var i = 0; i < orderInfo.last.boxes!.last.meals!.length; i++) {
+        meals.add(orderInfo.last.boxes!.last.meals![i].name!);
+      }
+      mealNames = meals.join('\n');
+    }
     return Padding(
       padding: EdgeInsets.only(right: context.dynamicWidht(0.01)),
       child: Row(
         children: [
           Spacer(),
           AutoSizeText(
-            'Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu',
+            orderInfo.last.boxes!.last.meals!.isEmpty ? "" : mealNames,
             style: AppTextStyles.subTitleStyle,
             textAlign: TextAlign.start,
           ),
@@ -149,11 +200,11 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     );
   }
 
-  Padding buildFirstRow(BuildContext context) {
+  Padding buildFirstRow(BuildContext context, List<OrderReceived> orderInfo) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           AutoSizeText(
             '${LocaleKeys.surprise_pack_surprise_pack.locale} 1',
@@ -161,7 +212,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
           ),
           SvgPicture.asset(ImageConstant.SURPRISE_PACK_FORWARD_ICON),
           AutoSizeText(
-            'Anadolu Lezzetleri',
+            orderInfo.last.boxes!.last.textName.toString(),
             style: AppTextStyles.myInformationBodyTextStyle,
           ),
         ],
@@ -196,7 +247,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     );
   }
 
-  AutoSizeText buildOrderNumber() {
+  AutoSizeText buildOrderNumber(List<OrderReceived> orderInfo) {
     return AutoSizeText.rich(
       TextSpan(
         style: AppTextStyles.bodyTextStyle,
@@ -208,7 +259,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
             ),
           ),
           TextSpan(
-            text: '86123345',
+            text: orderInfo.last.refCode.toString(),
             style: GoogleFonts.montserrat(
               color: AppColors.greenColor,
               fontWeight: FontWeight.w600,

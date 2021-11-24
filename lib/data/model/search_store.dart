@@ -158,7 +158,7 @@ class Calendar {
   DateTime? startDate;
   DateTime? endDate;
   int? store;
-  dynamic? timeLabel;
+  dynamic timeLabel;
   bool? isActive;
   int? boxCount;
   String? detail;
@@ -199,8 +199,8 @@ class Category {
   });
 
   int? id;
-  Name? name;
-  Store? store;
+  int? name;
+  int? store;
 
   factory Category.fromRawJson(String str) =>
       Category.fromJson(json.decode(str));
@@ -209,150 +209,14 @@ class Category {
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
-        name: Name.fromJson(json["name"]),
-        store: Store.fromJson(json["store"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name!.toJson(),
-        "store": store!.toJson(),
-      };
-}
-
-class Name {
-  Name({
-    this.id,
-    this.name,
-    this.photo,
-    this.color,
-  });
-
-  int? id;
-  String? name;
-  String? photo;
-  String? color;
-
-  factory Name.fromRawJson(String str) => Name.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Name.fromJson(Map<String, dynamic> json) => Name(
-        id: json["id"],
         name: json["name"],
-        photo: json["photo"],
-        color: json["color"],
+        store: json["store"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "photo": photo,
-        "color": color,
-      };
-}
-
-class Store {
-  Store({
-    this.id,
-    this.name,
-    this.photo,
-    this.background,
-    this.description,
-    this.joinedTime,
-    this.address,
-    this.postCode,
-    this.city,
-    this.province,
-    this.phoneNumber,
-    this.phoneNumber2,
-    this.email,
-    this.websiteLink,
-    this.status,
-    this.cancelCount,
-    this.createdAt,
-    this.avgReview,
-    this.latitude,
-    this.longitude,
-    this.storeOwner,
-    this.favoritedBy,
-  });
-
-  int? id;
-  String? name;
-  String? photo;
-  String? background;
-  String? description;
-  DateTime? joinedTime;
-  String? address;
-  String? postCode;
-  String? city;
-  String? province;
-  String? phoneNumber;
-  String? phoneNumber2;
-  String? email;
-  String? websiteLink;
-  String? status;
-  int? cancelCount;
-  DateTime? createdAt;
-  double? avgReview;
-  double? latitude;
-  double? longitude;
-  int? storeOwner;
-  List<int>? favoritedBy;
-
-  factory Store.fromRawJson(String str) => Store.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Store.fromJson(Map<String, dynamic> json) => Store(
-        id: json["id"],
-        name: json["name"],
-        photo: json["photo"],
-        background: json["background"],
-        description: json["description"],
-        joinedTime: DateTime.parse(json["joined_time"]),
-        address: json["address"],
-        postCode: json["post_code"],
-        city: json["city"],
-        province: json["province"],
-        phoneNumber: json["phone_number"],
-        phoneNumber2: json["phone_number_2"],
-        email: json["email"],
-        websiteLink: json["website_link"],
-        status: json["status"],
-        cancelCount: json["cancel_count"],
-        createdAt: DateTime.parse(json["created_at"]),
-        avgReview: json["avg_review"].toDouble(),
-        latitude: json["latitude"].toDouble(),
-        longitude: json["longitude"].toDouble(),
-        storeOwner: json["store_owner"],
-        favoritedBy: List<int>.from(json["favorited_by"].map((x) => x)),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "photo": photo,
-        "background": background,
-        "description": description,
-        "joined_time": joinedTime!.toIso8601String(),
-        "address": address,
-        "post_code": postCode,
-        "city": city,
-        "province": province,
-        "phone_number": phoneNumber,
-        "phone_number_2": phoneNumber2,
-        "email": email,
-        "website_link": websiteLink,
-        "status": status,
-        "cancel_count": cancelCount,
-        "created_at": createdAt!.toIso8601String(),
-        "avg_review": avgReview,
-        "latitude": latitude,
-        "longitude": longitude,
-        "store_owner": storeOwner,
-        "favorited_by": List<dynamic>.from(favoritedBy!.map((x) => x)),
+        "store": store,
       };
 }
 
@@ -531,7 +395,7 @@ class User {
   bool? allowPhone;
   bool? isDeleted;
   String? deletionReason;
-  dynamic? adminRole;
+  dynamic adminRole;
   List<dynamic>? userPermissions;
   List<int>? groups;
 

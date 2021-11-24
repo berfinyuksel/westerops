@@ -38,6 +38,7 @@ import 'package:dongu_mobile/presentation/screens/splash_view/splash_view.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_view/surprise_pack_view.dart';
 import 'package:dongu_mobile/presentation/screens/swipe_view/swipe_view.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,7 @@ import 'data/repositories/search_location_repository.dart';
 
 import 'data/repositories/user_authentication_repository.dart';
 import 'data/repositories/favourite_repository.dart';
+import 'data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
 import 'data/services/locator.dart';
 import 'data/shared/shared_prefs.dart';
 import 'logic/cubits/filters_cubit/filters_cubit.dart';
@@ -68,7 +70,7 @@ import 'utils/theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  NotificationService().init();
   await setUpLocator();
   await EasyLocalization.ensureInitialized();
   await SharedPrefs.initialize();

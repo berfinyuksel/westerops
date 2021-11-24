@@ -27,38 +27,38 @@ class PaymentDeliveryView extends StatefulWidget {
 
 class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
   int selectedIndex = 100;
-  List<StoreCourierHours>? chosenRestaurantList;
+
   int deliveryType = 0;
   bool selectedGetit = false;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        DeliveryAvailableTimeListTile(
-            chosenRestaurantList: chosenRestaurantList),
-        SizedBox(
-          height: context.dynamicHeight(0.03),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-          child: Builder(builder: (context) {
-            final state = context.watch<StoreCourierCubit>().state;
+    return Builder(builder: (context) {
+      final state = context.watch<StoreCourierCubit>().state;
 
-            if (state is GenericInitial) {
-              return Container();
-            } else if (state is GenericLoading) {
-              return Center(child: CircularProgressIndicator());
-            } else if (state is GenericCompleted) {
-              List<StoreCourierHours> list = [];
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        List<StoreCourierHours> list = [];
 
-              for (int i = 0; i < state.response.length; i++) {
-                list.add(state.response[i]);
-              }
-              chosenRestaurantList = list;
-              print(list.length);
-              return Column(
+        for (int i = 0; i < state.response.length; i++) {
+          list.add(state.response[i]);
+        }
+        print("object");
+        print(list);
+        return ListView(
+          shrinkWrap: true,
+          children: [
+            DeliveryAvailableTimeListTile(chosenRestaurantList: list),
+            SizedBox(
+              height: context.dynamicHeight(0.03),
+            ),
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   LocaleText(
@@ -158,16 +158,15 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                         "Belirtilen saat içerisinde \nrestorandan paketinizi 1 saat içinde \nalmadığınız durumda siparişiniz \niptal edilip tekrar satışa sunulacaktır.",
                   ), */
                 ],
-              );
-            } else {
-              final error = state as GenericError;
-              return Center(
-                  child: Text("${error.message}\n${error.statusCode}"));
-            }
-          }),
-        ),
-      ],
-    );
+              ),
+            ),
+          ],
+        );
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
   Visibility buildAvailableDeliveryTimes(

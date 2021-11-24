@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
@@ -57,8 +58,17 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   @override
   void initState() {
     super.initState();
-    startTimer();
+    listenNotifications();
     context.read<OrderReceivedCubit>().getOrder();
+  }
+
+  void listenNotifications() {
+    // ignore: unnecessary_statements
+    NotificationService.onNotification.stream.listen(onClickedNotification);
+  }
+
+  void onClickedNotification(String? payload) {
+    Navigator.of(context).pushNamed(RouteConstant.SURPRISE_PACK_VIEW);
   }
 
   @override
@@ -73,8 +83,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     return Builder(builder: (context) {
       final GenericState state = context.watch<OrderReceivedCubit>().state;
 
-      //final FiltersState filterState = context.watch<FiltersCubit>().state;
-
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
@@ -84,6 +92,27 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         for (var i = 0; i < state.response.length; i++) {
           orderInfo.add(state.response[i]);
         }
+        bool surprisePackageStatus = true;
+        for (var i = 0; i < orderInfo.last.boxes!.length; i++) {
+          surprisePackageStatus = true;
+          print(orderInfo.last.boxes![i].defined);
+          if (orderInfo.last.boxes![i].defined == false) {
+            surprisePackageStatus = false;
+            break;
+          }
+        }
+        if (orderInfo.last.boxes != null && surprisePackageStatus == false) {
+          print("started");
+
+          NotificationService().initSurprisePackage(
+              orderInfo.last.refCode.toString(),
+              orderInfo.last.boxes!.first.saleDay!.startDate!
+                  .subtract(Duration(hours: 2)));
+          /*  
+                        DateTime.now().add(Duration(seconds: 5))
+                */
+        }
+
         return orderInfo.isNotEmpty
             ? ListView(
                 children: [

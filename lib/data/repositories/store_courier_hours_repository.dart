@@ -25,6 +25,7 @@ class SampleStoreCourierHoursRepository implements StoreCourierHoursRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
+
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters

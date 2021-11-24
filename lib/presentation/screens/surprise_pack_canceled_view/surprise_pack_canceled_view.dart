@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
@@ -25,46 +28,68 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(context),
-      backgroundColor: Color(0xFFFEEFEF),
-      body: Column(
-        children: [
-          Spacer(
-            flex: 32,
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<OrderReceivedCubit>().state;
+
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        List<OrderReceived> orderInfo = [];
+        for (var i = 0; i < state.response.length; i++) {
+          orderInfo.add(state.response[i]);
+        }
+
+        return Scaffold(
+          appBar: buildAppBar(context),
+          backgroundColor: Color(0xFFFEEFEF),
+          body: Column(
+            children: [
+              Spacer(
+                flex: 32,
+              ),
+              LocaleText(
+                text: LocaleKeys.surprise_pack_canceled_canceled_your_pack,
+                style: AppTextStyles.appBarTitleStyle.copyWith(
+                    fontWeight: FontWeight.w400, color: AppColors.orangeColor),
+                alignment: TextAlign.center,
+              ),
+              Spacer(
+                flex: 8,
+              ),
+              buildOrderNumber(orderInfo),
+              Spacer(
+                flex: 32,
+              ),
+              buildSurprisePackContainer(context, orderInfo),
+              Spacer(
+                flex: 17,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: context.dynamicWidht(0.06)),
+                child: WarningContainer(
+                  text:
+                      "Sürpriz Paketin iptal edildi.\nŞimdi tekrar satışta. Fikrini değiştirirsen\nacele etmelisin.",
+                ),
+              ),
+              Spacer(
+                flex: 20,
+              ),
+              buildBottomCard(context, orderInfo)
+            ],
           ),
-          LocaleText(
-            text: LocaleKeys.surprise_pack_canceled_canceled_your_pack,
-            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w400, color: AppColors.orangeColor),
-            alignment: TextAlign.center,
-          ),
-          Spacer(
-            flex: 8,
-          ),
-          buildOrderNumber(),
-          Spacer(
-            flex: 32,
-          ),
-          buildSurprisePackContainer(context),
-          Spacer(
-            flex: 17,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-            child: WarningContainer(
-              text: "Sürpriz Paketin iptal edildi.\nŞimdi tekrar satışta. Fikrini değiştirirsen\nacele etmelisin.",
-            ),
-          ),
-          Spacer(
-            flex: 20,
-          ),
-          buildBottomCard(context)
-        ],
-      ),
-    );
+        );
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
-  Container buildBottomCard(BuildContext context) {
+  Container buildBottomCard(
+      BuildContext context, List<OrderReceived> orderInfo) {
     return Container(
       width: double.infinity,
       height: context.dynamicHeight(0.52),
@@ -82,11 +107,11 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
           Spacer(
             flex: 39,
           ),
-          buildFirstRow(context),
+          buildFirstRow(context, orderInfo),
           Spacer(
             flex: 18,
           ),
-          buildSecondRow(context),
+          buildSecondRow(context, orderInfo),
           Spacer(
             flex: 22,
           ),
@@ -104,7 +129,8 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
           Spacer(
             flex: 5,
           ),
-          buildTextFormField(LocaleKeys.delete_account_hint_text.locale, textController),
+          buildTextFormField(
+              LocaleKeys.delete_account_hint_text.locale, textController),
           Spacer(
             flex: 20,
           ),
@@ -121,7 +147,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
             flex: 32,
           ),
           LocaleText(
-            text: LocaleKeys.surprise_pack_canceled,
+            text: "Tanımlanmış Paketin İptal Edildi.",
             style: GoogleFonts.montserrat(
               fontSize: 18.0,
               color: AppColors.redColor,
@@ -148,14 +174,22 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
     );
   }
 
-  Padding buildSecondRow(BuildContext context) {
+  Padding buildSecondRow(BuildContext context, List<OrderReceived> orderInfo) {
+    List<String> meals = [];
+    String mealNames = "";
+    if (orderInfo.last.boxes!.last.meals!.isNotEmpty) {
+      for (var i = 0; i < orderInfo.last.boxes!.last.meals!.length; i++) {
+        meals.add(orderInfo.last.boxes!.last.meals![i].name!);
+      }
+      mealNames = meals.join('\n');
+    }
     return Padding(
       padding: EdgeInsets.only(right: context.dynamicWidht(0.01)),
       child: Row(
         children: [
           Spacer(),
           AutoSizeText(
-            'Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu',
+            orderInfo.last.boxes!.last.meals!.isEmpty ? "" : mealNames,
             style: AppTextStyles.subTitleStyle,
             textAlign: TextAlign.start,
           ),
@@ -164,7 +198,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
     );
   }
 
-  Padding buildFirstRow(BuildContext context) {
+  Padding buildFirstRow(BuildContext context, List<OrderReceived> orderInfo) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
       child: Row(
@@ -176,7 +210,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
           ),
           SvgPicture.asset(ImageConstant.SURPRISE_PACK_FORWARD_ICON),
           AutoSizeText(
-            'Anadolu Lezzetleri',
+            orderInfo.last.boxes!.last.textName.toString(),
             style: AppTextStyles.myInformationBodyTextStyle,
           ),
         ],
@@ -184,13 +218,24 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
     );
   }
 
-  Container buildSurprisePackContainer(BuildContext context) {
+  Container buildSurprisePackContainer(
+      BuildContext context, List<OrderReceived> orderInfo) {
+    List<String> meals = [];
+    String mealNames = "";
+    if (orderInfo.last.boxes!.last.meals!.isNotEmpty) {
+      for (var i = 0; i < orderInfo.last.boxes!.last.meals!.length; i++) {
+        meals.add(orderInfo.last.boxes!.last.meals![i].name!);
+      }
+      mealNames = meals.join('\n');
+    }
     return Container(
       height: context.dynamicHeight(0.1),
       width: double.infinity,
       color: Colors.white,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06), vertical: context.dynamicHeight(0.01)),
+        padding: EdgeInsets.symmetric(
+            horizontal: context.dynamicWidht(0.06),
+            vertical: context.dynamicHeight(0.01)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -198,7 +243,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AutoSizeText(
-                  'Anadolu Lezzetleri',
+                  orderInfo.last.boxes!.last.textName.toString(),
                   style: AppTextStyles.myInformationBodyTextStyle,
                 ),
                 AutoSizeText(
@@ -209,7 +254,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
               ],
             ),
             AutoSizeText(
-              'Pastırmalı Kuru Fasulye,\n1 porsiyon Kornişon Turşu',
+              orderInfo.last.boxes!.last.meals!.isEmpty ? "" : mealNames,
               style: AppTextStyles.subTitleStyle,
               textAlign: TextAlign.start,
             ),
@@ -219,7 +264,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
     );
   }
 
-  AutoSizeText buildOrderNumber() {
+  AutoSizeText buildOrderNumber(List<OrderReceived> orderInfo) {
     return AutoSizeText.rich(
       TextSpan(
         style: AppTextStyles.bodyTextStyle,
@@ -231,7 +276,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
             ),
           ),
           TextSpan(
-            text: '86123345',
+            text: orderInfo.last.refCode.toString(),
             style: GoogleFonts.montserrat(
               color: AppColors.greenColor,
               fontWeight: FontWeight.w600,
@@ -243,7 +288,8 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
     );
   }
 
-  Container buildTextFormField(String hintText, TextEditingController controller) {
+  Container buildTextFormField(
+      String hintText, TextEditingController controller) {
     return Container(
       height: context.dynamicHeight(0.052),
       color: Colors.white,
@@ -303,7 +349,11 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
                     ),
                   ),
                   child: Container(
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: selectedIndex == i ? AppColors.greenColor : Colors.transparent),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: selectedIndex == i
+                            ? AppColors.greenColor
+                            : Colors.transparent),
                   ),
                 ),
                 LocaleText(

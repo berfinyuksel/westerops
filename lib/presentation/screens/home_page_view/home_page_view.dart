@@ -661,12 +661,13 @@ class _HomePageViewState extends State<HomePageView> {
     int duration = ((hour * 60 * 60) + (minute * 60) + (second));
     int mathedHour = (duration ~/ (60 * 60));
     int mathedMinute = (duration - (mathedHour * 60 * 60)) ~/ 60;
-
     int mathedSeconds =
         (duration - (mathedMinute * 60) - (mathedHour * 60 * 60));
+
     if (duration <= 0) {
       context.read<OrderBarCubit>().stateOfBar(false);
     }
+
     String countDown =
         '${mathedHour < 10 ? "0$mathedHour" : "$mathedHour"}:${mathedMinute < 10 ? "0$mathedMinute" : "$mathedMinute"}:${mathedSeconds < 10 ? "0$mathedSeconds" : "$mathedSeconds"}';
     return Text(

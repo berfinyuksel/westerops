@@ -4,6 +4,7 @@ import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/repositories/basket_repository.dart';
 
 import 'package:dongu_mobile/data/repositories/order_repository.dart';
+import 'package:dongu_mobile/data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';

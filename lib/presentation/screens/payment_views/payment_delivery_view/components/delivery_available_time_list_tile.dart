@@ -19,7 +19,7 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return chosenRestaurantList != null
+    return chosenRestaurantList != null || chosenRestaurantList != []
         ? Builder(builder: (context) {
             final GenericState stateOfRestaurants =
                 context.watch<SearchStoreCubit>().state;
@@ -32,12 +32,14 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
               List<SearchStore> restaurants = [];
               List<SearchStore> chosenRestaurant = [];
 
-              for (int i = 0; i < stateOfRestaurants.response.length; i++) {
-                restaurants.add(stateOfRestaurants.response[i]);
-              }
-              for (var i = 0; i < restaurants.length; i++) {
-                if (chosenRestaurantList![0].storeId == restaurants[i].id) {
-                  chosenRestaurant.add(restaurants[i]);
+              if (chosenRestaurantList != null) {
+                for (int i = 0; i < stateOfRestaurants.response.length; i++) {
+                  restaurants.add(stateOfRestaurants.response[i]);
+                }
+                for (var i = 0; i < restaurants.length; i++) {
+                  if (chosenRestaurantList![0].storeId == restaurants[i].id) {
+                    chosenRestaurant.add(restaurants[i]);
+                  }
                 }
               }
               return ListTile(

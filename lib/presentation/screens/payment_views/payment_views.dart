@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/data/repositories/store_courier_hours_repository.dart';
+import 'package:dongu_mobile/data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
@@ -337,6 +338,8 @@ class _PaymentViewsState extends State<PaymentViews>
                 : AppColors.disabledButtonColor,
             onPressed: () {
               if (checkboxAgreementValue && checkboxInfoValue) {
+                NotificationService().gotOrder();
+
                 context.read<OrderBarCubit>().stateOfBar(true);
                 context
                     .read<OrderReceivedCubit>()
