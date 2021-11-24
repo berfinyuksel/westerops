@@ -6,12 +6,12 @@ import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
 abstract class TimeIntervalRepository {
-  Future<List<TimeInterval>> getTimeInterval(int storeId);
+  Future<List<Result>> getTimeInterval(int storeId);
 }
 
 class SampleTimeIntervalRepository implements TimeIntervalRepository {
   @override
-  Future<List<TimeInterval>> getTimeInterval(int storeId) async {
+  Future<List<Result>> getTimeInterval(int storeId) async {
     final response = await http.get(
       Uri.parse("${UrlConstant.EN_URL}store/time_interval/?store=$storeId"),
     );
@@ -19,8 +19,8 @@ class SampleTimeIntervalRepository implements TimeIntervalRepository {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
 
-      List<TimeInterval> searchStoreLists = List<TimeInterval>.from(
-          jsonBody.map((model) => TimeInterval.fromJson(model)));
+      List<Result> searchStoreLists = List<Result>.from(
+          jsonBody["results"].map((model) => Result.fromJson(model)));
 
       return searchStoreLists;
     }

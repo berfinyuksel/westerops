@@ -27,89 +27,25 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> dateOfNow =
-        DateTime.now().toIso8601String().split("T").toList();
-
-    String? dateOfNowStringCalendar;
-    print(dateOfNow);
-    for (var i = 0; i < widget.restaurant!.calendar!.length; i++) {
-      List<String> listOfStoreCalendar = widget
-          .restaurant!.calendar![i].startDate!
-          .toString()
-          .split("T")
-          .toList();
-      if (listOfStoreCalendar[0] == dateOfNow[0]) {
-        dateOfNowStringCalendar = listOfStoreCalendar[0];
-      }
-    }
-
-    var days = <String>[
-      "Pazartesi",
-      "Salı",
-      "Çarşamba",
-      "Perşembe",
-      "Cuma",
-      "Cumartesi",
-      "Pazar"
-    ];
-
-    var date = <String>[
-      "15 Mart 2021",
-      "16 Mart 2021",
-      "17 Mart 2021",
-      "18 Mart 2021",
-      "19 Mart 2021",
-      "20 Mart 2021",
-      "21 Mart 2021"
-    ];
-
-    var clocks = <String>[
-      "12.00 - 03.00",
-      "12.00 - 03.00",
-      "12.00 - 03.00",
-      "12.00 - 03.00",
-      "Kapalı",
-      "12.00 - 03.00",
-      "12.00 - 03.00",
-    ];
-
-    return Builder(builder: (context) {
-      final state = context.watch<TimeIntervalCubit>().state;
-      if (state is GenericInitial) {
-        return Container();
-      } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
-      } else if (state is GenericCompleted) {
-        return CustomScaffold(
-          title: "Çalışma Saatleri",
-          body: Padding(
-            padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
-            child: Column(
-              children: [
-                Expanded(
-                  child: aboutWorkingHoursListViewBuilder(
-                      days, date, clocks, dateOfNowStringCalendar, state),
-                )
-              ],
-            ),
-          ),
-        );
-      } else {
-        final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    });
+    return CustomScaffold(
+      title: "Çalışma Saatleri",
+      body: Padding(
+        padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
+        child: Column(
+          children: [
+            Expanded(
+              child: aboutWorkingHoursListViewBuilder(),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
-  ListView aboutWorkingHoursListViewBuilder(
-      List<String> items,
-      List<String> date,
-      List<String> clock,
-      String? dateOfNowStringCalendar,
-      GenericCompleted state) {
+  ListView aboutWorkingHoursListViewBuilder() {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: items.length,
+        itemCount: widget.restaurant!.calendar!.length,
         itemBuilder: (context, index) {
           return Container(
             padding: EdgeInsets.symmetric(
@@ -118,13 +54,15 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
               title: LocaleText(
-                text: dateOfNowStringCalendar,
+                text: buildDateFormatOfTheDay(
+                    widget.restaurant!.calendar![index].startDate!),
                 style: AppTextStyles.subTitleStyle
                     .copyWith(fontWeight: FontWeight.normal),
                 alignment: TextAlign.start,
               ),
               subtitle: LocaleText(
-                text: "${items[index]}",
+                text: buildWeekdayOftheDate(
+                    widget.restaurant!.calendar![index].startDate!),
                 style: AppTextStyles.bodyTextStyle
                     .copyWith(fontWeight: FontWeight.bold),
                 alignment: TextAlign.start,
@@ -135,7 +73,9 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
                     height: context.dynamicHeight(0.03),
                   ),
                   LocaleText(
-                    text: "${clock[index]}",
+                    text: buildHourForTheDate(
+                        widget.restaurant!.calendar![index].startDate!,
+                        widget.restaurant!.calendar![index].endDate!),
                     style: AppTextStyles.bodyTextStyle
                         .copyWith(fontWeight: FontWeight.bold),
                     alignment: TextAlign.start,
@@ -145,5 +85,75 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
             ),
           );
         });
+  }
+
+  String buildDateFormatOfTheDay(DateTime dateData) {
+    int yearOfDate = dateData.year;
+    int monthOfDate = dateData.month;
+    int dayOfTheDate = dateData.day;
+    String stringMonthOfTheDate = buildStringOfMonth(monthOfDate);
+    return '$dayOfTheDate $stringMonthOfTheDate $yearOfDate';
+  }
+
+  String buildStringOfMonth(int monthOfDate) {
+    switch (monthOfDate) {
+      case 1:
+        return 'Ocak';
+      case 2:
+        return 'Subat';
+      case 3:
+        return 'Mart';
+      case 4:
+        return 'Nisan';
+      case 5:
+        return 'Mayis';
+      case 6:
+        return 'Haziran';
+      case 7:
+        return 'Temmuz';
+      case 8:
+        return 'Agustos';
+      case 9:
+        return 'Eylul';
+      case 10:
+        return 'Ekim';
+      case 11:
+        return 'Kasim';
+      case 12:
+        return 'Aralik';
+      default:
+        return '';
+    }
+  }
+
+  String buildWeekdayOftheDate(DateTime dateTime) {
+    int weekdayOfTheDate = dateTime.weekday;
+
+    switch (weekdayOfTheDate) {
+      case 1:
+        return 'Pazartesi';
+      case 2:
+        return 'Sali';
+      case 3:
+        return 'Carsamba';
+      case 4:
+        return 'Persembe';
+      case 5:
+        return 'Cuma';
+      case 6:
+        return 'Cumartesi';
+      case 7:
+        return 'Pazar';
+      default:
+        return '';
+    }
+  }
+
+  String buildHourForTheDate(DateTime dateTimeOpen, DateTime dateTimeClose) {
+    int hourOfOpen = dateTimeOpen.hour;
+    int minuteOfOpen = dateTimeOpen.minute;
+    int hourOfClose = dateTimeClose.hour;
+    int minuteOfClose = dateTimeClose.minute;
+    return '${hourOfOpen < 10 ? "0$hourOfOpen" : "$hourOfOpen"}:${minuteOfOpen < 10 ? "0$minuteOfOpen" : "$minuteOfOpen"} - ${hourOfClose < 10 ? "0$hourOfClose" : "$hourOfClose"}:${minuteOfClose < 10 ? "0$minuteOfClose" : "$minuteOfClose"}';
   }
 }
