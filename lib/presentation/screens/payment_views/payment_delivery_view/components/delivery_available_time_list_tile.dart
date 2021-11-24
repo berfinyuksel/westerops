@@ -19,7 +19,7 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return chosenRestaurantList != null || chosenRestaurantList != []
+    return chosenRestaurantList!.isNotEmpty
         ? Builder(builder: (context) {
             final GenericState stateOfRestaurants =
                 context.watch<SearchStoreCubit>().state;
@@ -32,7 +32,7 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
               List<SearchStore> restaurants = [];
               List<SearchStore> chosenRestaurant = [];
 
-              if (chosenRestaurantList != null) {
+              if (chosenRestaurantList!.isNotEmpty) {
                 for (int i = 0; i < stateOfRestaurants.response.length; i++) {
                   restaurants.add(stateOfRestaurants.response[i]);
                 }
@@ -65,6 +65,6 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
                   child: Text("${error.message}\n${error.statusCode}"));
             }
           })
-        : Text('      Restoran teslimat saatleri uygun degildir.');
+        : Center(child: Text('Restoran teslimat saatleri uygun degildir.'));
   }
 }
