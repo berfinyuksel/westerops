@@ -102,6 +102,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           NotificationService().initSurprisePackage(
               orderInfo.last.refCode.toString(),
               orderInfo.last.boxes!.first.saleDay!.startDate!
+                  .toLocal()
                   .subtract(Duration(hours: 2)));
           /*     DateTime.now().add(Duration(seconds: 5))  */
         }
@@ -318,8 +319,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     int second = itemsOfCountDown[2];
     if (durationFinal <= 0) {
       context.read<OrderBarCubit>().stateOfBar(false);
-                    SharedPrefs.setOrderBar(false);
-
+      SharedPrefs.setOrderBar(false);
     }
     return Container(
       width: double.infinity,
