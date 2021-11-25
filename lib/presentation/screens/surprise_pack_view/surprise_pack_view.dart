@@ -3,7 +3,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/repositories/update_order_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
@@ -30,14 +32,11 @@ class SurprisePackView extends StatefulWidget {
 
 class _SurprisePackViewState extends State<SurprisePackView> {
   late Timer timer;
-  int hour = 1;
-  int minute = 51;
-  int second = 30;
+  int durationFinal = 10;
 
   @override
   void initState() {
     super.initState();
-    startTimer();
   }
 
   @override
@@ -84,7 +83,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
         buildOrderNumber(orderInfo),
         SvgPicture.asset(ImageConstant.SURPRISE_PACK,
             height: context.dynamicHeight(0.4)),
-        buildCountDown(context),
+        buildCountDown(context, orderInfo),
         Spacer(
           flex: 5,
         ),
@@ -220,7 +219,19 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     );
   }
 
-  Container buildCountDown(BuildContext context) {
+  Container buildCountDown(
+      BuildContext context, List<OrderReceived> orderInfo) {
+    List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
+        orderInfo.last.boxes!.first.saleDay!.startDate!.toLocal());
+
+    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
+    int hour = itemsOfCountDown[0];
+    int minute = itemsOfCountDown[1];
+    int second = itemsOfCountDown[2];
+    if (durationFinal <= 0) {
+      context.read<OrderBarCubit>().stateOfBar(false);
+      SharedPrefs.setOrderBar(false);
+    }
     return Container(
       width: double.infinity,
       height: context.dynamicHeight(0.1),
@@ -283,7 +294,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     );
   }
 
-  void startTimer() {
+  void startTimer(int hour, int minute, int second) {
     const oneSec = const Duration(seconds: 1);
     timer = new Timer.periodic(
       oneSec,
@@ -309,5 +320,32 @@ class _SurprisePackViewState extends State<SurprisePackView> {
         }
       },
     );
+  }
+
+  List<int> buildDurationForCountdown(DateTime dateTime, DateTime local) {
+    List<int> results = [];
+    int durationOfNow = buildDurationSecondsForDateTimes(dateTime);
+    int durationOfEnd = buildDurationSecondsForDateTimes(local);
+
+    durationFinal = durationOfEnd - durationOfNow;
+    int hourOfitem = (durationFinal ~/ (60 * 60));
+    results.add(hourOfitem);
+    int minuteOfitem = (durationFinal - (hourOfitem * 60 * 60)) ~/ 60;
+    results.add(minuteOfitem);
+
+    int secondOfitem =
+        (durationFinal - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
+    results.add(secondOfitem);
+
+    return results;
+  }
+
+  int buildDurationSecondsForDateTimes(DateTime dateTime) {
+    int hourOfItem = dateTime.hour;
+    int minuteOfitem = dateTime.minute;
+    int secondsOfitem = dateTime.second;
+    int durationOfitems =
+        ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
+    return durationOfitems;
   }
 }

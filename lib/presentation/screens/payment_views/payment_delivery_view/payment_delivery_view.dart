@@ -27,7 +27,7 @@ class PaymentDeliveryView extends StatefulWidget {
 
 class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
   int selectedIndex = 100;
-
+  List<StoreCourierHours> list = [];
   int deliveryType = 0;
   bool selectedGetit = false;
 
@@ -35,19 +35,16 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       final state = context.watch<StoreCourierCubit>().state;
-
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        List<StoreCourierHours> list = [];
-
         for (int i = 0; i < state.response.length; i++) {
           list.add(state.response[i]);
         }
         print("object");
-        print(list);
+        print(state.response.length);
         return ListView(
           shrinkWrap: true,
           children: [
@@ -75,67 +72,60 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                     visible: widget.isGetIt!,
                     child: Column(
                       children: [
-                        list.length != 0
-                            ? Builder(builder: (context) {
-                                final GenericState stateOfRestaurants =
-                                    context.watch<SearchStoreCubit>().state;
+                        Builder(builder: (context) {
+                          final GenericState stateOfRestaurants =
+                              context.watch<SearchStoreCubit>().state;
 
-                                if (stateOfRestaurants is GenericInitial) {
-                                  return Container();
-                                } else if (stateOfRestaurants
-                                    is GenericLoading) {
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                } else if (stateOfRestaurants
-                                    is GenericCompleted) {
-                                  List<SearchStore> restaurants = [];
-                                  List<SearchStore> chosenRestaurant = [];
+                          if (stateOfRestaurants is GenericInitial) {
+                            return Container();
+                          } else if (stateOfRestaurants is GenericLoading) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (stateOfRestaurants is GenericCompleted) {
+                            List<SearchStore> restaurants = [];
+                            List<SearchStore> chosenRestaurant = [];
 
-                                  for (int i = 0;
-                                      i < stateOfRestaurants.response.length;
-                                      i++) {
-                                    restaurants
-                                        .add(stateOfRestaurants.response[i]);
-                                  }
-                                  for (var i = 0; i < restaurants.length; i++) {
-                                    if (list[0].storeId == restaurants[i].id) {
-                                      chosenRestaurant.add(restaurants[i]);
-                                    }
-                                  }
+                            for (int i = 0;
+                                i < stateOfRestaurants.response.length;
+                                i++) {
+                              restaurants.add(stateOfRestaurants.response[i]);
+                            }
+                            for (var i = 0; i < restaurants.length; i++) {
+                              if (SharedPrefs.getDeliveredRestaurantAddressId ==
+                                  restaurants[i].id) {
+                                chosenRestaurant.add(restaurants[i]);
+                              }
+                            }
 
-                                  return DeliveryCustomButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        String timeInterval =
-                                            "${chosenRestaurant[0].packageSettings!.deliveryTimeStart} - ${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}";
-                                        SharedPrefs.setTimeIntervalForGetIt(
-                                            timeInterval);
-                                        SharedPrefs.setCountDownString(
-                                            chosenRestaurant[0]
-                                                .packageSettings!
-                                                .deliveryTimeEnd!);
-                                        selectedGetit = !selectedGetit;
-                                        deliveryType = 1;
-                                        SharedPrefs.setDeliveryType(
-                                            deliveryType);
-                                      });
-                                    },
-                                    width: double.infinity,
-                                    title:
-                                        "${chosenRestaurant[0].packageSettings!.deliveryTimeStart} - ${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}",
-                                    color: selectedGetit == true
-                                        ? AppColors.greenColor.withOpacity(0.4)
-                                        : Colors.white,
-                                  );
-                                } else {
-                                  final error =
-                                      stateOfRestaurants as GenericError;
-                                  return Center(
-                                      child: Text(
-                                          "${error.message}\n${error.statusCode}"));
-                                }
-                              })
-                            : SizedBox(height: 0, width: 0),
+                            return DeliveryCustomButton(
+                              onPressed: () {
+                                setState(() {
+                                  String timeInterval =
+                                      "${chosenRestaurant[0].packageSettings!.deliveryTimeStart} - ${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}";
+                                  SharedPrefs.setTimeIntervalForGetIt(
+                                      timeInterval);
+                                  SharedPrefs.setCountDownString(
+                                      chosenRestaurant[0]
+                                          .packageSettings!
+                                          .deliveryTimeEnd!);
+                                  selectedGetit = !selectedGetit;
+                                  deliveryType = 1;
+                                  SharedPrefs.setDeliveryType(deliveryType);
+                                });
+                              },
+                              width: double.infinity,
+                              title:
+                                  "${chosenRestaurant[0].packageSettings!.deliveryTimeStart} - ${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}",
+                              color: selectedGetit == true
+                                  ? AppColors.greenColor.withOpacity(0.4)
+                                  : Colors.white,
+                            );
+                          } else {
+                            final error = stateOfRestaurants as GenericError;
+                            return Center(
+                                child: Text(
+                                    "${error.message}\n${error.statusCode}"));
+                          }
+                        }),
                         SizedBox(
                           height: context.dynamicHeight(0.02),
                         ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
@@ -49,6 +51,9 @@ class _HomePageViewState extends State<HomePageView> {
 
   bool scroolOpportunitiesLeft = true;
   bool scroolOpportunitiesRight = false;
+
+  late Timer timer;
+  int durationFinal = 10;
 
   ScrollController? _controller;
   int? duration;
@@ -321,7 +326,7 @@ class _HomePageViewState extends State<HomePageView> {
                     ),
                   ],
                 ),
-                buildCountDown(context),
+                buildCountDown(context, orderInfo),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
@@ -642,34 +647,22 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Text buildCountDown(BuildContext context) {
-    List<int> timeNowHourCompo = buildTimeNow();
-    String cachedTimeForDelivery = SharedPrefs.getCountDownString;
-    List<String> cachedTimeForDeliveryStringList =
-        cachedTimeForDelivery.split(":").toList();
-    cachedTimeForDeliveryStringList.add("00");
-    print(cachedTimeForDeliveryStringList);
-    List<int> cachedTimeForDeliveryIntList = [];
-    for (var i = 0; i < cachedTimeForDeliveryStringList.length; i++) {
-      cachedTimeForDeliveryIntList
-          .add(int.parse(cachedTimeForDeliveryStringList[i]));
-    }
+  Text buildCountDown(BuildContext context, List<OrderReceived> orderInfo) {
+    List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
+        orderInfo.last.boxes!.first.saleDay!.endDate!.toLocal());
 
-    int hour = (cachedTimeForDeliveryIntList[0] - timeNowHourCompo[0]);
-    int minute = (cachedTimeForDeliveryIntList[1] - timeNowHourCompo[1]);
-    int second = (cachedTimeForDeliveryIntList[2] - timeNowHourCompo[2]);
-    int duration = ((hour * 60 * 60) + (minute * 60) + (second));
-    int mathedHour = (duration ~/ (60 * 60));
-    int mathedMinute = (duration - (mathedHour * 60 * 60)) ~/ 60;
-    int mathedSeconds =
-        (duration - (mathedMinute * 60) - (mathedHour * 60 * 60));
-
-    if (duration <= 0) {
+    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
+    int hour = itemsOfCountDown[0];
+    int minute = itemsOfCountDown[1];
+    int second = itemsOfCountDown[2];
+    if (durationFinal <= 0) {
       context.read<OrderBarCubit>().stateOfBar(false);
+      SharedPrefs.setOrderBar(false);
     }
 
     String countDown =
-        '${mathedHour < 10 ? "0$mathedHour" : "$mathedHour"}:${mathedMinute < 10 ? "0$mathedMinute" : "$mathedMinute"}:${mathedSeconds < 10 ? "0$mathedSeconds" : "$mathedSeconds"}';
+        '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}';
+
     return Text(
       countDown,
       style: AppTextStyles.subTitleBoldStyle,
@@ -687,5 +680,60 @@ class _HomePageViewState extends State<HomePageView> {
       timeNowHourComponentList.add(int.parse(e));
     });
     return timeNowHourComponentList;
+  }
+
+  List<int> buildDurationForCountdown(DateTime dateTime, DateTime local) {
+    List<int> results = [];
+    int durationOfNow = buildDurationSecondsForDateTimes(dateTime);
+    int durationOfEnd = buildDurationSecondsForDateTimes(local);
+
+    durationFinal = durationOfEnd - durationOfNow;
+    int hourOfitem = (durationFinal ~/ (60 * 60));
+    results.add(hourOfitem);
+    int minuteOfitem = (durationFinal - (hourOfitem * 60 * 60)) ~/ 60;
+    results.add(minuteOfitem);
+
+    int secondOfitem =
+        (durationFinal - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
+    results.add(secondOfitem);
+
+    return results;
+  }
+
+  int buildDurationSecondsForDateTimes(DateTime dateTime) {
+    int hourOfItem = dateTime.hour;
+    int minuteOfitem = dateTime.minute;
+    int secondsOfitem = dateTime.second;
+    int durationOfitems =
+        ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
+    return durationOfitems;
+  }
+
+  void startTimer(int hour, int minute, int second) {
+    const oneSec = const Duration(seconds: 1);
+    timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (hour == 0 && minute == 0 && second == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            if (second != 0) {
+              second--;
+            } else {
+              second = 59;
+              if (minute != 0) {
+                minute--;
+              } else {
+                minute = 59;
+                hour--;
+              }
+            }
+          });
+        }
+      },
+    );
   }
 }

@@ -183,6 +183,8 @@ class MyApp extends StatelessWidget {
               .read<FavoriteCubit>()
               .addFavorite(int.parse(SharedPrefs.getFavorites[i]));
         }
+        context.read<OrderBarCubit>().stateOfBar(SharedPrefs.getOrderBar);
+
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Dongu App',

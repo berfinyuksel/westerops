@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/repositories/update_order_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/past_order_detail_basket_list_tile.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
@@ -76,6 +77,7 @@ class _SwipeViewState extends State<SwipeView> {
                   key: UniqueKey(),
                   onDismissed: (value) {
                     context.read<OrderBarCubit>().stateOfBar(false);
+                    SharedPrefs.setOrderBar(false);
 
                     setState(() {
                       Navigator.pushNamed(

@@ -123,6 +123,7 @@ class _CartViewState extends State<CartView> {
                       context
                           .read<StoreBoxesCubit>()
                           .getStoreBoxes(itemList[index].id!);
+                      print('state filled');
                       context
                           .read<StoreCourierCubit>()
                           .getCourierHours(itemList[index].store!.id!);

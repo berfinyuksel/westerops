@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
 import 'package:auto_size_text/auto_size_text.dart';
-
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
@@ -39,9 +37,8 @@ class OrderReceivedView extends StatefulWidget {
 
 class _OrderReceivedViewState extends State<OrderReceivedView> {
   late Timer timer;
-  int hour = 1;
-  int minute = 51;
-  int second = 30;
+  int durationFinal = 10;
+
   bool isShowOnMap = false;
   bool isShowBottomInfo = false;
 
@@ -95,22 +92,18 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         bool surprisePackageStatus = true;
         for (var i = 0; i < orderInfo.last.boxes!.length; i++) {
           surprisePackageStatus = true;
-          print(orderInfo.last.boxes![i].defined);
+
           if (orderInfo.last.boxes![i].defined == false) {
             surprisePackageStatus = false;
             break;
           }
         }
         if (orderInfo.last.boxes != null && surprisePackageStatus == false) {
-          print("started");
-
           NotificationService().initSurprisePackage(
               orderInfo.last.refCode.toString(),
               orderInfo.last.boxes!.first.saleDay!.startDate!
                   .subtract(Duration(hours: 2)));
-          /*  
-                        DateTime.now().add(Duration(seconds: 5))
-                */
+          /*     DateTime.now().add(Duration(seconds: 5))  */
         }
 
         return orderInfo.isNotEmpty
@@ -316,28 +309,17 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
 
   Container buildCountDown(
       BuildContext context, List<OrderReceived> orderInfo) {
-    List<int> timeNowHourCompo = buildTimeNow();
-    String cachedTimeForDelivery = SharedPrefs.getCountDownString;
-    List<String> cachedTimeForDeliveryStringList =
-        cachedTimeForDelivery.split(":").toList();
-    cachedTimeForDeliveryStringList.add("00");
+    List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
+        orderInfo.last.boxes!.first.saleDay!.endDate!.toLocal());
 
-    List<int> cachedTimeForDeliveryIntList = [];
-    for (var i = 0; i < cachedTimeForDeliveryStringList.length; i++) {
-      cachedTimeForDeliveryIntList
-          .add(int.parse(cachedTimeForDeliveryStringList[i]));
-    }
-
-    int hour = (cachedTimeForDeliveryIntList[0] - timeNowHourCompo[0]);
-    int minute = (cachedTimeForDeliveryIntList[1] - timeNowHourCompo[1]);
-    int second = (cachedTimeForDeliveryIntList[2] - timeNowHourCompo[2]);
-    int duration = ((hour * 60 * 60) + (minute * 60) + (second));
-    int mathedHour = (duration ~/ (60 * 60));
-    int mathedMinute = (duration - (mathedHour * 60 * 60)) ~/ 60;
-    int mathedSeconds =
-        (duration - (mathedMinute * 60) - (mathedHour * 60 * 60));
-    if (duration <= 0) {
+    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
+    int hour = itemsOfCountDown[0];
+    int minute = itemsOfCountDown[1];
+    int second = itemsOfCountDown[2];
+    if (durationFinal <= 0) {
       context.read<OrderBarCubit>().stateOfBar(false);
+                    SharedPrefs.setOrderBar(false);
+
     }
     return Container(
       width: double.infinity,
@@ -353,25 +335,12 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
               style: AppTextStyles.bodyTitleStyle),
           Spacer(flex: 1),
           Text(
-              '${mathedHour < 10 ? "0$mathedHour" : "$mathedHour"}:${mathedMinute < 10 ? "0$mathedMinute" : "$mathedMinute"}:${mathedSeconds < 10 ? "0$mathedSeconds" : "$mathedSeconds"}',
+              '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}',
               style: AppTextStyles.appBarTitleStyle),
           Spacer(flex: 5),
         ],
       ),
     );
-  }
-
-  List<int> buildTimeNow() {
-    String timeNow = DateTime.now().toIso8601String();
-    List<String> timeNowList = timeNow.split("T").toList();
-    List<String> timeNowHourList = timeNowList[1].split(".").toList();
-    List<String> timeNowComponentsList = timeNowHourList[0].split(":").toList();
-    List<int> timeNowHourComponentList = [];
-
-    timeNowComponentsList.forEach((e) {
-      timeNowHourComponentList.add(int.parse(e));
-    });
-    return timeNowHourComponentList;
   }
 
   Padding buildButton(BuildContext context, String title, Color color,
@@ -561,7 +530,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         ));
   }
 
-  void startTimer() {
+  void startTimer(int hour, int minute, int second) {
     const oneSec = const Duration(seconds: 1);
     timer = new Timer.periodic(
       oneSec,
@@ -588,4 +557,83 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       },
     );
   }
+
+  List<int> buildDurationForCountdown(DateTime dateTime, DateTime? endDate) {
+    List<int> results = [];
+    int durationOfNow = buildDurationSecondsForDateTimes(dateTime);
+    int durationOfEnd = buildDurationSecondsForDateTimes(endDate!);
+
+    durationFinal = durationOfEnd - durationOfNow;
+    int hourOfitem = (durationFinal ~/ (60 * 60));
+    results.add(hourOfitem);
+    int minuteOfitem = (durationFinal - (hourOfitem * 60 * 60)) ~/ 60;
+    results.add(minuteOfitem);
+
+    int secondOfitem =
+        (durationFinal - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
+    results.add(secondOfitem);
+
+    return results;
+  }
+
+  int buildDurationSecondsForDateTimes(DateTime dateTime) {
+    int hourOfItem = dateTime.hour;
+    int minuteOfitem = dateTime.minute;
+    int secondsOfitem = dateTime.second;
+    int durationOfitems =
+        ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
+    return durationOfitems;
+  }
+/* 
+  int buildHourForCountDown(DateTime dateTime, DateTime? endDate) {
+    int hourNow = dateTime.hour;
+    int hourEnd = endDate!.hour;
+    int result = hourEnd - hourNow;
+    return result;
+  }
+
+  int buildMinuteForCountDown(DateTime dateTime, DateTime? endDate) {
+    int minuteNow = dateTime.minute;
+    int minuteEnd = endDate!.minute;
+    int result = minuteEnd - minuteNow;
+    return result;
+  }
+
+  int buildSecondsForCountDown(DateTime dateTime, DateTime? endDate) {
+    int secondNow = dateTime.second;
+    int secondEnd = endDate!.second;
+    int result = secondEnd - secondNow;
+    return result;
+  } */
 }
+
+
+/*     int hour = buildHourForCountDown(
+        DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate);
+    int minute = buildMinuteForCountDown(
+        DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate);
+    int second = buildSecondsForCountDown(
+        DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate); */
+    /*    List<int> timeNowHourCompo = buildTimeNow();
+    String cachedTimeForDelivery = SharedPrefs.getCountDownString;
+    List<String> cachedTimeForDeliveryStringList =
+        cachedTimeForDelivery.split(":").toList();
+    cachedTimeForDeliveryStringList.add("00");
+
+    List<int> cachedTimeForDeliveryIntList = [];
+    for (var i = 0; i < cachedTimeForDeliveryStringList.length; i++) {
+      cachedTimeForDeliveryIntList
+          .add(int.parse(cachedTimeForDeliveryStringList[i]));
+    }
+
+    int hour = (cachedTimeForDeliveryIntList[0] - timeNowHourCompo[0]);
+    int minute = (cachedTimeForDeliveryIntList[1] - timeNowHourCompo[1]);
+    int second = (cachedTimeForDeliveryIntList[2] - timeNowHourCompo[2]);
+    int duration = ((hour * 60 * 60) + (minute * 60) + (second));
+    hour = (duration ~/ (60 * 60));
+    minute = (duration - (hour * 60 * 60)) ~/ 60;
+    second = (duration - (minute * 60) - (minute * 60 * 60)); */
+
+    /*    if (duration <= 0) {
+      context.read<OrderBarCubit>().stateOfBar(false);
+    } */

@@ -341,6 +341,7 @@ class _PaymentViewsState extends State<PaymentViews>
                 NotificationService().gotOrder();
 
                 context.read<OrderBarCubit>().stateOfBar(true);
+                SharedPrefs.setOrderBar(true);
                 context
                     .read<OrderReceivedCubit>()
                     .createOrder(SharedPrefs.getDeliveryType);
