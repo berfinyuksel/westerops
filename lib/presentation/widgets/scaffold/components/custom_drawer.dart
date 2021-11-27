@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/services/facebook_login_controller.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
@@ -155,6 +156,8 @@ class CustomDrawer extends StatelessWidget {
         borderColor: AppColors.greenColor,
         textColor: AppColors.greenColor,
         onPressed: () {
+          FacebookSignInController().logOut();
+
           SharedPrefs.clearCache();
           Navigator.pushReplacementNamed(
               context, RouteConstant.CUSTOM_SCAFFOLD);
