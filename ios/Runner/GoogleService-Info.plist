@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>516348079542-1of4i7es4kkbd9a4pead1ce2r2r9furg.apps.googleusercontent.com</string>
+	<string>239647718081-16ur560khfjtnvo5om8ct9bg718erujn.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.516348079542-1of4i7es4kkbd9a4pead1ce2r2r9furg</string>
+	<string>com.googleusercontent.apps.239647718081-16ur560khfjtnvo5om8ct9bg718erujn</string>
 	<key>API_KEY</key>
 	<string>AIzaSyC4FrWWdmdjnoAcvJzJkPiIC4llW1TBPks</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.donguMobile</string>
+	<string>com.westerops.donguMobile</string>
 	<key>PROJECT_ID</key>
 	<string>dongumobile</string>
 	<key>STORAGE_BUCKET</key>

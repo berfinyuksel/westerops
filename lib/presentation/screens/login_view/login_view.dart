@@ -362,10 +362,6 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Padding buildSocialAuths(BuildContext context) {
-    /*    if (SharedPrefs.getIsLogined) {
-      context.read<SocialLoginCubit>().loggedIn(true);
-    } */
-    print("constructed page");
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: Row(
@@ -373,8 +369,8 @@ class _LoginViewState extends State<LoginView> {
         children: [
           GestureDetector(
             onTap: () {
-              AuthService.loginWithGmail();
-              Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+              AuthService().loginWithGmail();
+              Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
