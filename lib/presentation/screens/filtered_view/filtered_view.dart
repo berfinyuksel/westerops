@@ -43,7 +43,7 @@ class _FilteredViewState extends State<FilteredView> {
       //final FiltersState filterState = context.watch<FiltersCubit>().state;
 
       if (state is GenericInitial) {
-        return Container(color:Colors.white);
+        return Container(color: Colors.white);
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
@@ -55,9 +55,9 @@ class _FilteredViewState extends State<FilteredView> {
         }
 
         return CustomScaffold(
-          isDrawer: false,
-          title: "Filtrelenmis",
-          body: buildListViewRestaurantInfo(state,restaurants));
+            isDrawer: false,
+            title: "Filtrelenmis",
+            body: buildListViewRestaurantInfo(state, restaurants));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -65,14 +65,15 @@ class _FilteredViewState extends State<FilteredView> {
     });
   }
 
-  ListView buildListViewRestaurantInfo(GenericState state,
+  ListView buildListViewRestaurantInfo(
+    GenericState state,
     List<SearchStore> restaurants,
   ) {
-   
     return ListView.builder(
         itemCount: restaurants.length,
         itemBuilder: (context, index) {
           return RestaurantInfoListTile(
+            deliveryType: 1,
             icon: restaurants[index].photo,
             restaurantName: restaurants[index].name,
             distance: "m",
@@ -85,10 +86,9 @@ class _FilteredViewState extends State<FilteredView> {
             minDiscountedOrderPrice: null,
             minOrderPrice: null,
             onPressed: () {
-                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                   arguments: ScreenArgumentsRestaurantDetail(
-                    restaurants[index]
-                  ));
+                      restaurant: restaurants[index]));
             },
           );
         });

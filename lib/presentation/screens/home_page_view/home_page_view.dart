@@ -415,6 +415,7 @@ class _HomePageViewState extends State<HomePageView> {
                       List<String> startDate = restaurants[index]
                           .calendar![i]
                           .startDate!
+                          .toString()
                           .split("T")
                           .toList();
 
@@ -554,6 +555,7 @@ class _HomePageViewState extends State<HomePageView> {
                       List<String> startDate = restaurants[index]
                           .calendar![i]
                           .startDate!
+                          .toString()
                           .split("T")
                           .toList();
 

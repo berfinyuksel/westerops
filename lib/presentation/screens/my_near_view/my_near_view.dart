@@ -233,8 +233,12 @@ class _MyNearViewState extends State<MyNearView> {
           String now = DateTime.now().toIso8601String();
           List<String> currentDate = now.split("T").toList();
           //print(currentDate[0]);
-          List<String> startDate =
-              getrestaurants[j].calendar![i].startDate!.split("T").toList();
+          List<String> startDate = getrestaurants[j]
+              .calendar![i]
+              .startDate!
+              .toString()
+              .split("T")
+              .toList();
           if (currentDate[0] == startDate[0]) {
             if (getrestaurants[j].calendar![i].boxCount != 0) {
               return "${boxcount.toString()} paket";
@@ -356,6 +360,7 @@ class _MyNearViewState extends State<MyNearView> {
                     List<String> startDate = getrestaurants[index]
                         .calendar![i]
                         .startDate!
+                        .toString()
                         .split("T")
                         .toList();
 

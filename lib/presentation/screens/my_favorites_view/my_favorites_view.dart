@@ -277,6 +277,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                   List<String> startDate = favouriteRestaurant[index]
                       .calendar![i]
                       .startDate!
+                      .toString()
                       .split("T")
                       .toList();
 

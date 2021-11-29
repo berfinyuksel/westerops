@@ -54,15 +54,15 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
               title: LocaleText(
-                text: buildDateFormatOfTheDay(
-                    widget.restaurant!.calendar![index].startDate!),
+                text: buildDateFormatOfTheDay(DateTime.parse(
+                    widget.restaurant!.calendar![index].startDate!)),
                 style: AppTextStyles.subTitleStyle
                     .copyWith(fontWeight: FontWeight.normal),
                 alignment: TextAlign.start,
               ),
               subtitle: LocaleText(
-                text: buildWeekdayOftheDate(
-                    widget.restaurant!.calendar![index].startDate!),
+                text: buildWeekdayOftheDate(DateTime.parse(
+                    widget.restaurant!.calendar![index].startDate!)),
                 style: AppTextStyles.bodyTextStyle
                     .copyWith(fontWeight: FontWeight.bold),
                 alignment: TextAlign.start,
@@ -74,8 +74,11 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
                   ),
                   LocaleText(
                     text: buildHourForTheDate(
-                        widget.restaurant!.calendar![index].startDate!,
-                        widget.restaurant!.calendar![index].endDate!),
+                      DateTime.parse(
+                          widget.restaurant!.calendar![index].startDate!),
+                      DateTime.parse(
+                          widget.restaurant!.calendar![index].endDate!),
+                    ),
                     style: AppTextStyles.bodyTextStyle
                         .copyWith(fontWeight: FontWeight.bold),
                     alignment: TextAlign.start,
