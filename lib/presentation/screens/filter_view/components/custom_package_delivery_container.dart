@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +39,7 @@ class _CustomContainerPackageDeliveryState
                 Spacer(flex: 4),
                 buildCheckBox(context, false),
                 Spacer(flex: 3),
-                buildPackageContainer(context, false, (){
+                buildPackageContainer(context, false, () {
                   setState(() {
                     state.checkList![4] = !state.checkList![4];
                     state.checkList![5] = false;
@@ -53,9 +54,9 @@ class _CustomContainerPackageDeliveryState
                 Spacer(flex: 4),
                 buildCheckBox(context, true),
                 Spacer(flex: 3),
-                buildMotorCourierDeliveryContainer(context, true,(){
+                buildMotorCourierDeliveryContainer(context, true, () {
                   setState(() {
-                     state.checkList![5] = !state.checkList![5];
+                    state.checkList![5] = !state.checkList![5];
                     state.checkList![4] = false;
                   });
                 }),
@@ -69,10 +70,11 @@ class _CustomContainerPackageDeliveryState
     });
   }
 
-  Builder buildPackageContainer(BuildContext context, bool checkState, VoidCallback onTap) {
+  Builder buildPackageContainer(
+      BuildContext context, bool checkState, VoidCallback onTap) {
     return Builder(builder: (context) {
       final FiltersState state = context.watch<FiltersCubit>().state;
-
+      context.read<FiltersManagerCubit>().getPackageDelivery(state.checkList![5]);
       return GestureDetector(
         onTap: onTap,
         child: CustomContainer(

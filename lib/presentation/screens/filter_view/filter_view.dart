@@ -21,46 +21,48 @@ class _FilterViewState extends State<FilterView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      isDrawer: true,
-        title: "Filtrele",
+      isDrawer: false,
+        title: "Filtre",
         isNavBar: true,
         body: Padding(
           padding: EdgeInsets.only(top: context.dynamicHeight(0.025)),
-          child: Column(
-            children: [
-              Container(
-                height: context.dynamicHeight(0.75),
-                child: ListView(
-                  children: [
-                    SortFilterList(),
-                    Divider(
-                      height: context.dynamicHeight(0.001),
-                    ),
-                    PackagePriceFilterList(),
-                    Divider(
-                      height: context.dynamicHeight(0.001),
-                    ),
-                    PackageDeliveryFilterList(),
-                    Divider(
-                      height: context.dynamicHeight(0.001),
-                    ),
-                 // TODO Odeme sekli kaldirildi.
-                    ChooseCategoryFilterList(),
-                    // SizedBox(
-                    //   height: context.dynamicHeight(0.34),
-                    // ),
-                  ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: context.dynamicHeight(0.75),
+                  child: ListView(
+                    children: [
+                      SortFilterList(),
+                      Divider(
+                        height: context.dynamicHeight(0.001),
+                      ),
+                      PackagePriceFilterList(),
+                      Divider(
+                        height: context.dynamicHeight(0.001),
+                      ),
+                      PackageDeliveryFilterList(),
+                      Divider(
+                        height: context.dynamicHeight(0.001),
+                      ),
+                   // TODO Odeme sekli kaldirildi.
+                      ChooseCategoryFilterList(),
+                      // SizedBox(
+                      //   height: context.dynamicHeight(0.34),
+                      // ),
+                    ],
+                  ),
                 ),
-              ),
-              CleanAndSaveButtons()
-              // Positioned(
-              //   child: CleanAndSaveButtons(),
-              //   bottom: 0,
-              //   top: context.dynamicHeight(0.7),
-              //   left: 0,
-              //   right: 0,
-              // )
-            ],
+                CleanAndSaveButtons()
+                // Positioned(
+                //   child: CleanAndSaveButtons(),
+                //   bottom: 0,
+                //   top: context.dynamicHeight(0.7),
+                //   left: 0,
+                //   right: 0,
+                // )
+              ],
+            ),
           ),
         ));
   }

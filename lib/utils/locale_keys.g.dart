@@ -59,6 +59,7 @@ abstract class  LocaleKeys {
   static const forgot_password_send_again = 'forgot_password.send_again';
   static const forgot_password_send_code = 'forgot_password.send_code';
   static const forgot_password_successfully_changed = 'forgot_password.successfully_changed';
+  static const forgot_password_fail_changed = 'forgot_password.fail_changed';
   static const forgot_password_ok = 'forgot_password.ok';
   static const forgot_password = 'forgot_password';
   static const food_waste_title = 'food_waste.title';

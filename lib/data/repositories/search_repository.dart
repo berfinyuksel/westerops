@@ -18,15 +18,14 @@ class SampleSearchRepository implements SearchRepository {
       Uri.parse("${UrlConstant.EN_URL}store/searchstore/?keyword=$query"),
     );
     print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
-          utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
-      // List<Store> storeLists =
-      //     List<Store>.from(jsonBody.map((model) => Store.fromJson(model)));
-      // return storeLists;
-      //utf8.decode for turkish characters
+          utf8.decode(response.bodyBytes)); 
+
       List<Search> searchLists =
           List<Search>.from(jsonBody[0].map((model) => Search.fromJson(model)));
+      
       return searchLists;
     }
     throw NetworkError(response.statusCode.toString(), response.body);

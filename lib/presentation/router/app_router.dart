@@ -49,7 +49,7 @@ import '../screens/register_view/register_view.dart';
 import '../screens/restaurant_details_views/food_categories/food_categories_view.dart';
 import '../screens/restaurant_details_views/restaurant_detail_view/restaurant_detail_view.dart';
 import '../screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
-import '../screens/search_view/search.dart';
+import '../screens/search_view/search_view.dart';
 import '../screens/surprise_pack_canceled_view/surprise_pack_canceled_view.dart';
 import '../screens/surprise_pack_view/surprise_pack_view.dart';
 

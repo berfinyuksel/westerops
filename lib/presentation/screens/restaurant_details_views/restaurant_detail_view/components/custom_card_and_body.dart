@@ -688,7 +688,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       ),
                     ],
                   );
-                  ;
                 } else {
                   final error = stateOfSearchStore as GenericError;
                   return Center(

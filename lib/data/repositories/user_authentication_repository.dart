@@ -13,7 +13,8 @@ abstract class UserAuthenticationRepository {
       String email, String phone, String address, String birthday);
   Future<List<User>> loginUser(String email, String password);
 
-  Future<List<String>> resetPassword(String phone, String password);
+  Future<List<String>> resetPassword(
+      String verificationId, String otpCode, String newPassword, String phone);
   Future<List<String>> changePassword(String newPassword, String oldPassword);
   Future<List<String>> deleteAccountUser(String deletionReason);
 }
@@ -81,21 +82,26 @@ class SampleUserAuthenticationRepository
   }
 
   @override
-  Future<List<String>> resetPassword(String password, String phone) async {
-    String json = '{"password": "$password"}';
-    final response = await http.patch(
+  Future<List<String>> resetPassword(String verificationId, String otpCode,
+      String newPassword, String phone) async {
+    String json =""
+        '{"verification_id": "$verificationId", "otp_code": "$otpCode", "new_password": "$newPassword", "phone_number": "$phone"}';
+    final response = await http.post(
       Uri.parse(
-        ("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
+        ("${UrlConstant.EN_URL}user/reset-password/mobile/"),
       ),
       body: json,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'JWT ${SharedPrefs.getToken}'
+        //'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print(response.statusCode);
+    print("RESET PASSWORD STATUS: ${json}");
+    print("RESET PASSWORD STATUS: ${response.statusCode}");
+    print("RESET PASSWORD STATUS: ${response.request}");
+    print("RESET PASSWORD STATUS: ${response.toString()}");
     if (response.statusCode == 200) {
-      SharedPrefs.setUserPassword(password);
+      SharedPrefs.setUserPassword(newPassword);
 
       List<String> result = [];
       return result;
@@ -137,10 +143,7 @@ class SampleUserAuthenticationRepository
       List<User> users = [];
       users.add(user);
       return users;
-    }
-    else{
-      
-    }
+    } else {}
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 

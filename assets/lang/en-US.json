@@ -69,6 +69,7 @@
         "send_again": "Resend Kod",
         "send_code": "Send Code",
         "successfully_changed": "Your password has been successfully changed.",
+        "fail_changed": "Your SMS code or phone number is incorrect.",
         "ok": "Ok"
     },
     "food_waste": {

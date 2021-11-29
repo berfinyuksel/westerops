@@ -4,6 +4,7 @@ import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/home_page_view/home_page_view.dart';
 import 'package:dongu_mobile/presentation/screens/login_view/login_view.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,7 +20,7 @@ import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import '../register_view/components/clipped_password_rules.dart';
-import 'components/popup_successfully_changed.dart';
+import 'components/popup_reset_password.dart';
 
 enum MobileVerificationState {
   SHOW_MOBILE_FORM_STATE,
@@ -46,6 +47,16 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   bool showLoading = false;
   void signInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCredential) async {
+    String phoneTR = '+90' + phoneController.text;
+    print("SMS CODE : ${phoneAuthCredential.smsCode}");
+    print("VERIFICATIOIN ID : ${verificationId}");
+    context.read<UserAuthCubit>().resetPassword(
+        verificationId!,
+        codeController.text,
+        passwordController.text,
+        phoneTR);
+    print(phoneTR);
+
     setState(() {
       showLoading = true;
     });
@@ -53,13 +64,19 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       final authCredential =
           await _auth.signInWithCredential(phoneAuthCredential);
       print(authCredential.user!.providerData);
+      // print("SMS CODE : ${phoneAuthCredential.smsCode}");
       setState(() {
         showLoading = false;
       });
+
       if (authCredential.user != null) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginView()));
-        //Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+        showDialog(
+            context: context,
+            builder: (_) => CustomAlertDialogResetPassword(
+                  description: LocaleKeys.forgot_password_successfully_changed,
+                  onPressed: () => Navigator.popAndPushNamed(
+                      context, RouteConstant.LOGIN_VIEW),
+                ));
       }
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -133,65 +150,75 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     ),
                     CustomButton(
                       onPressed: () async {
-                        if (isCodeSent == true) {
-                          showDialog(
-                              context: context,
-                              builder: (_) =>
-                              CustomAlertDialogSuccessfullyChangedPassword());
-
-                        }
+                        // if (isCodeSent == true) {
+                        //   showDialog(
+                        //       context: context,
+                        //       builder: (_) =>
+                        //           CustomAlertDialogSuccessfullyChangedPassword());
+                        // }
                         String phoneTR = '+90' + phoneController.text;
                         String phoneEN = '+1' + phoneController.text;
-
-                        await _auth.verifyPhoneNumber(
-                            phoneNumber:
-                                dropdownValue == 'TR' ? phoneTR : phoneEN,
-                            verificationCompleted: (phoneAuthCredential) async {
-                              setState(() {
-                                showLoading = false;
-                              });
-                              //signInWithPhoneAuthCredential(phoneAuthCredential);
-                            },
-                            verificationFailed: (verificationFailed) async {
-                              setState(() {
-                                showLoading = false;
-                              });
-                              // ignore: deprecated_member_use
-                            },
-                            codeSent: (verificationId, resendingToken) async {
-                              setState(() {
-                                showLoading = false;
-                                currentState =
-                                    MobileVerificationState.SHOW_OTP_FORM_STATE;
-                                this.verificationId = verificationId;
-                              });
-                              print("CURRENT STATE : ${verificationId}");
-                              //SMS button send verification id
-                            },
-                            codeAutoRetrievalTimeout:
-                                (verificationId) async {});
-                        setState(() {
-                          isCodeSent = true;
-                          showLoading = true;
-                          print(
-                              "SESSION KEY : ${_auth.tenantId}"); //session_key
-
-                          /*FirebaseAuth.instance.sendPasswordResetEmail(
-                              email: phoneController.text);*/
-                        });
                         if (codeController.text.isNotEmpty) {
                           PhoneAuthCredential phoneAuthCredential =
                               PhoneAuthProvider.credential(
                                   verificationId: verificationId.toString(),
                                   smsCode: codeController.text);
+                          print(verificationId);
                           signInWithPhoneAuthCredential(phoneAuthCredential);
-                          print(
-                              "SESSION INFO : ${phoneAuthCredential.verificationId}");
-                          context.read<UserAuthCubit>().resetPassword(
-                              passwordController.text, phoneController.text);
+                          // print("${phoneAuthCredential}");
+                          if (verificationId == null ||
+                              phoneAuthCredential.smsCode == null) {
+                            showDialog(
+                                context: context,
+                                builder: (_) => CustomAlertDialogResetPassword(
+                                      description: LocaleKeys
+                                          .forgot_password_fail_changed,
+                                      onPressed: () =>
+                                          Navigator.popAndPushNamed(
+                                              context,
+                                              RouteConstant
+                                                  .FORGOT_PASSWORD_VIEW),
+                                    ));
+                          }
                         }
-                      },
+                        if (isCodeSent == false) {
+                          await _auth.verifyPhoneNumber(
+                              phoneNumber:
+                                  dropdownValue == 'TR' ? phoneTR : phoneEN,
+                              verificationCompleted:
+                                  (phoneAuthCredential) async {
+                                // print(
+                                //     "SMS CODE : ${phoneAuthCredential.smsCode}");
+                                setState(() {
+                                  showLoading = false;
+                                });
+                                //signInWithPhoneAuthCredential(phoneAuthCredential);
+                              },
+                              verificationFailed: (verificationFailed) async {
+                                setState(() {
+                                  showLoading = false;
+                                });
+                                // ignore: deprecated_member_use
+                              },
+                              codeSent: (verificationId, resendingToken) async {
+                                setState(() {
+                                  showLoading = false;
+                                  currentState = MobileVerificationState
+                                      .SHOW_OTP_FORM_STATE;
+                                  this.verificationId = verificationId;
+                                });
+                              },
+                              codeAutoRetrievalTimeout:
+                                  (verificationId) async {});
+                        }
+                        setState(() {
+                          isCodeSent = true;
+                          showLoading = true;
 
+                          /*FirebaseAuth.instance.sendPasswordResetEmail(
+                              email: phoneController.text);*/
+                        });
+                      },
                       width: double.infinity,
                       title: isCodeSent
                           ? LocaleKeys.forgot_password_reset_password

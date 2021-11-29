@@ -1,17 +1,10 @@
 // To parse this JSON data, do
 //
-//     final search = searchFromJson(jsonString);
+//     final Search = SearchFromJson(jsonString);
 
 import 'dart:convert';
 
-List<List<Search>> searchFromJson(String str) => List<List<Search>>.from(json
-    .decode(str)
-    .map((x) => List<Search>.from(x.map((x) => Search.fromJson(x)))));
-
-String searchToJson(List<List<Search>> data) => json.encode(List<dynamic>.from(
-    data.map((x) => List<dynamic>.from(x.map((x) => x.toJson())))));
-
-class Search { 
+class Search {
   Search({
     this.id,
     this.calendar,
@@ -31,6 +24,7 @@ class Search {
     this.address,
     this.postCode,
     this.city,
+    this.province,
     this.phoneNumber,
     this.phoneNumber2,
     this.email,
@@ -41,6 +35,12 @@ class Search {
     this.avgReview,
     this.latitude,
     this.longitude,
+    this.deliveryType,
+    this.cost,
+    this.refCode,
+    this.isVoted,
+    this.user,
+    this.boxes,
   });
 
   int? id;
@@ -61,6 +61,7 @@ class Search {
   String? address;
   String? postCode;
   String? city;
+  String? province;
   String? phoneNumber;
   String? phoneNumber2;
   String? email;
@@ -72,74 +73,124 @@ class Search {
   double? latitude;
   double? longitude;
 
+  String? deliveryType;
+  int? cost;
+  int? refCode;
+
+  bool? isVoted;
+  int? user;
+
+  List<int>? boxes;
+
+  factory Search.fromRawJson(String str) =>
+      Search.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
   factory Search.fromJson(Map<String, dynamic> json) => Search(
         id: json["id"],
-        calendar: List<Calendar>.from(
-            json["calendar"].map((x) => Calendar.fromJson(x))),
-        review:
-            List<Review>.from(json["review"].map((x) => Review.fromJson(x))),
-        favoritedBy: List<StoreOwner>.from(
-            json["favorited_by"].map((x) => StoreOwner.fromJson(x))),
+        calendar: json["calendar"] == null
+            ? null
+            : List<Calendar>.from(
+                json["calendar"].map((x) => Calendar.fromJson(x))),
+        review: json["review"] == null
+            ? null
+            : List<Review>.from(json["review"].map((x) => Review.fromJson(x))),
+/*         favoritedBy: json["favorited_by"] == null
+            ? null
+            : List<StoreOwner>.from(
+                json["favorited_by"].map((x) => StoreOwner.fromJson(x))), */
         packageSettings: json["package_settings"] == null
             ? null
             : PackageSettings.fromJson(json["package_settings"]),
-        storeMeals: List<StoreMeal>.from(
-            json["store_meals"].map((x) => StoreMeal.fromJson(x))),
-        categories: List<Category>.from(
-            json["categories"].map((x) => Category.fromJson(x))),
-        isCourierAvailable: json["is_courier_available"],
-        distanceFromStore: json["distance_from_store"],
-        storeOwner: StoreOwner.fromJson(json["store_owner"]),
-        name: json["name"],
-        photo: json["photo"],
-        background: json["background"],
-        description: json["description"],
-        joinedTime: DateTime.parse(json["joined_time"]),
-        address: json["address"],
-        postCode: json["post_code"],
-        city: json["city"],
-        phoneNumber: json["phone_number"],
-        phoneNumber2: json["phone_number_2"],
-        email: json["email"],
-        websiteLink: json["website_link"],
+        storeMeals: json["store_meals"] == null
+            ? null
+            : List<StoreMeal>.from(
+                json["store_meals"].map((x) => StoreMeal.fromJson(x))),
+        categories: json["categories"] == null
+            ? null
+            : List<Category>.from(
+                json["categories"].map((x) => Category.fromJson(x))),
+        isCourierAvailable: json["is_courier_available"] == null
+            ? null
+            : json["is_courier_available"],
+        distanceFromStore: json["distance_from_store"] == null
+            ? null
+            : json["distance_from_store"],
+/*         storeOwner: json["store_owner"] == null
+            ? null
+            : StoreOwner.fromJson(json["store_owner"]), */
+        name: json["name"] == null ? null : json["name"],
+        photo: json["photo"] == null ? null : json["photo"],
+        background: json["background"] == null ? null : json["background"],
+        description: json["description"] == null ? null : json["description"],
+        joinedTime: json["joined_time"] == null
+            ? null
+            : DateTime.parse(json["joined_time"]),
+        address: json["address"] == null ? null : json["address"],
+        postCode: json["post_code"] == null ? null : json["post_code"],
+        city: json["city"] == null ? null : json["city"],
+        province: json["province"] == null ? null : json["province"],
+        phoneNumber: json["phone_number"] == null ? null : json["phone_number"],
+        phoneNumber2:
+            json["phone_number_2"] == null ? null : json["phone_number_2"],
+        email: json["email"] == null ? null : json["email"],
+        websiteLink: json["website_link"] == null ? null : json["website_link"],
         status: json["status"],
-        cancelCount: json["cancel_count"],
-        createdAt: DateTime.parse(json["created_at"]),
-        avgReview: json["avg_review"].toDouble(),
-        latitude: json["latitude"].toDouble(),
-        longitude: json["longitude"].toDouble(),
+        cancelCount: json["cancel_count"] == null ? null : json["cancel_count"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        avgReview:
+            json["avg_review"] == null ? null : json["avg_review"].toDouble(),
+        latitude: json["latitude"] == null ? null : json["latitude"].toDouble(),
+        longitude:
+            json["longitude"] == null ? null : json["longitude"].toDouble(),
+        deliveryType:
+            json["delivery_type"] == null ? null : json["delivery_type"],
+        cost: json["cost"] == null ? null : json["cost"],
+        refCode: json["ref_code"] == null ? null : json["ref_code"],
+        isVoted: json["is_voted"] == null ? null : json["is_voted"],
+        user: json["user"] == null ? null : json["user"],
+        boxes: json["boxes"] == null
+            ? null
+            : List<int>.from(json["boxes"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "calendar": List<dynamic>.from(calendar!.map((x) => x.toJson())),
-        "review": List<dynamic>.from(review!.map((x) => x.toJson())),
-        "favorited_by": List<dynamic>.from(favoritedBy!.map((x) => x.toJson())),
         "package_settings":
             packageSettings == null ? null : packageSettings!.toJson(),
-        "store_meals": List<dynamic>.from(storeMeals!.map((x) => x.toJson())),
-        "categories": List<dynamic>.from(categories!.map((x) => x.toJson())),
-        "is_courier_available": isCourierAvailable,
-        "distance_from_store": distanceFromStore,
-        "store_owner": storeOwner!.toJson(),
-        "name": name,
-        "photo": photo,
-        "background": background,
-        "description": description,
-        "joined_time": joinedTime!.toIso8601String(),
-        "address": address,
-        "post_code": postCode,
-        "city": city,
-        "phone_number": phoneNumber,
-        "phone_number_2": phoneNumber2,
-        "email": email,
-        "website_link": websiteLink,
+        "is_courier_available":
+            isCourierAvailable == null ? null : isCourierAvailable,
+        "distance_from_store":
+            distanceFromStore == null ? null : distanceFromStore,
+        "store_owner": storeOwner == null ? null : storeOwner!.toJson(),
+        "name": name == null ? null : name,
+        "photo": photo == null ? null : photo,
+        "background": background == null ? null : background,
+        "description": description == null ? null : description,
+        "joined_time":
+            joinedTime == null ? null : joinedTime!.toIso8601String(),
+        "address": address == null ? null : address,
+        "post_code": postCode == null ? null : postCode,
+        "city": city == null ? null : city,
+        "province": province == null ? null : province,
+        "phone_number": phoneNumber == null ? null : phoneNumber,
+        "phone_number_2": phoneNumber2 == null ? null : phoneNumber2,
+        "email": email == null ? null : email,
+        "website_link": websiteLink == null ? null : websiteLink,
         "status": status,
-        "cancel_count": cancelCount,
-        "created_at": createdAt!.toIso8601String(),
-        "avg_review": avgReview,
-        "latitude": latitude,
-        "longitude": longitude,
+        "cancel_count": cancelCount == null ? null : cancelCount,
+        "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
+        "avg_review": avgReview == null ? null : avgReview,
+        "latitude": latitude == null ? null : latitude,
+        "longitude": longitude == null ? null : longitude,
+        "delivery_type": deliveryType == null ? null : deliveryType,
+        "cost": cost == null ? null : cost,
+        "ref_code": refCode == null ? null : refCode,
+        "is_voted": isVoted == null ? null : isVoted,
+        "user": user == null ? null : user,
       };
 }
 
@@ -149,48 +200,45 @@ class Calendar {
     this.startDate,
     this.endDate,
     this.store,
-    this.timeLabel,
     this.isActive,
     this.boxCount,
     this.detail,
   });
 
   int? id;
-  DateTime? startDate;
-  DateTime? endDate;
+  String? startDate;
+  String? endDate;
   int? store;
-  dynamic timeLabel;
+
   bool? isActive;
   int? boxCount;
-  Detail? detail;
+  String? detail;
+
+  factory Calendar.fromRawJson(String str) =>
+      Calendar.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory Calendar.fromJson(Map<String, dynamic> json) => Calendar(
         id: json["id"],
-        startDate: DateTime.parse(json["start_date"]),
-        endDate: DateTime.parse(json["end_date"]),
+        startDate: json["start_date"] == null ? null : json["start_date"],
+        endDate: json["detail"] == null ? null : json["detail"],
         store: json["store"],
-        timeLabel: json["time_label"],
         isActive: json["is_active"],
         boxCount: json["box_count"],
-        detail:
-            json["detail"] == null ? null : detailValues.map![json["detail"]],
+        detail: json["detail"] == null ? null : json["detail"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "start_date": startDate!.toIso8601String(),
-        "end_date": endDate!.toIso8601String(),
+        "start_date": startDate,
+        "end_date": endDate,
         "store": store,
-        "time_label": timeLabel,
         "is_active": isActive,
         "box_count": boxCount,
-        "detail": detail == null ? null : detailValues.reverse![detail],
+        "detail": detail == null ? null : detail,
       };
 }
-
-enum Detail { EMPTY, AK }
-
-final detailValues = EnumValues({"Açık": Detail.AK, "": Detail.EMPTY});
 
 class Category {
   Category({
@@ -202,6 +250,11 @@ class Category {
   int? id;
   int? name;
   int? store;
+
+  factory Category.fromRawJson(String str) =>
+      Category.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
@@ -223,6 +276,11 @@ class StoreOwner {
 
   int? id;
 
+  factory StoreOwner.fromRawJson(String str) =>
+      StoreOwner.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
   factory StoreOwner.fromJson(Map<String, dynamic> json) => StoreOwner(
         id: json["id"],
       );
@@ -242,7 +300,6 @@ class PackageSettings {
     this.courierDeliveryTimeStart,
     this.courierDeliveryTimeEnd,
     this.openBuffet,
-    this.extraSuggestion,
     this.minOrderPrice,
     this.minDiscountedOrderPrice,
     this.defaultBoxCount,
@@ -258,12 +315,17 @@ class PackageSettings {
   String? courierDeliveryTimeStart;
   String? courierDeliveryTimeEnd;
   bool? openBuffet;
-  dynamic extraSuggestion;
+
   int? minOrderPrice;
   int? minDiscountedOrderPrice;
   int? defaultBoxCount;
   int? packagingType;
   int? store;
+
+  factory PackageSettings.fromRawJson(String str) =>
+      PackageSettings.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory PackageSettings.fromJson(Map<String, dynamic> json) =>
       PackageSettings(
@@ -275,7 +337,6 @@ class PackageSettings {
         courierDeliveryTimeStart: json["courier_delivery_time_start"],
         courierDeliveryTimeEnd: json["courier_delivery_time_end"],
         openBuffet: json["open_buffet"],
-        extraSuggestion: json["extra_suggestion"],
         minOrderPrice: json["min_order_price"],
         minDiscountedOrderPrice: json["min_discounted_order_price"],
         defaultBoxCount: json["default_box_count"],
@@ -292,7 +353,6 @@ class PackageSettings {
         "courier_delivery_time_start": courierDeliveryTimeStart,
         "courier_delivery_time_end": courierDeliveryTimeEnd,
         "open_buffet": openBuffet,
-        "extra_suggestion": extraSuggestion,
         "min_order_price": minOrderPrice,
         "min_discounted_order_price": minDiscountedOrderPrice,
         "default_box_count": defaultBoxCount,
@@ -313,6 +373,10 @@ class Review {
   int? servicePoint;
   int? qualityPoint;
   User? user;
+
+  factory Review.fromRawJson(String str) => Review.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
         mealPoint: json["meal_point"],
@@ -336,8 +400,6 @@ class User {
     this.lastLogin,
     this.isSuperuser,
     this.email,
-    this.facebookEmail,
-    this.googleEmail,
     this.firstName,
     this.lastName,
     this.isActive,
@@ -345,14 +407,11 @@ class User {
     this.activeAddress,
     this.createdAt,
     this.status,
-    this.birthdate,
     this.phoneNumber,
     this.allowEmail,
     this.allowPhone,
     this.isDeleted,
     this.deletionReason,
-    this.adminRole,
-    this.userPermissions,
     this.groups,
   });
 
@@ -361,8 +420,7 @@ class User {
   DateTime? lastLogin;
   bool? isSuperuser;
   String? email;
-  dynamic facebookEmail;
-  dynamic googleEmail;
+
   String? firstName;
   String? lastName;
   bool? isActive;
@@ -370,15 +428,18 @@ class User {
   int? activeAddress;
   DateTime? createdAt;
   String? status;
-  dynamic birthdate;
+
   String? phoneNumber;
   bool? allowEmail;
   bool? allowPhone;
   bool? isDeleted;
   String? deletionReason;
-  dynamic adminRole;
-  List<dynamic>? userPermissions;
+
   List<int>? groups;
+
+  factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
@@ -388,8 +449,6 @@ class User {
             : DateTime.parse(json["last_login"]),
         isSuperuser: json["is_superuser"],
         email: json["email"],
-        facebookEmail: json["facebook_email"],
-        googleEmail: json["google_email"],
         firstName: json["first_name"],
         lastName: json["last_name"],
         isActive: json["is_active"],
@@ -398,15 +457,11 @@ class User {
             json["active_address"] == null ? null : json["active_address"],
         createdAt: DateTime.parse(json["created_at"]),
         status: json["status"],
-        birthdate: json["birthdate"],
         phoneNumber: json["phone_number"],
         allowEmail: json["allow_email"],
         allowPhone: json["allow_phone"],
         isDeleted: json["is_deleted"],
         deletionReason: json["deletion_reason"],
-        adminRole: json["admin_role"],
-        userPermissions:
-            List<dynamic>.from(json["user_permissions"].map((x) => x)),
         groups: List<int>.from(json["groups"].map((x) => x)),
       );
 
@@ -416,8 +471,6 @@ class User {
         "last_login": lastLogin == null ? null : lastLogin!.toIso8601String(),
         "is_superuser": isSuperuser,
         "email": email,
-        "facebook_email": facebookEmail,
-        "google_email": googleEmail,
         "first_name": firstName,
         "last_name": lastName,
         "is_active": isActive,
@@ -425,15 +478,12 @@ class User {
         "active_address": activeAddress == null ? null : activeAddress,
         "created_at": createdAt!.toIso8601String(),
         "status": status,
-        "birthdate": birthdate,
         "phone_number": phoneNumber,
         "allow_email": allowEmail,
         "allow_phone": allowPhone,
         "is_deleted": isDeleted,
         "deletion_reason": deletionReason,
-        "admin_role": adminRole,
-        "user_permissions": List<dynamic>.from(userPermissions!.map((x) => x)),
-        "groups": List<dynamic>.from(groups!.map((x) => x)),
+        "groups": List<int>.from(groups!.map((x) => x)),
       };
 }
 
@@ -460,6 +510,11 @@ class StoreMeal {
   int? category;
   List<int>? tag;
 
+  factory StoreMeal.fromRawJson(String str) =>
+      StoreMeal.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
   factory StoreMeal.fromJson(Map<String, dynamic> json) => StoreMeal(
         id: json["id"],
         name: json["name"],
@@ -481,20 +536,5 @@ class StoreMeal {
         "favorite": favorite,
         "store": store,
         "category": category,
-        "tag": List<dynamic>.from(tag!.map((x) => x)),
       };
-}
-
-class EnumValues<T> {
-  Map<String, T>? map;
-  Map<T, String>? reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String>? get reverse {
-    if (reverseMap == null) {
-      reverseMap = map!.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
 }

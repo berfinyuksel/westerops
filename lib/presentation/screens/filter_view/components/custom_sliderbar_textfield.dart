@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +24,7 @@ class _CustomSliderBarAndTextFieldState
   int _endValue = 50;
   int minValue = 0; //
   int maxValue = 100; //
+  
   bool setStartValue = true;
   bool setEndValue = true;
   final startController = TextEditingController();
@@ -78,7 +80,7 @@ class _CustomSliderBarAndTextFieldState
         setState(() {
           _starValue =
               double.parse(startController.text).roundToDouble().toInt();
-              context.read<FiltersCubit>().setIsMaxValue(_endValue);
+          context.read<FiltersCubit>().setIsMaxValue(_endValue);
         });
       }
     }
@@ -183,7 +185,9 @@ class _CustomSliderBarAndTextFieldState
     );
   }
 
-  Container maxPrice(BuildContext context,) {
+  Container maxPrice(
+    BuildContext context,
+  ) {
     return Container(
       width: context.dynamicWidht(0.39),
       height: context.dynamicHeight(0.060),
@@ -283,15 +287,23 @@ class _CustomSliderBarAndTextFieldState
                 Container(
                   height: context.dynamicHeight(0.25),
                   width: context.dynamicWidht(0.35),
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: LocaleKeys.filters_package_price_item3.locale,
-                        hintStyle: AppTextStyles.subTitleStyle
-                            .copyWith(fontWeight: FontWeight.bold)),
-                    controller: startController,
-                    cursorColor: AppColors.textColor,
+                  child: Builder(
+                    builder: (BuildContext context) {
+                      context
+                          .read<FiltersManagerCubit>()
+                          .getPackagePrice(int.tryParse(startController.text) ?? 0, int.tryParse(endController.text) ?? 0);
+                      return TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText:
+                                LocaleKeys.filters_package_price_item3.locale,
+                            hintStyle: AppTextStyles.subTitleStyle
+                                .copyWith(fontWeight: FontWeight.bold)),
+                        controller: startController,
+                        cursorColor: AppColors.textColor,
+                      );
+                    },
                   ),
                 ),
                 Spacer(flex: 4),

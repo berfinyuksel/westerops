@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/presentation/screens/filtered_view/filtered_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
@@ -27,6 +29,8 @@ class _CleanAndSaveButtonsState extends State<CleanAndSaveButtons> {
             color: Colors.transparent,
             borderColor: AppColors.greenColor,
             onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => FilteredView()));
               //   Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
             },
           ),
@@ -38,6 +42,10 @@ class _CleanAndSaveButtonsState extends State<CleanAndSaveButtons> {
             color: AppColors.greenColor,
             borderColor: AppColors.greenColor,
             onPressed: () {
+              SharedPrefs.getSortByDistance;
+              
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => FilteredView()));
               //   Navigator.pushNamed(context, RouteConstant.REGISTER_VIEW);
             },
           ),

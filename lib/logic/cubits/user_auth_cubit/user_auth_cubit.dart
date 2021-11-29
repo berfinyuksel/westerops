@@ -42,11 +42,13 @@ class UserAuthCubit extends Cubit<GenericState> {
     }
   }
 
-  Future<void> resetPassword(String password, String phone) async {
+  Future<void> resetPassword(String verificationId, String otpCode,
+      String newPassword, String phone) async {
     try {
       emit(GenericLoading());
       final response =
-          await _userAuthenticationRepository.resetPassword(password, phone);
+          await _userAuthenticationRepository.resetPassword(
+          verificationId, otpCode, newPassword, phone);
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));
