@@ -208,9 +208,9 @@ class Category {
   String toRawJson() => json.encode(toJson());
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        name: json["name"],
-        store: json["store"],
+        id: json["id"] ?? 0,
+        name: json["name"] ?? 0,
+        store: json["store"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {

@@ -206,7 +206,7 @@ class _SwipeViewState extends State<SwipeView> {
                   child: Padding(
                     padding: EdgeInsets.only(left: context.dynamicWidht(0.01)),
                     child: LocaleText(
-                      text: LocaleKeys.swipe_price,
+                      text: widget.orderInfo!.cost.toString() + ' TL',
                       style: AppTextStyles.bodyBoldTextStyle.copyWith(
                         color: AppColors.greenColor,
                       ),

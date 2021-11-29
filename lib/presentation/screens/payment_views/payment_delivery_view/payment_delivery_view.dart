@@ -41,7 +41,9 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
         for (int i = 0; i < state.response.length; i++) {
-          list.add(state.response[i]);
+          if (!list.contains(state.response[i])) {
+            list.add(state.response[i]);
+          }
         }
         print("object");
         print(state.response.length);

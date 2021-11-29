@@ -11,7 +11,6 @@ abstract class OrderRepository {
   Future<List<String>> addToBasket(String boxId);
   Future<List<BoxOrder>> deleteBasket(String boxId);
 
-
   Future<List<BoxOrder>> getBasket();
   Future<List<BoxOrder>> clearBasket();
 }
@@ -32,7 +31,7 @@ class SampleOrderRepository implements OrderRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print("ADD BASKET status ${response.statusCode}");
+    print("ADD ORDER status ${response.statusCode}");
     if (response.statusCode == 200) {
       List<String> boxes = [];
       boxes.add("box");
