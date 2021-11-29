@@ -168,23 +168,13 @@ class _AddressViewState extends State<AddressView> {
                       },
                     );
                   })
-              : Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 40,
-                      ),
-                      SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      LocaleText(
-                        alignment: TextAlign.center,
-                        text: "Henüz Kayıtlı Adresiniz Bulunmamaktadır.",
-                        style: AppTextStyles.myInformationBodyTextStyle,
-                      ),
-                    ],
+              : Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0, top: 10.0),
+                    child: LocaleText(
+                      text: "Henüz kayıtlı adresiniz bulunmamaktadır.",
+                      style: AppTextStyles.bodyTextStyle,
+                    ),
                   ),
                 );
         } else

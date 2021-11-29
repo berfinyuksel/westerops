@@ -188,27 +188,16 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                 return Expanded(
                     child: favouriteRestaurant.isNotEmpty
                         ? buildListViewRestaurantInfo(favouriteRestaurant)
-                        : Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 40,
-                                ),
-                                SvgPicture.asset(
-                                    ImageConstant.SURPRISE_PACK_ALERT),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                LocaleText(
-                                  alignment: TextAlign.center,
-                                  text: "Favori restoranınız bulunmamaktadır.",
-                                  style:
-                                      AppTextStyles.myInformationBodyTextStyle,
-                                ),
-                              ],
-                            ),
-                          ));
+                        : Text("Favori restoranınız bulunmamaktadır."));
+              } else if (SharedPrefs.getIsLogined) {
+                return Center(
+                  child: LocaleText(
+                    text:
+                        "Favori restoranlarınızı görüntülemek için giriş yapınız",
+                    style: AppTextStyles.bodyTextStyle
+                        .copyWith(color: AppColors.cursorColor),
+                  ),
+                );
               } else {
                 final error = stateOfFavorites as GenericError;
                 return Center(
@@ -271,9 +260,42 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     return ListView.builder(
         itemCount: favouriteRestaurant.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: RestaurantInfoListTile(
+          return Container(child: Builder(builder: (context) {
+            String? packettNumber() {
+              if (favouriteRestaurant[index].calendar == null) {
+                return "tükendi";
+              } else if (favouriteRestaurant[index].calendar != null) {
+                for (int i = 0;
+                    i < favouriteRestaurant[index].calendar!.length;
+                    i++) {
+                  var boxcount =
+                      favouriteRestaurant[index].calendar![i].boxCount;
+
+                  String now = DateTime.now().toIso8601String();
+                  List<String> currentDate = now.split("T").toList();
+                  print(currentDate[0]);
+                  List<String> startDate = favouriteRestaurant[index]
+                      .calendar![i]
+                      .startDate!
+                      .split("T")
+                      .toList();
+
+                  if (currentDate[0] == startDate[0]) {
+                    if (favouriteRestaurant[index].calendar![i].boxCount != 0) {
+                      return "${boxcount.toString()} paket";
+                    } else if (favouriteRestaurant[index]
+                                .calendar![i]
+                                .boxCount ==
+                            null ||
+                        favouriteRestaurant[index].calendar![i].boxCount == 0) {
+                      return "tükendi";
+                    }
+                  }
+                }
+              }
+            }
+
+            return RestaurantInfoListTile(
               deliveryType: int.parse(
                   favouriteRestaurant[index].packageSettings!.deliveryType ??
                       '3'),
@@ -296,17 +318,11 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                       LocationService.latitude,
                       LocationService.longitude)
                   .toStringAsFixed(2),
-              packetNumber: favouriteRestaurant[index]
-                          .calendar!
-                          .first
-                          .boxCount ==
-                      0
-                  ? 'tükendi'
-                  : '${favouriteRestaurant[index].calendar!.first.boxCount} paket',
+              packetNumber: packettNumber() ?? "tükendi",
               availableTime:
                   '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
-            ),
-          );
+            );
+          }));
         });
   }
 
