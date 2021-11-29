@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/services/auth_service.dart';
+import 'package:dongu_mobile/data/services/facebook_login_controller.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
@@ -443,11 +444,23 @@ class _RegisterViewState extends State<RegisterView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SignWithSocialAuth(
-            image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
+          GestureDetector(
+            onTap: () {
+              AuthService().loginWithGmail();
+              Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+            },
+            child: SignWithSocialAuth(
+              image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
+            ),
           ),
-          SignWithSocialAuth(
-            image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
+          GestureDetector(
+            onTap: () {
+              FacebookSignInController().login();
+              Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+            },
+            child: SignWithSocialAuth(
+              image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
+            ),
           ),
         ],
       ),

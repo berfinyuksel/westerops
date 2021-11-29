@@ -104,7 +104,7 @@ class SearchStore {
         status: json["status"],
         cancelCount: json["cancel_count"],
         createdAt: DateTime.parse(json["created_at"]),
-        avgReview: json["avg_review"].toDouble(),
+        avgReview: json["avg_review"]?.toDouble() ?? 0.0,
         latitude: json["latitude"].toDouble(),
         longitude: json["longitude"].toDouble(),
       );
@@ -208,9 +208,9 @@ class Category {
   String toRawJson() => json.encode(toJson());
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        name: json["name"],
-        store: json["store"],
+        id: json["id"] ?? 0,
+        name: json["name"] ?? 0,
+        store: json["store"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {

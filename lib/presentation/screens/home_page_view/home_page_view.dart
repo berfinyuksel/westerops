@@ -374,7 +374,7 @@ class _HomePageViewState extends State<HomePageView> {
           } else {
             scroolNearMeLeft = false;
           }
-          if (notification.metrics.pixels >= 630) {
+          if (notification.metrics.pixels >= 375) {
             scroolNearMeRight = true;
           } else {
             scroolNearMeRight = false;
@@ -457,12 +457,14 @@ class _HomePageViewState extends State<HomePageView> {
       child: NotificationListener<ScrollUpdateNotification>(
         onNotification: (ScrollUpdateNotification notification) {
           setState(() {
+            print(notification.metrics.pixels);
+
             if (notification.metrics.pixels <= 0) {
               scroolOpportunitiesLeft = true;
             } else {
               scroolOpportunitiesLeft = false;
             }
-            if (notification.metrics.pixels >= 630) {
+            if (notification.metrics.pixels >= 375) {
               scroolOpportunitiesRight = true;
             } else {
               scroolOpportunitiesRight = false;
