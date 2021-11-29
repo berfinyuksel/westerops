@@ -368,7 +368,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             restaurantName: "Mini Burger",
             distance: "74m",
             packetNumber: "4 paket",
-            availableTime: "18:00-21:00",
+            availableTime: "18:00-21:00", minOrderPrice: null, minDiscountedOrderPrice: null,
           ),
         ));
   }

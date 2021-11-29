@@ -195,7 +195,7 @@ class _MyNearViewState extends State<MyNearView> {
             restaurantName: "restaurants[restaurantIndexOnMap].name",
             distance: "4m",
             packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
-            availableTime: '2',
+            availableTime: '2', minDiscountedOrderPrice: null, minOrderPrice: null, onPressed: () {  },
           ),
         ));
   }
@@ -263,7 +263,7 @@ class _MyNearViewState extends State<MyNearView> {
             border: Border.all(
               width: 1.0,
               color: AppColors.borderAndDividerColor,
-            ),
+            ), minDiscountedOrderPrice: null, minOrderPrice: null, onPressed: () {  },
           );
         });
   }
