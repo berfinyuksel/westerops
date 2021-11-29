@@ -209,7 +209,7 @@ class Calendar {
   factory Calendar.fromJson(Map<String, dynamic> json) => Calendar(
         id: json["id"],
         startDate: json["start_date"] == null ? null : json["start_date"],
-        endDate: json["detail"] == null ? null : json["detail"],
+        endDate: json["end_date"] == null ? null : json["end_date"],
         store: json["store"],
         isActive: json["is_active"],
         boxCount: json["box_count"],

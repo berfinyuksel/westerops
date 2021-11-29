@@ -47,6 +47,19 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
         shrinkWrap: true,
         itemCount: widget.restaurant!.calendar!.length,
         itemBuilder: (context, index) {
+          print('aaaaaaaaaaa');
+
+          DateTime startOfRes =
+              DateTime.parse(widget.restaurant!.calendar![index].startDate!);
+          print(startOfRes);
+
+          DateTime endOfRes =
+              DateTime.parse(widget.restaurant!.calendar![index].endDate!)
+                  .toLocal();
+
+          print(widget.restaurant!.calendar![index].endDate!);
+          print(endOfRes);
+
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.06),
@@ -54,15 +67,13 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
               title: LocaleText(
-                text: buildDateFormatOfTheDay(DateTime.parse(
-                    widget.restaurant!.calendar![index].startDate!)),
+                text: buildDateFormatOfTheDay(startOfRes),
                 style: AppTextStyles.subTitleStyle
                     .copyWith(fontWeight: FontWeight.normal),
                 alignment: TextAlign.start,
               ),
               subtitle: LocaleText(
-                text: buildWeekdayOftheDate(DateTime.parse(
-                    widget.restaurant!.calendar![index].startDate!)),
+                text: buildWeekdayOftheDate(startOfRes),
                 style: AppTextStyles.bodyTextStyle
                     .copyWith(fontWeight: FontWeight.bold),
                 alignment: TextAlign.start,
@@ -73,12 +84,7 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
                     height: context.dynamicHeight(0.03),
                   ),
                   LocaleText(
-                    text: buildHourForTheDate(
-                      DateTime.parse(
-                          widget.restaurant!.calendar![index].startDate!),
-                      DateTime.parse(
-                          widget.restaurant!.calendar![index].endDate!),
-                    ),
+                    text: buildHourForTheDate(startOfRes, startOfRes),
                     style: AppTextStyles.bodyTextStyle
                         .copyWith(fontWeight: FontWeight.bold),
                     alignment: TextAlign.start,

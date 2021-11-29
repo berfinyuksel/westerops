@@ -73,10 +73,11 @@ class _FilteredViewState extends State<FilteredView> {
         itemCount: restaurants.length,
         itemBuilder: (context, index) {
           return RestaurantInfoListTile(
-            deliveryType: 1,
+            deliveryType:
+                int.parse(restaurants[index].packageSettings!.deliveryType!),
             icon: restaurants[index].photo,
             restaurantName: restaurants[index].name,
-            distance: "m",
+            distance: "1000",
             packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
             availableTime: '1',
             border: Border.all(
