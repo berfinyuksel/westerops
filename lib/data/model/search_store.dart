@@ -104,7 +104,7 @@ class SearchStore {
         status: json["status"],
         cancelCount: json["cancel_count"],
         createdAt: DateTime.parse(json["created_at"]),
-        avgReview: json["avg_review"].toDouble(),
+        avgReview: json["avg_review"]?.toDouble() ?? 0.0,
         latitude: json["latitude"].toDouble(),
         longitude: json["longitude"].toDouble(),
       );
