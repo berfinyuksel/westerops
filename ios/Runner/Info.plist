@@ -23,7 +23,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1202304370225011</string>
+				<string>fb1062589017874599</string>
 			</array>
 		</dict>
 		<dict>
@@ -38,9 +38,9 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>1202304370225011</string>
+	<string>1062589017874599</string>
 	<key>FacebookDisplayName</key>
-	<string>dongu_mobile</string>
+	<string>Dongu</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

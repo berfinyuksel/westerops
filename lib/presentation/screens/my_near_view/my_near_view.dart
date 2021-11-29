@@ -254,14 +254,14 @@ class _MyNearViewState extends State<MyNearView> {
         itemCount: restaurants.length,
         itemBuilder: (context, index) {
           String? startTime = restaurants[index]
-                  .calendar?[0]
-                  .startDate
+                  .packageSettings!
+                  .deliveryTimeStart
                   ?.toString()
                   .split("T")[1] ??
               '-';
           String? endTime = restaurants[index]
-                  .calendar?[0]
-                  .endDate
+                  .packageSettings!
+                  .deliveryTimeStart
                   ?.toString()
                   .split("T")[1] ??
               '-';

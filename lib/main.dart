@@ -21,6 +21,7 @@ import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/sort_filters_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/social_login_cubit/social_login_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
@@ -133,6 +134,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
         BlocProvider<OrderBarCubit>(create: (_) => OrderBarCubit()),
+        BlocProvider<SocialLoginCubit>(create: (_) => SocialLoginCubit()),
         BlocProvider<SumPriceOrderCubit>(create: (_) => SumPriceOrderCubit()),
         BlocProvider<SortFilterCubit>(create: (_) => SortFilterCubit()),
         BlocProvider<SearchLocationCubit>(

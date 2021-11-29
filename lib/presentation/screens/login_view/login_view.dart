@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/services/facebook_login_controller.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/social_login_cubit/social_login_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -360,6 +362,10 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Padding buildSocialAuths(BuildContext context) {
+    /*    if (SharedPrefs.getIsLogined) {
+      context.read<SocialLoginCubit>().loggedIn(true);
+    } */
+    print("constructed page");
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: Row(
@@ -376,7 +382,8 @@ class _LoginViewState extends State<LoginView> {
           ),
           GestureDetector(
             onTap: () {
-              //  AuthService.loginWithFacebook();
+              FacebookSignInController().login();
+              Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
