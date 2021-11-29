@@ -33,8 +33,11 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
     String? dateOfNowStringCalendar;
     print(dateOfNow);
     for (var i = 0; i < widget.restaurant!.calendar!.length; i++) {
-      List<String> listOfStoreCalendar =
-          widget.restaurant!.calendar![i].startDate!.split("T").toList();
+      List<String> listOfStoreCalendar = widget
+          .restaurant!.calendar![i].startDate!
+          .toString()
+          .split("T")
+          .toList();
       if (listOfStoreCalendar[0] == dateOfNow[0]) {
         dateOfNowStringCalendar = listOfStoreCalendar[0];
       }

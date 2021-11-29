@@ -27,6 +27,7 @@ class RestaurantInfoListTile extends StatefulWidget {
   final String? icon;
   final int? minOrderPrice;
   final int? minDiscountedOrderPrice;
+  final int? deliveryType;
 
   const RestaurantInfoListTile({
     Key? key,
@@ -37,6 +38,7 @@ class RestaurantInfoListTile extends StatefulWidget {
     @required this.onPressed,
     @required this.minOrderPrice,
     @required this.minDiscountedOrderPrice,
+    @required this.deliveryType,
     this.border,
     this.icon,
   }) : super(key: key);
@@ -83,7 +85,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Meters(
-          distance: distance,
+          distance: "${(double.parse(distance) / 1000).toStringAsFixed(2)}",
         ),
         Spacer(flex: 1),
         AvailableTime(
@@ -104,6 +106,19 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
   }
 
   Column buildSecondColumn(BuildContext context, String restaurantName) {
+    bool deliveryTypeForCourier = false;
+    bool deliveryTypeForGetIt = true;
+
+    if (widget.deliveryType == 1) {
+      deliveryTypeForGetIt = true;
+      deliveryTypeForCourier = false;
+    } else if (widget.deliveryType == 2) {
+      deliveryTypeForGetIt = false;
+      deliveryTypeForCourier = true;
+    } else {
+      deliveryTypeForGetIt = true;
+      deliveryTypeForCourier = true;
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -118,12 +133,32 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
         Spacer(flex: 1),
         GradeAndLocation(),
         Spacer(flex: 1),
-        PackageDelivery(
-          width: context.dynamicWidht(0.1),
-          height: context.dynamicHeight(0.03),
-          image: ImageConstant.RESTAURANT_PACKAGE_ICON,
-          color: Colors.white,
-          backgroundColor: AppColors.greenColor,
+        Row(
+          children: [
+            Visibility(
+              visible: deliveryTypeForCourier,
+              child: PackageDelivery(
+                width: context.dynamicWidht(0.1),
+                height: context.dynamicHeight(0.03),
+                image: ImageConstant.COMMONS_CARRIER_ICON,
+                color: Colors.white,
+                backgroundColor: AppColors.greenColor,
+              ),
+            ),
+            SizedBox(
+              width: 3,
+            ),
+            Visibility(
+              visible: deliveryTypeForGetIt,
+              child: PackageDelivery(
+                width: context.dynamicWidht(0.1),
+                height: context.dynamicHeight(0.03),
+                image: ImageConstant.RESTAURANT_PACKAGE_ICON,
+                color: Colors.white,
+                backgroundColor: AppColors.greenColor,
+              ),
+            ),
+          ],
         ),
       ],
     );

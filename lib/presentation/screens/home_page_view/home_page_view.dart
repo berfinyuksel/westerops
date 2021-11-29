@@ -276,28 +276,32 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Widget buildOrderStatusBar() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed(RouteConstant.PAST_ORDER_VIEW);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        height: 93,
-        color: AppColors.greenColor,
-        child: Builder(builder: (context) {
-          final stateOfOrder = context.watch<OrderReceivedCubit>().state;
+    return Builder(builder: (context) {
+      final stateOfOrder = context.watch<OrderReceivedCubit>().state;
 
-          if (stateOfOrder is GenericInitial) {
-            return Container();
-          } else if (stateOfOrder is GenericLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else if (stateOfOrder is GenericCompleted) {
-            List<OrderReceived> orderInfo = [];
-            for (var i = 0; i < stateOfOrder.response.length; i++) {
-              orderInfo.add(stateOfOrder.response[i]);
-            }
+      if (stateOfOrder is GenericInitial) {
+        return Container();
+      } else if (stateOfOrder is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (stateOfOrder is GenericCompleted) {
+        List<OrderReceived> orderInfo = [];
+        for (var i = 0; i < stateOfOrder.response.length; i++) {
+          orderInfo.add(stateOfOrder.response[i]);
+        }
 
-            return Row(
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context)
+                .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      orderInfo: orderInfo.last,
+                    ));
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            height: 93,
+            color: AppColors.greenColor,
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
@@ -342,14 +346,14 @@ class _HomePageViewState extends State<HomePageView> {
                   color: Colors.white,
                 ),
               ],
-            );
-          } else {
-            final error = stateOfOrder as GenericError;
-            return Center(child: Text("${error.message}\n${error.statusCode}"));
-          }
-        }),
-      ),
-    );
+            ),
+          ),
+        );
+      } else {
+        final error = stateOfOrder as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
   Container buildListViewNearMe(

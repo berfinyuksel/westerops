@@ -520,6 +520,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
           color: Colors.white,
           child: RestaurantInfoListTile(
+            deliveryType: 3,
             restaurantName: "Mini Burger",
             distance: "74m",
             packetNumber: "4 paket",

@@ -10,6 +10,7 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
+import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/first_column/packet_number.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 
 import 'package:dongu_mobile/utils/haversine.dart';
@@ -46,6 +47,7 @@ class _MyNearViewState extends State<MyNearView> {
   late BitmapDescriptor markerIcon;
   late BitmapDescriptor restaurantMarkerIcon;
   late BitmapDescriptor restaurantSoldoutMarkerIcon;
+  late BitmapDescriptor packetNumberContainer;
 
   final MarkerId markerId = MarkerId("my_location");
   final MarkerId restaurantMarkerId = MarkerId("rest_1");
@@ -57,7 +59,8 @@ class _MyNearViewState extends State<MyNearView> {
 
   bool isShowOnMap = false;
   bool isShowBottomInfo = false;
-  bool restaurantInfo = true;
+  bool isShowOnList = true;
+  bool isShowPacketNumber = false;
   List<SearchStore> restaurants = [];
   List<double> distances = [];
   List<SearchStore> mapsMarkers = [];
@@ -109,7 +112,7 @@ class _MyNearViewState extends State<MyNearView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        List<double> getDistance = [];
+        //List<double> getDistance = [];
         List<SearchStore> getrestaurants = [];
 
         for (int i = 0; i < state.response.length; i++) {
@@ -118,7 +121,7 @@ class _MyNearViewState extends State<MyNearView> {
 
         mapsMarkers = getrestaurants;
 
-        return buildBody(context, getrestaurants, getDistance);
+        return buildBody(context, getrestaurants, distances);
         // for (int i = 0; i < state.response[0].results.length; i++) {
         //   if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
         //     restaurants.add(state.response[0].results[i]);
@@ -137,7 +140,7 @@ class _MyNearViewState extends State<MyNearView> {
   }
 
   Column buildBody(BuildContext context, List<SearchStore> getrestaurants,
-      List<double> getDistance) {
+      List<double> distances) {
     return Column(
       children: [
         buildTitlesAndSearchBar(context),
@@ -200,18 +203,18 @@ class _MyNearViewState extends State<MyNearView> {
                   Visibility(
                       visible: isShowBottomInfo,
                       child:
-                          buildBottomInfo(context, getrestaurants, distances))
+                          buildBottomInfo(context, getrestaurants, distances)),
                 ],
               ),
             ),
           ),
         ),
         Visibility(
-          visible: restaurantInfo,
+          visible: isShowOnList,
           child: Expanded(
             child: Container(
               height: context.dynamicHeight(0.54),
-              child: buildListViewRestaurantInfo(getrestaurants, getDistance),
+              child: buildListViewRestaurantInfo(getrestaurants, distances),
             ),
           ),
         ),
@@ -219,9 +222,34 @@ class _MyNearViewState extends State<MyNearView> {
     );
   }
 
+  String? packettNumber(List<SearchStore> getrestaurants) {
+    for (int j = 0; j < getrestaurants.length; j++) {
+      if (getrestaurants[j].calendar == null) {
+        return "tükendi";
+      } else if (getrestaurants[j].calendar != null) {
+        for (int i = 0; i < getrestaurants[j].calendar!.length; i++) {
+          var boxcount = getrestaurants[j].calendar![i].boxCount;
+
+          String now = DateTime.now().toIso8601String();
+          List<String> currentDate = now.split("T").toList();
+          //print(currentDate[0]);
+          List<String> startDate =
+              getrestaurants[j].calendar![i].startDate!.split("T").toList();
+          if (currentDate[0] == startDate[0]) {
+            if (getrestaurants[j].calendar![i].boxCount != 0) {
+              return "${boxcount.toString()} paket";
+            } else if (getrestaurants[j].calendar![i].boxCount == null ||
+                getrestaurants[j].calendar![i].boxCount == 0) {
+              return "tükendi";
+            }
+          }
+        }
+      }
+    }
+  }
+
   Positioned buildBottomInfo(BuildContext context,
       List<SearchStore> getrestaurants, List<double> distances) {
-    print(getrestaurants);
     // String startTime =
     //     restaurants[restaurantIndexOnMap].calendar![0].startDate!.split("T")[1];
     // String endTime =
@@ -240,13 +268,23 @@ class _MyNearViewState extends State<MyNearView> {
           padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
           color: Colors.white,
           child: RestaurantInfoListTile(
-            icon: "getrestaurants[restaurantIndexOnMap].photo",
-            restaurantName: "getrestaurants[restaurantIndexOnMap].name",
-            distance: "4m",
-            packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
+            deliveryType: 3,
+            icon: getrestaurants[restaurantIndexOnMap].photo,
+            restaurantName: getrestaurants[restaurantIndexOnMap].name,
+            distance: Haversine.distance(
+                    getrestaurants[restaurantIndexOnMap].latitude!,
+                    getrestaurants[restaurantIndexOnMap].longitude,
+                    LocationService.latitude,
+                    LocationService.longitude)
+                .toString(),
+            packetNumber: packettNumber(getrestaurants) ?? "tükendi",
             availableTime: '2',
-            minDiscountedOrderPrice: 0,
-            minOrderPrice: 0,
+            minDiscountedOrderPrice: getrestaurants[restaurantIndexOnMap]
+                .packageSettings
+                ?.minDiscountedOrderPrice,
+            minOrderPrice: getrestaurants[restaurantIndexOnMap]
+                .packageSettings
+                ?.minOrderPrice,
             onPressed: () {},
           ),
         ));
@@ -295,40 +333,78 @@ class _MyNearViewState extends State<MyNearView> {
   }
 
   ListView buildListViewRestaurantInfo(
-      List<SearchStore> getrestaurants, List<double> getDistance) {
+      List<SearchStore> getrestaurants, List<double> distances) {
     print("Search Store: ${getrestaurants.length}");
-    print("Distance: ${getDistance.length}");
+    print("Distance: ${distances.length}");
     return ListView.builder(
         itemCount: getrestaurants.length,
         itemBuilder: (context, index) {
-          var boxcount = getrestaurants[index].calendar!.first.boxCount;
-          return RestaurantInfoListTile(
-            minDiscountedOrderPrice:
-                getrestaurants[index].packageSettings!.minDiscountedOrderPrice,
-            minOrderPrice: getrestaurants[index].packageSettings!.minOrderPrice,
-            onPressed: () {
-              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                  arguments: ScreenArgumentsRestaurantDetail(
-                    restaurant: getrestaurants[index],
-                  ));
-            },
-            icon: getrestaurants[index].photo,
-            restaurantName: getrestaurants[index].name,
-            // distance: "${(double.parse(distance) / 1000).toStringAsFixed(2)}",
-            distance: (Haversine.distance(
+          return Container(
+            child: Builder(builder: (context) {
+              String? packettNumber() {
+                if (getrestaurants[index].calendar == null) {
+                  return "tükendi";
+                } else if (getrestaurants[index].calendar != null) {
+                  for (int i = 0;
+                      i < getrestaurants[index].calendar!.length;
+                      i++) {
+                    var boxcount = getrestaurants[index].calendar![i].boxCount;
+
+                    String now = DateTime.now().toIso8601String();
+                    List<String> currentDate = now.split("T").toList();
+                    print(currentDate[0]);
+                    List<String> startDate = getrestaurants[index]
+                        .calendar![i]
+                        .startDate!
+                        .split("T")
+                        .toList();
+
+                    if (currentDate[0] == startDate[0]) {
+                      if (getrestaurants[index].calendar![i].boxCount != 0) {
+                        return "${boxcount.toString()} paket";
+                      } else if (getrestaurants[index].calendar![i].boxCount ==
+                              null ||
+                          getrestaurants[index].calendar![i].boxCount == 0) {
+                        return "tükendi";
+                      }
+                    }
+                  }
+                }
+              }
+
+              return RestaurantInfoListTile(
+                deliveryType: 3,
+                minDiscountedOrderPrice: getrestaurants[index]
+                    .packageSettings!
+                    .minDiscountedOrderPrice,
+                minOrderPrice:
+                    getrestaurants[index].packageSettings!.minOrderPrice,
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                      arguments: ScreenArgumentsRestaurantDetail(
+                        restaurant: getrestaurants[index],
+                      ));
+                },
+                icon: getrestaurants[index].photo,
+                restaurantName: getrestaurants[index].name,
+                // distance: (Haversine.distance(
+                //             getrestaurants[index].latitude!,
+                //             getrestaurants[index].longitude,
+                //             LocationService.latitude,
+                //             LocationService.longitude) /
+                //         1000)
+                //     .toStringAsFixed(2),
+                distance: Haversine.distance(
                         getrestaurants[index].latitude!,
                         getrestaurants[index].longitude,
                         LocationService.latitude,
-                        LocationService.longitude) /
-                    1000)
-                .toStringAsFixed(2),
-            packetNumber: "1 paket",
-            // getrestaurants[index].calendar?.first.boxCount == null &&
-            //         getrestaurants[index].calendar!.first.boxCount == 0
-            //     ? "tükendi"
-            //     : "${boxcount.toString()} paket",
-            availableTime:
-                '${getrestaurants[index].packageSettings!.deliveryTimeStart} - ${getrestaurants[index].packageSettings!.deliveryTimeEnd}',
+                        LocationService.longitude)
+                    .toString(),
+                packetNumber: packettNumber() ?? "tükendi",
+                availableTime:
+                    '${getrestaurants[index].packageSettings!.deliveryTimeStart} - ${getrestaurants[index].packageSettings!.deliveryTimeEnd}',
+              );
+            }),
           );
         });
   }
@@ -347,7 +423,7 @@ class _MyNearViewState extends State<MyNearView> {
           onTap: () {
             setState(() {
               isShowOnMap = !isShowOnMap;
-              restaurantInfo = !restaurantInfo;
+              isShowOnList = !isShowOnList;
               _mapController = Completer<GoogleMapController>();
               setCustomMarker();
             });
@@ -413,6 +489,7 @@ class _MyNearViewState extends State<MyNearView> {
         ImageConstant.COMMONS_RESTAURANT_MARKER);
     restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
         ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
+    //packetNumberContainer = await _bitmapDescriptorFromWidget(assetName);
     getLocation();
   }
 
@@ -469,9 +546,12 @@ class _MyNearViewState extends State<MyNearView> {
         position: LatLng(mylatitude, mylongitude),
       );
       markers[markerId] = marker;
+
       for (int i = 0; i < mapsMarkers.length; i++) {
         print("AAAAA ${mapsMarkers[i].latitude!}");
         print("BBBBB ${mapsMarkers[i].longitude!}");
+
+        final restMarkerIcons = packettNumber(mapsMarkers);
 
         Marker restMarker = Marker(
           onTap: () {
@@ -481,7 +561,9 @@ class _MyNearViewState extends State<MyNearView> {
             });
           },
           infoWindow: InfoWindow(title: mapsMarkers[i].name),
-          icon: restaurantMarkerIcon,
+          icon: restMarkerIcons == "tükendi"
+              ? restaurantSoldoutMarkerIcon
+              : restaurantMarkerIcon,
           markerId: MarkerId("rest_$i"),
           position: LatLng(mapsMarkers[i].latitude!, mapsMarkers[i].longitude!),
         );

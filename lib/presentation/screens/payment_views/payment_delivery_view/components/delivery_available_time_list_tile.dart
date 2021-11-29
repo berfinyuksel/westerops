@@ -12,7 +12,7 @@ import '../../../../widgets/text/locale_text.dart';
 import 'delivery_available_time.dart';
 
 class DeliveryAvailableTimeListTile extends StatelessWidget {
-  List<StoreCourierHours>? chosenRestaurantList;
+  final List<StoreCourierHours>? chosenRestaurantList;
 
   DeliveryAvailableTimeListTile({Key? key, this.chosenRestaurantList})
       : super(key: key);

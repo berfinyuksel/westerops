@@ -7,6 +7,7 @@ import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
+import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -253,31 +254,75 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     );
   }
 
-  ListView buildListViewRestaurantInfo(
+  Widget buildListViewRestaurantInfo(
     List<SearchStore> favouriteRestaurant,
   ) {
     return ListView.builder(
         itemCount: favouriteRestaurant.length,
         itemBuilder: (context, index) {
-          return RestaurantInfoListTile(
-            minDiscountedOrderPrice: favouriteRestaurant[index]
-                .packageSettings!
-                .minDiscountedOrderPrice,
-            minOrderPrice:
-                favouriteRestaurant[index].packageSettings!.minOrderPrice,
-            onPressed: () {
-              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                  arguments: ScreenArgumentsRestaurantDetail(
-                    restaurant: favouriteRestaurant[index],
-                  ));
-            },
-            icon: favouriteRestaurant[index].photo,
-            restaurantName: favouriteRestaurant[index].name,
-            distance: favouriteRestaurant[index].distanceFromStore,
-            packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
-            availableTime:
-                '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
-          );
+          return Container(child: Builder(builder: (context) {
+            String? packettNumber() {
+              if (favouriteRestaurant[index].calendar == null) {
+                return "tükendi";
+              } else if (favouriteRestaurant[index].calendar != null) {
+                for (int i = 0;
+                    i < favouriteRestaurant[index].calendar!.length;
+                    i++) {
+                  var boxcount =
+                      favouriteRestaurant[index].calendar![i].boxCount;
+
+                  String now = DateTime.now().toIso8601String();
+                  List<String> currentDate = now.split("T").toList();
+                  print(currentDate[0]);
+                  List<String> startDate = favouriteRestaurant[index]
+                      .calendar![i]
+                      .startDate!
+                      .split("T")
+                      .toList();
+
+                  if (currentDate[0] == startDate[0]) {
+                    if (favouriteRestaurant[index].calendar![i].boxCount != 0) {
+                      return "${boxcount.toString()} paket";
+                    } else if (favouriteRestaurant[index]
+                                .calendar![i]
+                                .boxCount ==
+                            null ||
+                        favouriteRestaurant[index].calendar![i].boxCount == 0) {
+                      return "tükendi";
+                    }
+                  }
+                }
+              }
+            }
+
+            return RestaurantInfoListTile(
+              deliveryType: int.parse(
+                  favouriteRestaurant[index].packageSettings!.deliveryType ??
+                      '3'),
+              minDiscountedOrderPrice: favouriteRestaurant[index]
+                  .packageSettings!
+                  .minDiscountedOrderPrice,
+              minOrderPrice:
+                  favouriteRestaurant[index].packageSettings!.minOrderPrice,
+              onPressed: () {
+                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      restaurant: favouriteRestaurant[index],
+                    ));
+              },
+              icon: favouriteRestaurant[index].photo,
+              restaurantName: favouriteRestaurant[index].name,
+              distance: Haversine.distance(
+                      favouriteRestaurant[index].latitude!,
+                      favouriteRestaurant[index].longitude,
+                      LocationService.latitude,
+                      LocationService.longitude)
+                  .toStringAsFixed(2),
+              packetNumber: packettNumber() ?? "tükendi",
+              availableTime:
+                  '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
+            );
+          }));
         });
   }
 
@@ -375,6 +420,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
           color: Colors.white,
           child: RestaurantInfoListTile(
+            deliveryType: 3,
             onPressed: () {},
             restaurantName: "Mini Burger",
             distance: "74m",

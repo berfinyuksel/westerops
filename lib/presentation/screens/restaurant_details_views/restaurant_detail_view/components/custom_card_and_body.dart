@@ -64,6 +64,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   List<int> sumOfPricesInt = [];
   int? priceOfMenu = null ?? 0;
   List<String>? favouritedRestaurants = SharedPrefs.getFavorites;
+  String mealNames = '';
 
   TabController? _controller;
   @override
@@ -75,7 +76,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     context.read<SearchStoreCubit>().getSearchStore();
     context.read<FavoriteCubit>().getFavorite();
     // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
-    print(widget.restaurant!.id!);
   }
 
   @override
@@ -111,9 +111,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        print(state.response);
-        print(state.response.length);
-
         //print(state.response[0].description);
         return Center(child: customBody(context, state));
       } else {
@@ -366,7 +363,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           nameList.add(relatedCategories[i].name!);
         }
         String categoryNames = nameList.join(', ');
-        print(categoryNames);
+
         return GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
@@ -402,7 +399,20 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   }
 
   ListView tabPackages(BuildContext context, GenericCompleted state) {
-    //column
+    List<Box> boxLists = [];
+    for (var i = 0; i < state.response.length; i++) {
+      boxLists.add(state.response[i]);
+    }
+    List<Box> surpriseBoxes = [];
+    List<Box> definedBoxess = [];
+    for (var i = 0; i < boxLists.length; i++) {
+      if (boxLists[i].defined == false) {
+        surpriseBoxes.add(boxLists[i]);
+      } else {
+        definedBoxess.add(boxLists[i]);
+      }
+    }
+
     return ListView(
       children: [
         SizedBox(
@@ -462,12 +472,16 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           ],
         ),
         SizedBox(height: context.dynamicHeight(0.02)),
+        Visibility(
+            visible: surpriseBoxes.isEmpty,
+            child: Center(
+              child: Text('Surpriz paket bulunmamaktadir'),
+            )),
         ListView.builder(
-          itemCount: state.response
+          itemCount: surpriseBoxes
               .length, //widget.restaurant!.boxes!.length,//state.response.lenght
           itemBuilder: (context, index) {
-            print(state.response.length);
-            return buildBox(context, index, state);
+            return buildBox(context, index, state, surpriseBoxes);
           },
           physics: NeverScrollableScrollPhysics(),
           //   primary: false,
@@ -495,13 +509,23 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ],
           ),
         ),
+        SizedBox(height: context.dynamicHeight(0.02)),
+        Visibility(
+            visible: definedBoxess.isEmpty,
+            child: Center(
+              child: Text('Tanimli paket bulunmamaktadir'),
+            )),
         ListView.builder(
-          itemCount: definedBoxes.length,
+          itemCount: definedBoxess.length,
           itemBuilder: (context, index) {
-            return buildDefinedBox(context, index, definedBoxes, state);
+            return buildBox(context, index, state, definedBoxess);
           },
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
         ),
+        SizedBox(
+          height: 125,
+        )
       ],
     );
   }
@@ -523,11 +547,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 LocaleText(
-                  text: "${state.response[index].text_name}",
+                  text: "${definedBoxes[index].textName}",
                   style: AppTextStyles.myInformationBodyTextStyle,
                 ),
                 LocaleText(
-                  text: widget.boxes!.description.toString()[index],
+                  text: definedBoxes[index].description ?? '',
                   style: AppTextStyles.subTitleStyle,
                   maxLines: 2,
                 ),
@@ -552,9 +576,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     BuildContext context,
     int index,
     GenericCompleted state,
+    List<Box> surpriseBoxes,
   ) {
-    print("RESPONE :  ${state.response[0].textName}");
-
+    List<String> meals = [];
+    if (surpriseBoxes[index].meals!.isNotEmpty) {
+      for (var i = 0; i < surpriseBoxes[index].meals!.length; i++) {
+        meals.add(surpriseBoxes[index].meals![i].name!);
+      }
+      mealNames = meals.join(', ');
+    }
     return Container(
       //alignment: Alignment(-0.8, 0.0),
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
@@ -572,11 +602,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 height: context.dynamicHeight(0.021),
               ),
               Text(
-                "${state.response[index].textName}",
+                "${surpriseBoxes[index].textName}",
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               LocaleText(
-                text: "Paketin Tanımlanmasına Kalan Süre: 0}",
+                text: surpriseBoxes[index].defined == false
+                    ? 'Paketin Tanimlanmasina Kalan Sure : 0'
+                    : mealNames,
                 style: AppTextStyles.subTitleStyle,
               ),
               SizedBox(height: context.dynamicHeight(0.020)),
@@ -817,7 +849,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     int totalMealPoints =
         mealPoints.fold(0, (previousValue, element) => previousValue + element);
 
-    String avgMealPoint = (totalMealPoints / widget.restaurant!.review!.length)
+    String? avgMealPoint = (totalMealPoints / widget.restaurant!.review!.length)
         .toStringAsFixed(1);
     return Row(
       children: [
@@ -830,8 +862,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         CustomCircularProgress(
           valueColor: AppColors.cursorColor,
-          ratingText: avgMealPoint,
-          value: double.parse(avgMealPoint) / 5.0,
+          ratingText: mealPoints.isNotEmpty ? avgMealPoint : '0.0',
+          value: mealPoints.isNotEmpty ? double.parse(avgMealPoint) / 5.0 : 0.0,
         )
         /*SvgPicture.asset(ImageConstant.RESTAURANT_FOOD_RATING_ICON),*/
       ],
@@ -861,8 +893,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         CustomCircularProgress(
           valueColor: AppColors.pinkColor,
-          ratingText: avgQualityPoint,
-          value: double.parse(avgQualityPoint) / 5,
+          ratingText: qualityPoints.isNotEmpty ? avgQualityPoint : '0.0',
+          value: qualityPoints.isNotEmpty
+              ? double.parse(avgQualityPoint) / 5
+              : 0.0,
         ),
       ],
     );
@@ -890,9 +924,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           width: context.dynamicWidht(0.02),
         ),
         CustomCircularProgress(
-          value: double.parse(avgServicePoint) / 5,
+          value: servicePoints.isNotEmpty
+              ? double.parse(avgServicePoint) / 5
+              : 0.0,
           valueColor: AppColors.greenColor,
-          ratingText: avgServicePoint,
+          ratingText: servicePoints.isNotEmpty ? avgServicePoint : '0.0',
         ),
       ],
     );
@@ -1129,7 +1165,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 if (stateOfFavorites is GenericInitial) {
                   return Container();
                 } else if (stateOfFavorites is GenericLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(
+                      child: SvgPicture.asset(
+                          ImageConstant.RESTAURANT_FAVORITE_ICON));
                 } else if (stateOfFavorites is GenericCompleted) {
                   for (var i = 0; i < stateOfFavorites.response.length; i++) {
                     if (stateOfFavorites.response[i].id ==

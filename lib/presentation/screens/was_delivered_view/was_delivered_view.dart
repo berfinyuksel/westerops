@@ -101,7 +101,6 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                             arguments: ScreenArgumentsRestaurantDetail(
                               orderInfo: widget.orderInfo,
                             ));
-                    Navigator.of(context).pop();
                   },
                 ),
                 Spacer(
