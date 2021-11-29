@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,11 +22,16 @@ class SortFilterList extends StatefulWidget {
 class _SortFilterListState extends State<SortFilterList> {
   // List<bool> checkList = [false,false,false];
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       final FiltersState state = context.watch<FiltersCubit>().state;
 
-    return  CustomExpansionTile(
+      return CustomExpansionTile(
           expansionTileBody: Padding(
             padding: EdgeInsets.only(left: context.dynamicWidht(0.074)),
             child: Column(
@@ -40,24 +47,24 @@ class _SortFilterListState extends State<SortFilterList> {
                 SizedBox(height: context.dynamicHeight(0.016)),
                 buildRowCheckboxAndText(
                     context, LocaleKeys.filters_sort_item2, "Favorites", () {
-                      setState(() {
-                        state.checkList![1] = !state.checkList![1];
-                      });
-                    }),
+                  setState(() {
+                    state.checkList![1] = !state.checkList![1];
+                  });
+                }),
                 SizedBox(height: context.dynamicHeight(0.016)),
-                buildRowCheckboxAndText(context, LocaleKeys.filters_sort_item3,
-                    "User Point", () {
-                      setState(() {
-                        state.checkList![2] = !state.checkList![2];
-                      });
-                    }),
+                buildRowCheckboxAndText(
+                    context, LocaleKeys.filters_sort_item3, "User Point", () {
+                  setState(() {
+                    state.checkList![2] = !state.checkList![2];
+                  });
+                }),
                 SizedBox(height: context.dynamicHeight(0.016)),
                 buildRowCheckboxAndText(
                     context, LocaleKeys.filters_sort_item4, "New Guest", () {
-                      setState(() {
-                        state.checkList![3] = !state.checkList![3];
-                      });
-                    }),
+                  setState(() {
+                    state.checkList![3] = !state.checkList![3];
+                  });
+                }),
                 SizedBox(height: context.dynamicHeight(0.030)),
               ],
             ),
@@ -87,15 +94,26 @@ class _SortFilterListState extends State<SortFilterList> {
 
       return CustomCheckbox(
         onTap: () {
+
           setState(() {
             if (checkValue == "Sort by Distance") {
               state.checkList![0] = !state.checkList![0];
+        SharedPrefs.setSortByDistance(state.checkList![0]);
+
             } else if (checkValue == "Favorites") {
               state.checkList![1] = !state.checkList![1];
+        SharedPrefs.setMyFavorites(checkValue);
+
+              // if (state.checkList![1] = true) {
+              // context.watch<FavoriteCubit>().getFavorite();
+              // }
             } else if (checkValue == "User Point") {
               state.checkList![2] = !state.checkList![2];
+              SharedPrefs.setUserRating(checkValue);
+
             } else {
               state.checkList![3] = !state.checkList![3];
+              SharedPrefs.setNewUser(checkValue);
             }
           });
         },

@@ -9,7 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../utils/extensions/context_extension.dart';
 
-class CustomAlertDialogSuccessfullyChangedPassword extends StatelessWidget {
+class CustomAlertDialogResetPassword extends StatelessWidget {
+  const CustomAlertDialogResetPassword({
+    Key? key,
+    required this.description, required this.onPressed,
+  }) : super(key: key);
+  final String description;
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -36,7 +42,7 @@ class CustomAlertDialogSuccessfullyChangedPassword extends StatelessWidget {
               flex: 5,
             ),
             LocaleText(
-              text: LocaleKeys.forgot_password_successfully_changed,
+              text: description,
               style: AppTextStyles.bodyBoldTextStyle,
               alignment: TextAlign.center,
             ),
@@ -60,9 +66,7 @@ class CustomAlertDialogSuccessfullyChangedPassword extends StatelessWidget {
       textColor: Colors.white,
       borderColor: AppColors.greenColor,
       title: LocaleKeys.forgot_password_ok,
-      onPressed: () {
-        Navigator.popAndPushNamed(context, RouteConstant.LOGIN_VIEW);
-      },
+      onPressed: onPressed,
     );
   }
 }

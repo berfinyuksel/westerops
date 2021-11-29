@@ -69,7 +69,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     context.read<SearchStoreCubit>().getSearchStore();
     context.read<FavoriteCubit>().getFavorite();
     // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
-    print(widget.restaurant!.id!);
+    print("BOXES : ${widget.restaurant!.boxes}");
   }
 
   @override
@@ -592,7 +592,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       ),
                     ],
                   );
-                  ;
                 } else {
                   final error = stateOfSearchStore as GenericError;
                   return Center(

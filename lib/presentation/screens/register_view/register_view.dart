@@ -230,7 +230,7 @@ class _RegisterViewState extends State<RegisterView> {
                       firstName,
                       lastName,
                       emailController.text,
-                      phoneController.text,
+                      phoneTR,
                       passwordController.text);
                   _showMyDialog();
                   //Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);

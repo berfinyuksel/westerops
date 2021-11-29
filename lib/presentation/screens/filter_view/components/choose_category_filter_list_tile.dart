@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,9 +36,10 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
                 children: [
                   SizedBox(height: context.dynamicHeight(0.01)),
                   buildRowCheckboxAndText(
-                      context, LocaleKeys.filters_choose_category_item9, "All", (){
-                        setState(() {
-                            state.checkList![16] = !state.checkList![16];
+                      context, LocaleKeys.filters_choose_category_item9, "All",
+                      () {
+                    setState(() {
+                      state.checkList![16] = !state.checkList![16];
                       state.checkList![10] = !state.checkList![10];
                       state.checkList![11] = !state.checkList![11];
                       state.checkList![12] = !state.checkList![12];
@@ -46,96 +48,70 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
                       state.checkList![15] = !state.checkList![15];
                       state.checkList![9] = !state.checkList![9];
                       state.checkList![8] = !state.checkList![8];
-                        });
-                      }),
+                    });
+                  }),
                   SizedBox(height: context.dynamicHeight(0.016)),
                   buildRowCheckboxAndText(
                     context,
                     LocaleKeys.filters_choose_category_item1,
-                    "Main Course",(){
+                    "Main Course",
+                    () {
                       setState(() {
-                state.checkList![8] = !state.checkList![8];
-                        
+                        state.checkList![8] = !state.checkList![8];
                       });
                     },
                   ),
                   SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(
-                    context,
-                    LocaleKeys.filters_choose_category_item2,
-                    "Drinks",(){
-                      setState(() {
-                state.checkList![9] = !state.checkList![9];
-                        
-                      });
-                    }
-                  ),
+                  buildRowCheckboxAndText(context,
+                      LocaleKeys.filters_choose_category_item2, "7", () {
+                    setState(() {
+                      state.checkList![9] = !state.checkList![9];
+                    });
+                  }),
+                  SizedBox(height: context.dynamicHeight(0.016)),
+                  buildRowCheckboxAndText(context,
+                      LocaleKeys.filters_choose_category_item3, "6", () {
+                    setState(() {
+                      state.checkList![10] = !state.checkList![10];
+                    });
+                  }),
                   SizedBox(height: context.dynamicHeight(0.016)),
                   buildRowCheckboxAndText(
-                    context,
-                    LocaleKeys.filters_choose_category_item3,
-                    "Vegan",(){
-                      setState(() {
-                state.checkList![10] = !state.checkList![10];
-                        
-                      });
-                    }
-                  ),
+                      context,
+                      LocaleKeys.filters_choose_category_item4,
+                      "4", () {
+                    setState(() {
+                      state.checkList![11] = !state.checkList![11];
+                    });
+                  }),
                   SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(
-                    context,
-                    LocaleKeys.filters_choose_category_item4,
-                    "Hamburger",(){
-                      setState(() {
-                state.checkList![11] = !state.checkList![11];
-                        
-                      });
-                    }
-                  ),
+                  buildRowCheckboxAndText(context,
+                      LocaleKeys.filters_choose_category_item5, "2", () {
+                    setState(() {
+                      state.checkList![12] = !state.checkList![12];
+                    });
+                  }),
                   SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(
-                    context,
-                    LocaleKeys.filters_choose_category_item5,
-                    "Dessert",(){
-                      setState(() {
-                state.checkList![12] = !state.checkList![12];
-                        
-                      });
-                    }
-                  ),
+                  buildRowCheckboxAndText(context,
+                      LocaleKeys.filters_choose_category_item6, "5", () {
+                    setState(() {
+                      state.checkList![13] = !state.checkList![13];
+                    });
+                  }),
                   SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(
-                    context,
-                    LocaleKeys.filters_choose_category_item6,
-                    "Pizza",(){
-                      setState(() {
-                state.checkList![13] = !state.checkList![13];
-                        
-                      });
-                    }
-                  ),
+                  buildRowCheckboxAndText(context,
+                      LocaleKeys.filters_choose_category_item7, "Chicken", () {
+                    setState(() {
+                      state.checkList![14] = !state.checkList![14];
+                    });
+                  }),
                   SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(
-                    context,
-                    LocaleKeys.filters_choose_category_item7,
-                    "Chicken",(){
-                      setState(() {
-                state.checkList![14] = !state.checkList![14];
-                        
-                      });
-                    }
-                  ),
-                  SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(
-                    context,
-                    LocaleKeys.filters_choose_category_item8,
-                    "Coffee",(){
-                      setState(() {
-                state.checkList![15] = !state.checkList![15];
-                        
-                      });
-                    }
-                  ),
+                  buildRowCheckboxAndText(context,
+                      LocaleKeys.filters_choose_category_item8, "Coffee", () {
+                    setState(() {
+                      state.checkList![15] = !state.checkList![15];
+                    });
+                  }),
                   //  SizedBox(height: context.dynamicHeight(0.030)),
                 ],
               ),
@@ -163,21 +139,23 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
   Builder buildCheckBox(BuildContext context, String checkValue) {
     return Builder(builder: (context) {
       final FiltersState state = context.watch<FiltersCubit>().state;
-
       return CustomCheckbox(
           onTap: () {
             setState(() {
+      context.read<FiltersManagerCubit>().getPackageCategory(checkValue);
+
               if (checkValue == "Main Course") {
                 state.checkList![8] = !state.checkList![8];
-              } else if (checkValue == "Drinks") {
+
+              } else if (checkValue == "7") {
                 state.checkList![9] = !state.checkList![9];
-              } else if (checkValue == "Vegan") {
+              } else if (checkValue == "6") {
                 state.checkList![10] = !state.checkList![10];
-              } else if (checkValue == "Hamburger") {
+              } else if (checkValue == "4") {
                 state.checkList![11] = !state.checkList![11];
-              } else if (checkValue == "Dessert") {
+              } else if (checkValue == "2") {
                 state.checkList![12] = !state.checkList![12];
-              } else if (checkValue == "Pizza") {
+              } else if (checkValue == "5") {
                 state.checkList![13] = !state.checkList![13];
               } else if (checkValue == "Chicken") {
                 state.checkList![14] = !state.checkList![14];
@@ -200,23 +178,23 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
               ? state.checkList![8]
                   ? AppColors.greenColor
                   : Colors.white
-              : checkValue == "Drinks"
+              : checkValue == "7"
                   ? state.checkList![9]
                       ? AppColors.greenColor
                       : Colors.white
-                  : checkValue == "Vegan"
+                  : checkValue == "6"
                       ? state.checkList![10]
                           ? AppColors.greenColor
                           : Colors.white
-                      : checkValue == "Hamburger"
+                      : checkValue == "4"
                           ? state.checkList![11]
                               ? AppColors.greenColor
                               : Colors.white
-                          : checkValue == "Dessert"
+                          : checkValue == "2"
                               ? state.checkList![12]
                                   ? AppColors.greenColor
                                   : Colors.white
-                              : checkValue == "Pizza"
+                              : checkValue == "5"
                                   ? state.checkList![13]
                                       ? AppColors.greenColor
                                       : Colors.white

@@ -69,6 +69,7 @@
         "send_again": "Kodu Tekrar Gönder",
         "send_code": "Doğrulama Kodu Gönder",
         "successfully_changed": "Şifreniz başarılı bir şekilde değiştirildi.",
+        "fail_changed": "SMS kodunuz veya telefon numaranız hatalı.",
         "ok": "Tamam"
     },
     "food_waste": {

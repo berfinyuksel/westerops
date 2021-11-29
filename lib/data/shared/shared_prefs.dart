@@ -124,6 +124,26 @@ class SharedPrefs {
     _prefs.setStringList('favorites', favorites);
     return favorites;
   }
+  //filters
+    static Future<void> setSortByDistance(bool sortByDistance) async {
+    _prefs.setBool('sortByDistance', sortByDistance);
+  }
+      static Future<void> setMyFavorites(String myFavorites) async {
+    _prefs.setString('myFavorites', myFavorites);
+  }
+    static Future<void> setUserRating(String userRating) async {
+    _prefs.setString('userRating', userRating);
+  }
+
+  static Future<void> setNewUser(String newUser) async {
+    _prefs.setString('newUser', newUser);
+  }
+   static Future<void> setMinPrice(String minPrice) async {
+    _prefs.setString('minPrice', minPrice);
+  }
+   static Future<void> setMaxPrice(String maxPrice) async {
+    _prefs.setString('maxPrice', maxPrice);
+  }
 
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
@@ -135,7 +155,7 @@ class SharedPrefs {
   static String get getUserBirth =>
       _prefs.getString('userBirth') ?? "dd-mm-yyyy";
   static String get getUserAddress =>
-      _prefs.getString('userAddress') ?? "Adana";
+      _prefs.getString('userAddress') ?? "İstanbul";
   static String get getUserLastName => _prefs.getString('userLastName') ?? "";
   static String get getUserPassword => _prefs.getString('userPassword') ?? "";
   static int get getCounter => _prefs.getInt('counter') ?? 0;
@@ -164,4 +184,12 @@ class SharedPrefs {
   static List<String> get getSumPrice => _prefs.getStringList('sumPrice') ?? [];
   static List<String> get getFavorites =>
       _prefs.getStringList('favorites') ?? [];
+
+  static bool get getSortByDistance => _prefs.getBool('sortByDistance') ?? true;
+  static String get getMyFavorites =>
+      _prefs.getString('myFavorites') ?? "";
+  static String get getUserRating => _prefs.getString('userRating') ?? "";
+  static String get getNewUser => _prefs.getString('newUser') ?? "";
+  static String get getMinPrice => _prefs.getString('minPrice') ?? "";
+  static String get getMaxPrice => _prefs.getString('maxPrice') ?? "";
 }

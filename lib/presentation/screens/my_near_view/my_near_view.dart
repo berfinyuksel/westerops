@@ -247,19 +247,19 @@ class _MyNearViewState extends State<MyNearView> {
     return ListView.builder(
         itemCount: restaurants.length,
         itemBuilder: (context, index) {
-          String? startTime =
-              restaurants[index].calendar?[0].startDate?.split("T")[1] ?? '-';
-          String? endTime =
-              restaurants[index].calendar?[0].endDate?.split("T")[1] ?? '-';
+          // String? startTime =
+          //     restaurants[index].calendar?[0].startDate?.split("T")[1] ?? '-';
+          // String? endTime =
+          //     restaurants[index].calendar?[0].endDate?.split("T")[1] ?? '-';
 
-          startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
-          endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
+          // startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
+          // endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
           return RestaurantInfoListTile(
             icon: restaurants[index].photo,
             restaurantName: restaurants[index].name,
             distance: "${distances[index].toInt()}m",
             packetNumber: 0 == 0 ? 'tükendi' : '4 paket',
-            availableTime: '$startTime-$endTime',
+            availableTime: 'w',
             border: Border.all(
               width: 1.0,
               color: AppColors.borderAndDividerColor,

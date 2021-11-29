@@ -1,9 +1,10 @@
-import 'package:dongu_mobile/data/model/dummy_model.dart';
+import 'package:dongu_mobile/data/model/search.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:dongu_mobile/data/dummy_search_data/dummy_search_data.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/extensions/context_extension.dart';
@@ -17,26 +18,21 @@ import 'components/horizontal_list_trend_bar.dart';
 import 'components/search_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SearchViewDemo extends StatefulWidget {
-  const SearchViewDemo({
+class SearchView extends StatefulWidget {
+  const SearchView({
     Key? key,
   }) : super(key: key);
 
   @override
-  _SearchViewDemoState createState() => _SearchViewDemoState();
+  _SearchViewState createState() => _SearchViewState();
 }
 
-class _SearchViewDemoState extends State<SearchViewDemo> {
+class _SearchViewState extends State<SearchView> {
   TextEditingController? controller = TextEditingController();
-  //bool _valueSearch = false;
-  final duplicateItems = [
-    LocaleKeys.search_item1.locale,
-    LocaleKeys.search_item2.locale,
-    LocaleKeys.search_item3.locale
-  ];
-  var items = <String>[];
 
-  late List<Search> searches;
+  List<Search> names = [];
+  List<Search> filteredNames = []; // names filtered by search text
+
   String query = '';
   bool scroolCategories = true;
   bool scroolTrend = true;
@@ -44,33 +40,32 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
   bool isClean = false;
   @override
   void initState() {
-    items.addAll(duplicateItems);
     super.initState();
-    searches = allSearches;
-    context.read<SearchCubit>().getSearches(controller!.text);
   }
 
-  void filterSearchResults(String query) {
-    List<String> dummySearchList = <String>[];
-    dummySearchList.addAll(duplicateItems);
-    if (query.isNotEmpty) {
-      List<String> dummyListData = <String>[];
-      dummyListData.forEach((item) {
-        if (item.contains(query)) {
-          dummyListData.add(item);
+  Builder buildBuilder() {
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<SearchCubit>().state;
+
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        List<Search> searchList = [];
+
+        for (int i = 0; i < state.response.length; i++) {
+          searchList.add(state.response[i]);
         }
-      });
-      setState(() {
-        items.clear();
-        items.addAll(dummyListData);
-      });
-      return;
-    } else {
-      setState(() {
-        items.clear();
-        items.addAll(duplicateItems);
-      });
-    }
+        names = searchList;
+        filteredNames = names;
+
+        return Center(child: filteredNames.length == 0 ? emptySearchHistory(): searchListViewBuilder(state, searchList));
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
   @override
@@ -78,41 +73,52 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
     return buildBody(context);
   }
 
-  GestureDetector buildBody(BuildContext context) {
+  GestureDetector buildBody(
+    BuildContext context,
+  ) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Column(
-        children: [
-          Spacer(flex: 3,),
-          searchBar(context),
-          // Spacer(
-          //   flex: 3,
-          // ),
-          Visibility(
-              visible: visible, child: searchHistoryAndCleanTexts(context)),
-    
-          Visibility(visible: visible, child: dividerOne(context)),
-        //  Spacer(flex:2),
-          Visibility(visible: visible, child: Spacer(flex: 2)),
-          items.length == 0 ? emptySearchHistory() : searchListViewBuilder(),
-         isClean ? Spacer(flex: 20) : Spacer(flex: 40,),
-          Visibility(visible: visible, child: popularSearchText(context)),
-          Visibility(visible: visible, child: dividerSecond(context)),
-          //Spacer(flex: 2),
-          Visibility(visible: visible, child: horizontalListTrend(context)),
-          isClean
-              ? Spacer(flex: 20)
-              : Spacer(
-                  flex: 40,
-                ),
-          Visibility(visible: visible, child: categoriesText(context)),
-          Visibility(visible: visible, child: dividerThird(context)),
-        //  Spacer(flex: 1),
-          Visibility(visible: visible, child: horizontalListCategory(context)),
-          Spacer(flex: 10),
-        ],
+      child: Expanded(
+        child: Column(
+          children: [
+            Spacer(
+              flex: 3,
+            ),
+            searchBar(context),
+            // Spacer(
+            //   flex: 3,
+            // ),
+            Visibility(
+                visible: visible, child: searchHistoryAndCleanTexts(context)),
+
+            Visibility(visible: visible, child: dividerOne(context)),
+            //  Spacer(flex:2),
+            Visibility(visible: visible, child: Spacer(flex: 2)),
+            buildBuilder(),
+            isClean
+                ? Spacer(flex: 20)
+                : Spacer(
+                    flex: 50,
+                  ),
+            Visibility(visible: visible, child: popularSearchText(context)),
+            Visibility(visible: visible, child: dividerSecond(context)),
+            //Spacer(flex: 2),
+            Visibility(visible: visible, child: horizontalListTrend(context)),
+            isClean
+                ? Spacer(flex: 20)
+                : Spacer(
+                    flex: 10,
+                  ),
+            Visibility(visible: visible, child: categoriesText(context)),
+            Visibility(visible: visible, child: dividerThird(context)),
+            //  Spacer(flex: 1),
+            Visibility(
+                visible: visible, child: horizontalListCategory(context)),
+            Spacer(flex: 10),
+          ],
+        ),
       ),
     );
   }
@@ -223,19 +229,30 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
     );
   }
 
-  ListView searchListViewBuilder() {
+  ListView searchListViewBuilder(GenericState state, List<Search> searchList) {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: searches.length,
+        itemCount: searchList.isEmpty || controller!.text.isEmpty ||
+                filteredNames.isEmpty ? 0 : filteredNames.length,
         itemBuilder: (context, index) {
-          final search = searches[index];
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.06),
-             // vertical: context.dynamicHeight(0.00006)
+              // vertical: context.dynamicHeight(0.00006)
             ),
             decoration: BoxDecoration(color: Colors.white),
-            child: buildSearch(search),
+            child: ListTile(
+              // leading: Image.network(
+              //   searches.urlImage,
+              //   fit: BoxFit.cover,
+              //   width: 50,
+              //   height: 50,
+              // ),
+              title: Text("${filteredNames[index].name}".isEmpty || searchList.isEmpty || filteredNames.isEmpty ? "": "${filteredNames[index].name}"),
+              subtitle: Text("${filteredNames[index].storeMeals![index].name}".isEmpty ||  searchList.isEmpty  ||
+                          filteredNames.isEmpty
+                      ? "": "${filteredNames[index].storeMeals![index].name}"),
+            ),
           );
         });
   }
@@ -270,9 +287,11 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
           GestureDetector(
             onTap: () {
               setState(() {
-                items.clear();
-                items.remove(searches.length);
-                isClean = !isClean;
+                filteredNames.clear();
+                filteredNames.remove(names.length);
+                names.remove(filteredNames.length);
+                names.clear();
+                 isClean = !isClean;
               });
             },
             child: LocaleText(
@@ -301,8 +320,7 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
             });
           },
           onChanged: (value) {
-            filterSearchResults(value);
-            searchSearch(query);
+            context.read<SearchCubit>().getSearches(controller!.text);
           },
           controller: controller,
           hintText: LocaleKeys.search_text5.locale,
@@ -338,30 +356,14 @@ class _SearchViewDemoState extends State<SearchViewDemo> {
     );
   }
 
-  void searchSearch(String query) {
-    final search = allSearches.where((searches) {
-      final mealLower = searches.meal.toLowerCase();
-      final restaurantLower = searches.restaurant.toLowerCase();
-      final searchLower = query.toLowerCase();
-
-      return mealLower.contains(searchLower) ||
-          restaurantLower.contains(searchLower);
-    }).toList();
-
-    setState(() {
-      this.query = query;
-      this.searches = search;
-    });
-  }
-
-  Widget buildSearch(Search searches) => ListTile(
-        // leading: Image.network(
-        //   searches.urlImage,
-        //   fit: BoxFit.cover,
-        //   width: 50,
-        //   height: 50,
-        // ),
-        title: Text(searches.meal),
-        subtitle: Text(searches.restaurant),
-      );
+  // Widget buildSearch(GenericState state, List<Search> searchList) => ListTile(
+  //       // leading: Image.network(
+  //       //   searches.urlImage,
+  //       //   fit: BoxFit.cover,
+  //       //   width: 50,
+  //       //   height: 50,
+  //       // ),
+  //       title: Text("${filteredNames[index].name}"),
+  //       subtitle: Text("${filteredNames[index].storeMeals![index].name}"),
+  //     );
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dongu_mobile/data/repositories/address_repository.dart';
+import 'package:dongu_mobile/data/repositories/filters_repository.dart';
 import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
 import 'package:dongu_mobile/data/repositories/store_boxes_repository.dart';
 import 'package:dongu_mobile/data/repositories/store_courier_hours_repository.dart';
@@ -9,12 +10,15 @@ import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_manager_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/filters_cubit/sort_filters_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 import 'package:dongu_mobile/data/repositories/search_repository.dart';
+import 'package:dongu_mobile/data/repositories/filters_repository.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
@@ -118,6 +122,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
         BlocProvider<SumPriceOrderCubit>(create: (_) => SumPriceOrderCubit()),
+        BlocProvider<SortFilterCubit>(create: (_) => SortFilterCubit()),
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
                 SearchLocationCubit(SampleSearchLocationRepository())),
@@ -146,7 +151,9 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 UserAddressCubit(SampleUserAdressRepository())),
         BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
-        BlocProvider<FiltersCubit>(create: (context) => FiltersCubit())
+        BlocProvider<FiltersCubit>(create: (context) => FiltersCubit()),
+        BlocProvider<FiltersManagerCubit>(create: (context) => FiltersManagerCubit(SampleFiltersRepository())),
+
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
@@ -162,13 +169,13 @@ class MyApp extends StatelessWidget {
         }
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Dongu App',
+          title: 'Dongu Mobile',
           theme: appThemeData[AppTheme.PrimaryTheme],
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           onGenerateRoute: _appRouter.onGenerateRoute,
-          //home: SwipeView(),
+          //home: HomeScreen(),
         );
       }),
     );

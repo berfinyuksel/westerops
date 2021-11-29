@@ -26,7 +26,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
   var searchedCitiesIndexes = [];
   String searchedText = "";
   String chosedCity = SharedPrefs.getUserAddress;
-  String chosedCityIndex = "01";
+  String chosedCityIndex = "34";
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +34,32 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
       title: LocaleKeys.change_location_title,
       body: Column(
         children: [
-          Spacer(
+          /* Spacer(
             flex: 3,
-          ),
-          buildSearchBar(context),
-          Spacer(
+          ),*/
+
+          //buildSearchBar(context),
+          /* Spacer(
             flex: 3,
-          ),
+          ),*/
+          SizedBox(height: context.dynamicHeight(0.01)),
           ChangeLocationListTile(
             cityText: chosedCity,
             cityCodeText: chosedCityIndex,
           ),
           Spacer(
-            flex: 2,
+            flex: 1,
           ),
           Container(
             height: context.dynamicHeight(0.6),
-            child: buildListView(),
+            child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: context.dynamicWidht(0.05)),
+                child: Text(
+                  "Şimdilik sadece İstanbul bölgesinde hizmet veriyoruz. Yakında diğer bölgelerde hizmet vermeye başlayacağız... 🙂",
+                  style: AppTextStyles.subTitleBoldStyle
+                      .copyWith(fontSize: 15, color: AppColors.textColor),
+                )),
           ),
           Spacer(
             flex: 1,
@@ -156,6 +165,8 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
         color: Colors.white,
       ),
       child: TextFormField(
+        //enableInteractiveSelection: false,
+        //enabled: false,
         controller: searchController,
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,

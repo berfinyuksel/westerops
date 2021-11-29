@@ -1,40 +1,48 @@
 {
   "project_info": {
-    "project_number": "516348079542",
-    "project_id": "dongumobile",
-    "storage_bucket": "dongumobile.appspot.com"
+    "project_number": "163234070864",
+    "project_id": "dongu-web",
+    "storage_bucket": "dongu-web.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:516348079542:android:a438e935c036499032a517",
+        "mobilesdk_app_id": "1:163234070864:android:5e37bc03a6b485143b6c55",
         "android_client_info": {
           "package_name": "com.example.dongu_mobile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "516348079542-g2el14426rqisu33n2hg78s2d57amm4d.apps.googleusercontent.com",
+          "client_id": "163234070864-ng058ucurpneeuj215n81pc8euoa993a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dongu_mobile",
+            "certificate_hash": "7d02ff1bf060698efb806cfec85ac367aa6bfd78"
+          }
+        },
+        {
+          "client_id": "163234070864-afiphh53mul3il8gq98drsldoogp8v7i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDb5aUSV5m7eqPoOJjZYH3yppP8XCf-qc4"
+          "current_key": "AIzaSyAkGR9ycDNV1LNNxTwIG95wxwGL8JLsCng"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "516348079542-g2el14426rqisu33n2hg78s2d57amm4d.apps.googleusercontent.com",
+              "client_id": "163234070864-afiphh53mul3il8gq98drsldoogp8v7i.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "516348079542-1of4i7es4kkbd9a4pead1ce2r2r9furg.apps.googleusercontent.com",
+              "client_id": "163234070864-2tv5dcrod6j3qkc510dfmrdfrftvd1te.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.donguMobile"
+                "bundle_id": "com.westerops.donguMobile"
               }
             }
           ]
