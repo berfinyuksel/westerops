@@ -51,7 +51,9 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   late BitmapDescriptor restaurantSoldoutMarkerIcon;
   final MarkerId markerId = MarkerId("my_location");
   final MarkerId restaurantMarkerId = MarkerId("rest_1");
-
+  int hour = 0;
+  int minute = 0;
+  int second = 0;
   @override
   void initState() {
     super.initState();
@@ -104,7 +106,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
               orderInfo.last.boxes!.first.saleDay!.startDate!
                   .toLocal()
                   .subtract(Duration(hours: 2)));
-          /*     DateTime.now().add(Duration(seconds: 5))  */
+          /*    DateTime.now().add(Duration(seconds: 5))
+          */
         }
 
         return orderInfo.isNotEmpty
