@@ -1,4 +1,5 @@
 import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/data/model/category_name.dart';
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'dart:io';
@@ -14,6 +15,7 @@ import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.da
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/first_column/packet_number.dart';
 
 import 'package:dongu_mobile/utils/haversine.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -392,51 +394,93 @@ class _HomePageViewState extends State<HomePageView> {
                       restaurant: restaurants[index],
                     ));
               },
-              child: RestaurantInfoCard(
-                restaurantId: restaurants[index].id,
-                courierPackageBGColor:
-                    restaurants[index].packageSettings!.deliveryType == "2" ||
-                            restaurants[index].packageSettings!.deliveryType ==
-                                "3"
-                        ? AppColors.greenColor
-                        : Colors.white,
-                courierPackageIconColor:
-                    restaurants[index].packageSettings!.deliveryType == "2" ||
-                            restaurants[index].packageSettings!.deliveryType ==
-                                "3"
-                        ? Colors.white
-                        : AppColors.unSelectedpackageDeliveryColor,
-                getItPackageBGColor:
-                    restaurants[index].packageSettings!.deliveryType == "1" ||
-                            restaurants[index].packageSettings!.deliveryType ==
-                                "3"
-                        ? AppColors.greenColor
-                        : Colors.white,
-                getItPackageIconColor:
-                    restaurants[index].packageSettings!.deliveryType == "1" ||
-                            restaurants[index].packageSettings!.deliveryType ==
-                                "3"
-                        ? Colors.white
-                        : AppColors.unSelectedpackageDeliveryColor,
-                minDiscountedOrderPrice:
-                    restaurants[index].packageSettings?.minDiscountedOrderPrice,
-                minOrderPrice:
-                    restaurants[index].packageSettings?.minOrderPrice,
-                restaurantIcon: restaurants[index].photo,
-                backgroundImage: restaurants[index].background,
-                packetNumber: "3 paket",
-                restaurantName: restaurants[index].name,
-                grade: restaurants[index].avgReview!.toStringAsFixed(1),
-                location: restaurants[index].city,
-                distance: Haversine.distance(
-                        restaurants[index].latitude!,
-                        restaurants[index].longitude,
-                        LocationService.latitude,
-                        LocationService.longitude)
-                    .toString(),
-                availableTime:
-                    '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
-              ),
+              child: Builder(builder: (context) {
+                String? packettNumber() {
+                  if (restaurants[index].calendar == null) {
+                    return "tükendi";
+                  } else if (restaurants[index].calendar != null) {
+                    for (int i = 0;
+                        i < restaurants[index].calendar!.length;
+                        i++) {
+                      var boxcount = restaurants[index].calendar![i].boxCount;
+
+                      String now = DateTime.now().toIso8601String();
+                      List<String> currentDate = now.split("T").toList();
+                      print(currentDate[0]);
+                      List<String> startDate = restaurants[index]
+                          .calendar![i]
+                          .startDate!
+                          .split("T")
+                          .toList();
+
+                      if (currentDate[0] == startDate[0]) {
+                        if (restaurants[index].calendar![i].boxCount != 0) {
+                          return "${boxcount.toString()} paket";
+                        } else if (restaurants[index].calendar![i].boxCount ==
+                                null ||
+                            restaurants[index].calendar![i].boxCount == 0) {
+                          return "tükendi";
+                        }
+                      }
+                    }
+                  }
+                }
+
+                return RestaurantInfoCard(
+                  restaurantId: restaurants[index].id,
+                  courierPackageBGColor:
+                      restaurants[index].packageSettings!.deliveryType == "2" ||
+                              restaurants[index]
+                                      .packageSettings!
+                                      .deliveryType ==
+                                  "3"
+                          ? AppColors.greenColor
+                          : Colors.white,
+                  courierPackageIconColor:
+                      restaurants[index].packageSettings!.deliveryType == "2" ||
+                              restaurants[index]
+                                      .packageSettings!
+                                      .deliveryType ==
+                                  "3"
+                          ? Colors.white
+                          : AppColors.unSelectedpackageDeliveryColor,
+                  getItPackageBGColor:
+                      restaurants[index].packageSettings!.deliveryType == "1" ||
+                              restaurants[index]
+                                      .packageSettings!
+                                      .deliveryType ==
+                                  "3"
+                          ? AppColors.greenColor
+                          : Colors.white,
+                  getItPackageIconColor:
+                      restaurants[index].packageSettings!.deliveryType == "1" ||
+                              restaurants[index]
+                                      .packageSettings!
+                                      .deliveryType ==
+                                  "3"
+                          ? Colors.white
+                          : AppColors.unSelectedpackageDeliveryColor,
+                  minDiscountedOrderPrice: restaurants[index]
+                      .packageSettings
+                      ?.minDiscountedOrderPrice,
+                  minOrderPrice:
+                      restaurants[index].packageSettings?.minOrderPrice,
+                  restaurantIcon: restaurants[index].photo,
+                  backgroundImage: restaurants[index].background,
+                  packetNumber: packettNumber() ?? "tükendi",
+                  restaurantName: restaurants[index].name,
+                  grade: restaurants[index].avgReview!.toStringAsFixed(1),
+                  location: restaurants[index].city,
+                  distance: Haversine.distance(
+                          restaurants[index].latitude!,
+                          restaurants[index].longitude,
+                          LocationService.latitude,
+                          LocationService.longitude)
+                      .toString(),
+                  availableTime:
+                      '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
+                );
+              }),
             );
           },
           separatorBuilder: (BuildContext context, int index) => SizedBox(
@@ -486,15 +530,38 @@ class _HomePageViewState extends State<HomePageView> {
                     ));
               },
               child: Builder(builder: (context) {
-                // var boxcount = restaurants[index].calendar!.first.boxCount;
-                // String now = DateTime.now().toString();
-                //
-                // if (now == restaurants[index].calendar!.first.startDate) {
+                String? packettNumber() {
+                  if (restaurants[index].calendar == null) {
+                    //calendar dizisi boş ise tükendi yazdırsın
+                    return "tükendi";
+                  } else if (restaurants[index].calendar != null) {
+                    //calendar dizisi boş değilse aşağıdaki kodlar çalışsın
+                    for (int i = 0;
+                        i < restaurants[index].calendar!.length;
+                        i++) {
+                      var boxcount = restaurants[index].calendar![i].boxCount;
 
-                // }
-                // }else if(now != restaurants[index].calendar!.first.startDate){
-                //
-                // }
+                      String now = DateTime.now().toIso8601String();
+                      List<String> currentDate = now.split("T").toList();
+                      print(currentDate[0]);
+                      List<String> startDate = restaurants[index]
+                          .calendar![i]
+                          .startDate!
+                          .split("T")
+                          .toList();
+
+                      if (currentDate[0] == startDate[0]) {
+                        if (restaurants[index].calendar![i].boxCount != 0) {
+                          return "${boxcount.toString()} paket";
+                        } else if (restaurants[index].calendar![i].boxCount ==
+                                null ||
+                            restaurants[index].calendar![i].boxCount == 0) {
+                          return "tükendi";
+                        }
+                      }
+                    }
+                  }
+                }
 
                 return RestaurantInfoCard(
                   restaurantId: restaurants[index].id,
@@ -537,12 +604,7 @@ class _HomePageViewState extends State<HomePageView> {
                       restaurants[index].packageSettings?.minOrderPrice,
                   restaurantIcon: restaurants[index].photo,
                   backgroundImage: restaurants[index].background,
-                  // packetNumber:"${boxcount.toString()} paket",
-                  packetNumber: "1 paket",
-                  // restaurants[index].calendar?.first.boxCount == null &&
-                  //         restaurants[index].calendar!.first.boxCount == 0
-                  //     ? "tükendi"
-                  //     : "${boxcount.toString()} paket",
+                  packetNumber: packettNumber() ?? "tükendi",
                   restaurantName: restaurants[index].name,
                   grade: restaurants[index].avgReview!.toStringAsFixed(1),
                   location: restaurants[index].city,
