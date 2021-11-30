@@ -1,6 +1,9 @@
 import 'package:dongu_mobile/data/services/auth_service.dart';
 import 'package:dongu_mobile/data/services/facebook_login_controller.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,7 @@ import '../../button/custom_button.dart';
 import '../custom_scaffold.dart';
 import 'drawer_body_title.dart';
 import 'drawer_list_tile.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -162,6 +166,16 @@ class CustomDrawer extends StatelessWidget {
           SharedPrefs.clearCache();
           Navigator.pushReplacementNamed(
               context, RouteConstant.CUSTOM_SCAFFOLD);
+          context.read<OrderCubit>().clearBasket();
+
+          SharedPrefs.setSumPrice([]);
+          context.read<SumPriceOrderCubit>().sumprice([]);
+
+          SharedPrefs.setCounter(0);
+          SharedPrefs.setMenuList([]);
+          context.read<BasketCounterCubit>().setCounter(0);
+
+          Navigator.pop(context);
         },
       ),
     );

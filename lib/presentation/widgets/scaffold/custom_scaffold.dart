@@ -217,7 +217,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 final counterState = context.watch<BasketCounterCubit>().state;
 
                 return Visibility(
-                  visible: counterState > 0,
+                  visible: counterState > 0 && SharedPrefs.getIsLogined,
                   child: Container(
                     height: 14,
                     width: 14,
