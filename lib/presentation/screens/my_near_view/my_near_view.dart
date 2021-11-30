@@ -285,7 +285,15 @@ class _MyNearViewState extends State<MyNearView> {
             minOrderPrice: getrestaurants[restaurantIndexOnMap]
                 .packageSettings
                 ?.minOrderPrice,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                RouteConstant.RESTAURANT_DETAIL,
+                arguments: ScreenArgumentsRestaurantDetail(
+                  restaurant: getrestaurants[restaurantIndexOnMap],
+                ),
+              );
+            },
           ),
         ));
   }
