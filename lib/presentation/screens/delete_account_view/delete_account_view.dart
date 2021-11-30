@@ -109,7 +109,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
                     description:
                         LocaleKeys.delete_account_popup_text_successful.locale,
                     onPressed: () => Navigator.popAndPushNamed(
-                        context, RouteConstant.l),
+                        context, RouteConstant.CUSTOM_SCAFFOLD),
                   ));
         }else{
             showDialog(
