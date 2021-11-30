@@ -576,7 +576,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ));
   }
 
-  Container buildBox(
+  Column buildBox(
     BuildContext context,
     int index,
     GenericCompleted state,
@@ -589,149 +589,156 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       }
       mealNames = meals.join(', ');
     }
-    return Container(
-      //alignment: Alignment(-0.8, 0.0),
-      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-      width: context.dynamicWidht(1),
-      height: context.dynamicHeight(0.15),
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      children: [
+        Container(
+          //alignment: Alignment(-0.8, 0.0),
+          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+          width: context.dynamicWidht(1),
+          height: context.dynamicHeight(0.15),
+          color: Colors.white,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: context.dynamicHeight(0.021),
-              ),
-              Text(
-                "${surpriseBoxes[index].textName}",
-                style: AppTextStyles.myInformationBodyTextStyle,
-              ),
-              LocaleText(
-                text: surpriseBoxes[index].defined == false
-                    ? 'Paketin Tanimlanmasina Kalan Sure : 0'
-                    : mealNames,
-                style: AppTextStyles.subTitleStyle,
-              ),
-              SizedBox(height: context.dynamicHeight(0.020)),
-              Builder(builder: (context) {
-                final GenericState stateOfSearchStore =
-                    context.watch<SearchStoreCubit>().state;
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: context.dynamicHeight(0.021),
+                  ),
+                  Text(
+                    "${surpriseBoxes[index].textName}",
+                    style: AppTextStyles.myInformationBodyTextStyle,
+                  ),
+                  LocaleText(
+                    text: surpriseBoxes[index].defined == false
+                        ? 'Paketin Tanimlanmasina Kalan Sure : 0'
+                        : mealNames,
+                    style: AppTextStyles.subTitleStyle,
+                  ),
+                  SizedBox(height: context.dynamicHeight(0.020)),
+                  Builder(builder: (context) {
+                    final GenericState stateOfSearchStore =
+                        context.watch<SearchStoreCubit>().state;
 
-                if (stateOfSearchStore is GenericInitial) {
-                  return Container();
-                } else if (stateOfSearchStore is GenericLoading) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (stateOfSearchStore is GenericCompleted) {
-                  List<SearchStore> chosenRestaurat = [];
-                  for (var i = 0; i < stateOfSearchStore.response.length; i++) {
-                    if (stateOfSearchStore.response[i].id ==
-                        state.response[index].store) {
-                      chosenRestaurat.add(stateOfSearchStore.response[i]);
-                      priceOfMenu = chosenRestaurat[0]
-                          .packageSettings!
-                          .minDiscountedOrderPrice;
-                    }
-                  }
+                    if (stateOfSearchStore is GenericInitial) {
+                      return Container();
+                    } else if (stateOfSearchStore is GenericLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (stateOfSearchStore is GenericCompleted) {
+                      List<SearchStore> chosenRestaurat = [];
+                      for (var i = 0;
+                          i < stateOfSearchStore.response.length;
+                          i++) {
+                        if (stateOfSearchStore.response[i].id ==
+                            state.response[index].store) {
+                          chosenRestaurat.add(stateOfSearchStore.response[i]);
+                          priceOfMenu = chosenRestaurat[0]
+                              .packageSettings!
+                              .minDiscountedOrderPrice;
+                        }
+                      }
 
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        width: context.dynamicWidht(0.16),
-                        height: context.dynamicHeight(0.04),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4.0),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding:
-                              EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                          child: Text(
-                            chosenRestaurat[0]
-                                    .packageSettings!
-                                    .minOrderPrice
-                                    .toString() +
-                                " TL",
-                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                                decoration: TextDecoration.lineThrough,
-                                color:
-                                    AppColors.unSelectedpackageDeliveryColor),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: context.dynamicWidht(0.04),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        width: context.dynamicWidht(0.16),
-                        height: context.dynamicHeight(0.04),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4.0),
-                          color: AppColors.scaffoldBackgroundColor,
-                        ),
-                        child: Padding(
-                          padding:
-                              EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                          child: Text(
-                            chosenRestaurat[0]
-                                    .packageSettings!
-                                    .minDiscountedOrderPrice
-                                    .toString() +
-                                " TL",
-                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                              color: AppColors.greenColor,
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            width: context.dynamicWidht(0.16),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.0),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: context.dynamicWidht(0.01)),
+                              child: Text(
+                                chosenRestaurat[0]
+                                        .packageSettings!
+                                        .minOrderPrice
+                                        .toString() +
+                                    " TL",
+                                style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                    color: AppColors
+                                        .unSelectedpackageDeliveryColor),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  final error = stateOfSearchStore as GenericError;
-                  return Center(
-                      child: Text("${error.message}\n${error.statusCode}"));
-                }
-              }),
+                          SizedBox(
+                            width: context.dynamicWidht(0.04),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            width: context.dynamicWidht(0.16),
+                            height: context.dynamicHeight(0.04),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.0),
+                              color: AppColors.scaffoldBackgroundColor,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: context.dynamicWidht(0.01)),
+                              child: Text(
+                                chosenRestaurat[0]
+                                        .packageSettings!
+                                        .minDiscountedOrderPrice
+                                        .toString() +
+                                    " TL",
+                                style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                                  color: AppColors.greenColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      final error = stateOfSearchStore as GenericError;
+                      return Center(
+                          child: Text("${error.message}\n${error.statusCode}"));
+                    }
+                  }),
+                ],
+              ),
+              Padding(
+                //buy box
+                padding: EdgeInsets.only(top: context.dynamicHeight(0.042)),
+                child: Builder(
+                  builder: (context) {
+                    int menuItem = state.response[index].id;
+                    final counterState =
+                        context.watch<BasketCounterCubit>().state;
+                    return Builder(builder: (context) {
+                      final addressState = context.watch<AddressCubit>().state;
+                      return CustomButton(
+                        title: menuList!.contains(menuItem.toString())
+                            ? "Sepetimde"
+                            : LocaleKeys.restaurant_detail_button_text,
+                        color: menuList!.contains(menuItem.toString())
+                            ? Colors.transparent
+                            : AppColors.greenColor,
+                        textColor: menuList!.contains(menuItem.toString())
+                            ? AppColors.greenColor
+                            : Colors.white,
+                        width: context.dynamicWidht(0.28),
+                        borderColor: AppColors.greenColor,
+                        onPressed: () async {
+                          await pressedBuyButton(state, index, context,
+                              counterState, menuItem, addressState);
+                        },
+                      );
+                    });
+                  },
+                ),
+              ),
             ],
           ),
-          Padding(
-            //buy box
-            padding: EdgeInsets.only(top: context.dynamicHeight(0.042)),
-            child: Builder(
-              builder: (context) {
-                int menuItem = state.response[index].id;
-
-                final counterState = context.watch<BasketCounterCubit>().state;
-                return Builder(builder: (context) {
-                  final addressState = context.watch<AddressCubit>().state;
-                  return CustomButton(
-                    title: menuList!.contains(menuItem.toString())
-                        ? "Sepetimde"
-                        : LocaleKeys.restaurant_detail_button_text,
-                    color: menuList!.contains(menuItem.toString())
-                        ? Colors.transparent
-                        : AppColors.greenColor,
-                    textColor: menuList!.contains(menuItem.toString())
-                        ? AppColors.greenColor
-                        : Colors.white,
-                    width: context.dynamicWidht(0.28),
-                    borderColor: AppColors.greenColor,
-                    onPressed: () async {
-                      await pressedBuyButton(state, index, context,
-                          counterState, menuItem, addressState);
-                    },
-                  );
-                });
-              },
-            ),
-          ),
-        ],
-      ),
+        ),
+        SizedBox(height: 5),
+      ],
     );
   }
 
