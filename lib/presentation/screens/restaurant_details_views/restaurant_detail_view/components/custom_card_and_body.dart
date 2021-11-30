@@ -7,6 +7,7 @@ import 'package:dongu_mobile/data/repositories/order_repository.dart';
 import 'package:dongu_mobile/data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
@@ -76,6 +77,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
     context.read<SearchStoreCubit>().getSearchStore();
     context.read<FavoriteCubit>().getFavorite();
+    context.read<AddressCubit>().getActiveAddress();
     // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
   }
 
@@ -91,16 +93,31 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           showInfo = false;
         });
       },
-      child: Column(
-        children: [
-          customCard(context, state),
-          SizedBox(
-            height: 20,
-          ),
-          packageCourierAndFavoriteContainer(context, state),
-          buildBuilder(),
-        ],
-      ),
+      child: Stack(children: [
+        Column(
+          children: [
+            customCard(context, state),
+            SizedBox(
+              height: 20,
+            ),
+            packageCourierAndFavoriteContainer(context, state),
+            buildBuilder(),
+          ],
+        ),
+        Positioned(
+          left: MediaQuery.of(context).size.width * 0.39,
+          top: MediaQuery.of(context).size.height * 0.27,
+          child: Visibility(
+              visible: showInfo,
+              child: ClippedPasswordRules(
+                  child: SingleChildScrollView(
+                child: Text(
+                  "Sürpriz Paketler ile alakalı bilgilendirme buraya gelecek",
+                  textAlign: TextAlign.justify,
+                ),
+              ))),
+        ),
+      ]),
     );
   }
 
@@ -419,57 +436,43 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        Stack(
+        Column(
           children: [
-            Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
-                  child: Column(
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          LocaleText(
-                            text: LocaleKeys.restaurant_detail_sub_title1,
-                            style: AppTextStyles.bodyTitleStyle,
-                          ),
-                          SizedBox(
-                            width: context.dynamicWidht(0.01),
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  showInfo = !showInfo;
-                                });
-                              },
-                              child: SvgPicture.asset(
-                                  ImageConstant.RESTAURANT_INFO_ICON))
-                          //ClippedPasswordRules(child: Text("data"))
-                        ],
+                      LocaleText(
+                        text: LocaleKeys.restaurant_detail_sub_title1,
+                        style: AppTextStyles.bodyTitleStyle,
                       ),
-                      Divider(
-                        thickness: 5,
-                        color: AppColors.borderAndDividerColor,
-                      )
+                      SizedBox(
+                        width: context.dynamicWidht(0.01),
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              showInfo = !showInfo;
+                            });
+                          },
+                          child: SvgPicture.asset(
+                              ImageConstant.RESTAURANT_INFO_ICON)),
+
+                      //ClippedPasswordRules(child: Text("data"))
                     ],
                   ),
-                ),
-              ],
+                  Divider(
+                    thickness: 5,
+                    color: AppColors.borderAndDividerColor,
+                  )
+                ],
+              ),
             ),
-            //spacer 4
-            Align(
-              alignment: Alignment(-0.05, 0),
-              child: Visibility(
-                  visible: showInfo,
-                  child: ClippedPasswordRules(
-                      child: SingleChildScrollView(
-                    child: Text(
-                        "Sürpriz Paketler ile alakalı bilgilendirme buraya gelecek"),
-                  ))),
-            )
           ],
         ),
         SizedBox(height: context.dynamicHeight(0.02)),
@@ -704,23 +707,26 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 int menuItem = state.response[index].id;
 
                 final counterState = context.watch<BasketCounterCubit>().state;
-                return CustomButton(
-                  title: menuList!.contains(menuItem.toString())
-                      ? "Sepetimde"
-                      : LocaleKeys.restaurant_detail_button_text,
-                  color: menuList!.contains(menuItem.toString())
-                      ? Colors.transparent
-                      : AppColors.greenColor,
-                  textColor: menuList!.contains(menuItem.toString())
-                      ? AppColors.greenColor
-                      : Colors.white,
-                  width: context.dynamicWidht(0.28),
-                  borderColor: AppColors.greenColor,
-                  onPressed: () async {
-                    await pressedBuyButton(
-                        state, index, context, counterState, menuItem);
-                  },
-                );
+                return Builder(builder: (context) {
+                  final addressState = context.watch<AddressCubit>().state;
+                  return CustomButton(
+                    title: menuList!.contains(menuItem.toString())
+                        ? "Sepetimde"
+                        : LocaleKeys.restaurant_detail_button_text,
+                    color: menuList!.contains(menuItem.toString())
+                        ? Colors.transparent
+                        : AppColors.greenColor,
+                    textColor: menuList!.contains(menuItem.toString())
+                        ? AppColors.greenColor
+                        : Colors.white,
+                    width: context.dynamicWidht(0.28),
+                    borderColor: AppColors.greenColor,
+                    onPressed: () async {
+                      await pressedBuyButton(state, index, context,
+                          counterState, menuItem, addressState);
+                    },
+                  );
+                });
               },
             ),
           ),
@@ -729,86 +735,147 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     );
   }
 
-  Future<void> pressedBuyButton(GenericCompleted<dynamic> state, int index,
-      BuildContext context, int counterState, int menuItem) async {
+  Future<void> pressedBuyButton(
+      GenericCompleted<dynamic> state,
+      int index,
+      BuildContext context,
+      int counterState,
+      int menuItem,
+      GenericState addressState) async {
     StatusCode statusCode =
         await sl<BasketRepository>().addToBasket("${state.response[index].id}");
-    print(statusCode);
-    switch (statusCode) {
-      case StatusCode.success:
-        if (!menuList!.contains(menuItem.toString())) {
-          sumOfPricesInt.add(priceOfMenu!);
-          context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
-          sumOfPricesString.add(sumOfPricesInt.last.toString());
-          SharedPrefs.setSumPrice(sumOfPricesString);
-          context.read<BasketCounterCubit>().increment();
-          SharedPrefs.setCounter(counterState + 1);
-          menuList!.add(menuItem.toString());
-          SharedPrefs.setMenuList(menuList!);
-          print("Successss");
-        } else {
-          sumOfPricesInt.remove(priceOfMenu!);
-          sumOfPricesString.remove(priceOfMenu.toString());
-          context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
-          SharedPrefs.setSumPrice(sumOfPricesString);
-          context
-              .read<OrderCubit>()
-              .deleteBasket("${state.response[index].id}");
-          context.read<BasketCounterCubit>().decrement();
-          SharedPrefs.setCounter(counterState - 1);
-          menuList!.remove(state.response[index].id.toString());
-          SharedPrefs.setMenuList(menuList!);
-          print("real Successss");
-          print(SharedPrefs.getMenuList);
-        }
-        break;
-      case StatusCode.unauthecticated:
-        showDialog(
-          context: context,
-          builder: (_) => CustomAlertDialog(
-              textMessage: 'Giriş yapmalısınız',
-              buttonOneTitle: 'Giriş yap',
-              buttonTwoTittle: 'Kayıt ol',
-              imagePath: ImageConstant.SURPRISE_PACK,
-              onPressedOne: () {
-                Navigator.of(context).pushNamed(RouteConstant.LOGIN_VIEW);
-              },
-              onPressedTwo: () {
-                Navigator.of(context).pushNamed(RouteConstant.REGISTER_VIEW);
-              }),
-        );
-        break;
-      default:
-        showDialog(
-            context: context,
-            builder: (_) => CustomAlertDialog(
-                onPressedOne: () {
-                  Navigator.pop(context);
-                },
-                onPressedTwo: () {
-                  context.read<OrderCubit>().clearBasket();
-                  sumOfPricesInt.clear();
-                  sumOfPricesString.clear();
-                  SharedPrefs.setSumPrice([]);
-                  context.read<SumPriceOrderCubit>().sumprice([]);
+    if (statusCode == StatusCode.unauthecticated) {
+      showDialog(
+        context: context,
+        builder: (_) => CustomAlertDialog(
+            textMessage: 'Giriş yapmalısınız',
+            buttonOneTitle: 'Giriş yap',
+            buttonTwoTittle: 'Kayıt ol',
+            imagePath: ImageConstant.SURPRISE_PACK,
+            onPressedOne: () {
+              Navigator.of(context).pushNamed(RouteConstant.LOGIN_VIEW);
+            },
+            onPressedTwo: () {
+              Navigator.of(context).pushNamed(RouteConstant.REGISTER_VIEW);
+            }),
+      );
+    } else if (addressState is GenericError) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          content: Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+            width: context.dynamicWidht(0.87),
+            height: context.dynamicHeight(0.29),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18.0),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Spacer(
+                  flex: 8,
+                ),
+                SvgPicture.asset(
+                  ImageConstant.SURPRISE_PACK,
+                  height: context.dynamicHeight(0.134),
+                ),
+                SizedBox(height: 10),
+                LocaleText(
+                  text: "Siparisi Gondermek Istediginiz Adresi Seciniz",
+                  style: AppTextStyles.bodyBoldTextStyle,
+                  alignment: TextAlign.center,
+                ),
+                Spacer(
+                  flex: 35,
+                ),
+                CustomButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteConstant.ADDRESS_VIEW);
+                  },
+                  width: context.dynamicWidht(0.35),
+                  color: AppColors.greenColor,
+                  textColor: Colors.white,
+                  borderColor: AppColors.greenColor,
+                  title: "Tamam",
+                ),
+                Spacer(
+                  flex: 20,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      print(statusCode);
+      switch (statusCode) {
+        case StatusCode.success:
+          if (!menuList!.contains(menuItem.toString())) {
+            sumOfPricesInt.add(priceOfMenu!);
+            context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
+            sumOfPricesString.add(sumOfPricesInt.last.toString());
+            SharedPrefs.setSumPrice(sumOfPricesString);
+            context.read<BasketCounterCubit>().increment();
+            SharedPrefs.setCounter(counterState + 1);
+            menuList!.add(menuItem.toString());
+            SharedPrefs.setMenuList(menuList!);
+            print("Successss");
+          } else {
+            sumOfPricesInt.remove(priceOfMenu!);
+            sumOfPricesString.remove(priceOfMenu.toString());
+            context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
+            SharedPrefs.setSumPrice(sumOfPricesString);
+            context
+                .read<OrderCubit>()
+                .deleteBasket("${state.response[index].id}");
+            context.read<BasketCounterCubit>().decrement();
+            SharedPrefs.setCounter(counterState - 1);
+            menuList!.remove(state.response[index].id.toString());
+            SharedPrefs.setMenuList(menuList!);
+            print("real Successss");
+            print(SharedPrefs.getMenuList);
+          }
+          break;
+        default:
+          showDialog(
+              context: context,
+              builder: (_) => CustomAlertDialog(
+                  onPressedOne: () {
+                    Navigator.pop(context);
+                  },
+                  onPressedTwo: () {
+                    context.read<OrderCubit>().clearBasket();
+                    sumOfPricesInt.clear();
+                    sumOfPricesString.clear();
+                    SharedPrefs.setSumPrice([]);
+                    context.read<SumPriceOrderCubit>().sumprice([]);
 
-                  menuList!.clear();
-                  SharedPrefs.setCounter(0);
-                  SharedPrefs.setMenuList([]);
-                  context.read<BasketCounterCubit>().setCounter(0);
+                    menuList!.clear();
+                    SharedPrefs.setCounter(0);
+                    SharedPrefs.setMenuList([]);
+                    context.read<BasketCounterCubit>().setCounter(0);
 
-                  Navigator.pop(context);
-                },
-                imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                textMessage: 'Farklı restoranın ürününü seçtiniz',
-                buttonOneTitle: "Alışverişe devam et",
-                buttonTwoTittle: "Sepeti boşalt"));
-        print("Errorrr");
+                    Navigator.pop(context);
+                  },
+                  imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                  textMessage: 'Farklı restoranın ürününü seçtiniz',
+                  buttonOneTitle: "Alışverişe devam et",
+                  buttonTwoTittle: "Sepeti boşalt"));
+          print("Errorrr");
+      }
     }
   }
 
   TabBar tabBar(BuildContext context) {
     return TabBar(
+        onTap: (context) {
+          setState(() {
+            showInfo = false;
+          });
+        },
         labelPadding:
             EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
         indicator: UnderlineTabIndicator(
