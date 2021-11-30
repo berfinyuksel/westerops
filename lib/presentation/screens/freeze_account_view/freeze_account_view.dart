@@ -1,5 +1,7 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -100,6 +102,25 @@ class _FreezeAccountViewState extends State<FreezeAccountView> {
             .read<UserAuthCubit>()
             .deleteAccountUser(selectedIndex.toString());
         //SharedPrefs.clearCache();
+             if (selectedIndex >= 0 || textController.text.isNotEmpty) {
+          showDialog(
+              context: context,
+              builder: (_) => CustomAlertDialogResetPassword(
+                    description:
+                        LocaleKeys.freeze_account_popup_text_successful.locale,
+                    onPressed: () => Navigator.popAndPushNamed(
+                        context, RouteConstant.CUSTOM_SCAFFOLD),
+                  ));
+        } else {
+          showDialog(
+              context: context,
+              builder: (_) => CustomAlertDialogResetPassword(
+                    description:
+                        LocaleKeys.freeze_account_popup_text_fail.locale,
+                    onPressed: () => Navigator.popAndPushNamed(
+                        context, RouteConstant.CUSTOM_SCAFFOLD),
+                  ));
+        }
       },
     );
   }

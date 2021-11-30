@@ -1,5 +1,7 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -100,6 +102,26 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
             .read<UserAuthCubit>()
             .deleteAccountUser(selectedIndex.toString());
         //SharedPrefs.clearCache();
+        if (selectedIndex >= 0 || textController.text.isNotEmpty) {
+            showDialog(
+              context: context,
+              builder: (_) => CustomAlertDialogResetPassword(
+                    description:
+                        LocaleKeys.delete_account_popup_text_successful.locale,
+                    onPressed: () => Navigator.popAndPushNamed(
+                        context, RouteConstant.l),
+                  ));
+        }else{
+            showDialog(
+              context: context,
+              builder: (_) => CustomAlertDialogResetPassword(
+                    description:
+                        LocaleKeys.delete_account_popup_text_fail.locale,
+                    onPressed: () => Navigator.popAndPushNamed(
+                        context, RouteConstant.CUSTOM_SCAFFOLD),
+                  ));
+        }
+        print(selectedIndex.toString());
       },
     );
   }
@@ -107,11 +129,11 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
   buildRadioButtons(BuildContext context) {
     List<Widget> buttons = [];
     List<String> des = [
-      LocaleKeys.delete_account_text_3,
-      LocaleKeys.delete_account_text_4,
-      LocaleKeys.delete_account_text_5,
-      LocaleKeys.delete_account_text_6,
-      LocaleKeys.delete_account_text_7,
+      LocaleKeys.delete_account_text_3.locale,
+      LocaleKeys.delete_account_text_4.locale,
+      LocaleKeys.delete_account_text_5.locale,
+      LocaleKeys.delete_account_text_6.locale,
+      LocaleKeys.delete_account_text_7.locale,
     ];
 
     for (int i = 0; i < 5; i++) {

@@ -187,7 +187,7 @@ class SampleUserAuthenticationRepository
     String json = '{"deletion_reason": "$deletionReason"}';
     final response = await http.delete(
       Uri.parse(
-        ("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/user_deletion/"),
+        ("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/user-deletion/"),
       ),
       body: json,
       headers: <String, String>{

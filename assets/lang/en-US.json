@@ -318,7 +318,9 @@
         "text_6": "Business variety was insufficient.",
         "text_7": "Payment method is not suitable for me.",
         "button": "Delete My Account",
-        "hint_text": "You can add another description"
+        "hint_text": "You can add another description",
+        "popup_text_successful": "Your account has been successfully deleted.",
+        "popup_text_fail": "There was a problem deleting your account."
     },
     "freeze_account": {
         "title": "Freeze My Account",
@@ -330,7 +332,9 @@
         "text_6":"Business variety was insufficient.",
         "text_7":"Payment method is not suitable for me.",
         "button": "Freeze My Account",
-        "hint_text": "You can add another description"
+        "hint_text": "You can add another description",
+        "popup_text_successful": "Your account has been successfully frozen.",
+        "popup_text_fail": "There was a problem freezing your account."
     },
     "surprise_pack": {
         "surprise_pack_opened": "Your Surprise Package has been opened!",

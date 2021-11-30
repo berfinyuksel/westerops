@@ -320,7 +320,9 @@
         "text_6": "İşletme çeşitliliğini yetersiz buldum.",
         "text_7": "Ödeme yöntemi bana uygun değil.",
         "button": "Hesabımı Sil",
-        "hint_text": "Başka bir sebepten.(Lütfen açıklayın)"
+        "hint_text": "Başka bir sebepten.(Lütfen açıklayın)",
+        "popup_text_successful": "Hesabınız başarılı bir şekilde silindi.",
+        "popup_text_fail": "Hesabınızı silmede sorun oluştu."
     },
         "freeze_account": {
             "title": "Hesabımı Dondur",
@@ -332,7 +334,9 @@
             "text_6":"İşletme çeşitliliğini yetersiz buldum.",
             "text_7":"Ödeme yöntemi bana uygun değil.",
             "button": "Hesabımı Askıya Al",
-            "hint_text": "Başka bir sebepten.(Lütfen açıklayın)"
+            "hint_text": "Başka bir sebepten.(Lütfen açıklayın)",
+            "popup_text_successful": "Hesabınız başarılı bir şekilde askıya alındı.",
+            "popup_text_fail": "Hesabınızı askıya alınmada sorun oluştu."
         },
     "surprise_pack": {
         "surprise_pack_opened": "Sürpriz Paketin açıldı!",
