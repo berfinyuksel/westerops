@@ -1,4 +1,6 @@
+import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 import '../../../utils/extensions/context_extension.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
@@ -21,7 +23,7 @@ class _FilterViewState extends State<FilterView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      isDrawer: false,
+        isDrawer: false,
         title: "Filtre",
         isNavBar: true,
         body: Padding(
@@ -45,7 +47,7 @@ class _FilterViewState extends State<FilterView> {
                       Divider(
                         height: context.dynamicHeight(0.001),
                       ),
-                   // TODO Odeme sekli kaldirildi.
+                      // TODO Odeme sekli kaldirildi.
                       ChooseCategoryFilterList(),
                       // SizedBox(
                       //   height: context.dynamicHeight(0.34),
@@ -53,7 +55,20 @@ class _FilterViewState extends State<FilterView> {
                     ],
                   ),
                 ),
-                CleanAndSaveButtons()
+                Builder(builder: (context) {
+                  final FiltersState state =
+                      context.watch<FiltersCubit>().state;
+                  return CleanAndSaveButtons(
+                    onPressed: () {
+                      setState(() {
+                        for (int i = 0; i < 17; i++) {
+                          state.checkList![i] = false;
+                          print("checkboxlar temizlendi");
+                        }
+                      });
+                    },
+                  );
+                })
                 // Positioned(
                 //   child: CleanAndSaveButtons(),
                 //   bottom: 0,
