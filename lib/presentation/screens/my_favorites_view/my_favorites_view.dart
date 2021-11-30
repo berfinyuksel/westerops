@@ -189,7 +189,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                     child: favouriteRestaurant.isNotEmpty
                         ? buildListViewRestaurantInfo(favouriteRestaurant)
                         : Text("Favori restoranınız bulunmamaktadır."));
-              } else if (SharedPrefs.getIsLogined) {
+              } else if (!SharedPrefs.getIsLogined) {
                 return Center(
                   child: LocaleText(
                     text:
