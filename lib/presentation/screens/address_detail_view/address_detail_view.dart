@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/extensions/context_extension.dart';
@@ -103,7 +104,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                           tcController.text,
                           LocationService.latitude,
                           LocationService.longitude);
-                      Navigator.of(context).pop();
+                      Navigator.of(context)
+                          .pushNamed(RouteConstant.ADDRESS_VIEW);
                     },
                   ),
                 ],
