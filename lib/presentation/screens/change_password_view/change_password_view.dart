@@ -1,5 +1,7 @@
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -211,10 +213,28 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: (){
-           context.read<UserAuthCubit>().changePassword(
+          context.read<UserAuthCubit>().changePassword(
                 passwordController.text,
                 newPasswordController.text
               );
+                     if (passwordController.text.isNotEmpty && newPasswordAgainController.text.isNotEmpty && newPasswordController.text.isNotEmpty) {
+                    showDialog(
+                context: context,
+                builder: (_) => CustomAlertDialogResetPassword(
+                      description: LocaleKeys.change_password_popup_text_successful.locale,
+                      onPressed: () => Navigator.popAndPushNamed(
+                          context, RouteConstant.CUSTOM_SCAFFOLD),
+                    ));
+                     }else{
+                         showDialog(
+                context: context,
+                builder: (_) => CustomAlertDialogResetPassword(
+                      description: LocaleKeys
+                          .change_password_popup_text_fail.locale,
+                      onPressed: () => Navigator.popAndPushNamed(
+                          context, RouteConstant.CHANGE_PASSWORD_VIEW),
+                    ));
+                     }
         },
       ),
     );

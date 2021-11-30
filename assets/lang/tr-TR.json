@@ -135,7 +135,9 @@
         "current_password": "Mevcut Şifre",
         "new_password": "Yeni Şifre",
         "new_password_again": "Yeni şifre Tekrar",
-        "button": "Kaydet"
+        "button": "Kaydet",
+        "popup_text_fail": "Hatalı şifre veya şifreler eşleşmedi.",
+        "popup_text_successful": "Şifre başarılı bir şekilde değiştirildi."
     },
     "past_order": {
         "title": "Geçmiş Siparişlerim"

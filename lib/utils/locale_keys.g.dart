@@ -119,6 +119,8 @@ abstract class  LocaleKeys {
   static const change_password_new_password = 'change_password.new_password';
   static const change_password_new_password_again = 'change_password.new_password_again';
   static const change_password_button = 'change_password.button';
+  static const change_password_popup_text_fail = 'change_password.popup_text_fail';
+  static const change_password_popup_text_successful = 'change_password.popup_text_successful';
   static const change_password = 'change_password';
   static const past_order_title = 'past_order.title';
   static const past_order = 'past_order';
