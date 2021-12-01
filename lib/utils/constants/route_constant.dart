@@ -46,4 +46,6 @@ class RouteConstant {
   static const WAS_DELIVERED_VIEW = '/wasDelivered';
   static const STORE_INFO_VIEW = '/storeInfoView';
   static const CATEGORIES_VIEW = '/categories';
+  static const MY_REGISTERED_CARD_VIEW = '/myRegisteredCard';
+  static const MY_REGISTERED_CARD_UPDATE_VIEW = '/myRegisteredCardUpdate';
 }

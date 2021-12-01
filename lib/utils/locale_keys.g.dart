@@ -147,6 +147,9 @@ abstract class  LocaleKeys {
   static const address_text_3 = 'address.text_3';
   static const address_text_4 = 'address.text_4';
   static const address = 'address';
+  static const registered_cards_title = 'registered_cards.title';
+  static const registered_cards_button = 'registered_cards.button';
+  static const registered_cards = 'registered_cards';
   static const language_settings_title = 'language_settings.title';
   static const language_settings = 'language_settings';
   static const general_settings_title = 'general_settings.title';
