@@ -69,6 +69,48 @@ class _SwipeViewState extends State<SwipeView> {
                 Spacer(
                   flex: 6,
                 ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.0),
+                    color: Colors.white,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(height: 10),
+                          LocaleText(
+                            text: 'Restoran Adi',
+                            style: AppTextStyles.appBarTitleStyle.copyWith(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.orangeColor),
+                          ),
+                          Spacer(),
+                          LocaleText(
+                            text: 'Restoran Adresi',
+                            style: AppTextStyles.appBarTitleStyle.copyWith(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.orangeColor),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text(widget.orderInfo!.boxes!.first.store!.name!),
+                          Spacer(),
+                          Text(widget.orderInfo!.boxes!.first.store!.address!),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Spacer(
+                  flex: 6,
+                ),
                 infoCard(context),
                 Spacer(
                   flex: 30,

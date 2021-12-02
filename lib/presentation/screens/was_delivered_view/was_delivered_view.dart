@@ -37,7 +37,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
             child: Column(
               children: [
                 Spacer(
-                  flex: 7,
+                  flex: 2,
                 ),
                 LocaleText(
                   text: "Siparişinizi Teslim Edildi",
@@ -46,7 +46,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                       color: AppColors.orangeColor),
                 ),
                 Spacer(
-                  flex: 4,
+                  flex: 1,
                 ),
                 LocaleText(
                   text: "Sipariş Numarası:",
@@ -58,13 +58,52 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                   text: widget.orderInfo!.refCode!.toString(),
                   style: AppTextStyles.headlineStyle,
                 ),
+                Spacer(
+                  flex: 1,
+                ),
                 Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.0),
+                    color: Colors.white,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(height: 10),
+                          LocaleText(
+                            text: 'Restoran Adi',
+                            style: AppTextStyles.appBarTitleStyle.copyWith(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.orangeColor),
+                          ),
+                          Spacer(),
+                          LocaleText(
+                            text: 'Restoran Adresi',
+                            style: AppTextStyles.appBarTitleStyle.copyWith(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.orangeColor),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text(widget.orderInfo!.boxes!.first.store!.name!),
+                          Spacer(),
+                          Text(widget.orderInfo!.boxes!.first.store!.address!),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: context.dynamicHeight(0.3),
                   child: SvgPicture.asset(ImageConstant.ORDER_DELIVERED_ICON),
                 ),
-                Spacer(
-                  flex: 4,
-                ),
-
                 LocaleText(
                   text:
                       "Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",
