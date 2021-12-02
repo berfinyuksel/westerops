@@ -24,13 +24,16 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
               alignment: AlignmentDirectional.topCenter,
               children: [
                 Container(
-                    color: Colors.black,
+                    color: Colors.white,
                     height: context.dynamicHeight(0.16),
                     width: context.dynamicWidht(1),
                     child: Image.network(widget.restaurant!.background!,
                         fit: BoxFit.fill)),
                 Column(
                   children: [
+                    SizedBox(
+                      height: context.dynamicHeight(0.05),
+                    ),
                     //spacer8-9
                     SizedBox(
                       height: context.dynamicHeight(0.093),

@@ -34,35 +34,56 @@ class _FoodCategoriesState extends State<FoodCategories> {
                 top: context.dynamicWidht(0.04),
                 left: context.dynamicWidht(0.07),
                 right: context.dynamicWidht(0.07)),
-            child: GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                childAspectRatio:
-                    context.dynamicWidht(0.07) / context.dynamicHeight(0.05),
-                crossAxisSpacing: context.dynamicWidht(0.046),
-                mainAxisSpacing: context.dynamicHeight(0.02),
-              ),
-              itemCount: widget.categories!.length,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      RouteConstant.CATEGORIES_VIEW,
-                      arguments: ScreenArgumentsCategories(
-                          categories: widget.categories![index]),
-                    );
-                  },
-                  child: CategoryItem(
-                    imagePath: widget.categories![index].photo,
-                    categoryName: widget.categories![index].name,
-                    color: buildColorOfCategoryItem(
-                        widget.categories![index].color),
+            child: widget.categories!.isNotEmpty
+                ? GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      childAspectRatio: context.dynamicWidht(0.07) /
+                          context.dynamicHeight(0.05),
+                      crossAxisSpacing: context.dynamicWidht(0.046),
+                      mainAxisSpacing: context.dynamicHeight(0.02),
+                    ),
+                    itemCount: widget.categories!.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            RouteConstant.CATEGORIES_VIEW,
+                            arguments: ScreenArgumentsCategories(
+                                categories: widget.categories![index]),
+                          );
+                        },
+                        child: CategoryItem(
+                          imagePath: widget.categories![index].photo,
+                          categoryName: widget.categories![index].name,
+                          color: buildColorOfCategoryItem(
+                              widget.categories![index].color),
+                        ),
+                      );
+                    },
+                  )
+                : Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 40,
+                        ),
+                        SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        LocaleText(
+                          alignment: TextAlign.center,
+                          text:
+                              "Üzgünüz.\nBu restoran için henüz bir kategori bulunmamaktadır.",
+                          style: AppTextStyles.myInformationBodyTextStyle,
+                        ),
+                      ],
+                    ),
                   ),
-                );
-              },
-            ),
           ),
           SizedBox(
             height: context.dynamicHeight(0.049),
