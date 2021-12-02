@@ -167,6 +167,10 @@
         "text_3": "Beşiktaş (Kuruçeşme, Muallim Cad.)",
         "text_4":"\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n" 
     },
+    "registered_cards": {
+        "title": "My Registered Cards",
+        "button": "Add New Card"
+    },
     "language_settings": {
         "title": "Language Settings"
     },

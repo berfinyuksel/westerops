@@ -35,14 +35,14 @@ class CustomAlertDialog extends StatelessWidget {
       content: Container(
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
         width: context.dynamicWidht(0.87),
-        height: context.dynamicHeight(0.29),
+        height: context.dynamicHeight(0.32),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18.0),
           color: Colors.white,
         ),
         child: Column(
           children: [
-            SizedBox(height: 30),
+            SizedBox(height: 20),
             Container(
               height: 45,
               width: 90,

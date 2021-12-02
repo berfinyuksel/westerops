@@ -78,9 +78,10 @@ class CustomDrawer extends StatelessWidget {
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_cards,
                 onTap: () {
-                  //  SharedPrefs.getIsLogined == false ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                  //     :
-                  //Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+                  SharedPrefs.getIsLogined == false
+                      ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
+                      : Navigator.pushNamed(
+                          context, RouteConstant.MY_REGISTERED_CARD_VIEW);
                 },
               ),
               SizedBox(

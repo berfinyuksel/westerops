@@ -2,6 +2,8 @@ import 'package:dongu_mobile/presentation/screens/address_update_view/address_up
 import 'package:dongu_mobile/presentation/screens/categories_view/categories_view.dart';
 import 'package:dongu_mobile/presentation/screens/categories_view/screen_arguments_categories/screen_arguments_categories.dart';
 import 'package:dongu_mobile/presentation/screens/freeze_account_view/freeze_account_view.dart';
+import 'package:dongu_mobile/presentation/screens/my_registered_cards_update_view/my_registered_cards_update_view.dart';
+import 'package:dongu_mobile/presentation/screens/my_registered_cards_view/my_registered_cards_view.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/about_working_hours/about_working_hours_view.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/store_info_view/store_info_view.dart';
 import 'package:dongu_mobile/presentation/screens/splash_view/splash_view.dart';
@@ -96,6 +98,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => CustomScaffold());
       case RouteConstant.DELETE_ACCOUNT_VIEW:
         return MaterialPageRoute(builder: (_) => DeleteAccountView());
+      case RouteConstant.MY_REGISTERED_CARD_VIEW:
+        return MaterialPageRoute(builder: (_) => MyRegisteredCardsView());
+      case RouteConstant.MY_REGISTERED_CARD_UPDATE_VIEW:
+        return MaterialPageRoute(builder: (_) => MyRegisteredCardsUpdateView());
       case RouteConstant.FILTER_VIEW:
         return MaterialPageRoute(builder: (_) => FilterView());
       case RouteConstant.FREEZE_ACCOUNT_VIEW:
