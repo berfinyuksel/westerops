@@ -100,13 +100,17 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             break;
           }
         }
+        print('package surprise condition');
+        print(surprisePackageStatus);
         if (orderInfo.last.boxes != null && surprisePackageStatus == false) {
           NotificationService().initSurprisePackage(
               orderInfo.last.refCode.toString(),
-              orderInfo.last.boxes!.first.saleDay!.startDate!
+              DateTime.now().add(Duration(seconds: 10)));
+          /*   
+             orderInfo.last.boxes!.first.saleDay!.startDate!
                   .toLocal()
-                  .subtract(Duration(hours: 2)));
-          /*    DateTime.now().add(Duration(seconds: 5))
+                  .subtract(Duration(hours: 2))
+          
           */
         }
 
@@ -120,7 +124,9 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                   SizedBox(
                     height: context.dynamicHeight(0.02),
                   ),
-                  buildCountDown(context, orderInfo),
+                  Visibility(
+                      visible: orderInfo.last.boxes!.isNotEmpty,
+                      child: buildCountDown(context, orderInfo)),
                   SizedBox(
                     height: context.dynamicHeight(0.04),
                   ),
@@ -313,37 +319,45 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
 
   Container buildCountDown(
       BuildContext context, List<OrderReceived> orderInfo) {
-    List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
-        orderInfo.last.boxes!.first.saleDay!.endDate!.toLocal());
+    if (orderInfo.last.boxes!.isNotEmpty) {
+      List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
+          orderInfo.last.boxes!.first.saleDay!.endDate!.toLocal());
 
-    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
-    int hour = itemsOfCountDown[0];
-    int minute = itemsOfCountDown[1];
-    int second = itemsOfCountDown[2];
-    if (durationFinal <= 0) {
-      context.read<OrderBarCubit>().stateOfBar(false);
-      SharedPrefs.setOrderBar(false);
+      startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
+      int hour = itemsOfCountDown[0];
+      int minute = itemsOfCountDown[1];
+      int second = itemsOfCountDown[2];
+      if (durationFinal <= 0) {
+        context.read<OrderBarCubit>().stateOfBar(false);
+        SharedPrefs.setOrderBar(false);
+      }
     }
-    return Container(
-      width: double.infinity,
-      height: context.dynamicHeight(0.1),
-      color: Colors.white,
-      child: Row(
-        children: [
-          Spacer(flex: 5),
-          SvgPicture.asset(ImageConstant.ORDER_RECEIVED_CLOCK_ICON),
-          Spacer(flex: 1),
-          LocaleText(
-              text: LocaleKeys.order_received_count_down,
-              style: AppTextStyles.bodyTitleStyle),
-          Spacer(flex: 1),
-          Text(
-              '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}',
-              style: AppTextStyles.appBarTitleStyle),
-          Spacer(flex: 5),
-        ],
-      ),
-    );
+
+    return orderInfo.last.boxes! != []
+        ? Container(
+            width: double.infinity,
+            height: context.dynamicHeight(0.1),
+            color: Colors.white,
+            child: Row(
+              children: [
+                Spacer(flex: 5),
+                SvgPicture.asset(ImageConstant.ORDER_RECEIVED_CLOCK_ICON),
+                Spacer(flex: 1),
+                LocaleText(
+                    text: LocaleKeys.order_received_count_down,
+                    style: AppTextStyles.bodyTitleStyle),
+                Spacer(flex: 1),
+                Text(
+                    '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}',
+                    style: AppTextStyles.appBarTitleStyle),
+                Spacer(flex: 5),
+              ],
+            ),
+          )
+        : Container(
+            width: 0,
+            height: 0,
+          );
   }
 
   Padding buildButton(BuildContext context, String title, Color color,

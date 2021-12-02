@@ -57,7 +57,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   late Timer timer;
   int durationFinal = 10;
-
+  String countDown = '';
   ScrollController? _controller;
   int? duration;
 
@@ -67,6 +67,7 @@ class _HomePageViewState extends State<HomePageView> {
     context.read<SearchStoreCubit>().getSearchStore();
     LocationService.getCurrentLocation();
     getDeviceIdentifier();
+    context.read<OrderReceivedCubit>().getOrder();
   }
 
   Future<List<String>> getDeviceIdentifier() async {
@@ -295,13 +296,14 @@ class _HomePageViewState extends State<HomePageView> {
         for (var i = 0; i < stateOfOrder.response.length; i++) {
           orderInfo.add(stateOfOrder.response[i]);
         }
-
+        print('hasbdjasbndjkasndjasn');
+        print(orderInfo.first.address!.name);
         return GestureDetector(
           onTap: () {
             Navigator.of(context)
                 .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
                     arguments: ScreenArgumentsRestaurantDetail(
-                      orderInfo: orderInfo.last,
+                      orderInfo: orderInfo.first,
                     ));
           },
           child: Container(
@@ -321,17 +323,21 @@ class _HomePageViewState extends State<HomePageView> {
                     ),
                     LocaleText(
                       text:
-                          '${orderInfo.last.address!.name} - ${orderInfo.last.buyingTime!.format(EuropeanDateFormats.standard)}',
+                          '${orderInfo.first.address!.name} - ${orderInfo.first.buyingTime!.toLocal().day}.${orderInfo.first.buyingTime!.toLocal().month}.${orderInfo.first.buyingTime!.toLocal().year}',
                       style: AppTextStyles.subTitleBoldStyle,
                     ),
                     LocaleText(
-                      text: orderInfo.last.boxes![0].store!.name,
+                      text: orderInfo.first.boxes!.isNotEmpty
+                          ? orderInfo.first.boxes![0].store!.name
+                          : '',
                       style: AppTextStyles.bodyBoldTextStyle
                           .copyWith(color: Colors.white),
                     ),
                   ],
                 ),
-                buildCountDown(context, orderInfo),
+                Visibility(
+                    visible: orderInfo.first.boxes!.isNotEmpty,
+                    child: buildCountDown(context, orderInfo)),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
@@ -342,7 +348,7 @@ class _HomePageViewState extends State<HomePageView> {
                     color: AppColors.scaffoldBackgroundColor,
                   ),
                   child: Text(
-                    '${orderInfo.last.cost} TL',
+                    '${orderInfo.first.cost} TL',
                     style: AppTextStyles.bodyBoldTextStyle
                         .copyWith(color: AppColors.greenColor),
                   ),
@@ -735,20 +741,22 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Text buildCountDown(BuildContext context, List<OrderReceived> orderInfo) {
-    List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
-        orderInfo.last.boxes!.first.saleDay!.endDate!.toLocal());
+    if (orderInfo.first.boxes!.isNotEmpty) {
+      List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
+          orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal());
 
-    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
-    int hour = itemsOfCountDown[0];
-    int minute = itemsOfCountDown[1];
-    int second = itemsOfCountDown[2];
-    if (durationFinal <= 0) {
-      context.read<OrderBarCubit>().stateOfBar(false);
-      SharedPrefs.setOrderBar(false);
+      startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
+      int hour = itemsOfCountDown[0];
+      int minute = itemsOfCountDown[1];
+      int second = itemsOfCountDown[2];
+      if (durationFinal <= 0) {
+        context.read<OrderBarCubit>().stateOfBar(false);
+        SharedPrefs.setOrderBar(false);
+      }
+
+      String countDown =
+          '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}';
     }
-
-    String countDown =
-        '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}';
 
     return Text(
       countDown,

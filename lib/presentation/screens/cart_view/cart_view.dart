@@ -46,7 +46,7 @@ class _CartViewState extends State<CartView> {
   List<BoxOrder> itemList = [];
   List<String> sumOfPricesString = SharedPrefs.getSumPrice;
   List<int> sumOfPricesInt = [];
-
+  List<int> sumOfOldPrices = [];
   @override
   void initState() {
     super.initState();
@@ -132,6 +132,8 @@ class _CartViewState extends State<CartView> {
                       print(itemList[index]
                           .packageSetting
                           ?.minDiscountedOrderPrice);
+                      sumOfOldPrices
+                          .add(itemList[index].packageSetting!.minOrderPrice!);
                       return Dismissible(
                         direction: DismissDirection.endToStart,
                         key: UniqueKey(),
@@ -190,6 +192,11 @@ class _CartViewState extends State<CartView> {
                           );
                         },
                         child: PastOrderDetailBasketListTile(
+                          oldPrice: itemList[index]
+                              .packageSetting!
+                              .minOrderPrice!
+                              .toDouble(),
+                          withMinOrderPrice: true,
                           title: "${itemList[index].textName}",
                           price: itemList[index]
                               .packageSetting!
@@ -214,6 +221,8 @@ class _CartViewState extends State<CartView> {
                 final state = context.watch<SumPriceOrderCubit>().state;
 
                 return PastOrderDetailPaymentListTile(
+                  oldPrice: sumOfOldPrices.fold(
+                      0, (previous, current) => previous! + current),
                   title: LocaleKeys.past_order_detail_payment_1,
                   price: state.toDouble(),
                   lineTrough: false,
