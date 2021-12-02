@@ -284,6 +284,8 @@ abstract class  LocaleKeys {
   static const delete_account_text_7 = 'delete_account.text_7';
   static const delete_account_button = 'delete_account.button';
   static const delete_account_hint_text = 'delete_account.hint_text';
+  static const delete_account_popup_text_successful = 'delete_account.popup_text_successful';
+  static const delete_account_popup_text_fail = 'delete_account.popup_text_fail';
   static const delete_account = 'delete_account';
   static const freeze_account_title = 'freeze_account.title';
   static const freeze_account_text_1 = 'freeze_account.text_1';
@@ -295,6 +297,8 @@ abstract class  LocaleKeys {
   static const freeze_account_text_7 = 'freeze_account.text_7';
   static const freeze_account_button = 'freeze_account.button';
   static const freeze_account_hint_text = 'freeze_account.hint_text';
+  static const freeze_account_popup_text_successful = 'freeze_account.popup_text_successful';
+  static const freeze_account_popup_text_fail = 'freeze_account.popup_text_fail';
   static const freeze_account = 'freeze_account';
   static const surprise_pack_surprise_pack_opened = 'surprise_pack.surprise_pack_opened';
   static const surprise_pack_surprise_pack = 'surprise_pack.surprise_pack';
