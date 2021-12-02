@@ -8,6 +8,7 @@ import '../../../widgets/text/locale_text.dart';
 class PastOrderDetailBasketListTile extends StatelessWidget {
   final String? title;
   final double? price;
+  final double? oldPrice;
   final String? subTitle;
   final bool? withDecimal;
   final bool? withMinOrderPrice;
@@ -18,6 +19,7 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
     Key? key,
     this.title,
     this.price,
+    this.oldPrice,
     this.subTitle,
     this.withDecimal,
     this.withMinOrderPrice = false,
@@ -34,16 +36,32 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
       ),
       trailing: Container(
         alignment: Alignment.center,
-        width: context.dynamicWidht(0.16),
+        width: context.dynamicWidht(0.3),
         height: context.dynamicHeight(0.04),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.0),
-          color: AppColors.scaffoldBackgroundColor,
-        ),
-        child: Text(
-          '${withDecimal! ? price!.toStringAsFixed(2) : price!.toStringAsFixed(0)} TL',
-          style: AppTextStyles.bodyBoldTextStyle
-              .copyWith(color: AppColors.greenColor),
+        child: Row(
+          children: [
+            Text(
+              '${withDecimal! ? oldPrice!.toStringAsFixed(2) : oldPrice!.toStringAsFixed(0)} TL',
+              style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                  decoration: TextDecoration.lineThrough,
+                  color: AppColors.unSelectedpackageDeliveryColor),
+            ),
+            SizedBox(width: context.dynamicWidht(0.02)),
+            Container(
+              alignment: Alignment.center,
+              width: context.dynamicWidht(0.15),
+              height: context.dynamicHeight(0.04),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.0),
+                color: AppColors.scaffoldBackgroundColor,
+              ),
+              child: Text(
+                '${withDecimal! ? price!.toStringAsFixed(2) : price!.toStringAsFixed(0)} TL',
+                style: AppTextStyles.bodyBoldTextStyle
+                    .copyWith(color: AppColors.greenColor),
+              ),
+            ),
+          ],
         ),
       ),
       tileColor: Colors.white,

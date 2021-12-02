@@ -134,7 +134,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                 mealNames = meals.join('\n');
               }
               return PastOrderDetailBasketListTile(
-                title: widget.orderInfo!.boxes![index].textName,
+                title: widget.orderInfo!.boxes![index].textName ?? '',
                 price:
                     (widget.orderInfo!.cost! / widget.orderInfo!.boxes!.length),
                 withDecimal: false,

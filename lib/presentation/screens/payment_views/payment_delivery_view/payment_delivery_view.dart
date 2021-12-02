@@ -50,6 +50,9 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
         return ListView(
           shrinkWrap: true,
           children: [
+            SizedBox(
+              height: context.dynamicHeight(0.03),
+            ),
             DeliveryAvailableTimeListTile(chosenRestaurantList: list),
             SizedBox(
               height: context.dynamicHeight(0.03),
