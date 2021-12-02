@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/repositories/update_order_repository.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
 import '../../../data/model/order_received.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/order_cubit/order_received_cubit.dart';
@@ -123,18 +125,18 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
           Spacer(
             flex: 22,
           ),
-          Column(
+          /*   Column(
             children: buildRadioButtons(context),
-          ),
+          ), */
           Spacer(
             flex: 5,
           ),
           buildTextFormField(
-              LocaleKeys.delete_account_hint_text.locale, textController),
+              'Siparisi iptal etme nedeninizi yaziniz.', textController),
           Spacer(
             flex: 20,
           ),
-          buildCustomButton(),
+          buildCustomButton(orderInfo),
           Spacer(
             flex: 32,
           ),
@@ -163,14 +165,17 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
     );
   }
 
-  CustomButton buildCustomButton() {
+  CustomButton buildCustomButton(List<OrderReceived> orderInfo) {
     return CustomButton(
       width: double.infinity,
       title: LocaleKeys.surprise_pack_canceled_button_send,
       color: Colors.transparent,
       borderColor: AppColors.greenColor,
       textColor: AppColors.greenColor,
-      onPressed: () {},
+      onPressed: () async {
+        await sl<UpdateOrderRepository>()
+            .cancelOrder(orderInfo.last.id!, textController.text);
+      },
     );
   }
 

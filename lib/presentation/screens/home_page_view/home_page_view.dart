@@ -46,8 +46,8 @@ class _HomePageViewState extends State<HomePageView> {
   bool scroolOpportunitiesRight = false;
 
   late Timer timer;
-  int durationFinal = 10;
-  String countDown = '';
+  int? durationFinal;
+
   ScrollController? _controller;
   int? duration;
 
@@ -731,23 +731,19 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Text buildCountDown(BuildContext context, List<OrderReceived> orderInfo) {
-    if (orderInfo.first.boxes!.isNotEmpty) {
-      List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
-          orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal());
+    List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
+        orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal());
 
-      startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
-      int hour = itemsOfCountDown[0];
-      int minute = itemsOfCountDown[1];
-      int second = itemsOfCountDown[2];
-      if (durationFinal <= 0) {
-        context.read<OrderBarCubit>().stateOfBar(false);
-        SharedPrefs.setOrderBar(false);
-      }
-
-      String countDown =
-          '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}';
+    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
+    int hour = itemsOfCountDown[0];
+    int minute = itemsOfCountDown[1];
+    int second = itemsOfCountDown[2];
+    if (durationFinal! <= 0) {
+      context.read<OrderBarCubit>().stateOfBar(false);
+      SharedPrefs.setOrderBar(false);
     }
-
+    String countDown =
+        '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}';
     return Text(
       countDown,
       style: AppTextStyles.subTitleBoldStyle,
@@ -773,13 +769,13 @@ class _HomePageViewState extends State<HomePageView> {
     int durationOfEnd = buildDurationSecondsForDateTimes(local);
 
     durationFinal = durationOfEnd - durationOfNow;
-    int hourOfitem = (durationFinal ~/ (60 * 60));
+    int hourOfitem = (durationFinal! ~/ (60 * 60));
     results.add(hourOfitem);
-    int minuteOfitem = (durationFinal - (hourOfitem * 60 * 60)) ~/ 60;
+    int minuteOfitem = (durationFinal! - (hourOfitem * 60 * 60)) ~/ 60;
     results.add(minuteOfitem);
 
     int secondOfitem =
-        (durationFinal - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
+        (durationFinal! - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
     results.add(secondOfitem);
 
     return results;

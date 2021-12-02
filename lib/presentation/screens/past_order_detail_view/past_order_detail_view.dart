@@ -1,4 +1,5 @@
 import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -44,6 +45,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
   int starDegreeTaste = 3;
   bool editVisibility = false;
   String mealNames = '';
+  TextEditingController textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +182,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (_) => CustomAlertDialog(
+                      builder: (_) => CustomAlertDialogForCancelOrder(
+                          customTextController: textController,
                           textMessage:
                               'Siparisi iptal etmek\nistediğinize emin misiniz?',
                           buttonOneTitle: 'Vazgeç',
@@ -191,8 +194,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                           },
                           onPressedTwo: () async {
                             StatusCode statusCode =
-                                await sl<UpdateOrderRepository>()
-                                    .cancelOrder(widget.orderInfo!.id!);
+                                await sl<UpdateOrderRepository>().cancelOrder(
+                                    widget.orderInfo!.id!, textController.text);
                             switch (statusCode) {
                               case StatusCode.success:
                                 showDialog(
@@ -223,7 +226,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                 SizedBox(height: 10),
                                                 LocaleText(
                                                   text:
-                                                      "Siparisiniz Basariyla iptal edildi Texti",
+                                                      "Siparisiniz basariyla iptal edilmistir",
                                                   style: AppTextStyles
                                                       .bodyBoldTextStyle,
                                                   alignment: TextAlign.center,
@@ -299,7 +302,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                 SizedBox(height: 10),
                                                 LocaleText(
                                                   text:
-                                                      "Siparisinizi Iptal Edemiyoruz Texti",
+                                                      "Siparisiniz belirlenen kurallar geregince iptal edilememektedir",
                                                   style: AppTextStyles
                                                       .bodyBoldTextStyle,
                                                   alignment: TextAlign.center,

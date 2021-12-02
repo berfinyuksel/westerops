@@ -40,12 +40,14 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
         height: context.dynamicHeight(0.04),
         child: Row(
           children: [
-            Text(
-              '${withDecimal! ? oldPrice!.toStringAsFixed(2) : oldPrice!.toStringAsFixed(0)} TL',
-              style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                  decoration: TextDecoration.lineThrough,
-                  color: AppColors.unSelectedpackageDeliveryColor),
-            ),
+            oldPrice != null
+                ? Text(
+                    '${withDecimal! ? oldPrice!.toStringAsFixed(2) : oldPrice!.toStringAsFixed(0)} TL',
+                    style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                        decoration: TextDecoration.lineThrough,
+                        color: AppColors.unSelectedpackageDeliveryColor),
+                  )
+                : Spacer(),
             SizedBox(width: context.dynamicWidht(0.02)),
             Container(
               alignment: Alignment.center,
