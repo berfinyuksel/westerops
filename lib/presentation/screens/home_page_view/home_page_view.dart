@@ -735,13 +735,13 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Text buildCountDown(BuildContext context, List<OrderReceived> orderInfo) {
-    List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
+    List<int> countDownItems = buildDurationForCountdown(DateTime.now(),
         orderInfo.last.boxes!.first.saleDay!.endDate!.toLocal());
 
-    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
-    int hour = itemsOfCountDown[0];
-    int minute = itemsOfCountDown[1];
-    int second = itemsOfCountDown[2];
+    startTimer(countDownItems[0], countDownItems[1], countDownItems[2]);
+    int hour = countDownItems[0];
+    int minute = countDownItems[1];
+    int second = countDownItems[2];
     if (durationFinal <= 0) {
       context.read<OrderBarCubit>().stateOfBar(false);
       SharedPrefs.setOrderBar(false);
