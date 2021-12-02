@@ -1,40 +1,25 @@
-import 'package:dongu_mobile/data/model/category_name.dart';
-import 'package:dongu_mobile/data/model/favourite.dart';
-import 'package:dongu_mobile/data/model/search_store.dart';
-import 'package:dongu_mobile/data/repositories/basket_repository.dart';
-
-import 'package:dongu_mobile/data/repositories/order_repository.dart';
-import 'package:dongu_mobile/data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
-import 'package:dongu_mobile/data/services/locator.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
-
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/cart_view/cart_view.dart';
-import 'package:dongu_mobile/presentation/screens/categories_view/screen_arguments_categories/screen_arguments_categories.dart';
-import 'package:dongu_mobile/presentation/screens/login_view/login_view.dart';
-import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/payment_payment_view.dart';
-import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
-import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
-import 'package:dongu_mobile/utils/clippers/password_rules_clipper.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../register_view/components/clipped_password_rules.dart';
+
 import '../../../../../data/model/box.dart';
-
+import '../../../../../data/model/category_name.dart';
+import '../../../../../data/model/search_store.dart';
+import '../../../../../data/repositories/basket_repository.dart';
+import '../../../../../data/services/locator.dart';
+import '../../../../../data/shared/shared_prefs.dart';
+import '../../../../../logic/cubits/address_cubit/address_cubit.dart';
+import '../../../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
+import '../../../../../logic/cubits/box_cubit/box_cubit.dart';
+import '../../../../../logic/cubits/category_name_cubit/category_name_cubit.dart';
+import '../../../../../logic/cubits/favourite_cubit/favourite_cubit.dart';
+import '../../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../../../logic/cubits/order_cubit/order_cubit.dart';
-
+import '../../../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
+import '../../../../../logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import '../../../../../utils/constants/image_constant.dart';
+import '../../../../../utils/constants/route_constant.dart';
 import '../../../../../utils/extensions/context_extension.dart';
 import '../../../../../utils/extensions/string_extension.dart';
 import '../../../../../utils/locale_keys.g.dart';
@@ -42,8 +27,11 @@ import '../../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../../widgets/button/custom_button.dart';
 import '../../../../widgets/text/locale_text.dart';
+import '../../../categories_view/screen_arguments_categories/screen_arguments_categories.dart';
+import '../../../register_view/components/clipped_password_rules.dart';
+import '../../../surprise_pack_view/components/custom_alert_dialog.dart';
+import '../../screen_arguments/screen_arguments.dart';
 import 'custom_circular_progress.dart';
-import 'info_tooltip.dart';
 
 class CustomCardAndBody extends StatefulWidget {
   final SearchStore? restaurant;

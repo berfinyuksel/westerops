@@ -1,13 +1,11 @@
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/filtered_view/filtered_view.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
 
+import '../../../../data/shared/shared_prefs.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../widgets/button/custom_button.dart';
+import '../../filtered_view/filtered_view.dart';
 
 class CleanAndSaveButtons extends StatefulWidget {
   final VoidCallback? onPressed;

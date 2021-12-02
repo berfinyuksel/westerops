@@ -1,9 +1,9 @@
-import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
+import '../../../../logic/cubits/address_cubit/address_cubit.dart';
+import '../../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../widgets/text/locale_text.dart';
+import '../../../../utils/constants/image_constant.dart';
+import '../../../../utils/constants/route_constant.dart';
+import '../../../../utils/theme/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';

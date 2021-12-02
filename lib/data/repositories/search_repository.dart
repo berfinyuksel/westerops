@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dongu_mobile/data/model/search.dart';
+import '../model/search.dart';
 
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;

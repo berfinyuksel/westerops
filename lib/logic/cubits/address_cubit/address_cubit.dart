@@ -1,5 +1,6 @@
-import 'package:dongu_mobile/data/repositories/address_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../data/repositories/address_repository.dart';
 import '../generic_state/generic_state.dart';
 
 class AddressCubit extends Cubit<GenericState> {

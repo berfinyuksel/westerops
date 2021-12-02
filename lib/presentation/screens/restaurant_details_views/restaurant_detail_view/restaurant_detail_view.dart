@@ -1,6 +1,6 @@
-import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../data/model/search_store.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../widgets/scaffold/custom_scaffold.dart';
 import 'components/custom_card_and_body.dart';

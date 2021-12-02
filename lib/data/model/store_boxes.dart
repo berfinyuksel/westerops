@@ -125,10 +125,10 @@ class SaleDay {
   DateTime? startDate;
   DateTime? endDate;
   int? store;
-  dynamic? timeLabel;
+  dynamic timeLabel;
   bool? isActive;
   int? boxCount;
-  dynamic? detail;
+  dynamic detail;
 
   factory SaleDay.fromRawJson(String str) => SaleDay.fromJson(json.decode(str));
 

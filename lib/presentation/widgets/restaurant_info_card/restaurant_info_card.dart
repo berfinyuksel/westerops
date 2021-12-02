@@ -1,20 +1,16 @@
-import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
+import '../../../utils/constants/image_constant.dart';
+import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/theme/app_colors/app_colors.dart';
+import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../restaurant_info_list_tile/first_column/packet_number.dart';
 import '../restaurant_info_list_tile/first_column/restaurant_icon.dart';
 import '../restaurant_info_list_tile/second_column/package_delivery.dart';
 import '../restaurant_info_list_tile/third_column/available_time.dart';
 import '../restaurant_info_list_tile/third_column/meters.dart';
 import '../restaurant_info_list_tile/third_column/old_and_new_prices.dart';
-import '../../../utils/constants/image_constant.dart';
-import '../../../utils/extensions/context_extension.dart';
-import '../../../utils/theme/app_colors/app_colors.dart';
-import '../../../utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class RestaurantInfoCard extends StatefulWidget {
   final String? packetNumber;

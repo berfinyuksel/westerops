@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
+import '../../../utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/extensions/context_extension.dart';

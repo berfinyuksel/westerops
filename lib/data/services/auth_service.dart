@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:dongu_mobile/data/model/auth_token.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/utils/constants/url_constant.dart';
+import '../model/auth_token.dart';
+import '../shared/shared_prefs.dart';
+import '../../utils/constants/url_constant.dart';
 import 'dart:developer';
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';

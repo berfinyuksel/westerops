@@ -1,35 +1,26 @@
 import 'dart:async';
-
-import 'package:date_time_format/date_time_format.dart';
-import 'package:dongu_mobile/data/model/category_name.dart';
-import 'package:dongu_mobile/data/model/order_received.dart';
-import 'package:dongu_mobile/data/model/search_store.dart';
 import 'dart:io';
+
 import 'package:device_info/device_info.dart';
-
-import 'package:dongu_mobile/data/services/location_service.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/first_column/packet_number.dart';
-
-import 'package:dongu_mobile/utils/haversine.dart';
-import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../data/model/order_received.dart';
+import '../../../data/model/search_store.dart';
+import '../../../data/services/location_service.dart';
+import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
-
+import '../../../logic/cubits/order_bar_cubit/order_bar_cubit.dart';
+import '../../../logic/cubits/order_cubit/order_received_cubit.dart';
+import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/string_extension.dart';
+import '../../../utils/haversine.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -38,7 +29,6 @@ import '../../widgets/text/locale_text.dart';
 import '../my_favorites_view/components/address_text.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../search_view/components/horizontal_list_category_bar.dart';
-import '../../../utils/extensions/string_extension.dart';
 
 class HomePageView extends StatefulWidget {
   @override

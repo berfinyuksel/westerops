@@ -1,13 +1,12 @@
-import 'package:dongu_mobile/data/model/search_store.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/time_interval_cubit/time_interval_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../data/model/search_store.dart';
+import '../../../../logic/cubits/time_interval_cubit/time_interval_cubit.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/scaffold/custom_scaffold.dart';
 import '../../../widgets/text/locale_text.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AboutWorkingHourView extends StatefulWidget {
   final SearchStore? restaurant;

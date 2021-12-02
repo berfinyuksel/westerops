@@ -1,8 +1,8 @@
-import 'package:dongu_mobile/data/model/box.dart';
-import 'package:dongu_mobile/presentation/screens/onboardings_view/onboardings_view.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../../utils/constants/image_constant.dart';
+import '../onboardings_view/onboardings_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);

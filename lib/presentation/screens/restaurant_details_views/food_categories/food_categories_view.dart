@@ -1,18 +1,17 @@
-import 'package:dongu_mobile/data/model/category_name.dart';
-import 'package:dongu_mobile/presentation/screens/categories_view/screen_arguments_categories/screen_arguments_categories.dart';
-import 'package:dongu_mobile/presentation/screens/home_page_view/components/category_item.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:googleapis/books/v1.dart';
 
+import '../../../../data/model/category_name.dart';
 import '../../../../utils/constants/image_constant.dart';
+import '../../../../utils/constants/route_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/scaffold/custom_scaffold.dart';
 import '../../../widgets/text/locale_text.dart';
+import '../../categories_view/screen_arguments_categories/screen_arguments_categories.dart';
+import '../../home_page_view/components/category_item.dart';
 
 class FoodCategories extends StatefulWidget {
   final List<Result>? categories;

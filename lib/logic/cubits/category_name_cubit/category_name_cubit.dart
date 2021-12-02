@@ -1,5 +1,6 @@
-import 'package:dongu_mobile/data/repositories/category_name_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../data/repositories/category_name_repository.dart';
 import '../generic_state/generic_state.dart';
 
 class CategoryNameCubit extends Cubit<GenericState> {

@@ -1,15 +1,13 @@
-import 'package:dongu_mobile/data/model/address.dart';
-import 'package:dongu_mobile/data/model/search_store.dart';
-
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/was_delivered_view/was_delivered_view.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../data/model/search_store.dart';
+import '../../../../data/shared/shared_prefs.dart';
+import '../../../../logic/cubits/address_cubit/address_cubit.dart';
+import '../../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
+import '../../../../utils/constants/route_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';

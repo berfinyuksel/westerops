@@ -1,15 +1,14 @@
-import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+
+import '../../../logic/cubits/filters_cubit/filters_cubit.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
-
 import 'components/choose_category_filter_list_tile.dart';
 import 'components/clean_and_save_buttons.dart';
 import 'components/package_delivery_filter_list_tile.dart';
 import 'components/package_price_filter_list_tile.dart';
-import 'components/payment_method_list_tile.dart';
 import 'components/sort_filter_list_tile.dart';
 
 class FilterView extends StatefulWidget {
@@ -47,7 +46,6 @@ class _FilterViewState extends State<FilterView> {
                       Divider(
                         height: context.dynamicHeight(0.001),
                       ),
-                      // TODO Odeme sekli kaldirildi.
                       ChooseCategoryFilterList(),
                       // SizedBox(
                       //   height: context.dynamicHeight(0.34),

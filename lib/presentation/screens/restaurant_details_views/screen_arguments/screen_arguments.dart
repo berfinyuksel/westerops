@@ -1,5 +1,5 @@
-import 'package:dongu_mobile/data/model/order_received.dart';
-import 'package:dongu_mobile/data/model/search_store.dart';
+import '../../../../data/model/order_received.dart';
+import '../../../../data/model/search_store.dart';
 
 class ScreenArgumentsRestaurantDetail {
   final SearchStore? restaurant;

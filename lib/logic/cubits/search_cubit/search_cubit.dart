@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/data/repositories/search_repository.dart';
+import '../../../data/repositories/search_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../generic_state/generic_state.dart';
 

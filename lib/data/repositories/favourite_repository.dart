@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:dongu_mobile/data/model/favourite.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/utils/constants/url_constant.dart';
+import '../model/favourite.dart';
+import '../shared/shared_prefs.dart';
+import '../../utils/constants/url_constant.dart';
 
 import 'package:http/http.dart' as http;
 

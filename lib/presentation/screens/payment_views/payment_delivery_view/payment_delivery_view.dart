@@ -1,10 +1,10 @@
 import 'package:date_time_format/date_time_format.dart';
-import 'package:dongu_mobile/data/model/search_store.dart';
-import 'package:dongu_mobile/data/model/store_courier_hours.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
+import '../../../../data/model/search_store.dart';
+import '../../../../data/model/store_courier_hours.dart';
+import '../../../../data/shared/shared_prefs.dart';
+import '../../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
+import '../../../../logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

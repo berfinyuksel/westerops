@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dongu_mobile/data/model/order_received.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import '../../../data/model/order_received.dart';
+import '../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';

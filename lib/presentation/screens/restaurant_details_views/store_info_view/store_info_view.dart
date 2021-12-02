@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/data/model/search_store.dart';
+import '../../../../data/model/search_store.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions/context_extension.dart';

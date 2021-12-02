@@ -24,18 +24,18 @@ class OrderReceived {
 
   int? id;
   List<Box>? boxes;
-  dynamic? courierTime;
+  dynamic courierTime;
   List<Review>? review;
   DateTime? buyingTime;
   String? status;
   String? deliveryType;
   int? cost;
   int? refCode;
-  dynamic? boxesDefinedTime;
+  dynamic boxesDefinedTime;
   bool? isVoted;
   User? user;
   Address? address;
-  dynamic? billingAddress;
+  dynamic billingAddress;
 
   factory OrderReceived.fromRawJson(String str) =>
       OrderReceived.fromJson(json.decode(str));
@@ -161,7 +161,7 @@ class Box {
   });
 
   int? id;
-  dynamic? description;
+  dynamic description;
   bool? defined;
   bool? sold;
   String? checkTaskId;
@@ -217,9 +217,9 @@ class Meal {
 
   int? id;
   String? name;
-  dynamic? description;
+  dynamic description;
   int? price;
-  dynamic? photo;
+  dynamic photo;
   bool? favorite;
   int? store;
   int? category;
@@ -311,7 +311,7 @@ class SaleDay {
   DateTime? createdAt;
   DateTime? updatedAt;
   int? store;
-  dynamic? timeLabel;
+  dynamic timeLabel;
 
   factory SaleDay.fromRawJson(String str) => SaleDay.fromJson(json.decode(str));
 
@@ -526,8 +526,8 @@ class User {
   DateTime? lastLogin;
   bool? isSuperuser;
   String? email;
-  dynamic? facebookEmail;
-  dynamic? googleEmail;
+  dynamic facebookEmail;
+  dynamic googleEmail;
   String? firstName;
   String? lastName;
   bool? isActive;
@@ -535,13 +535,13 @@ class User {
   int? activeAddress;
   DateTime? createdAt;
   String? status;
-  dynamic? birthdate;
+  dynamic birthdate;
   String? phoneNumber;
   bool? allowEmail;
   bool? allowPhone;
   bool? isDeleted;
   String? deletionReason;
-  dynamic? adminRole;
+  dynamic adminRole;
   List<dynamic>? userPermissions;
   List<int>? groups;
 

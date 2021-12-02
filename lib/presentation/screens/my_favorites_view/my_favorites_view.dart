@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
-import 'package:dongu_mobile/data/model/search_store.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
-import 'package:dongu_mobile/utils/haversine.dart';
+import '../../../data/model/search_store.dart';
+import '../../../data/shared/shared_prefs.dart';
+import '../../../logic/cubits/favourite_cubit/favourite_cubit.dart';
+import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
+import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
+import '../../../utils/constants/route_constant.dart';
+import '../../../utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,7 +1,7 @@
-import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
-import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
+import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
+import '../forgot_password_view/components/popup_reset_password.dart';
+import '../register_view/components/password_rules.dart';
+import '../../../utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

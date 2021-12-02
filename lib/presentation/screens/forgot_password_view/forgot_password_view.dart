@@ -1,16 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/home_page_view/home_page_view.dart';
-import 'package:dongu_mobile/presentation/screens/login_view/login_view.dart';
-import 'package:dongu_mobile/presentation/screens/register_view/components/password_rules.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
+import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
 import '../../../utils/locale_keys.g.dart';
@@ -20,6 +16,7 @@ import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import '../register_view/components/clipped_password_rules.dart';
+import '../register_view/components/password_rules.dart';
 import 'components/popup_reset_password.dart';
 
 enum MobileVerificationState {

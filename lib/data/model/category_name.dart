@@ -13,8 +13,8 @@ class CategoryName {
   });
 
   int? count;
-  dynamic? next;
-  dynamic? previous;
+  dynamic next;
+  dynamic previous;
   List<Result>? results;
 
   factory CategoryName.fromRawJson(String str) =>

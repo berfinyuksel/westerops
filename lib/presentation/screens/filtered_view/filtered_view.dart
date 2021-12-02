@@ -1,21 +1,18 @@
-import 'package:dongu_mobile/data/model/search_store.dart';
-import 'package:dongu_mobile/data/services/location_service.dart';
-import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_manager_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/filters_cubit/sort_filters_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/haversine.dart';
-import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import '../../../data/model/search_store.dart';
+import '../../../data/services/location_service.dart';
+import '../../../logic/cubits/filters_cubit/filters_manager_cubit.dart';
+import '../../../logic/cubits/filters_cubit/sort_filters_cubit.dart';
+import '../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
+import '../../../utils/constants/route_constant.dart';
+import '../../../utils/haversine.dart';
+import '../../../utils/theme/app_colors/app_colors.dart';
+import '../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
+import '../../widgets/scaffold/custom_scaffold.dart';
+import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 
 class FilteredView extends StatefulWidget {
   FilteredView({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
-import 'package:dongu_mobile/data/repositories/avg_review_repository.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../data/repositories/avg_review_repository.dart';
 
 class AvgReviewCubit extends Cubit<StatusCode> {
   final AvgReviewRepository _avgReviewRepository;

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:dongu_mobile/data/model/user_address.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import '../model/user_address.dart';
+import '../shared/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 
 import '../../utils/constants/url_constant.dart';

@@ -1,6 +1,6 @@
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/my_notifications_view/my_notifications_view.dart';
+import '../../../data/shared/shared_prefs.dart';
+import '../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
+import '../../screens/my_notifications_view/my_notifications_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../screens/cart_view/cart_view.dart';
 import '../../screens/home_page_view/home_page_view.dart';
@@ -17,6 +17,7 @@ import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../utils/extensions/string_extension.dart';
 
+// ignore: must_be_immutable
 class CustomScaffold extends StatefulWidget {
   String? title;
   Widget? body;

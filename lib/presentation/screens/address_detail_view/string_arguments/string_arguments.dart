@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/data/model/user_address.dart';
+import '../../../../data/model/user_address.dart';
 
 class ScreenArguments {
   final String? title;

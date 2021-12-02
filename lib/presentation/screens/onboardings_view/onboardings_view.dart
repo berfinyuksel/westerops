@@ -1,4 +1,4 @@
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import '../../../data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

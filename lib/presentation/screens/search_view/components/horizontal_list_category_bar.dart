@@ -1,14 +1,13 @@
-import 'package:dongu_mobile/data/model/category_name.dart';
-import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/presentation/screens/categories_view/screen_arguments_categories/screen_arguments_categories.dart';
-import 'package:dongu_mobile/presentation/screens/home_page_view/components/category_item.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
-import '../../../../utils/constants/image_constant.dart';
-import '../../../../utils/extensions/context_extension.dart';
-import '../../../../utils/locale_keys.g.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../data/model/category_name.dart';
+import '../../../../logic/cubits/category_name_cubit/category_name_cubit.dart';
+import '../../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../../utils/constants/route_constant.dart';
+import '../../../../utils/extensions/context_extension.dart';
+import '../../categories_view/screen_arguments_categories/screen_arguments_categories.dart';
+import '../../home_page_view/components/category_item.dart';
 
 class CustomHorizontalListCategory extends StatefulWidget {
   const CustomHorizontalListCategory({Key? key}) : super(key: key);

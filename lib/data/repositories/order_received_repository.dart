@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:dongu_mobile/data/model/order_received.dart';
+import '../model/order_received.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;

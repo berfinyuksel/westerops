@@ -1,9 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dongu_mobile/data/services/facebook_login_controller.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/social_login_cubit/social_login_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../data/services/auth_service.dart';
+import '../../../data/services/facebook_login_controller.dart';
+import '../../../data/shared/shared_prefs.dart';
+import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -144,7 +142,7 @@ class _LoginViewState extends State<LoginView> {
                 borderColor: AppColors.greenColor,
                 onPressed: () async {
                   String phoneTR = '+90' + phoneController.text;
-                  String phoneEN = '+1' + phoneController.text;
+                  //String phoneEN = '+1' + phoneController.text;
                   await context
                       .read<UserAuthCubit>()
                       .loginUser(phoneTR, passwordController.text);

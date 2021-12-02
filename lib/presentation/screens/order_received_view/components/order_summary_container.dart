@@ -1,5 +1,5 @@
-import 'package:dongu_mobile/data/model/order_received.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import '../../../../data/model/order_received.dart';
+import '../../../../data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:dongu_mobile/data/model/box_order.dart';
-import 'package:dongu_mobile/data/model/order_received.dart';
-
-import '../shared/shared_prefs.dart';
-import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
+
+import '../../utils/constants/url_constant.dart';
+import '../model/box_order.dart';
+import '../shared/shared_prefs.dart';
 
 abstract class OrderRepository {
   Future<List<String>> addToBasket(String boxId);

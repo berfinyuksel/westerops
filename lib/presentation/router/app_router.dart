@@ -1,15 +1,3 @@
-import 'package:dongu_mobile/presentation/screens/address_update_view/address_update_view.dart';
-import 'package:dongu_mobile/presentation/screens/categories_view/categories_view.dart';
-import 'package:dongu_mobile/presentation/screens/categories_view/screen_arguments_categories/screen_arguments_categories.dart';
-import 'package:dongu_mobile/presentation/screens/freeze_account_view/freeze_account_view.dart';
-import 'package:dongu_mobile/presentation/screens/my_registered_cards_update_view/my_registered_cards_update_view.dart';
-import 'package:dongu_mobile/presentation/screens/my_registered_cards_view/my_registered_cards_view.dart';
-import 'package:dongu_mobile/presentation/screens/restaurant_details_views/about_working_hours/about_working_hours_view.dart';
-import 'package:dongu_mobile/presentation/screens/restaurant_details_views/store_info_view/store_info_view.dart';
-import 'package:dongu_mobile/presentation/screens/splash_view/splash_view.dart';
-import 'package:dongu_mobile/presentation/screens/swipe_view/swipe_view.dart';
-import 'package:dongu_mobile/presentation/screens/was_delivered_view/was_delivered_view.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/shared/shared_prefs.dart';
@@ -18,10 +6,13 @@ import '../screens/about_app_view/about_app_view.dart';
 import '../screens/address_detail_view/address_detail_view.dart';
 import '../screens/address_detail_view/string_arguments/string_arguments.dart';
 import '../screens/address_from_map_view/address_from_map_view.dart';
+import '../screens/address_update_view/address_update_view.dart';
 import '../screens/address_view/address_view.dart';
 import '../screens/agreement_kvkk_view/agreement_kvkk_view.dart';
 import '../screens/agreement_view/agreement_view.dart';
 import '../screens/cart_view/cart_view.dart';
+import '../screens/categories_view/categories_view.dart';
+import '../screens/categories_view/screen_arguments_categories/screen_arguments_categories.dart';
 import '../screens/change_location_view/change_location_view.dart';
 import '../screens/change_password_view/change_password_view.dart';
 import '../screens/contact_view/contact_view.dart';
@@ -30,6 +21,7 @@ import '../screens/filter_view/filter_view.dart';
 import '../screens/food_waste_views/food_waste_expanded_view.dart';
 import '../screens/food_waste_views/food_waste_view.dart';
 import '../screens/forgot_password_view/forgot_password_view.dart';
+import '../screens/freeze_account_view/freeze_account_view.dart';
 import '../screens/general_settings_view/general_settings_view.dart';
 import '../screens/help_center_view/help_center_view.dart';
 import '../screens/home_page_view/home_page_view.dart';
@@ -38,6 +30,8 @@ import '../screens/login_view/login_view.dart';
 import '../screens/my_favorites_view/my_favorites_view.dart';
 import '../screens/my_information_view/my_information_view.dart';
 import '../screens/my_near_view/my_near_view.dart';
+import '../screens/my_registered_cards_update_view/my_registered_cards_update_view.dart';
+import '../screens/my_registered_cards_view/my_registered_cards_view.dart';
 import '../screens/onboardings_view/onboardings_view.dart';
 import '../screens/order_delivered_view/order_delivered_view.dart';
 import '../screens/order_received_view/order_received_view.dart';
@@ -48,12 +42,17 @@ import '../screens/payment_views/payment_views.dart';
 import '../screens/permissions_views/location_view/location.dart';
 import '../screens/permissions_views/notification_view/notification.dart';
 import '../screens/register_view/register_view.dart';
+import '../screens/restaurant_details_views/about_working_hours/about_working_hours_view.dart';
 import '../screens/restaurant_details_views/food_categories/food_categories_view.dart';
 import '../screens/restaurant_details_views/restaurant_detail_view/restaurant_detail_view.dart';
 import '../screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
-import '../screens/search_view/search_view.dart';
+import '../screens/restaurant_details_views/store_info_view/store_info_view.dart';
+import '../screens/splash_view/splash_view.dart';
 import '../screens/surprise_pack_canceled_view/surprise_pack_canceled_view.dart';
 import '../screens/surprise_pack_view/surprise_pack_view.dart';
+import '../screens/swipe_view/swipe_view.dart';
+import '../screens/was_delivered_view/was_delivered_view.dart';
+import '../widgets/scaffold/custom_scaffold.dart';
 
 class AppRouter {
   Route? onGenerateRoute(RouteSettings routeSettings) {
@@ -237,7 +236,6 @@ class AppRouter {
             restaurant: args.restaurant,
           ),
         );
-        ;
       default:
         return null;
     }

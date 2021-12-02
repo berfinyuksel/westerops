@@ -1,20 +1,15 @@
-import 'package:dongu_mobile/data/model/user_address.dart';
-import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/address_detail_view/string_arguments/string_arguments.dart';
-import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
-import 'package:dongu_mobile/utils/constants/image_constant.dart';
-import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../logic/cubits/generic_state/generic_state.dart';
 
+import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
+import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
+import '../../widgets/text/locale_text.dart';
+import '../surprise_pack_view/components/custom_alert_dialog.dart';
 import 'components/my_registered_cards_list_tile.dart';
 
 class MyRegisteredCardsView extends StatefulWidget {

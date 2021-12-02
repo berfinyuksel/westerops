@@ -1,30 +1,20 @@
-import 'package:dongu_mobile/data/model/box_order.dart';
-import 'package:dongu_mobile/data/model/search_store.dart';
-import 'package:dongu_mobile/data/model/store_boxes.dart';
-import 'package:dongu_mobile/data/model/store_courier_hours.dart';
-import 'package:dongu_mobile/data/repositories/address_repository.dart';
-
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
-
-import 'package:dongu_mobile/presentation/screens/cart_view/not_logged_in_view.dart';
-
-import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
-import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../data/model/box_order.dart';
+import '../../../data/model/search_store.dart';
+import '../../../data/shared/shared_prefs.dart';
+import '../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/order_cubit/order_cubit.dart';
+import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
+import '../../../logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
+import '../../../logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
+import '../../../logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
-import '../../../utils/extensions/string_extension.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -34,7 +24,10 @@ import '../past_order_detail_view/components/past_order_detail_basket_list_tile.
 import '../past_order_detail_view/components/past_order_detail_body_title.dart';
 import '../past_order_detail_view/components/past_order_detail_payment_list_tile.dart';
 import '../past_order_detail_view/components/past_order_detail_total_payment_list_tile.dart';
+import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
+import '../surprise_pack_view/components/custom_alert_dialog.dart';
 import 'empty_cart_view.dart';
+import 'not_logged_in_view.dart';
 
 class CartView extends StatefulWidget {
   @override

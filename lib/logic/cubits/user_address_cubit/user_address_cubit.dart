@@ -1,5 +1,5 @@
-import 'package:dongu_mobile/data/repositories/user_address_repository.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import '../../../data/repositories/user_address_repository.dart';
+import '../generic_state/generic_state.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 

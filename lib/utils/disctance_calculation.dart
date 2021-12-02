@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:dongu_mobile/data/model/search_store.dart';
-import 'package:dongu_mobile/data/services/location_service.dart';
+import '../data/model/search_store.dart';
+import '../data/services/location_service.dart';
 
 
 class DistanceCalculation{

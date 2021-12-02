@@ -1,12 +1,10 @@
-import 'package:dongu_mobile/data/model/search.dart';
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
-import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
+import '../../../data/model/search.dart';
+import '../../../data/shared/shared_prefs.dart';
+import '../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../logic/cubits/search_cubit/search_cubit.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
 import '../../../utils/locale_keys.g.dart';
@@ -16,7 +14,6 @@ import '../../widgets/text/locale_text.dart';
 import 'components/horizontal_list_category_bar.dart';
 import 'components/horizontal_list_trend_bar.dart';
 import 'components/search_bar.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({

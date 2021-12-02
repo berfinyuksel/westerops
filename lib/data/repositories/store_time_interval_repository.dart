@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dongu_mobile/data/model/store_time_interval.dart';
+import '../model/store_time_interval.dart';
 
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
