@@ -36,7 +36,6 @@ class _AddressViewState extends State<AddressView> {
   @override
   void initState() {
     super.initState();
-    context.read<UserAddressCubit>().getUserAddress();
   }
 
   @override
@@ -62,6 +61,8 @@ class _AddressViewState extends State<AddressView> {
   }
 
   Container buildList(BuildContext context) {
+    context.read<UserAddressCubit>().getUserAddress();
+
     return Container(
       height: context.dynamicHeight(0.6),
       padding: EdgeInsets.only(
@@ -159,10 +160,12 @@ class _AddressViewState extends State<AddressView> {
                                 Navigator.of(context).pop();
                               },
                               onPressedTwo: () {
-                                context
-                                    .read<AddressCubit>()
-                                    .deleteAddress(list[index].id);
-                                Navigator.of(context).pop();
+                                setState(() {
+                                  context
+                                      .read<AddressCubit>()
+                                      .deleteAddress(list[index].id);
+                                  Navigator.of(context).pop();
+                                });
                               }),
                         );
                       },
