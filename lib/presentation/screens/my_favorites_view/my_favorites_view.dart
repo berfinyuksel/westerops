@@ -48,7 +48,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
 
   bool isShowOnMap = false;
   bool isShowBottomInfo = false;
+  List<SearchStore> mapsMarkers = [];
 
+  int selectedIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -90,125 +92,126 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     });
   }
 
-  Column buildBody(BuildContext context, List<SearchStore> favourites,
+  Builder buildBody(BuildContext context, List<SearchStore> favourites,
       GenericCompleted state) {
-    return Column(
-      children: [
-        buildTitlesAndSearchBar(context),
-        Visibility(
-          visible: isShowOnMap,
-          child: Expanded(
-            child: Container(
-              height: context.dynamicHeight(0.54),
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  Stack(
-                    alignment: Alignment(0.81, 0.88),
-                    children: [
-                      GoogleMap(
-                        myLocationButtonEnabled: false,
-                        initialCameraPosition: CameraPosition(
-                          target: LatLng(latitude, longitude),
-                          zoom: 17.0,
-                        ),
-                        onMapCreated: (GoogleMapController controller) {
-                          _mapController.complete(controller);
-                        },
-                        mapType: MapType.normal,
-                        markers: Set<Marker>.of(markers.values),
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          final GoogleMapController controller =
-                              await _mapController.future;
-                          setState(() {
-                            latitude = LocationService.latitude;
-                            longitude = LocationService.longitude;
+    return Builder(builder: (context) {
+      final GenericState stateOfFavorites =
+          context.watch<FavoriteCubit>().state;
 
-                            controller
-                                .animateCamera(CameraUpdate.newCameraPosition(
-                              CameraPosition(
-                                target: LatLng(latitude, longitude),
-                                zoom: 17.0,
-                              ),
-                            ));
-                          });
-                        },
-                        child: SvgPicture.asset(
-                            ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+      if (stateOfFavorites is GenericInitial) {
+        return Container();
+      } else if (stateOfFavorites is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (stateOfFavorites is GenericCompleted) {
+        List<SearchStore> favouriteRestaurant = [];
+        for (var i = 0; i < favourites.length; i++) {
+          for (var j = 0; j < stateOfFavorites.response.length; j++) {
+            if (favourites[i].id == stateOfFavorites.response[j].id) {
+              favouriteRestaurant.add(favourites[i]);
+            }
+          }
+        }
+        mapsMarkers = favouriteRestaurant;
+
+        List<String> favoriteListForShared = [];
+        for (var i = 0; i < favouriteRestaurant.length; i++) {
+          favoriteListForShared.add(favouriteRestaurant[i].id.toString());
+        }
+
+        SharedPrefs.setFavoriteIdList(favoriteListForShared);
+        return Column(
+          children: [
+            buildTitlesAndSearchBar(context, favouriteRestaurant),
+            Visibility(
+              visible: isShowOnMap,
+              child: Expanded(
+                child: Container(
+                  height: context.dynamicHeight(0.54),
+                  width: double.infinity,
+                  child: Stack(
+                    children: [
+                      Stack(
+                        alignment: Alignment(0.81, 0.88),
+                        children: [
+                          GoogleMap(
+                            myLocationButtonEnabled: false,
+                            initialCameraPosition: CameraPosition(
+                              target: LatLng(latitude, longitude),
+                              zoom: 17.0,
+                            ),
+                            onMapCreated: (GoogleMapController controller) {
+                              _mapController.complete(controller);
+                            },
+                            mapType: MapType.normal,
+                            markers: Set<Marker>.of(markers.values),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              final GoogleMapController controller =
+                                  await _mapController.future;
+                              setState(() {
+                                latitude = LocationService.latitude;
+                                longitude = LocationService.longitude;
+
+                                controller.animateCamera(
+                                    CameraUpdate.newCameraPosition(
+                                  CameraPosition(
+                                    target: LatLng(latitude, longitude),
+                                    zoom: 17.0,
+                                  ),
+                                ));
+                              });
+                            },
+                            child: SvgPicture.asset(
+                                ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                          ),
+                          Visibility(
+                              visible: isShowBottomInfo,
+                              child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      isShowBottomInfo = false;
+                                    });
+                                  },
+                                  child: Container(
+                                      color: Colors.black.withOpacity(0.2)))),
+                        ],
                       ),
                       Visibility(
-                          visible: isShowBottomInfo,
-                          child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isShowBottomInfo = false;
-                                });
-                              },
-                              child: Container(
-                                  color: Colors.black.withOpacity(0.2)))),
+                        visible: isShowBottomInfo,
+                        child: buildBottomInfo(context, favouriteRestaurant),
+                      ),
                     ],
                   ),
-                  Visibility(
-                    visible: isShowBottomInfo,
-                    child: buildBottomInfo(context, favourites),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-        Visibility(
-            visible: !isShowOnMap,
-            child: Builder(builder: (context) {
-              final GenericState stateOfFavorites =
-                  context.watch<FavoriteCubit>().state;
-
-              if (stateOfFavorites is GenericInitial) {
-                return Container();
-              } else if (stateOfFavorites is GenericLoading) {
-                return Center(child: CircularProgressIndicator());
-              } else if (stateOfFavorites is GenericCompleted) {
-                List<SearchStore> favouriteRestaurant = [];
-                for (var i = 0; i < favourites.length; i++) {
-                  for (var j = 0; j < stateOfFavorites.response.length; j++) {
-                    if (favourites[i].id == stateOfFavorites.response[j].id) {
-                      favouriteRestaurant.add(favourites[i]);
-                    }
-                  }
-                }
-                List<String> favoriteListForShared = [];
-                for (var i = 0; i < favouriteRestaurant.length; i++) {
-                  favoriteListForShared
-                      .add(favouriteRestaurant[i].id.toString());
-                }
-                SharedPrefs.setFavoriteIdList(favoriteListForShared);
-                print(favouriteRestaurant);
-                return Expanded(
-                    child: favouriteRestaurant.isNotEmpty
-                        ? buildListViewRestaurantInfo(favouriteRestaurant)
-                        : Text("Favori restoranınız bulunmamaktadır."));
-              } else if (!SharedPrefs.getIsLogined) {
-                return Center(
-                  child: LocaleText(
-                    text:
-                        "Favori restoranlarınızı görüntülemek için giriş yapınız",
-                    style: AppTextStyles.bodyTextStyle
-                        .copyWith(color: AppColors.cursorColor),
-                  ),
-                );
-              } else {
-                final error = stateOfFavorites as GenericError;
-                return Center(
-                    child: Text("${error.message}\n${error.statusCode}"));
-              }
-            })),
-      ],
-    );
+            Visibility(
+                visible: !isShowOnMap,
+                child: !SharedPrefs.getIsLogined
+                    ? Center(
+                        child: LocaleText(
+                          text:
+                              "Favori restoranlarınızı görüntülemek için giriş yapınız",
+                          style: AppTextStyles.bodyTextStyle
+                              .copyWith(color: AppColors.cursorColor),
+                        ),
+                      )
+                    : Expanded(
+                        child: favouriteRestaurant.isNotEmpty
+                            ? buildListViewRestaurantInfo(favouriteRestaurant)
+                            : Text("Favori restoranınız bulunmamaktadır."))),
+          ],
+        );
+      } else {
+        final error = stateOfFavorites as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
-  Padding buildTitlesAndSearchBar(BuildContext context) {
+  Padding buildTitlesAndSearchBar(
+      BuildContext context, List<SearchStore> favouriteRestaurant) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -220,7 +223,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildRowTitleLeftRight(context, LocaleKeys.my_favorites_location,
-              LocaleKeys.my_favorites_edit),
+              LocaleKeys.my_favorites_edit, favouriteRestaurant),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -244,7 +247,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
               LocaleKeys.my_favorites_body_title,
               isShowOnMap
                   ? LocaleKeys.my_near_show_list
-                  : LocaleKeys.my_favorites_show_map),
+                  : LocaleKeys.my_favorites_show_map,
+              favouriteRestaurant),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -327,8 +331,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         });
   }
 
-  Row buildRowTitleLeftRight(
-      BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRight(BuildContext context, String titleLeft,
+      String titleRight, favouriteRestaurant) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -342,7 +346,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             setState(() {
               isShowOnMap = !isShowOnMap;
               _mapController = Completer<GoogleMapController>();
-              setCustomMarker();
+              setCustomMarker(favouriteRestaurant);
             });
           },
           child: LocaleText(
@@ -399,14 +403,14 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     );
   }
 
-  void setCustomMarker() async {
+  void setCustomMarker(List<SearchStore> favouriteRestaurant) async {
     markerIcon =
         await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
     restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(
         ImageConstant.COMMONS_RESTAURANT_MARKER);
     restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
         ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
-    getLocation();
+    getLocation(favouriteRestaurant);
   }
 
   Positioned buildBottomInfo(
@@ -421,14 +425,33 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
           color: Colors.white,
           child: RestaurantInfoListTile(
-            deliveryType: 3,
-            onPressed: () {},
-            restaurantName: "Mini Burger",
-            distance: "74m",
-            packetNumber: "4 paket",
-            availableTime: "18:00-21:00",
-            minDiscountedOrderPrice: 0,
-            minOrderPrice: 0,
+            minDiscountedOrderPrice: favourites[selectedIndex]
+                .packageSettings!
+                .minDiscountedOrderPrice,
+            minOrderPrice:
+                favourites[selectedIndex].packageSettings!.minOrderPrice,
+            packetNumber: favourites[selectedIndex].calendar!.first.boxCount ==
+                    0
+                ? 'tükendi'
+                : '${favourites[selectedIndex].calendar!.first.boxCount} paket',
+            deliveryType: int.parse(
+                favourites[selectedIndex].packageSettings!.deliveryType!),
+            restaurantName: favourites[selectedIndex].name,
+            distance: Haversine.distance(
+                    favourites[selectedIndex].latitude!,
+                    favourites[selectedIndex].longitude!,
+                    LocationService.latitude,
+                    LocationService.longitude)
+                .toStringAsFixed(2),
+            availableTime:
+                '${favourites[selectedIndex].packageSettings!.deliveryTimeStart} - ${favourites[selectedIndex].packageSettings!.deliveryTimeEnd}',
+            onPressed: () {
+              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                  arguments: ScreenArgumentsRestaurantDetail(
+                    restaurant: favourites[selectedIndex],
+                  ));
+            },
+            icon: favourites[selectedIndex].photo,
           ),
         ));
   }
@@ -459,7 +482,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     return BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
   }
 
-  Future<void> getLocation() async {
+  Future<void> getLocation(List<SearchStore> favouriteRestaurant) async {
     await LocationService.getCurrentLocation();
     final GoogleMapController controller = await _mapController.future;
     setState(() {
@@ -484,31 +507,32 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         position: LatLng(latitude, longitude),
       );
       markers[markerId] = marker;
-      for (int i = 1; i < 3; i++) {
+      print('jasbdhjasbdhjbaskjdnajksnda');
+      print(favouriteRestaurant.length);
+      for (int i = 0; i < mapsMarkers.length; i++) {
+        int? dailyBoxCount;
+
+        for (var j = 0; j < mapsMarkers[i].calendar!.length; j++) {
+          if (DateTime.parse(mapsMarkers[i].calendar![j].startDate!).day ==
+              DateTime.now().toLocal().day) {
+            dailyBoxCount = mapsMarkers[i].calendar![j].boxCount;
+          }
+        }
         Marker restMarker = Marker(
           onTap: () {
             setState(() {
               isShowBottomInfo = !isShowBottomInfo;
+              selectedIndex = i;
             });
           },
-          icon: restaurantMarkerIcon,
+          infoWindow: InfoWindow(title: mapsMarkers[i].name),
+          icon: dailyBoxCount != 0
+              ? restaurantMarkerIcon
+              : restaurantSoldoutMarkerIcon,
           markerId: MarkerId("rest_$i"),
-          position: LatLng(latitude + i * 0.0005, longitude + i * 0.0005),
+          position: LatLng(mapsMarkers[i].latitude!, mapsMarkers[i].longitude!),
         );
         markers[MarkerId("rest_$i")] = restMarker;
-      }
-      for (int i = 1; i < 3; i++) {
-        Marker restMarker = Marker(
-          onTap: () {
-            setState(() {
-              isShowBottomInfo = !isShowBottomInfo;
-            });
-          },
-          icon: restaurantSoldoutMarkerIcon,
-          markerId: MarkerId("rest_${3 + i}"),
-          position: LatLng(latitude - i * 0.0005, longitude - i * 0.0005),
-        );
-        markers[MarkerId("rest_${3 + i}")] = restMarker;
       }
     });
   }
