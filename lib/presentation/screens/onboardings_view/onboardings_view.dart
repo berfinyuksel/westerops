@@ -23,29 +23,6 @@ class OnboardingsView extends StatefulWidget {
 class _OnboardingsViewState extends State<OnboardingsView> {
   PageController pageController = PageController(initialPage: 0);
   int pageIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> onboardings = [
-      OnboardingView(),
-      OnboardingFirstView(),
-      OnboardingSecondView(),
-      OnboardingThirdView(),
-      OnboardingForthView(),
-    ];
-    return Stack(
-      children: [
-        buildContainerCarousel(context, onboardings),
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: context.dynamicHeight(0.03),
-          child: Container(
-            child: pageIndex != 4 ? buildRowFromFirstToThird(context) : buildRowForth(context),
-          ),
-        )
-      ],
-    );
-  }
 
   Row buildRowForth(BuildContext context) {
     return Row(
@@ -147,6 +124,30 @@ class _OnboardingsViewState extends State<OnboardingsView> {
           return onboardings[index];
         },
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> onboardings = [
+      OnboardingView(),
+      OnboardingFirstView(),
+      OnboardingSecondView(),
+      OnboardingThirdView(),
+      OnboardingForthView(),
+    ];
+    return Stack(
+      children: [
+        buildContainerCarousel(context, onboardings),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: context.dynamicHeight(0.03),
+          child: Container(
+            child: pageIndex != 4 ? buildRowFromFirstToThird(context) : buildRowForth(context),
+          ),
+        )
+      ],
     );
   }
 }
