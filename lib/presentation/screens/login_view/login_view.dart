@@ -452,7 +452,8 @@ class _LoginViewState extends State<LoginView> {
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       inputFormatters: [
-        FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+     //   FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
       ],
       controller: controller,
       obscureText: enableObscure && controller == passwordController,

@@ -191,7 +191,9 @@ class _MyRegisteredCardsUpdateViewState
         //         ? context.dynamicHeight(0.11).toInt()
         //         : context.dynamicHeight(0.06).toInt(),
              inputFormatters: [
-          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
         ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,

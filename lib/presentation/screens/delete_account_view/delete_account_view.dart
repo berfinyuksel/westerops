@@ -196,7 +196,8 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
              inputFormatters: [
-          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         controller: controller,
         decoration: InputDecoration(

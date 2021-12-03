@@ -530,6 +530,10 @@ class _RegisterViewState extends State<RegisterView> {
           isRulesVisible = true;
         });
       },
+          inputFormatters: [
+        //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+      ], 
       controller: passwordController,
       obscureText: enableObscure,
       decoration: InputDecoration(
@@ -594,7 +598,9 @@ class _RegisterViewState extends State<RegisterView> {
         });
       },
       inputFormatters: [
-        FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
       ], // On
       controller: controller,
       decoration: InputDecoration(

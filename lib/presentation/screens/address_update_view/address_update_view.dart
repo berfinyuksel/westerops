@@ -198,7 +198,8 @@ class _AddressUpdateViewState extends State<AddressUpdateView> {
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
         inputFormatters: [
-          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         controller: controller,
         decoration: InputDecoration(

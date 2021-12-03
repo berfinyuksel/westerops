@@ -92,7 +92,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         });
       },
       inputFormatters: [
-        FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
       ],
       controller: controller,
       obscureText: controller == passwordController ? enableObscureOldPass : enableObscureNewAgainPass,
@@ -161,6 +162,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           isRulesVisible = true;
         });
       },
+          inputFormatters: [
+        //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+      ],
       controller: newPasswordController,
       obscureText: enableObscureNewPass,
       decoration: InputDecoration(

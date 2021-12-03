@@ -462,7 +462,9 @@ class _MyNearViewState extends State<MyNearView> {
       ),
       child: TextFormField(
              inputFormatters: [
-          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+         // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
         ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,

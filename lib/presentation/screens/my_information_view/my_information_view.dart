@@ -139,7 +139,9 @@ class _MyInformationViewState extends State<MyInformationView> {
           setState(() {});
         },
              inputFormatters: [
-          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+         // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
         ],
         controller: controller,
         decoration: InputDecoration(
@@ -167,7 +169,9 @@ class _MyInformationViewState extends State<MyInformationView> {
           setState(() {});
         },
              inputFormatters: [
-          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
         ],
         controller: controller,
         decoration: InputDecoration(

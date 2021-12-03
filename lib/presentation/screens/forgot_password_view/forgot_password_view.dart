@@ -376,7 +376,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         });
       },
         inputFormatters: [
-        FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
       ],
       controller: passwordController,
       obscureText: enableObscure,
@@ -441,7 +442,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         });
       },
       inputFormatters: [
-        FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+       // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
       ],
       controller: controller,
       decoration: InputDecoration(
