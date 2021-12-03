@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -15,6 +16,9 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      SharedPrefs.getIsOnboardingShown;
+    });
     Future.delayed(
         Duration(
           milliseconds: 5600,
@@ -28,11 +32,11 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-          width: double.infinity,
-          child: LottieBuilder.asset(
-      ImageConstant.SPLASH_ANIMATION,
-      fit: BoxFit.cover,
-    ),
-        ));
+      width: double.infinity,
+      child: LottieBuilder.asset(
+        ImageConstant.SPLASH_ANIMATION,
+        fit: BoxFit.cover,
+      ),
+    ));
   }
 }
