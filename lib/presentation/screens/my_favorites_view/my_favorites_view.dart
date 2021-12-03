@@ -372,7 +372,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
              inputFormatters: [
-          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
         ],
         decoration: InputDecoration(
             suffixIcon: SvgPicture.asset(

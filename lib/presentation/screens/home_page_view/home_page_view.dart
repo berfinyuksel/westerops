@@ -800,7 +800,8 @@ class _HomePageViewState extends State<HomePageView> {
             contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.046)),
             hintText: LocaleKeys.my_near_hint_text.locale),
                  inputFormatters: [
-          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        //  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
             onChanged: (value){
               context.read<SearchCubit>().getSearches(controller!.text);

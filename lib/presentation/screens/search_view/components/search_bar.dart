@@ -41,7 +41,9 @@ class CustomSearchBar extends StatelessWidget {
           ),
           child: TextFormField(
                  inputFormatters: [
-              FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
+             // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
             ],
             controller: controller,
             focusNode: focusNode,

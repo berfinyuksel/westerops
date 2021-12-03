@@ -170,7 +170,8 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
         //enableInteractiveSelection: false,
         //enabled: false,
         inputFormatters: [
-          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+         // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         controller: searchController,
         cursorColor: AppColors.cursorColor,
