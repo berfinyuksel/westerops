@@ -10,8 +10,18 @@ class SearchStoreCubit extends Cubit<GenericState> {
   Future<void> getSearchStore() async {
     try {
       emit(GenericLoading());
-  
+
       final response = await _searchStoreRepository.getSearchStores();
+      emit(GenericCompleted(response));
+    } on NetworkError catch (e) {
+      emit(GenericError(e.message, e.statusCode));
+    }
+  }
+
+  Future<void> getSearches(String query) async {
+    try {
+      emit(GenericLoading());
+      final response = await _searchStoreRepository.getSearches(query);
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));
