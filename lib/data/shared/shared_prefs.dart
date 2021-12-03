@@ -124,24 +124,29 @@ class SharedPrefs {
     _prefs.setStringList('favorites', favorites);
     return favorites;
   }
+
   //filters
-    static Future<void> setSortByDistance(bool sortByDistance) async {
+  static Future<void> setSortByDistance(bool sortByDistance) async {
     _prefs.setBool('sortByDistance', sortByDistance);
   }
-      static Future<void> setMyFavorites(String myFavorites) async {
+
+  static Future<void> setMyFavorites(String myFavorites) async {
     _prefs.setString('myFavorites', myFavorites);
   }
-    static Future<void> setUserRating(String userRating) async {
+
+  static Future<void> setUserRating(String userRating) async {
     _prefs.setString('userRating', userRating);
   }
 
   static Future<void> setNewUser(String newUser) async {
     _prefs.setString('newUser', newUser);
   }
-   static Future<void> setMinPrice(String minPrice) async {
+
+  static Future<void> setMinPrice(String minPrice) async {
     _prefs.setString('minPrice', minPrice);
   }
-   static Future<void> setMaxPrice(String maxPrice) async {
+
+  static Future<void> setMaxPrice(String maxPrice) async {
     _prefs.setString('maxPrice', maxPrice);
   }
 
@@ -164,6 +169,14 @@ class SharedPrefs {
 
   static Future<void> setOrderBar(bool orderActive) async {
     _prefs.setBool('orderActive', orderActive);
+  }
+
+  static Future<void> setOrderRefCode(int orderRefCode) async {
+    _prefs.setInt('orderRefCode', orderRefCode);
+  }
+
+  static Future<void> setBoxIdForDeliver(int boxIdForDeliver) async {
+    _prefs.setInt('boxIdForDeliver', boxIdForDeliver);
   }
 
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
@@ -214,10 +227,11 @@ class SharedPrefs {
   static bool get getOrderBar => _prefs.getBool('orderActive') ?? false;
 
   static bool get getSortByDistance => _prefs.getBool('sortByDistance') ?? true;
-  static String get getMyFavorites =>
-      _prefs.getString('myFavorites') ?? "";
+  static String get getMyFavorites => _prefs.getString('myFavorites') ?? "";
   static String get getUserRating => _prefs.getString('userRating') ?? "";
   static String get getNewUser => _prefs.getString('newUser') ?? "";
   static String get getMinPrice => _prefs.getString('minPrice') ?? "";
   static String get getMaxPrice => _prefs.getString('maxPrice') ?? "";
+  static int get getOrderRefCode => _prefs.getInt('orderRefCode') ?? 0;
+  static int get getBoxIdForDeliver => _prefs.getInt('boxIdForDeliver') ?? 0;
 }

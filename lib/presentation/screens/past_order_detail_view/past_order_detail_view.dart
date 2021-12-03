@@ -1,4 +1,5 @@
 import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -236,6 +237,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                 ),
                                                 CustomButton(
                                                   onPressed: () {
+                                                    context
+                                                        .read<OrderBarCubit>()
+                                                        .stateOfBar(false);
                                                     Navigator.of(context).pop();
                                                   },
                                                   width: context
@@ -312,6 +316,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                 ),
                                                 CustomButton(
                                                   onPressed: () {
+                                                    context
+                                                        .read<OrderBarCubit>()
+                                                        .stateOfBar(false);
                                                     Navigator.of(context).pop();
                                                   },
                                                   width: context
