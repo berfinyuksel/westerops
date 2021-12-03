@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/repositories/update_permission_for_com_repository.dart';
 
 import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:notification_permissions/notification_permissions.dart';
@@ -27,8 +28,8 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   var permUnknown = "unknown";
   var permProvisional = "provisional";
   bool isSwitchedSMS = false;
-  bool isSwitchedEmail = true;
-  bool isSwitchedPhoneCall = true;
+  bool isSwitchedEmail = SharedPrefs.getPermissionForEmail;
+  bool isSwitchedPhoneCall = SharedPrefs.getPermissionForPhone;
   bool isSwitchedNotification = false;
   bool isSwitchedLocation = false;
   LocationPermission? permission;
@@ -165,11 +166,13 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
         child: CupertinoSwitch(
             value: isSwitchedEmail,
             onChanged: (value) {
-              sl<UpdatePermissonRepository>()
-                  .updateEmailPermission(isSwitchedEmail);
               setState(() {
+                isSwitchedEmail = !isSwitchedEmail;
                 isSwitchedEmail = value;
               });
+              SharedPrefs.setPermissionForEmail(isSwitchedEmail);
+              sl<UpdatePermissonRepository>()
+                  .updateEmailPermission(isSwitchedEmail);
             },
             trackColor: Colors.white,
             activeColor: AppColors.greenColor),
@@ -194,12 +197,13 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
         child: CupertinoSwitch(
             value: isSwitchedPhoneCall,
             onChanged: (value) {
-              sl<UpdatePermissonRepository>()
-                  .updatePhoneCallPermission(isSwitchedPhoneCall);
-
               setState(() {
+                isSwitchedPhoneCall = !isSwitchedPhoneCall;
                 isSwitchedPhoneCall = value;
               });
+              sl<UpdatePermissonRepository>()
+                  .updatePhoneCallPermission(isSwitchedPhoneCall);
+              SharedPrefs.setPermissionForPhone(isSwitchedPhoneCall);
             },
             trackColor: Colors.white,
             activeColor: AppColors.greenColor),
