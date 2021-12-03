@@ -71,6 +71,7 @@ class OnboardingView extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: AutoSizeText.rich(
         TextSpan(
+          spellOut: false,
           style:
               AppTextStyles.headlineStyle.copyWith(color: AppColors.textColor),
           children: [
