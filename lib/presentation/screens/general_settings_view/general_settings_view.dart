@@ -1,5 +1,9 @@
-import 'package:geolocator/geolocator.dart';
+import 'package:dongu_mobile/data/repositories/update_permission_for_com_repository.dart';
 
+import 'package:dongu_mobile/data/services/locator.dart';
+
+import 'package:geolocator/geolocator.dart';
+import 'package:notification_permissions/notification_permissions.dart';
 import 'components/contact_confirmation_list_tile.dart';
 import 'components/general_settings_body_title.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
@@ -17,9 +21,14 @@ class GeneralSettingsView extends StatefulWidget {
 }
 
 class _GeneralSettingsViewState extends State<GeneralSettingsView> {
+  Future<String>? permissionStatusFuture;
+  var permGranted = "granted";
+  var permDenied = "denied";
+  var permUnknown = "unknown";
+  var permProvisional = "provisional";
   bool isSwitchedSMS = false;
-  bool isSwitchedEmail = false;
-  bool isSwitchedPhoneCall = false;
+  bool isSwitchedEmail = true;
+  bool isSwitchedPhoneCall = true;
   bool isSwitchedNotification = false;
   bool isSwitchedLocation = false;
   LocationPermission? permission;
@@ -27,11 +36,31 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   void initState() {
     super.initState();
     checkLocationPermission();
+    permissionStatusFuture = getCheckNotificationPermStatus();
+  }
+
+  Future<String> getCheckNotificationPermStatus() {
+    return NotificationPermissions.getNotificationPermissionStatus()
+        .then((status) {
+      switch (status) {
+        case PermissionStatus.denied:
+          isSwitchedNotification = false;
+          return permDenied;
+        case PermissionStatus.granted:
+          isSwitchedNotification = true;
+          return permGranted;
+        case PermissionStatus.provisional:
+          return permProvisional;
+        default:
+          return '';
+      }
+    });
   }
 
   checkLocationPermission() async {
     permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
       setState(() {
         isSwitchedLocation = false;
       });
@@ -136,6 +165,8 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
         child: CupertinoSwitch(
             value: isSwitchedEmail,
             onChanged: (value) {
+              sl<UpdatePermissonRepository>()
+                  .updateEmailPermission(isSwitchedEmail);
               setState(() {
                 isSwitchedEmail = value;
               });
@@ -163,6 +194,9 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
         child: CupertinoSwitch(
             value: isSwitchedPhoneCall,
             onChanged: (value) {
+              sl<UpdatePermissonRepository>()
+                  .updatePhoneCallPermission(isSwitchedPhoneCall);
+
               setState(() {
                 isSwitchedPhoneCall = value;
               });
@@ -195,7 +229,16 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
             value: isSwitchedNotification,
             onChanged: (value) {
               setState(() {
-                isSwitchedNotification = value;
+                NotificationPermissions.requestNotificationPermissions(
+                        iosSettings: const NotificationSettingsIos(
+                            sound: true, badge: true, alert: true))
+                    .then((_) {
+                  // when finished, check the permission status
+                  setState(() {
+                    permissionStatusFuture = getCheckNotificationPermStatus();
+                    isSwitchedNotification = value;
+                  });
+                });
               });
             },
             trackColor: Colors.white,

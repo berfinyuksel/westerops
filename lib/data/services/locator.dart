@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/repositories/update_permission_for_com_repository.dart';
 import '../repositories/basket_repository.dart';
 import '../repositories/update_order_repository.dart';
 import '../repositories/change_active_address_repository.dart';
@@ -11,6 +12,7 @@ T sl<T extends Object>() => getIt.get<T>();
 
 setUpLocator() async {
   getIt.registerLazySingleton(() => BasketRepository());
+  getIt.registerLazySingleton(() => UpdatePermissonRepository());
   getIt.registerLazySingleton(() => ChangeActiveAddressRepository());
   getIt.registerLazySingleton(() => UpdateOrderRepository());
 }

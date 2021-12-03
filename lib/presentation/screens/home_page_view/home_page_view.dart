@@ -286,8 +286,6 @@ class _HomePageViewState extends State<HomePageView> {
         for (var i = 0; i < stateOfOrder.response.length; i++) {
           orderInfo.add(stateOfOrder.response[i]);
         }
-        print('hasbdjasbndjkasndjasn');
-        print(orderInfo.first.address!.name);
         return GestureDetector(
           onTap: () {
             Navigator.of(context)

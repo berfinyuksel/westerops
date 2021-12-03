@@ -1,4 +1,5 @@
 import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -195,6 +196,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                     .cancelOrder(widget.orderInfo!.id!);
                             switch (statusCode) {
                               case StatusCode.success:
+                                context.read<OrderBarCubit>().stateOfBar(false);
                                 showDialog(
                                     context: context,
                                     builder: (_) => AlertDialog(
