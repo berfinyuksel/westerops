@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/constants/image_constant.dart';
@@ -39,6 +40,9 @@ class CustomSearchBar extends StatelessWidget {
             color: Colors.white,
           ),
           child: TextFormField(
+                 inputFormatters: [
+              FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+            ],
             controller: controller,
             focusNode: focusNode,
             onChanged: onChanged,

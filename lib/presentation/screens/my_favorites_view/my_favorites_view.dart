@@ -371,10 +371,14 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       child: TextFormField(
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
+             inputFormatters: [
+          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        ],
         decoration: InputDecoration(
             suffixIcon: SvgPicture.asset(
               ImageConstant.COMMONS_SEARCH_ICON,
             ),
+            
             border: buildOutlineInputBorder(),
             focusedBorder: buildOutlineInputBorder(),
             enabledBorder: buildOutlineInputBorder(),

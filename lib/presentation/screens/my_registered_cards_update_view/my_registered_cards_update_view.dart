@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -189,6 +190,9 @@ class _MyRegisteredCardsUpdateViewState
         //     controller == cardNumberController || controller == yearController
         //         ? context.dynamicHeight(0.11).toInt()
         //         : context.dynamicHeight(0.06).toInt(),
+             inputFormatters: [
+          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
         controller: controller,

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/services.dart';
 import '../../../data/model/order_received.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/order_cubit/order_received_cubit.dart';
@@ -294,6 +295,9 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
       height: context.dynamicHeight(0.052),
       color: Colors.white,
       child: TextFormField(
+             inputFormatters: [
+          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
         controller: controller,

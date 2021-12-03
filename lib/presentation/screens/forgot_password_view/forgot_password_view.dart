@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -374,6 +375,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           isRulesVisible = true;
         });
       },
+        inputFormatters: [
+        FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+      ],
       controller: passwordController,
       obscureText: enableObscure,
       decoration: InputDecoration(
@@ -436,6 +440,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           isRulesVisible = false;
         });
       },
+      inputFormatters: [
+        FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+      ],
       controller: controller,
       decoration: InputDecoration(
         labelText: labelText,

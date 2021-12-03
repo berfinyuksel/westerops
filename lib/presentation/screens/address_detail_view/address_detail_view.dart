@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/services/location_service.dart';
@@ -193,6 +194,9 @@ class _AddressDetailViewState extends State<AddressDetailView> {
             : null,
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
+        inputFormatters: [
+          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        ],
         controller: controller,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(

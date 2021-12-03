@@ -251,6 +251,9 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
           });
           context.read<SearchLocationCubit>().getLocations(searchedText);
         },
+             inputFormatters: [
+          FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        ],
         controller: searchController,
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
