@@ -525,6 +525,12 @@
         "confirmation_button":"I approve",
         "underlined_text":"Sözleşme",
         "text": "yi okudum, onaylıyorum"
+    },
+    "sms_verify":{
+        "text_1":"Please enter the registration code",
+        "text_2":"An SMS has been sent to your phone number ending with ***92. Please enter 6 digit code",
+        "text_3":"Resend code",
+        "button": "Let's start"
     }
     
 }

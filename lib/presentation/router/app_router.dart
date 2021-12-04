@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/sms_verify_view/sms_verify_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/shared/shared_prefs.dart';
@@ -182,6 +183,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PastOrderView());
       case RouteConstant.PAYMENTS_VIEW:
         return MaterialPageRoute(builder: (_) => PaymentViews());
+      case RouteConstant.SMS_VERIFY_VIEW:
+        return MaterialPageRoute(builder: (_) => SmsVerify());
       case RouteConstant.REGISTER_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterView());
       case RouteConstant.RESTAURANT_DETAIL:
