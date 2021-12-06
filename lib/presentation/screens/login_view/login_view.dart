@@ -43,7 +43,7 @@ class _LoginViewState extends State<LoginView> {
         child: Stack(
           children: [
             Positioned(
-              top: -60,
+              top: 0,
               left: 0,
               right: 0,
               child: buildBackground,
@@ -391,10 +391,12 @@ class _LoginViewState extends State<LoginView> {
 
   Container get buildBackground {
     return Container(
+      height: context.dynamicHeight(1),
+      width: context.dynamicWidht(1),
       decoration: BoxDecoration(),
       child: SvgPicture.asset(
         ImageConstant.LOGIN_BACKGROUND,
-        fit: BoxFit.contain,
+        fit: BoxFit.cover,
       ),
     );
   }
@@ -452,7 +454,7 @@ class _LoginViewState extends State<LoginView> {
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       inputFormatters: [
-     //   FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        //   FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         FilteringTextInputFormatter.singleLineFormatter,
       ],
       controller: controller,

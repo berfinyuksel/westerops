@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
 
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/utils/haversine.dart';
@@ -103,7 +104,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           print(orderInfoTotal[i].boxes!.length);
           if (orderInfoTotal[i].boxes!.isNotEmpty) {
             for (var j = 0; j < orderInfoTotal[i].boxes!.length; j++) {
-              print('saasdasd');
               if (SharedPrefs.getBoxIdForDeliver ==
                   orderInfoTotal[i].boxes![j].id) {
                 orderInfo.add(orderInfoTotal[i]);
@@ -112,7 +112,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             }
           }
         }
-
+        print(orderInfo.first.refCode);
         SharedPrefs.setOrderRefCode(orderInfo.first.refCode!);
 
         bool surprisePackageStatus = true;
@@ -342,21 +342,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
 
   Container buildCountDown(
       BuildContext context, List<OrderReceived> orderInfo) {
-    List<int> itemsOfCountDown = buildDurationForCountdown(
-        DateTime.now(),
-        orderInfo.last.boxes!.isNotEmpty
-            ? orderInfo.last.boxes!.first.saleDay!.endDate!.toLocal()
-            : orderInfo.last.buyingTime!.toLocal().add(Duration(minutes: 30)));
-
-    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
-    int hour = itemsOfCountDown[0];
-    int minute = itemsOfCountDown[1];
-    int second = itemsOfCountDown[2];
-    if (durationFinal <= 0) {
-      context.read<OrderBarCubit>().stateOfBar(false);
-      SharedPrefs.setOrderBar(false);
-    }
-
     return orderInfo.last.boxes! != [] || durationFinal <= 0
         ? Container(
             width: double.infinity,
@@ -371,9 +356,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                     text: LocaleKeys.order_received_count_down,
                     style: AppTextStyles.bodyTitleStyle),
                 Spacer(flex: 1),
-                Text(
-                    '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}',
-                    style: AppTextStyles.appBarTitleStyle),
+                countdown(orderInfo),
                 Spacer(flex: 5),
               ],
             ),
@@ -625,34 +608,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     });
   }
 
-  void startTimer(int hour, int minute, int second) {
-    const oneSec = const Duration(seconds: 1);
-    timer = new Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (hour == 0 && minute == 0 && second == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            if (second != 0) {
-              second--;
-            } else {
-              second = 59;
-              if (minute != 0) {
-                minute--;
-              } else {
-                minute = 59;
-                hour--;
-              }
-            }
-          });
-        }
-      },
-    );
-  }
-
   List<int> buildDurationForCountdown(DateTime dateTime, DateTime? endDate) {
     List<int> results = [];
     int durationOfNow = buildDurationSecondsForDateTimes(dateTime);
@@ -678,6 +633,22 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     int durationOfitems =
         ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
     return durationOfitems;
+  }
+
+  Widget countdown(List<OrderReceived> orderInfo) {
+    List<int> itemsOfCountDown = buildDurationForCountdown(
+        DateTime.now(),
+        orderInfo.first.boxes!.isNotEmpty
+            ? orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal()
+            : orderInfo.first.buyingTime!.toLocal());
+    int hour = itemsOfCountDown[0];
+    int minute = itemsOfCountDown[1];
+    int second = itemsOfCountDown[2];
+    if (durationFinal <= 0) {
+      context.read<OrderBarCubit>().stateOfBar(false);
+      SharedPrefs.setOrderBar(false);
+    }
+    return TimerCountDown(hour: hour, minute: minute, second: second);
   }
 /* 
   int buildHourForCountDown(DateTime dateTime, DateTime? endDate) {

@@ -16,6 +16,7 @@ import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/first_column/packet_number.dart';
 
 import 'package:dongu_mobile/utils/haversine.dart';
@@ -63,9 +64,9 @@ class _HomePageViewState extends State<HomePageView> {
   ScrollController? _controller;
   int? duration;
 
- bool visible = true;
- TextEditingController? controller = TextEditingController();
-   List<Search> names = [];
+  bool visible = true;
+  TextEditingController? controller = TextEditingController();
+  List<Search> names = [];
   List<Search> filteredNames = [];
   @override
   void initState() {
@@ -73,7 +74,6 @@ class _HomePageViewState extends State<HomePageView> {
     context.read<SearchStoreCubit>().getSearchStore();
     LocationService.getCurrentLocation();
     getDeviceIdentifier();
-    context.read<OrderReceivedCubit>().getOrder();
   }
 
   Future<List<String>> getDeviceIdentifier() async {
@@ -125,7 +125,8 @@ class _HomePageViewState extends State<HomePageView> {
       }
     });
   }
-    Builder buildBuilderSearch() {
+
+  Builder buildBuilderSearch() {
     return Builder(builder: (context) {
       final GenericState stateSearch = context.watch<SearchCubit>().state;
 
@@ -162,18 +163,9 @@ class _HomePageViewState extends State<HomePageView> {
       child: Builder(builder: (context) {
         return ListView(
           children: [
-            /*           Visibility(
+            Visibility(
                 visible: context.watch<OrderBarCubit>().state,
                 child: buildOrderStatusBar()),
-            Visibility(visible:true,child: SizedBox(height: 20)),
-            Visibility(
-              visible:visible,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: buildRowTitleLeftRightLocation(context,
-                    LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
-              ),
-                child: buildOrderStatusBar()), */
             SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
@@ -181,7 +173,7 @@ class _HomePageViewState extends State<HomePageView> {
                   LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
             ),
             Visibility(
-              visible:visible,
+              visible: visible,
               child: Padding(
                 padding: EdgeInsets.only(left: 26),
                 child: Divider(
@@ -217,9 +209,7 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             SizedBox(height: context.dynamicHeight(0.03)),
-            Visibility(
-              visible: true,
-              child: buildBuilderSearch()),
+            Visibility(visible: true, child: buildBuilderSearch()),
             Visibility(
               visible: visible,
               child: Padding(
@@ -238,10 +228,12 @@ class _HomePageViewState extends State<HomePageView> {
                 ),
               ),
             ),
-            Visibility(visible:visible,child: SizedBox(height: context.dynamicHeight(0.02))),
+            Visibility(
+                visible: visible,
+                child: SizedBox(height: context.dynamicHeight(0.02))),
             //bool scrool = false;
             Visibility(
-              visible:visible,
+              visible: visible,
               child: Padding(
                 padding: scroolNearMeLeft == true
                     ? EdgeInsets.only(
@@ -258,9 +250,11 @@ class _HomePageViewState extends State<HomePageView> {
                     buildListViewNearMe(context, restaurants, distances, state),
               ),
             ),
-            Visibility(visible:visible,child: SizedBox(height: context.dynamicHeight(0.04))),
             Visibility(
-              visible:visible,
+                visible: visible,
+                child: SizedBox(height: context.dynamicHeight(0.04))),
+            Visibility(
+              visible: visible,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 26),
                 child: LocaleText(
@@ -270,7 +264,7 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             Visibility(
-              visible:visible,
+              visible: visible,
               child: Padding(
                 // scroll edildiğinde 0 olacak
                 padding: EdgeInsets.only(left: 26),
@@ -280,9 +274,11 @@ class _HomePageViewState extends State<HomePageView> {
                 ),
               ),
             ),
-            Visibility(visible: visible,child: SizedBox(height: context.dynamicHeight(0.01))),
             Visibility(
-              visible:visible,
+                visible: visible,
+                child: SizedBox(height: context.dynamicHeight(0.01))),
+            Visibility(
+              visible: visible,
               child: Padding(
                 padding: scroolCategoriesLeft == true
                     ? EdgeInsets.only(
@@ -298,7 +294,8 @@ class _HomePageViewState extends State<HomePageView> {
                 child: Container(
                     height: context.dynamicHeight(0.16),
                     child: NotificationListener<ScrollUpdateNotification>(
-                        onNotification: (ScrollUpdateNotification notification) {
+                        onNotification:
+                            (ScrollUpdateNotification notification) {
                           setState(() {
                             if (notification.metrics.pixels <= 0) {
                               scroolCategoriesLeft = true;
@@ -311,14 +308,14 @@ class _HomePageViewState extends State<HomePageView> {
                               scroolCategoriesRight = false;
                             }
                           });
-            
+
                           return true;
                         },
                         child: CustomHorizontalListCategory())),
               ),
             ),
             Visibility(
-              visible:visible,
+              visible: visible,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 26),
                 child: LocaleText(
@@ -328,7 +325,7 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             Visibility(
-              visible:visible,
+              visible: visible,
               child: Padding(
                 padding: EdgeInsets.only(left: 26),
                 child: Divider(
@@ -338,10 +335,10 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             Visibility(
-              visible:visible,
-              child: SizedBox(height: context.dynamicHeight(0.01))),
+                visible: visible,
+                child: SizedBox(height: context.dynamicHeight(0.01))),
             Visibility(
-              visible:visible,
+              visible: visible,
               child: Padding(
                 padding: scroolOpportunitiesLeft == true
                     ? EdgeInsets.only(
@@ -358,7 +355,9 @@ class _HomePageViewState extends State<HomePageView> {
                     buildListViewOpportunities(context, restaurants, distances),
               ),
             ),
-            Visibility(visible:visible,child: SizedBox(height: context.dynamicHeight(0.01))),
+            Visibility(
+                visible: visible,
+                child: SizedBox(height: context.dynamicHeight(0.01))),
           ],
         );
       }),
@@ -385,70 +384,75 @@ class _HomePageViewState extends State<HomePageView> {
             orderInfo.add(orderInfoTotal[i]);
           }
         }
-        return GestureDetector(
-          onTap: () {
-            Navigator.of(context)
-                .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
-                    arguments: ScreenArgumentsRestaurantDetail(
-                      orderInfo: orderInfo.first,
-                    ));
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            height: 93,
-            color: AppColors.greenColor,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    LocaleText(
-                      text: 'Aktif Siparişin',
-                      style: AppTextStyles.subTitleBoldStyle,
-                    ),
-                    LocaleText(
-                      text:
-                          '${orderInfo.first.address!.name} - ${orderInfo.first.buyingTime!.toLocal().day}.${orderInfo.first.buyingTime!.toLocal().month}.${orderInfo.first.buyingTime!.toLocal().year}',
-                      style: AppTextStyles.subTitleBoldStyle,
-                    ),
-                    LocaleText(
-                      text: orderInfo.first.boxes!.isNotEmpty
-                          ? orderInfo.first.boxes![0].store!.name
-                          : '',
-                      style: AppTextStyles.bodyBoldTextStyle
-                          .copyWith(color: Colors.white),
-                    ),
-                  ],
-                ),
-                Visibility(
-                    visible: orderInfo.first.boxes!.isNotEmpty,
-                    child: buildCountDown(context, orderInfo)),
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                  width: 69,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4.0),
-                    color: AppColors.scaffoldBackgroundColor,
+        print(orderInfoTotal.length);
+        return orderInfo.isNotEmpty
+            ? GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
+                          arguments: ScreenArgumentsRestaurantDetail(
+                            orderInfo: orderInfo.first,
+                          ));
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  height: 93,
+                  color: AppColors.greenColor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          LocaleText(
+                            text: 'Aktif Siparişin',
+                            style: AppTextStyles.subTitleBoldStyle,
+                          ),
+                          LocaleText(
+                            text:
+                                '${orderInfo.first.address!.name} - ${orderInfo.first.buyingTime!.toLocal().day}.${orderInfo.first.buyingTime!.toLocal().month}.${orderInfo.first.buyingTime!.toLocal().year}',
+                            style: AppTextStyles.subTitleBoldStyle,
+                          ),
+                          LocaleText(
+                            text: orderInfo.first.boxes!.isNotEmpty
+                                ? orderInfo.first.boxes![0].store!.name
+                                : '',
+                            style: AppTextStyles.bodyBoldTextStyle
+                                .copyWith(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      Visibility(
+                        visible: orderInfo.first.boxes!.isNotEmpty,
+                        child: countdown(orderInfo),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        margin:
+                            EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                        width: 69,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0),
+                          color: AppColors.scaffoldBackgroundColor,
+                        ),
+                        child: Text(
+                          '${orderInfo.first.cost} TL',
+                          style: AppTextStyles.bodyBoldTextStyle
+                              .copyWith(color: AppColors.greenColor),
+                        ),
+                      ),
+                      SvgPicture.asset(
+                        ImageConstant.COMMONS_FORWARD_ICON,
+                        fit: BoxFit.fitWidth,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    '${orderInfo.first.cost} TL',
-                    style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(color: AppColors.greenColor),
-                  ),
                 ),
-                SvgPicture.asset(
-                  ImageConstant.COMMONS_FORWARD_ICON,
-                  fit: BoxFit.fitWidth,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-          ),
-        );
+              )
+            : SizedBox(height: 0, width: 0);
       } else {
         final error = stateOfOrder as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -810,22 +814,23 @@ class _HomePageViewState extends State<HomePageView> {
             disabledBorder: buildOutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.046)),
             hintText: LocaleKeys.my_near_hint_text.locale),
-                 inputFormatters: [
-        //  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+        inputFormatters: [
+          //  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
           FilteringTextInputFormatter.singleLineFormatter,
         ],
-            onChanged: (value){
-              context.read<SearchCubit>().getSearches(controller!.text);
-            },
-            onTap: (){
-              setState(() {
-                  visible = !visible;
-              });
-            },
-            controller:controller,
+        onChanged: (value) {
+          context.read<SearchCubit>().getSearches(controller!.text);
+        },
+        onTap: () {
+          setState(() {
+            visible = !visible;
+          });
+        },
+        controller: controller,
       ),
     );
   }
+
   emptySearchHistory() {
     return Container(
       height: context.dynamicHeight(0.05),
@@ -839,6 +844,7 @@ class _HomePageViewState extends State<HomePageView> {
       ),
     );
   }
+
   OutlineInputBorder buildOutlineInputBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.horizontal(
@@ -849,29 +855,6 @@ class _HomePageViewState extends State<HomePageView> {
         width: 2.0,
         color: AppColors.borderAndDividerColor,
       ),
-    );
-  }
-
-  Text buildCountDown(BuildContext context, List<OrderReceived> orderInfo) {
-    List<int> itemsOfCountDown = buildDurationForCountdown(
-        DateTime.now(),
-        orderInfo.first.boxes!.isNotEmpty
-            ? orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal()
-            : orderInfo.first.buyingTime!.toLocal());
-
-    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
-    int hour = itemsOfCountDown[0];
-    int minute = itemsOfCountDown[1];
-    int second = itemsOfCountDown[2];
-    if (durationFinal! <= 0) {
-      context.read<OrderBarCubit>().stateOfBar(false);
-      SharedPrefs.setOrderBar(false);
-    }
-    String countDown =
-        '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}';
-    return Text(
-      countDown,
-      style: AppTextStyles.subTitleBoldStyle,
     );
   }
 
@@ -886,6 +869,23 @@ class _HomePageViewState extends State<HomePageView> {
       timeNowHourComponentList.add(int.parse(e));
     });
     return timeNowHourComponentList;
+  }
+
+  Widget countdown(List<OrderReceived> orderInfo) {
+    List<int> itemsOfCountDown = buildDurationForCountdown(
+        DateTime.now(),
+        orderInfo.first.boxes!.isNotEmpty
+            ? orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal()
+            : orderInfo.first.buyingTime!.toLocal());
+    int hour = itemsOfCountDown[0];
+    int minute = itemsOfCountDown[1];
+    int second = itemsOfCountDown[2];
+    return TimerCountDown(
+        hour: hour,
+        minute: minute,
+        second: second,
+        textStyle:
+            AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white));
   }
 
   List<int> buildDurationForCountdown(DateTime dateTime, DateTime local) {
@@ -915,34 +915,8 @@ class _HomePageViewState extends State<HomePageView> {
     return durationOfitems;
   }
 
-  void startTimer(int hour, int minute, int second) {
-    const oneSec = const Duration(seconds: 1);
-    timer = new Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (hour == 0 && minute == 0 && second == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            if (second != 0) {
-              second--;
-            } else {
-              second = 59;
-              if (minute != 0) {
-                minute--;
-              } else {
-                minute = 59;
-                hour--;
-              }
-            }
-          });
-        }
-      },
-    );
-  }
-  ListView searchListViewBuilder(GenericState stateSearch, List<Search> searchList) {
+  ListView searchListViewBuilder(
+      GenericState stateSearch, List<Search> searchList) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: searchList.isEmpty ||

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -42,6 +43,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
   @override
   Widget build(BuildContext context) {
+    print(SharedPrefs.getDeliveryType);
     return Container(
       height: context.dynamicHeight(0.48),
       child: ListView(
@@ -303,10 +305,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       child: Container(
         color: Colors.white,
         child: TextFormField(
-               inputFormatters: [
-          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-
+          inputFormatters: [
+            //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+            FilteringTextInputFormatter.singleLineFormatter,
           ],
           cursorColor: AppColors.cursorColor,
           style:
@@ -337,10 +338,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       width: context.dynamicWidht(0.33),
       color: Colors.white,
       child: TextFormField(
-             inputFormatters: [
-        //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-
+        inputFormatters: [
+          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,

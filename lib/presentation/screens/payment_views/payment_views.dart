@@ -340,9 +340,10 @@ class _PaymentViewsState extends State<PaymentViews>
 
                 context.read<OrderBarCubit>().stateOfBar(true);
                 SharedPrefs.setOrderBar(true);
-                context
-                    .read<OrderReceivedCubit>()
-                    .createOrder(SharedPrefs.getDeliveryType);
+                context.read<OrderReceivedCubit>().createOrder(
+                    SharedPrefs.getDeliveryType,
+                    SharedPrefs.getDeliveredRestaurantAddressId,
+                    SharedPrefs.getDeliveredRestaurantAddressId);
                 context
                     .read<StoreCourierCubit>()
                     .updateCourierHours(SharedPrefs.getCourierHourId);

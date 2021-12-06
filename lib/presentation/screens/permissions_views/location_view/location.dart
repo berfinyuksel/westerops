@@ -91,7 +91,7 @@ class _LocationViewState extends State<LocationView> {
       color: AppColors.greenColor,
       textColor: AppColors.appBarColor,
       title: LocaleKeys.premission_location_button1.locale,
-      onPressed: ()  {
+      onPressed: () {
         Geolocator.requestPermission();
         Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
       },
@@ -118,6 +118,7 @@ class _LocationViewState extends State<LocationView> {
 
   Container locationImage(BuildContext context) {
     return Container(
+      height: context.dynamicHeight(0.56),
       //padding: EdgeInsets.only(top: context.dynamicHeight(1)),
       //padding: EdgeInsets.only(top: context.dynamicHeight(0.10)),
       padding: EdgeInsets.only(

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
 import '../../../data/model/order_received.dart';
 import '../../../data/repositories/update_order_repository.dart';
 import '../../../data/services/locator.dart';
@@ -221,13 +222,6 @@ class _SurprisePackViewState extends State<SurprisePackView> {
 
   Container buildCountDown(
       BuildContext context, List<OrderReceived> orderInfo) {
-    List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
-        orderInfo.last.boxes!.first.saleDay!.startDate!.toLocal());
-
-    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
-    int hour = itemsOfCountDown[0];
-    int minute = itemsOfCountDown[1];
-    int second = itemsOfCountDown[2];
     if (durationFinal <= 0) {
       context.read<OrderBarCubit>().stateOfBar(false);
       SharedPrefs.setOrderBar(false);
@@ -245,9 +239,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
               text: LocaleKeys.order_received_count_down,
               style: AppTextStyles.bodyTitleStyle),
           Spacer(flex: 1),
-          Text(
-              '0$hour:${minute < 10 ? "0$minute" : minute}:${second < 10 ? "0$second" : second}',
-              style: AppTextStyles.appBarTitleStyle),
+          countdown(orderInfo),
           Text(
             " kaldı.",
             style: AppTextStyles.bodyTitleStyle,
@@ -347,5 +339,21 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     int durationOfitems =
         ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
     return durationOfitems;
+  }
+
+  Widget countdown(List<OrderReceived> orderInfo) {
+    List<int> itemsOfCountDown = buildDurationForCountdown(
+        DateTime.now(),
+        orderInfo.first.boxes!.isNotEmpty
+            ? orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal()
+            : orderInfo.first.buyingTime!.toLocal());
+    int hour = itemsOfCountDown[0];
+    int minute = itemsOfCountDown[1];
+    int second = itemsOfCountDown[2];
+    if (durationFinal <= 0) {
+      context.read<OrderBarCubit>().stateOfBar(false);
+      SharedPrefs.setOrderBar(false);
+    }
+    return TimerCountDown(hour: hour, minute: minute, second: second);
   }
 }

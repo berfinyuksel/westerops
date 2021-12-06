@@ -200,7 +200,29 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                     : Expanded(
                         child: favouriteRestaurant.isNotEmpty
                             ? buildListViewRestaurantInfo(favouriteRestaurant)
-                            : Text("Favori restoranınız bulunmamaktadır."))),
+                            : Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 40,
+                                    ),
+                                    SvgPicture.asset(
+                                        ImageConstant.SURPRISE_PACK_ALERT),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    LocaleText(
+                                      alignment: TextAlign.center,
+                                      text:
+                                          "Favori restoranınız bulunmamaktadır.",
+                                      style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ))),
           ],
         );
       } else {
@@ -375,16 +397,14 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       child: TextFormField(
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
-             inputFormatters: [
+        inputFormatters: [
           //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         decoration: InputDecoration(
             suffixIcon: SvgPicture.asset(
               ImageConstant.COMMONS_SEARCH_ICON,
             ),
-            
             border: buildOutlineInputBorder(),
             focusedBorder: buildOutlineInputBorder(),
             enabledBorder: buildOutlineInputBorder(),
@@ -422,44 +442,51 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   Positioned buildBottomInfo(
       BuildContext context, List<SearchStore> favourites) {
     return Positioned(
-        right: 0,
-        left: 0,
-        bottom: 0,
-        child: Container(
-          width: double.infinity,
-          height: context.dynamicHeight(0.176),
-          padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
-          color: Colors.white,
-          child: RestaurantInfoListTile(
-            minDiscountedOrderPrice: favourites[selectedIndex]
-                .packageSettings!
-                .minDiscountedOrderPrice,
-            minOrderPrice:
-                favourites[selectedIndex].packageSettings!.minOrderPrice,
-            packetNumber: favourites[selectedIndex].calendar!.first.boxCount ==
-                    0
-                ? 'tükendi'
-                : '${favourites[selectedIndex].calendar!.first.boxCount} paket',
-            deliveryType: int.parse(
-                favourites[selectedIndex].packageSettings!.deliveryType!),
-            restaurantName: favourites[selectedIndex].name,
-            distance: Haversine.distance(
-                    favourites[selectedIndex].latitude!,
-                    favourites[selectedIndex].longitude!,
-                    LocationService.latitude,
-                    LocationService.longitude)
-                .toStringAsFixed(2),
-            availableTime:
-                '${favourites[selectedIndex].packageSettings!.deliveryTimeStart} - ${favourites[selectedIndex].packageSettings!.deliveryTimeEnd}',
-            onPressed: () {
-              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                  arguments: ScreenArgumentsRestaurantDetail(
-                    restaurant: favourites[selectedIndex],
-                  ));
-            },
-            icon: favourites[selectedIndex].photo,
-          ),
-        ));
+      right: 0,
+      left: 0,
+      bottom: 0,
+      child: favourites.isNotEmpty
+          ? Container(
+              width: double.infinity,
+              height: context.dynamicHeight(0.176),
+              padding:
+                  EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+              color: Colors.white,
+              child: RestaurantInfoListTile(
+                minDiscountedOrderPrice: favourites[selectedIndex]
+                    .packageSettings!
+                    .minDiscountedOrderPrice,
+                minOrderPrice:
+                    favourites[selectedIndex].packageSettings!.minOrderPrice,
+                packetNumber: favourites[selectedIndex]
+                            .calendar!
+                            .first
+                            .boxCount ==
+                        0
+                    ? 'tükendi'
+                    : '${favourites[selectedIndex].calendar!.first.boxCount} paket',
+                deliveryType: int.parse(
+                    favourites[selectedIndex].packageSettings!.deliveryType!),
+                restaurantName: favourites[selectedIndex].name,
+                distance: Haversine.distance(
+                        favourites[selectedIndex].latitude!,
+                        favourites[selectedIndex].longitude!,
+                        LocationService.latitude,
+                        LocationService.longitude)
+                    .toStringAsFixed(2),
+                availableTime:
+                    '${favourites[selectedIndex].packageSettings!.deliveryTimeStart} - ${favourites[selectedIndex].packageSettings!.deliveryTimeEnd}',
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                      arguments: ScreenArgumentsRestaurantDetail(
+                        restaurant: favourites[selectedIndex],
+                      ));
+                },
+                icon: favourites[selectedIndex].photo,
+              ),
+            )
+          : SizedBox(height: 0, width: 0),
+    );
   }
 
   Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
@@ -513,8 +540,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         position: LatLng(latitude, longitude),
       );
       markers[markerId] = marker;
-      print('jasbdhjasbdhjbaskjdnajksnda');
-      print(favouriteRestaurant.length);
+
       for (int i = 0; i < mapsMarkers.length; i++) {
         int? dailyBoxCount;
 

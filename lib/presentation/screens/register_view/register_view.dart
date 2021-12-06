@@ -63,7 +63,7 @@ class _RegisterViewState extends State<RegisterView> {
         child: Stack(
           children: [
             Positioned(
-              top: -25,
+              top: 0,
               left: 0,
               right: 0,
               child: buildBackground,
@@ -241,7 +241,7 @@ class _RegisterViewState extends State<RegisterView> {
                         emailController.text,
                         phoneTR,
                         passwordController.text);
-                        String phoneEN = '+1' + phoneController.text;
+                    String phoneEN = '+1' + phoneController.text;
 
                     if (nameController.text.isNotEmpty &&
                         phoneController.text.isNotEmpty &&
@@ -254,34 +254,32 @@ class _RegisterViewState extends State<RegisterView> {
                       //         description: "Hoş Geldiniz",
                       //         onPressed: () => Navigator.popAndPushNamed(
                       //             context, RouteConstant.SMS_VERIFY_VIEW)));
-                                 await _auth.verifyPhoneNumber(
-                              phoneNumber:
-                                  dropdownValue == 'TR' ? phoneTR : phoneEN,
-                              verificationCompleted:
-                                  (phoneAuthCredential) async {
-                                // print(
-                                //     "SMS CODE : ${phoneAuthCredential.smsCode}");
-                                setState(() {
-                                  showLoading = false;
-                                });
-                                //signInWithPhoneAuthCredential(phoneAuthCredential);
-                              },
-                              verificationFailed: (verificationFailed) async {
-                                setState(() {
-                                  showLoading = false;
-                                });
-                                // ignore: deprecated_member_use
-                              },
-                              codeSent: (verificationId, resendingToken) async {
-                                setState(() {
-                                  showLoading = false;
-                                  currentState = MobileVerificationState
-                                      .SHOW_OTP_FORM_STATE;
-                                  this.verificationId = verificationId;
-                                });
-                              },
-                              codeAutoRetrievalTimeout:
-                                  (verificationId) async {});
+                      await _auth.verifyPhoneNumber(
+                          phoneNumber:
+                              dropdownValue == 'TR' ? phoneTR : phoneEN,
+                          verificationCompleted: (phoneAuthCredential) async {
+                            // print(
+                            //     "SMS CODE : ${phoneAuthCredential.smsCode}");
+                            setState(() {
+                              showLoading = false;
+                            });
+                            //signInWithPhoneAuthCredential(phoneAuthCredential);
+                          },
+                          verificationFailed: (verificationFailed) async {
+                            setState(() {
+                              showLoading = false;
+                            });
+                            // ignore: deprecated_member_use
+                          },
+                          codeSent: (verificationId, resendingToken) async {
+                            setState(() {
+                              showLoading = false;
+                              currentState =
+                                  MobileVerificationState.SHOW_OTP_FORM_STATE;
+                              this.verificationId = verificationId;
+                            });
+                          },
+                          codeAutoRetrievalTimeout: (verificationId) async {});
                     } else {
                       AlertDialog(
                         contentPadding: EdgeInsets.symmetric(
@@ -606,6 +604,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   Container get buildBackground {
     return Container(
+      height: context.dynamicHeight(1.15),
+      width: context.dynamicWidht(1),
       decoration: BoxDecoration(),
       child: SvgPicture.asset(
         ImageConstant.REGISTER_BACKGROUND,

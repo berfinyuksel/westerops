@@ -8,15 +8,16 @@ enum StatusCode { success, error, unauthecticated }
 
 abstract class OrderReceivedRepository {
   Future<List<OrderReceived>> getOrder();
-  Future<List<OrderReceived>> createOrder(int deliveryType);
-
+  Future<List<OrderReceived>> createOrder(
+      int deliveryTyp, int addressId, int billingAddressIde);
 }
 
 class SampleOrderReceivedRepository implements OrderReceivedRepository {
   @override
-  Future<List<OrderReceived>> createOrder(int deliveryType) async {
+  Future<List<OrderReceived>> createOrder(
+      int deliveryType, int addressId, int billingAddressId) async {
     String json =
-        '{"delivery_type":"${deliveryType.toString()}","address":"","billing_address":""}';
+        '{"delivery_type":"${deliveryType.toString()}","address":"$addressId","billing_address":"$billingAddressId"}';
     print("Hİİ");
 
     final response = await http.post(
@@ -36,7 +37,6 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
 
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-
 
   Future<List<OrderReceived>> getOrder() async {
     final response = await http.get(

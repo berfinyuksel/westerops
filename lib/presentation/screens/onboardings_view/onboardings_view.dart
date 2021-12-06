@@ -35,7 +35,8 @@ class _OnboardingsViewState extends State<OnboardingsView> {
           child: CustomButton(
             onPressed: () {
               SharedPrefs.onboardingShown();
-              Navigator.pushReplacementNamed(context, RouteConstant.NOTIFICATION_VIEW);
+              Navigator.pushReplacementNamed(
+                  context, RouteConstant.NOTIFICATION_VIEW);
             },
             title: LocaleKeys.onboardings_forth_button,
             textColor: Colors.white,
@@ -58,8 +59,8 @@ class _OnboardingsViewState extends State<OnboardingsView> {
           child: GestureDetector(
             onTap: () {
               setState(() {
-                pageController.animateToPage(4, duration: Duration(milliseconds: 1000), curve: Curves.ease);
-
+                pageController.animateToPage(4,
+                    duration: Duration(milliseconds: 1000), curve: Curves.ease);
               });
             },
             child: LocaleText(
@@ -79,7 +80,8 @@ class _OnboardingsViewState extends State<OnboardingsView> {
           flex: 140,
           child: CustomButton(
             onPressed: () {
-              pageController.nextPage(duration: Duration(milliseconds: 1000), curve: Curves.ease);
+              pageController.nextPage(
+                  duration: Duration(milliseconds: 1000), curve: Curves.ease);
             },
             title: LocaleKeys.onboardings_button,
             textColor: Colors.white,
@@ -111,7 +113,7 @@ class _OnboardingsViewState extends State<OnboardingsView> {
       height: context.height,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
       child: PageView.builder(
-     //   physics: NeverScrollableScrollPhysics(),
+        //   physics: NeverScrollableScrollPhysics(),
         controller: pageController,
         scrollDirection: Axis.horizontal,
         itemCount: 5,
@@ -144,7 +146,9 @@ class _OnboardingsViewState extends State<OnboardingsView> {
           right: 0,
           bottom: context.dynamicHeight(0.03),
           child: Container(
-            child: pageIndex != 4 ? buildRowFromFirstToThird(context) : buildRowForth(context),
+            child: pageIndex != 4
+                ? buildRowFromFirstToThird(context)
+                : buildRowForth(context),
           ),
         )
       ],
