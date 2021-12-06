@@ -171,4 +171,6 @@ class ImageConstant {
   static const IYZICO_LOGO = "assets/images/card_company/iyzico_logo.svg";
   static const FREEZE_ACCOUNT_LOVE =
       "assets/images/freeze_account/freeze_account_love.svg";
+  static const SMS_OTP_VERIFY_RESEND_CODE_ICON =
+      "assets/images/sms_otp_verify/resend_code_icon.svg";
 }

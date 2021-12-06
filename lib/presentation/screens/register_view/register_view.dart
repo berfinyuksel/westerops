@@ -1,4 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../data/services/auth_service.dart';
 import '../../../data/services/facebook_login_controller.dart';
-import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -34,6 +36,11 @@ class _RegisterViewState extends State<RegisterView> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  bool showLoading = false;
+  MobileVerificationState currentState =
+      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  String? verificationId;
 
   bool enableObscure = true;
   String dropdownValue = "TR";
@@ -207,40 +214,169 @@ class _RegisterViewState extends State<RegisterView> {
               flex: 2,
             ),
             CustomButton(
-              width: context.dynamicWidht(0.4),
-              title: LocaleKeys.register_text_register,
-              textColor: Colors.white,
-              color: checkboxValue
-                  ? AppColors.greenColor
-                  : AppColors.disabledButtonColor,
-              borderColor: checkboxValue
-                  ? AppColors.greenColor
-                  : AppColors.disabledButtonColor,
-              onPressed: () {
-                bool numberControl =
-                    passwordController.text.contains(RegExp(r'[0-9]'));
-                bool uppercaseControl =
-                    passwordController.text.contains(RegExp(r'[A-Z]'));
-                bool lengthControl = passwordController.text.length > 7;
-                if (checkboxValue &&
-                    numberControl &&
-                    uppercaseControl &&
-                    lengthControl) {
-                  String firstName = nameController.text.split(" ")[0];
-                  String lastName = nameController.text.split(" ")[1];
-                  context.read<UserAuthCubit>().registerUser(
-                      firstName,
-                      lastName,
-                      emailController.text,
-                      phoneTR,
-                      passwordController.text);
-                  _showMyDialog();
-                  //Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+                width: context.dynamicWidht(0.4),
+                title: LocaleKeys.register_text_register,
+                textColor: Colors.white,
+                color: checkboxValue
+                    ? AppColors.greenColor
+                    : AppColors.disabledButtonColor,
+                borderColor: checkboxValue
+                    ? AppColors.greenColor
+                    : AppColors.disabledButtonColor,
+                onPressed: () async {
+                  bool numberControl =
+                      passwordController.text.contains(RegExp(r'[0-9]'));
+                  bool uppercaseControl =
+                      passwordController.text.contains(RegExp(r'[A-Z]'));
+                  bool lengthControl = passwordController.text.length > 7;
+                  if (checkboxValue &&
+                      numberControl &&
+                      uppercaseControl &&
+                      lengthControl) {
+                    String firstName = nameController.text.split(" ")[0];
+                    String lastName = nameController.text.split(" ")[1];
+                    context.read<UserAuthCubit>().registerUser(
+                        firstName,
+                        lastName,
+                        emailController.text,
+                        phoneTR,
+                        passwordController.text);
+                        String phoneEN = '+1' + phoneController.text;
 
-                }
-                //  AuthService.registerUser(emailController.text, passwordController.text, phoneController.text, nameController.text);
-              },
-            ),
+                    if (nameController.text.isNotEmpty &&
+                        phoneController.text.isNotEmpty &&
+                        passwordController.text.isNotEmpty) {
+                      Navigator.popAndPushNamed(
+                          context, RouteConstant.SMS_VERIFY_VIEW);
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (_) => CustomAlertDialogResetPassword(
+                      //         description: "Hoş Geldiniz",
+                      //         onPressed: () => Navigator.popAndPushNamed(
+                      //             context, RouteConstant.SMS_VERIFY_VIEW)));
+                                 await _auth.verifyPhoneNumber(
+                              phoneNumber:
+                                  dropdownValue == 'TR' ? phoneTR : phoneEN,
+                              verificationCompleted:
+                                  (phoneAuthCredential) async {
+                                // print(
+                                //     "SMS CODE : ${phoneAuthCredential.smsCode}");
+                                setState(() {
+                                  showLoading = false;
+                                });
+                                //signInWithPhoneAuthCredential(phoneAuthCredential);
+                              },
+                              verificationFailed: (verificationFailed) async {
+                                setState(() {
+                                  showLoading = false;
+                                });
+                                // ignore: deprecated_member_use
+                              },
+                              codeSent: (verificationId, resendingToken) async {
+                                setState(() {
+                                  showLoading = false;
+                                  currentState = MobileVerificationState
+                                      .SHOW_OTP_FORM_STATE;
+                                  this.verificationId = verificationId;
+                                });
+                              },
+                              codeAutoRetrievalTimeout:
+                                  (verificationId) async {});
+                    } else {
+                      AlertDialog(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: context.dynamicWidht(0.047),
+                            vertical: context.dynamicHeight(0.03)),
+                        content: Container(
+                          alignment: Alignment.center,
+                          height: context.dynamicHeight(0.17),
+                          width: context.dynamicWidht(0.8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4.0),
+                            color: Colors.white,
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Spacer(
+                                flex: 2,
+                              ),
+                              SvgPicture.asset(
+                                  ImageConstant.COMMONS_WARNING_ICON),
+                              Spacer(
+                                flex: 2,
+                              ),
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      'Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.',
+                                      style: AppTextStyles.bodyTitleStyle),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        Navigator.pushNamed(
+                                            context, RouteConstant.LOGIN_VIEW);
+                                      });
+                                    },
+                                    child: Text.rich(
+                                      TextSpan(
+                                        style: GoogleFonts.montserrat(
+                                          fontSize: 14.0,
+                                          color: AppColors.textColor,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: 'Hesabınıza ',
+                                            style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: 'giriş yapabilir',
+                                            style: GoogleFonts.montserrat(
+                                              color: AppColors.orangeColor,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: ' ',
+                                            style: GoogleFonts.montserrat(
+                                              color: AppColors.orangeColor,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: 'veya \nhatırlamıyorsanız ',
+                                            style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text:
+                                                'şifrenizi \nyenileyebilirsiniz.',
+                                            style: GoogleFonts.montserrat(
+                                              color: AppColors.orangeColor,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Spacer(
+                                flex: 5,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                  }
+                }),
             Spacer(
               flex: 2,
             ),
@@ -261,157 +397,157 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        final GenericState state = context.watch<UserAuthCubit>().state;
-        if (state is GenericInitial) {
-          return Container();
-        } else if (state is GenericLoading) {
-          return Container();
-        } else if (state is GenericCompleted) {
-          return AlertDialog(
-            contentPadding: EdgeInsets.zero,
-            content: Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
-              width: context.dynamicWidht(0.87),
-              height: context.dynamicHeight(0.29),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18.0),
-                color: Colors.white,
-              ),
-              child: Column(
-                children: [
-                  Spacer(
-                    flex: 8,
-                  ),
-                  SvgPicture.asset(
-                    ImageConstant.SURPRISE_PACK,
-                    height: context.dynamicHeight(0.134),
-                  ),
-                  SizedBox(height: 10),
-                  LocaleText(
-                    text: "Hoş geldiniz",
-                    style: AppTextStyles.bodyBoldTextStyle,
-                    alignment: TextAlign.center,
-                  ),
-                  Spacer(
-                    flex: 35,
-                  ),
-                  CustomButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                          context, RouteConstant.CUSTOM_SCAFFOLD);
-                    },
-                    width: context.dynamicWidht(0.35),
-                    color: AppColors.greenColor,
-                    textColor: Colors.white,
-                    borderColor: AppColors.greenColor,
-                    title: "Ana Sayfa",
-                  ),
-                  Spacer(
-                    flex: 20,
-                  ),
-                ],
-              ),
-            ),
-          );
-        } else {
-          return AlertDialog(
-            contentPadding: EdgeInsets.symmetric(
-                horizontal: context.dynamicWidht(0.047),
-                vertical: context.dynamicHeight(0.03)),
-            content: Container(
-              alignment: Alignment.center,
-              height: context.dynamicHeight(0.17),
-              width: context.dynamicWidht(0.8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4.0),
-                color: Colors.white,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Spacer(
-                    flex: 2,
-                  ),
-                  SvgPicture.asset(ImageConstant.COMMONS_WARNING_ICON),
-                  Spacer(
-                    flex: 2,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                          'Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.',
-                          style: AppTextStyles.bodyTitleStyle),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            Navigator.pushNamed(
-                                context, RouteConstant.LOGIN_VIEW);
-                          });
-                        },
-                        child: Text.rich(
-                          TextSpan(
-                            style: GoogleFonts.montserrat(
-                              fontSize: 14.0,
-                              color: AppColors.textColor,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'Hesabınıza ',
-                                style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'giriş yapabilir',
-                                style: GoogleFonts.montserrat(
-                                  color: AppColors.orangeColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' ',
-                                style: GoogleFonts.montserrat(
-                                  color: AppColors.orangeColor,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'veya \nhatırlamıyorsanız ',
-                                style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'şifrenizi \nyenileyebilirsiniz.',
-                                style: GoogleFonts.montserrat(
-                                  color: AppColors.orangeColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Spacer(
-                    flex: 5,
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
-      },
-    );
-  }
+  // Future<void> _showMyDialog() async {
+  //   return showDialog<void>(
+  //     context: context,
+  //     barrierDismissible: true,
+  //     builder: (BuildContext context) {
+  //       final GenericState state = context.watch<UserAuthCubit>().state;
+  //       if (state is GenericInitial) {
+  //         return Container();
+  //       } else if (state is GenericLoading) {
+  //         return Container();
+  //       } else if (state is GenericCompleted) {
+  //         return AlertDialog(
+  //           contentPadding: EdgeInsets.zero,
+  //           content: Container(
+  //             padding:
+  //                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+  //             width: context.dynamicWidht(0.87),
+  //             height: context.dynamicHeight(0.29),
+  //             decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.circular(18.0),
+  //               color: Colors.white,
+  //             ),
+  //             child: Column(
+  //               children: [
+  //                 Spacer(
+  //                   flex: 8,
+  //                 ),
+  //                 SvgPicture.asset(
+  //                   ImageConstant.SURPRISE_PACK,
+  //                   height: context.dynamicHeight(0.134),
+  //                 ),
+  //                 SizedBox(height: 10),
+  //                 LocaleText(
+  //                   text: "Hoş geldiniz",
+  //                   style: AppTextStyles.bodyBoldTextStyle,
+  //                   alignment: TextAlign.center,
+  //                 ),
+  //                 Spacer(
+  //                   flex: 35,
+  //                 ),
+  //                 CustomButton(
+  //                   onPressed: () {
+  //                     Navigator.pushNamed(
+  //                         context, RouteConstant.CUSTOM_SCAFFOLD);
+  //                   },
+  //                   width: context.dynamicWidht(0.35),
+  //                   color: AppColors.greenColor,
+  //                   textColor: Colors.white,
+  //                   borderColor: AppColors.greenColor,
+  //                   title: "Ana Sayfa",
+  //                 ),
+  //                 Spacer(
+  //                   flex: 20,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         );
+  //       } else {
+  //         return AlertDialog(
+  //           contentPadding: EdgeInsets.symmetric(
+  //               horizontal: context.dynamicWidht(0.047),
+  //               vertical: context.dynamicHeight(0.03)),
+  //           content: Container(
+  //             alignment: Alignment.center,
+  //             height: context.dynamicHeight(0.17),
+  //             width: context.dynamicWidht(0.8),
+  //             decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.circular(4.0),
+  //               color: Colors.white,
+  //             ),
+  //             child: Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Spacer(
+  //                   flex: 2,
+  //                 ),
+  //                 SvgPicture.asset(ImageConstant.COMMONS_WARNING_ICON),
+  //                 Spacer(
+  //                   flex: 2,
+  //                 ),
+  //                 Column(
+  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                   children: [
+  //                     Text(
+  //                         'Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.',
+  //                         style: AppTextStyles.bodyTitleStyle),
+  //                     GestureDetector(
+  //                       onTap: () {
+  //                         setState(() {
+  //                           Navigator.pushNamed(
+  //                               context, RouteConstant.LOGIN_VIEW);
+  //                         });
+  //                       },
+  //                       child: Text.rich(
+  //                         TextSpan(
+  //                           style: GoogleFonts.montserrat(
+  //                             fontSize: 14.0,
+  //                             color: AppColors.textColor,
+  //                           ),
+  //                           children: [
+  //                             TextSpan(
+  //                               text: 'Hesabınıza ',
+  //                               style: GoogleFonts.montserrat(
+  //                                 fontWeight: FontWeight.w300,
+  //                               ),
+  //                             ),
+  //                             TextSpan(
+  //                               text: 'giriş yapabilir',
+  //                               style: GoogleFonts.montserrat(
+  //                                 color: AppColors.orangeColor,
+  //                                 fontWeight: FontWeight.w500,
+  //                               ),
+  //                             ),
+  //                             TextSpan(
+  //                               text: ' ',
+  //                               style: GoogleFonts.montserrat(
+  //                                 color: AppColors.orangeColor,
+  //                                 fontWeight: FontWeight.w300,
+  //                               ),
+  //                             ),
+  //                             TextSpan(
+  //                               text: 'veya \nhatırlamıyorsanız ',
+  //                               style: GoogleFonts.montserrat(
+  //                                 fontWeight: FontWeight.w300,
+  //                               ),
+  //                             ),
+  //                             TextSpan(
+  //                               text: 'şifrenizi \nyenileyebilirsiniz.',
+  //                               style: GoogleFonts.montserrat(
+  //                                 color: AppColors.orangeColor,
+  //                                 fontWeight: FontWeight.w500,
+  //                               ),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 Spacer(
+  //                   flex: 5,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 
   Container buildCheckBox(BuildContext context) {
     return Container(
@@ -530,10 +666,10 @@ class _RegisterViewState extends State<RegisterView> {
           isRulesVisible = true;
         });
       },
-          inputFormatters: [
+      inputFormatters: [
         //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         FilteringTextInputFormatter.singleLineFormatter,
-      ], 
+      ],
       controller: passwordController,
       obscureText: enableObscure,
       decoration: InputDecoration(
@@ -600,7 +736,6 @@ class _RegisterViewState extends State<RegisterView> {
       inputFormatters: [
         //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         FilteringTextInputFormatter.singleLineFormatter,
-
       ], // On
       controller: controller,
       decoration: InputDecoration(

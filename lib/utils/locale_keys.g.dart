@@ -464,5 +464,10 @@ abstract class  LocaleKeys {
   static const agreement_kvkk_underlined_text = 'agreement_kvkk.underlined_text';
   static const agreement_kvkk_text = 'agreement_kvkk.text';
   static const agreement_kvkk = 'agreement_kvkk';
+  static const sms_verify_text_1 = 'sms_verify.text_1';
+  static const sms_verify_text_2 = 'sms_verify.text_2';
+  static const sms_verify_text_3 = 'sms_verify.text_3';
+  static const sms_verify_button = 'sms_verify.button';
+  static const sms_verify = 'sms_verify';
 
 }
