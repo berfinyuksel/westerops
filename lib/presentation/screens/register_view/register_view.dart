@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -529,6 +530,10 @@ class _RegisterViewState extends State<RegisterView> {
           isRulesVisible = true;
         });
       },
+          inputFormatters: [
+        //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+      ], 
       controller: passwordController,
       obscureText: enableObscure,
       decoration: InputDecoration(
@@ -592,6 +597,11 @@ class _RegisterViewState extends State<RegisterView> {
           isRulesVisible = false;
         });
       },
+      inputFormatters: [
+        //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
+      ], // On
       controller: controller,
       decoration: InputDecoration(
         labelText: labelText,

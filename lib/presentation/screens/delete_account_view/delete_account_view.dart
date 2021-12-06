@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -194,6 +195,10 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
       child: TextFormField(
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
+             inputFormatters: [
+          //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
+        ],
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,

@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../forgot_password_view/components/popup_reset_password.dart';
 import '../register_view/components/password_rules.dart';
@@ -89,6 +91,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           isRulesVisible = false;
         });
       },
+      inputFormatters: [
+        //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+      ],
       controller: controller,
       obscureText: controller == passwordController ? enableObscureOldPass : enableObscureNewAgainPass,
       decoration: InputDecoration(
@@ -156,6 +162,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           isRulesVisible = true;
         });
       },
+          inputFormatters: [
+        //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+      ],
       controller: newPasswordController,
       obscureText: enableObscureNewPass,
       decoration: InputDecoration(

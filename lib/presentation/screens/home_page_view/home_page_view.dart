@@ -1,26 +1,37 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/data/model/category_name.dart';
+import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/data/model/search.dart';
+import 'package:dongu_mobile/data/model/search_store.dart';
+import 'dart:io';
 import 'package:device_info/device_info.dart';
+
+import 'package:dongu_mobile/data/services/location_service.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
+import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/first_column/packet_number.dart';
+
+import 'package:dongu_mobile/utils/haversine.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../data/model/order_received.dart';
-import '../../../data/model/search_store.dart';
-import '../../../data/services/location_service.dart';
-import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
-import '../../../logic/cubits/order_bar_cubit/order_bar_cubit.dart';
-import '../../../logic/cubits/order_cubit/order_received_cubit.dart';
-import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
+
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
-import '../../../utils/extensions/string_extension.dart';
-import '../../../utils/haversine.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -29,6 +40,7 @@ import '../../widgets/text/locale_text.dart';
 import '../my_favorites_view/components/address_text.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../search_view/components/horizontal_list_category_bar.dart';
+import '../../../utils/extensions/string_extension.dart';
 
 class HomePageView extends StatefulWidget {
   @override
@@ -51,6 +63,10 @@ class _HomePageViewState extends State<HomePageView> {
   ScrollController? _controller;
   int? duration;
 
+ bool visible = true;
+ TextEditingController? controller = TextEditingController();
+   List<Search> names = [];
+  List<Search> filteredNames = [];
   @override
   void initState() {
     super.initState();
@@ -109,6 +125,33 @@ class _HomePageViewState extends State<HomePageView> {
       }
     });
   }
+    Builder buildBuilderSearch() {
+    return Builder(builder: (context) {
+      final GenericState stateSearch = context.watch<SearchCubit>().state;
+
+      if (stateSearch is GenericInitial) {
+        return Container();
+      } else if (stateSearch is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (stateSearch is GenericCompleted) {
+        List<Search> searchList = [];
+
+        for (int i = 0; i < stateSearch.response.length; i++) {
+          searchList.add(stateSearch.response[i]);
+        }
+        names = searchList;
+        filteredNames = names;
+
+        return Center(
+            child: filteredNames.length == 0
+                ? emptySearchHistory()
+                : searchListViewBuilder(stateSearch, searchList));
+      } else {
+        final error = stateSearch as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
+  }
 
   GestureDetector buildBody(BuildContext context, List<SearchStore> restaurants,
       List<double> distances, GenericCompleted state) {
@@ -122,24 +165,35 @@ class _HomePageViewState extends State<HomePageView> {
             Visibility(
                 visible: context.watch<OrderBarCubit>().state,
                 child: buildOrderStatusBar()),
-            SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: buildRowTitleLeftRightLocation(context,
-                  LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 26),
-              child: Divider(
-                thickness: 4,
-                color: AppColors.borderAndDividerColor,
+            Visibility(visible:true,child: SizedBox(height: 20)),
+            Visibility(
+              visible:visible,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: buildRowTitleLeftRightLocation(context,
+                    LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26),
-              child: AddressText(),
+            Visibility(
+              visible:visible,
+              child: Padding(
+                padding: EdgeInsets.only(left: 26),
+                child: Divider(
+                  thickness: 4,
+                  color: AppColors.borderAndDividerColor,
+                ),
+              ),
             ),
-            SizedBox(height: context.dynamicHeight(0.03)),
+            Visibility(
+              visible: visible,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 26),
+                child: AddressText(),
+              ),
+            ),
+            Visibility(
+                visible: visible,
+                child: SizedBox(height: context.dynamicHeight(0.03))),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 26),
               child: Row(
@@ -157,116 +211,148 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             SizedBox(height: context.dynamicHeight(0.03)),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26),
-              child: buildRowTitleLeftRightNearMeAll(context,
-                  LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 26),
-              child: Divider(
-                thickness: 4,
-                color: AppColors.borderAndDividerColor,
+            Visibility(
+              visible: true,
+              child: buildBuilderSearch()),
+            Visibility(
+              visible: visible,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 26),
+                child: buildRowTitleLeftRightNearMeAll(context,
+                    LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
               ),
             ),
-            SizedBox(height: context.dynamicHeight(0.02)),
+            Visibility(
+              visible: visible,
+              child: Padding(
+                padding: EdgeInsets.only(left: 26),
+                child: Divider(
+                  thickness: 4,
+                  color: AppColors.borderAndDividerColor,
+                ),
+              ),
+            ),
+            Visibility(visible:visible,child: SizedBox(height: context.dynamicHeight(0.02))),
             //bool scrool = false;
-            Padding(
-              padding: scroolNearMeLeft == true
-                  ? EdgeInsets.only(
-                      left: 26,
-                      right: 0,
-                    )
-                  : scroolNearMeRight == true
-                      ? EdgeInsets.only(
-                          left: 0,
-                          right: 26,
-                        )
-                      : EdgeInsets.only(),
-              child:
-                  buildListViewNearMe(context, restaurants, distances, state),
-            ),
-            SizedBox(height: context.dynamicHeight(0.04)),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26),
-              child: LocaleText(
-                text: LocaleKeys.home_page_categories,
-                style: AppTextStyles.bodyTitleStyle,
+            Visibility(
+              visible:visible,
+              child: Padding(
+                padding: scroolNearMeLeft == true
+                    ? EdgeInsets.only(
+                        left: 26,
+                        right: 0,
+                      )
+                    : scroolNearMeRight == true
+                        ? EdgeInsets.only(
+                            left: 0,
+                            right: 26,
+                          )
+                        : EdgeInsets.only(),
+                child:
+                    buildListViewNearMe(context, restaurants, distances, state),
               ),
             ),
-            Padding(
-              // scroll edildiğinde 0 olacak
-              padding: EdgeInsets.only(left: 26),
-              child: Divider(
-                thickness: 4,
-                color: AppColors.borderAndDividerColor,
+            Visibility(visible:visible,child: SizedBox(height: context.dynamicHeight(0.04))),
+            Visibility(
+              visible:visible,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 26),
+                child: LocaleText(
+                  text: LocaleKeys.home_page_categories,
+                  style: AppTextStyles.bodyTitleStyle,
+                ),
               ),
             ),
-            SizedBox(height: context.dynamicHeight(0.01)),
-            Padding(
-              padding: scroolCategoriesLeft == true
-                  ? EdgeInsets.only(
-                      left: 26,
-                      right: 0,
-                    )
-                  : scroolCategoriesRight == true
-                      ? EdgeInsets.only(
-                          left: 0,
-                          right: 26,
-                        )
-                      : EdgeInsets.only(),
-              child: Container(
-                  height: context.dynamicHeight(0.16),
-                  child: NotificationListener<ScrollUpdateNotification>(
-                      onNotification: (ScrollUpdateNotification notification) {
-                        setState(() {
-                          if (notification.metrics.pixels <= 0) {
-                            scroolCategoriesLeft = true;
-                          } else {
-                            scroolCategoriesLeft = false;
-                          }
-                          if (notification.metrics.pixels >= 91) {
-                            scroolCategoriesRight = true;
-                          } else {
-                            scroolCategoriesRight = false;
-                          }
-                        });
-
-                        return true;
-                      },
-                      child: CustomHorizontalListCategory())),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26),
-              child: LocaleText(
-                text: LocaleKeys.home_page_opportunities,
-                style: AppTextStyles.bodyTitleStyle,
+            Visibility(
+              visible:visible,
+              child: Padding(
+                // scroll edildiğinde 0 olacak
+                padding: EdgeInsets.only(left: 26),
+                child: Divider(
+                  thickness: 4,
+                  color: AppColors.borderAndDividerColor,
+                ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 26),
-              child: Divider(
-                thickness: 4,
-                color: AppColors.borderAndDividerColor,
+            Visibility(visible: visible,child: SizedBox(height: context.dynamicHeight(0.01))),
+            Visibility(
+              visible:visible,
+              child: Padding(
+                padding: scroolCategoriesLeft == true
+                    ? EdgeInsets.only(
+                        left: 26,
+                        right: 0,
+                      )
+                    : scroolCategoriesRight == true
+                        ? EdgeInsets.only(
+                            left: 0,
+                            right: 26,
+                          )
+                        : EdgeInsets.only(),
+                child: Container(
+                    height: context.dynamicHeight(0.16),
+                    child: NotificationListener<ScrollUpdateNotification>(
+                        onNotification: (ScrollUpdateNotification notification) {
+                          setState(() {
+                            if (notification.metrics.pixels <= 0) {
+                              scroolCategoriesLeft = true;
+                            } else {
+                              scroolCategoriesLeft = false;
+                            }
+                            if (notification.metrics.pixels >= 91) {
+                              scroolCategoriesRight = true;
+                            } else {
+                              scroolCategoriesRight = false;
+                            }
+                          });
+            
+                          return true;
+                        },
+                        child: CustomHorizontalListCategory())),
               ),
             ),
-            SizedBox(height: context.dynamicHeight(0.01)),
-            Padding(
-              padding: scroolOpportunitiesLeft == true
-                  ? EdgeInsets.only(
-                      left: 26,
-                      right: 0,
-                    )
-                  : scroolOpportunitiesRight == true
-                      ? EdgeInsets.only(
-                          left: 0,
-                          right: 26,
-                        )
-                      : EdgeInsets.only(),
-              child:
-                  buildListViewOpportunities(context, restaurants, distances),
+            Visibility(
+              visible:visible,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 26),
+                child: LocaleText(
+                  text: LocaleKeys.home_page_opportunities,
+                  style: AppTextStyles.bodyTitleStyle,
+                ),
+              ),
             ),
-            SizedBox(height: context.dynamicHeight(0.01)),
+            Visibility(
+              visible:visible,
+              child: Padding(
+                padding: EdgeInsets.only(left: 26),
+                child: Divider(
+                  thickness: 4,
+                  color: AppColors.borderAndDividerColor,
+                ),
+              ),
+            ),
+            Visibility(
+              visible:visible,
+              child: SizedBox(height: context.dynamicHeight(0.01))),
+            Visibility(
+              visible:visible,
+              child: Padding(
+                padding: scroolOpportunitiesLeft == true
+                    ? EdgeInsets.only(
+                        left: 26,
+                        right: 0,
+                      )
+                    : scroolOpportunitiesRight == true
+                        ? EdgeInsets.only(
+                            left: 0,
+                            right: 26,
+                          )
+                        : EdgeInsets.only(),
+                child:
+                    buildListViewOpportunities(context, restaurants, distances),
+              ),
+            ),
+            Visibility(visible:visible,child: SizedBox(height: context.dynamicHeight(0.01))),
           ],
         );
       }),
@@ -713,10 +799,35 @@ class _HomePageViewState extends State<HomePageView> {
             disabledBorder: buildOutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.046)),
             hintText: LocaleKeys.my_near_hint_text.locale),
+                 inputFormatters: [
+        //  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+          FilteringTextInputFormatter.singleLineFormatter,
+        ],
+            onChanged: (value){
+              context.read<SearchCubit>().getSearches(controller!.text);
+            },
+            onTap: (){
+              setState(() {
+                  visible = !visible;
+              });
+            },
+            controller:controller,
       ),
     );
   }
-
+  emptySearchHistory() {
+    return Container(
+      height: context.dynamicHeight(0.05),
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: LocaleText(
+            text: LocaleKeys.search_search_history_clean,
+            style: AppTextStyles.bodyTextStyle
+                .copyWith(color: AppColors.cursorColor)),
+      ),
+    );
+  }
   OutlineInputBorder buildOutlineInputBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.horizontal(
@@ -819,5 +930,44 @@ class _HomePageViewState extends State<HomePageView> {
         }
       },
     );
+  }
+  ListView searchListViewBuilder(GenericState stateSearch, List<Search> searchList) {
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: searchList.isEmpty ||
+                controller!.text.isEmpty ||
+                filteredNames.isEmpty
+            ? 0
+            : filteredNames.length,
+        itemBuilder: (context, index) {
+          return Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: context.dynamicWidht(0.06),
+              // vertical: context.dynamicHeight(0.00006)
+            ),
+            decoration: BoxDecoration(color: Colors.white),
+            child: ListTile(
+              trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+
+              // leading: Image.network(
+              //   searches.urlImage,
+              //   fit: BoxFit.cover,
+              //   width: 50,
+              //   height: 50,
+              // ),
+              title: Text("${filteredNames[index].name}".isEmpty ||
+                      searchList.isEmpty ||
+                      filteredNames.isEmpty
+                  ? ""
+                  : "${filteredNames[index].name}"),
+              subtitle: Text(
+                  "${filteredNames[index].storeMeals![index].name}".isEmpty ||
+                          searchList.isEmpty ||
+                          filteredNames.isEmpty
+                      ? ""
+                      : "${filteredNames[index].storeMeals![index].name}"),
+            ),
+          );
+        });
   }
 }

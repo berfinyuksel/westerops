@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -302,6 +303,11 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       child: Container(
         color: Colors.white,
         child: TextFormField(
+               inputFormatters: [
+          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
+          ],
           cursorColor: AppColors.cursorColor,
           style:
               AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
@@ -331,6 +337,11 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       width: context.dynamicWidht(0.33),
       color: Colors.white,
       child: TextFormField(
+             inputFormatters: [
+        //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
+        ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
         controller: cvvController,

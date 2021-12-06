@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 abstract class SearchStoreRepository {
   Future<List<SearchStore>> getSearchStores();
+  Future<List<SearchStore>> getSearches(String query);
 }
 
 class SampleSearchStoreRepository implements SearchStoreRepository {
@@ -25,6 +26,24 @@ class SampleSearchStoreRepository implements SearchStoreRepository {
           jsonBody[0].map((model) => SearchStore.fromJson(model)));
 
       return searchStoreLists;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
+
+  @override
+  Future<List<SearchStore>> getSearches(String query) async {
+    final response = await http.get(
+      Uri.parse("${UrlConstant.EN_URL}store/searchstore/?keyword=$query"),
+    );
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode == 200) {
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+
+      List<SearchStore> searchLists = List<SearchStore>.from(
+          jsonBody[0].map((model) => SearchStore.fromJson(model)));
+
+      return searchLists;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }

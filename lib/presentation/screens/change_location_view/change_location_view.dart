@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../../../data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -167,6 +169,10 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
       child: TextFormField(
         //enableInteractiveSelection: false,
         //enabled: false,
+        inputFormatters: [
+         // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
+        ],
         controller: searchController,
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,

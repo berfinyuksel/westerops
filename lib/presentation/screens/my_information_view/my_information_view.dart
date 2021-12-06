@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -137,6 +138,11 @@ class _MyInformationViewState extends State<MyInformationView> {
         onTap: () {
           setState(() {});
         },
+             inputFormatters: [
+         // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
+        ],
         controller: controller,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
@@ -162,6 +168,11 @@ class _MyInformationViewState extends State<MyInformationView> {
         onTap: () {
           setState(() {});
         },
+             inputFormatters: [
+        //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        FilteringTextInputFormatter.singleLineFormatter,
+
+        ],
         controller: controller,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
