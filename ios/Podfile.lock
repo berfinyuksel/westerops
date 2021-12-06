@@ -117,6 +117,8 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - notification_permissions (0.4.4):
+    - Flutter
   - path_provider (0.0.1):
     - Flutter
   - PromisesObjC (2.0.0)
@@ -137,6 +139,7 @@ DEPENDENCIES:
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
+  - notification_permissions (from `.symlinks/plugins/notification_permissions/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
@@ -186,6 +189,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
   google_sign_in:
     :path: ".symlinks/plugins/google_sign_in/ios"
+  notification_permissions:
+    :path: ".symlinks/plugins/notification_permissions/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   shared_preferences:
@@ -223,6 +228,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  notification_permissions: 825ea1bf2a52ab585c53fd7b5e8e96876d735d4b
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d

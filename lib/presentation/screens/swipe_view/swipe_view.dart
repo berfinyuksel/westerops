@@ -118,7 +118,6 @@ class _SwipeViewState extends State<SwipeView> {
                 Dismissible(
                   key: UniqueKey(),
                   onDismissed: (value) {
-                    context.read<OrderBarCubit>().stateOfBar(false);
                     SharedPrefs.setOrderBar(false);
 
                     setState(() {
@@ -130,6 +129,7 @@ class _SwipeViewState extends State<SwipeView> {
                     });
                     sl<UpdateOrderRepository>()
                         .updateOrderStatus(widget.orderInfo!.id!, 6);
+                    context.read<OrderBarCubit>().stateOfBar(false);
                   },
                   direction: DismissDirection.startToEnd,
                   child: Container(

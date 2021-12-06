@@ -385,7 +385,6 @@ class _HomePageViewState extends State<HomePageView> {
             orderInfo.add(orderInfoTotal[i]);
           }
         }
-
         return GestureDetector(
           onTap: () {
             Navigator.of(context)

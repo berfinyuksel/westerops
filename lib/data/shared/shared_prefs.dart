@@ -177,6 +177,14 @@ class SharedPrefs {
 
   static Future<void> setBoxIdForDeliver(int boxIdForDeliver) async {
     _prefs.setInt('boxIdForDeliver', boxIdForDeliver);
+  static Future<void> setPermissionForEmail(
+      bool updatePermissionForEmail) async {
+    _prefs.setBool('updatePermissionForEmail', updatePermissionForEmail);
+  }
+
+  static Future<void> setPermissionForPhone(
+      bool updatePermissionForPhone) async {
+    _prefs.setBool('updatePermissionForPhone', updatePermissionForPhone);
   }
 
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
@@ -234,4 +242,8 @@ class SharedPrefs {
   static String get getMaxPrice => _prefs.getString('maxPrice') ?? "";
   static int get getOrderRefCode => _prefs.getInt('orderRefCode') ?? 0;
   static int get getBoxIdForDeliver => _prefs.getInt('boxIdForDeliver') ?? 0;
+  static bool get getPermissionForEmail =>
+      _prefs.getBool('updatePermissionForEmail') ?? true;
+  static bool get getPermissionForPhone =>
+      _prefs.getBool('updatePermissionForPhone') ?? true;
 }

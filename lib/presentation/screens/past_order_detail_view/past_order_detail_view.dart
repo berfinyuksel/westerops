@@ -199,6 +199,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                     widget.orderInfo!.id!, textController.text);
                             switch (statusCode) {
                               case StatusCode.success:
+                                context.read<OrderBarCubit>().stateOfBar(false);
                                 showDialog(
                                     context: context,
                                     builder: (_) => AlertDialog(
