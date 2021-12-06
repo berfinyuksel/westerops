@@ -3,6 +3,11 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
+import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -88,10 +93,28 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
+        List<OrderReceived> orderInfoTotal = [];
         List<OrderReceived> orderInfo = [];
+
         for (var i = 0; i < state.response.length; i++) {
-          orderInfo.add(state.response[i]);
+          orderInfoTotal.add(state.response[i]);
         }
+        for (var i = 0; i < orderInfoTotal.length; i++) {
+          print(orderInfoTotal[i].boxes!.length);
+          if (orderInfoTotal[i].boxes!.isNotEmpty) {
+            for (var j = 0; j < orderInfoTotal[i].boxes!.length; j++) {
+              print('saasdasd');
+              if (SharedPrefs.getBoxIdForDeliver ==
+                  orderInfoTotal[i].boxes![j].id) {
+                orderInfo.add(orderInfoTotal[i]);
+                break;
+              }
+            }
+          }
+        }
+
+        SharedPrefs.setOrderRefCode(orderInfo.first.refCode!);
+
         bool surprisePackageStatus = true;
         for (var i = 0; i < orderInfo.last.boxes!.length; i++) {
           if (orderInfo.last.boxes![i].defined == false) {
@@ -143,12 +166,14 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                     height: context.dynamicHeight(0.04),
                   ),
                   buildRowTitleLeftRight(
-                      context,
-                      LocaleKeys.order_received_delivery_address,
-                      "Teslim Edilecek Adres",
-                      isShowOnMap
-                          ? LocaleKeys.order_received_order_summary
-                          : LocaleKeys.order_received_show_on_map),
+                    context,
+                    LocaleKeys.order_received_delivery_address,
+                    "Teslim Edilecek Adres",
+                    isShowOnMap
+                        ? LocaleKeys.order_received_order_summary
+                        : LocaleKeys.order_received_show_on_map,
+                    orderInfo,
+                  ),
                   SizedBox(
                     height: context.dynamicHeight(0.01),
                   ),
@@ -177,6 +202,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                               alignment: Alignment(0.81, 0.88),
                               children: [
                                 GoogleMap(
+                                  myLocationEnabled: true,
                                   myLocationButtonEnabled: false,
                                   initialCameraPosition: CameraPosition(
                                     target: LatLng(latitude, longitude),
@@ -224,7 +250,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                             ),
                             Visibility(
                               visible: isShowBottomInfo,
-                              child: buildBottomInfo(context),
+                              child: buildBottomInfo(context, orderInfo),
                             ),
                           ],
                         ),
@@ -377,7 +403,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   }
 
   Padding buildRowTitleLeftRight(BuildContext context, String titleLeft,
-      String titleCourier, String titleRight) {
+      String titleCourier, String titleRight, List<OrderReceived> orderInfo) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -400,7 +426,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
               setState(() {
                 isShowOnMap = !isShowOnMap;
                 _mapController = Completer<GoogleMapController>();
-                setCustomMarker();
+                setCustomMarker(orderInfo);
               });
             },
             child: LocaleText(
@@ -430,14 +456,14 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     );
   }
 
-  void setCustomMarker() async {
+  void setCustomMarker(List<OrderReceived> orderInfo) async {
     markerIcon =
         await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
     restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(
         ImageConstant.COMMONS_RESTAURANT_MARKER);
     restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
         ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
-    getLocation();
+    getLocation(orderInfo);
   }
 
   Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
@@ -466,7 +492,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     return BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
   }
 
-  Future<void> getLocation() async {
+  Future<void> getLocation(List<OrderReceived> orderInfo) async {
     await LocationService.getCurrentLocation();
     final GoogleMapController controller = await _mapController.future;
     setState(() {
@@ -491,7 +517,19 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         position: LatLng(latitude, longitude),
       );
       markers[markerId] = marker;
-      for (int i = 1; i < 3; i++) {
+      Marker restMarker = Marker(
+        onTap: () {
+          setState(() {
+            isShowBottomInfo = !isShowBottomInfo;
+          });
+        },
+        icon: restaurantMarkerIcon,
+        markerId: MarkerId(orderInfo.last.refCode!.toString()),
+        position: LatLng(orderInfo.last.boxes!.last.store!.latitude!,
+            orderInfo.last.boxes!.last.store!.longitude!),
+      );
+      markers[MarkerId(orderInfo.last.refCode!.toString())] = restMarker;
+/*       for (int i = 1; i < 3; i++) {
         Marker restMarker = Marker(
           onTap: () {
             setState(() {
@@ -516,33 +554,75 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           position: LatLng(latitude - i * 0.0005, longitude - i * 0.0005),
         );
         markers[MarkerId("rest_${3 + i}")] = restMarker;
-      }
+      } */
     });
   }
 
-  Positioned buildBottomInfo(
-    BuildContext context,
-  ) {
-    return Positioned(
-        right: 0,
-        left: 0,
-        bottom: 0,
-        child: Container(
-          width: double.infinity,
-          height: context.dynamicHeight(0.176),
-          padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
-          color: Colors.white,
-          child: RestaurantInfoListTile(
-            deliveryType: 3,
-            restaurantName: "Mini Burger",
-            distance: "74m",
-            packetNumber: "4 paket",
-            availableTime: "18:00-21:00",
-            minDiscountedOrderPrice: 0,
-            minOrderPrice: 0,
-            onPressed: () {},
-          ),
-        ));
+  Builder buildBottomInfo(BuildContext context, List<OrderReceived> orderInfo) {
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<SearchStoreCubit>().state;
+
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        List<SearchStore> restaurants = [];
+        List<SearchStore> chosenRestaurant = [];
+
+        for (int i = 0; i < state.response.length; i++) {
+          restaurants.add(state.response[i]);
+        }
+        for (var i = 0; i < restaurants.length; i++) {
+          for (var j = 0; j < orderInfo.first.boxes!.length; j++) {
+            if (orderInfo.first.boxes![j].store!.id == restaurants[i].id) {
+              chosenRestaurant.add(restaurants[i]);
+            }
+          }
+        }
+        return Positioned(
+            right: 0,
+            left: 0,
+            bottom: 0,
+            child: Container(
+              width: double.infinity,
+              height: context.dynamicHeight(0.176),
+              padding:
+                  EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+              color: Colors.white,
+              child: RestaurantInfoListTile(
+                minDiscountedOrderPrice: chosenRestaurant
+                    .first.packageSettings!.minDiscountedOrderPrice,
+                minOrderPrice:
+                    chosenRestaurant.first.packageSettings!.minOrderPrice,
+                packetNumber: chosenRestaurant.first.calendar!.first.boxCount ==
+                        0
+                    ? 'tükendi'
+                    : '${chosenRestaurant.first.calendar!.first.boxCount} paket',
+                deliveryType: int.parse(orderInfo.first.deliveryType!),
+                restaurantName: orderInfo.first.boxes!.first.store!.name,
+                distance: Haversine.distance(
+                        orderInfo.last.boxes!.last.store!.latitude!,
+                        orderInfo.last.boxes!.last.store!.longitude!,
+                        LocationService.latitude,
+                        LocationService.longitude)
+                    .toStringAsFixed(2),
+                availableTime:
+                    '${orderInfo.last.boxes!.last.saleDay!.startDate!.hour}:${orderInfo.last.boxes!.last.saleDay!.startDate!.minute}0 - ${orderInfo.last.boxes!.last.saleDay!.endDate!.hour}:${orderInfo.last.boxes!.last.saleDay!.endDate!.minute}0',
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                      arguments: ScreenArgumentsRestaurantDetail(
+                        restaurant: chosenRestaurant.first,
+                      ));
+                },
+                icon: orderInfo.first.boxes!.first.store!.photo,
+              ),
+            ));
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
   void startTimer(int hour, int minute, int second) {

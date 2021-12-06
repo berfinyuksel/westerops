@@ -162,7 +162,7 @@ class _HomePageViewState extends State<HomePageView> {
       child: Builder(builder: (context) {
         return ListView(
           children: [
-            Visibility(
+            /*           Visibility(
                 visible: context.watch<OrderBarCubit>().state,
                 child: buildOrderStatusBar()),
             Visibility(visible:true,child: SizedBox(height: 20)),
@@ -173,6 +173,12 @@ class _HomePageViewState extends State<HomePageView> {
                 child: buildRowTitleLeftRightLocation(context,
                     LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
               ),
+                child: buildOrderStatusBar()), */
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: buildRowTitleLeftRightLocation(context,
+                  LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
             ),
             Visibility(
               visible:visible,
@@ -368,12 +374,18 @@ class _HomePageViewState extends State<HomePageView> {
       } else if (stateOfOrder is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (stateOfOrder is GenericCompleted) {
+        List<OrderReceived> orderInfoTotal = [];
         List<OrderReceived> orderInfo = [];
+
         for (var i = 0; i < stateOfOrder.response.length; i++) {
-          orderInfo.add(stateOfOrder.response[i]);
+          orderInfoTotal.add(stateOfOrder.response[i]);
         }
-        print('hasbdjasbndjkasndjasn');
-        print(orderInfo.first.address!.name);
+        for (var i = 0; i < orderInfoTotal.length; i++) {
+          if (SharedPrefs.getOrderRefCode == orderInfoTotal[i].refCode) {
+            orderInfo.add(orderInfoTotal[i]);
+          }
+        }
+
         return GestureDetector(
           onTap: () {
             Navigator.of(context)
@@ -842,8 +854,11 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Text buildCountDown(BuildContext context, List<OrderReceived> orderInfo) {
-    List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
-        orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal());
+    List<int> itemsOfCountDown = buildDurationForCountdown(
+        DateTime.now(),
+        orderInfo.first.boxes!.isNotEmpty
+            ? orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal()
+            : orderInfo.first.buyingTime!.toLocal());
 
     startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
     int hour = itemsOfCountDown[0];

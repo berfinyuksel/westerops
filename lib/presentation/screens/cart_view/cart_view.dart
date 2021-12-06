@@ -244,12 +244,12 @@ class _CartViewState extends State<CartView> {
           ),
         ),
         Spacer(),
-        buildButton(context),
+        buildButton(context, itemList),
       ],
     );
   }
 
-  Padding buildButton(BuildContext context) {
+  Padding buildButton(BuildContext context, List<BoxOrder> itemList) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -263,6 +263,7 @@ class _CartViewState extends State<CartView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
+          SharedPrefs.setBoxIdForDeliver(itemList.last.id!);
           Navigator.pushNamed(context, RouteConstant.PAYMENTS_VIEW);
         },
       ),
