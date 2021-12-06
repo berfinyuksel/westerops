@@ -167,10 +167,13 @@ class _HomePageViewState extends State<HomePageView> {
                 visible: context.watch<OrderBarCubit>().state,
                 child: buildOrderStatusBar()),
             SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: buildRowTitleLeftRightLocation(context,
-                  LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
+            Visibility(
+              visible: visible,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: buildRowTitleLeftRightLocation(context,
+                    LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
+              ),
             ),
             Visibility(
               visible: visible,
