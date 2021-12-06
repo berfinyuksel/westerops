@@ -177,6 +177,8 @@ class SharedPrefs {
 
   static Future<void> setBoxIdForDeliver(int boxIdForDeliver) async {
     _prefs.setInt('boxIdForDeliver', boxIdForDeliver);
+  }
+
   static Future<void> setPermissionForEmail(
       bool updatePermissionForEmail) async {
     _prefs.setBool('updatePermissionForEmail', updatePermissionForEmail);
