@@ -5,9 +5,12 @@ import 'package:http/http.dart' as http;
 enum StatusCode { success, error, unauthecticated }
 
 class UpdateOrderRepository {
-  Future<StatusCode> cancelOrder(int id) async {
+  Future<StatusCode> cancelOrder(int id, String description) async {
+    String json = '{"description": $description}';
+
     final response = await http.delete(
       Uri.parse("${UrlConstant.EN_URL}order/$id/"),
+      body: json,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'JWT ${SharedPrefs.getToken}'

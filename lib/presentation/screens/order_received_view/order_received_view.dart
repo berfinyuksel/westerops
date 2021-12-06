@@ -94,8 +94,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         }
         bool surprisePackageStatus = true;
         for (var i = 0; i < orderInfo.last.boxes!.length; i++) {
-          surprisePackageStatus = true;
-
           if (orderInfo.last.boxes![i].defined == false) {
             surprisePackageStatus = false;
             break;
@@ -125,9 +123,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                   SizedBox(
                     height: context.dynamicHeight(0.02),
                   ),
-                  Visibility(
-                      visible: orderInfo.last.boxes!.isNotEmpty,
-                      child: buildCountDown(context, orderInfo)),
+                  buildCountDown(context, orderInfo),
                   SizedBox(
                     height: context.dynamicHeight(0.04),
                   ),
@@ -320,21 +316,22 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
 
   Container buildCountDown(
       BuildContext context, List<OrderReceived> orderInfo) {
-    if (orderInfo.last.boxes!.isNotEmpty) {
-      List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
-          orderInfo.last.boxes!.first.saleDay!.endDate!.toLocal());
+    List<int> itemsOfCountDown = buildDurationForCountdown(
+        DateTime.now(),
+        orderInfo.last.boxes!.isNotEmpty
+            ? orderInfo.last.boxes!.first.saleDay!.endDate!.toLocal()
+            : orderInfo.last.buyingTime!.toLocal().add(Duration(minutes: 30)));
 
-      startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
-      int hour = itemsOfCountDown[0];
-      int minute = itemsOfCountDown[1];
-      int second = itemsOfCountDown[2];
-      if (durationFinal <= 0) {
-        context.read<OrderBarCubit>().stateOfBar(false);
-        SharedPrefs.setOrderBar(false);
-      }
+    startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
+    int hour = itemsOfCountDown[0];
+    int minute = itemsOfCountDown[1];
+    int second = itemsOfCountDown[2];
+    if (durationFinal <= 0) {
+      context.read<OrderBarCubit>().stateOfBar(false);
+      SharedPrefs.setOrderBar(false);
     }
 
-    return orderInfo.last.boxes! != []
+    return orderInfo.last.boxes! != [] || durationFinal <= 0
         ? Container(
             width: double.infinity,
             height: context.dynamicHeight(0.1),
