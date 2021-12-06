@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +36,11 @@ class _RegisterViewState extends State<RegisterView> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  bool showLoading = false;
+  MobileVerificationState currentState =
+      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  String? verificationId;
 
   bool enableObscure = true;
   String dropdownValue = "TR";
@@ -216,7 +223,7 @@ class _RegisterViewState extends State<RegisterView> {
                 borderColor: checkboxValue
                     ? AppColors.greenColor
                     : AppColors.disabledButtonColor,
-                onPressed: () {
+                onPressed: () async {
                   bool numberControl =
                       passwordController.text.contains(RegExp(r'[0-9]'));
                   bool uppercaseControl =
@@ -234,16 +241,47 @@ class _RegisterViewState extends State<RegisterView> {
                         emailController.text,
                         phoneTR,
                         passwordController.text);
+                        String phoneEN = '+1' + phoneController.text;
 
                     if (nameController.text.isNotEmpty &&
                         phoneController.text.isNotEmpty &&
                         passwordController.text.isNotEmpty) {
-                      showDialog(
-                          context: context,
-                          builder: (_) => CustomAlertDialogResetPassword(
-                              description: "Hoş Geldiniz",
-                              onPressed: () => Navigator.popAndPushNamed(
-                                  context, RouteConstant.SMS_VERIFY_VIEW)));
+                      Navigator.popAndPushNamed(
+                          context, RouteConstant.SMS_VERIFY_VIEW);
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (_) => CustomAlertDialogResetPassword(
+                      //         description: "Hoş Geldiniz",
+                      //         onPressed: () => Navigator.popAndPushNamed(
+                      //             context, RouteConstant.SMS_VERIFY_VIEW)));
+                                 await _auth.verifyPhoneNumber(
+                              phoneNumber:
+                                  dropdownValue == 'TR' ? phoneTR : phoneEN,
+                              verificationCompleted:
+                                  (phoneAuthCredential) async {
+                                // print(
+                                //     "SMS CODE : ${phoneAuthCredential.smsCode}");
+                                setState(() {
+                                  showLoading = false;
+                                });
+                                //signInWithPhoneAuthCredential(phoneAuthCredential);
+                              },
+                              verificationFailed: (verificationFailed) async {
+                                setState(() {
+                                  showLoading = false;
+                                });
+                                // ignore: deprecated_member_use
+                              },
+                              codeSent: (verificationId, resendingToken) async {
+                                setState(() {
+                                  showLoading = false;
+                                  currentState = MobileVerificationState
+                                      .SHOW_OTP_FORM_STATE;
+                                  this.verificationId = verificationId;
+                                });
+                              },
+                              codeAutoRetrievalTimeout:
+                                  (verificationId) async {});
                     } else {
                       AlertDialog(
                         contentPadding: EdgeInsets.symmetric(
@@ -628,10 +666,10 @@ class _RegisterViewState extends State<RegisterView> {
           isRulesVisible = true;
         });
       },
-          inputFormatters: [
+      inputFormatters: [
         //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         FilteringTextInputFormatter.singleLineFormatter,
-      ], 
+      ],
       controller: passwordController,
       obscureText: enableObscure,
       decoration: InputDecoration(
@@ -698,7 +736,6 @@ class _RegisterViewState extends State<RegisterView> {
       inputFormatters: [
         //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         FilteringTextInputFormatter.singleLineFormatter,
-
       ], // On
       controller: controller,
       decoration: InputDecoration(

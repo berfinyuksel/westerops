@@ -176,7 +176,7 @@ class CustomDrawer extends StatelessWidget {
           SharedPrefs.setMenuList([]);
           context.read<BasketCounterCubit>().setCounter(0);
 
-          Navigator.pop(context);
+          //Navigator.pop(context);
         },
       ),
     );

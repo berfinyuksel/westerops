@@ -5,6 +5,7 @@ import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,7 @@ class SmsVerify extends StatefulWidget {
 }
 
 class _SmsVerifyState extends State<SmsVerify> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,7 +148,7 @@ class _SmsVerifyState extends State<SmsVerify> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteConstant.HOME_PAGE_VIEW);
+          Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
         },
       ),
     );
