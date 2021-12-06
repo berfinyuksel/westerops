@@ -731,18 +731,17 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Text buildCountDown(BuildContext context, List<OrderReceived> orderInfo) {
-    if (orderInfo.first.boxes!.isNotEmpty) {
-      List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
-          orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal());
+    List<int> countDownItems = buildDurationForCountdown(DateTime.now(),
+        orderInfo.last.boxes!.first.saleDay!.endDate!.toLocal());
 
-      startTimer(itemsOfCountDown[0], itemsOfCountDown[1], itemsOfCountDown[2]);
-      int hour = itemsOfCountDown[0];
-      int minute = itemsOfCountDown[1];
-      int second = itemsOfCountDown[2];
-      if (durationFinal <= 0) {
-        context.read<OrderBarCubit>().stateOfBar(false);
-        SharedPrefs.setOrderBar(false);
-      }
+    startTimer(countDownItems[0], countDownItems[1], countDownItems[2]);
+    int hour = countDownItems[0];
+    int minute = countDownItems[1];
+    int second = countDownItems[2];
+    if (durationFinal <= 0) {
+      context.read<OrderBarCubit>().stateOfBar(false);
+      SharedPrefs.setOrderBar(false);
+    }
 
       String countDown =
           '${hour < 10 ? "0$hour" : "$hour"}:${minute < 10 ? "0$minute" : "$minute"}:${second < 10 ? "0$second" : "$second"}';
