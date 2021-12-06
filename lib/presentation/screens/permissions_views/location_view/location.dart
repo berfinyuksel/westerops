@@ -93,7 +93,7 @@ class _LocationViewState extends State<LocationView> {
       title: LocaleKeys.premission_location_button1.locale,
       onPressed: () {
         Geolocator.requestPermission();
-        Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+        Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_VIEW);
       },
     );
   }
