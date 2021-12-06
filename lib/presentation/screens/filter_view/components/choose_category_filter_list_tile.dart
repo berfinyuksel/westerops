@@ -54,7 +54,7 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
                   buildRowCheckboxAndText(
                     context,
                     LocaleKeys.filters_choose_category_item1,
-                    "Main Course",
+                    "7",
                     () {
                       setState(() {
                         state.checkList![8] = !state.checkList![8];
@@ -100,14 +100,14 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
                   }),
                   SizedBox(height: context.dynamicHeight(0.016)),
                   buildRowCheckboxAndText(context,
-                      LocaleKeys.filters_choose_category_item7, "Chicken", () {
+                      LocaleKeys.filters_choose_category_item7, "7", () {
                     setState(() {
                       state.checkList![14] = !state.checkList![14];
                     });
                   }),
                   SizedBox(height: context.dynamicHeight(0.016)),
                   buildRowCheckboxAndText(context,
-                      LocaleKeys.filters_choose_category_item8, "Coffee", () {
+                      LocaleKeys.filters_choose_category_item8, "7", () {
                     setState(() {
                       state.checkList![15] = !state.checkList![15];
                     });
@@ -144,7 +144,7 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
             setState(() {
       context.read<FiltersManagerCubit>().getPackageCategory(checkValue);
 
-              if (checkValue == "Main Course") {
+              if (checkValue == "7") {
                 state.checkList![8] = !state.checkList![8];
 
               } else if (checkValue == "7") {
@@ -157,9 +157,9 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
                 state.checkList![12] = !state.checkList![12];
               } else if (checkValue == "5") {
                 state.checkList![13] = !state.checkList![13];
-              } else if (checkValue == "Chicken") {
+              } else if (checkValue == "7") {
                 state.checkList![14] = !state.checkList![14];
-              } else if (checkValue == "Coffee") {
+              } else if (checkValue == "7") {
                 state.checkList![15] = !state.checkList![15];
               } else {
                 state.checkList![16] = !state.checkList![16];
@@ -174,7 +174,7 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
               }
             });
           },
-          checkboxColor: checkValue == "Main Course"
+          checkboxColor: checkValue == "7"
               ? state.checkList![8]
                   ? AppColors.greenColor
                   : Colors.white
@@ -198,11 +198,11 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
                                   ? state.checkList![13]
                                       ? AppColors.greenColor
                                       : Colors.white
-                                  : checkValue == "Chicken"
+                                  : checkValue == "7"
                                       ? state.checkList![14]
                                           ? AppColors.greenColor
                                           : Colors.white
-                                      : checkValue == "Coffee"
+                                      : checkValue == "7"
                                           ? state.checkList![15]
                                               ? AppColors.greenColor
                                               : Colors.white

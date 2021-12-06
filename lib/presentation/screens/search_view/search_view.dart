@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../data/model/search.dart';
+//import '../../../data/model/search.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/search_cubit/search_cubit.dart';
@@ -261,14 +261,18 @@ class _SearchViewState extends State<SearchView> {
 
   ListView searchListViewBuilder(GenericState state,
       List<SearchStore> searchList, List<SearchStore> restaurant) {
+    List<StoreMeal> storeMeals = [];
     return ListView.builder(
         shrinkWrap: true,
         itemCount: searchList.isEmpty ||
                 controller!.text.isEmpty ||
                 filteredNames.isEmpty
             ? 0
-            : filteredNames.length,
+            : searchList.length,
         itemBuilder: (context, index) {
+          for (var i = 0; i < filteredNames[index].storeMeals!.length; i++) {
+              //store Meals içine alınacak indexten kurtulacak
+          }
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.06),
@@ -292,17 +296,16 @@ class _SearchViewState extends State<SearchView> {
               //   width: 50,
               //   height: 50,
               // ),
-              title: Text("${filteredNames[index].name}".isEmpty ||
-                      searchList.isEmpty ||
-                      filteredNames.isEmpty
+              title: Text(searchList.isEmpty ||
+                      filteredNames.isEmpty ||
+                      "${filteredNames[index].name}".isEmpty
                   ? ""
                   : "${filteredNames[index].name}"),
-              subtitle: Text(
-                  "${filteredNames[index].storeMeals![index].name}".isEmpty ||
-                          searchList.isEmpty ||
-                          filteredNames.isEmpty
-                      ? ""
-                      : "${filteredNames[index].storeMeals![index].name}"),
+              subtitle: Text(searchList.isEmpty ||
+                      filteredNames.isEmpty ||
+                      "${filteredNames[index].storeMeals!.first.name}".isEmpty
+                  ? ""
+                  : "${filteredNames[index].storeMeals!.first.name}"),
             ),
           );
         });

@@ -948,6 +948,8 @@ class _HomePageViewState extends State<HomePageView> {
             ),
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
+              trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+
               // leading: Image.network(
               //   searches.urlImage,
               //   fit: BoxFit.cover,
