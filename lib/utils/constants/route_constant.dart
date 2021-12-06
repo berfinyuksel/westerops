@@ -48,4 +48,5 @@ class RouteConstant {
   static const CATEGORIES_VIEW = '/categories';
   static const MY_REGISTERED_CARD_VIEW = '/myRegisteredCard';
   static const MY_REGISTERED_CARD_UPDATE_VIEW = '/myRegisteredCardUpdate';
+  static const SMS_VERIFY_VIEW = '/smsVerify';
 }
