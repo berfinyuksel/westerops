@@ -443,38 +443,61 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
 
       if (stateOfSearchStore is GenericCompleted) {
         List<SearchStore> chosenRestaurat = [];
-        for (var i = 0; i < stateOfSearchStore.response.length; i++) {
-          if (stateOfSearchStore.response[i].id ==
-              widget.orderInfo!.boxes![0].store!.id) {
-            chosenRestaurat.add(stateOfSearchStore.response[i]);
+        if (widget.orderInfo!.boxes!.isNotEmpty) {
+          for (var i = 0; i < stateOfSearchStore.response.length; i++) {
+            if (stateOfSearchStore.response[i].id ==
+                widget.orderInfo!.boxes![0].store!.id) {
+              chosenRestaurat.add(stateOfSearchStore.response[i]);
+            }
           }
         }
-        return ListTile(
-          contentPadding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-            right: context.dynamicWidht(0.06),
-          ),
-          trailing: SvgPicture.asset(
-            ImageConstant.COMMONS_FORWARD_ICON,
-          ),
-          tileColor: Colors.white,
-          title: LocaleText(
-            text: widget.orderInfo!.boxes!.length != 0
-                ? widget.orderInfo!.boxes![0].store!.name
-                : '',
-            style: AppTextStyles.bodyTextStyle,
-          ),
-          onTap: () {
-            Navigator.of(context).pop();
-            Navigator.pushNamed(
-              context,
-              RouteConstant.RESTAURANT_DETAIL,
-              arguments: ScreenArgumentsRestaurantDetail(
-                restaurant: chosenRestaurat[0],
-              ),
-            );
-          },
-        );
+
+        return widget.orderInfo!.boxes!.isNotEmpty
+            ? ListTile(
+                contentPadding: EdgeInsets.only(
+                  left: context.dynamicWidht(0.06),
+                  right: context.dynamicWidht(0.06),
+                ),
+                trailing: SvgPicture.asset(
+                  ImageConstant.COMMONS_FORWARD_ICON,
+                ),
+                tileColor: Colors.white,
+                title: LocaleText(
+                  text: widget.orderInfo!.boxes!.length != 0
+                      ? widget.orderInfo!.boxes![0].store!.name
+                      : '',
+                  style: AppTextStyles.bodyTextStyle,
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.pushNamed(
+                    context,
+                    RouteConstant.RESTAURANT_DETAIL,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      restaurant: chosenRestaurat[0],
+                    ),
+                  );
+                },
+              )
+            : Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 40,
+                    ),
+                    SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    LocaleText(
+                      alignment: TextAlign.center,
+                      text: "Üzgünüz.\nRestoran bilgileri bulunmuyor.",
+                      style: AppTextStyles.myInformationBodyTextStyle,
+                    ),
+                  ],
+                ),
+              );
       } else if (stateOfSearchStore is GenericInitial) {
         return Container();
       } else if (stateOfSearchStore is GenericLoading) {
