@@ -1276,16 +1276,16 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                           ? AppColors.orangeColor
                           : AppColors.unSelectedpackageDeliveryColor,
                     ),
-                  );
+                  )
+                ]);
                 } else {
                   final error = stateOfFavorites as GenericError;
                   return Center(
                       child: Text("${error.message}\n${error.statusCode}"));
                 }
               })
-            ],
-          )
-        ],
+            ,
+      ],
       ),
     );
   }
