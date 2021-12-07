@@ -393,6 +393,7 @@ abstract class  LocaleKeys {
   static const restaurant_detail_text1 = 'restaurant_detail.text1';
   static const restaurant_detail_text2 = 'restaurant_detail.text2';
   static const restaurant_detail_text3 = 'restaurant_detail.text3';
+  static const restaurant_detail_text4 = 'restaurant_detail.text4';
   static const restaurant_detail_title = 'restaurant_detail.title';
   static const restaurant_detail_address = 'restaurant_detail.address';
   static const restaurant_detail_item1 = 'restaurant_detail.item1';
