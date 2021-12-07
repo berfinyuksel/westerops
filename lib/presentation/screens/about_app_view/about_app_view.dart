@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -11,6 +12,11 @@ import '../../widgets/text/locale_text.dart';
 import 'components/about_app_list_tile.dart';
 
 class AboutAppView extends StatelessWidget {
+  openUrl() {
+    String url = 'https://www.dongu.com/';
+    launch(url);
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -31,6 +37,9 @@ class AboutAppView extends StatelessWidget {
           AboutAppListTile(
             text: LocaleKeys.about_app_website,
             trailingText: LocaleKeys.about_app_website_trailing_text,
+            onTap: () {
+              openUrl();
+            },
           ),
           AboutAppListTile(
             text: LocaleKeys.about_app_contract,
