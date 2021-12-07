@@ -25,10 +25,35 @@ class PaymentPaymentView extends StatefulWidget {
 }
 
 class _PaymentPaymentViewState extends State<PaymentPaymentView> {
-  String dropdownMonthValue = "Ay";
-  String dropdownYearValue = "Yıl";
-  List<String> months = <String>['Ay', '01'];
-  List<String> years = <String>['Yıl', '2021'];
+  String? monthValue;
+  String? yearValue;
+
+  List<String> months = <String>[
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12'
+  ];
+  List<String> years = <String>[
+    '2021',
+    '2022',
+    '2023',
+    '2024',
+    '2025',
+    '2026',
+    '2027',
+    '2028',
+    '2029',
+    '2030'
+  ];
 
   bool checkboxAddCardValue = false;
 
@@ -237,8 +262,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              buildDropDown(context, dropdownMonthValue, months),
-              buildDropDown(context, dropdownYearValue, years),
+              buildMonthDropDown(context, months),
+              buildYearDropDown(context, years),
               buildCvvTextFormField(),
             ],
           ),
@@ -250,8 +275,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  Container buildDropDown(
-      BuildContext context, String dropdownValue, List<String> items) {
+  Container buildMonthDropDown(BuildContext context, List<String> items) {
     return Container(
       height: context.dynamicHeight(0.06),
       width: context.dynamicWidht(0.22),
@@ -265,33 +289,58 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         ),
       ),
       child: DropdownButton<String>(
-        underline: Text(""),
-        value: dropdownValue == dropdownMonthValue
-            ? dropdownMonthValue
-            : dropdownYearValue,
-        icon: Padding(
-          padding: EdgeInsets.only(left: context.dynamicWidht(0.04)),
-          child: const Icon(Icons.keyboard_arrow_down),
+        hint: Padding(
+          padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
+          child: Text(
+            "Ay",
+          ),
         ),
-        iconSize: 15,
-        style: AppTextStyles.bodyTextStyle,
-        onChanged: (String? newValue) {
+        value: monthValue,
+        onChanged: (value) {
           setState(() {
-            if (dropdownValue == dropdownMonthValue) {
-              dropdownMonthValue = newValue!;
-            } else {
-              dropdownYearValue = newValue!;
-            }
+            this.monthValue = value;
           });
         },
-        items: items.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: AutoSizeText(
-              value,
-              style: AppTextStyles.bodyTextStyle,
-              maxLines: 1,
-            ),
+        items: months.map((String item) {
+          return DropdownMenuItem(
+            child: Text(item),
+            value: item,
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Container buildYearDropDown(BuildContext context, List<String> items) {
+    return Container(
+      height: context.dynamicHeight(0.06),
+      width: context.dynamicWidht(0.22),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4.0),
+        color: Colors.white,
+        border: Border.all(
+          color: AppColors.borderAndDividerColor,
+          width: 2,
+        ),
+      ),
+      child: DropdownButton<String>(
+        hint: Padding(
+          padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
+          child: Text(
+            "Yıl",
+          ),
+        ),
+        value: yearValue,
+        onChanged: (value) {
+          setState(() {
+            this.yearValue = value;
+          });
+        },
+        items: years.map((String item) {
+          return DropdownMenuItem(
+            child: Text(item),
+            value: item,
           );
         }).toList(),
       ),
