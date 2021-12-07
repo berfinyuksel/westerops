@@ -108,11 +108,10 @@ class _SearchViewState extends State<SearchView> {
             // ),
             Visibility(
                 visible: visible, child: searchHistoryAndCleanTexts(context)),
-
             Visibility(visible: visible, child: dividerOne(context)),
             //  Spacer(flex:2),
             Visibility(visible: visible, child: Spacer(flex: 2)),
-            buildBuilder(),
+            SingleChildScrollView(child: buildBuilder()),
             isClean
                 ? Spacer(flex: 20)
                 : Spacer(
@@ -120,12 +119,12 @@ class _SearchViewState extends State<SearchView> {
                   ),
             Visibility(visible: visible, child: popularSearchText(context)),
             Visibility(visible: visible, child: dividerSecond(context)),
-            //Spacer(flex: 2),
+            Spacer(flex: 2),
             Visibility(visible: visible, child: horizontalListTrend(context)),
             isClean
                 ? Spacer(flex: 20)
                 : Spacer(
-                    flex: 10,
+                flex: 10,
                   ),
             Visibility(visible: visible, child: categoriesText(context)),
             Visibility(visible: visible, child: dividerThird(context)),
