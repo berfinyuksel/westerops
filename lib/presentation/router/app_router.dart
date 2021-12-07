@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/presentation/screens/sms_verify_view/sms_verify_view.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/screen_arguments_surprise_cancel.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/shared/shared_prefs.dart';
@@ -199,7 +200,14 @@ class AppRouter {
       // case RouteConstant.SEARCH_VIEW:
       //   return MaterialPageRoute(builder: (_) => SearchView());
       case RouteConstant.SURPRISE_PACK_CANCELED_VIEW:
-        return MaterialPageRoute(builder: (_) => SurprisePackCanceled());
+        final ScreenArgumentsSurpriseCancel args =
+            routeSettings.arguments as ScreenArgumentsSurpriseCancel;
+
+        return MaterialPageRoute(
+          builder: (_) => SurprisePackCanceled(
+            orderInfo: args.orderInfo,
+          ),
+        );
       case RouteConstant.SURPRISE_PACK_VIEW:
         return MaterialPageRoute(builder: (_) => SurprisePackView());
       case RouteConstant.SPLASH_VIEW:

@@ -50,13 +50,13 @@ class SampleStoreCourierHoursRepository implements StoreCourierHoursRepository {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: json);
+
+    print("Courier Hours response code ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
 
-      List<StoreCourierHours> storeCourierHoursList =
-          List<StoreCourierHours>.from(
-              jsonBody.map((model) => StoreCourierHours.fromJson(model)));
+      List<StoreCourierHours> storeCourierHoursList = [];
 
       return storeCourierHoursList;
     }

@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
+import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/order_names_widget.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/screen_arguments_surprise_cancel.dart';
 import '../../../data/model/order_received.dart';
 import '../../../data/repositories/update_order_repository.dart';
 import '../../../data/services/locator.dart';
@@ -25,8 +28,7 @@ import 'components/custom_alert_dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SurprisePackView extends StatefulWidget {
-  final String? payload;
-  SurprisePackView({Key? key, this.payload});
+  SurprisePackView({Key? key});
   @override
   _SurprisePackViewState createState() => _SurprisePackViewState();
 }
@@ -34,6 +36,7 @@ class SurprisePackView extends StatefulWidget {
 class _SurprisePackViewState extends State<SurprisePackView> {
   late Timer timer;
   int durationFinal = 10;
+  TextEditingController textController = TextEditingController();
 
   @override
   void initState() {
@@ -50,10 +53,22 @@ class _SurprisePackViewState extends State<SurprisePackView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
+        List<OrderReceived> orderInfoTotal = [];
         List<OrderReceived> orderInfo = [];
+
         for (var i = 0; i < state.response.length; i++) {
-          orderInfo.add(state.response[i]);
+          orderInfoTotal.add(state.response[i]);
         }
+
+        for (var i = 0; i < orderInfoTotal.length; i++) {
+          if (SharedPrefs.getOrderRefCode == orderInfoTotal[i].refCode) {
+            orderInfo.add(orderInfoTotal[i]);
+          }
+        }
+
+        print(orderInfoTotal.length);
+        print(SharedPrefs.getOrderRefCode);
+        print(SharedPrefs.getBoxIdForDeliver);
 
         return Scaffold(
           appBar: buildAppBar(context),
@@ -110,18 +125,19 @@ class _SurprisePackViewState extends State<SurprisePackView> {
       ),
       child: Column(
         children: [
-          Spacer(
-            flex: 39,
-          ),
-          buildFirstRow(context, orderInfo),
-          buildSecondRow(context, orderInfo),
-          Spacer(
-            flex: 58,
+          Container(
+            height: context.dynamicHeight(0.17),
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: orderInfo.first.boxes!.length,
+              itemBuilder: (context, index) {
+                return OrderNamesWidget(
+                  box: orderInfo.first.boxes![index],
+                );
+              },
+            ),
           ),
           buildButtonsRow(context, orderInfo),
-          Spacer(
-            flex: 40,
-          ),
         ],
       ),
     );
@@ -139,21 +155,49 @@ class _SurprisePackViewState extends State<SurprisePackView> {
           borderColor: AppColors.redColor,
           onPressed: () {
             showDialog(
-                context: context,
-                builder: (_) => CustomAlertDialog(
+              context: context,
+              builder: (_) => CustomAlertDialogForCancelOrder(
+                textMessage: LocaleKeys.surprise_pack_alert_text,
+                customTextController: textController,
+                buttonOneTitle: LocaleKeys.surprise_pack_alert_button1,
+                buttonTwoTittle: LocaleKeys.surprise_pack_alert_button2,
+                imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                onPressedOne: () {
+                  Navigator.of(context).pop();
+                },
+                onPressedTwo: () async {
+                  StatusCode statusCode = await sl<UpdateOrderRepository>()
+                      .cancelOrder(orderInfo.first.id!, textController.text);
+                  switch (statusCode) {
+                    case StatusCode.success:
+                      Navigator.of(context).pushNamed(
+                          RouteConstant.SURPRISE_PACK_CANCELED_VIEW,
+                          arguments: ScreenArgumentsSurpriseCancel(
+                              orderInfo: orderInfo));
+                      break;
+
+                    default:
+                  }
+                },
+              ),
+
+              /*   CustomAlertDialog(
                     onPressedOne: () {
                       Navigator.of(context).pop();
                     },
                     onPressedTwo: () {
                       sl<UpdateOrderRepository>()
                           .updateOrderStatus(orderInfo.last.id!, 5);
-                      Navigator.of(context)
-                          .pushNamed(RouteConstant.SURPRISE_PACK_CANCELED_VIEW);
+                      Navigator.of(context).pushNamed(
+                          RouteConstant.SURPRISE_PACK_CANCELED_VIEW,
+                          arguments: ScreenArgumentsSurpriseCancel(
+                              orderInfo: orderInfo));
                     },
                     imagePath: ImageConstant.SURPRISE_PACK_ALERT,
                     textMessage: LocaleKeys.surprise_pack_alert_text,
                     buttonOneTitle: LocaleKeys.surprise_pack_alert_button1,
-                    buttonTwoTittle: LocaleKeys.surprise_pack_alert_button2));
+                    buttonTwoTittle: LocaleKeys.surprise_pack_alert_button2)) */
+            );
           },
         ),
         CustomButton(
@@ -262,7 +306,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
             ),
           ),
           TextSpan(
-            text: orderInfo.last.refCode.toString(),
+            text: orderInfo.first.refCode.toString(),
             style: GoogleFonts.montserrat(
               color: AppColors.greenColor,
               fontWeight: FontWeight.w600,

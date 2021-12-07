@@ -613,7 +613,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     if (stateOfSearchStore is GenericInitial) {
                       return Container();
                     } else if (stateOfSearchStore is GenericLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: SizedBox(height: 0, width: 0));
                     } else if (stateOfSearchStore is GenericCompleted) {
                       List<SearchStore> chosenRestaurat = [];
                       for (var i = 0;
