@@ -157,8 +157,9 @@ class MyApp extends StatelessWidget {
                 UserAddressCubit(SampleUserAdressRepository())),
         BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
         BlocProvider<FiltersCubit>(create: (context) => FiltersCubit()),
-        BlocProvider<FiltersManagerCubit>(create: (context) => FiltersManagerCubit(SampleFiltersRepository())),
-
+        BlocProvider<FiltersManagerCubit>(
+            create: (context) =>
+                FiltersManagerCubit(SampleFiltersRepository())),
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);

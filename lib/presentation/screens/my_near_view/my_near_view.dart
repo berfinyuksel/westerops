@@ -48,7 +48,7 @@ class _MyNearViewState extends State<MyNearView> {
   final MarkerId markerId = MarkerId("my_location");
   final MarkerId restaurantMarkerId = MarkerId("rest_1");
 
-  late Completer<GoogleMapController> _mapController;
+  Completer<GoogleMapController> _mapController = Completer();
   Map<MarkerId, Marker> markers = Map<MarkerId, Marker>();
   double latitude = 0;
   double longitude = 0;
@@ -65,6 +65,9 @@ class _MyNearViewState extends State<MyNearView> {
   @override
   void initState() {
     super.initState();
+    getLocation().whenComplete(() {
+      setState(() {});
+    });
     context.read<SearchStoreCubit>().getSearchStore();
     LocationService.getCurrentLocation();
     getDeviceIdentifier();
@@ -461,10 +464,9 @@ class _MyNearViewState extends State<MyNearView> {
         color: Colors.white,
       ),
       child: TextFormField(
-             inputFormatters: [
-         // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-
+        inputFormatters: [
+          // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
