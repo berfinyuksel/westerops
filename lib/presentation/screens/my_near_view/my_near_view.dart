@@ -461,10 +461,9 @@ class _MyNearViewState extends State<MyNearView> {
         color: Colors.white,
       ),
       child: TextFormField(
-             inputFormatters: [
-         // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-
+        inputFormatters: [
+          // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
@@ -562,11 +561,14 @@ class _MyNearViewState extends State<MyNearView> {
       markers[markerId] = marker;
 
       for (int i = 0; i < mapsMarkers.length; i++) {
-        print("AAAAA ${mapsMarkers[i].latitude!}");
-        print("BBBBB ${mapsMarkers[i].longitude!}");
+        int? dailyBoxCount;
 
-        final restMarkerIcons = packettNumber(mapsMarkers);
-
+        for (var j = 0; j < mapsMarkers[i].calendar!.length; j++) {
+          if (DateTime.parse(mapsMarkers[i].calendar![j].startDate!).day ==
+              DateTime.now().toLocal().day) {
+            dailyBoxCount = mapsMarkers[i].calendar![j].boxCount;
+          }
+        }
         Marker restMarker = Marker(
           onTap: () {
             setState(() {
@@ -575,9 +577,9 @@ class _MyNearViewState extends State<MyNearView> {
             });
           },
           infoWindow: InfoWindow(title: mapsMarkers[i].name),
-          icon: restMarkerIcons == "tükendi"
-              ? restaurantSoldoutMarkerIcon
-              : restaurantMarkerIcon,
+          icon: dailyBoxCount != 0
+              ? restaurantMarkerIcon
+              : restaurantSoldoutMarkerIcon,
           markerId: MarkerId("rest_$i"),
           position: LatLng(mapsMarkers[i].latitude!, mapsMarkers[i].longitude!),
         );
