@@ -93,6 +93,11 @@ Future<void> main() async {
           'assets/images/order_receiving/receiving_package_icon.svg'),
       null,
     ),
+    precachePicture(
+      ExactAssetPicture(SvgPicture.svgStringDecoder,
+          'assets/images/food_waste/food_waste_symbol.svg'),
+      null,
+    ),
     // other SVGs or images here
   ]);
   HttpOverrides.global = new MyHttpOverrides();
@@ -157,8 +162,9 @@ class MyApp extends StatelessWidget {
                 UserAddressCubit(SampleUserAdressRepository())),
         BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
         BlocProvider<FiltersCubit>(create: (context) => FiltersCubit()),
-        BlocProvider<FiltersManagerCubit>(create: (context) => FiltersManagerCubit(SampleFiltersRepository())),
-
+        BlocProvider<FiltersManagerCubit>(
+            create: (context) =>
+                FiltersManagerCubit(SampleFiltersRepository())),
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
