@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -101,7 +102,7 @@ class _FreezeAccountViewState extends State<FreezeAccountView> {
         await context
             .read<UserAuthCubit>()
             .deleteAccountUser(selectedIndex.toString());
-        //SharedPrefs.clearCache();
+        SharedPrefs.clearCache();
              if (selectedIndex >= 0 || textController.text.isNotEmpty) {
           showDialog(
               context: context,
