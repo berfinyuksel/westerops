@@ -66,6 +66,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     context.read<SearchStoreCubit>().getSearchStore();
     context.read<FavoriteCubit>().getFavorite();
     context.read<AddressCubit>().getActiveAddress();
+
     // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
   }
 
@@ -1213,37 +1214,36 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               ),
             ],
           ),
-          Row(
-            children: [
-              LocaleText(
-                text: LocaleKeys.restaurant_detail_text3,
-                style: AppTextStyles.bodyTextStyle,
-              ),
-              SizedBox(
-                width: context.dynamicWidht(0.02),
-              ),
-              Builder(builder: (context) {
-                final GenericState stateOfFavorites =
-                    context.watch<FavoriteCubit>().state;
+          Builder(builder: (context) {
+            final GenericState stateOfFavorites =
+                context.watch<FavoriteCubit>().state;
 
-                if (stateOfFavorites is GenericInitial) {
-                  return Container();
-                } else if (stateOfFavorites is GenericLoading) {
-                  return Center(
-                      child: SvgPicture.asset(
-                          ImageConstant.RESTAURANT_FAVORITE_ICON));
-                } else if (stateOfFavorites is GenericCompleted) {
-                  for (var i = 0; i < stateOfFavorites.response.length; i++) {
-                    if (stateOfFavorites.response[i].id ==
-                        widget.restaurant!.id) {
-                      isFavourite = true;
-                    } else if (stateOfFavorites.response[i].id == null) {
-                      isFavourite = false;
-                    } else {
-                      isFavourite = false;
-                    }
-                  }
-                  return GestureDetector(
+            if (stateOfFavorites is GenericInitial) {
+              return Container();
+            } else if (stateOfFavorites is GenericLoading) {
+              return Center(
+                  child:
+                      SvgPicture.asset(ImageConstant.RESTAURANT_FAVORITE_ICON));
+            } else if (stateOfFavorites is GenericCompleted) {
+              for (var i = 0; i < stateOfFavorites.response.length; i++) {
+                if (stateOfFavorites.response[i].id == widget.restaurant!.id) {
+                  isFavourite = true;
+                } else if (stateOfFavorites.response[i].id == null) {
+                  isFavourite = false;
+                }
+              }
+              return Row(
+                children: [
+                  LocaleText(
+                    text: !isFavourite
+                        ? LocaleKeys.restaurant_detail_text3
+                        : LocaleKeys.restaurant_detail_text4,
+                    style: AppTextStyles.bodyTextStyle,
+                  ),
+                  SizedBox(
+                    width: context.dynamicWidht(0.02),
+                  ),
+                  GestureDetector(
                     onTap: () {
                       if (SharedPrefs.getIsLogined) {
                         if (isFavourite) {
