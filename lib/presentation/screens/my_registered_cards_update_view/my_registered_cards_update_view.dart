@@ -177,7 +177,7 @@ class _MyRegisteredCardsUpdateViewState
       String labelText, TextEditingController controller) {
     return Container(
       width: controller == cvvController
-          ? context.dynamicWidht(0.32)
+          ? context.dynamicWidht(0.31)
           : context.dynamicWidht(5.0),
       height: context.dynamicHeight(0.06),
       decoration: BoxDecoration(
@@ -190,10 +190,9 @@ class _MyRegisteredCardsUpdateViewState
         //     controller == cardNumberController || controller == yearController
         //         ? context.dynamicHeight(0.11).toInt()
         //         : context.dynamicHeight(0.06).toInt(),
-             inputFormatters: [
-        //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-
+        inputFormatters: [
+          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
