@@ -66,10 +66,6 @@ class _SurprisePackViewState extends State<SurprisePackView> {
           }
         }
 
-        print(orderInfoTotal.length);
-        print(SharedPrefs.getOrderRefCode);
-        print(SharedPrefs.getBoxIdForDeliver);
-
         return Scaffold(
           appBar: buildAppBar(context),
           body: buildBody(context, orderInfo),

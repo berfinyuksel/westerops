@@ -199,7 +199,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
                       style: AppTextStyles.myInformationBodyTextStyle,
                     ),
                     Spacer(),
-                    BuyButton(),
+                    BuyButton(id: orderInfo.last.boxes![index].store!.id!),
                   ],
                 );
               },
