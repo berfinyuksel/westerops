@@ -24,12 +24,19 @@ class SampleFavoriteRepository implements FavoriteRepository {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
+    print("Add Favorite StatusCode" + response.statusCode.toString());
+
     if (response.statusCode == 200) {
       List<Favourite> boxes = [];
 
       return boxes;
     }
     if (response.statusCode == 400) {
+      List<Favourite> boxes = [];
+
+      return boxes;
+    }
+    if (response.statusCode == 401) {
       List<Favourite> boxes = [];
 
       return boxes;
@@ -46,7 +53,19 @@ class SampleFavoriteRepository implements FavoriteRepository {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
+    print("Delete Favorite StatusCode" + response.statusCode.toString());
+
     if (response.statusCode == 200) {
+      List<Favourite> boxes = [];
+
+      return boxes;
+    }
+    if (response.statusCode == 400) {
+      List<Favourite> boxes = [];
+
+      return boxes;
+    }
+    if (response.statusCode == 401) {
       List<Favourite> boxes = [];
 
       return boxes;
@@ -63,8 +82,7 @@ class SampleFavoriteRepository implements FavoriteRepository {
         'Content-Type': 'application/json',
       },
     );
-    print('object');
-    print(response.statusCode);
+    print("Get Favorite StatusCode" + response.statusCode.toString());
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
 
@@ -72,6 +90,10 @@ class SampleFavoriteRepository implements FavoriteRepository {
           jsonBody.map((model) => Favourite.fromJson(model)));
       print("Response: $response");
       print(jsonBody);
+      return favoritesList;
+    }
+    if (response.statusCode == 401) {
+      List<Favourite> favoritesList = [];
       return favoritesList;
     }
     throw NetworkError(response.statusCode.toString(), response.body);

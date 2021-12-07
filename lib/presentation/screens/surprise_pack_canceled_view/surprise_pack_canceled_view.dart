@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/repositories/update_order_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/order_names_widget.dart';
 import 'package:flutter/services.dart';
 import '../../../data/model/order_received.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
@@ -21,6 +22,8 @@ import '../../widgets/warning_container/warning_container.dart';
 import 'components/buy_button.dart';
 
 class SurprisePackCanceled extends StatefulWidget {
+  final List<OrderReceived> orderInfo;
+  SurprisePackCanceled({Key? key, required this.orderInfo});
   @override
   _SurprisePackCanceledState createState() => _SurprisePackCanceledState();
 }
@@ -31,64 +34,47 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      final GenericState state = context.watch<OrderReceivedCubit>().state;
-
-      if (state is GenericInitial) {
-        return Container();
-      } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
-      } else if (state is GenericCompleted) {
-        List<OrderReceived> orderInfo = [];
-        for (var i = 0; i < state.response.length; i++) {
-          orderInfo.add(state.response[i]);
-        }
-
-        return Scaffold(
-          appBar: buildAppBar(context),
-          backgroundColor: Color(0xFFFEEFEF),
-          body: Column(
-            children: [
-              Spacer(
-                flex: 32,
-              ),
-              LocaleText(
-                text: LocaleKeys.surprise_pack_canceled_canceled_your_pack,
-                style: AppTextStyles.appBarTitleStyle.copyWith(
-                    fontWeight: FontWeight.w400, color: AppColors.orangeColor),
-                alignment: TextAlign.center,
-              ),
-              Spacer(
-                flex: 8,
-              ),
-              buildOrderNumber(orderInfo),
-              Spacer(
-                flex: 32,
-              ),
-              buildSurprisePackContainer(context, orderInfo),
-              Spacer(
-                flex: 17,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.06)),
-                child: WarningContainer(
-                  text:
-                      "Sürpriz Paketin iptal edildi.\nŞimdi tekrar satışta. Fikrini değiştirirsen\nacele etmelisin.",
-                ),
-              ),
-              Spacer(
-                flex: 20,
-              ),
-              buildBottomCard(context, orderInfo)
-            ],
+    return Scaffold(
+      appBar: buildAppBar(context),
+      backgroundColor: Color(0xFFFEEFEF),
+      body: Column(
+        children: [
+          Spacer(
+            flex: 32,
           ),
-        );
-      } else {
-        final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    });
+          LocaleText(
+            text: LocaleKeys.surprise_pack_canceled_canceled_your_pack,
+            style: AppTextStyles.appBarTitleStyle.copyWith(
+                fontWeight: FontWeight.w400, color: AppColors.orangeColor),
+            alignment: TextAlign.center,
+          ),
+          Spacer(
+            flex: 8,
+          ),
+          buildOrderNumber(widget.orderInfo),
+          Spacer(
+            flex: 32,
+          ),
+          buildSurprisePackContainer(context, widget.orderInfo),
+          Spacer(
+            flex: 17,
+          ),
+          Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+            child: WarningContainer(
+              text:
+                  "Sürpriz Paketin iptal edildi.\nŞimdi tekrar satışta. Fikrini değiştirirsen\nacele etmelisin.",
+            ),
+          ),
+          Spacer(
+            flex: 20,
+          ),
+          buildBottomCard(context, widget.orderInfo)
+        ],
+      ),
+    );
+    ;
   }
 
   Container buildBottomCard(
@@ -107,29 +93,33 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
       ),
       child: Column(
         children: [
-          Spacer(
-            flex: 39,
+          SizedBox(height: 20),
+          Container(
+            alignment: Alignment.center,
+            height: context.dynamicHeight(0.37),
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: orderInfo.first.boxes!.length,
+              itemBuilder: (context, index) {
+                return OrderNamesWidget(
+                  box: orderInfo.first.boxes![index],
+                );
+              },
+            ),
           ),
-          buildFirstRow(context, orderInfo),
-          Spacer(
-            flex: 18,
-          ),
-          buildSecondRow(context, orderInfo),
-          Spacer(
-            flex: 22,
-          ),
-          Divider(
+
+          /*      Divider(
             color: AppColors.borderAndDividerColor,
             thickness: 2,
             height: 0,
           ),
           Spacer(
             flex: 22,
-          ),
+          ), */
           /*   Column(
             children: buildRadioButtons(context),
           ), */
-          Spacer(
+          /*   Spacer(
             flex: 5,
           ),
           buildTextFormField(
@@ -137,17 +127,15 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
           Spacer(
             flex: 20,
           ),
-          buildCustomButton(orderInfo),
-          Spacer(
-            flex: 32,
-          ),
+          buildCustomButton(orderInfo), */
+
           Divider(
             color: AppColors.borderAndDividerColor,
             thickness: 2,
             height: 0,
           ),
-          Spacer(
-            flex: 32,
+          SizedBox(
+            height: context.dynamicHeight(0.03),
           ),
           LocaleText(
             text: "Tanımlanmış Paketin İptal Edildi.",
@@ -157,9 +145,6 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
               fontWeight: FontWeight.w400,
             ),
             alignment: TextAlign.center,
-          ),
-          Spacer(
-            flex: 34,
           ),
         ],
       ),
@@ -177,50 +162,6 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
         await sl<UpdateOrderRepository>()
             .cancelOrder(orderInfo.last.id!, textController.text);
       },
-    );
-  }
-
-  Padding buildSecondRow(BuildContext context, List<OrderReceived> orderInfo) {
-    List<String> meals = [];
-    String mealNames = "";
-    if (orderInfo.last.boxes!.last.meals!.isNotEmpty) {
-      for (var i = 0; i < orderInfo.last.boxes!.last.meals!.length; i++) {
-        meals.add(orderInfo.last.boxes!.last.meals![i].name!);
-      }
-      mealNames = meals.join('\n');
-    }
-    return Padding(
-      padding: EdgeInsets.only(right: context.dynamicWidht(0.01)),
-      child: Row(
-        children: [
-          Spacer(),
-          AutoSizeText(
-            orderInfo.last.boxes!.last.meals!.isEmpty ? "" : mealNames,
-            style: AppTextStyles.subTitleStyle,
-            textAlign: TextAlign.start,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Padding buildFirstRow(BuildContext context, List<OrderReceived> orderInfo) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          AutoSizeText(
-            '${LocaleKeys.surprise_pack_surprise_pack.locale} 1',
-            style: AppTextStyles.myInformationBodyTextStyle,
-          ),
-          SvgPicture.asset(ImageConstant.SURPRISE_PACK_FORWARD_ICON),
-          AutoSizeText(
-            orderInfo.last.boxes!.last.textName.toString(),
-            style: AppTextStyles.myInformationBodyTextStyle,
-          ),
-        ],
-      ),
     );
   }
 
@@ -243,21 +184,25 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
             horizontal: context.dynamicWidht(0.06),
             vertical: context.dynamicHeight(0.01)),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AutoSizeText(
-                  orderInfo.last.boxes!.last.textName.toString(),
-                  style: AppTextStyles.myInformationBodyTextStyle,
-                ),
-                AutoSizeText(
-                  "07:00:20",
-                  style: AppTextStyles.subTitleStyle,
-                ),
-                BuyButton(),
-              ],
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: orderInfo.first.boxes!.length,
+              itemBuilder: (context, index) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    AutoSizeText(
+                      orderInfo.last.boxes![index].textName.toString(),
+                      style: AppTextStyles.myInformationBodyTextStyle,
+                    ),
+                    Spacer(),
+                    BuyButton(id: orderInfo.last.boxes![index].store!.id!),
+                  ],
+                );
+              },
             ),
             AutoSizeText(
               orderInfo.last.boxes!.last.meals!.isEmpty ? "" : mealNames,
@@ -300,10 +245,9 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
       height: context.dynamicHeight(0.052),
       color: Colors.white,
       child: TextFormField(
-             inputFormatters: [
-        //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-
+        inputFormatters: [
+          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,

@@ -36,25 +36,54 @@ class _AddressTextState extends State<AddressText> {
       } else if (stateOfAddress is GenericLoading) {
         return SizedBox(height: 0, width: 0);
       } else if (stateOfAddress is GenericCompleted) {
-        return Text.rich(
-          TextSpan(
-            style: AppTextStyles.bodyTextStyle,
-            children: [
-              TextSpan(
-                text: stateOfAddress.response[0].name + " :",
-                style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w600,
+        return stateOfAddress.response.isNotEmpty
+            ? Text.rich(
+                TextSpan(
+                  style: AppTextStyles.bodyTextStyle,
+                  children: [
+                    TextSpan(
+                      text: stateOfAddress.response[0].name + " :",
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    TextSpan(
+                      text: " " + stateOfAddress.response[0].address,
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              TextSpan(
-                text: " " + stateOfAddress.response[0].address,
-                style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w300,
+              )
+            : GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      ImageConstant.COMMONS_ALLOW_LOCATION_ICON,
+                      width: 16,
+                      height: 16,
+                    ),
+                    SizedBox(width: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 6.0),
+                      child: LocaleText(
+                        text: "Konuma izin ver",
+                        style: GoogleFonts.montserrat(
+                          color: AppColors.yellowColor,
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline,
+                          decorationThickness: 2,
+                          height: 2.0,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        );
+              );
       } else {
         final error = stateOfAddress as GenericError;
         if (error.statusCode == "204") {

@@ -17,7 +17,7 @@ class UpdateOrderRepository {
       },
     );
     print("Delete Order status ${response.statusCode}");
-
+    print(response.body);
     switch (response.statusCode) {
       case 200:
         return StatusCode.success;

@@ -106,13 +106,15 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             for (var j = 0; j < orderInfoTotal[i].boxes!.length; j++) {
               if (SharedPrefs.getBoxIdForDeliver ==
                   orderInfoTotal[i].boxes![j].id) {
+                print("successskandjkasndjalsndklamsl");
                 orderInfo.add(orderInfoTotal[i]);
                 break;
               }
+              print(orderInfo.length);
             }
           }
         }
-        print(orderInfo.first.refCode);
+        print(orderInfo.first.refCode!);
         SharedPrefs.setOrderRefCode(orderInfo.first.refCode!);
 
         bool surprisePackageStatus = true;

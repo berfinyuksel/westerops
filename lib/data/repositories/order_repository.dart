@@ -56,11 +56,11 @@ class SampleOrderRepository implements OrderRepository {
 
       // var jsonResults = jsonBody['boxes'];
       // print(jsonResults);
-      // List<BoxOrder> boxes = [];
+      List<BoxOrder> boxes = [];
       // for (int i = 0; i < jsonResults.length; i++) {
       //   boxes.add(BoxOrder.fromJson(jsonResults[i]));
       // }
-      // return boxes;
+      return boxes;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
@@ -111,6 +111,11 @@ class SampleOrderRepository implements OrderRepository {
       List<BoxOrder> boxes = [];
       return boxes;
     }
+    if (response.statusCode == 401) {
+      List<BoxOrder> boxes = [];
+      return boxes;
+    }
+
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 }

@@ -615,7 +615,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     if (stateOfSearchStore is GenericInitial) {
                       return Container();
                     } else if (stateOfSearchStore is GenericLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: SizedBox(height: 0, width: 0));
                     } else if (stateOfSearchStore is GenericCompleted) {
                       List<SearchStore> chosenRestaurat = [];
                       for (var i = 0;
@@ -1245,29 +1245,30 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   }
                   return GestureDetector(
                     onTap: () {
-                      print('object');
-                      print(widget.restaurant!.id);
-                      if (isFavourite) {
-                        context
-                            .read<FavoriteCubit>()
-                            .deleteFavorite(widget.restaurant!.id);
-                        favouritedRestaurants!
-                            .remove(widget.restaurant!.id.toString());
-                        SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
-                        print(SharedPrefs.getFavorites);
+                      if (SharedPrefs.getIsLogined) {
+                        if (isFavourite) {
+                          context
+                              .read<FavoriteCubit>()
+                              .deleteFavorite(widget.restaurant!.id);
+                          favouritedRestaurants!
+                              .remove(widget.restaurant!.id.toString());
+                          SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
+                          print(SharedPrefs.getFavorites);
+                        } else {
+                          context
+                              .read<FavoriteCubit>()
+                              .addFavorite(widget.restaurant!.id!);
+                          favouritedRestaurants!
+                              .add(widget.restaurant!.id.toString());
+                          SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
+                          print(SharedPrefs.getFavorites);
+                        }
+                        setState(() {
+                          isFavourite = !isFavourite;
+                        });
                       } else {
-                        context
-                            .read<FavoriteCubit>()
-                            .addFavorite(widget.restaurant!.id!);
-                        favouritedRestaurants!
-                            .add(widget.restaurant!.id.toString());
-                        SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
-
-                        print(SharedPrefs.getFavorites);
+                        Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
                       }
-                      setState(() {
-                        isFavourite = !isFavourite;
-                      });
                     },
                     child: SvgPicture.asset(
                       ImageConstant.RESTAURANT_FAVORITE_ICON,
@@ -1278,19 +1279,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   );
                 } else {
                   final error = stateOfFavorites as GenericError;
-                  if (error.statusCode == "401") {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
-                      },
-                      child: SvgPicture.asset(
-                        ImageConstant.RESTAURANT_FAVORITE_ICON,
-                        color: isFavourite
-                            ? AppColors.orangeColor
-                            : AppColors.unSelectedpackageDeliveryColor,
-                      ),
-                    );
-                  }
                   return Center(
                       child: Text("${error.message}\n${error.statusCode}"));
                 }
