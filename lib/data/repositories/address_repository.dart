@@ -166,6 +166,11 @@ class SampleAdressRepository implements AdressRepository {
       result.add(activeAdressList);
       return result;
     }
+    if (response.statusCode == 401) {
+      List<AddressValues> result = [];
+
+      return result;
+    }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 
