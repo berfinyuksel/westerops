@@ -4,12 +4,11 @@ import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/order_names_widget.dart';
 import 'package:flutter/services.dart';
 import '../../../data/model/order_received.dart';
-import '../../../logic/cubits/generic_state/generic_state.dart';
-import '../../../logic/cubits/order_cubit/order_received_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
@@ -74,7 +73,6 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
         ],
       ),
     );
-    ;
   }
 
   Container buildBottomCard(

@@ -84,7 +84,7 @@ class SampleUserAuthenticationRepository
   @override
   Future<List<String>> resetPassword(String verificationId, String otpCode,
       String newPassword, String phone) async {
-    String json =""
+    String json = ""
         '{"verification_id": "$verificationId", "otp_code": "$otpCode", "new_password": "$newPassword", "phone_number": "$phone"}';
     final response = await http.post(
       Uri.parse(
@@ -162,9 +162,6 @@ class SampleUserAuthenticationRepository
     );
     print(response.statusCode);
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(response.body);
-      var jsonResults = jsonBody;
-
       //  SharedPrefs.setUserAddress(jsonResults['address']);
       // SharedPrefs.setUserBirth(jsonResults['birthday'] == null
       //     ? "yyyy-mm-dd"

@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:date_time_format/date_time_format.dart';
-import 'package:dongu_mobile/data/model/category_name.dart';
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/model/search.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
@@ -10,17 +8,15 @@ import 'package:device_info/device_info.dart';
 
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
+
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
-import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/first_column/packet_number.dart';
 
 import 'package:dongu_mobile/utils/haversine.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

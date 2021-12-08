@@ -53,9 +53,6 @@ class SampleStoreCourierHoursRepository implements StoreCourierHoursRepository {
 
     print("Courier Hours response code ${response.statusCode}");
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(
-          utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
-
       List<StoreCourierHours> storeCourierHoursList = [];
 
       return storeCourierHoursList;

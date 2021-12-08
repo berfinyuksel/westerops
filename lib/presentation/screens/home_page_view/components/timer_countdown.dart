@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class TimerCountDown extends StatefulWidget {
   int hour, minute, second;
   TextStyle? textStyle;

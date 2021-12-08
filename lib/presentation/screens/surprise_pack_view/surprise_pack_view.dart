@@ -24,7 +24,7 @@ import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/text/locale_text.dart';
-import 'components/custom_alert_dialog.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SurprisePackView extends StatefulWidget {

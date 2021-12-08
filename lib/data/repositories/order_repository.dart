@@ -52,8 +52,6 @@ class SampleOrderRepository implements OrderRepository {
     print("DELETE BASKET ${response.statusCode}");
 
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(response.body);
-
       // var jsonResults = jsonBody['boxes'];
       // print(jsonResults);
       List<BoxOrder> boxes = [];

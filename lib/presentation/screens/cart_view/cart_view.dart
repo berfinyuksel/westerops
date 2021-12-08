@@ -69,8 +69,6 @@ class _CartViewState extends State<CartView> {
           return Center(child: buildBody(context, state, itemList));
         }
       } else {
-        final error = state as GenericError;
-
         return SharedPrefs.getIsLogined == false
             ? NotLoggedInEmptyCartView()
             : CartView(); //Center(child: Text("${error.message}\n${error.statusCode}"));

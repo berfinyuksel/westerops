@@ -11,7 +11,7 @@ import 'package:flutter_svg/svg.dart';
 //import '../../../data/model/search.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
-import '../../../logic/cubits/search_cubit/search_cubit.dart';
+
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
 import '../../../utils/locale_keys.g.dart';
@@ -124,7 +124,7 @@ class _SearchViewState extends State<SearchView> {
             isClean
                 ? Spacer(flex: 20)
                 : Spacer(
-                flex: 10,
+                    flex: 10,
                   ),
             Visibility(visible: visible, child: categoriesText(context)),
             Visibility(visible: visible, child: dividerThird(context)),
@@ -260,7 +260,6 @@ class _SearchViewState extends State<SearchView> {
 
   ListView searchListViewBuilder(GenericState state,
       List<SearchStore> searchList, List<SearchStore> restaurant) {
-    List<StoreMeal> storeMeals = [];
     return ListView.builder(
         shrinkWrap: true,
         itemCount: searchList.isEmpty ||
@@ -270,7 +269,7 @@ class _SearchViewState extends State<SearchView> {
             : searchList.length,
         itemBuilder: (context, index) {
           for (var i = 0; i < filteredNames[index].storeMeals!.length; i++) {
-              //store Meals içine alınacak indexten kurtulacak
+            //store Meals içine alınacak indexten kurtulacak
           }
           return Container(
             padding: EdgeInsets.symmetric(

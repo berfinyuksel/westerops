@@ -47,7 +47,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       PhoneAuthCredential phoneAuthCredential) async {
     String phoneTR = '+90' + phoneController.text;
     print("SMS CODE : ${phoneAuthCredential.smsCode}");
-    print("VERIFICATIOIN ID : ${verificationId}");
+    print("VERIFICATIOIN ID : ${verificationId.toString()}");
     context.read<UserAuthCubit>().resetPassword(
         verificationId!, codeController.text, passwordController.text, phoneTR);
     print(phoneTR);
@@ -74,6 +74,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 ));
       }
     } on FirebaseAuthException catch (e) {
+      print(e);
       setState(() {
         showLoading = false;
       });
