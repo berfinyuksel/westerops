@@ -1,6 +1,19 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
 abstract class  LocaleKeys {
+  static const months_jan = 'months.jan';
+  static const months_feb = 'months.feb';
+  static const months_mar = 'months.mar';
+  static const months_apr = 'months.apr';
+  static const months_may = 'months.may';
+  static const months_june = 'months.june';
+  static const months_july = 'months.july';
+  static const months_aug = 'months.aug';
+  static const months_sept = 'months.sept';
+  static const months_oct = 'months.oct';
+  static const months_nov = 'months.nov';
+  static const months_dec = 'months.dec';
+  static const months = 'months';
   static const bottom_nav_bar_item_1 = 'bottom_nav_bar.item_1';
   static const bottom_nav_bar_item_2 = 'bottom_nav_bar.item_2';
   static const bottom_nav_bar_item_3 = 'bottom_nav_bar.item_3';
@@ -168,6 +181,7 @@ abstract class  LocaleKeys {
   static const address_text_3 = 'address.text_3';
   static const address_text_4 = 'address.text_4';
   static const address = 'address';
+  static const registered_cards_delete_alert_dialog_text = 'registered_cards.delete_alert_dialog_text';
   static const registered_cards_title = 'registered_cards.title';
   static const registered_cards_button = 'registered_cards.button';
   static const registered_cards = 'registered_cards';
@@ -257,6 +271,7 @@ abstract class  LocaleKeys {
   static const cart_choose_restaurant = 'cart.choose_restaurant';
   static const cart_not_logged_in = 'cart.not_logged_in';
   static const cart = 'cart';
+  static const payment_description_text = 'payment.description_text';
   static const payment_tab_1 = 'payment.tab_1';
   static const payment_tab_2 = 'payment.tab_2';
   static const payment_tab_3 = 'payment.tab_3';
@@ -274,6 +289,8 @@ abstract class  LocaleKeys {
   static const payment_address = 'payment.address';
   static const payment_delivery_delivery_time = 'payment.delivery.delivery_time';
   static const payment_delivery = 'payment.delivery';
+  static const payment_payment_year_text = 'payment.payment.year_text';
+  static const payment_payment_month_text = 'payment.payment.month_text';
   static const payment_payment_choose_card = 'payment.payment.choose_card';
   static const payment_payment_cancel = 'payment.payment.cancel';
   static const payment_payment_name_card = 'payment.payment.name_card';
@@ -289,6 +306,9 @@ abstract class  LocaleKeys {
   static const payment_payment_add_to_registered_cards = 'payment.payment.add_to_registered_cards';
   static const payment_payment = 'payment.payment';
   static const payment = 'payment';
+  static const order_received_amount_in_cart = 'order_received.amount_in_cart';
+  static const order_received_get_it_package = 'order_received.get_it_package';
+  static const order_received_courier_package = 'order_received.courier_package';
   static const order_received_headline = 'order_received.headline';
   static const order_received_order_number = 'order_received.order_number';
   static const order_received_subtitle = 'order_received.subtitle';

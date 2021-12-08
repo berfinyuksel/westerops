@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -69,7 +70,7 @@ class _MyRegisteredCardsUpdateViewState
         FocusScope.of(context).unfocus();
       },
       child: CustomScaffold(
-        title: "Kayıtlı Kartlarım",
+        title: LocaleKeys.custom_drawer_body_list_tile_cards,
         body: Padding(
           padding: EdgeInsets.only(
               left: context.dynamicWidht(0.06),
@@ -83,14 +84,16 @@ class _MyRegisteredCardsUpdateViewState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   LocaleText(
-                    text: "Kart Ekle",
+                    text: LocaleKeys.registered_cards_button,
                     style: AppTextStyles.bodyTitleStyle,
                   ),
                   Spacer(flex: 2),
                   //buildDropDown(context),
-                  buildTextFormField("Kart Üzerindeki İsim", nameController),
+                  buildTextFormField(
+                      LocaleKeys.payment_payment_name_on_card, nameController),
                   Spacer(flex: 3),
-                  buildTextFormField("Kart Numarası", cardNumberController),
+                  buildTextFormField(LocaleKeys.payment_payment_card_number,
+                      cardNumberController),
                   Spacer(flex: 3),
                   Row(
                     children: [
@@ -102,7 +105,7 @@ class _MyRegisteredCardsUpdateViewState
                           hint: Padding(
                             padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
                             child: Text(
-                              "Ay",
+                              LocaleKeys.payment_payment_month_text,
                             ),
                           ),
                           value: monthValue,
@@ -128,7 +131,7 @@ class _MyRegisteredCardsUpdateViewState
                           hint: Padding(
                             padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
                             child: Text(
-                              "Yıl",
+                              LocaleKeys.payment_payment_year_text,
                             ),
                           ),
                           value: yearValue,
@@ -150,13 +153,14 @@ class _MyRegisteredCardsUpdateViewState
                     ],
                   ),
                   Spacer(flex: 3),
-                  buildTextFormField("Karta İsim Ver", cardNameController),
+                  buildTextFormField(
+                      LocaleKeys.payment_payment_name_card, cardNameController),
                   Spacer(
                     flex: 33,
                   ),
                   CustomButton(
                     width: double.infinity,
-                    title: "Kaydet",
+                    title: LocaleKeys.change_password_button,
                     color: AppColors.greenColor,
                     borderColor: AppColors.greenColor,
                     textColor: Colors.white,

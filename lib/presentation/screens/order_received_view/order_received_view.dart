@@ -106,11 +106,9 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             for (var j = 0; j < orderInfoTotal[i].boxes!.length; j++) {
               if (SharedPrefs.getBoxIdForDeliver ==
                   orderInfoTotal[i].boxes![j].id) {
-                print("successskandjkasndjalsndklamsl");
                 orderInfo.add(orderInfoTotal[i]);
                 break;
               }
-              print(orderInfo.length);
             }
           }
         }
@@ -124,16 +122,17 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             break;
           }
         }
-        print('package surprise condition');
-        print(surprisePackageStatus);
+        print('package surprise condition' + surprisePackageStatus.toString());
+
         if (orderInfo.last.boxes != null && surprisePackageStatus == false) {
           NotificationService().initSurprisePackage(
               orderInfo.last.refCode.toString(),
-              DateTime.now().add(Duration(seconds: 10)));
-          /*   
-             orderInfo.last.boxes!.first.saleDay!.startDate!
+              orderInfo.last.boxes!.first.saleDay!.startDate!
                   .toLocal()
-                  .subtract(Duration(hours: 2))
+                  .subtract(Duration(hours: 2)));
+          /*   
+            
+                   DateTime.now().add(Duration(seconds: 10))
           
           */
         }
@@ -170,7 +169,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                   buildRowTitleLeftRight(
                     context,
                     LocaleKeys.order_received_delivery_address,
-                    "Teslim Edilecek Adres",
+                    LocaleKeys.payment_address_to_address,
                     isShowOnMap
                         ? LocaleKeys.order_received_order_summary
                         : LocaleKeys.order_received_show_on_map,
@@ -496,7 +495,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             isShowBottomInfo = false;
           });
         },
-        infoWindow: InfoWindow(title: "Benim Konumum"),
+        infoWindow: InfoWindow(title: LocaleKeys.general_settings_my_location),
         icon: markerIcon,
         markerId: markerId,
         position: LatLng(latitude, longitude),
@@ -582,8 +581,9 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                     chosenRestaurant.first.packageSettings!.minOrderPrice,
                 packetNumber: chosenRestaurant.first.calendar!.first.boxCount ==
                         0
-                    ? 'tükendi'
-                    : '${chosenRestaurant.first.calendar!.first.boxCount} paket',
+                    ? LocaleKeys.home_page_soldout_icon
+                    : '${chosenRestaurant.first.calendar!.first.boxCount} ' +
+                        LocaleKeys.home_page_packet_number,
                 deliveryType: int.parse(orderInfo.first.deliveryType!),
                 restaurantName: orderInfo.first.boxes!.first.store!.name,
                 distance: Haversine.distance(

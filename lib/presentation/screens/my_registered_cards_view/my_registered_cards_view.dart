@@ -80,9 +80,9 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                   context: context,
                   builder: (_) => CustomAlertDialog(
                       textMessage:
-                          'Kayıtlı kartınızı silmek\nistediğinize emin misiniz?',
-                      buttonOneTitle: 'Vazgeç',
-                      buttonTwoTittle: 'Eminim',
+                          LocaleKeys.registered_cards_delete_alert_dialog_text,
+                      buttonOneTitle: LocaleKeys.payment_payment_cancel,
+                      buttonTwoTittle: LocaleKeys.address_address_approval,
                       imagePath: ImageConstant.COMMONS_APP_BAR_LOGO,
                       onPressedOne: () {
                         Navigator.of(context).pop();

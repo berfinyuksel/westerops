@@ -35,18 +35,19 @@ class OrderSummaryContainer extends StatelessWidget {
             Spacer(flex: 2),
             LocaleText(
               text:
-                  "${SharedPrefs.getTimeIntervalForGetIt}${state.isGetIt! ? LocaleKeys.order_received_take_from_restaurant.locale : " Kurye ile adresinize teslim edilecektir."}",
+                  "${SharedPrefs.getTimeIntervalForGetIt}${state.isGetIt! ? LocaleKeys.order_received_take_from_restaurant.locale : LocaleKeys.payment_description_text}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 2),
             LocaleText(
               text:
-                  "${state.isGetIt! ? "Gel-Al Paket" : "Motorlu Kurye"} - ${state.isOnline! ? "Online Ödeme (Kredi Kartı)" : "Kapıda Ödeme"}",
+                  "${state.isGetIt! ? LocaleKeys.order_received_get_it_package : LocaleKeys.order_received_courier_package} - ${state.isOnline! ? LocaleKeys.filters_payment_method_item1 : LocaleKeys.filters_payment_method_item2}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 5),
             LocaleText(
-              text: "Sepetindeki ürün adedi: ${orderInfo!.boxes!.length}",
+              text:
+                  "${LocaleKeys.order_received_amount_in_cart}${orderInfo!.boxes!.length}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 3),
@@ -69,40 +70,40 @@ class OrderSummaryContainer extends StatelessWidget {
     String orderMonth = '';
     switch (orderTimeCalendarList[1]) {
       case '1':
-        orderMonth = 'Ocak';
+        orderMonth = LocaleKeys.months_jan;
         break;
       case '2':
-        orderMonth = 'Subat';
+        orderMonth = LocaleKeys.months_feb;
         break;
       case '3':
-        orderMonth = 'Mart';
+        orderMonth = LocaleKeys.months_mar;
         break;
       case '4':
-        orderMonth = 'Nisan';
+        orderMonth = LocaleKeys.months_apr;
         break;
       case '5':
-        orderMonth = 'Mayis';
+        orderMonth = LocaleKeys.months_may;
         break;
       case '6':
-        orderMonth = 'Haziran';
+        orderMonth = LocaleKeys.months_june;
         break;
       case '7':
-        orderMonth = 'Temmuz';
+        orderMonth = LocaleKeys.months_july;
         break;
       case '8':
-        orderMonth = 'Agustos';
+        orderMonth = LocaleKeys.months_aug;
         break;
       case '9':
-        orderMonth = 'Eylul';
+        orderMonth = LocaleKeys.months_sept;
         break;
       case '10':
-        orderMonth = 'Ekim';
+        orderMonth = LocaleKeys.months_oct;
         break;
       case '11':
-        orderMonth = 'Kasim';
+        orderMonth = LocaleKeys.months_nov;
         break;
       case '12':
-        orderMonth = 'Aralik';
+        orderMonth = LocaleKeys.months_dec;
         break;
       default:
         break;

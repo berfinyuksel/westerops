@@ -224,7 +224,7 @@ class _MyNearViewState extends State<MyNearView> {
   String? packettNumber(List<SearchStore> getrestaurants) {
     for (int j = 0; j < getrestaurants.length; j++) {
       if (getrestaurants[j].calendar == null) {
-        return "tükendi";
+        return LocaleKeys.home_page_soldout_icon;
       } else if (getrestaurants[j].calendar != null) {
         for (int i = 0; i < getrestaurants[j].calendar!.length; i++) {
           var boxcount = getrestaurants[j].calendar![i].boxCount;
@@ -240,10 +240,11 @@ class _MyNearViewState extends State<MyNearView> {
               .toList();
           if (currentDate[0] == startDate[0]) {
             if (getrestaurants[j].calendar![i].boxCount != 0) {
-              return "${boxcount.toString()} paket";
+              return "${boxcount.toString()} " +
+                  LocaleKeys.home_page_packet_number;
             } else if (getrestaurants[j].calendar![i].boxCount == null ||
                 getrestaurants[j].calendar![i].boxCount == 0) {
-              return "tükendi";
+              return LocaleKeys.home_page_soldout_icon;
             }
           }
         }
@@ -280,7 +281,8 @@ class _MyNearViewState extends State<MyNearView> {
                     LocationService.latitude,
                     LocationService.longitude)
                 .toString(),
-            packetNumber: packettNumber(getrestaurants) ?? "tükendi",
+            packetNumber: packettNumber(getrestaurants) ??
+                LocaleKeys.home_page_soldout_icon,
             availableTime: '2',
             minDiscountedOrderPrice: getrestaurants[restaurantIndexOnMap]
                 .packageSettings
@@ -354,7 +356,7 @@ class _MyNearViewState extends State<MyNearView> {
             child: Builder(builder: (context) {
               String? packettNumber() {
                 if (getrestaurants[index].calendar == null) {
-                  return "tükendi";
+                  return LocaleKeys.home_page_soldout_icon;
                 } else if (getrestaurants[index].calendar != null) {
                   for (int i = 0;
                       i < getrestaurants[index].calendar!.length;
@@ -373,11 +375,12 @@ class _MyNearViewState extends State<MyNearView> {
 
                     if (currentDate[0] == startDate[0]) {
                       if (getrestaurants[index].calendar![i].boxCount != 0) {
-                        return "${boxcount.toString()} paket";
+                        return "${boxcount.toString()} " +
+                            LocaleKeys.home_page_packet_number;
                       } else if (getrestaurants[index].calendar![i].boxCount ==
                               null ||
                           getrestaurants[index].calendar![i].boxCount == 0) {
-                        return "tükendi";
+                        return LocaleKeys.home_page_soldout_icon;
                       }
                     }
                   }
@@ -412,7 +415,8 @@ class _MyNearViewState extends State<MyNearView> {
                         LocationService.latitude,
                         LocationService.longitude)
                     .toString(),
-                packetNumber: packettNumber() ?? "tükendi",
+                packetNumber:
+                    packettNumber() ?? LocaleKeys.home_page_soldout_icon,
                 availableTime:
                     '${getrestaurants[index].packageSettings!.deliveryTimeStart} - ${getrestaurants[index].packageSettings!.deliveryTimeEnd}',
               );
@@ -556,7 +560,7 @@ class _MyNearViewState extends State<MyNearView> {
             isShowBottomInfo = false;
           });
         },
-        infoWindow: InfoWindow(title: "Benim Konumum"),
+        infoWindow: InfoWindow(title: LocaleKeys.general_settings_my_location),
         icon: markerIcon,
         markerId: markerId,
         position: LatLng(mylatitude, mylongitude),

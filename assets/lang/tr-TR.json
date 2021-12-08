@@ -1,4 +1,18 @@
 {
+    "months" :{
+        "jan" : "Ocak",
+        "feb" : "Şubat",
+        "mar" : "Mart",
+        "apr" : "Nisan",
+        "may" : "Mayıs",
+        "june" : "Haziran",
+        "july" : "Temmuz",
+        "aug" : "Ağustos",
+        "sept" : "Eylül",
+        "oct" : "Ekim",
+        "nov" : "Kasım", 
+        "dec" : "Aralık"
+    },
     "bottom_nav_bar": {
         "item_1": "Ana Sayfa",
         "item_2": "Arama",
@@ -189,6 +203,7 @@
         "text_4":"\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n"
     },
     "registered_cards": {
+        "delete_alert_dialog_text" : "Kayıtlı kartınızı silmek\nistediğinize emin misiniz?",
         "title": "Kayıtlı Kartlarım",
         "button": "Yeni Kart Ekle"
     },
@@ -290,6 +305,7 @@
         "not_logged_in": "Upps! Sepete ürün eklemek için oturum açmalısın."
     },
     "payment": {
+        "description_text" : " Kurye ile adresinize teslim edilecektir.",
         "tab_1": "Adres",
         "tab_2": "Teslimat",
         "tab_3": "Ödeme",
@@ -310,6 +326,8 @@
             "delivery_time": "Teslim Saat Aralığı"
         },
         "payment": {
+            "year_text" : "Yıl",
+            "month_text" : "Ay",
             "choose_card": "Kayıtlı Kartlarımdan Seç",
             "cancel": "Vazgeç",
             "name_card": "Karta İsim Ver",
@@ -326,6 +344,9 @@
         }
     },
     "order_received": {
+        "amount_in_cart" : "Sepetindeki ürün adedi: ",
+        "get_it_package" : "Gel-Al Paket",
+        "courier_package" : "Motorlu Kurye",
         "headline": "Siparişiniz Alındı",
         "order_number": "Sipariş Numarası: ",
         "subtitle": "* Siparişinizi teslim alırken bu numarayı restorana belirtiniz.",
