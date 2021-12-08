@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/theme/app_colors/app_colors.dart';
@@ -21,7 +22,11 @@ class PacketNumber extends StatelessWidget {
       alignment: Alignment.center,
       width: width,
       height: height,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0), color: text == "tükendi" ? AppColors.yellowColor : AppColors.orangeColor),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          color: text == LocaleKeys.home_page_soldout_icon
+              ? AppColors.yellowColor
+              : AppColors.orangeColor),
       child: LocaleText(
         text: text!,
         style: AppTextStyles.subTitleBoldStyle,

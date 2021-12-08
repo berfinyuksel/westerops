@@ -28,18 +28,18 @@ class _MyRegisteredCardsUpdateViewState
   TextEditingController cvvController = TextEditingController();
 
   final monthsList = [
-    "Ocak",
-    "Şubat",
-    "Mart",
-    "Nisan",
-    "Mayıs",
-    "Haziran",
-    "Temmuz",
-    "Ağustos",
-    "Eylül",
-    "Ekim",
-    "Kasım",
-    "Aralık"
+    LocaleKeys.months_jan,
+    LocaleKeys.months_feb,
+    LocaleKeys.months_mar,
+    LocaleKeys.months_apr,
+    LocaleKeys.months_may,
+    LocaleKeys.months_june,
+    LocaleKeys.months_july,
+    LocaleKeys.months_aug,
+    LocaleKeys.months_sept,
+    LocaleKeys.months_oct,
+    LocaleKeys.months_nov,
+    LocaleKeys.months_dec
   ];
 
   final yearsList = [
