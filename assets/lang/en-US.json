@@ -31,19 +31,19 @@
         },
         "first": {
             "text_headline": "Reserve your package.",
-            "text_first": "Günün herhangi bir saatinde sipariş oluşturabilirsin."
+            "text_first": "You can create an order at any time of the day."
         },
         "second": {
             "text_headline": "Do not worry! You can use all payment channels.",
-            "text_second": "Böylece teslim saati için geri sayım başlar"
+            "text_second": "Thus begins the countdown to the delivery time."
         },
         "third": {
             "text_headline": "You can get your package from the restaurant or the restaurant will send it to you.",
-            "text_third": "Kapıda teslim seçeceği şimdilik yalnızca kurye hizmeti sunan restoranlarda geçerli."
+            "text_third": "For now, the option of delivery at the door is only valid in restaurants that offer courier service."
         },
         "forth": {
             "text_headline": "Thanks for helping us protect the world!",
-            "text_forth": "Bu siparişinle gıda israfıyla mücadeleye katkı sağladığın için teşekkür ederiz!",
+            "text_forth": "Thank you for contributing to the fight against food waste with this order!",
             "button": "Get Started"
         }
     },
