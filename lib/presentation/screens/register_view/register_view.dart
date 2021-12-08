@@ -308,8 +308,9 @@ class _RegisterViewState extends State<RegisterView> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                      'Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.',
+                                  LocaleText(
+                                      text:
+                                          LocaleKeys.register_pop_up_text_title,
                                       style: AppTextStyles.bodyTitleStyle),
                                   GestureDetector(
                                     onTap: () {
@@ -326,13 +327,17 @@ class _RegisterViewState extends State<RegisterView> {
                                         ),
                                         children: [
                                           TextSpan(
-                                            text: 'Hesabınıza ',
+                                            text: LocaleKeys
+                                                .register_pop_up_text_subtitle_1
+                                                .locale,
                                             style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.w300,
                                             ),
                                           ),
                                           TextSpan(
-                                            text: 'giriş yapabilir',
+                                            text: LocaleKeys
+                                                .register_pop_up_text_subtitle_2
+                                                .locale,
                                             style: GoogleFonts.montserrat(
                                               color: AppColors.orangeColor,
                                               fontWeight: FontWeight.w500,
@@ -346,14 +351,17 @@ class _RegisterViewState extends State<RegisterView> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: 'veya \nhatırlamıyorsanız ',
+                                            text: LocaleKeys
+                                                .register_pop_up_text_subtitle_3
+                                                .locale,
                                             style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.w300,
                                             ),
                                           ),
                                           TextSpan(
-                                            text:
-                                                'şifrenizi \nyenileyebilirsiniz.',
+                                            text: LocaleKeys
+                                                .register_pop_up_text_subtitle_4
+                                                .locale,
                                             style: GoogleFonts.montserrat(
                                               color: AppColors.orangeColor,
                                               fontWeight: FontWeight.w500,

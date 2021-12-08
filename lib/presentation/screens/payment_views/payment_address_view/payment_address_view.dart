@@ -75,7 +75,9 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
 
       if (activeAddressState is GenericCompleted) {
         if (deliveredRestaurant.isEmpty) {
-          return Text("Restoran adresi bulunamadı");
+          return LocaleText(
+            text: LocaleKeys.payment_address_restaurant_address,
+          );
         } else
           return Container(
             height: context.dynamicHeight(0.57),
@@ -161,7 +163,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             children: [
               SizedBox(height: 20),
               LocaleText(
-                text: "Aktif adres belirleyiniz",
+                text: LocaleKeys.payment_address_active_address,
               ),
             ],
           );

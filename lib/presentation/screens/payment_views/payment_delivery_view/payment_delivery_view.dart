@@ -1,4 +1,5 @@
 import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import '../../../../data/model/search_store.dart';
 import '../../../../data/model/store_courier_hours.dart';
 import '../../../../data/shared/shared_prefs.dart';
@@ -64,7 +65,7 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   LocaleText(
-                    text: "Today - " +
+                    text: LocaleKeys.payment_delivery_text +
                         DateTime.now()
                             .format(EuropeanDateFormats.standard)
                             .toString(),
@@ -135,8 +136,7 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                           height: context.dynamicHeight(0.02),
                         ),
                         WarningContainer(
-                          text:
-                              "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
+                          text: LocaleKeys.payment_delivery_warning_text,
                         ),
                         SizedBox(
                           height: context.dynamicHeight(0.02),
@@ -208,7 +208,9 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                 },
               );
             })
-          : Text("Kurye uygun değildir"),
+          : LocaleText(
+              text: LocaleKeys.payment_delivery_courier,
+            ),
     );
   }
 

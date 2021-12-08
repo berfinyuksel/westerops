@@ -43,7 +43,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
             flex: 32,
           ),
           LocaleText(
-            text: LocaleKeys.surprise_pack_canceled_canceled_your_pack,
+            text: LocaleKeys.surprise_pack_canceled_pack_canceled,
             style: AppTextStyles.appBarTitleStyle.copyWith(
                 fontWeight: FontWeight.w400, color: AppColors.orangeColor),
             alignment: TextAlign.center,
@@ -63,8 +63,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
             padding:
                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
             child: WarningContainer(
-              text:
-                  "Sürpriz Paketin iptal edildi.\nŞimdi tekrar satışta. Fikrini değiştirirsen\nacele etmelisin.",
+              text: LocaleKeys.surprise_pack_canceled_warning_container,
             ),
           ),
           Spacer(
@@ -138,7 +137,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
             height: context.dynamicHeight(0.03),
           ),
           LocaleText(
-            text: "Tanımlanmış Paketin İptal Edildi.",
+            text: LocaleKeys.surprise_pack_canceled_canceled_your_pack,
             style: GoogleFonts.montserrat(
               fontSize: 18.0,
               color: AppColors.redColor,

@@ -124,7 +124,7 @@ class _SearchViewState extends State<SearchView> {
             isClean
                 ? Spacer(flex: 20)
                 : Spacer(
-                flex: 10,
+                    flex: 10,
                   ),
             Visibility(visible: visible, child: categoriesText(context)),
             Visibility(visible: visible, child: dividerThird(context)),
@@ -270,7 +270,7 @@ class _SearchViewState extends State<SearchView> {
             : searchList.length,
         itemBuilder: (context, index) {
           for (var i = 0; i < filteredNames[index].storeMeals!.length; i++) {
-              //store Meals içine alınacak indexten kurtulacak
+            //store Meals içine alınacak indexten kurtulacak
           }
           return Container(
             padding: EdgeInsets.symmetric(
@@ -333,7 +333,7 @@ class _SearchViewState extends State<SearchView> {
           LocaleText(
             text: SharedPrefs.getIsLogined
                 ? LocaleKeys.search_text1
-                : "Popüler Aramalar",
+                : LocaleKeys.search_text3,
             style: AppTextStyles.bodyTitleStyle,
           ),
           Spacer(),

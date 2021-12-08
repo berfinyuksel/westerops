@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -106,29 +107,29 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
   String buildStringOfMonth(int monthOfDate) {
     switch (monthOfDate) {
       case 1:
-        return 'Ocak';
+        return LocaleKeys.restaurant_detail_working_hours_month1;
       case 2:
-        return 'Subat';
+        return LocaleKeys.restaurant_detail_working_hours_month2;
       case 3:
-        return 'Mart';
+        return LocaleKeys.restaurant_detail_working_hours_month3;
       case 4:
-        return 'Nisan';
+        return LocaleKeys.restaurant_detail_working_hours_month4;
       case 5:
-        return 'Mayis';
+        return LocaleKeys.restaurant_detail_working_hours_month5;
       case 6:
-        return 'Haziran';
+        return LocaleKeys.restaurant_detail_working_hours_month6;
       case 7:
-        return 'Temmuz';
+        return LocaleKeys.restaurant_detail_working_hours_month7;
       case 8:
-        return 'Agustos';
+        return LocaleKeys.restaurant_detail_working_hours_month8;
       case 9:
-        return 'Eylul';
+        return LocaleKeys.restaurant_detail_working_hours_month9;
       case 10:
-        return 'Ekim';
+        return LocaleKeys.restaurant_detail_working_hours_month10;
       case 11:
-        return 'Kasim';
+        return LocaleKeys.restaurant_detail_working_hours_month11;
       case 12:
-        return 'Aralik';
+        return LocaleKeys.restaurant_detail_working_hours_month12;
       default:
         return '';
     }
@@ -139,19 +140,19 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
 
     switch (weekdayOfTheDate) {
       case 1:
-        return 'Pazartesi';
+        return LocaleKeys.restaurant_detail_working_hours_day1;
       case 2:
-        return 'Sali';
+        return LocaleKeys.restaurant_detail_working_hours_day2;
       case 3:
-        return 'Carsamba';
+        return LocaleKeys.restaurant_detail_working_hours_day3;
       case 4:
-        return 'Persembe';
+        return LocaleKeys.restaurant_detail_working_hours_day4;
       case 5:
-        return 'Cuma';
+        return LocaleKeys.restaurant_detail_working_hours_day5;
       case 6:
-        return 'Cumartesi';
+        return LocaleKeys.restaurant_detail_working_hours_day6;
       case 7:
-        return 'Pazar';
+        return LocaleKeys.restaurant_detail_working_hours_day7;
       default:
         return '';
     }

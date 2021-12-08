@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -206,8 +207,10 @@ class _PaymentViewsState extends State<PaymentViews>
                   ),
                   buildRowCheckBoxAgreement(
                       context,
-                      "Ön Bilgilendirme Koşulları",
-                      "’nı okudum, onaylıyorum.",
+                      LocaleKeys
+                          .payment_payment_checkbox_agreement_text1.locale,
+                      LocaleKeys
+                          .payment_payment_checkbox_agreement_text2.locale,
                       "info",
                       myState),
                   Spacer(
@@ -215,8 +218,10 @@ class _PaymentViewsState extends State<PaymentViews>
                   ),
                   buildRowCheckBoxAgreement(
                       context,
-                      "Mesafeli Satış Sözleşmesi",
-                      "’nı okudum, onaylıyorum.",
+                      LocaleKeys
+                          .payment_payment_checkbox_agreement_text3.locale,
+                      LocaleKeys
+                          .payment_payment_checkbox_agreement_text4.locale,
                       "agreement",
                       myState),
                   Spacer(
@@ -517,7 +522,7 @@ class _PaymentViewsState extends State<PaymentViews>
         ),
         child: tabController!.index == 2
             ? LocaleText(
-                text: "Online Ödeme",
+                text: LocaleKeys.payment_payment_online_payment,
                 style: AppTextStyles.bodyTextStyle.copyWith(
                     color: state.isOnline!
                         ? AppColors.greenColor

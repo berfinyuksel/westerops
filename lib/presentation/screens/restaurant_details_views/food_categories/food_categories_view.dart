@@ -25,7 +25,7 @@ class _FoodCategoriesState extends State<FoodCategories> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Gıda Kategorileri",
+      title: LocaleKeys.restaurant_detail_food_categories_title,
       body: Column(
         children: [
           Padding(
@@ -77,7 +77,7 @@ class _FoodCategoriesState extends State<FoodCategories> {
                         LocaleText(
                           alignment: TextAlign.center,
                           text:
-                              "Üzgünüz.\nBu restoran için henüz bir kategori bulunmamaktadır.",
+                              LocaleKeys.restaurant_detail_food_categories_text,
                           style: AppTextStyles.myInformationBodyTextStyle,
                         ),
                       ],

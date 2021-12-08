@@ -47,6 +47,13 @@
         "full_name": "Full Name",
         "email": "E-mail",
         "password": "Password",
+        "pop_up_text":{
+            "title": "We noticed that you \nhave an account with this\ne-mail address.",
+            "subtitle_1":"You can log in",
+            "subtitle_2":"to your account",
+            "subtitle_3":"or \nreset your password",
+            "subtitle_4":"if you don't remember it"
+        },
         "consent": {
             "text1": "I would like to receive electronic messages within the scope of ",
             "text2": "Consent Text",
@@ -58,6 +65,11 @@
             "text3": " Click for the ",
             "text4": "Clarification Text",
             "text5": " regarding your personal data."
+        },
+        "password_rules":{
+            "number":"1 number",
+            "letter":"1 capital letter",
+            "character":"8 characters"
         },
         "social_auth": "Go on"
     },
@@ -138,7 +150,8 @@
         "popup_text_successful": "Password changed successfully."
     },
     "past_order": {
-        "title": "My Past Orders"
+        "title": "My Past Orders",
+        "cancel_button": "Cancel"
     },
     "past_order_detail": {
         "title": "My Past Orders",
@@ -271,10 +284,16 @@
             "billing_info": "Billing Information",
             "button_add_address": "Add New Delivery Address",
             "button_add_bill": "Add New Billing Address",
-            "use_as_billing": "Use as billing address"
+            "use_as_billing": "Use as billing address",
+            "restaurant_address":"Restaurant address not found",
+            "active_address": "Specify active address"
         },
         "delivery": {
-            "delivery_time": "Delivery Time Range"
+            "delivery_time": "Delivery Time Range",
+            "delivery_available_time": "Restaurant delivery times are not available.",
+            "text": "Today - ",
+            "warning_text": "Make your payment by showing\nthe order number we have sent\n you to the restaurant.",
+            "courier":"Courier not available"
         },
         "payment": {
             "choose_card": "Choose from My Registered Cards",
@@ -289,7 +308,17 @@
             "credit": "Credit Card",
             "name_on_card": "Name on The Card",
             "card_number": "Card Number",
-            "add_to_registered_cards": "Add to My Saved Cards"
+            "add_to_registered_cards": "Add to My Saved Cards",
+            "warning_container":"Your payment method cannot be changed\n at the door during order delivery.",
+            "warning_container_2": "Make your payment by showing\n the order number we have \nsent you to the restaurant.",
+            "pay_with_another_card": "Our payment system is provided\n by iyzico and your transaction security\n is under the assurance of Iyzico.",
+            "card_info_month": "Month",
+            "card_info_year": "Year",
+            "checkbox_agreement_text1" : "I have read the ",
+            "checkbox_agreement_text2" : "pre-information conditions, I approve.",
+            "checkbox_agreement_text3" : "I have read the ",
+            "checkbox_agreement_text4" : "distance sales agreement, I approve.",
+            "online_payment": "Online Payment"
         }
     },
     "order_received": {
@@ -353,7 +382,8 @@
         "canceled_your_pack": "You Canceled Your Specified Package!",
         "button_buy": "Buy",
         "button_send": "Send",
-        "pack_canceled": "Defined Package Canceled."
+        "pack_canceled": "Defined Package Canceled.",
+        "warning_container": "Your Surprise Pack has been cancelled.\nAvailable again now. If you change your mind\nyou should hurry"
     },
     "address_from_map": {
         "title": "Add New Address",
@@ -442,6 +472,7 @@
         "search_history_clean": "You have no search history"
     },
     "restaurant_detail": {
+        "app_bar_title":"Restaurant Details",
         "text1": "Packets",
         "text2": "Informations",
         "text3": "Add Restaurant To Favorite",
@@ -457,6 +488,7 @@
         "sub_text2": "Surprise Packet 2",
         "sub_text3": "Surprise Packet 3",
         "button_text": "Buy",
+        "button_text2":"In My Cart",
         "sub_title2": "Defined Packages",
         "sub_text4": "Vegan 4 Packets",
         "sub_text5": "Broccoli Salad, Beans With Vegan\n Sauce Soy Sauce",
@@ -471,7 +503,56 @@
             "sub_title2": "Today: ",
             "sub_title3": "Online Credit/Debit Card - Cash on Delivery",
             "sub_title4": "Business Name Mini Burger",
-            "sub_title5": "Main course, Vegan, Hamburger, Drink, Chicken..."
+            "sub_title5": "Main course, Vegan, Hamburger, Drink, Chicken...",
+            "sub_title6":"Pick Up Package",
+            "sub_title7":"Motor Courier",
+            "sub_title8":"There is no surprise package",
+            "sub_title9":"There is no defined package",
+            "sub_title10":"Time until package identification: "
+        },
+        "working_hours":{
+            "title":"Working Hours",
+            "month1": "January",
+            "month2": "February",
+            "month3": "March",
+            "month4": "April",
+            "month5": "May",
+            "month6": "June",
+            "month7": "July",
+            "month8": "August",
+            "month9": "September",
+            "month10": "October",
+            "month11": "November",
+            "month12": "December",
+            "day1": "Monday",
+            "day2": "Tuesday",
+            "day3": "Wednesday",
+            "day4": "Thursday",
+            "day5": "Friday",
+            "day6": "Saturday",
+            "day7": "Sunday"
+        },
+        "food_categories":{
+            "title":"Food Categories",
+            "text":"We are sad.\nThere is no category for this restaurant yet."
+        },
+        "show_dialog":{
+            "text":"Please Login Or Register",
+            "button1":"Login",
+            "button2":"Register"
+        },
+        "alert_dialog":{
+            "text_1":"Please select the address you want to send the order to",
+            "text_2":"Okay"
+        },
+        "diffrent_restaurant_show_dialog":{
+            "text_1":"You chose the product of a different restaurant",
+            "button1":"Continue shopping",
+            "button2":"Clean the cart"
+        },
+        "packet_container":{
+            "package":"package",
+            "sold_out":"sold out"
         }
     },
     "restaurant_food_categories": {
@@ -520,7 +601,9 @@
         "text3":"Anadolu Lezzetleri",
         "text4":"Pastırmalı Kuru Fasulye, 1 porsiyon Kornişon Turşu",
         "totalAmount":"Total Amount:",
-        "price":"35,25 TL"
+        "price":"35,25 TL",
+        "restaurant_name":"Restaurant Name",
+        "restaurant_address":"Restaurant Address"
     },
     "agreement_kvkk":{
         "confirmation_button":"I approve",
@@ -532,6 +615,18 @@
         "text_2":"An SMS has been sent to your phone number ending with ***92. Please enter 6 digit code",
         "text_3":"Resend code",
         "button": "Let's start"
+    },
+    "was_delivered":{
+        "headline":"Your Order Has Been Delivered",
+        "order_number":"Order Number:",
+        "restaurant_name":"Restaurant Name",
+        "restaurant_address":"Restaurant Address",
+        "headline_text": "Thanks for\nhelping us\nprotect the world!",
+        "body_text": "Thank you for not leaving us alone on this road\nwe set out to protect our planet!\nNow it's time to score your order!",
+        "button": "Evaluate"
+
     }
+    
+    
     
 }

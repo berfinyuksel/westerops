@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../data/model/search_store.dart';
@@ -17,7 +18,7 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        title: "Restoran Detayları",
+        title: LocaleKeys.restaurant_detail_app_bar_title,
         body: ListView(
           children: [
             Stack(
