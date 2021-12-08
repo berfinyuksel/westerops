@@ -1047,7 +1047,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 color: AppColors.orangeColor,
               ),
               child: Text(
-                "${state.response.length} + ${LocaleKeys.restaurant_detail_packet_container_package}",
+                "${state.response.length} ${LocaleKeys.restaurant_detail_packet_container_package}",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(color: Colors.white),
                 textAlign: TextAlign.center,
