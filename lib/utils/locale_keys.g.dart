@@ -144,6 +144,12 @@ abstract class  LocaleKeys {
   static const change_password = 'change_password';
   static const past_order_title = 'past_order.title';
   static const past_order = 'past_order';
+  static const past_order_detail_no_restaurant_info = 'past_order_detail.no_restaurant_info';
+  static const past_order_detail_cancel_order_error = 'past_order_detail.cancel_order_error';
+  static const past_order_detail_unautherized_move = 'past_order_detail.unautherized_move';
+  static const past_order_detail_cancelled_order_successfully = 'past_order_detail.cancelled_order_successfully';
+  static const past_order_detail_cancel_order_alert_dialog_text = 'past_order_detail.cancel_order_alert_dialog_text';
+  static const past_order_detail_cancel_order = 'past_order_detail.cancel_order';
   static const past_order_detail_title = 'past_order_detail.title';
   static const past_order_detail_body_title_1 = 'past_order_detail.body_title_1';
   static const past_order_detail_body_title_2 = 'past_order_detail.body_title_2';
@@ -310,6 +316,7 @@ abstract class  LocaleKeys {
   static const order_received_get_it_package = 'order_received.get_it_package';
   static const order_received_courier_package = 'order_received.courier_package';
   static const order_received_headline = 'order_received.headline';
+  static const order_received_headline1 = 'order_received.headline1';
   static const order_received_order_number = 'order_received.order_number';
   static const order_received_subtitle = 'order_received.subtitle';
   static const order_received_count_down = 'order_received.count_down';
@@ -360,6 +367,7 @@ abstract class  LocaleKeys {
   static const surprise_pack_alert_button1 = 'surprise_pack.alert_button1';
   static const surprise_pack_alert_button2 = 'surprise_pack.alert_button2';
   static const surprise_pack_alert_text = 'surprise_pack.alert_text';
+  static const surprise_pack_cancel_descrption = 'surprise_pack.cancel_descrption';
   static const surprise_pack = 'surprise_pack';
   static const surprise_pack_canceled_canceled_your_pack = 'surprise_pack_canceled.canceled_your_pack';
   static const surprise_pack_canceled_button_buy = 'surprise_pack_canceled.button_buy';

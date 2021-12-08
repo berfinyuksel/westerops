@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -24,7 +25,7 @@ class _OrderReceivingViewState extends State<OrderReceivingView> {
     Navigator.pushReplacementNamed(context, RouteConstant.ORDER_RECEIVED_VIEW);
   }
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -48,7 +49,7 @@ class _OrderReceivingViewState extends State<OrderReceivingView> {
                   flex: 183,
                 ),
                 LocaleText(
-                  text: "Siparişiniz alınıyor…",
+                  text: LocaleKeys.order_received_headline1,
                   style: AppTextStyles.headlineStyle,
                 ),
                 Spacer(

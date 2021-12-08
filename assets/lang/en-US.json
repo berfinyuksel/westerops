@@ -162,6 +162,12 @@
         "title": "My Past Orders"
     },
     "past_order_detail": {
+        "no_restaurant_info" : "Sorry.\nThere is no restaurant information.",
+        "cancel_order_error" : "Your order cannot be canceled in accordance with the determined rules",
+        "unautherized_move" : "You must login",
+        "cancelled_order_successfully" : "Your order has been successfully canceled",
+        "cancel_order_alert_dialog_text" : "Are you sure\nyou want to cancel the order?",
+        "cancel_order" : "Cancel Order",
         "title": "My Past Orders",
         "body_title_1": "Restaurant",
         "body_title_2": "Evaluate",
@@ -346,6 +352,7 @@
         "get_it_package" : "Come-Get Package",
         "courier_package" : "Motor Courier",
         "headline": "Your Order Has Been Received",
+        "headline1": "Receiving Your Order...",
         "order_number": "Order Number: ",
         "subtitle": "* Please indicate this number to the restaurant when receiving your order.",
         "count_down": "Time to delivery time",
@@ -399,7 +406,8 @@
         "button_accept": "Accept",
         "alert_button1": "No",
         "alert_button2": "Yes",
-        "alert_text": "Are you sure you want to\nCancel your package?"
+        "alert_text": "Are you sure you want to\nCancel your package?",
+        "cancel_descrption" : "Write the reason for canceling the order."
     },
     "surprise_pack_canceled": {
         "canceled_your_pack": "You Canceled Your Specified Package!",

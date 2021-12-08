@@ -164,6 +164,12 @@
         "title": "Geçmiş Siparişlerim"
     },
     "past_order_detail": {
+        "no_restaurant_info" : "Üzgünüz.\nRestoran bilgileri bulunmuyor.",
+        "cancel_order_error" : "Siparişiniz belirlenen kurallar gereğince iptal edilememektedir",
+        "unautherized_move" : "Giriş yapmalısınız",
+        "cancelled_order_successfully" : "Siparişiniz başarıyla iptal edilmiştir",
+        "cancel_order_alert_dialog_text" : "Siparişi iptal etmek\nistediğinize emin misiniz?",
+        "cancel_order" : "Siparişi İptal Et",
         "title": "Geçmiş Siparişlerim",
         "body_title_1": "Restoran",
         "body_title_2": "Puanla",
@@ -348,6 +354,7 @@
         "get_it_package" : "Gel-Al Paket",
         "courier_package" : "Motorlu Kurye",
         "headline": "Siparişiniz Alındı",
+        "headline1": "Siparişiniz Alınıyor...",
         "order_number": "Sipariş Numarası: ",
         "subtitle": "* Siparişinizi teslim alırken bu numarayı restorana belirtiniz.",
         "count_down": "Teslim zamanına",
@@ -401,7 +408,9 @@
         "button_accept": "Kabul Et",
         "alert_button1": "Hayır",
         "alert_button2": "Evet",
-        "alert_text": "Paketini İptal Etmek istediğine\nemin misin?"
+        "alert_text": "Paketini İptal Etmek istediğine\nemin misin?",
+        "cancel_descrption" : "Siparişi iptal etme nedenini yazınız."
+
     },
     "surprise_pack_canceled": {
         "canceled_your_pack": "Tanımlanmış Paketini İptal Ettin!",

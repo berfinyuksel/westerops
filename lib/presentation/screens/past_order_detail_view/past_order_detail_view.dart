@@ -176,7 +176,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
             child: Builder(builder: (context) {
               return CustomButton(
                   width: double.infinity,
-                  title: 'Siparisi Iptal Et',
+                  title: LocaleKeys.past_order_detail_cancel_order,
                   color: Colors.transparent,
                   borderColor: AppColors.greenColor,
                   textColor: AppColors.greenColor,
@@ -185,10 +185,10 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                       context: context,
                       builder: (_) => CustomAlertDialogForCancelOrder(
                           customTextController: textController,
-                          textMessage:
-                              'Siparisi iptal etmek\nistediğinize emin misiniz?',
-                          buttonOneTitle: 'Vazgeç',
-                          buttonTwoTittle: 'Eminim',
+                          textMessage: LocaleKeys
+                              .past_order_detail_cancel_order_alert_dialog_text,
+                          buttonOneTitle: LocaleKeys.payment_payment_cancel,
+                          buttonTwoTittle: LocaleKeys.address_address_approval,
                           imagePath: ImageConstant.SURPRISE_PACK_ALERT,
                           onPressedOne: () {
                             Navigator.of(context).pop();
@@ -227,8 +227,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                 ),
                                                 SizedBox(height: 10),
                                                 LocaleText(
-                                                  text:
-                                                      "Siparisiniz basariyla iptal edilmistir",
+                                                  text: LocaleKeys
+                                                      .past_order_detail_cancelled_order_successfully,
                                                   style: AppTextStyles
                                                       .bodyBoldTextStyle,
                                                   alignment: TextAlign.center,
@@ -249,7 +249,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                   textColor: Colors.white,
                                                   borderColor:
                                                       AppColors.greenColor,
-                                                  title: "Tamam",
+                                                  title: LocaleKeys
+                                                      .forgot_password_ok,
                                                 ),
                                                 Spacer(
                                                   flex: 20,
@@ -263,9 +264,12 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                 showDialog(
                                   context: context,
                                   builder: (_) => CustomAlertDialog(
-                                      textMessage: 'Giriş yapmalısınız',
-                                      buttonOneTitle: 'Giriş yap',
-                                      buttonTwoTittle: 'Kayıt ol',
+                                      textMessage: LocaleKeys
+                                          .past_order_detail_unautherized_move,
+                                      buttonOneTitle:
+                                          LocaleKeys.custom_drawer_login_button,
+                                      buttonTwoTittle: LocaleKeys
+                                          .custom_drawer_register_button,
                                       imagePath: ImageConstant.SURPRISE_PACK,
                                       onPressedOne: () {
                                         Navigator.of(context).pushNamed(
@@ -306,8 +310,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                 ),
                                                 SizedBox(height: 10),
                                                 LocaleText(
-                                                  text:
-                                                      "Siparisiniz belirlenen kurallar geregince iptal edilememektedir",
+                                                  text: LocaleKeys
+                                                      .past_order_detail_cancel_order_error,
                                                   style: AppTextStyles
                                                       .bodyBoldTextStyle,
                                                   alignment: TextAlign.center,
@@ -328,7 +332,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                   textColor: Colors.white,
                                                   borderColor:
                                                       AppColors.greenColor,
-                                                  title: "Tamam",
+                                                  title: LocaleKeys
+                                                      .forgot_password_ok,
                                                 ),
                                                 Spacer(
                                                   flex: 20,
@@ -492,7 +497,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                     ),
                     LocaleText(
                       alignment: TextAlign.center,
-                      text: "Üzgünüz.\nRestoran bilgileri bulunmuyor.",
+                      text: LocaleKeys.past_order_detail_no_restaurant_info,
                       style: AppTextStyles.myInformationBodyTextStyle,
                     ),
                   ],

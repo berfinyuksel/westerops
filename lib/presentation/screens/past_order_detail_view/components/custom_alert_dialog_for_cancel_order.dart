@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -32,8 +33,6 @@ class CustomAlertDialogForCancelOrder extends StatefulWidget {
 
 class _CustomAlertDialogForCancelOrderState
     extends State<CustomAlertDialogForCancelOrder> {
-
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -63,7 +62,7 @@ class _CustomAlertDialogForCancelOrderState
               alignment: TextAlign.center,
             ),
             SizedBox(height: 10),
-            buildTextFormField('Siparisi iptal etme nedeninizi yaziniz.',
+            buildTextFormField(LocaleKeys.surprise_pack_cancel_descrption,
                 widget.customTextController!, context),
             SizedBox(height: 10),
             buildButtons(context),
