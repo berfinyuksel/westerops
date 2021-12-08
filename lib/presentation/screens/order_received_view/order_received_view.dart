@@ -582,8 +582,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                 packetNumber: chosenRestaurant.first.calendar!.first.boxCount ==
                         0
                     ? LocaleKeys.home_page_soldout_icon
-                    : '${chosenRestaurant.first.calendar!.first.boxCount} ' +
-                        LocaleKeys.home_page_packet_number,
+                    : "${chosenRestaurant.first.calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
                 deliveryType: int.parse(orderInfo.first.deliveryType!),
                 restaurantName: orderInfo.first.boxes!.first.store!.name,
                 distance: Haversine.distance(

@@ -517,8 +517,7 @@ class _HomePageViewState extends State<HomePageView> {
 
                       if (currentDate[0] == startDate[0]) {
                         if (restaurants[index].calendar![i].boxCount != 0) {
-                          return "${boxcount.toString()} " +
-                              LocaleKeys.home_page_packet_number;
+                          return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
                         } else if (restaurants[index].calendar![i].boxCount ==
                                 null ||
                             restaurants[index].calendar![i].boxCount == 0) {
@@ -659,8 +658,7 @@ class _HomePageViewState extends State<HomePageView> {
 
                       if (currentDate[0] == startDate[0]) {
                         if (restaurants[index].calendar![i].boxCount != 0) {
-                          return "${boxcount.toString()} " +
-                              LocaleKeys.home_page_packet_number;
+                          return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
                         } else if (restaurants[index].calendar![i].boxCount ==
                                 null ||
                             restaurants[index].calendar![i].boxCount == 0) {

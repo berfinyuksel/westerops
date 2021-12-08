@@ -244,7 +244,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildRowTitleLeftRight(context, LocaleKeys.my_favorites_location,
-              LocaleKeys.my_favorites_edit, favouriteRestaurant),
+              LocaleKeys.my_favorites_edit, favouriteRestaurant, () {
+            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+          }),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -269,7 +271,13 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
               isShowOnMap
                   ? LocaleKeys.my_near_show_list
                   : LocaleKeys.my_favorites_show_map,
-              favouriteRestaurant),
+              favouriteRestaurant, () {
+            setState(() {
+              isShowOnMap = !isShowOnMap;
+              _mapController = Completer<GoogleMapController>();
+              setCustomMarker(favouriteRestaurant);
+            });
+          }),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -308,8 +316,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
 
                   if (currentDate[0] == startDate[0]) {
                     if (favouriteRestaurant[index].calendar![i].boxCount != 0) {
-                      return "${boxcount.toString()} " +
-                          LocaleKeys.home_page_packet_number;
+                      return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
                     } else if (favouriteRestaurant[index]
                                 .calendar![i]
                                 .boxCount ==
@@ -355,7 +362,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   }
 
   Row buildRowTitleLeftRight(BuildContext context, String titleLeft,
-      String titleRight, favouriteRestaurant) {
+      String titleRight, favouriteRestaurant, VoidCallback onPressed) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -365,13 +372,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           style: AppTextStyles.bodyTitleStyle,
         ),
         GestureDetector(
-          onTap: () {
-            setState(() {
-              isShowOnMap = !isShowOnMap;
-              _mapController = Completer<GoogleMapController>();
-              setCustomMarker(favouriteRestaurant);
-            });
-          },
+          onTap: onPressed,
           child: LocaleText(
             text: titleRight,
             style: GoogleFonts.montserrat(
@@ -465,8 +466,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                             .boxCount ==
                         0
                     ? LocaleKeys.home_page_soldout_icon
-                    : '${favourites[selectedIndex].calendar!.first.boxCount} ' +
-                        LocaleKeys.home_page_packet_number,
+                    : "${favourites[selectedIndex].calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
                 deliveryType: int.parse(
                     favourites[selectedIndex].packageSettings!.deliveryType!),
                 restaurantName: favourites[selectedIndex].name,
@@ -536,7 +536,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             isShowBottomInfo = false;
           });
         },
-        infoWindow: InfoWindow(title: LocaleKeys.general_settings_my_location),
+        infoWindow:
+            InfoWindow(title: LocaleKeys.general_settings_my_location.locale),
         icon: markerIcon,
         markerId: markerId,
         position: LatLng(latitude, longitude),

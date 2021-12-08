@@ -1,4 +1,5 @@
 import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import '../../../../data/model/search_store.dart';
 import '../../../../data/model/store_courier_hours.dart';
@@ -46,8 +47,7 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
             list.add(state.response[i]);
           }
         }
-        print("object");
-        print(state.response.length);
+
         return ListView(
           shrinkWrap: true,
           children: [
@@ -65,10 +65,8 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   LocaleText(
-                    text: LocaleKeys.payment_delivery_text +
-                        DateTime.now()
-                            .format(EuropeanDateFormats.standard)
-                            .toString(),
+                    text:
+                        '${LocaleKeys.payment_delivery_text.locale} ${DateTime.now().format(EuropeanDateFormats.standard).toString()}',
                     style: AppTextStyles.bodyTitleStyle,
                   ),
                   SizedBox(

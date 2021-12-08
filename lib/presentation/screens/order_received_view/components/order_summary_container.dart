@@ -41,13 +41,13 @@ class OrderSummaryContainer extends StatelessWidget {
             Spacer(flex: 2),
             LocaleText(
               text:
-                  "${state.isGetIt! ? LocaleKeys.order_received_get_it_package : LocaleKeys.order_received_courier_package} - ${state.isOnline! ? LocaleKeys.filters_payment_method_item1 : LocaleKeys.filters_payment_method_item2}",
+                  "${state.isGetIt! ? LocaleKeys.order_received_get_it_package.locale : LocaleKeys.order_received_courier_package.locale} - ${state.isOnline! ? LocaleKeys.filters_payment_method_item1.locale : LocaleKeys.filters_payment_method_item2.locale}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 5),
             LocaleText(
               text:
-                  "${LocaleKeys.order_received_amount_in_cart}${orderInfo!.boxes!.length}",
+                  "${LocaleKeys.order_received_amount_in_cart.locale}${orderInfo!.boxes!.length}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 3),
@@ -70,40 +70,40 @@ class OrderSummaryContainer extends StatelessWidget {
     String orderMonth = '';
     switch (orderTimeCalendarList[1]) {
       case '1':
-        orderMonth = LocaleKeys.months_jan;
+        orderMonth = LocaleKeys.months_jan.locale;
         break;
       case '2':
-        orderMonth = LocaleKeys.months_feb;
+        orderMonth = LocaleKeys.months_feb.locale;
         break;
       case '3':
-        orderMonth = LocaleKeys.months_mar;
+        orderMonth = LocaleKeys.months_mar.locale;
         break;
       case '4':
-        orderMonth = LocaleKeys.months_apr;
+        orderMonth = LocaleKeys.months_apr.locale;
         break;
       case '5':
-        orderMonth = LocaleKeys.months_may;
+        orderMonth = LocaleKeys.months_may.locale;
         break;
       case '6':
-        orderMonth = LocaleKeys.months_june;
+        orderMonth = LocaleKeys.months_june.locale;
         break;
       case '7':
-        orderMonth = LocaleKeys.months_july;
+        orderMonth = LocaleKeys.months_july.locale;
         break;
       case '8':
-        orderMonth = LocaleKeys.months_aug;
+        orderMonth = LocaleKeys.months_aug.locale;
         break;
       case '9':
-        orderMonth = LocaleKeys.months_sept;
+        orderMonth = LocaleKeys.months_sept.locale;
         break;
       case '10':
-        orderMonth = LocaleKeys.months_oct;
+        orderMonth = LocaleKeys.months_oct.locale;
         break;
       case '11':
-        orderMonth = LocaleKeys.months_nov;
+        orderMonth = LocaleKeys.months_nov.locale;
         break;
       case '12':
-        orderMonth = LocaleKeys.months_dec;
+        orderMonth = LocaleKeys.months_dec.locale;
         break;
       default:
         break;

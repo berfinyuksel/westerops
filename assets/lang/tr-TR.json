@@ -43,7 +43,7 @@
         },
         "forth": {
             "text_headline": "Gıda israfıyla mücadelede bizi yalnız bırakmadığın için teşekkürler!",
-            "text_forth": "Bu siparişinle gıda israfıyla mücadeleye\n katkı sağladığın için teşekkür ederiz!",
+            "text_forth": "Bu siparişinle gıda israfıyla mücadeleye  katkı sağladığın için teşekkür ederiz!",
             "button": "Başlayalım"
         }
     },
@@ -54,11 +54,11 @@
         "email": "E-posta",
         "password": "Şifre",
         "pop_up_text":{
-            "title": "Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.",
+            "title": "Bu e-posta adresine ait bir  hesabınızın olduğunu  farkettik.",
             "subtitle_1":"Hesabınıza",
             "subtitle_2":"giriş yapabilir",
-            "subtitle_3":"veya \nhatırlamıyorsanız",
-            "subtitle_4":"şifrenizi \nyenileyebilirsiniz"
+            "subtitle_3":"veya  hatırlamıyorsanız",
+            "subtitle_4":"şifrenizi  yenileyebilirsiniz"
         },
         "consent": {
             "text1": "Önemli kampanyalardan haberdar olmak için ",
@@ -68,7 +68,7 @@
         "contract": {
             "text1": "Üye olmakla ",
             "text2": "Kullanım Koşullarını",
-            "text3": " onaylamış olursunuz. Kişisel \nverilerinize dair ",
+            "text3": " onaylamış olursunuz. Kişisel  verilerinize dair ",
             "text4": "Aydınlatma Metni",
             "text5": " için tıklayınız."
         },
@@ -82,9 +82,9 @@
     "login": {
         "error_alert_dialog_text1": "Yeni iseniz",
         "error_alert_dialog_text2": "üye olabilir",
-        "error_alert_dialog_text3": "veya\nhatırlamıyorsanız",
-        "error_alert_dialog_text4": "şifrenizi\nyenileyebilirsiniz",
-        "password_error_alert_dialog" : "Şifrenizin veya telefon\nnumaranızın yanlış\nolduğunu farkettik.",
+        "error_alert_dialog_text3": "veya hatırlamıyorsanız",
+        "error_alert_dialog_text4": "şifrenizi yenileyebilirsiniz",
+        "password_error_alert_dialog" : "Şifrenizin veya telefon numaranızın yanlış olduğunu farkettik.",
         "login_success_alert_dialog_text" : "Hoş geldiniz",
         "text_login": "Giriş Yap",
         "text_login2": "Giriş Yapınız",
@@ -177,11 +177,11 @@
         "cancel_button": "İptal"
     },
     "past_order_detail": {
-        "no_restaurant_info" : "Üzgünüz.\nRestoran bilgileri bulunmuyor.",
+        "no_restaurant_info" : "Üzgünüz. Restoran bilgileri bulunmuyor.",
         "cancel_order_error" : "Siparişiniz belirlenen kurallar gereğince iptal edilememektedir",
         "unautherized_move" : "Giriş yapmalısınız",
         "cancelled_order_successfully" : "Siparişiniz başarıyla iptal edilmiştir",
-        "cancel_order_alert_dialog_text" : "Siparişi iptal etmek\nistediğinize emin misiniz?",
+        "cancel_order_alert_dialog_text" : "Siparişi iptal etmek istediğinize emin misiniz?",
         "cancel_order" : "Siparişi İptal Et",
         "title": "Geçmiş Siparişlerim",
         "body_title_1": "Restoran",
@@ -203,7 +203,7 @@
     "address": {
         "no_address" : "Henüz kayıtlı adresiniz bulunmamaktadır.",
         "address_approval" : "Eminim",
-        "delete_alert_dialog_text" : "Kayıtlı adresiniz silmek\nistediğinize emin misiniz?",
+        "delete_alert_dialog_text" : "Kayıtlı adresiniz silmek istediğinize emin misiniz?",
         "preparing" : "Hazırlanıyor",
         "address_name" : "Adres İsmi",
         "district" : "İlçe",
@@ -219,10 +219,10 @@
         "text_1":"Ev",
         "text_2":"İş Yerim",
         "text_3": "Beşiktaş (Kuruçeşme, Muallim Cad.)",
-        "text_4":"\njonh.doe@mail.com\nLorem Ipsum Dolor sit amet No:5 D:5\n+90 555 555 55 55\nSüpermarketin üstü\n"
+        "text_4":" jonh.doe@mail.com Lorem Ipsum Dolor sit amet No:5 D:5 +90 555 555 55 55 Süpermarketin üstü "
     },
     "registered_cards": {
-        "delete_alert_dialog_text" : "Kayıtlı kartınızı silmek\nistediğinize emin misiniz?",
+        "delete_alert_dialog_text" : "Kayıtlı kartınızı silmek istediğinize emin misiniz?",
         "title": "Kayıtlı Kartlarım",
         "button": "Yeni Kart Ekle"
     },
@@ -276,7 +276,7 @@
         "list_tile_title_9": "Tanımlı Paket Nedir?",
         "list_tile_title_10": "Yemeği nasıl teslim alabilirim?",
         "list_tile_title_11": "Bize Ulaşın",
-        "list_tile_subtitle_1": ".  Çok çeşitli ve lezzetli yiyeceklere harika fiyatlarla erişebilmek,\n.  Kaliteli yiyeceklere uygun fiyatlarla ulaşırken, gıda israfının önlemesine katkı sağlayabilmek, \n.  Toplumsal bir sorumluluk olan çevreyi koruma konusunda üzerine düşeni gerçekleştirebilmek istiyorsan, Döngü seni bekliyor."
+        "list_tile_subtitle_1": ".  Çok çeşitli ve lezzetli yiyeceklere harika fiyatlarla erişebilmek, .  Kaliteli yiyeceklere uygun fiyatlarla ulaşırken, gıda israfının önlemesine katkı sağlayabilmek,  .  Toplumsal bir sorumluluk olan çevreyi koruma konusunda üzerine düşeni gerçekleştirebilmek istiyorsan, Döngü seni bekliyor."
     },
     "change_location": {
         "no_serve_text" :"Şimdilik sadece İstanbul bölgesinde hizmet veriyoruz. Yakında diğer bölgelerde hizmet vermeye başlayacağız... 🙂",
@@ -315,12 +315,12 @@
         "show_list": "Liste Olarak Göster"
     },
     "cart": {
-        "box_delete_alert_dialog" : "Sepetinizdeki ürünü silmek\nistediğinize emin misiniz?",
+        "box_delete_alert_dialog" : "Sepetinizdeki ürünü silmek istediğinize emin misiniz?",
         "title": "Sepetim",
         "button_empty": "Restoranları Gör",
         "button": "Devam Et",
         "empty_cart": "Upps! Sepetin boş.",
-        "choose_restaurant": "Haydi!\nSana yakın restoran ve kafelerden birini seç.",
+        "choose_restaurant": "Haydi! Sana yakın restoran ve kafelerden birini seç.",
         "not_logged_in": "Upps! Sepete ürün eklemek için oturum açmalısın."
     },
     "payment": {
@@ -347,7 +347,7 @@
             "delivery_time": "Teslim Saat Aralığı",
             "delivery_available_time": "Restoran teslimat saatleri uygun değildir.",
             "text": "Bugün - ",
-            "warning_text": "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
+            "warning_text": "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana göstererek\nyapınız.",
             "courier":"Kurye uygun değildir"
         },
         "payment": {
@@ -366,9 +366,9 @@
             "name_on_card": "Kart Üzerindeki İsim",
             "card_number": "Kart Numarası",
             "add_to_registered_cards": "Kayıtlı Kartlarıma Ekle",
-            "warning_container":"Ödeme şekliniz sipariş teslimatı\nesnasında kapıda değiştirilemez.",
-            "warning_container_2": "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
-            "pay_with_another_card": "Ödeme sistemimiz iyzico tarafından \nsağlanmaktadır ve işlem güvenliğiniz\nIyzico güvencesi altındadır.",
+            "warning_container":"Ödeme şekliniz sipariş teslimatı esnasında kapıda değiştirilemez.",
+            "warning_container_2": "Ödemenizi size iletmiş olduğumuz sipariş numarasını restorana göstererek yapınız.",
+            "pay_with_another_card": "Ödeme sistemimiz iyzico tarafından\nsağlanmaktadır ve işlem güvenliğiniz\nIyzico güvencesi altındadır.",
             "card_info_month": "Ay",
             "card_info_year": "Yıl",
             "checkbox_agreement_text1" : "Ön Bilgilendirme Koşulları",
@@ -398,8 +398,8 @@
         "button_2": "Ana Sayfa"
     },
     "order_delivered": {
-        "headline_text": "Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",
-        "body_text": "Gezegenimizi korumak çıktığımız bu yolda\nbizi yalnız bırakmadığın için teşekkürler!\nŞimdi sıra siparişini puanlamada!",
+        "headline_text": "Dünyayı korumamıza yardımcı olduğun için teşekkürler!",
+        "body_text": "Gezegenimizi korumak çıktığımız bu yolda bizi yalnız bırakmadığın için teşekkürler! Şimdi sıra siparişini puanlamada!",
         "button": "Değerlendir"
     },
     "delete_account": {
@@ -437,7 +437,7 @@
         "button_accept": "Kabul Et",
         "alert_button1": "Hayır",
         "alert_button2": "Evet",
-        "alert_text": "Paketini İptal Etmek istediğine\nemin misin?",
+        "alert_text": "Paketini İptal Etmek istediğine emin misin?",
         "cancel_descrption" : "Siparişi iptal etme nedenini yazınız."
 
     },
@@ -446,10 +446,10 @@
         "button_buy": "Satın Al",
         "button_send": "Gönder",
         "pack_canceled": "Tanımlanmış Paketin İptal Edildi.",
-        "warning_container": "Sürpriz Paketin iptal edildi.\nŞimdi tekrar satışta. Fikrini değiştirirsen\nacele etmelisin."
+        "warning_container": "Sürpriz Paketin iptal edildi. Şimdi tekrar satışta. Fikrini değiştirirsen acele etmelisin."
     },
     "address_from_map": {
-        "alert_dialog_text" :"Adresiniz haritada işaretlenen konuma göre\nkaydedilecektir. Konum işaretinin doğru\nolduğuna emin misiniz?",
+        "alert_dialog_text" :"Adresiniz haritada işaretlenen konuma göre kaydedilecektir. Konum işaretinin doğru olduğuna emin misiniz?",
         "title": "Yeni Adres Ekle",
         "hint_text": "Mahalle, cadde, sokak ara",
         "button": "Bu Adresi Kullan"
@@ -560,7 +560,7 @@
         "button_text2":"Sepetimde",
         "sub_title2": "Tanımlı Paketler",
         "sub_text4": "Vegan 4 Paket",
-        "sub_text5": "Brokoli Salatası, Vegan Sos \nSoya Soslu Fasulye",
+        "sub_text5": "Brokoli Salatası, Vegan Sos Soya Soslu Fasulye",
         "detail_tab": {
             "title1": "Teslim Saatleri",
             "title2": "Paket Teslimi",
@@ -603,7 +603,7 @@
         },
         "food_categories":{
             "title":"Gıda Kategorileri",
-            "text":"Üzgünüz.\nBu restoran için henüz bir kategori bulunmamaktadır."
+            "text":"Üzgünüz. Bu restoran için henüz bir kategori bulunmamaktadır."
         },
         "show_dialog":{
             "text":"Giriş Yapmalısınız",
@@ -625,7 +625,7 @@
         }
     },
     "restaurant_food_categories": {
-        "no_category_text" :"Üzgünüz.\nBu kategori için bulunduğunuz bölgede henüz bir işletme bulunmamaktadır.",
+        "no_category_text" :"Üzgünüz. Bu kategori için bulunduğunuz bölgede henüz bir işletme bulunmamaktadır.",
         "text1": "Açık büfe yemek gıda güvenliği",
         "text2": "Ek Öneriler",
         "text3": "Bu öğe açık büfeden yiyecek içeriyor",
@@ -643,24 +643,24 @@
         "my_orders": {
             "title": "🛒 Siparişlerim",
             "courierItsWay": "Siparişin sana ulaşmak üzere yola çıktı. 🛵💨",
-            "forgetRate": "Siparişin sana ulaştı. Puanlamayı unutma.\n ⭐️⭐️⭐️⭐️⭐️"
+            "forgetRate": "Siparişin sana ulaştı. Puanlamayı unutma.  ⭐️⭐️⭐️⭐️⭐️"
         },
         "all_list": {
             "title1": "🔔 Sürpriz Paket Alarmı",
             "title2": "🛒 Siparişlerim",
             "title3": "🎉 Bana Özel Fırsatlar",
-            "lastThirtyMins": "Satın aldığın sürpriz paketin açılmasına son\nyarım saat kaldı! 🥳🎉✨",
-            "lastThirtyMinsApprove": "Satın aldığın paket açıldı 30 dk içerisinde\nonaylamalısın!",
-            "firstBuyer": "Favorilediğin Restoranın yeni paket ekledi.\nİlk satın alana sen ol! 🥇",
+            "lastThirtyMins": "Satın aldığın sürpriz paketin açılmasına son yarım saat kaldı! 🥳🎉✨",
+            "lastThirtyMinsApprove": "Satın aldığın paket açıldı 30 dk içerisinde onaylamalısın!",
+            "firstBuyer": "Favorilediğin Restoranın yeni paket ekledi. İlk satın alana sen ol! 🥇",
             "courierItsWay": "Siparişin sana ulaşmak üzere yola çıktı. 🛵💨",
-            "forgetRate": "Siparişin sana ulaştı. Puanlamayı unutma.\n ⭐️⭐️⭐️⭐️⭐️"
+            "forgetRate": "Siparişin sana ulaştı. Puanlamayı unutma.  ⭐️⭐️⭐️⭐️⭐️"
         },
         "special_for_me": {
             "title": "🎉 Bana Özel Fırsatlar",
-            "discountFifty": "Favorilediğin Restoran paketlerini tam\n%50 indirimle satışa çıkardı!",
-            "discountSeventy": "Favorilediğin Restoran paketlerini tam\n%70 indirimle satışa çıkardı!",
-            "pawsAnimals": "Bugün satın aldığın paketlerin geliri\npatili dostlarımıza ulaşıyor.",
-            "favorite": "Favori Restoranının bugün 10 paketi var.\nAcele et bu Döngü’ye sen de ortak ol!"
+            "discountFifty": "Favorilediğin Restoran paketlerini tam %50 indirimle satışa çıkardı!",
+            "discountSeventy": "Favorilediğin Restoran paketlerini tam %70 indirimle satışa çıkardı!",
+            "pawsAnimals": "Bugün satın aldığın paketlerin geliri patili dostlarımıza ulaşıyor.",
+            "favorite": "Favori Restoranının bugün 10 paketi var. Acele et bu Döngü’ye sen de ortak ol!"
         }
     },
     "swipe":{
@@ -691,8 +691,8 @@
         "order_number":"Sipariş Numarası:",
         "restaurant_name":"Restoran Adı",
         "restaurant_address":"Restoran Adresi",
-        "headline_text": "Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",
-        "body_text": "Gezegenimizi korumak çıktığımız bu yolda\nbizi yalnız bırakmadığın için teşekkürler!\nŞimdi sıra siparişini puanlamada!",
+        "headline_text": "Dünyayı korumamıza yardımcı olduğun için teşekkürler!",
+        "body_text": "Gezegenimizi korumak çıktığımız bu yolda bizi yalnız bırakmadığın için teşekkürler! Şimdi sıra siparişini puanlamada!",
         "button": "Değerlendir"
 
     }

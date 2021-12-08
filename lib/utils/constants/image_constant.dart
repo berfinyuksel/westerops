@@ -73,6 +73,8 @@ class ImageConstant {
       "assets/images/food_waste/expanded/food_waste_image_7.svg";
   static const PAST_ORDER_DETAIL_ICON =
       "assets/images/past_order/past_order_detail_icon.svg";
+  static const PAST_ORDER_DETAIL_ICON_ARROW =
+      "assets/images/past_order/swipe_mini_icon.svg";
   static const PAST_ORDER_DIALOG_ICON =
       "assets/images/past_order/dongu-logo.svg";
   static const PAST_ORDER_DETAIL_STAR_ICON =

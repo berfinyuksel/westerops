@@ -58,7 +58,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
                 padding: EdgeInsets.symmetric(
                     horizontal: context.dynamicWidht(0.05)),
                 child: Text(
-                  LocaleKeys.change_location_no_serve_text,
+                  LocaleKeys.change_location_no_serve_text.locale,
                   style: AppTextStyles.subTitleBoldStyle
                       .copyWith(fontSize: 15, color: AppColors.textColor),
                 )),

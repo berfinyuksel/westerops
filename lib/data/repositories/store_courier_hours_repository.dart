@@ -56,6 +56,10 @@ class SampleStoreCourierHoursRepository implements StoreCourierHoursRepository {
       List<StoreCourierHours> storeCourierHoursList = [];
 
       return storeCourierHoursList;
+    } else if (response.statusCode == 404) {
+      List<StoreCourierHours> storeCourierHoursList = [];
+
+      return storeCourierHoursList;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }

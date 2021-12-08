@@ -334,7 +334,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               ),
               subtitle: LocaleText(
                 text:
-                    LocaleKeys.swipe_restaurant_name + widget.restaurant!.name!,
+                    "${LocaleKeys.swipe_restaurant_name.locale}: ${widget.restaurant!.name!}",
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -1040,14 +1040,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       return state.response.length != 0
           ? Container(
               alignment: Alignment(0.0, -0.11),
-              width: context.dynamicWidht(0.19),
+              width: context.dynamicWidht(0.21),
               height: context.dynamicHeight(0.04),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
                 color: AppColors.orangeColor,
               ),
               child: Text(
-                "${state.response.length} ${LocaleKeys.restaurant_detail_packet_container_package}",
+                "${state.response.length} ${LocaleKeys.restaurant_detail_packet_container_package.locale}",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(color: Colors.white),
                 textAlign: TextAlign.center,

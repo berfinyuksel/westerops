@@ -39,23 +39,25 @@ class _AddressTextState extends State<AddressText> {
         return SizedBox(height: 0, width: 0);
       } else if (stateOfAddress is GenericCompleted) {
         return stateOfAddress.response.isNotEmpty
-            ? Text.rich(
-                TextSpan(
-                  style: AppTextStyles.bodyTextStyle,
-                  children: [
-                    TextSpan(
-                      text: stateOfAddress.response[0].name + " :",
-                      style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w600,
+            ? Container(
+                child: Text.rich(
+                  TextSpan(
+                    style: AppTextStyles.bodyTextStyle,
+                    children: [
+                      TextSpan(
+                        text: stateOfAddress.response[0].name + " :",
+                        style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    TextSpan(
-                      text: " " + stateOfAddress.response[0].address,
-                      style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w300,
+                      TextSpan(
+                        text: " " + stateOfAddress.response[0].address,
+                        style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )
             : GestureDetector(

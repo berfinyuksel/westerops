@@ -240,8 +240,7 @@ class _MyNearViewState extends State<MyNearView> {
               .toList();
           if (currentDate[0] == startDate[0]) {
             if (getrestaurants[j].calendar![i].boxCount != 0) {
-              return "${boxcount.toString()} " +
-                  LocaleKeys.home_page_packet_number;
+              return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
             } else if (getrestaurants[j].calendar![i].boxCount == null ||
                 getrestaurants[j].calendar![i].boxCount == 0) {
               return LocaleKeys.home_page_soldout_icon;
@@ -283,7 +282,8 @@ class _MyNearViewState extends State<MyNearView> {
                 .toString(),
             packetNumber: packettNumber(getrestaurants) ??
                 LocaleKeys.home_page_soldout_icon,
-            availableTime: '2',
+            availableTime:
+                '${getrestaurants[restaurantIndexOnMap].packageSettings?.deliveryTimeStart}-${getrestaurants[restaurantIndexOnMap].packageSettings?.deliveryTimeEnd}',
             minDiscountedOrderPrice: getrestaurants[restaurantIndexOnMap]
                 .packageSettings
                 ?.minDiscountedOrderPrice,
@@ -315,7 +315,10 @@ class _MyNearViewState extends State<MyNearView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildRowTitleLeftRight(
-              context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit),
+              context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit,
+              () {
+            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+          }),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -335,7 +338,14 @@ class _MyNearViewState extends State<MyNearView> {
               LocaleKeys.my_near_body_title,
               isShowOnMap
                   ? LocaleKeys.my_near_show_list
-                  : LocaleKeys.my_near_show_map),
+                  : LocaleKeys.my_near_show_map, () {
+            setState(() {
+              isShowOnMap = !isShowOnMap;
+              isShowOnList = !isShowOnList;
+              _mapController = Completer<GoogleMapController>();
+              setCustomMarker();
+            });
+          }),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -375,8 +385,7 @@ class _MyNearViewState extends State<MyNearView> {
 
                     if (currentDate[0] == startDate[0]) {
                       if (getrestaurants[index].calendar![i].boxCount != 0) {
-                        return "${boxcount.toString()} " +
-                            LocaleKeys.home_page_packet_number;
+                        return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
                       } else if (getrestaurants[index].calendar![i].boxCount ==
                               null ||
                           getrestaurants[index].calendar![i].boxCount == 0) {
@@ -425,8 +434,8 @@ class _MyNearViewState extends State<MyNearView> {
         });
   }
 
-  Row buildRowTitleLeftRight(
-      BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRight(BuildContext context, String titleLeft,
+      String titleRight, VoidCallback onPressed) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -436,14 +445,7 @@ class _MyNearViewState extends State<MyNearView> {
           style: AppTextStyles.bodyTitleStyle,
         ),
         GestureDetector(
-          onTap: () {
-            setState(() {
-              isShowOnMap = !isShowOnMap;
-              isShowOnList = !isShowOnList;
-              _mapController = Completer<GoogleMapController>();
-              setCustomMarker();
-            });
-          },
+          onTap: onPressed,
           child: LocaleText(
             text: titleRight,
             style: GoogleFonts.montserrat(
@@ -560,7 +562,8 @@ class _MyNearViewState extends State<MyNearView> {
             isShowBottomInfo = false;
           });
         },
-        infoWindow: InfoWindow(title: LocaleKeys.general_settings_my_location),
+        infoWindow:
+            InfoWindow(title: LocaleKeys.general_settings_my_location.locale),
         icon: markerIcon,
         markerId: markerId,
         position: LatLng(mylatitude, mylongitude),

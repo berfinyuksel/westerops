@@ -26,31 +26,29 @@ class AddressAndDateListTile extends StatefulWidget {
 class _AddressAndDateListTileState extends State<AddressAndDateListTile> {
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-      ),
-      trailing: GestureDetector(
-        onTap: () {
-          Navigator.of(context).pushNamed(RouteConstant.SWIPE_VIEW,
-              arguments: ScreenArgumentsRestaurantDetail(
-                orderInfo: widget.orderInfo,
-              ));
-        },
-        child: SvgPicture.asset(
-          ImageConstant.PAST_ORDER_DETAIL_ICON,
-          color: Colors.red,
-          cacheColorFilter: false,
+    return Container(
+      height: context.dynamicHeight(0.09),
+      child: ListTile(
+        contentPadding: EdgeInsets.only(
+          left: context.dynamicWidht(0.06),
+        ),
+        trailing: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(RouteConstant.SWIPE_VIEW,
+                arguments: ScreenArgumentsRestaurantDetail(
+                  orderInfo: widget.orderInfo,
+                ));
+          },
+          child: SvgPicture.asset(ImageConstant.PAST_ORDER_DETAIL_ICON_ARROW,
+              fit: BoxFit.fitWidth),
+        ),
+        tileColor: Colors.white,
+        title: AddressText(),
+        subtitle: Text(
+          widget.date!,
+          style: AppTextStyles.subTitleStyle,
         ),
       ),
-      tileColor: Colors.white,
-      title: AddressText(),
-      subtitle: Text(
-        widget.date!,
-        style: AppTextStyles.subTitleStyle,
-      ),
-      onTap: () {},
     );
   }
 }

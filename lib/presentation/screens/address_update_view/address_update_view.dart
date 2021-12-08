@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -72,22 +73,26 @@ class _AddressUpdateViewState extends State<AddressUpdateView> {
                   buildTextFormField(
                       addressList!.tcknVkn!, "VKN/TCKN", tcController),
                   Spacer(flex: 10),
-                  buildTextFormField(addressList!.name!,
-                      LocaleKeys.address_address_name, addressNameController),
+                  buildTextFormField(
+                      addressList!.name!,
+                      LocaleKeys.address_address_name.locale,
+                      addressNameController),
                   Spacer(flex: 10),
                   buildTextFormField(addressList!.province!,
-                      LocaleKeys.address_district, districtController),
+                      LocaleKeys.address_district.locale, districtController),
                   Spacer(flex: 10),
                   buildTextFormField(addressList!.address!,
-                      LocaleKeys.address_addresss, addressController),
+                      LocaleKeys.address_addresss.locale, addressController),
                   Spacer(flex: 10),
                   buildTextFormField(
                       addressList!.description!,
-                      LocaleKeys.address_address_description,
+                      LocaleKeys.address_address_description.locale,
                       descriptionController),
                   Spacer(flex: 10),
-                  buildTextFormField(addressList!.phoneNumber!,
-                      LocaleKeys.address_phone_number, phoneNumberController),
+                  buildTextFormField(
+                      addressList!.phoneNumber!,
+                      LocaleKeys.address_phone_number.locale,
+                      phoneNumberController),
                   Spacer(
                     flex: 33,
                   ),
@@ -144,7 +149,7 @@ class _AddressUpdateViewState extends State<AddressUpdateView> {
               top: context.dynamicHeight(0.01),
             ),
             child: LocaleText(
-              text: LocaleKeys.address_address_type,
+              text: LocaleKeys.address_address_type.locale,
               style: AppTextStyles.subTitleStyle,
             ),
           ),
@@ -169,8 +174,8 @@ class _AddressUpdateViewState extends State<AddressUpdateView> {
                   value: value,
                   child: AutoSizeText(
                     value == 1
-                        ? LocaleKeys.address_addresss
-                        : LocaleKeys.address_billing_address,
+                        ? LocaleKeys.address_addresss.locale
+                        : LocaleKeys.address_billing_address.locale,
                     style: AppTextStyles.myInformationBodyTextStyle,
                     maxLines: 1,
                   ),

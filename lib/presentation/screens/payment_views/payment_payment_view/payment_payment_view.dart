@@ -28,30 +28,30 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   String? yearValue;
 
   List<String> months = <String>[
-    '01',
-    '02',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    '12'
+    '  01',
+    '  02',
+    '  03',
+    '  04',
+    '  05',
+    '  06',
+    '  07',
+    '  08',
+    '  09',
+    '  10',
+    '  11',
+    '  12'
   ];
   List<String> years = <String>[
-    '2021',
-    '2022',
-    '2023',
-    '2024',
-    '2025',
-    '2026',
-    '2027',
-    '2028',
-    '2029',
-    '2030'
+    '  2021',
+    '  2022',
+    '  2023',
+    '  2024',
+    '  2025',
+    '  2026',
+    '  2027',
+    '  2028',
+    '  2029',
+    '  2030'
   ];
 
   bool checkboxAddCardValue = false;
@@ -273,7 +273,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   Container buildMonthDropDown(BuildContext context, List<String> items) {
     return Container(
       height: context.dynamicHeight(0.06),
-      width: context.dynamicWidht(0.22),
+      width: context.dynamicWidht(0.28),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
@@ -284,10 +284,11 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         ),
       ),
       child: DropdownButton<String>(
+        underline: SizedBox(),
         hint: Padding(
-          padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
+          padding: const EdgeInsets.fromLTRB(15, 0, 13, 0),
           child: LocaleText(
-            text: LocaleKeys.payment_payment_card_info_year,
+            text: LocaleKeys.payment_payment_card_info_month,
           ),
         ),
         value: monthValue,
@@ -309,7 +310,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   Container buildYearDropDown(BuildContext context, List<String> items) {
     return Container(
       height: context.dynamicHeight(0.06),
-      width: context.dynamicWidht(0.22),
+      width: context.dynamicWidht(0.26),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
@@ -320,8 +321,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         ),
       ),
       child: DropdownButton<String>(
+        underline: SizedBox(),
         hint: Padding(
-          padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
+          padding: const EdgeInsets.fromLTRB(19, 0, 15, 0),
           child: LocaleText(
             text: LocaleKeys.payment_payment_card_info_year,
           ),

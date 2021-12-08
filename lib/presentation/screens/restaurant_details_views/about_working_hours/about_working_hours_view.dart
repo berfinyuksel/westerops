@@ -1,7 +1,7 @@
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../data/model/search_store.dart';
 import '../../../../logic/cubits/time_interval_cubit/time_interval_cubit.dart';
 import '../../../../utils/extensions/context_extension.dart';
@@ -28,7 +28,7 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Çalışma Saatleri",
+      title: LocaleKeys.restaurant_detail_working_hours_title,
       body: Padding(
         padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
         child: Column(
@@ -47,10 +47,9 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
         shrinkWrap: true,
         itemCount: widget.restaurant!.calendar!.length,
         itemBuilder: (context, index) {
-          print('aaaaaaaaaaa');
-
           DateTime startOfRes =
-              DateTime.parse(widget.restaurant!.calendar![index].startDate!);
+              DateTime.parse(widget.restaurant!.calendar![index].startDate!)
+                  .toLocal();
           print(startOfRes);
 
           DateTime endOfRes =
@@ -84,7 +83,7 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
                     height: context.dynamicHeight(0.03),
                   ),
                   LocaleText(
-                    text: buildHourForTheDate(startOfRes, startOfRes),
+                    text: buildHourForTheDate(startOfRes, endOfRes),
                     style: AppTextStyles.bodyTextStyle
                         .copyWith(fontWeight: FontWeight.bold),
                     alignment: TextAlign.start,
@@ -107,29 +106,29 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
   String buildStringOfMonth(int monthOfDate) {
     switch (monthOfDate) {
       case 1:
-        return LocaleKeys.restaurant_detail_working_hours_month1;
+        return LocaleKeys.restaurant_detail_working_hours_month1.locale;
       case 2:
-        return LocaleKeys.restaurant_detail_working_hours_month2;
+        return LocaleKeys.restaurant_detail_working_hours_month2.locale;
       case 3:
-        return LocaleKeys.restaurant_detail_working_hours_month3;
+        return LocaleKeys.restaurant_detail_working_hours_month3.locale;
       case 4:
-        return LocaleKeys.restaurant_detail_working_hours_month4;
+        return LocaleKeys.restaurant_detail_working_hours_month4.locale;
       case 5:
-        return LocaleKeys.restaurant_detail_working_hours_month5;
+        return LocaleKeys.restaurant_detail_working_hours_month5.locale;
       case 6:
-        return LocaleKeys.restaurant_detail_working_hours_month6;
+        return LocaleKeys.restaurant_detail_working_hours_month6.locale;
       case 7:
-        return LocaleKeys.restaurant_detail_working_hours_month7;
+        return LocaleKeys.restaurant_detail_working_hours_month7.locale;
       case 8:
-        return LocaleKeys.restaurant_detail_working_hours_month8;
+        return LocaleKeys.restaurant_detail_working_hours_month8.locale;
       case 9:
-        return LocaleKeys.restaurant_detail_working_hours_month9;
+        return LocaleKeys.restaurant_detail_working_hours_month9.locale;
       case 10:
-        return LocaleKeys.restaurant_detail_working_hours_month10;
+        return LocaleKeys.restaurant_detail_working_hours_month10.locale;
       case 11:
-        return LocaleKeys.restaurant_detail_working_hours_month11;
+        return LocaleKeys.restaurant_detail_working_hours_month11.locale;
       case 12:
-        return LocaleKeys.restaurant_detail_working_hours_month12;
+        return LocaleKeys.restaurant_detail_working_hours_month12.locale;
       default:
         return '';
     }
@@ -140,19 +139,19 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
 
     switch (weekdayOfTheDate) {
       case 1:
-        return LocaleKeys.restaurant_detail_working_hours_day1;
+        return LocaleKeys.restaurant_detail_working_hours_day1.locale;
       case 2:
-        return LocaleKeys.restaurant_detail_working_hours_day2;
+        return LocaleKeys.restaurant_detail_working_hours_day2.locale;
       case 3:
-        return LocaleKeys.restaurant_detail_working_hours_day3;
+        return LocaleKeys.restaurant_detail_working_hours_day3.locale;
       case 4:
-        return LocaleKeys.restaurant_detail_working_hours_day4;
+        return LocaleKeys.restaurant_detail_working_hours_day4.locale;
       case 5:
-        return LocaleKeys.restaurant_detail_working_hours_day5;
+        return LocaleKeys.restaurant_detail_working_hours_day5.locale;
       case 6:
-        return LocaleKeys.restaurant_detail_working_hours_day6;
+        return LocaleKeys.restaurant_detail_working_hours_day6.locale;
       case 7:
-        return LocaleKeys.restaurant_detail_working_hours_day7;
+        return LocaleKeys.restaurant_detail_working_hours_day7.locale;
       default:
         return '';
     }

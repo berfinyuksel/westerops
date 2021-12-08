@@ -469,8 +469,9 @@ class _PaymentViewsState extends State<PaymentViews>
                         ? AppColors.greenColor
                         : AppColors.textColor))
             : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  SizedBox(width: 5),
                   SvgPicture.asset(
                     ImageConstant.PACKAGE_DELIVERY_ICON,
                     color: !state.isGetIt!
@@ -479,7 +480,7 @@ class _PaymentViewsState extends State<PaymentViews>
                     height: 28,
                     fit: BoxFit.fill,
                   ),
-                  Spacer(),
+                  SizedBox(width: 10),
                   Padding(
                     padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
                     child: LocaleText(

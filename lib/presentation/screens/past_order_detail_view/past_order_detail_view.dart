@@ -58,10 +58,10 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
 
   ListView buildBody(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.only(
-        top: context.dynamicHeight(0.02),
-      ),
       children: [
+        SizedBox(
+          height: context.dynamicHeight(0.01),
+        ),
         AddressAndDateListTile(
           orderInfo: widget.orderInfo,
           date:
