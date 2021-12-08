@@ -253,10 +253,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ),
             subtitle: LocaleText(
               text: widget.restaurant!.packageSettings!.deliveryType == "3"
-                  ? "Gel Al Paket - Kapıda Paket"
+                  ? LocaleKeys.restaurant_detail_sub_title1
                   : widget.restaurant!.packageSettings!.deliveryType == "1"
-                      ? "Gel Al Paket"
-                      : "Kapıda Paket",
+                      ? LocaleKeys.restaurant_detail_detail_tab_sub_title6
+                      : LocaleKeys.restaurant_detail_detail_tab_sub_title7,
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -333,7 +333,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 style: AppTextStyles.subTitleStyle,
               ),
               subtitle: LocaleText(
-                text: "İşletme Adı " + widget.restaurant!.name!,
+                text:
+                    LocaleKeys.swipe_restaurant_name + widget.restaurant!.name!,
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -470,7 +471,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         Visibility(
             visible: surpriseBoxes.isEmpty,
             child: Center(
-              child: Text('Surpriz paket bulunmamaktadir'),
+              child: LocaleText(
+                text: LocaleKeys.restaurant_detail_detail_tab_sub_title8,
+              ),
             )),
         ListView.builder(
           itemCount: surpriseBoxes
@@ -508,7 +511,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         Visibility(
             visible: definedBoxess.isEmpty,
             child: Center(
-              child: Text('Tanimli paket bulunmamaktadir'),
+              child: LocaleText(
+                text: LocaleKeys.restaurant_detail_detail_tab_sub_title9,
+              ),
             )),
         ListView.builder(
           itemCount: definedBoxess.length,
@@ -604,7 +609,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   ),
                   LocaleText(
                     text: surpriseBoxes[index].defined == false
-                        ? 'Paketin Tanimlanmasina Kalan Sure : 0'
+                        ? LocaleKeys.restaurant_detail_detail_tab_sub_title10
                         : mealNames,
                     style: AppTextStyles.subTitleStyle,
                   ),
@@ -706,7 +711,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       final addressState = context.watch<AddressCubit>().state;
                       return CustomButton(
                         title: menuList!.contains(menuItem.toString())
-                            ? "Sepetimde"
+                            ? LocaleKeys.restaurant_detail_button_text2
                             : LocaleKeys.restaurant_detail_button_text,
                         color: menuList!.contains(menuItem.toString())
                             ? Colors.transparent
@@ -746,9 +751,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       showDialog(
         context: context,
         builder: (_) => CustomAlertDialog(
-            textMessage: 'Giriş yapmalısınız',
-            buttonOneTitle: 'Giriş yap',
-            buttonTwoTittle: 'Kayıt ol',
+            textMessage: LocaleKeys.restaurant_detail_show_dialog_text,
+            buttonOneTitle: LocaleKeys.restaurant_detail_show_dialog_button1,
+            buttonTwoTittle: LocaleKeys.restaurant_detail_show_dialog_button2,
             imagePath: ImageConstant.SURPRISE_PACK,
             onPressedOne: () {
               Navigator.of(context).pushNamed(RouteConstant.LOGIN_VIEW);
@@ -782,7 +787,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 ),
                 SizedBox(height: 10),
                 LocaleText(
-                  text: "Siparisi Gondermek Istediginiz Adresi Seciniz",
+                  text: LocaleKeys.restaurant_detail_alert_dialog_text_1,
                   style: AppTextStyles.bodyBoldTextStyle,
                   alignment: TextAlign.center,
                 ),
@@ -797,7 +802,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   color: AppColors.greenColor,
                   textColor: Colors.white,
                   borderColor: AppColors.greenColor,
-                  title: "Tamam",
+                  title: LocaleKeys.restaurant_detail_alert_dialog_text_2,
                 ),
                 Spacer(
                   flex: 20,
@@ -859,9 +864,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     Navigator.pop(context);
                   },
                   imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                  textMessage: 'Farklı restoranın ürününü seçtiniz',
-                  buttonOneTitle: "Alışverişe devam et",
-                  buttonTwoTittle: "Sepeti boşalt"));
+                  textMessage: LocaleKeys
+                      .restaurant_detail_diffrent_restaurant_show_dialog_text_1,
+                  buttonOneTitle: LocaleKeys
+                      .restaurant_detail_diffrent_restaurant_show_dialog_button1,
+                  buttonTwoTittle: LocaleKeys
+                      .restaurant_detail_diffrent_restaurant_show_dialog_button2));
           print("Errorrr");
       }
     }
@@ -1039,7 +1047,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 color: AppColors.orangeColor,
               ),
               child: Text(
-                "${state.response.length} paket",
+                "${state.response.length} ${LocaleKeys.restaurant_detail_packet_container_package}",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(color: Colors.white),
                 textAlign: TextAlign.center,
@@ -1053,11 +1061,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 borderRadius: BorderRadius.circular(8.0),
                 color: AppColors.yellowColor,
               ),
-              child: Text(
-                "tükendi",
+              child: LocaleText(
+                text: LocaleKeys.restaurant_detail_packet_container_sold_out,
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(color: Colors.white),
-                textAlign: TextAlign.center,
               ),
             );
     } else
@@ -1276,16 +1283,16 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                           ? AppColors.orangeColor
                           : AppColors.unSelectedpackageDeliveryColor,
                     ),
-                  )
-                ]);
-                } else {
-                  final error = stateOfFavorites as GenericError;
-                  return Center(
-                      child: Text("${error.message}\n${error.statusCode}"));
-                }
-              })
-            ,
-      ],
+                  ),
+                ],
+              );
+            } else {
+              final error = stateOfFavorites as GenericError;
+              return Center(
+                  child: Text("${error.message}\n${error.statusCode}"));
+            }
+          })
+        ],
       ),
     );
   }

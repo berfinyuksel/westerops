@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -43,8 +44,8 @@ class PastOrderListTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(4.0),
                   color: AppColors.scaffoldBackgroundColor,
                 ),
-                child: Text(
-                  'Iptal',
+                child: LocaleText(
+                  text: LocaleKeys.past_order_cancel_button,
                   style: AppTextStyles.bodyBoldTextStyle
                       .copyWith(color: AppColors.redColor),
                 ),

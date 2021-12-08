@@ -53,6 +53,13 @@
         "full_name": "İsim Soyisim",
         "email": "E-posta",
         "password": "Şifre",
+        "pop_up_text":{
+            "title": "Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.",
+            "subtitle_1":"Hesabınıza",
+            "subtitle_2":"giriş yapabilir",
+            "subtitle_3":"veya \nhatırlamıyorsanız",
+            "subtitle_4":"şifrenizi \nyenileyebilirsiniz"
+        },
         "consent": {
             "text1": "Önemli kampanyalardan haberdar olmak için ",
             "text2": "Rıza Metni",
@@ -64,6 +71,11 @@
             "text3": " onaylamış olursunuz. Kişisel \nverilerinize dair ",
             "text4": "Aydınlatma Metni",
             "text5": " için tıklayınız."
+        },
+        "password_rules":{
+            "number":"1 rakam",
+            "letter":"1 büyük harf",
+            "character":"8 karakter"
         },
         "social_auth": "Devam et"
     },
@@ -161,7 +173,8 @@
         "popup_text_successful": "Şifre başarılı bir şekilde değiştirildi."
     },
     "past_order": {
-        "title": "Geçmiş Siparişlerim"
+        "title": "Geçmiş Siparişlerim",
+        "cancel_button": "İptal"
     },
     "past_order_detail": {
         "no_restaurant_info" : "Üzgünüz.\nRestoran bilgileri bulunmuyor.",
@@ -326,10 +339,16 @@
             "billing_info": "Fatura Bilgileri",
             "button_add_address": "Yeni Teslimat Adresi Ekle",
             "button_add_bill": "Yeni Fatura Adresi Ekle",
-            "use_as_billing": "Fatura adresi olarakta kullan"
+            "use_as_billing": "Fatura adresi olarakta kullan",
+            "restaurant_address":"Restoran adresi bulunamadı",
+            "active_address": "Aktif adres belirleyiniz"
         },
         "delivery": {
-            "delivery_time": "Teslim Saat Aralığı"
+            "delivery_time": "Teslim Saat Aralığı",
+            "delivery_available_time": "Restoran teslimat saatleri uygun değildir.",
+            "text": "Bugün - ",
+            "warning_text": "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
+            "courier":"Kurye uygun değildir"
         },
         "payment": {
             "year_text" : "Yıl",
@@ -346,7 +365,17 @@
             "credit": "Kredi",
             "name_on_card": "Kart Üzerindeki İsim",
             "card_number": "Kart Numarası",
-            "add_to_registered_cards": "Kayıtlı Kartlarıma Ekle"
+            "add_to_registered_cards": "Kayıtlı Kartlarıma Ekle",
+            "warning_container":"Ödeme şekliniz sipariş teslimatı\nesnasında kapıda değiştirilemez.",
+            "warning_container_2": "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız.",
+            "pay_with_another_card": "Ödeme sistemimiz iyzico tarafından \nsağlanmaktadır ve işlem güvenliğiniz\nIyzico güvencesi altındadır.",
+            "card_info_month": "Ay",
+            "card_info_year": "Yıl",
+            "checkbox_agreement_text1" : "Ön Bilgilendirme Koşulları",
+            "checkbox_agreement_text2" : "’nı okudum, onaylıyorum.",
+            "checkbox_agreement_text3" : "Mesafeli Satış Sözleşmesi",
+            "checkbox_agreement_text4" : "'ni okudum, onaylıyorum.",
+            "online_payment": "Online Ödeme"
         }
     },
     "order_received": {
@@ -416,7 +445,8 @@
         "canceled_your_pack": "Tanımlanmış Paketini İptal Ettin!",
         "button_buy": "Satın Al",
         "button_send": "Gönder",
-        "pack_canceled": "Tanımlanmış Paketin İptal Edildi."
+        "pack_canceled": "Tanımlanmış Paketin İptal Edildi.",
+        "warning_container": "Sürpriz Paketin iptal edildi.\nŞimdi tekrar satışta. Fikrini değiştirirsen\nacele etmelisin."
     },
     "address_from_map": {
         "alert_dialog_text" :"Adresiniz haritada işaretlenen konuma göre\nkaydedilecektir. Konum işaretinin doğru\nolduğuna emin misiniz?",
@@ -511,6 +541,7 @@
         "search_history_clean": "Arama geçmişiniz bulunmamaktadır."
     },
     "restaurant_detail": {
+        "app_bar_title":"Restoran Detayları",
         "text1": "Paketler",
         "text2": "Bilgiler",
         "text3": "Restoranı Favorilerime Ekle",
@@ -526,6 +557,7 @@
         "sub_text2": "Sürpriz Paket 2",
         "sub_text3": "Sürpriz Paket 3",
         "button_text": "Satın Al",
+        "button_text2":"Sepetimde",
         "sub_title2": "Tanımlı Paketler",
         "sub_text4": "Vegan 4 Paket",
         "sub_text5": "Brokoli Salatası, Vegan Sos \nSoya Soslu Fasulye",
@@ -540,7 +572,56 @@
             "sub_title2": "Bugün: ",
             "sub_title3": "Online Kredi Kartı/Banka Kartı - Kapıda Ödeme",
             "sub_title4": "İşletme Adı Mini Burger",
-            "sub_title5": "Ana yemek, Vegan, Hamburger, İçecek, Tavuk..."
+            "sub_title5": "Ana yemek, Vegan, Hamburger, İçecek, Tavuk...",
+            "sub_title6":"Gel Al Paket",
+            "sub_title7":"Kapıda Paket",
+            "sub_title8":"Sürpriz paket bulunmamaktadır",
+            "sub_title9":"Tanımlı paket bulunmamaktadır",
+            "sub_title10":"Paketin tanımlanmasına kalan süre: "
+        },
+        "working_hours":{
+            "title":"Çalışma Saatleri",
+            "month1": "Ocak",
+            "month2": "Şubat",
+            "month3": "Mart",
+            "month4": "Nisan",
+            "month5": "Mayıs",
+            "month6": "Haziran",
+            "month7": "Temmuz",
+            "month8": "Ağustos",
+            "month9": "Eylül",
+            "month10": "Ekim",
+            "month11": "Kasım",
+            "month12": "Aralık",
+            "day1": "Pazartesi",
+            "day2": "Salı",
+            "day3": "Çarşamba",
+            "day4": "Perşembe",
+            "day5": "Cuma",
+            "day6": "Cumartesi",
+            "day7": "Pazar"
+        },
+        "food_categories":{
+            "title":"Gıda Kategorileri",
+            "text":"Üzgünüz.\nBu restoran için henüz bir kategori bulunmamaktadır."
+        },
+        "show_dialog":{
+            "text":"Giriş Yapmalısınız",
+            "button1":"Giriş Yap",
+            "button2":"Kayıt Ol"
+        },
+        "alert_dialog":{
+            "text_1":"Siparişi Göndermek İstediğiniz Adresi Seçiniz",
+            "text_2":"Tamam"
+        },
+        "diffrent_restaurant_show_dialog":{
+            "text_1":"Farklı restoranın ürününü seçtiniz",
+            "button1":"Alışverişe devam et",
+            "button2":"Sepeti boşalt"
+        },
+        "packet_container":{
+            "package":"paket",
+            "sold_out":"tükendi"
         }
     },
     "restaurant_food_categories": {
@@ -590,7 +671,9 @@
         "text3":"Anadolu Lezzetleri",
         "text4":"Pastırmalı Kuru Fasulye, 1 porsiyon Kornişon Turşu",
         "totalAmount":"Toplam Tutar:",
-        "price":"35,25 TL"
+        "price":"35,25 TL",
+        "restaurant_name":"Restoran Adı",
+        "restaurant_address":"Restoran Adresi"
     },
     "agreement_kvkk":{
         "confirmation_button":"Onaylıyorum",
@@ -602,5 +685,15 @@
         "text_2":"***92 ile biten telefon numaranıza SMS gönderildi. Lütfen 6 haneli kodu giriniz",
         "text_3":"Kodu tekrar gönder",
         "button": "Başlayalım"
+    },
+    "was_delivered":{
+        "headline":"Siparişiniz Teslim Edildi",
+        "order_number":"Sipariş Numarası:",
+        "restaurant_name":"Restoran Adı",
+        "restaurant_address":"Restoran Adresi",
+        "headline_text": "Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",
+        "body_text": "Gezegenimizi korumak çıktığımız bu yolda\nbizi yalnız bırakmadığın için teşekkürler!\nŞimdi sıra siparişini puanlamada!",
+        "button": "Değerlendir"
+
     }
 }

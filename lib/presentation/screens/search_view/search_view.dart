@@ -332,7 +332,7 @@ class _SearchViewState extends State<SearchView> {
           LocaleText(
             text: SharedPrefs.getIsLogined
                 ? LocaleKeys.search_text1
-                : "Popüler Aramalar",
+                : LocaleKeys.search_text3,
             style: AppTextStyles.bodyTitleStyle,
           ),
           Spacer(),

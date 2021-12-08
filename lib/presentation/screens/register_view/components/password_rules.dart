@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -22,10 +23,12 @@ class PasswordRules extends StatelessWidget {
           children: [
             passwordController.text.contains(RegExp(r'[0-9]'))
                 ? SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_TICK)
-                : SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_ELIPSE),
+                : SvgPicture.asset(
+                    ImageConstant.REGISTER_LOGIN_PASSWORD_ELIPSE),
             LocaleText(
-              text: "  1 rakam",
-              style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.w500),
+              text: LocaleKeys.register_password_rules_number,
+              style: AppTextStyles.subTitleStyle
+                  .copyWith(fontWeight: FontWeight.w500),
             ),
           ],
         ),
@@ -33,10 +36,12 @@ class PasswordRules extends StatelessWidget {
           children: [
             passwordController.text.contains(RegExp(r'[A-Z]'))
                 ? SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_TICK)
-                : SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_ELIPSE),
+                : SvgPicture.asset(
+                    ImageConstant.REGISTER_LOGIN_PASSWORD_ELIPSE),
             LocaleText(
-              text: "  1 büyük harf",
-              style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.w500),
+              text: LocaleKeys.register_password_rules_letter,
+              style: AppTextStyles.subTitleStyle
+                  .copyWith(fontWeight: FontWeight.w500),
             ),
           ],
         ),
@@ -44,10 +49,12 @@ class PasswordRules extends StatelessWidget {
           children: [
             passwordController.text.length > 7
                 ? SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_TICK)
-                : SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_ELIPSE),
+                : SvgPicture.asset(
+                    ImageConstant.REGISTER_LOGIN_PASSWORD_ELIPSE),
             LocaleText(
-              text: "  8 karakter",
-              style: AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.w500),
+              text: LocaleKeys.register_password_rules_character,
+              style: AppTextStyles.subTitleStyle
+                  .copyWith(fontWeight: FontWeight.w500),
             ),
           ],
         )

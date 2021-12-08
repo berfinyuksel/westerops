@@ -81,7 +81,7 @@ class _SwipeViewState extends State<SwipeView> {
                         children: [
                           SizedBox(height: 10),
                           LocaleText(
-                            text: 'Restoran Adi',
+                            text: LocaleKeys.swipe_restaurant_name,
                             style: AppTextStyles.appBarTitleStyle.copyWith(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w800,
@@ -89,7 +89,7 @@ class _SwipeViewState extends State<SwipeView> {
                           ),
                           Spacer(),
                           LocaleText(
-                            text: 'Restoran Adresi',
+                            text: LocaleKeys.swipe_restaurant_address,
                             style: AppTextStyles.appBarTitleStyle.copyWith(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w800,

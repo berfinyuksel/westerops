@@ -114,15 +114,11 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        WarningContainer(
-            text:
-                "Ödeme şekliniz sipariş teslimatı\nesnasında kapıda değiştirilemez."),
+        WarningContainer(text: LocaleKeys.payment_payment_warning_container),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
-        WarningContainer(
-            text:
-                "Ödemenizi size iletmiş olduğumuz\nsipariş numarasını restorana\ngöstererek yapınız."),
+        WarningContainer(text: LocaleKeys.payment_payment_warning_container),
       ],
     );
   }
@@ -206,8 +202,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SvgPicture.asset(ImageConstant.IYZICO_LOGO),
-                    Text(
-                      "Ödeme sistemimiz iyzico tarafından \nSağlanmaktadır ve işlem güvenliğiniz\nİyzico güvencesi altındadır.",
+                    LocaleText(
+                      text: LocaleKeys.payment_payment_pay_with_another_card,
                       style: AppTextStyles.subTitleStyle,
                     ),
                   ],
@@ -290,8 +286,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       child: DropdownButton<String>(
         hint: Padding(
           padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
-          child: Text(
-            "Ay",
+          child: LocaleText(
+            text: LocaleKeys.payment_payment_card_info_year,
           ),
         ),
         value: monthValue,
@@ -326,8 +322,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       child: DropdownButton<String>(
         hint: Padding(
           padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
-          child: Text(
-            "Yıl",
+          child: LocaleText(
+            text: LocaleKeys.payment_payment_card_info_year,
           ),
         ),
         value: yearValue,

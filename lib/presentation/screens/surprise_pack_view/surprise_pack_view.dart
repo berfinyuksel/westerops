@@ -280,10 +280,10 @@ class _SurprisePackViewState extends State<SurprisePackView> {
               style: AppTextStyles.bodyTitleStyle),
           Spacer(flex: 1),
           countdown(orderInfo),
-          Text(
-            " kaldı.",
-            style: AppTextStyles.bodyTitleStyle,
-          ),
+          // Text(
+          //   " kaldı.",
+          //   style: AppTextStyles.bodyTitleStyle,
+          // ),
           Spacer(flex: 5),
         ],
       ),

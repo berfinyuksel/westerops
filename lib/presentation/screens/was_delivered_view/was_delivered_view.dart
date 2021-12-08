@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -40,7 +41,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                   flex: 2,
                 ),
                 LocaleText(
-                  text: "Siparişinizi Teslim Edildi",
+                  text: LocaleKeys.was_delivered_headline,
                   style: AppTextStyles.appBarTitleStyle.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppColors.orangeColor),
@@ -49,7 +50,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                   flex: 1,
                 ),
                 LocaleText(
-                  text: "Sipariş Numarası:",
+                  text: LocaleKeys.was_delivered_order_number,
                   style: AppTextStyles.myInformationBodyTextStyle.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -73,7 +74,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                         children: [
                           SizedBox(height: 10),
                           LocaleText(
-                            text: 'Restoran Adi',
+                            text: LocaleKeys.was_delivered_restaurant_name,
                             style: AppTextStyles.appBarTitleStyle.copyWith(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w800,
@@ -81,7 +82,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                           ),
                           Spacer(),
                           LocaleText(
-                            text: 'Restoran Adresi',
+                            text: LocaleKeys.was_delivered_restaurant_address,
                             style: AppTextStyles.appBarTitleStyle.copyWith(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w800,
@@ -105,8 +106,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                   child: SvgPicture.asset(ImageConstant.ORDER_DELIVERED_ICON),
                 ),
                 LocaleText(
-                  text:
-                      "Dünyayı korumamıza\nyardımcı olduğun için\nteşekkürler!",
+                  text: LocaleKeys.was_delivered_headline_text,
                   style: AppTextStyles.headlineStyle,
                   maxLines: 3,
                   alignment: TextAlign.center,
@@ -116,8 +116,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                 ),
 
                 LocaleText(
-                  text:
-                      "Gezegenimizi korumak çıktığımız bu yolda\nbizi yalnız bırakmadığın için teşekkürler!\nŞimdi sıra siparişini puanlamada!",
+                  text: LocaleKeys.was_delivered_body_text,
                   alignment: TextAlign.center,
                   style: AppTextStyles.bodyTextStyle
                       .copyWith(fontWeight: FontWeight.w600),
@@ -128,7 +127,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                 ),
 
                 CustomButton(
-                  title: "Değerlendir",
+                  title: LocaleKeys.was_delivered_button,
                   textColor: Colors.white,
                   width: context.dynamicWidht(0.86),
                   color: AppColors.greenColor,
