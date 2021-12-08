@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
+
 import '../../../../logic/cubits/address_cubit/address_cubit.dart';
 import '../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../widgets/text/locale_text.dart';
@@ -71,7 +73,7 @@ class _AddressTextState extends State<AddressText> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6.0),
                       child: LocaleText(
-                        text: "Konuma izin ver",
+                        text: LocaleKeys.my_favorites_permission_for_location,
                         style: GoogleFonts.montserrat(
                           color: AppColors.yellowColor,
                           fontWeight: FontWeight.w500,
@@ -102,7 +104,7 @@ class _AddressTextState extends State<AddressText> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6.0),
                   child: LocaleText(
-                    text: "Konuma izin ver",
+                    text: LocaleKeys.my_favorites_permission_for_location,
                     style: GoogleFonts.montserrat(
                       color: AppColors.yellowColor,
                       fontWeight: FontWeight.w500,
@@ -125,7 +127,7 @@ class _AddressTextState extends State<AddressText> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6.0),
                   child: LocaleText(
-                    text: "Giriş Yapınız",
+                    text: LocaleKeys.login_text_login2,
                     style: GoogleFonts.montserrat(
                       color: AppColors.yellowColor,
                       fontWeight: FontWeight.w500,

@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -55,7 +56,7 @@ class _FilteredViewState extends State<FilteredView> {
 
         return CustomScaffold(
             isDrawer: false,
-            title: "Filtrelenmis",
+            title: LocaleKeys.filters_done_title,
             body: buildListViewRestaurantInfo(state, restaurants));
       } else {
         final error = state as GenericError;
@@ -71,9 +72,9 @@ class _FilteredViewState extends State<FilteredView> {
     return ListView.builder(
         itemCount: restaurants.length,
         itemBuilder: (context, index) {
-                 String? packettNumber() {
+          String? packettNumber() {
             if (restaurants[index].calendar == null) {
-              return "tükendi";
+              return LocaleKeys.home_page_soldout_icon;
             } else if (restaurants[index].calendar != null) {
               for (int i = 0; i < restaurants[index].calendar!.length; i++) {
                 var boxcount = restaurants[index].calendar![i].boxCount;
@@ -90,10 +91,11 @@ class _FilteredViewState extends State<FilteredView> {
 
                 if (currentDate[0] == startDate[0]) {
                   if (restaurants[index].calendar![i].boxCount != 0) {
-                    return "${boxcount.toString()} paket";
+                    return "${boxcount.toString()} " +
+                        LocaleKeys.home_page_packet_number;
                   } else if (restaurants[index].calendar![i].boxCount == null ||
                       restaurants[index].calendar![i].boxCount == 0) {
-                    return "tükendi";
+                    return LocaleKeys.home_page_soldout_icon;
                   }
                 }
               }
@@ -106,17 +108,20 @@ class _FilteredViewState extends State<FilteredView> {
             icon: restaurants[index].photo,
             restaurantName: restaurants[index].name,
             distance: Haversine.distance(
-                          restaurants[index].latitude!,
-                          restaurants[index].longitude,
-                          LocationService.latitude,
-                          LocationService.longitude).toString(),
-            packetNumber: packettNumber() ?? "tükendi",
-            availableTime:  '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
+                    restaurants[index].latitude!,
+                    restaurants[index].longitude,
+                    LocationService.latitude,
+                    LocationService.longitude)
+                .toString(),
+            packetNumber: packettNumber() ?? LocaleKeys.home_page_soldout_icon,
+            availableTime:
+                '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
             border: Border.all(
               width: 1.0,
               color: AppColors.borderAndDividerColor,
             ),
-            minDiscountedOrderPrice: restaurants[index].packageSettings?.minDiscountedOrderPrice,
+            minDiscountedOrderPrice:
+                restaurants[index].packageSettings?.minDiscountedOrderPrice,
             minOrderPrice: restaurants[index].packageSettings?.minOrderPrice,
             onPressed: () {
               Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,

@@ -36,7 +36,7 @@ class CustomAlertDialogUpdateInform extends StatelessWidget {
               flex: 5,
             ),
             LocaleText(
-              text: "Bilgileriniz başarılı bir şekilde güncellendi.",
+              text: LocaleKeys.my_information_view_update_success,
               style: AppTextStyles.bodyBoldTextStyle,
               alignment: TextAlign.center,
             ),

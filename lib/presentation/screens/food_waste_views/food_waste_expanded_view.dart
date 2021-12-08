@@ -15,7 +15,7 @@ class FoodWasteExpandedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Gıda İsrafı",
+      title: LocaleKeys.food_waste_title,
       body: Container(
         padding: EdgeInsets.only(
           top: context.dynamicHeight(0.02),

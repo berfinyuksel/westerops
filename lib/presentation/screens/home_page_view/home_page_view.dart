@@ -409,7 +409,7 @@ class _HomePageViewState extends State<HomePageView> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           LocaleText(
-                            text: 'Aktif Siparişin',
+                            text: LocaleKeys.home_page_active_order,
                             style: AppTextStyles.subTitleBoldStyle,
                           ),
                           LocaleText(
@@ -502,7 +502,7 @@ class _HomePageViewState extends State<HomePageView> {
               child: Builder(builder: (context) {
                 String? packettNumber() {
                   if (restaurants[index].calendar == null) {
-                    return "tükendi";
+                    return LocaleKeys.home_page_soldout_icon;
                   } else if (restaurants[index].calendar != null) {
                     for (int i = 0;
                         i < restaurants[index].calendar!.length;
@@ -521,11 +521,12 @@ class _HomePageViewState extends State<HomePageView> {
 
                       if (currentDate[0] == startDate[0]) {
                         if (restaurants[index].calendar![i].boxCount != 0) {
-                          return "${boxcount.toString()} paket";
+                          return "${boxcount.toString()} " +
+                              LocaleKeys.home_page_packet_number;
                         } else if (restaurants[index].calendar![i].boxCount ==
                                 null ||
                             restaurants[index].calendar![i].boxCount == 0) {
-                          return "tükendi";
+                          return LocaleKeys.home_page_soldout_icon;
                         }
                       }
                     }
@@ -573,7 +574,8 @@ class _HomePageViewState extends State<HomePageView> {
                       restaurants[index].packageSettings?.minOrderPrice,
                   restaurantIcon: restaurants[index].photo,
                   backgroundImage: restaurants[index].background,
-                  packetNumber: packettNumber() ?? "tükendi",
+                  packetNumber:
+                      packettNumber() ?? LocaleKeys.home_page_soldout_icon,
                   restaurantName: restaurants[index].name,
                   grade: restaurants[index].avgReview!.toStringAsFixed(1),
                   location: restaurants[index].city,
@@ -641,7 +643,7 @@ class _HomePageViewState extends State<HomePageView> {
                 String? packettNumber() {
                   if (restaurants[index].calendar == null) {
                     //calendar dizisi boş ise tükendi yazdırsın
-                    return "tükendi";
+                    return LocaleKeys.home_page_soldout_icon;
                   } else if (restaurants[index].calendar != null) {
                     //calendar dizisi boş değilse aşağıdaki kodlar çalışsın
                     for (int i = 0;
@@ -661,11 +663,12 @@ class _HomePageViewState extends State<HomePageView> {
 
                       if (currentDate[0] == startDate[0]) {
                         if (restaurants[index].calendar![i].boxCount != 0) {
-                          return "${boxcount.toString()} paket";
+                          return "${boxcount.toString()} " +
+                              LocaleKeys.home_page_packet_number;
                         } else if (restaurants[index].calendar![i].boxCount ==
                                 null ||
                             restaurants[index].calendar![i].boxCount == 0) {
-                          return "tükendi";
+                          return LocaleKeys.home_page_soldout_icon;
                         }
                       }
                     }
@@ -713,7 +716,8 @@ class _HomePageViewState extends State<HomePageView> {
                       restaurants[index].packageSettings?.minOrderPrice,
                   restaurantIcon: restaurants[index].photo,
                   backgroundImage: restaurants[index].background,
-                  packetNumber: packettNumber() ?? "tükendi",
+                  packetNumber:
+                      packettNumber() ?? LocaleKeys.home_page_soldout_icon,
                   restaurantName: restaurants[index].name,
                   grade: restaurants[index].avgReview!.toStringAsFixed(1),
                   location: restaurants[index].city,

@@ -58,7 +58,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
                 padding: EdgeInsets.symmetric(
                     horizontal: context.dynamicWidht(0.05)),
                 child: Text(
-                  "Şimdilik sadece İstanbul bölgesinde hizmet veriyoruz. Yakında diğer bölgelerde hizmet vermeye başlayacağız... 🙂",
+                  LocaleKeys.change_location_no_serve_text,
                   style: AppTextStyles.subTitleBoldStyle
                       .copyWith(fontSize: 15, color: AppColors.textColor),
                 )),
@@ -170,7 +170,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
         //enableInteractiveSelection: false,
         //enabled: false,
         inputFormatters: [
-         // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
           FilteringTextInputFormatter.singleLineFormatter,
         ],
         controller: searchController,

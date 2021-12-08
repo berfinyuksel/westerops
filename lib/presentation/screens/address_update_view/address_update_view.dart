@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +49,7 @@ class _AddressUpdateViewState extends State<AddressUpdateView> {
         FocusScope.of(context).unfocus();
       },
       child: CustomScaffold(
-        title: "Adresini Düzenle",
+        title: LocaleKeys.address_update_title,
         body: Padding(
           padding: EdgeInsets.only(
               left: context.dynamicWidht(0.06),
@@ -71,26 +72,28 @@ class _AddressUpdateViewState extends State<AddressUpdateView> {
                   buildTextFormField(
                       addressList!.tcknVkn!, "VKN/TCKN", tcController),
                   Spacer(flex: 10),
-                  buildTextFormField(
-                      addressList!.name!, "Adres İsmi", addressNameController),
+                  buildTextFormField(addressList!.name!,
+                      LocaleKeys.address_address_name, addressNameController),
+                  Spacer(flex: 10),
+                  buildTextFormField(addressList!.province!,
+                      LocaleKeys.address_district, districtController),
+                  Spacer(flex: 10),
+                  buildTextFormField(addressList!.address!,
+                      LocaleKeys.address_addresss, addressController),
                   Spacer(flex: 10),
                   buildTextFormField(
-                      addressList!.province!, "İlçe", districtController),
-                  Spacer(flex: 10),
-                  buildTextFormField(
-                      addressList!.address!, "Adres", addressController),
-                  Spacer(flex: 10),
-                  buildTextFormField(addressList!.description!,
-                      "Adres Açıklaması", descriptionController),
+                      addressList!.description!,
+                      LocaleKeys.address_address_description,
+                      descriptionController),
                   Spacer(flex: 10),
                   buildTextFormField(addressList!.phoneNumber!,
-                      "Telefon Numarası", phoneNumberController),
+                      LocaleKeys.address_phone_number, phoneNumberController),
                   Spacer(
                     flex: 33,
                   ),
                   CustomButton(
                     width: double.infinity,
-                    title: "Düzenle",
+                    title: LocaleKeys.home_page_edit,
                     color: AppColors.greenColor,
                     borderColor: AppColors.greenColor,
                     textColor: Colors.white,
@@ -141,7 +144,7 @@ class _AddressUpdateViewState extends State<AddressUpdateView> {
               top: context.dynamicHeight(0.01),
             ),
             child: LocaleText(
-              text: "Adres Tipi",
+              text: LocaleKeys.address_address_type,
               style: AppTextStyles.subTitleStyle,
             ),
           ),
@@ -165,7 +168,9 @@ class _AddressUpdateViewState extends State<AddressUpdateView> {
                 return DropdownMenuItem<int>(
                   value: value,
                   child: AutoSizeText(
-                    value == 1 ? "Adres" : "Fatura Adresi",
+                    value == 1
+                        ? LocaleKeys.address_addresss
+                        : LocaleKeys.address_billing_address,
                     style: AppTextStyles.myInformationBodyTextStyle,
                     maxLines: 1,
                   ),

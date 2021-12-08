@@ -54,7 +54,14 @@
         "social_auth": "Devam et"
     },
     "login": {
+        "error_alert_dialog_text1": "Yeni iseniz",
+        "error_alert_dialog_text2": "üye olabilir",
+        "error_alert_dialog_text3": "veya\nhatırlamıyorsanız",
+        "error_alert_dialog_text4": "şifrenizi\nyenileyebilirsiniz",
+        "password_error_alert_dialog" : "Şifrenizin veya telefon\nnumaranızın yanlış\nolduğunu farkettik.",
+        "login_success_alert_dialog_text" : "Hoş geldiniz",
         "text_login": "Giriş Yap",
+        "text_login2": "Giriş Yapınız",
         "phone": "Cep Telefonu",
         "password": "Şifre",
         "forgot_pass": "Şifremi Unuttum",
@@ -161,6 +168,18 @@
         "thanks": "Değerlendirmen için Teşekkür Ederiz"
     },
     "address": {
+        "no_address" : "Henüz kayıtlı adresiniz bulunmamaktadır.",
+        "address_approval" : "Eminim",
+        "delete_alert_dialog_text" : "Kayıtlı adresiniz silmek\nistediğinize emin misiniz?",
+        "preparing" : "Hazırlanıyor",
+        "address_name" : "Adres İsmi",
+        "district" : "İlçe",
+        "addresss" : "Adres",
+        "address_description" : "Adres Açıklaması",
+        "phone_number" : "Telefon Numarası",
+        "save" : "Kaydet",
+        "address_type" : "Adres Tipi",
+        "billing_address" : "Fatura Adresi",
         "title": "Adreslerim",
         "body_title": "Kayıtlı Adreslerim",
         "button": "Yeni Adres Ekle",
@@ -177,6 +196,7 @@
         "title": "Dil Ayarları"
     },
     "general_settings": {
+        "my_location" : "Konumum",
         "title": "Genel Ayarlar",
         "body_title_1": "İletişim İzinleri",
         "body_title_2": "Bildirimler",
@@ -204,6 +224,9 @@
         "body_title": "Bize Ulaşın",
         "list_tile_1": "Müşteri Hizmetleri"
     },
+    "my_information_view" : {
+        "update_success" : "Bilgileriniz başarılı bir şekilde güncellendi."
+    },
     "help_center": {
         "title": "Yardım Merkezi",
         "body_title_1": "Üyelik Hakkında",
@@ -222,10 +245,14 @@
         "list_tile_subtitle_1": ".  Çok çeşitli ve lezzetli yiyeceklere harika fiyatlarla erişebilmek,\n.  Kaliteli yiyeceklere uygun fiyatlarla ulaşırken, gıda israfının önlemesine katkı sağlayabilmek, \n.  Toplumsal bir sorumluluk olan çevreyi koruma konusunda üzerine düşeni gerçekleştirebilmek istiyorsan, Döngü seni bekliyor."
     },
     "change_location": {
+        "no_serve_text" :"Şimdilik sadece İstanbul bölgesinde hizmet veriyoruz. Yakında diğer bölgelerde hizmet vermeye başlayacağız... 🙂",
         "title": "Bölge Değiştir",
         "hint_text": "Şehir Ara"
     },
     "home_page": {
+        "active_order" : "Aktif Siparişin",
+        "soldout_icon": "tükendi",
+        "packet_number" : "paket",
         "location": "Konumum",
         "edit": "Düzenle",
         "closer": "Yakınımdakiler",
@@ -243,6 +270,9 @@
         "hint_text": "Yemek, restoran ara"
     },
     "my_favorites": {
+        "sign_in_to_monitor" : "Favori restoranlarınızı görüntülemek için giriş yapınız.",
+        "no_favorites" : "Favori restoranınız bulunmamaktadır.",
+        "permission_for_location" : "Konuma izin ver",
         "title": "Favorilerim",
         "location": "Konumum",
         "edit": "Değiştir",
@@ -251,6 +281,7 @@
         "show_list": "Liste Olarak Göster"
     },
     "cart": {
+        "box_delete_alert_dialog" : "Sepetinizdeki ürünü silmek\nistediğinize emin misiniz?",
         "title": "Sepetim",
         "button_empty": "Restoranları Gör",
         "button": "Devam Et",
@@ -358,9 +389,13 @@
         "pack_canceled": "Tanımlanmış Paketin İptal Edildi."
     },
     "address_from_map": {
+        "alert_dialog_text" :"Adresiniz haritada işaretlenen konuma göre\nkaydedilecektir. Konum işaretinin doğru\nolduğuna emin misiniz?",
         "title": "Yeni Adres Ekle",
         "hint_text": "Mahalle, cadde, sokak ara",
         "button": "Bu Adresi Kullan"
+    },
+    "address_update" : {
+        "title" : "Adresini Düzenle"
     },
     "premission_notification": {
         "text1": "Döngü’nün sana bildirim göndermesine izin ver.",
@@ -381,6 +416,8 @@
         "button2": "Aktifleştir"
     },
     "filters": {
+        "title" : "Filtre",
+        "done_title" : "Filtrelenen",
         "sort": {
             "title": "Sırala",
             "item1": "Uzaklığa Göre Sırala",
@@ -477,6 +514,7 @@
         }
     },
     "restaurant_food_categories": {
+        "no_category_text" :"Üzgünüz.\nBu kategori için bulunduğunuz bölgede henüz bir işletme bulunmamaktadır.",
         "text1": "Açık büfe yemek gıda güvenliği",
         "text2": "Ek Öneriler",
         "text3": "Bu öğe açık büfeden yiyecek içeriyor",

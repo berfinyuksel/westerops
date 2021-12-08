@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
+
 import '../../../data/model/category_name.dart';
 import '../../../data/model/search_store.dart';
 import '../../../data/services/location_service.dart';
@@ -108,8 +110,9 @@ class CategoriesView extends StatelessWidget {
                             .first
                             .boxCount ==
                         0
-                    ? 'tükendi'
-                    : '${categorizedRestaurants[index].calendar!.first.boxCount} paket',
+                    ? LocaleKeys.home_page_soldout_icon
+                    : '${categorizedRestaurants[index].calendar!.first.boxCount} ' +
+                        LocaleKeys.home_page_packet_number,
                 minDiscountedOrderPrice: categorizedRestaurants[index]
                     .packageSettings!
                     .minDiscountedOrderPrice,
@@ -147,8 +150,7 @@ class CategoriesView extends StatelessWidget {
                 ),
                 LocaleText(
                   alignment: TextAlign.center,
-                  text:
-                      "Üzgünüz.\nBu kategori için bulunduğunuz bölgede henüz bir işletme bulunmamaktadır.",
+                  text: LocaleKeys.restaurant_food_categories_no_category_text,
                   style: AppTextStyles.myInformationBodyTextStyle,
                 ),
               ],

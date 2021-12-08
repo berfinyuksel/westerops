@@ -1,6 +1,6 @@
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 import '../../../logic/cubits/filters_cubit/filters_cubit.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -23,7 +23,7 @@ class _FilterViewState extends State<FilterView> {
   Widget build(BuildContext context) {
     return CustomScaffold(
         isDrawer: false,
-        title: "Filtre",
+        title: LocaleKeys.filters_title,
         isNavBar: true,
         body: Padding(
           padding: EdgeInsets.only(top: context.dynamicHeight(0.025)),

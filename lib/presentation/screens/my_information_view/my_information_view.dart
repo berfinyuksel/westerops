@@ -138,10 +138,9 @@ class _MyInformationViewState extends State<MyInformationView> {
         onTap: () {
           setState(() {});
         },
-             inputFormatters: [
-         // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-
+        inputFormatters: [
+          // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         controller: controller,
         decoration: InputDecoration(
@@ -156,8 +155,9 @@ class _MyInformationViewState extends State<MyInformationView> {
       ),
     );
   }
-  Container buildTextFormFieldPhoneNumber(BuildContext context,
-      TextEditingController controller) {
+
+  Container buildTextFormFieldPhoneNumber(
+      BuildContext context, TextEditingController controller) {
     return Container(
       height: context.dynamicHeight(0.06),
       color: Colors.white,
@@ -168,15 +168,14 @@ class _MyInformationViewState extends State<MyInformationView> {
         onTap: () {
           setState(() {});
         },
-             inputFormatters: [
-        //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-
+        inputFormatters: [
+          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
         ],
         controller: controller,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
-          labelText: "Telefon numarası",
+          labelText: LocaleKeys.inform_list_tile_phone,
           hintStyle: AppTextStyles.myInformationBodyTextStyle,
           labelStyle: AppTextStyles.bodyTextStyle,
           enabledBorder: buildOutlineInputBorder(),
@@ -186,6 +185,7 @@ class _MyInformationViewState extends State<MyInformationView> {
       ),
     );
   }
+
   @override
   void initState() {
     super.initState();

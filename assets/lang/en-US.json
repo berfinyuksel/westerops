@@ -34,7 +34,14 @@
         }
     },
     "login": {
+        "error_alert_dialog_text1": "If you are new,",
+        "error_alert_dialog_text2": "you can sign up",
+        "error_alert_dialog_text3": "or\nif you don't remember it",
+        "error_alert_dialog_text4": "reset\nyour password.",
+        "password_error_alert_dialog" : "We've noticed that your password or phone number is\nwrong.",
+        "login_success_alert_dialog_text" : "Welcome",
         "text_login": "Sign In",
+        "text_login2": "Please Sign In",
         "phone": "Phone",
         "password": "Password",
         "forgot_pass": "Forgot Password",
@@ -159,6 +166,18 @@
         "thanks": "Thank You for Your Evaluation"
     },
     "address": {
+        "no_address" : "You do not have a registered address yet.",
+        "address_approval" : "Approve",
+        "delete_alert_dialog_text" : "Are you sure you want to\ndelete your registered address?",
+        "preparing" : "Preparing",
+        "address_name" : "Name of Address",
+        "district" : "District",
+        "addresss" : "Adress",
+        "address_description" : "Address Description",
+        "phone_number" : "Phone Number",
+        "save" : "Save",
+        "address_type" : "Address Type",
+        "billing_address" : "Billing Address",
         "title": "My Adresses",
         "body_title": "My Recorded Addresses",
         "button": "Add New Address",
@@ -175,6 +194,7 @@
         "title": "Language Settings"
     },
     "general_settings": {
+        "my_location" : "My Location",
         "title": "General Settings",
         "body_title_1": "Communication Permissions",
         "body_title_2": "Notifications",
@@ -202,6 +222,9 @@
         "body_title": "Contact Us",
         "list_tile_1": "Customer Service"
     },
+    "my_information_view" : {
+        "update_success" : "Your information has been successfully updated."
+    },
     "help_center": {
         "title": "Help Center",
         "body_title_1": "About Membership",
@@ -220,10 +243,14 @@
         "list_tile_subtitle_1": ".  Having access to a wide variety of delicious food at great prices, \n. To be able to contribute to the prevention of food waste while reaching quality food at affordable prices, \n. The Cycle is waiting for you if you want to do your part in protecting the environment, which is a social responsibility."
     },
     "change_location": {
+        "no_serve_text" :"For now, we only serve in the Istanbul region. Soon we will start serving in other regions... 🙂",
         "title": "Change Region",
         "hint_text": "Search City"
     },
     "home_page": {
+        "active_order" : "Active Order",
+        "soldout_icon": "soldout",
+        "packet_number" : "package",
         "location": "My Location",
         "edit": "Edit",
         "closer": "Near me",
@@ -241,6 +268,9 @@
         "hint_text": "Search for food, restaurants"
     },
     "my_favorites": {
+        "sign_in_to_monitor" : "Please login to view your favorite restaurants.",
+        "no_favorites" : "You do not have a favorite restaurant.",
+        "permission_for_location" : "Allow location services",
         "title": "My Favorites",
         "location": "My Location",
         "edit": "Change",
@@ -249,6 +279,7 @@
         "show_list": "Show as List"
     },
     "cart": {
+        "box_delete_alert_dialog" : "Are you sure you want to\ndelete the product in your cart?",
         "title": "My Cart",
         "button_empty": "See Restaurants",
         "button": "Go ahead",
@@ -356,9 +387,13 @@
         "pack_canceled": "Defined Package Canceled."
     },
     "address_from_map": {
+        "alert_dialog_text" :  "Your address will be\nsaved according to the location marked on the map. Are you sure the location flag\n is correct?",
         "title": "Add New Address",
         "hint_text": "Search district, street",
         "button": "Use This Address"
+    },
+    "address_update" : {
+        "title" : "Edit Your Address"
     },
     "premission_notification": {
         "text1": "Allow notifications from \nDöngü",
@@ -379,6 +414,8 @@
         "button2": "Action"
     },
     "filters": {
+        "title" : "Filter",
+        "done_title" : "Filtered",
         "sort": {
             "title": "Sort",
             "item1": "Sort By Distance",
@@ -475,6 +512,7 @@
         }
     },
     "restaurant_food_categories": {
+        "no_category_text" :"Sorry.\nThere are no businesses in your area yet for this category.",
         "text1": "Buffet meal food safety",
         "text2": "Additional Suggestions",
         "text3": "This item contains food from the buffet",

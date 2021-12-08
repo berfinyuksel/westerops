@@ -67,7 +67,7 @@ class _AddressViewState extends State<AddressView> {
       child: Builder(builder: (context) {
         final GenericState state = context.watch<UserAddressCubit>().state;
         if (state is GenericInitial) {
-          return Text("Başlatılıyor");
+          return Text(LocaleKeys.address_preparing);
         } else if (state is GenericLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state is GenericCompleted) {
@@ -148,9 +148,10 @@ class _AddressViewState extends State<AddressView> {
                           context: context,
                           builder: (_) => CustomAlertDialog(
                               textMessage:
-                                  'Kayıtlı adresiniz silmek\nistediğinize emin misiniz?',
-                              buttonOneTitle: 'Vazgeç',
-                              buttonTwoTittle: 'Eminim',
+                                  LocaleKeys.address_delete_alert_dialog_text,
+                              buttonOneTitle: LocaleKeys.payment_payment_cancel,
+                              buttonTwoTittle:
+                                  LocaleKeys.address_address_approval,
                               imagePath: ImageConstant.SURPRISE_PACK_ALERT,
                               onPressedOne: () {
                                 Navigator.of(context).pop();
@@ -171,7 +172,7 @@ class _AddressViewState extends State<AddressView> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20.0, top: 10.0),
                     child: LocaleText(
-                      text: "Henüz kayıtlı adresiniz bulunmamaktadır.",
+                      text: LocaleKeys.address_no_address,
                       style: AppTextStyles.bodyTextStyle,
                     ),
                   ),
@@ -218,7 +219,6 @@ class _AddressViewState extends State<AddressView> {
       }
 
       context.read<AddressCubit>().getActiveAddress();
-      print('success');
     }
   }
 }

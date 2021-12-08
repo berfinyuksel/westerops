@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,21 +74,26 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                   Spacer(flex: 10),
                   buildTextFormField("VKN/TCKN", tcController),
                   Spacer(flex: 10),
-                  buildTextFormField("Adres İsmi", addressNameController),
+                  buildTextFormField(
+                      LocaleKeys.address_address_name, addressNameController),
                   Spacer(flex: 10),
-                  buildTextFormField("İlçe", districtController),
+                  buildTextFormField(
+                      LocaleKeys.address_district, districtController),
                   Spacer(flex: 10),
-                  buildTextFormField("Adres", addressController),
+                  buildTextFormField(
+                      LocaleKeys.address_addresss, addressController),
                   Spacer(flex: 10),
-                  buildTextFormField("Adres Açıklaması", descriptionController),
+                  buildTextFormField(LocaleKeys.address_address_description,
+                      descriptionController),
                   Spacer(flex: 10),
-                  buildTextFormField("Telefon Numarası", phoneNumberController),
+                  buildTextFormField(
+                      LocaleKeys.address_phone_number, phoneNumberController),
                   Spacer(
                     flex: 33,
                   ),
                   CustomButton(
                     width: double.infinity,
-                    title: "Kaydet",
+                    title: LocaleKeys.address_save,
                     color: AppColors.greenColor,
                     borderColor: AppColors.greenColor,
                     textColor: Colors.white,
@@ -138,7 +144,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
               top: context.dynamicHeight(0.01),
             ),
             child: LocaleText(
-              text: "Adres Tipi",
+              text: LocaleKeys.address_address_type,
               style: AppTextStyles.subTitleStyle,
             ),
           ),
@@ -162,7 +168,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                 return DropdownMenuItem<int>(
                   value: value,
                   child: AutoSizeText(
-                    value == 1 ? "Adres" : "Fatura Adresi",
+                    value == 1 ? LocaleKeys.address_addresss : LocaleKeys.address_billing_address,
                     style: AppTextStyles.myInformationBodyTextStyle,
                     maxLines: 1,
                   ),
@@ -195,7 +201,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
         inputFormatters: [
-         // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
           FilteringTextInputFormatter.singleLineFormatter,
         ],
         controller: controller,

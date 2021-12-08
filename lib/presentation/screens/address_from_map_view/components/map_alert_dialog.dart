@@ -38,8 +38,7 @@ class MapAlertDialog extends StatelessWidget {
             ),
             Spacer(flex: 1),
             LocaleText(
-              text:
-                  "Adresiniz haritada işaretlenen konuma göre\nkaydedilecektir. Konum işaretinin doğru\nolduğuna emin misiniz?",
+              text: LocaleKeys.address_from_map_alert_dialog_text,
               style: AppTextStyles.bodyBoldTextStyle,
               alignment: TextAlign.center,
             ),
@@ -76,7 +75,7 @@ class MapAlertDialog extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(context, RouteConstant.ADDRESS_DETAIL_VIEW,
                 arguments: ScreenArguments(
-                  title: "Yeni Adres Ekle",
+                  title: LocaleKeys.address_from_map_title,
                   district: district!,
                   description: address!,
                 ));

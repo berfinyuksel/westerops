@@ -49,10 +49,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     print("SMS CODE : ${phoneAuthCredential.smsCode}");
     print("VERIFICATIOIN ID : ${verificationId}");
     context.read<UserAuthCubit>().resetPassword(
-        verificationId!,
-        codeController.text,
-        passwordController.text,
-        phoneTR);
+        verificationId!, codeController.text, passwordController.text, phoneTR);
     print(phoneTR);
 
     setState(() {
@@ -94,7 +91,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         });
       },
       child: CustomScaffold(
-        title: "Şifremi Unuttum",
+        title: LocaleKeys.login_forgot_pass,
         body: Stack(
           children: [
             Padding(
@@ -375,7 +372,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           isRulesVisible = true;
         });
       },
-        inputFormatters: [
+      inputFormatters: [
         //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         FilteringTextInputFormatter.singleLineFormatter,
       ],
@@ -442,7 +439,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         });
       },
       inputFormatters: [
-       // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+        // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         FilteringTextInputFormatter.singleLineFormatter,
       ],
       controller: controller,

@@ -191,8 +191,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                 child: !SharedPrefs.getIsLogined
                     ? Center(
                         child: LocaleText(
-                          text:
-                              "Favori restoranlarınızı görüntülemek için giriş yapınız",
+                          text: LocaleKeys.my_favorites_sign_in_to_monitor,
                           style: AppTextStyles.bodyTextStyle
                               .copyWith(color: AppColors.cursorColor),
                         ),
@@ -215,7 +214,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                                     LocaleText(
                                       alignment: TextAlign.center,
                                       text:
-                                          "Favori restoranınız bulunmamaktadır.",
+                                          LocaleKeys.my_favorites_no_favorites,
                                       style: GoogleFonts.montserrat(
                                         fontWeight: FontWeight.w300,
                                       ),
@@ -289,7 +288,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           return Container(child: Builder(builder: (context) {
             String? packettNumber() {
               if (favouriteRestaurant[index].calendar == null) {
-                return "tükendi";
+                return LocaleKeys.home_page_soldout_icon;
               } else if (favouriteRestaurant[index].calendar != null) {
                 for (int i = 0;
                     i < favouriteRestaurant[index].calendar!.length;
@@ -309,13 +308,14 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
 
                   if (currentDate[0] == startDate[0]) {
                     if (favouriteRestaurant[index].calendar![i].boxCount != 0) {
-                      return "${boxcount.toString()} paket";
+                      return "${boxcount.toString()} " +
+                          LocaleKeys.home_page_packet_number;
                     } else if (favouriteRestaurant[index]
                                 .calendar![i]
                                 .boxCount ==
                             null ||
                         favouriteRestaurant[index].calendar![i].boxCount == 0) {
-                      return "tükendi";
+                      return LocaleKeys.home_page_soldout_icon;
                     }
                   }
                 }
@@ -345,7 +345,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                       LocationService.latitude,
                       LocationService.longitude)
                   .toStringAsFixed(2),
-              packetNumber: packettNumber() ?? "tükendi",
+              packetNumber:
+                  packettNumber() ?? LocaleKeys.home_page_soldout_icon,
               availableTime:
                   '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
             );
@@ -463,8 +464,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                             .first
                             .boxCount ==
                         0
-                    ? 'tükendi'
-                    : '${favourites[selectedIndex].calendar!.first.boxCount} paket',
+                    ? LocaleKeys.home_page_soldout_icon
+                    : '${favourites[selectedIndex].calendar!.first.boxCount} ' +
+                        LocaleKeys.home_page_packet_number,
                 deliveryType: int.parse(
                     favourites[selectedIndex].packageSettings!.deliveryType!),
                 restaurantName: favourites[selectedIndex].name,
@@ -534,7 +536,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             isShowBottomInfo = false;
           });
         },
-        infoWindow: InfoWindow(title: "Benim Konumum"),
+        infoWindow: InfoWindow(title: LocaleKeys.general_settings_my_location),
         icon: markerIcon,
         markerId: markerId,
         position: LatLng(latitude, longitude),

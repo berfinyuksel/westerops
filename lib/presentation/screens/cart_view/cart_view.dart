@@ -116,7 +116,7 @@ class _CartViewState extends State<CartView> {
                       context
                           .read<StoreBoxesCubit>()
                           .getStoreBoxes(itemList[index].id!);
-                      print('state filled');
+
                       context
                           .read<StoreCourierCubit>()
                           .getCourierHours(itemList[index].store!.id!);
@@ -148,9 +148,11 @@ class _CartViewState extends State<CartView> {
                             context: context,
                             builder: (_) => CustomAlertDialog(
                                 textMessage:
-                                    'Sepetinizdeki ürünü silmek\nistediğinize emin misiniz?',
-                                buttonOneTitle: 'Vazgeç',
-                                buttonTwoTittle: 'Eminim',
+                                    LocaleKeys.cart_box_delete_alert_dialog,
+                                buttonOneTitle:
+                                    LocaleKeys.payment_payment_cancel,
+                                buttonTwoTittle:
+                                    LocaleKeys.address_address_approval,
                                 imagePath: ImageConstant.SURPRISE_PACK_ALERT,
                                 onPressedOne: () {
                                   Navigator.of(context).pop();

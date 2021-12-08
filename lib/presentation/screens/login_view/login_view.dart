@@ -240,7 +240,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   SizedBox(height: 10),
                   LocaleText(
-                    text: "Hoş geldiniz",
+                    text: LocaleKeys.login_login_success_alert_dialog_text,
                     style: AppTextStyles.bodyBoldTextStyle,
                     alignment: TextAlign.center,
                   ),
@@ -256,7 +256,7 @@ class _LoginViewState extends State<LoginView> {
                     color: AppColors.greenColor,
                     textColor: Colors.white,
                     borderColor: AppColors.greenColor,
-                    title: "Ana Sayfa",
+                    title: LocaleKeys.order_received_button_2,
                   ),
                   Spacer(
                     flex: 20,
@@ -292,8 +292,7 @@ class _LoginViewState extends State<LoginView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                          'Şifrenizin veya telefon\nnumaranızın yanlış\nolduğunu farkettik.',
+                      Text(LocaleKeys.login_password_error_alert_dialog,
                           style: AppTextStyles.bodyTitleStyle),
                       GestureDetector(
                         onTap: () {
@@ -310,13 +309,13 @@ class _LoginViewState extends State<LoginView> {
                             ),
                             children: [
                               TextSpan(
-                                text: 'Yeni iseniz ',
+                                text: LocaleKeys.login_error_alert_dialog_text1,
                                 style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.w300,
                                 ),
                               ),
                               TextSpan(
-                                text: 'üye olabilir',
+                                text: LocaleKeys.login_error_alert_dialog_text2,
                                 style: GoogleFonts.montserrat(
                                   color: AppColors.orangeColor,
                                   fontWeight: FontWeight.w500,
@@ -330,13 +329,13 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               ),
                               TextSpan(
-                                text: 'veya \nhatırlamıyorsanız ',
+                                text: LocaleKeys.login_error_alert_dialog_text3,
                                 style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.w300,
                                 ),
                               ),
                               TextSpan(
-                                text: 'şifrenizi \nyenileyebilirsiniz.',
+                                text: LocaleKeys.login_error_alert_dialog_text4,
                                 style: GoogleFonts.montserrat(
                                   color: AppColors.orangeColor,
                                   fontWeight: FontWeight.w500,
