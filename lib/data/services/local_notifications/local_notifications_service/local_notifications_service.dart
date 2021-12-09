@@ -37,8 +37,8 @@ class NotificationService {
         iOS: iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
       0,
-      "Siparisiniz Hakkinda",
-      "Siparisiniz alindi",
+      "Siparişiniz Hakkında",
+      "Siparişiniz alındı",
       platformChannelSpecifics,
       payload: 'data',
     );

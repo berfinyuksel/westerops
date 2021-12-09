@@ -42,7 +42,7 @@ class _SmsVerifyState extends State<SmsVerify> {
             Spacer(flex: 4),
             Container(
               child: Padding(
-                padding: const EdgeInsets.all(23.0),
+                padding: const EdgeInsets.all(22.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

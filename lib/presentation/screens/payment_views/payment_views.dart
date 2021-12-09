@@ -471,7 +471,7 @@ class _PaymentViewsState extends State<PaymentViews>
             : Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: 5),
+                  SizedBox(width: 2),
                   SvgPicture.asset(
                     ImageConstant.PACKAGE_DELIVERY_ICON,
                     color: !state.isGetIt!
@@ -480,7 +480,7 @@ class _PaymentViewsState extends State<PaymentViews>
                     height: 28,
                     fit: BoxFit.fill,
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 6),
                   Padding(
                     padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
                     child: LocaleText(

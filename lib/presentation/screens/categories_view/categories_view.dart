@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 
 import '../../../data/model/category_name.dart';
@@ -61,7 +62,7 @@ class CategoriesView extends StatelessWidget {
   CustomScaffold buildCustomScaffold(
       BuildContext context, List<SearchStore> categorizedRestaurants) {
     return CustomScaffold(
-      title: 'Kategoriler',
+      title: LocaleKeys.home_page_categories.locale,
       body: Padding(
         padding: EdgeInsets.only(
           left: context.dynamicWidht(0.06),
@@ -111,8 +112,7 @@ class CategoriesView extends StatelessWidget {
                             .boxCount ==
                         0
                     ? LocaleKeys.home_page_soldout_icon
-                    : '${categorizedRestaurants[index].calendar!.first.boxCount} ' +
-                        LocaleKeys.home_page_packet_number,
+                    : "${categorizedRestaurants[index].calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
                 minDiscountedOrderPrice: categorizedRestaurants[index]
                     .packageSettings!
                     .minDiscountedOrderPrice,

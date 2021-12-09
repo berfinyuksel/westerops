@@ -143,7 +143,7 @@ class SampleUserAuthenticationRepository
       List<User> users = [];
       users.add(user);
       return users;
-    } else {}
+    }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 

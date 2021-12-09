@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -62,8 +63,10 @@ class _CustomAlertDialogForCancelOrderState
               alignment: TextAlign.center,
             ),
             SizedBox(height: 10),
-            buildTextFormField(LocaleKeys.surprise_pack_cancel_descrption,
-                widget.customTextController!, context),
+            buildTextFormField(
+                LocaleKeys.surprise_pack_cancel_descrption.locale,
+                widget.customTextController!,
+                context),
             SizedBox(height: 10),
             buildButtons(context),
           ],

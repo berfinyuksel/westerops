@@ -240,7 +240,8 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   SizedBox(height: 10),
                   LocaleText(
-                    text: LocaleKeys.login_login_success_alert_dialog_text,
+                    text:
+                        LocaleKeys.login_login_success_alert_dialog_text.locale,
                     style: AppTextStyles.bodyBoldTextStyle,
                     alignment: TextAlign.center,
                   ),
@@ -256,7 +257,7 @@ class _LoginViewState extends State<LoginView> {
                     color: AppColors.greenColor,
                     textColor: Colors.white,
                     borderColor: AppColors.greenColor,
-                    title: LocaleKeys.order_received_button_2,
+                    title: LocaleKeys.order_received_button_2.locale,
                   ),
                   Spacer(
                     flex: 20,
@@ -292,7 +293,7 @@ class _LoginViewState extends State<LoginView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(LocaleKeys.login_password_error_alert_dialog,
+                      Text(LocaleKeys.login_password_error_alert_dialog.locale,
                           style: AppTextStyles.bodyTitleStyle),
                       GestureDetector(
                         onTap: () {
@@ -309,13 +310,15 @@ class _LoginViewState extends State<LoginView> {
                             ),
                             children: [
                               TextSpan(
-                                text: LocaleKeys.login_error_alert_dialog_text1,
+                                text: LocaleKeys
+                                    .login_error_alert_dialog_text1.locale,
                                 style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.w300,
                                 ),
                               ),
                               TextSpan(
-                                text: LocaleKeys.login_error_alert_dialog_text2,
+                                text: LocaleKeys
+                                    .login_error_alert_dialog_text2.locale,
                                 style: GoogleFonts.montserrat(
                                   color: AppColors.orangeColor,
                                   fontWeight: FontWeight.w500,
@@ -329,13 +332,15 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               ),
                               TextSpan(
-                                text: LocaleKeys.login_error_alert_dialog_text3,
+                                text: LocaleKeys
+                                    .login_error_alert_dialog_text3.locale,
                                 style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.w300,
                                 ),
                               ),
                               TextSpan(
-                                text: LocaleKeys.login_error_alert_dialog_text4,
+                                text: LocaleKeys
+                                    .login_error_alert_dialog_text4.locale,
                                 style: GoogleFonts.montserrat(
                                   color: AppColors.orangeColor,
                                   fontWeight: FontWeight.w500,
