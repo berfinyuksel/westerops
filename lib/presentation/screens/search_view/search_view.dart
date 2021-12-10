@@ -96,44 +96,41 @@ class _SearchViewState extends State<SearchView> {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Expanded(
-        child: Column(
-          children: [
-            Spacer(
-              flex: 3,
-            ),
-            searchBar(context),
-            // Spacer(
-            //   flex: 3,
-            // ),
-            Visibility(
-                visible: visible, child: searchHistoryAndCleanTexts(context)),
-            Visibility(visible: visible, child: dividerOne(context)),
-            //  Spacer(flex:2),
-            Visibility(visible: visible, child: Spacer(flex: 2)),
-            SingleChildScrollView(child: buildBuilder()),
-            isClean
-                ? Spacer(flex: 20)
-                : Spacer(
-                    flex: 50,
-                  ),
-            Visibility(visible: visible, child: popularSearchText(context)),
-            Visibility(visible: visible, child: dividerSecond(context)),
-            Spacer(flex: 2),
-            Visibility(visible: visible, child: horizontalListTrend(context)),
-            isClean
-                ? Spacer(flex: 20)
-                : Spacer(
-                    flex: 10,
-                  ),
-            Visibility(visible: visible, child: categoriesText(context)),
-            Visibility(visible: visible, child: dividerThird(context)),
-            //  Spacer(flex: 1),
-            Visibility(
-                visible: visible, child: horizontalListCategory(context)),
-            Spacer(flex: 10),
-          ],
-        ),
+      child: Column(
+        children: [
+          Spacer(
+            flex: 3,
+          ),
+          searchBar(context),
+          // Spacer(
+          //   flex: 3,
+          // ),
+          Visibility(
+              visible: visible, child: searchHistoryAndCleanTexts(context)),
+          Visibility(visible: visible, child: dividerOne(context)),
+          //  Spacer(flex:2),
+          Visibility(visible: visible, child: Spacer(flex: 2)),
+          SingleChildScrollView(child: buildBuilder()),
+          isClean
+              ? Spacer(flex: 20)
+              : Spacer(
+                  flex: 50,
+                ),
+          Visibility(visible: visible, child: popularSearchText(context)),
+          Visibility(visible: visible, child: dividerSecond(context)),
+          Spacer(flex: 2),
+          Visibility(visible: visible, child: horizontalListTrend(context)),
+          isClean
+              ? Spacer(flex: 20)
+              : Spacer(
+                  flex: 10,
+                ),
+          Visibility(visible: visible, child: categoriesText(context)),
+          Visibility(visible: visible, child: dividerThird(context)),
+          //  Spacer(flex: 1),
+          Visibility(visible: visible, child: horizontalListCategory(context)),
+          Spacer(flex: 10),
+        ],
       ),
     );
   }
