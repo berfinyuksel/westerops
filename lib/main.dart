@@ -57,7 +57,6 @@ import 'utils/constants/locale_constant.dart';
 import 'utils/theme/app_theme.dart';
 import 'dart:io' show Platform;
 
-String? token;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService().init();
@@ -65,8 +64,7 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   await SharedPrefs.initialize();
   await Firebase.initializeApp();
-  token = await FirebaseMessaging.instance.getToken();
-  print("TOKEN REG : $token");
+
   //fixed late arriving svg with future.wait function
   Future.wait([
     precachePicture(
@@ -177,15 +175,6 @@ class MyApp extends StatelessWidget {
                 FiltersManagerCubit(SampleFiltersRepository())),
       ],
       child: Builder(builder: (context) {
-      if (SharedPrefs.getIsLogined) {
-          if (Platform.isAndroid) {
-            context
-                .read<NotificationCubit>()
-                .postNotification(token!, "android");
-          } else if (Platform.isIOS) {
-            // iOS-specific code
-          }
-      }
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
         List<int> sumPrices = [];
         for (var i = 0; i < SharedPrefs.getSumPrice.length; i++) {
