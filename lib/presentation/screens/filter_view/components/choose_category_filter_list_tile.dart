@@ -1,3 +1,7 @@
+import 'package:dongu_mobile/data/model/category_name.dart';
+import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+
 import '../../../../logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +27,12 @@ class ChooseCategoryFilterList extends StatefulWidget {
 
 class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
   @override
+  void initState() {
+    context.read<CategoryNameCubit>().getCategories();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       final FiltersState state = context.watch<FiltersCubit>().state;
@@ -35,84 +45,41 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
               child: Column(
                 children: [
                   SizedBox(height: context.dynamicHeight(0.01)),
-                  buildRowCheckboxAndText(
-                      context, LocaleKeys.filters_choose_category_item9, "All",
-                      () {
-                    setState(() {
-                      state.checkList![16] = !state.checkList![16];
-                      state.checkList![10] = !state.checkList![10];
-                      state.checkList![11] = !state.checkList![11];
-                      state.checkList![12] = !state.checkList![12];
-                      state.checkList![13] = !state.checkList![13];
-                      state.checkList![14] = !state.checkList![14];
-                      state.checkList![15] = !state.checkList![15];
-                      state.checkList![9] = !state.checkList![9];
-                      state.checkList![8] = !state.checkList![8];
-                    });
+                  Builder(builder: (context) {
+                    final stateOfCategories =
+                        context.watch<CategoryNameCubit>().state;
+                    if (stateOfCategories is GenericInitial) {
+                      return Container();
+                    } else if (stateOfCategories is GenericLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (stateOfCategories is GenericCompleted) {
+                      List<Result> categoryInfo = [];
+                      for (int i = 0;
+                          i < stateOfCategories.response.length;
+                          i++) {
+                        categoryInfo.add(stateOfCategories.response[i]);
+                      }
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: categoryInfo.length,
+                          itemBuilder: (BuildContext context, index) {
+                            return buildRowCheckboxAndText(
+                                context,
+                                categoryInfo[index].name!,
+                                categoryInfo[index].id.toString(), () {
+                              setState(() {
+                                state.checkList![index] =
+                                    !state.checkList![index];
+                              });
+                            });
+                          });
+                    } else {
+                      final error = stateOfCategories as GenericError;
+                      return Center(
+                          child: Text("${error.message}\n${error.statusCode}"));
+                    }
                   }),
-                  SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(
-                    context,
-                    LocaleKeys.filters_choose_category_item1,
-                    "7",
-                    () {
-                      setState(() {
-                        state.checkList![8] = !state.checkList![8];
-                      });
-                    },
-                  ),
-                  SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(context,
-                      LocaleKeys.filters_choose_category_item2, "7", () {
-                    setState(() {
-                      state.checkList![9] = !state.checkList![9];
-                    });
-                  }),
-                  SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(context,
-                      LocaleKeys.filters_choose_category_item3, "6", () {
-                    setState(() {
-                      state.checkList![10] = !state.checkList![10];
-                    });
-                  }),
-                  SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(
-                      context,
-                      LocaleKeys.filters_choose_category_item4,
-                      "4", () {
-                    setState(() {
-                      state.checkList![11] = !state.checkList![11];
-                    });
-                  }),
-                  SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(context,
-                      LocaleKeys.filters_choose_category_item5, "2", () {
-                    setState(() {
-                      state.checkList![12] = !state.checkList![12];
-                    });
-                  }),
-                  SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(context,
-                      LocaleKeys.filters_choose_category_item6, "5", () {
-                    setState(() {
-                      state.checkList![13] = !state.checkList![13];
-                    });
-                  }),
-                  SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(context,
-                      LocaleKeys.filters_choose_category_item7, "7", () {
-                    setState(() {
-                      state.checkList![14] = !state.checkList![14];
-                    });
-                  }),
-                  SizedBox(height: context.dynamicHeight(0.016)),
-                  buildRowCheckboxAndText(context,
-                      LocaleKeys.filters_choose_category_item8, "7", () {
-                    setState(() {
-                      state.checkList![15] = !state.checkList![15];
-                    });
-                  }),
-                  //  SizedBox(height: context.dynamicHeight(0.030)),
+                  SizedBox(height: context.dynamicHeight(0.030)),
                 ],
               ),
             ),
@@ -121,17 +88,23 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
     });
   }
 
-  Row buildRowCheckboxAndText(BuildContext context, String text,
+  Column buildRowCheckboxAndText(BuildContext context, String text,
       String checkValue, VoidCallback onTap) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        buildCheckBox(context, checkValue),
-        Spacer(flex: 2),
-        GestureDetector(
-            onTap: onTap,
-            child: LocaleText(text: text, style: AppTextStyles.bodyTextStyle)),
-        Spacer(flex: 35),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildCheckBox(context, checkValue),
+            SizedBox(width: 10),
+            GestureDetector(
+                onTap: onTap,
+                child:
+                    LocaleText(text: text, style: AppTextStyles.bodyTextStyle)),
+            Spacer(flex: 35),
+          ],
+        ),
+        SizedBox(height: context.dynamicHeight(0.016)),
       ],
     );
   }
@@ -142,11 +115,12 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
       return CustomCheckbox(
           onTap: () {
             setState(() {
-      context.read<FiltersManagerCubit>().getPackageCategory(checkValue);
+              context
+                  .read<FiltersManagerCubit>()
+                  .getPackageCategory(checkValue);
 
               if (checkValue == "7") {
                 state.checkList![8] = !state.checkList![8];
-
               } else if (checkValue == "7") {
                 state.checkList![9] = !state.checkList![9];
               } else if (checkValue == "6") {

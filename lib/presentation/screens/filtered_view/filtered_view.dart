@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,8 +92,7 @@ class _FilteredViewState extends State<FilteredView> {
 
                 if (currentDate[0] == startDate[0]) {
                   if (restaurants[index].calendar![i].boxCount != 0) {
-                    return "${boxcount.toString()} " +
-                        LocaleKeys.home_page_packet_number;
+                    return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
                   } else if (restaurants[index].calendar![i].boxCount == null ||
                       restaurants[index].calendar![i].boxCount == 0) {
                     return LocaleKeys.home_page_soldout_icon;

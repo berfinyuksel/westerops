@@ -169,8 +169,11 @@ class _LoginViewState extends State<LoginView> {
                       context
                           .read<NotificationCubit>()
                           .postNotification(token!, "android");
-                      print("Platform.isAndroid"+token!);
+                      print("Platform.isAndroid" + token!);
                     } else if (Platform.isIOS) {
+                      context
+                          .read<NotificationCubit>()
+                          .postNotification(token!, "ios");
                       // iOS-specific code
                     }
                   }
