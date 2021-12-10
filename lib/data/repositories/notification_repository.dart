@@ -1,5 +1,3 @@
-
-
 import 'package:dongu_mobile/data/model/notification.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
@@ -9,16 +7,17 @@ import 'package:http/http.dart' as http;
 enum StatusCode { success, error }
 
 abstract class NotificationRepository {
-  Future<List<Notification>> postNotification(String registrationId, String type);
+  Future<List<Notification>> postNotification(
+      String registrationId, String type);
 }
 
 class SampleNotificationRepository implements NotificationRepository {
   @override
-  Future<List<Notification>> postNotification(String registrationId,String type) async {
+  Future<List<Notification>> postNotification(
+      String registrationId, String type) async {
     String json = '{"registration_id": "$registrationId", "type": "$type"}';
     final response = await http.post(
       Uri.parse("${UrlConstant.EN_URL}devices/"),
-      
       body: json,
       headers: {
         'Authorization': 'JWT ${SharedPrefs.getToken}',
@@ -28,15 +27,13 @@ class SampleNotificationRepository implements NotificationRepository {
     print("Notification StatusCode" + response.statusCode.toString());
     print("Notification Body" + response.body);
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       List<Notification> boxes = [];
 
       return boxes;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-
-
 }
 
 class NetworkError implements Exception {
