@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,18 +29,18 @@ class _MyRegisteredCardsUpdateViewState
   TextEditingController cvvController = TextEditingController();
 
   final monthsList = [
-    LocaleKeys.months_jan,
-    LocaleKeys.months_feb,
-    LocaleKeys.months_mar,
-    LocaleKeys.months_apr,
-    LocaleKeys.months_may,
-    LocaleKeys.months_june,
-    LocaleKeys.months_july,
-    LocaleKeys.months_aug,
-    LocaleKeys.months_sept,
-    LocaleKeys.months_oct,
-    LocaleKeys.months_nov,
-    LocaleKeys.months_dec
+    LocaleKeys.months_jan.locale,
+    LocaleKeys.months_feb.locale,
+    LocaleKeys.months_mar.locale,
+    LocaleKeys.months_apr.locale,
+    LocaleKeys.months_may.locale,
+    LocaleKeys.months_june.locale,
+    LocaleKeys.months_july.locale,
+    LocaleKeys.months_aug.locale,
+    LocaleKeys.months_sept.locale,
+    LocaleKeys.months_oct.locale,
+    LocaleKeys.months_nov.locale,
+    LocaleKeys.months_dec.locale
   ];
 
   final yearsList = [
@@ -90,22 +91,25 @@ class _MyRegisteredCardsUpdateViewState
                   Spacer(flex: 2),
                   //buildDropDown(context),
                   buildTextFormField(
-                      LocaleKeys.payment_payment_name_on_card, nameController),
+                      LocaleKeys.payment_payment_name_on_card.locale,
+                      nameController),
                   Spacer(flex: 3),
-                  buildTextFormField(LocaleKeys.payment_payment_card_number,
+                  buildTextFormField(
+                      LocaleKeys.payment_payment_card_number.locale,
                       cardNumberController),
                   Spacer(flex: 3),
                   Row(
                     children: [
                       Container(
-                        width: context.dynamicWidht(0.23),
+                        width: context.dynamicWidht(0.25),
                         height: context.dynamicHeight(0.06),
                         color: Colors.white,
                         child: DropdownButton<String>(
+                          underline: SizedBox(),
                           hint: Padding(
                             padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
                             child: Text(
-                              LocaleKeys.payment_payment_month_text,
+                              LocaleKeys.payment_payment_month_text.locale,
                             ),
                           ),
                           value: monthValue,
@@ -122,16 +126,17 @@ class _MyRegisteredCardsUpdateViewState
                           }).toList(),
                         ),
                       ),
-                      SizedBox(width: 20),
+                      Spacer(),
                       Container(
                         width: context.dynamicWidht(0.23),
                         height: context.dynamicHeight(0.06),
                         color: Colors.white,
                         child: DropdownButton<String>(
+                          underline: SizedBox(),
                           hint: Padding(
                             padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
                             child: Text(
-                              LocaleKeys.payment_payment_year_text,
+                              LocaleKeys.payment_payment_year_text.locale,
                             ),
                           ),
                           value: yearValue,
@@ -148,13 +153,14 @@ class _MyRegisteredCardsUpdateViewState
                           }).toList(),
                         ),
                       ),
-                      SizedBox(width: 20),
+                      Spacer(),
                       buildTextFormField("CVV/CVV2", cvvController),
                     ],
                   ),
                   Spacer(flex: 3),
                   buildTextFormField(
-                      LocaleKeys.payment_payment_name_card, cardNameController),
+                      LocaleKeys.payment_payment_name_card.locale,
+                      cardNameController),
                   Spacer(
                     flex: 33,
                   ),
