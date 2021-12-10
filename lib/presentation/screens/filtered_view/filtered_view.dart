@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +57,7 @@ class _FilteredViewState extends State<FilteredView> {
 
         return CustomScaffold(
             isDrawer: false,
-            title: LocaleKeys.filters_done_title,
+            title: LocaleKeys.filters_done_title.locale,
             body: buildListViewRestaurantInfo(state, restaurants));
       } else {
         final error = state as GenericError;
@@ -74,7 +75,7 @@ class _FilteredViewState extends State<FilteredView> {
         itemBuilder: (context, index) {
           String? packettNumber() {
             if (restaurants[index].calendar == null) {
-              return LocaleKeys.home_page_soldout_icon;
+              return LocaleKeys.home_page_soldout_icon.locale;
             } else if (restaurants[index].calendar != null) {
               for (int i = 0; i < restaurants[index].calendar!.length; i++) {
                 var boxcount = restaurants[index].calendar![i].boxCount;
@@ -91,8 +92,7 @@ class _FilteredViewState extends State<FilteredView> {
 
                 if (currentDate[0] == startDate[0]) {
                   if (restaurants[index].calendar![i].boxCount != 0) {
-                    return "${boxcount.toString()} " +
-                        LocaleKeys.home_page_packet_number;
+                    return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
                   } else if (restaurants[index].calendar![i].boxCount == null ||
                       restaurants[index].calendar![i].boxCount == 0) {
                     return LocaleKeys.home_page_soldout_icon;
@@ -113,7 +113,8 @@ class _FilteredViewState extends State<FilteredView> {
                     LocationService.latitude,
                     LocationService.longitude)
                 .toString(),
-            packetNumber: packettNumber() ?? LocaleKeys.home_page_soldout_icon,
+            packetNumber:
+                packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
             availableTime:
                 '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
             border: Border.all(

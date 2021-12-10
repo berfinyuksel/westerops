@@ -304,7 +304,7 @@
         "hint_text": "Yemek, restoran ara"
     },
     "my_favorites": {
-        "sign_in_to_monitor" : "Favori restoranlarınızı görüntülemek için giriş yapınız.",
+        "sign_in_to_monitor" : "Favori restoranlarınızı\ngörüntülemek için giriş yapınız.",
         "no_favorites" : "Favori restoranınız bulunmamaktadır.",
         "permission_for_location" : "Konuma izin ver",
         "title": "Favorilerim",

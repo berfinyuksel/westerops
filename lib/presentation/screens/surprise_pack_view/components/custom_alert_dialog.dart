@@ -72,6 +72,7 @@ class CustomAlertDialog extends StatelessWidget {
             borderColor: AppColors.greenColor,
             title: buttonOneTitle,
           ),
+          SizedBox(width: 5),
           CustomButton(
             onPressed: onPressedTwo,
             width: context.dynamicWidht(0.35),

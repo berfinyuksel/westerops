@@ -793,7 +793,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   Container buildSearchBar(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.72),
+      width: context.dynamicWidht(0.70),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(25.0),
