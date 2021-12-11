@@ -295,13 +295,15 @@ class _HomePageViewState extends State<HomePageView> {
                     child: NotificationListener<ScrollUpdateNotification>(
                         onNotification:
                             (ScrollUpdateNotification notification) {
+                          print(notification.metrics.pixels);
                           setState(() {
                             if (notification.metrics.pixels <= 0) {
                               scroolCategoriesLeft = true;
                             } else {
                               scroolCategoriesLeft = false;
                             }
-                            if (notification.metrics.pixels >= 91) {
+                            if (notification.metrics.pixels >=
+                                context.dynamicWidht(1) / 4.7) {
                               scroolCategoriesRight = true;
                             } else {
                               scroolCategoriesRight = false;
