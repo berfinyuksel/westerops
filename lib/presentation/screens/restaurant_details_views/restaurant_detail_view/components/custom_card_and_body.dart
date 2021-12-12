@@ -131,7 +131,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     return Container(
       //0.86 372.0 & 0.23 214
       width: context.dynamicWidht(0.86),
-      height: context.dynamicHeight(0.23),
+      height: context.dynamicHeight(0.3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(18.0),
@@ -719,7 +719,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         textColor: menuList!.contains(menuItem.toString())
                             ? AppColors.greenColor
                             : Colors.white,
-                        width: context.dynamicWidht(0.28),
+                        width: context.dynamicWidht(0.26),
                         borderColor: AppColors.greenColor,
                         onPressed: () async {
                           await pressedBuyButton(state, index, context,
@@ -1076,7 +1076,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Container clockContainer(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.29),
+      width: context.dynamicWidht(0.32),
       height: context.dynamicHeight(0.04),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),

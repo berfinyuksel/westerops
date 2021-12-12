@@ -25,7 +25,7 @@ class EmptyCartView extends StatelessWidget {
       ),
       child: LocaleText(
         text: LocaleKeys.cart_choose_restaurant,
-        style: AppTextStyles.headlineStyle,
+        style: AppTextStyles.headlineStyle.copyWith(fontSize: 20),
         alignment: TextAlign.center,
         maxLines: 3,
       ),
@@ -60,7 +60,7 @@ class EmptyCartView extends StatelessWidget {
                 ),
                 Spacer(flex: 3),
                 buildOrangeText(context),
-                Spacer(flex: 1),
+                Spacer(flex: 2),
                 buildButton(context),
               ],
             ),

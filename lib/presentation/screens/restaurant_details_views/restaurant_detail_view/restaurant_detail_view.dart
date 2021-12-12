@@ -33,12 +33,10 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
                 Column(
                   children: [
                     SizedBox(
-                      height: context.dynamicHeight(0.05),
+                      height: context.dynamicHeight(0.143),
                     ),
                     //spacer8-9
-                    SizedBox(
-                      height: context.dynamicHeight(0.093),
-                    ),
+
                     CustomCardAndBody(restaurant: widget.restaurant!),
                   ],
                 ),

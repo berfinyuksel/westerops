@@ -291,7 +291,7 @@ class _HomePageViewState extends State<HomePageView> {
                           )
                         : EdgeInsets.only(),
                 child: Container(
-                    height: context.dynamicHeight(0.16),
+                    height: context.dynamicHeight(0.18),
                     child: NotificationListener<ScrollUpdateNotification>(
                         onNotification:
                             (ScrollUpdateNotification notification) {
@@ -793,7 +793,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   Container buildSearchBar(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.70),
+      width: context.dynamicWidht(0.68),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(25.0),

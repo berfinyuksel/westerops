@@ -8,7 +8,7 @@
     <uses-feature android:glEsVersion="0x00020000" android:required="true" />
    <application
         android:label="dongu_mobile"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">
         <meta-data 
               android:name="com.google.android.maps.v2.API_KEY"
