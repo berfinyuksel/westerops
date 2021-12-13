@@ -205,7 +205,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Container customBody(BuildContext context, GenericCompleted state) {
     return Container(
-      height: context.dynamicHeight(0.55),
+      height: context.dynamicHeight(0.7),
       child: TabBarView(
           controller: _controller,
           children: [tabPackages(context, state), tabDetail(context)]),
@@ -221,7 +221,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         Container(
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.085),
+          height: context.dynamicHeight(0.1),
           padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
           child: ListTile(
             contentPadding:
@@ -273,7 +273,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           child: Container(
             color: AppColors.appBarColor,
             width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.085),
+            height: context.dynamicHeight(0.1),
             padding:
                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
             child: ListTile(
@@ -322,7 +322,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           child: Container(
             color: AppColors.appBarColor,
             width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.085),
+            height: context.dynamicHeight(0.1),
             padding:
                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
             child: ListTile(
@@ -383,7 +383,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           child: Container(
             color: AppColors.appBarColor,
             width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.095),
+            height: context.dynamicHeight(0.1),
             padding:
                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
             child: ListTile(

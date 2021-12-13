@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,11 +40,16 @@ class _CustomHorizontalListCategoryState
         for (int i = 0; i < state.response.length; i++) {
           results.add(state.response[i]);
         }
-
+        int radius = 38;
+        double sumOfRadius = 0;
         return ListView.separated(
           itemCount: results.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
+            sumOfRadius += (radius * 2) + context.dynamicWidht(0.04);
+            print(sumOfRadius);
+            context.read<CategoryPaddingCubit>().setPadding(sumOfRadius);
+            // print(context.dynamicWidht(0.04));
             return GestureDetector(
               onTap: () {
                 Navigator.of(context).pushNamed(
@@ -53,6 +59,7 @@ class _CustomHorizontalListCategoryState
                 );
               },
               child: CategoryItem(
+                  radius: radius,
                   color: buildColorOfCategoryItem(results[index].color!),
                   imagePath: results[index].photo,
                   categoryName: results[index].name),

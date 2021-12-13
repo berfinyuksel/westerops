@@ -26,150 +26,153 @@ class _FoodCategoriesState extends State<FoodCategories> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: LocaleKeys.restaurant_detail_food_categories_title,
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-                top: context.dynamicWidht(0.04),
-                left: context.dynamicWidht(0.07),
-                right: context.dynamicWidht(0.07)),
-            child: widget.categories!.isNotEmpty
-                ? GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      childAspectRatio: context.dynamicWidht(0.07) /
-                          context.dynamicHeight(0.05),
-                      crossAxisSpacing: context.dynamicWidht(0.046),
-                      mainAxisSpacing: context.dynamicHeight(0.02),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  top: context.dynamicWidht(0.04),
+                  left: context.dynamicWidht(0.07),
+                  right: context.dynamicWidht(0.07)),
+              child: widget.categories!.isNotEmpty
+                  ? GridView.builder(
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        childAspectRatio: context.dynamicWidht(0.07) /
+                            context.dynamicHeight(0.065),
+                        crossAxisSpacing: context.dynamicWidht(0.046),
+                        mainAxisSpacing: context.dynamicHeight(0.03),
+                      ),
+                      itemCount: widget.categories!.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              RouteConstant.CATEGORIES_VIEW,
+                              arguments: ScreenArgumentsCategories(
+                                  categories: widget.categories![index]),
+                            );
+                          },
+                          child: CategoryItem(
+                            radius: 38,
+                            imagePath: widget.categories![index].photo,
+                            categoryName: widget.categories![index].name,
+                            color: buildColorOfCategoryItem(
+                                widget.categories![index].color),
+                          ),
+                        );
+                      },
+                    )
+                  : Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 40,
+                          ),
+                          SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          LocaleText(
+                            alignment: TextAlign.center,
+                            text: LocaleKeys
+                                .restaurant_detail_food_categories_text,
+                            style: AppTextStyles.myInformationBodyTextStyle,
+                          ),
+                        ],
+                      ),
                     ),
-                    itemCount: widget.categories!.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                            RouteConstant.CATEGORIES_VIEW,
-                            arguments: ScreenArgumentsCategories(
-                                categories: widget.categories![index]),
-                          );
-                        },
-                        child: CategoryItem(
-                          imagePath: widget.categories![index].photo,
-                          categoryName: widget.categories![index].name,
-                          color: buildColorOfCategoryItem(
-                              widget.categories![index].color),
-                        ),
-                      );
-                    },
-                  )
-                : Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 40,
-                        ),
-                        SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        LocaleText(
-                          alignment: TextAlign.center,
-                          text:
-                              LocaleKeys.restaurant_detail_food_categories_text,
-                          style: AppTextStyles.myInformationBodyTextStyle,
-                        ),
-                      ],
+            ),
+            SizedBox(
+              height: context.dynamicHeight(0.049),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: context.dynamicWidht(0.070),
                     ),
+                    LocaleText(
+                      text: LocaleKeys.restaurant_food_categories_text1,
+                      style: AppTextStyles.bodyTitleStyle,
+                      alignment: TextAlign.start,
+                      maxLines: 1,
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
+                  child: Divider(
+                    thickness: 5,
+                    color: AppColors.borderAndDividerColor,
                   ),
-          ),
-          SizedBox(
-            height: context.dynamicHeight(0.049),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: context.dynamicWidht(0.070),
+                )
+              ],
+            ),
+            SizedBox(
+              height: context.dynamicHeight(0.015),
+            ),
+            Container(
+                width: context.dynamicWidht(1),
+                height: context.dynamicHeight(0.065),
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: context.dynamicHeight(0.020),
+                      left: context.dynamicWidht(0.065)),
+                  child: LocaleText(
+                    text: LocaleKeys.restaurant_food_categories_text3,
+                    style: AppTextStyles.bodyTextStyle,
                   ),
-                  LocaleText(
-                    text: LocaleKeys.restaurant_food_categories_text1,
+                )),
+            SizedBox(
+              height: context.dynamicHeight(0.04),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                      right: context.dynamicWidht(0.65),
+                      left: context.dynamicWidht(0.075)),
+                  child: LocaleText(
+                    text: LocaleKeys.restaurant_food_categories_text2,
                     style: AppTextStyles.bodyTitleStyle,
-                    alignment: TextAlign.start,
-                    maxLines: 1,
                   ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
-                child: Divider(
-                  thickness: 5,
-                  color: AppColors.borderAndDividerColor,
                 ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: context.dynamicHeight(0.015),
-          ),
-          Container(
-              width: context.dynamicWidht(1),
-              height: context.dynamicHeight(0.065),
-              color: Colors.white,
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: context.dynamicHeight(0.020),
-                    left: context.dynamicWidht(0.065)),
-                child: LocaleText(
-                  text: LocaleKeys.restaurant_food_categories_text3,
-                  style: AppTextStyles.bodyTextStyle,
-                ),
-              )),
-          SizedBox(
-            height: context.dynamicHeight(0.04),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    right: context.dynamicWidht(0.65),
-                    left: context.dynamicWidht(0.075)),
-                child: LocaleText(
-                  text: LocaleKeys.restaurant_food_categories_text2,
-                  style: AppTextStyles.bodyTitleStyle,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
-                child: Divider(
-                  thickness: 5,
-                  color: AppColors.borderAndDividerColor,
-                ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: context.dynamicHeight(0.015),
-          ),
-          Container(
-              width: context.dynamicWidht(1),
-              height: context.dynamicHeight(0.11),
-              color: Colors.white,
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: context.dynamicHeight(0.020),
-                    left: context.dynamicWidht(0.065)),
-                child: LocaleText(
-                  text: LocaleKeys.restaurant_food_categories_text4,
-                  style: AppTextStyles.bodyTextStyle,
-                  maxLines: 3,
-                ),
-              )),
-        ],
+                Padding(
+                  padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
+                  child: Divider(
+                    thickness: 5,
+                    color: AppColors.borderAndDividerColor,
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: context.dynamicHeight(0.015),
+            ),
+            Container(
+                width: context.dynamicWidht(1),
+                height: context.dynamicHeight(0.11),
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: context.dynamicHeight(0.020),
+                      left: context.dynamicWidht(0.065)),
+                  child: LocaleText(
+                    text: LocaleKeys.restaurant_food_categories_text4,
+                    style: AppTextStyles.bodyTextStyle,
+                    maxLines: 3,
+                  ),
+                )),
+          ],
+        ),
       ),
     );
   }

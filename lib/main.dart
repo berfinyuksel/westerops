@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -118,6 +119,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
+        BlocProvider<CategoryPaddingCubit>(
+            create: (_) => CategoryPaddingCubit()),
         BlocProvider<OrderBarCubit>(create: (_) => OrderBarCubit()),
         BlocProvider<SocialLoginCubit>(create: (_) => SocialLoginCubit()),
         BlocProvider<SumPriceOrderCubit>(create: (_) => SumPriceOrderCubit()),

@@ -11,6 +11,7 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 
@@ -296,12 +297,14 @@ class _HomePageViewState extends State<HomePageView> {
                         onNotification:
                             (ScrollUpdateNotification notification) {
                           setState(() {
+                            print(notification.metrics.pixels);
+
                             if (notification.metrics.pixels <= 0) {
                               scroolCategoriesLeft = true;
                             } else {
                               scroolCategoriesLeft = false;
                             }
-                            if (notification.metrics.pixels >= 91) {
+                            if (notification.metrics.pixels >= 5) {
                               scroolCategoriesRight = true;
                             } else {
                               scroolCategoriesRight = false;
@@ -383,7 +386,7 @@ class _HomePageViewState extends State<HomePageView> {
             orderInfo.add(orderInfoTotal[i]);
           }
         }
-        print(orderInfoTotal.length);
+
         return orderInfo.isNotEmpty
             ? GestureDetector(
                 onTap: () {
@@ -507,7 +510,7 @@ class _HomePageViewState extends State<HomePageView> {
 
                       String now = DateTime.now().toIso8601String();
                       List<String> currentDate = now.split("T").toList();
-                      print(currentDate[0]);
+
                       List<String> startDate = restaurants[index]
                           .calendar![i]
                           .startDate!
@@ -605,14 +608,12 @@ class _HomePageViewState extends State<HomePageView> {
       child: NotificationListener<ScrollUpdateNotification>(
         onNotification: (ScrollUpdateNotification notification) {
           setState(() {
-            print(notification.metrics.pixels);
-
             if (notification.metrics.pixels <= 0) {
               scroolOpportunitiesLeft = true;
             } else {
               scroolOpportunitiesLeft = false;
             }
-            if (notification.metrics.pixels >= 375) {
+            if (notification.metrics.pixels >= context.dynamicWidht(1) + 26) {
               scroolOpportunitiesRight = true;
             } else {
               scroolOpportunitiesRight = false;
@@ -648,7 +649,7 @@ class _HomePageViewState extends State<HomePageView> {
 
                       String now = DateTime.now().toIso8601String();
                       List<String> currentDate = now.split("T").toList();
-                      print(currentDate[0]);
+
                       List<String> startDate = restaurants[index]
                           .calendar![i]
                           .startDate!

@@ -8,12 +8,13 @@ class CategoryItem extends StatelessWidget {
   final String? imagePath;
   final String? categoryName;
   final int? color;
-
+  final int? radius;
   const CategoryItem({
     Key? key,
     required this.imagePath,
     required this.categoryName,
     required this.color,
+    required this.radius,
   }) : super(key: key);
 
   @override
@@ -28,6 +29,7 @@ class CategoryItem extends StatelessWidget {
           height: context.dynamicHeight(0.01),
         ),
         LocaleText(
+          textOverFlow: TextOverflow.ellipsis,
           text: categoryName,
           style: AppTextStyles.subTitleStyle,
         )
