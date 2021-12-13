@@ -12,8 +12,12 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
+import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/home_page_view/components/near_me_restaurant_list.dart';
+import 'package:dongu_mobile/presentation/screens/home_page_view/components/opportunity_restaurant_list_view_widget.dart';
 
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
 
@@ -293,27 +297,29 @@ class _HomePageViewState extends State<HomePageView> {
                         : EdgeInsets.only(),
                 child: Container(
                     height: context.dynamicHeight(0.18),
-                    child: NotificationListener<ScrollUpdateNotification>(
-                        onNotification:
-                            (ScrollUpdateNotification notification) {
-                          setState(() {
-                            print(notification.metrics.pixels);
-
-                            if (notification.metrics.pixels <= 0) {
-                              scroolCategoriesLeft = true;
-                            } else {
-                              scroolCategoriesLeft = false;
-                            }
-                            if (notification.metrics.pixels >= 5) {
-                              scroolCategoriesRight = true;
-                            } else {
-                              scroolCategoriesRight = false;
-                            }
-                          });
-
-                          return true;
-                        },
-                        child: CustomHorizontalListCategory())),
+                    child: Builder(builder: (context) {
+                      final categoryPadding =
+                          context.watch<CategoryPaddingCubit>().state;
+                      return NotificationListener<ScrollUpdateNotification>(
+                          onNotification:
+                              (ScrollUpdateNotification notification) {
+                            setState(() {
+                              if (notification.metrics.pixels <= 0) {
+                                scroolCategoriesLeft = true;
+                              } else {
+                                scroolCategoriesLeft = false;
+                              }
+                              if (notification.metrics.pixels >=
+                                  categoryPadding) {
+                                scroolCategoriesRight = true;
+                              } else {
+                                scroolCategoriesRight = false;
+                              }
+                            });
+                            return true;
+                          },
+                          child: CustomHorizontalListCategory());
+                    })),
               ),
             ),
             Visibility(
@@ -470,130 +476,27 @@ class _HomePageViewState extends State<HomePageView> {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
-      child: NotificationListener<ScrollUpdateNotification>(
-        onNotification: (ScrollUpdateNotification notification) {
-          setState(() {});
-          if (notification.metrics.pixels <= 0) {
-            scroolNearMeLeft = true;
-          } else {
-            scroolNearMeLeft = false;
-          }
-          if (notification.metrics.pixels >= 375) {
-            scroolNearMeRight = true;
-          } else {
-            scroolNearMeRight = false;
-          }
-          return true;
-        },
-        child: ListView.separated(
-          //padding: EdgeInsets.symmetric(horizontal: 20),
-          controller: _controller,
-          itemCount: restaurants.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                    arguments: ScreenArgumentsRestaurantDetail(
-                      restaurant: restaurants[index],
-                    ));
-              },
-              child: Builder(builder: (context) {
-                String? packettNumber() {
-                  if (restaurants[index].calendar == null) {
-                    return LocaleKeys.home_page_soldout_icon;
-                  } else if (restaurants[index].calendar != null) {
-                    for (int i = 0;
-                        i < restaurants[index].calendar!.length;
-                        i++) {
-                      var boxcount = restaurants[index].calendar![i].boxCount;
-
-                      String now = DateTime.now().toIso8601String();
-                      List<String> currentDate = now.split("T").toList();
-
-                      List<String> startDate = restaurants[index]
-                          .calendar![i]
-                          .startDate!
-                          .toString()
-                          .split("T")
-                          .toList();
-
-                      if (currentDate[0] == startDate[0]) {
-                        if (restaurants[index].calendar![i].boxCount != 0) {
-                          return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-                        } else if (restaurants[index].calendar![i].boxCount ==
-                                null ||
-                            restaurants[index].calendar![i].boxCount == 0) {
-                          return LocaleKeys.home_page_soldout_icon;
-                        }
-                      }
-                    }
-                  }
-                }
-
-                return RestaurantInfoCard(
-                  restaurantId: restaurants[index].id,
-                  courierPackageBGColor:
-                      restaurants[index].packageSettings!.deliveryType == "2" ||
-                              restaurants[index]
-                                      .packageSettings!
-                                      .deliveryType ==
-                                  "3"
-                          ? AppColors.greenColor
-                          : Colors.white,
-                  courierPackageIconColor:
-                      restaurants[index].packageSettings!.deliveryType == "2" ||
-                              restaurants[index]
-                                      .packageSettings!
-                                      .deliveryType ==
-                                  "3"
-                          ? Colors.white
-                          : AppColors.unSelectedpackageDeliveryColor,
-                  getItPackageBGColor:
-                      restaurants[index].packageSettings!.deliveryType == "1" ||
-                              restaurants[index]
-                                      .packageSettings!
-                                      .deliveryType ==
-                                  "3"
-                          ? AppColors.greenColor
-                          : Colors.white,
-                  getItPackageIconColor:
-                      restaurants[index].packageSettings!.deliveryType == "1" ||
-                              restaurants[index]
-                                      .packageSettings!
-                                      .deliveryType ==
-                                  "3"
-                          ? Colors.white
-                          : AppColors.unSelectedpackageDeliveryColor,
-                  minDiscountedOrderPrice: restaurants[index]
-                      .packageSettings
-                      ?.minDiscountedOrderPrice,
-                  minOrderPrice:
-                      restaurants[index].packageSettings?.minOrderPrice,
-                  restaurantIcon: restaurants[index].photo,
-                  backgroundImage: restaurants[index].background,
-                  packetNumber:
-                      packettNumber() ?? LocaleKeys.home_page_soldout_icon,
-                  restaurantName: restaurants[index].name,
-                  grade: restaurants[index].avgReview!.toStringAsFixed(1),
-                  location: restaurants[index].city,
-                  distance: Haversine.distance(
-                          restaurants[index].latitude!,
-                          restaurants[index].longitude,
-                          LocationService.latitude,
-                          LocationService.longitude)
-                      .toString(),
-                  availableTime:
-                      '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
-                );
-              }),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) => SizedBox(
-            width: context.dynamicWidht(0.04),
-          ),
-        ),
-      ),
+      child: Builder(builder: (context) {
+        double valueOfPaddingForNearMe =
+            context.watch<NearMePaddingCubit>().state;
+        return NotificationListener<ScrollUpdateNotification>(
+            onNotification: (ScrollUpdateNotification notification) {
+              setState(() {});
+              if (notification.metrics.pixels <= 0) {
+                scroolNearMeLeft = true;
+              } else {
+                scroolNearMeLeft = false;
+              }
+              if (notification.metrics.pixels >= valueOfPaddingForNearMe) {
+                scroolNearMeRight = true;
+              } else {
+                scroolNearMeRight = false;
+              }
+              return true;
+            },
+            child: NearMeRestaurantListViewWidget(
+                restaurants: restaurants, controller: _controller));
+      }),
     );
   }
 
@@ -605,134 +508,30 @@ class _HomePageViewState extends State<HomePageView> {
     return Container(
       width: context.dynamicWidht(0.64),
       height: context.dynamicHeight(0.29),
-      child: NotificationListener<ScrollUpdateNotification>(
-        onNotification: (ScrollUpdateNotification notification) {
-          setState(() {
-            if (notification.metrics.pixels <= 0) {
-              scroolOpportunitiesLeft = true;
-            } else {
-              scroolOpportunitiesLeft = false;
-            }
-            if (notification.metrics.pixels >= context.dynamicWidht(1) + 26) {
-              scroolOpportunitiesRight = true;
-            } else {
-              scroolOpportunitiesRight = false;
-            }
-          });
-
-          return true;
-        },
-        child: ListView.separated(
-          //padding: EdgeInsets.symmetric(horizontal: 20),
-          controller: _controller,
-          itemCount: restaurants.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                    arguments: ScreenArgumentsRestaurantDetail(
-                      restaurant: restaurants[index],
-                    ));
-              },
-              child: Builder(builder: (context) {
-                String? packettNumber() {
-                  if (restaurants[index].calendar == null) {
-                    //calendar dizisi boş ise tükendi yazdırsın
-                    return LocaleKeys.home_page_soldout_icon;
-                  } else if (restaurants[index].calendar != null) {
-                    //calendar dizisi boş değilse aşağıdaki kodlar çalışsın
-                    for (int i = 0;
-                        i < restaurants[index].calendar!.length;
-                        i++) {
-                      var boxcount = restaurants[index].calendar![i].boxCount;
-
-                      String now = DateTime.now().toIso8601String();
-                      List<String> currentDate = now.split("T").toList();
-
-                      List<String> startDate = restaurants[index]
-                          .calendar![i]
-                          .startDate!
-                          .toString()
-                          .split("T")
-                          .toList();
-
-                      if (currentDate[0] == startDate[0]) {
-                        if (restaurants[index].calendar![i].boxCount != 0) {
-                          return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-                        } else if (restaurants[index].calendar![i].boxCount ==
-                                null ||
-                            restaurants[index].calendar![i].boxCount == 0) {
-                          return LocaleKeys.home_page_soldout_icon;
-                        }
-                      }
-                    }
-                  }
+      child: Builder(builder: (context) {
+        double valueOfPaddingForOpportunity =
+            context.watch<OpportunityPaddingCubit>().state;
+        return NotificationListener<ScrollUpdateNotification>(
+            onNotification: (ScrollUpdateNotification notification) {
+              setState(() {
+                if (notification.metrics.pixels <= 0) {
+                  scroolOpportunitiesLeft = true;
+                } else {
+                  scroolOpportunitiesLeft = false;
                 }
+                if (notification.metrics.pixels >=
+                    valueOfPaddingForOpportunity) {
+                  scroolOpportunitiesRight = true;
+                } else {
+                  scroolOpportunitiesRight = false;
+                }
+              });
 
-                return RestaurantInfoCard(
-                  restaurantId: restaurants[index].id,
-                  courierPackageBGColor:
-                      restaurants[index].packageSettings!.deliveryType == "2" ||
-                              restaurants[index]
-                                      .packageSettings!
-                                      .deliveryType ==
-                                  "3"
-                          ? AppColors.greenColor
-                          : Colors.white,
-                  courierPackageIconColor:
-                      restaurants[index].packageSettings!.deliveryType == "2" ||
-                              restaurants[index]
-                                      .packageSettings!
-                                      .deliveryType ==
-                                  "3"
-                          ? Colors.white
-                          : AppColors.unSelectedpackageDeliveryColor,
-                  getItPackageBGColor:
-                      restaurants[index].packageSettings!.deliveryType == "1" ||
-                              restaurants[index]
-                                      .packageSettings!
-                                      .deliveryType ==
-                                  "3"
-                          ? AppColors.greenColor
-                          : Colors.white,
-                  getItPackageIconColor:
-                      restaurants[index].packageSettings!.deliveryType == "1" ||
-                              restaurants[index]
-                                      .packageSettings!
-                                      .deliveryType ==
-                                  "3"
-                          ? Colors.white
-                          : AppColors.unSelectedpackageDeliveryColor,
-                  minDiscountedOrderPrice: restaurants[index]
-                      .packageSettings
-                      ?.minDiscountedOrderPrice,
-                  minOrderPrice:
-                      restaurants[index].packageSettings?.minOrderPrice,
-                  restaurantIcon: restaurants[index].photo,
-                  backgroundImage: restaurants[index].background,
-                  packetNumber:
-                      packettNumber() ?? LocaleKeys.home_page_soldout_icon,
-                  restaurantName: restaurants[index].name,
-                  grade: restaurants[index].avgReview!.toStringAsFixed(1),
-                  location: restaurants[index].city,
-                  distance: Haversine.distance(
-                          restaurants[index].latitude!,
-                          restaurants[index].longitude,
-                          LocationService.latitude,
-                          LocationService.longitude)
-                      .toString(),
-                  availableTime:
-                      '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
-                );
-              }),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) => SizedBox(
-            width: context.dynamicWidht(0.04),
-          ),
-        ),
-      ),
+              return true;
+            },
+            child: OpportunityRestaurantListViewWidget(
+                restaurants: restaurants, controller: _controller));
+      }),
     );
   }
 

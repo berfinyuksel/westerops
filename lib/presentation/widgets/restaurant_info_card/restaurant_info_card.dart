@@ -28,6 +28,7 @@ class RestaurantInfoCard extends StatefulWidget {
   final Color? courierPackageIconColor;
   final Color? courierPackageBGColor;
   final int? restaurantId;
+  final double? width;
 
   const RestaurantInfoCard({
     Key? key,
@@ -46,6 +47,7 @@ class RestaurantInfoCard extends StatefulWidget {
     this.courierPackageIconColor,
     this.getItPackageBGColor,
     this.getItPackageIconColor,
+    this.width,
   }) : super(key: key);
 
   @override
@@ -61,7 +63,7 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.64),
+      width: widget.width,
       height: context.dynamicHeight(0.29),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),

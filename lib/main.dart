@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
+import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -119,6 +121,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
+        BlocProvider<NearMePaddingCubit>(create: (_) => NearMePaddingCubit()),
+        BlocProvider<OpportunityPaddingCubit>(
+            create: (_) => OpportunityPaddingCubit()),
         BlocProvider<CategoryPaddingCubit>(
             create: (_) => CategoryPaddingCubit()),
         BlocProvider<OrderBarCubit>(create: (_) => OrderBarCubit()),
