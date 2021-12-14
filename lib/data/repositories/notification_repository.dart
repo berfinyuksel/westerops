@@ -9,6 +9,8 @@ enum StatusCode { success, error }
 abstract class NotificationRepository {
   Future<List<Notification>> postNotification(
       String registrationId, String type);
+        Future<List<Notification>> getNotification(
+      );
 }
 
 class SampleNotificationRepository implements NotificationRepository {
@@ -24,10 +26,30 @@ class SampleNotificationRepository implements NotificationRepository {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print("Notification StatusCode" + response.statusCode.toString());
-    print("Notification Body" + response.body);
+    print("Notification StatusCode " + response.statusCode.toString());
+    print("Notification Body " + response.body);
 
     if (response.statusCode == 201) {
+      List<Notification> boxess = [];
+
+      return boxess;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
+    @override
+  Future<List<Notification>> getNotification() async {
+   
+    final response = await http.get(
+      Uri.parse("${UrlConstant.EN_URL}notification/"),
+      headers: {
+        'Authorization': 'JWT ${SharedPrefs.getToken}',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    print("Notification StatusCode " + response.statusCode.toString());
+    print("Notification Body GET " + response.body);
+
+    if (response.statusCode == 200) {
       List<Notification> boxes = [];
 
       return boxes;

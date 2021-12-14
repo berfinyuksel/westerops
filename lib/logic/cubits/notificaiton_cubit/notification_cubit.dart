@@ -16,4 +16,14 @@ class NotificationCubit extends Cubit<GenericState> {
       emit(GenericError(e.message, e.statusCode));
     }
   }
+    Future<void> getNotification() async {
+    try {
+      emit(GenericLoading());
+      final response =
+          await _notificationRepository.getNotification();
+      emit(GenericCompleted(response));
+    } on NetworkError catch (e) {
+      emit(GenericError(e.message, e.statusCode));
+    }
+  }
 }

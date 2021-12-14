@@ -55,24 +55,35 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     setState(() {
       showLoading = true;
     });
+    if (codeController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        phoneController.text.isNotEmpty && phoneAuthCredential.smsCode!.isNotEmpty && phoneAuthCredential.verificationId!.isNotEmpty) {
+      showDialog(
+          context: context,
+          builder: (_) => CustomAlertDialogResetPassword(
+                description: LocaleKeys.forgot_password_successfully_changed,
+                onPressed: () => Navigator.popAndPushNamed(
+                    context, RouteConstant.LOGIN_VIEW),
+              ));
+    }else{
+          showDialog(
+          context: context,
+          builder: (_) => CustomAlertDialogResetPassword(
+                description: LocaleKeys.forgot_password_fail_changed,
+                onPressed: () => Navigator.pop(
+                    context),
+              ));
+    }
     try {
       final authCredential =
-          await _auth.signInWithCredential(phoneAuthCredential);
-      print(authCredential.user!.providerData);
+          await _auth.applyActionCode(codeController.text);
+    // print(authCredential.user!.providerData);
       // print("SMS CODE : ${phoneAuthCredential.smsCode}");
       setState(() {
         showLoading = false;
       });
 
-      if (authCredential.user != null) {
-        showDialog(
-            context: context,
-            builder: (_) => CustomAlertDialogResetPassword(
-                  description: LocaleKeys.forgot_password_successfully_changed,
-                  onPressed: () => Navigator.popAndPushNamed(
-                      context, RouteConstant.LOGIN_VIEW),
-                ));
-      }
+      
     } on FirebaseAuthException catch (e) {
       print(e);
       setState(() {
@@ -146,12 +157,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     ),
                     CustomButton(
                       onPressed: () async {
-                        // if (isCodeSent == true) {
-                        //   showDialog(
-                        //       context: context,
-                        //       builder: (_) =>
-                        //           CustomAlertDialogSuccessfullyChangedPassword());
-                        // }
                         String phoneTR = '+90' + phoneController.text;
                         String phoneEN = '+1' + phoneController.text;
                         if (codeController.text.isNotEmpty) {
@@ -170,10 +175,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                       description: LocaleKeys
                                           .forgot_password_fail_changed,
                                       onPressed: () =>
-                                          Navigator.popAndPushNamed(
-                                              context,
-                                              RouteConstant
-                                                  .FORGOT_PASSWORD_VIEW),
+                                          Navigator.pop(
+                                              context,),
                                     ));
                           }
                         }
