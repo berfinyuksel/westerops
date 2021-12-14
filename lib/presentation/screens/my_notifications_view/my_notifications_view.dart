@@ -1,7 +1,9 @@
+import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:googleapis/language/v1.dart';
+import 'package:provider/src/provider.dart';
 
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
@@ -32,6 +34,7 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
     super.initState();
     _controller = TabController(length: 3, vsync: this);
     notificationToken();
+     context.read<NotificationCubit>().getNotification();
   }
 
   @override

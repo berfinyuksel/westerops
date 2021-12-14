@@ -41,7 +41,7 @@ class _SearchViewState extends State<SearchView> {
   String query = '';
   bool scroolCategoriesLeft = true;
   bool scroolCategoriesRight = false;
-
+  String mealNames = "";
   bool scroolTrendLeft = true;
   bool scroolTrendRight = false;
 
@@ -269,9 +269,17 @@ class _SearchViewState extends State<SearchView> {
             ? 0
             : searchList.length,
         itemBuilder: (context, index) {
-          for (var i = 0; i < filteredNames[index].storeMeals!.length; i++) {
-            //store Meals içine alınacak indexten kurtulacak
+          List<String> meals = [];
+
+          if (filteredNames[index].storeMeals == null) {
+            return Text("Aradığınız isimde bir yemek bulunmamaktadır.");
+          } else if (filteredNames[index].storeMeals != null) {
+            for (var i = 0; i < filteredNames[index].storeMeals!.length; i++) {
+              meals.add(filteredNames[index].storeMeals![i].name!);
+            }
+            mealNames = meals.join(', ');
           }
+
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.06),
@@ -289,12 +297,6 @@ class _SearchViewState extends State<SearchView> {
                   ),
                 );
               },
-              // leading: Image.network(
-              //   searches.urlImage,
-              //   fit: BoxFit.cover,
-              //   width: 50,
-              //   height: 50,
-              // ),
               title: Text(searchList.isEmpty ||
                       filteredNames.isEmpty ||
                       "${filteredNames[index].name}".isEmpty
@@ -302,9 +304,9 @@ class _SearchViewState extends State<SearchView> {
                   : "${filteredNames[index].name}"),
               subtitle: Text(searchList.isEmpty ||
                       filteredNames.isEmpty ||
-                      "${filteredNames[index].storeMeals!.first.name}".isEmpty
+                      mealNames.isEmpty
                   ? ""
-                  : "${filteredNames[index].storeMeals!.first.name}"),
+                  : mealNames),
             ),
           );
         });
