@@ -36,8 +36,7 @@ class NearMeRestaurantListViewWidget extends StatelessWidget {
         if (index + 1 == restaurants.length) {
           context.read<NearMePaddingCubit>().setPadding(sumOfWidthOpportunity -
               context.dynamicWidht(1) -
-              context.dynamicWidht(0.04) +
-              25);
+              context.dynamicWidht(0.04) );
         }
         return GestureDetector(
           onTap: () {

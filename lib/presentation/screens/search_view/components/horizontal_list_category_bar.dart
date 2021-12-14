@@ -54,8 +54,7 @@ class _CustomHorizontalListCategoryState
             if (index + 1 == results.length) {
               context.read<CategoryPaddingCubit>().setPadding(sumOfRadius -
                   context.dynamicWidht(1) -
-                  context.dynamicWidht(0.04) +
-                  26);
+                  context.dynamicWidht(0.04));
             }
             // print(context.dynamicWidht(0.04));
             return GestureDetector(

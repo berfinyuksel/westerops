@@ -36,8 +36,7 @@ class OpportunityRestaurantListViewWidget extends StatelessWidget {
           context.read<OpportunityPaddingCubit>().setPadding(
               sumOfWidthOpportunity -
                   context.dynamicWidht(1) -
-                  context.dynamicWidht(0.04) +
-                  25);
+                  context.dynamicWidht(0.04) );
         }
         return GestureDetector(
           onTap: () {
