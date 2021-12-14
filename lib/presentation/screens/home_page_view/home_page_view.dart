@@ -64,6 +64,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   ScrollController? _controller;
   int? duration;
+  String mealNames = "";
 
   bool visible = true;
   TextEditingController? controller = TextEditingController();
@@ -202,7 +203,7 @@ class _HomePageViewState extends State<HomePageView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildSearchBar(context),
-                  Spacer(),
+                 // Spacer(),
                   GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
@@ -596,7 +597,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   Container buildSearchBar(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.68),
+      width: context.dynamicWidht(0.72),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(25.0),
@@ -729,6 +730,16 @@ class _HomePageViewState extends State<HomePageView> {
             ? 0
             : filteredNames.length,
         itemBuilder: (context, index) {
+              List<String> meals = [];
+
+          if (filteredNames[index].storeMeals == null) {
+            return Text("Aradığınız isimde bir yemek bulunmamaktadır.");
+          } else if (filteredNames[index].storeMeals != null) {
+            for (var i = 0; i < filteredNames[index].storeMeals!.length; i++) {
+              meals.add(filteredNames[index].storeMeals![i].name!);
+            }
+            mealNames = meals.join(', ');
+          }
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.06),
@@ -750,11 +761,11 @@ class _HomePageViewState extends State<HomePageView> {
                   ? ""
                   : "${filteredNames[index].name}"),
               subtitle: Text(
-                  "${filteredNames[index].storeMeals![index].name}".isEmpty ||
+                mealNames.isEmpty ||
                           searchList.isEmpty ||
                           filteredNames.isEmpty
                       ? ""
-                      : "${filteredNames[index].storeMeals![index].name}"),
+                      : mealNames),
             ),
           );
         });

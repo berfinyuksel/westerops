@@ -198,7 +198,7 @@ class MyApp extends StatelessWidget {
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Dongu Mobile',
+          title: 'Döngü',
           theme: appThemeData[AppTheme.PrimaryTheme],
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
