@@ -35,7 +35,7 @@ class SignWithSocialAuth extends StatelessWidget {
           ),
           LocaleText(
             text: LocaleKeys.register_social_auth,
-            style: AppTextStyles.bodyTextStyle,
+            style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 12),
             maxLines: 1,
           ),
           Spacer(

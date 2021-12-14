@@ -91,9 +91,7 @@ class SampleOrderRepository implements OrderRepository {
       }
     } else if (response.statusCode == 401) {
       List<BoxOrder> boxes = [];
-
-        return boxes;
-
+      return boxes;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }

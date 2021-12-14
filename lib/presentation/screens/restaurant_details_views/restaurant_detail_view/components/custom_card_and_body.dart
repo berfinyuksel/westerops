@@ -131,7 +131,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     return Container(
       //0.86 372.0 & 0.23 214
       width: context.dynamicWidht(0.86),
-      height: context.dynamicHeight(0.23),
+      height: context.dynamicHeight(0.3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(18.0),
@@ -205,7 +205,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Container customBody(BuildContext context, GenericCompleted state) {
     return Container(
-      height: context.dynamicHeight(0.55),
+      height: context.dynamicHeight(0.7),
       child: TabBarView(
           controller: _controller,
           children: [tabPackages(context, state), tabDetail(context)]),
@@ -221,7 +221,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         Container(
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.085),
+          height: context.dynamicHeight(0.1),
           padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
           child: ListTile(
             contentPadding:
@@ -273,7 +273,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           child: Container(
             color: AppColors.appBarColor,
             width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.085),
+            height: context.dynamicHeight(0.1),
             padding:
                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
             child: ListTile(
@@ -322,7 +322,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           child: Container(
             color: AppColors.appBarColor,
             width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.085),
+            height: context.dynamicHeight(0.1),
             padding:
                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
             child: ListTile(
@@ -383,7 +383,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           child: Container(
             color: AppColors.appBarColor,
             width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.095),
+            height: context.dynamicHeight(0.1),
             padding:
                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
             child: ListTile(
@@ -719,7 +719,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         textColor: menuList!.contains(menuItem.toString())
                             ? AppColors.greenColor
                             : Colors.white,
-                        width: context.dynamicWidht(0.28),
+                        width: context.dynamicWidht(0.26),
                         borderColor: AppColors.greenColor,
                         onPressed: () async {
                           await pressedBuyButton(state, index, context,
@@ -1076,7 +1076,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Container clockContainer(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.29),
+      width: context.dynamicWidht(0.32),
       height: context.dynamicHeight(0.04),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),

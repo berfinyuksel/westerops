@@ -8,14 +8,15 @@ class LocaleText extends StatelessWidget {
   final int? maxLines;
   final TextStyle? style;
   final TextAlign? alignment;
-
-  const LocaleText({
-    Key? key,
-    this.text,
-    this.style,
-    this.maxLines,
-    this.alignment,
-  }) : super(key: key);
+  final TextOverflow? textOverFlow;
+  const LocaleText(
+      {Key? key,
+      this.text,
+      this.style,
+      this.maxLines,
+      this.alignment,
+      this.textOverFlow})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class LocaleText extends StatelessWidget {
       maxLines: maxLines,
       textAlign: alignment,
       minFontSize: 10,
-      
+      overflow: textOverFlow,
     );
   }
 }

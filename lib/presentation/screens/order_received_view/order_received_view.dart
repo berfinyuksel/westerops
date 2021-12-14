@@ -296,7 +296,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       BuildContext context, List<OrderReceived> orderInfo) {
     return Container(
       width: double.infinity,
-      height: context.dynamicHeight(0.22),
+      height: context.dynamicHeight(0.28),
       color: Colors.white,
       child: Column(
         children: [

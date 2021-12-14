@@ -27,7 +27,7 @@ class _AddressAndDateListTileState extends State<AddressAndDateListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.09),
+      height: context.dynamicHeight(0.13),
       child: ListTile(
         contentPadding: EdgeInsets.only(
           left: context.dynamicWidht(0.06),
