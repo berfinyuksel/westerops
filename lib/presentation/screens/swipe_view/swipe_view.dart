@@ -185,7 +185,7 @@ class _SwipeViewState extends State<SwipeView> {
 
   Container infoCard(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.16),
+      height: context.dynamicHeight(0.2),
       width: double.infinity,
       color: Colors.white,
       child: Column(

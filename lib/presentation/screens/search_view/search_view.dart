@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
@@ -150,24 +151,27 @@ class _SearchViewState extends State<SearchView> {
               : EdgeInsets.only(),
       child: Container(
           height: context.dynamicHeight(0.19),
-          child: NotificationListener<ScrollUpdateNotification>(
-              onNotification: (ScrollUpdateNotification notification) {
-                setState(() {
-                  if (notification.metrics.pixels <= 0) {
-                    scroolCategoriesLeft = true;
-                  } else {
-                    scroolCategoriesLeft = false;
-                  }
-                  if (notification.metrics.pixels >= 65) {
-                    scroolCategoriesRight = true;
-                  } else {
-                    scroolCategoriesRight = false;
-                  }
-                });
+          child: Builder(builder: (context) {
+            final categoryPadding = context.watch<CategoryPaddingCubit>().state;
+            return NotificationListener<ScrollUpdateNotification>(
+                onNotification: (ScrollUpdateNotification notification) {
+                  setState(() {
+                    if (notification.metrics.pixels <= 0) {
+                      scroolCategoriesLeft = true;
+                    } else {
+                      scroolCategoriesLeft = false;
+                    }
+                    if (notification.metrics.pixels >= categoryPadding) {
+                      scroolCategoriesRight = true;
+                    } else {
+                      scroolCategoriesRight = false;
+                    }
+                  });
 
-                return true;
-              },
-              child: CustomHorizontalListCategory())),
+                  return true;
+                },
+                child: CustomHorizontalListCategory());
+          })),
     );
   }
 
@@ -362,7 +366,7 @@ class _SearchViewState extends State<SearchView> {
         ),
         child: CustomSearchBar(
           containerPadding:
-              visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.70),
+              visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.68),
           onTap: () {
             setState(() {
               visible = !visible;
