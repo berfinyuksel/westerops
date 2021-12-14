@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
@@ -14,6 +15,14 @@ class HelpCenterView extends StatefulWidget {
 }
 
 class _HelpCenterViewState extends State<HelpCenterView> {
+  void customLaunch(command) async {
+    if (await canLaunch(command)) {
+      await launch(command);
+    } else {
+      print('Could not launch $command');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -34,9 +43,12 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_1, LocaleKeys.help_center_list_tile_subtitle_1),
-        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_2, ""),
-        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_3, ""),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_1,
+            LocaleKeys.help_center_list_tile_subtitle_1),
+        buildExpansionTile(
+            context, LocaleKeys.help_center_list_tile_title_2, ""),
+        buildExpansionTile(
+            context, LocaleKeys.help_center_list_tile_title_3, ""),
         SizedBox(
           height: context.dynamicHeight(0.04),
         ),
@@ -46,13 +58,20 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_4, ""),
-        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_5, ""),
-        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_6, ""),
-        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_7, ""),
-        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_8, ""),
-        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_9, ""),
-        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_10, ""),
+        buildExpansionTile(
+            context, LocaleKeys.help_center_list_tile_title_4, ""),
+        buildExpansionTile(
+            context, LocaleKeys.help_center_list_tile_title_5, ""),
+        buildExpansionTile(
+            context, LocaleKeys.help_center_list_tile_title_6, ""),
+        buildExpansionTile(
+            context, LocaleKeys.help_center_list_tile_title_7, ""),
+        buildExpansionTile(
+            context, LocaleKeys.help_center_list_tile_title_8, ""),
+        buildExpansionTile(
+            context, LocaleKeys.help_center_list_tile_title_9, ""),
+        buildExpansionTile(
+            context, LocaleKeys.help_center_list_tile_title_10, ""),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
@@ -79,11 +98,14 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         text: LocaleKeys.help_center_list_tile_title_11,
         style: AppTextStyles.bodyTextStyle,
       ),
-      onTap: () {},
+      onTap: () {
+        customLaunch("tel: +90 850 123 123 23 23");
+      },
     );
   }
 
-  Theme buildExpansionTile(BuildContext context, String title, String expandedText) {
+  Theme buildExpansionTile(
+      BuildContext context, String title, String expandedText) {
     return Theme(
       data: ThemeData(dividerColor: Colors.transparent),
       child: custom.ExpansionTile(
@@ -93,7 +115,8 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         ),
         backgroundColor: Colors.white,
         collapsedBackgroundColor: Colors.white,
-        title: LocaleText(text: title, style: AppTextStyles.myInformationBodyTextStyle),
+        title: LocaleText(
+            text: title, style: AppTextStyles.myInformationBodyTextStyle),
         childrenPadding: EdgeInsets.only(
           left: context.dynamicWidht(0.06),
           right: context.dynamicWidht(0.06),
