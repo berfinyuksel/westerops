@@ -273,7 +273,7 @@ class _LoginViewState extends State<LoginView> {
                 vertical: context.dynamicHeight(0.03)),
             content: Container(
               alignment: Alignment.center,
-              height: context.dynamicHeight(0.15),
+              height: context.dynamicHeight(0.2),
               width: context.dynamicWidht(0.99),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4.0),

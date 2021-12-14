@@ -83,7 +83,7 @@
         "error_alert_dialog_text1": "Yeni iseniz",
         "error_alert_dialog_text2": " üye olabilir",
         "error_alert_dialog_text3": "\nveya hatırlamıyorsanız",
-        "error_alert_dialog_text4": " şifrenizi\nyenileyebilirsiniz",
+        "error_alert_dialog_text4": "\nşifrenizi yenileyebilirsiniz",
         "password_error_alert_dialog" : "Şifrenizin veya telefon\nnumaranızın yanlış\nolduğunu farkettik.",
         "login_success_alert_dialog_text" : "Hoş geldiniz",
         "text_login": "Giriş Yap",
