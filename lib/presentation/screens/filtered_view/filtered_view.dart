@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class _FilteredViewState extends State<FilteredView> {
       if (state is GenericInitial) {
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         List<SearchStore> restaurants = [];
         //List<double> distances = [];

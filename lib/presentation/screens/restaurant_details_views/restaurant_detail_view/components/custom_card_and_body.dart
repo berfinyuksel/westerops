@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -116,7 +117,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         //print(state.response[0].description);
         return Center(child: customBody(context, state));
@@ -353,7 +354,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       if (stateOfCategories is GenericInitial) {
         return Container();
       } else if (stateOfCategories is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (stateOfCategories is GenericCompleted) {
         List<Result> categoryList = [];
         List<Result> relatedCategories = [];

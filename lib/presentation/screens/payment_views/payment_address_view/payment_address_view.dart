@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,7 +43,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
     if (state is GenericInitial) {
       return Container();
     } else if (state is GenericLoading) {
-      return Center(child: CircularProgressIndicator());
+      return Center(child: CustomCircularProgressIndicator());
     } else if (state is GenericCompleted) {
       List<SearchStore> restaurants = [];
       List<SearchStore> deliveredRestaurant = [];
@@ -153,7 +154,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
       } else if (activeAddressState is GenericInitial) {
         return Container();
       } else if (activeAddressState is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else {
         print('wwwwalalalalalal');
         final error = activeAddressState as GenericError;

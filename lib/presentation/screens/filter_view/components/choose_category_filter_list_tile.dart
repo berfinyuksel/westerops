@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/model/category_name.dart';
 import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 
 import '../../../../logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
                     if (stateOfCategories is GenericInitial) {
                       return Container();
                     } else if (stateOfCategories is GenericLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: CustomCircularProgressIndicator());
                     } else if (stateOfCategories is GenericCompleted) {
                       List<Result> categoryInfo = [];
                       for (int i = 0;

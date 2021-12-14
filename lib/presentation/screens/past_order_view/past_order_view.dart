@@ -1,4 +1,5 @@
 import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +33,7 @@ class _PastOrderViewState extends State<PastOrderView> {
           if (state is GenericInitial) {
             return Container();
           } else if (state is GenericLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CustomCircularProgressIndicator());
           } else if (state is GenericCompleted) {
             List<OrderReceived> orderInfo = [];
             for (var i = 0; i < state.response.length; i++) {
