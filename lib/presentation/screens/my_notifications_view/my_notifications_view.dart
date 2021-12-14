@@ -1,5 +1,7 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:googleapis/language/v1.dart';
 
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
@@ -20,10 +22,16 @@ class MyNotificationsView extends StatefulWidget {
 class _MyNotificationsViewState extends State<MyNotificationsView>
     with SingleTickerProviderStateMixin {
   TabController? _controller;
+  void notificationToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    print("TOKEN REG : $token");
+  }
+
   @override
   void initState() {
     super.initState();
     _controller = TabController(length: 3, vsync: this);
+    notificationToken();
   }
 
   @override

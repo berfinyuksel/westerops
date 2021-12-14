@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +15,7 @@ import 'data/repositories/box_repository.dart';
 import 'data/repositories/category_name_repository.dart';
 import 'data/repositories/favourite_repository.dart';
 import 'data/repositories/filters_repository.dart';
+import 'data/repositories/notification_repository.dart';
 import 'data/repositories/order_received_repository.dart';
 import 'data/repositories/order_repository.dart';
 import 'data/repositories/search_location_repository.dart';
@@ -60,6 +63,7 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   await SharedPrefs.initialize();
   await Firebase.initializeApp();
+
   //fixed late arriving svg with future.wait function
   Future.wait([
     precachePicture(
@@ -125,6 +129,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
                 SearchLocationCubit(SampleSearchLocationRepository())),
+        BlocProvider<NotificationCubit>(
+            create: (context) =>
+                NotificationCubit(SampleNotificationRepository())),
         BlocProvider<TimeIntervalCubit>(
             create: (context) =>
                 TimeIntervalCubit(SampleTimeIntervalRepository())),

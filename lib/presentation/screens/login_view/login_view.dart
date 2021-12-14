@@ -1,10 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:io' show Platform;
 
 import '../../../data/services/auth_service.dart';
 import '../../../data/services/facebook_login_controller.dart';
@@ -32,6 +35,19 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController passwordController = TextEditingController();
   bool enableObscure = true;
   String dropdownValue = "TR";
+  String? token;
+  void notificationToken() async {
+    token = await FirebaseMessaging.instance.getToken();
+    print("TOKEN REG : $token");
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    notificationToken();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,6 +164,19 @@ class _LoginViewState extends State<LoginView> {
                       .read<UserAuthCubit>()
                       .loginUser(phoneTR, passwordController.text);
                   _showMyDialog();
+                  if (SharedPrefs.getIsLogined) {
+                    if (Platform.isAndroid) {
+                      context
+                          .read<NotificationCubit>()
+                          .postNotification(token!, "android");
+                      print("Platform.isAndroid" + token!);
+                    } else if (Platform.isIOS) {
+                      context
+                          .read<NotificationCubit>()
+                          .postNotification(token!, "ios");
+                      // iOS-specific code
+                    }
+                  }
                   if (SharedPrefs.getIsLogined) {
                     Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
                   }

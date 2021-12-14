@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>239647718081-16ur560khfjtnvo5om8ct9bg718erujn.apps.googleusercontent.com</string>
+	<string>163234070864-2tv5dcrod6j3qkc510dfmrdfrftvd1te.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.239647718081-16ur560khfjtnvo5om8ct9bg718erujn</string>
+	<string>com.googleusercontent.apps.163234070864-2tv5dcrod6j3qkc510dfmrdfrftvd1te</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>163234070864-9pb77sddsd46pub67vp8lmv6ujmcojro.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC4FrWWdmdjnoAcvJzJkPiIC4llW1TBPks</string>
+	<string>AIzaSyB-I-2L7td5xVGqp6ruAvxggCS21IG1jUA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>516348079542</string>
+	<string>163234070864</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.westerops.donguMobile</string>
 	<key>PROJECT_ID</key>
-	<string>dongumobile</string>
+	<string>dongu-web</string>
 	<key>STORAGE_BUCKET</key>
-	<string>dongumobile.appspot.com</string>
+	<string>dongu-web.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:516348079542:ios:47a9045c94ccce4532a517</string>
+	<string>1:163234070864:ios:1311ed262fe24f523b6c55</string>
 </dict>
 </plist>
