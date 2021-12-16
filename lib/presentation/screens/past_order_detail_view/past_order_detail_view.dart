@@ -63,6 +63,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
           height: context.dynamicHeight(0.01),
         ),
         AddressAndDateListTile(
+          orderStatus: int.parse(widget.orderInfo!.status!),
           orderInfo: widget.orderInfo,
           date:
               '${widget.orderInfo!.buyingTime!.format(EuropeanDateFormats.standard)}',

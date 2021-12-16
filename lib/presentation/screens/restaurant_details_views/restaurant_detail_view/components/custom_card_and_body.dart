@@ -118,7 +118,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        //print(state.response[0].description);
+
         return Center(child: customBody(context, state));
       } else {
         final error = state as GenericError;
@@ -813,7 +813,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
       );
     } else {
-      print(statusCode);
+
       switch (statusCode) {
         case StatusCode.success:
           if (!menuList!.contains(menuItem.toString())) {
@@ -825,7 +825,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             SharedPrefs.setCounter(counterState + 1);
             menuList!.add(menuItem.toString());
             SharedPrefs.setMenuList(menuList!);
-            print("Successss");
+
           } else {
             sumOfPricesInt.remove(priceOfMenu!);
             sumOfPricesString.remove(priceOfMenu.toString());
@@ -838,8 +838,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             SharedPrefs.setCounter(counterState - 1);
             menuList!.remove(state.response[index].id.toString());
             SharedPrefs.setMenuList(menuList!);
-            print("real Successss");
-            print(SharedPrefs.getMenuList);
+
+
           }
           break;
         default:
@@ -870,7 +870,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       .restaurant_detail_diffrent_restaurant_show_dialog_button1,
                   buttonTwoTittle: LocaleKeys
                       .restaurant_detail_diffrent_restaurant_show_dialog_button2));
-          print("Errorrr");
+
       }
     }
   }
@@ -1260,7 +1260,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                           favouritedRestaurants!
                               .remove(widget.restaurant!.id.toString());
                           SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
-                          print(SharedPrefs.getFavorites);
+
                         } else {
                           context
                               .read<FavoriteCubit>()
@@ -1268,7 +1268,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                           favouritedRestaurants!
                               .add(widget.restaurant!.id.toString());
                           SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
-                          print(SharedPrefs.getFavorites);
+
                         }
                         setState(() {
                           isFavourite = !isFavourite;
