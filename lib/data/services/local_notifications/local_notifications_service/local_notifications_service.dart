@@ -24,6 +24,7 @@ class NotificationService {
     channelDescription: "Channel Description",
     importance: Importance.max,
     priority: Priority.high,
+    icon: "assets/images/dongu_app_launcher.jpg",
   );
 
   IOSNotificationDetails iOSPlatformChannelSpecifics = IOSNotificationDetails(
