@@ -476,6 +476,7 @@
         "button2": "Aktifleştir"
     },
     "filters": {
+        "no_restaurant_text" : "Üzgünüz.\nBelirlemiş olduğunuz kriterlere uyan restoran bulunamamıştır.",
         "title" : "Filtre",
         "done_title" : "Filtrelenen",
         "sort": {

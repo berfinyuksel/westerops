@@ -473,6 +473,7 @@
         "button2": "Action"
     },
     "filters": {
+        "no_restaurant_text" : "Sorry.\nNo restaurants were found matching your criteria.",
         "title" : "Filter",
         "done_title" : "Filtered",
         "sort": {

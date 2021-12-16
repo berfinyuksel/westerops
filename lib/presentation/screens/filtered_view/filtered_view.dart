@@ -1,7 +1,11 @@
+import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
+import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
+import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../data/model/search_store.dart';
 import '../../../data/services/location_service.dart';
@@ -66,11 +70,12 @@ class _FilteredViewState extends State<FilteredView> {
     });
   }
 
-  ListView buildListViewRestaurantInfo(
+  Widget buildListViewRestaurantInfo(
     GenericState state,
     List<SearchStore> restaurants,
   ) {
-    return ListView.builder(
+    return restaurants.isNotEmpty
+     ? ListView.builder(
         itemCount: restaurants.length,
         itemBuilder: (context, index) {
           String? packettNumber() {
@@ -130,6 +135,25 @@ class _FilteredViewState extends State<FilteredView> {
                       restaurant: restaurants[index]));
             },
           );
-        });
+        })
+      : Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 40,
+                          ),
+                          SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          LocaleText(
+                            alignment: TextAlign.center,
+                            text: LocaleKeys.filters_no_restaurant_text,
+                            style: AppTextStyles.myInformationBodyTextStyle,
+                          ),
+                        ],
+                      ),
+                    )  ;
   }
 }

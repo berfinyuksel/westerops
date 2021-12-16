@@ -424,6 +424,7 @@ abstract class  LocaleKeys {
   static const location_card_button1 = 'location_card.button1';
   static const location_card_button2 = 'location_card.button2';
   static const location_card = 'location_card';
+  static const filters_no_restaurant_text = 'filters.no_restaurant_text';
   static const filters_title = 'filters.title';
   static const filters_done_title = 'filters.done_title';
   static const filters_sort_title = 'filters.sort.title';
