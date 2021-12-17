@@ -1,5 +1,6 @@
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -8,7 +9,7 @@ import '../../../widgets/text/locale_text.dart';
 class PastOrderDetailPaymentListTile extends StatelessWidget {
   final String? title;
   final double? price;
-  final double? oldPrice;
+  final bool oldPrice;
   final bool? lineTrough;
   final bool? withDecimal;
 
@@ -16,7 +17,7 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
     Key? key,
     this.title,
     this.price,
-    this.oldPrice,
+    this.oldPrice = false,
     @required this.lineTrough,
     this.withDecimal,
   }) : super(key: key);
@@ -34,14 +35,18 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
         height: context.dynamicHeight(0.04),
         child: Row(
           children: [
-            oldPrice != null
-                ? Text(
-                    '${withDecimal! ? oldPrice!.toStringAsFixed(2) : oldPrice!.toStringAsFixed(0)} TL',
-                    style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                        decoration: TextDecoration.lineThrough,
-                        color: AppColors.unSelectedpackageDeliveryColor),
-                  )
-                : Spacer(),
+           oldPrice ? Builder(
+                  builder: (context) {
+                final state = context.watch<SumOldPriceOrderCubit>().state;
+                    return Text(
+                        '${withDecimal! ? state.toDouble().toStringAsFixed(2) : state.toDouble().toStringAsFixed(0)} TL',
+                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                            decoration: TextDecoration.lineThrough,
+                            color: AppColors.unSelectedpackageDeliveryColor),
+                      );
+                  }
+                ) : Spacer()
+                ,
             SizedBox(width: context.dynamicWidht(0.02)),
             Container(
               alignment: Alignment.center,

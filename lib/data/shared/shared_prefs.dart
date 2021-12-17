@@ -120,6 +120,11 @@ class SharedPrefs {
     return sumPrice;
   }
 
+    static Future<List<String>> setSumOldPrice(List<String> sumOldPrice) async {
+    _prefs.setStringList('sumOldPrice', sumOldPrice);
+    return sumOldPrice;
+  }
+
   static Future<List<String>> setFavoriteIdList(List<String> favorites) async {
     _prefs.setStringList('favorites', favorites);
     return favorites;
@@ -226,6 +231,7 @@ class SharedPrefs {
   static int get getDeliveredRestaurantAddressId =>
       _prefs.getInt('deliveredRestaurantId') ?? 0;
   static List<String> get getSumPrice => _prefs.getStringList('sumPrice') ?? [];
+  static List<String> get getSumOldPrice => _prefs.getStringList('sumOldPrice') ?? [];
   static List<String> get getFavorites =>
       _prefs.getStringList('favorites') ?? [];
   static int get getCourierHourId => _prefs.getInt('courierHourId') ?? 0;

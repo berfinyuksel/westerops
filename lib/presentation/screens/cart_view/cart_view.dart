@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -39,7 +40,8 @@ class _CartViewState extends State<CartView> {
   List<BoxOrder> itemList = [];
   List<String> sumOfPricesString = SharedPrefs.getSumPrice;
   List<int> sumOfPricesInt = [];
-  List<int> sumOfOldPrices = [];
+  List<String> sumOfOldPrices = SharedPrefs.getSumOldPrice;
+  List<int> sumOfOldPricesInt = [];
   @override
   void initState() {
     super.initState();
@@ -120,7 +122,8 @@ class _CartViewState extends State<CartView> {
                       final counterState =
                           context.watch<BasketCounterCubit>().state;
                       sumOfOldPrices
-                          .add(itemList[index].packageSetting!.minOrderPrice!);
+                          .add(itemList[index].packageSetting!.minOrderPrice!.toString());
+                          print(sumOfOldPrices.length);
                       return Dismissible(
                         direction: DismissDirection.endToStart,
                         key: UniqueKey(),
@@ -152,17 +155,29 @@ class _CartViewState extends State<CartView> {
                                   Navigator.of(context).pop();
                                 },
                                 onPressedTwo: () {
+                                  sumOfOldPrices.remove(itemList[index].packageSetting!.minOrderPrice.toString());
                                   sumOfPricesString.remove(itemList[index]
                                       .packageSetting!
                                       .minDiscountedOrderPrice!
                                       .toString());
                                   SharedPrefs.setSumPrice(sumOfPricesString);
+                                  SharedPrefs.setSumOldPrice(sumOfOldPrices);
+
                                   for (var i = 0;
                                       i < sumOfPricesString.length;
                                       i++) {
                                     sumOfPricesInt
                                         .add(int.parse(sumOfPricesString[i]));
                                   }
+                                     for (var i = 0;
+                                      i < sumOfOldPrices.length;
+                                      i++) {
+                                    sumOfOldPricesInt
+                                        .add(int.parse(sumOfOldPrices[i]));
+                                  }
+                                   context
+                                      .read<SumOldPriceOrderCubit>()
+                                      .sumprice(sumOfOldPricesInt);
                                   context
                                       .read<SumPriceOrderCubit>()
                                       .sumprice(sumOfPricesInt);
@@ -211,8 +226,7 @@ class _CartViewState extends State<CartView> {
                 final state = context.watch<SumPriceOrderCubit>().state;
 
                 return PastOrderDetailPaymentListTile(
-                  oldPrice: sumOfOldPrices.fold(
-                      0, (previous, current) => previous! + current),
+              oldPrice: true,
                   title: LocaleKeys.past_order_detail_payment_1,
                   price: state.toDouble(),
                   lineTrough: false,
@@ -223,6 +237,7 @@ class _CartViewState extends State<CartView> {
                 final state = context.watch<SumPriceOrderCubit>().state;
 
                 return PastOrderDetailTotalPaymentListTile(
+                  
                   title: LocaleKeys.past_order_detail_payment_4,
                   price: (state.toDouble()),
                   withDecimal: true,

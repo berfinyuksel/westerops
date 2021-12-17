@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -50,9 +51,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   int favouriteId = 0;
   bool showInfo = false;
   List<String>? menuList = SharedPrefs.getMenuList;
+    List<String> sumOfOldPricesString = [];
+  List<int> sumOfOldPricesInt = [];
   List<String> sumOfPricesString = [];
   List<int> sumOfPricesInt = [];
   int? priceOfMenu = null ?? 0;
+  int? oldPriceOfMenu = null ?? 0;
+
   List<String>? favouritedRestaurants = SharedPrefs.getFavorites;
   String mealNames = '';
 
@@ -633,6 +638,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                           priceOfMenu = chosenRestaurat[0]
                               .packageSettings!
                               .minDiscountedOrderPrice;
+                              oldPriceOfMenu = chosenRestaurat[0]
+                              .packageSettings!
+                              .minOrderPrice;
                         }
                       }
 
@@ -818,9 +826,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         case StatusCode.success:
           if (!menuList!.contains(menuItem.toString())) {
             sumOfPricesInt.add(priceOfMenu!);
+            sumOfOldPricesInt.add(oldPriceOfMenu!);
             context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
+            context.read<SumOldPriceOrderCubit>().sumprice(sumOfOldPricesInt);
             sumOfPricesString.add(sumOfPricesInt.last.toString());
             SharedPrefs.setSumPrice(sumOfPricesString);
+               sumOfOldPricesString.add(sumOfOldPricesInt.last.toString());
+            SharedPrefs.setSumOldPrice(sumOfOldPricesString);
             context.read<BasketCounterCubit>().increment();
             SharedPrefs.setCounter(counterState + 1);
             menuList!.add(menuItem.toString());
@@ -830,6 +842,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             sumOfPricesInt.remove(priceOfMenu!);
             sumOfPricesString.remove(priceOfMenu.toString());
             context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
+            SharedPrefs.setSumPrice(sumOfPricesString);
+             sumOfOldPricesInt.remove(oldPriceOfMenu!);
+            sumOfOldPricesString.remove(oldPriceOfMenu.toString());
+            context.read<SumOldPriceOrderCubit>().sumprice(sumOfOldPricesInt);
             SharedPrefs.setSumPrice(sumOfPricesString);
             context
                 .read<OrderCubit>()
@@ -855,6 +871,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     sumOfPricesString.clear();
                     SharedPrefs.setSumPrice([]);
                     context.read<SumPriceOrderCubit>().sumprice([]);
+                         sumOfOldPricesInt.clear();
+                    sumOfOldPricesString.clear();
+                    SharedPrefs.setSumOldPrice([]);
+                    context.read<SumOldPriceOrderCubit>().sumprice([]);
 
                     menuList!.clear();
                     SharedPrefs.setCounter(0);
