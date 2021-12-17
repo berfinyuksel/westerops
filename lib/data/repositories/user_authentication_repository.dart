@@ -43,6 +43,7 @@ class SampleUserAuthenticationRepository
 
     print(response.statusCode);
     if (response.statusCode == 201) {
+      SharedPrefs.setUserPhone(phone);
       return loginUser(phone, password);
     }
     throw NetworkError(response.statusCode.toString(), response.body);

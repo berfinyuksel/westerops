@@ -195,7 +195,7 @@ class CustomDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${SharedPrefs.getUserName} ${SharedPrefs.getUserLastName}",
+              "${SharedPrefs.getUserName}",
               style: AppTextStyles.bodyTitleStyle,
             ),
             SizedBox(

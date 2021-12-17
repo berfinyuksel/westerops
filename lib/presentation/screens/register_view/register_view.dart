@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
@@ -250,7 +251,10 @@ class _RegisterViewState extends State<RegisterView> {
                       phoneController.text.isEmpty ||
                       uppercaseControl ||
                       phoneControl ||
-                      numberControl || firstName.isEmpty ||lastName.isEmpty ||nameController.text.isEmpty) {
+                      numberControl ||
+                      firstName.isEmpty ||
+                      lastName.isEmpty ||
+                      nameController.text.isEmpty) {
                     _showMyDialog();
                   }
                   if (checkboxValue &&
@@ -258,7 +262,7 @@ class _RegisterViewState extends State<RegisterView> {
                       uppercaseControl &&
                       lengthControl &&
                       phoneControl) {
-             
+                    SharedPrefs.setUserPhone(phoneTR);
                     context.read<UserAuthCubit>().registerUser(
                         firstName,
                         lastName,

@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
@@ -5,6 +7,7 @@ import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,6 +21,22 @@ class SmsVerify extends StatefulWidget {
 }
 
 class _SmsVerifyState extends State<SmsVerify> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  bool showLoading = false;
+  MobileVerificationState currentState =
+      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  String? verificationId;
+  String? userPhoneNumber;
+  @override
+  void initState() {
+    // TODO: implement initState
+    print(SharedPrefs.getUserPhone);
+    userPhoneNumber = SharedPrefs.getUserPhone;
+    print(userPhoneNumber);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,27 +172,55 @@ class _SmsVerifyState extends State<SmsVerify> {
     );
   }
 
-  Container buildBottomTextAndIcon(BuildContext context) {
-    return Container(
-      height: 50,
-      width: 390,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 130),
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              ImageConstant.SMS_OTP_VERIFY_RESEND_CODE_ICON,
-            ),
-            SizedBox(width: 5),
-            LocaleText(
-              text: LocaleKeys.sms_verify_text_3,
-              style: GoogleFonts.montserrat(
-                fontSize: 14.0,
-                color: AppColors.textColor,
+  GestureDetector buildBottomTextAndIcon(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        await _auth.verifyPhoneNumber(
+            phoneNumber: userPhoneNumber ?? SharedPrefs.getUserPhone,
+            verificationCompleted: (phoneAuthCredential) async {
+              // print(
+              //     "SMS CODE : ${phoneAuthCredential.smsCode}");
+              setState(() {
+                showLoading = false;
+              });
+              //signInWithPhoneAuthCredential(phoneAuthCredential);
+            },
+            verificationFailed: (verificationFailed) async {
+              setState(() {
+                showLoading = false;
+              });
+              // ignore: deprecated_member_use
+            },
+            codeSent: (verificationId, resendingToken) async {
+              setState(() {
+                showLoading = false;
+                currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
+                this.verificationId = verificationId;
+              });
+            },
+            codeAutoRetrievalTimeout: (verificationId) async {});
+      },
+      child: Container(
+        height: context.dynamicHeight(0.053),
+        width: context.dynamicWidht(0.91),
+        child: Padding(
+          padding: EdgeInsets.only(left: context.dynamicWidht(0.30)),
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                ImageConstant.SMS_OTP_VERIFY_RESEND_CODE_ICON,
               ),
-              alignment: TextAlign.center,
-            ),
-          ],
+              SizedBox(width: context.dynamicWidht(0.011)),
+              LocaleText(
+                text: LocaleKeys.sms_verify_text_3,
+                style: GoogleFonts.montserrat(
+                  fontSize: 14.0,
+                  color: AppColors.textColor,
+                ),
+                alignment: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );
