@@ -172,7 +172,7 @@
     },
     "past_order": {
         "title": "My Past Orders",
-        "cancel_button": "Cancel"
+        "cancel_button": "Cancelled"
     },
     "past_order_detail": {
         "no_restaurant_info" : "Sorry. There is no restaurant information.",

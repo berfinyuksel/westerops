@@ -174,7 +174,7 @@
     },
     "past_order": {
         "title": "Geçmiş Siparişlerim",
-        "cancel_button": "İptal"
+        "cancel_button": "İptal Edildi"
     },
     "past_order_detail": {
         "no_restaurant_info" : "Üzgünüz. Restoran bilgileri bulunmuyor.",
