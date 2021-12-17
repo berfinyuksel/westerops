@@ -235,7 +235,6 @@ class SharedPrefs {
   static String get getCountDownString =>
       _prefs.getString('countDownString') ?? "";
   static bool get getOrderBar => _prefs.getBool('orderActive') ?? false;
-
   static bool get getSortByDistance => _prefs.getBool('sortByDistance') ?? true;
   static String get getMyFavorites => _prefs.getString('myFavorites') ?? "";
   static String get getUserRating => _prefs.getString('userRating') ?? "";

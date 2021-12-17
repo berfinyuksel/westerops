@@ -112,9 +112,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             }
           }
         }
-        print(orderInfo.first.refCode!);
         SharedPrefs.setOrderRefCode(orderInfo.first.refCode!);
-
         bool surprisePackageStatus = true;
         for (var i = 0; i < orderInfo.last.boxes!.length; i++) {
           if (orderInfo.last.boxes![i].defined == false) {
@@ -193,68 +191,66 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                   ),
                   Visibility(
                     visible: isShowOnMap,
-                    child: Expanded(
-                      child: Container(
-                        height: context.dynamicHeight(0.54),
-                        width: double.infinity,
-                        child: Stack(
-                          children: [
-                            Stack(
-                              alignment: Alignment(0.81, 0.88),
-                              children: [
-                                GoogleMap(
-                                  myLocationEnabled: true,
-                                  myLocationButtonEnabled: false,
-                                  initialCameraPosition: CameraPosition(
-                                    target: LatLng(latitude, longitude),
-                                    zoom: 17.0,
-                                  ),
-                                  onMapCreated:
-                                      (GoogleMapController controller) {
-                                    _mapController.complete(controller);
-                                  },
-                                  mapType: MapType.normal,
-                                  markers: Set<Marker>.of(markers.values),
+                    child: Container(
+                      height: context.dynamicHeight(0.54),
+                      width: double.infinity,
+                      child: Stack(
+                        children: [
+                          Stack(
+                            alignment: Alignment(0.81, 0.88),
+                            children: [
+                              GoogleMap(
+                                myLocationEnabled: true,
+                                myLocationButtonEnabled: false,
+                                initialCameraPosition: CameraPosition(
+                                  target: LatLng(latitude, longitude),
+                                  zoom: 17.0,
                                 ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    final GoogleMapController controller =
-                                        await _mapController.future;
-                                    setState(() {
-                                      latitude = LocationService.latitude;
-                                      longitude = LocationService.longitude;
+                                onMapCreated:
+                                    (GoogleMapController controller) {
+                                  _mapController.complete(controller);
+                                },
+                                mapType: MapType.normal,
+                                markers: Set<Marker>.of(markers.values),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  final GoogleMapController controller =
+                                      await _mapController.future;
+                                  setState(() {
+                                    latitude = LocationService.latitude;
+                                    longitude = LocationService.longitude;
 
-                                      controller.animateCamera(
-                                          CameraUpdate.newCameraPosition(
-                                        CameraPosition(
-                                          target: LatLng(latitude, longitude),
-                                          zoom: 17.0,
-                                        ),
-                                      ));
-                                    });
-                                  },
-                                  child: SvgPicture.asset(
-                                      ImageConstant.COMMONS_MY_LOCATION_BUTTON),
-                                ),
-                                Visibility(
-                                    visible: isShowBottomInfo,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            isShowBottomInfo = false;
-                                          });
-                                        },
-                                        child: Container(
-                                            color: Colors.black
-                                                .withOpacity(0.2)))),
-                              ],
-                            ),
-                            Visibility(
-                              visible: isShowBottomInfo,
-                              child: buildBottomInfo(context, orderInfo),
-                            ),
-                          ],
-                        ),
+                                    controller.animateCamera(
+                                        CameraUpdate.newCameraPosition(
+                                      CameraPosition(
+                                        target: LatLng(latitude, longitude),
+                                        zoom: 17.0,
+                                      ),
+                                    ));
+                                  });
+                                },
+                                child: SvgPicture.asset(
+                                    ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                              ),
+                              Visibility(
+                                  visible: isShowBottomInfo,
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isShowBottomInfo = false;
+                                        });
+                                      },
+                                      child: Container(
+                                          color: Colors.black
+                                              .withOpacity(0.2)))),
+                            ],
+                          ),
+                          Visibility(
+                            visible: isShowBottomInfo,
+                            child: buildBottomInfo(context, orderInfo),
+                          ),
+                        ],
                       ),
                     ),
                   ),
