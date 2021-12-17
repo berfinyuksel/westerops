@@ -43,7 +43,6 @@ class _CartViewState extends State<CartView> {
   @override
   void initState() {
     super.initState();
-
     context.read<OrderCubit>().getBasket();
   }
 
@@ -63,15 +62,16 @@ class _CartViewState extends State<CartView> {
         for (int i = 0; i < state.response.length; i++) {
           itemList.add(state.response[i]);
         }
-        if (state.response.length == 0) {
+        if (itemList.length == 0) {
           return EmptyCartView();
+        } else if ( SharedPrefs.getIsLogined == false) {
+          return NotLoggedInEmptyCartView();
         } else {
           return Center(child: buildBody(context, state, itemList));
         }
       } else {
-        return SharedPrefs.getIsLogined == false
-            ? NotLoggedInEmptyCartView()
-            : CartView(); //Center(child: Text("${error.message}\n${error.statusCode}"));
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
 
       }
     });
@@ -86,7 +86,7 @@ class _CartViewState extends State<CartView> {
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(
-              top: context.dynamicHeight(0.02),
+              top: context.dynamicHeight(0.02)
             ),
             children: [
               PastOrderDetailBodyTitle(
@@ -108,21 +108,17 @@ class _CartViewState extends State<CartView> {
               ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: state.response.length,
+                  itemCount: itemList.length,
                   itemBuilder: (context, index) {
                     return Builder(builder: (context) {
                       context
                           .read<StoreBoxesCubit>()
                           .getStoreBoxes(itemList[index].id!);
-
                       context
                           .read<StoreCourierCubit>()
                           .getCourierHours(itemList[index].store!.id!);
                       final counterState =
                           context.watch<BasketCounterCubit>().state;
-                      print(itemList[index]
-                          .packageSetting
-                          ?.minDiscountedOrderPrice);
                       sumOfOldPrices
                           .add(itemList[index].packageSetting!.minOrderPrice!);
                       return Dismissible(
@@ -172,14 +168,15 @@ class _CartViewState extends State<CartView> {
                                       .sumprice(sumOfPricesInt);
 
                                   context.read<OrderCubit>().deleteBasket(
-                                      "${state.response[index].id}");
+                                      "${itemList[index].id}");
                                   context
                                       .read<BasketCounterCubit>()
                                       .decrement();
                                   SharedPrefs.setCounter(counterState - 1);
                                   menuList.remove(
-                                      state.response[index].id.toString());
+                                    itemList[index].id.toString());
                                   SharedPrefs.setMenuList(menuList);
+                                  itemList.remove(itemList[index]);
                                   Navigator.of(context).pop();
                                 }),
                           );
@@ -277,7 +274,7 @@ class _CartViewState extends State<CartView> {
     return ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: state.response.length,
+        itemCount: itemList.length,
         itemBuilder: (context, index) {
           if (!restaurantNames.contains(itemList[index].store!.name)) {
             restaurantNames.add(itemList[index].store!.name);

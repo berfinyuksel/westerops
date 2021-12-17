@@ -160,7 +160,6 @@ class SampleAdressRepository implements AdressRepository {
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
-      print(jsonBody);
       var activeAdressList = AddressValues.fromJson(jsonBody);
       List<AddressValues> result = [];
       result.add(activeAdressList);

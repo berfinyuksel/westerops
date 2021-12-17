@@ -483,9 +483,7 @@ class _HomePageViewState extends State<HomePageView> {
         return NotificationListener<ScrollUpdateNotification>(
             onNotification: (ScrollUpdateNotification notification) {
               setState(() {});
-              print(valueOfPaddingForNearMe);
-              print("AAAAA");
-              print(notification.metrics.pixels);
+
               if (notification.metrics.pixels <= 0) {
                 scroolNearMeLeft = true;
               } else {
