@@ -273,7 +273,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           child: Container(
             color: AppColors.appBarColor,
             width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.1),
+            height: context.dynamicHeight(0.10),
             padding:
                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
             child: ListTile(
@@ -294,11 +294,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         Container(
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.085),
+          height: context.dynamicHeight(0.087),
           padding:
               EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
-            isThreeLine: true,
+            // isThreeLine: true,
             contentPadding:
                 EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
@@ -525,7 +525,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         SizedBox(
           height: 125,
-        )
+        ),
       ],
     );
   }
@@ -608,9 +608,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     style: AppTextStyles.myInformationBodyTextStyle,
                   ),
                   LocaleText(
-                    text: surpriseBoxes[index].defined == false
-                        ? LocaleKeys.restaurant_detail_detail_tab_sub_title10
-                        : mealNames,
+                    text:
+                        surpriseBoxes[index].defined == false ? "" : mealNames,
                     style: AppTextStyles.subTitleStyle,
                   ),
                   SizedBox(height: context.dynamicHeight(0.020)),

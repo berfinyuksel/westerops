@@ -201,6 +201,7 @@
         "thanks": "Değerlendirmen için Teşekkür Ederiz"
     },
     "address": {
+        "pop_up_text" : "Lütfen istenilen bilgileri doğru bir şekilde giriniz",
         "no_address" : "Henüz kayıtlı adresiniz bulunmamaktadır.",
         "address_approval" : "Eminim",
         "delete_alert_dialog_text" : "Kayıtlı adresiniz silmek istediğinize emin misiniz?",

@@ -199,6 +199,7 @@
         "thanks": "Thank You for Your Evaluation"
     },
     "address": {
+        "pop_up_text": "Please enter the requested information correctly",
         "no_address" : "You do not have a registered address yet.",
         "address_approval" : "Approve",
         "delete_alert_dialog_text" : "Are you sure you want to delete your registered address?",

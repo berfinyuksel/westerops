@@ -198,12 +198,11 @@ class _HomePageViewState extends State<HomePageView> {
                 visible: visible,
                 child: SizedBox(height: context.dynamicHeight(0.03))),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26),
+              padding: EdgeInsets.symmetric(horizontal: 22),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildSearchBar(context),
-                 // Spacer(),
+                  Spacer(),
                   GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
@@ -730,7 +729,7 @@ class _HomePageViewState extends State<HomePageView> {
             ? 0
             : filteredNames.length,
         itemBuilder: (context, index) {
-              List<String> meals = [];
+          List<String> meals = [];
 
           if (filteredNames[index].storeMeals == null) {
             return Text("Aradığınız isimde bir yemek bulunmamaktadır.");
@@ -760,12 +759,11 @@ class _HomePageViewState extends State<HomePageView> {
                       filteredNames.isEmpty
                   ? ""
                   : "${filteredNames[index].name}"),
-              subtitle: Text(
-                mealNames.isEmpty ||
-                          searchList.isEmpty ||
-                          filteredNames.isEmpty
-                      ? ""
-                      : mealNames),
+              subtitle: Text(mealNames.isEmpty ||
+                      searchList.isEmpty ||
+                      filteredNames.isEmpty
+                  ? ""
+                  : mealNames),
             ),
           );
         });
