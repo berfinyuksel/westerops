@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/register_view/components/error_alert_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:validators/validators.dart';
 import 'dart:io' show Platform;
 
 import '../../../data/services/auth_service.dart';
@@ -132,7 +134,11 @@ class _LoginViewState extends State<LoginView> {
                         height: context.dynamicHeight(0.06),
                         width: context.dynamicWidht(0.57),
                         child: buildTextFormField(
-                            LocaleKeys.register_phone.locale, phoneController),
+                            LocaleKeys.register_phone.locale,
+                            phoneController,
+                            (val) => !isNumeric(phoneController.text)
+                                ? "Invalid Phone"
+                                : null),
                       ),
                     ],
                   ),
@@ -146,8 +152,8 @@ class _LoginViewState extends State<LoginView> {
                 child: Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: context.dynamicWidht(0.06)),
-                  child: buildTextFormField(
-                      LocaleKeys.register_password.locale, passwordController),
+                  child: buildTextFormField(LocaleKeys.register_password.locale,
+                      passwordController, (val) {}),
                 ),
               ),
               Spacer(flex: 2),
@@ -159,7 +165,15 @@ class _LoginViewState extends State<LoginView> {
                 borderColor: AppColors.greenColor,
                 onPressed: () async {
                   String phoneTR = '+90' + phoneController.text;
+                  bool lengthControl = passwordController.text.length > 7;
+                  bool phoneControl = phoneTR.length >= 13;
                   //String phoneEN = '+1' + phoneController.text;
+                  if (lengthControl ||
+                      phoneControl ||
+                      passwordController.text.isEmpty ||
+                      passwordController.text.isEmpty) {
+                    _showMyDialog();
+                  }
                   await context
                       .read<UserAuthCubit>()
                       .loginUser(phoneTR, passwordController.text);
@@ -296,98 +310,7 @@ class _LoginViewState extends State<LoginView> {
             ),
           );
         } else {
-          return AlertDialog(
-            contentPadding: EdgeInsets.symmetric(
-                horizontal: context.dynamicWidht(0.047),
-                vertical: context.dynamicHeight(0.03)),
-            content: Container(
-              alignment: Alignment.center,
-              height: context.dynamicHeight(0.2),
-              width: context.dynamicWidht(0.99),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4.0),
-                color: Colors.white,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Spacer(
-                    flex: 2,
-                  ),
-                  SvgPicture.asset(ImageConstant.COMMONS_WARNING_ICON),
-                  Spacer(
-                    flex: 2,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(LocaleKeys.login_password_error_alert_dialog.locale,
-                          style: AppTextStyles.bodyTitleStyle),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            Navigator.pushNamed(
-                                context, RouteConstant.LOGIN_VIEW);
-                          });
-                        },
-                        child: Text.rich(
-                          TextSpan(
-                            style: GoogleFonts.montserrat(
-                              fontSize: 14.0,
-                              color: AppColors.textColor,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: LocaleKeys
-                                    .login_error_alert_dialog_text1.locale,
-                                style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                              TextSpan(
-                                text: LocaleKeys
-                                    .login_error_alert_dialog_text2.locale,
-                                style: GoogleFonts.montserrat(
-                                  color: AppColors.orangeColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' ',
-                                style: GoogleFonts.montserrat(
-                                  color: AppColors.orangeColor,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                              TextSpan(
-                                text: LocaleKeys
-                                    .login_error_alert_dialog_text3.locale,
-                                style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                              TextSpan(
-                                text: LocaleKeys
-                                    .login_error_alert_dialog_text4.locale,
-                                style: GoogleFonts.montserrat(
-                                  color: AppColors.orangeColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Spacer(
-                    flex: 5,
-                  ),
-                ],
-              ),
-            ),
-          );
+          return ErrorAlertDialog(onTap: (){});
         }
       },
     );
@@ -477,13 +400,14 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  TextFormField buildTextFormField(
-      String labelText, TextEditingController controller) {
+  TextFormField buildTextFormField(String labelText,
+      TextEditingController controller, String? Function(String?)? validator) {
     String phoneTR = '+90';
     String phoneEN = '+1';
     return TextFormField(
       // keyboardType: TextInputType.number,
       //  focusNode: FocusScope.of(context).focusedChild!.children.first,
+      validator: validator,
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       inputFormatters: [

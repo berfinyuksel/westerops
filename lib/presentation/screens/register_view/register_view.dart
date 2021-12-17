@@ -1,12 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
+import 'package:dongu_mobile/presentation/screens/register_view/components/error_alert_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../data/services/auth_service.dart';
 import '../../../data/services/facebook_login_controller.dart';
@@ -25,6 +26,7 @@ import 'components/consent_text.dart';
 import 'components/contract_text.dart';
 import 'components/password_rules.dart';
 import 'components/sign_with_social_auth.dart';
+import 'package:validators/validators.dart';
 
 class RegisterView extends StatefulWidget {
   @override
@@ -151,7 +153,11 @@ class _RegisterViewState extends State<RegisterView> {
                       height: context.dynamicHeight(0.06),
                       width: context.dynamicWidht(0.57),
                       child: buildTextFormField(
-                          LocaleKeys.register_phone.locale, phoneController),
+                          LocaleKeys.register_phone.locale,
+                          phoneController,
+                          (val) => !isNumeric(phoneController.text)
+                              ? "Invalid Phone"
+                              : null),
                     ),
                   ],
                 ),
@@ -165,8 +171,8 @@ class _RegisterViewState extends State<RegisterView> {
               child: Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: context.dynamicWidht(0.06)),
-                child: buildTextFormField(
-                    LocaleKeys.register_full_name.locale, nameController),
+                child: buildTextFormField(LocaleKeys.register_full_name.locale,
+                    nameController, (value) {}),
               ),
             ),
             Spacer(
@@ -178,7 +184,10 @@ class _RegisterViewState extends State<RegisterView> {
                 padding: EdgeInsets.symmetric(
                     horizontal: context.dynamicWidht(0.06)),
                 child: buildTextFormField(
-                    LocaleKeys.register_email.locale, emailController),
+                    LocaleKeys.register_email.locale,
+                    emailController,
+                    (val) =>
+                        isEmail(emailController.text) ? "Invalid Email" : null),
               ),
             ),
             Spacer(
@@ -229,12 +238,27 @@ class _RegisterViewState extends State<RegisterView> {
                   bool uppercaseControl =
                       passwordController.text.contains(RegExp(r'[A-Z]'));
                   bool lengthControl = passwordController.text.length > 7;
+                  bool phoneControl = phoneTR.length >= 13;
+                  String firstName = nameController.text;
+                  String lastName = nameController.text;
+                  firstName.split(" ");
+                  lastName.split(" ");
+                  print(firstName);
+                  print(lastName);
+                  if (lengthControl ||
+                      nameController.text.isEmpty ||
+                      phoneController.text.isEmpty ||
+                      uppercaseControl ||
+                      phoneControl ||
+                      numberControl || firstName.isEmpty ||lastName.isEmpty ||nameController.text.isEmpty) {
+                    _showMyDialog();
+                  }
                   if (checkboxValue &&
                       numberControl &&
                       uppercaseControl &&
-                      lengthControl) {
-                    String firstName = nameController.text.split(" ")[0];
-                    String lastName = nameController.text.split(" ")[1];
+                      lengthControl &&
+                      phoneControl) {
+             
                     context.read<UserAuthCubit>().registerUser(
                         firstName,
                         lastName,
@@ -245,15 +269,11 @@ class _RegisterViewState extends State<RegisterView> {
 
                     if (nameController.text.isNotEmpty &&
                         phoneController.text.isNotEmpty &&
-                        passwordController.text.isNotEmpty) {
+                        passwordController.text.isNotEmpty &&
+                        lastName.isNotEmpty &&
+                        firstName.isNotEmpty) {
                       Navigator.popAndPushNamed(
                           context, RouteConstant.SMS_VERIFY_VIEW);
-                      // showDialog(
-                      //     context: context,
-                      //     builder: (_) => CustomAlertDialogResetPassword(
-                      //         description: "Hoş Geldiniz",
-                      //         onPressed: () => Navigator.popAndPushNamed(
-                      //             context, RouteConstant.SMS_VERIFY_VIEW)));
                       await _auth.verifyPhoneNumber(
                           phoneNumber:
                               dropdownValue == 'TR' ? phoneTR : phoneEN,
@@ -280,107 +300,19 @@ class _RegisterViewState extends State<RegisterView> {
                             });
                           },
                           codeAutoRetrievalTimeout: (verificationId) async {});
+
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (_) => CustomAlertDialogResetPassword(
+                      //         description: "Hoş Geldiniz",
+                      //         onPressed: () => Navigator.popAndPushNamed(
+                      //             context, RouteConstant.SMS_VERIFY_VIEW)));
+
                     } else {
-                      AlertDialog(
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: context.dynamicWidht(0.047),
-                            vertical: context.dynamicHeight(0.03)),
-                        content: Container(
-                          alignment: Alignment.center,
-                          height: context.dynamicHeight(0.17),
-                          width: context.dynamicWidht(0.8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.0),
-                            color: Colors.white,
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Spacer(
-                                flex: 2,
-                              ),
-                              SvgPicture.asset(
-                                  ImageConstant.COMMONS_WARNING_ICON),
-                              Spacer(
-                                flex: 2,
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  LocaleText(
-                                      text:
-                                          LocaleKeys.register_pop_up_text_title,
-                                      style: AppTextStyles.bodyTitleStyle),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        Navigator.pushNamed(
-                                            context, RouteConstant.LOGIN_VIEW);
-                                      });
-                                    },
-                                    child: Text.rich(
-                                      TextSpan(
-                                        style: GoogleFonts.montserrat(
-                                          fontSize: 14.0,
-                                          color: AppColors.textColor,
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: LocaleKeys
-                                                .register_pop_up_text_subtitle_1
-                                                .locale,
-                                            style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: LocaleKeys
-                                                .register_pop_up_text_subtitle_2
-                                                .locale,
-                                            style: GoogleFonts.montserrat(
-                                              color: AppColors.orangeColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: ' ',
-                                            style: GoogleFonts.montserrat(
-                                              color: AppColors.orangeColor,
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: LocaleKeys
-                                                .register_pop_up_text_subtitle_3
-                                                .locale,
-                                            style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: LocaleKeys
-                                                .register_pop_up_text_subtitle_4
-                                                .locale,
-                                            style: GoogleFonts.montserrat(
-                                              color: AppColors.orangeColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Spacer(
-                                flex: 5,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      _showMyDialog();
                     }
+                  } else {
+                    _showMyDialog();
                   }
                 }),
             Spacer(
@@ -403,157 +335,42 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  // Future<void> _showMyDialog() async {
-  //   return showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: true,
-  //     builder: (BuildContext context) {
-  //       final GenericState state = context.watch<UserAuthCubit>().state;
-  //       if (state is GenericInitial) {
-  //         return Container();
-  //       } else if (state is GenericLoading) {
-  //         return Container();
-  //       } else if (state is GenericCompleted) {
-  //         return AlertDialog(
-  //           contentPadding: EdgeInsets.zero,
-  //           content: Container(
-  //             padding:
-  //                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
-  //             width: context.dynamicWidht(0.87),
-  //             height: context.dynamicHeight(0.29),
-  //             decoration: BoxDecoration(
-  //               borderRadius: BorderRadius.circular(18.0),
-  //               color: Colors.white,
-  //             ),
-  //             child: Column(
-  //               children: [
-  //                 Spacer(
-  //                   flex: 8,
-  //                 ),
-  //                 SvgPicture.asset(
-  //                   ImageConstant.SURPRISE_PACK,
-  //                   height: context.dynamicHeight(0.134),
-  //                 ),
-  //                 SizedBox(height: 10),
-  //                 LocaleText(
-  //                   text: "Hoş geldiniz",
-  //                   style: AppTextStyles.bodyBoldTextStyle,
-  //                   alignment: TextAlign.center,
-  //                 ),
-  //                 Spacer(
-  //                   flex: 35,
-  //                 ),
-  //                 CustomButton(
-  //                   onPressed: () {
-  //                     Navigator.pushNamed(
-  //                         context, RouteConstant.CUSTOM_SCAFFOLD);
-  //                   },
-  //                   width: context.dynamicWidht(0.35),
-  //                   color: AppColors.greenColor,
-  //                   textColor: Colors.white,
-  //                   borderColor: AppColors.greenColor,
-  //                   title: "Ana Sayfa",
-  //                 ),
-  //                 Spacer(
-  //                   flex: 20,
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         );
-  //       } else {
-  //         return AlertDialog(
-  //           contentPadding: EdgeInsets.symmetric(
-  //               horizontal: context.dynamicWidht(0.047),
-  //               vertical: context.dynamicHeight(0.03)),
-  //           content: Container(
-  //             alignment: Alignment.center,
-  //             height: context.dynamicHeight(0.17),
-  //             width: context.dynamicWidht(0.8),
-  //             decoration: BoxDecoration(
-  //               borderRadius: BorderRadius.circular(4.0),
-  //               color: Colors.white,
-  //             ),
-  //             child: Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 Spacer(
-  //                   flex: 2,
-  //                 ),
-  //                 SvgPicture.asset(ImageConstant.COMMONS_WARNING_ICON),
-  //                 Spacer(
-  //                   flex: 2,
-  //                 ),
-  //                 Column(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   children: [
-  //                     Text(
-  //                         'Bu e-posta adresine ait bir \nhesabınızın olduğunu \nfarkettik.',
-  //                         style: AppTextStyles.bodyTitleStyle),
-  //                     GestureDetector(
-  //                       onTap: () {
-  //                         setState(() {
-  //                           Navigator.pushNamed(
-  //                               context, RouteConstant.LOGIN_VIEW);
-  //                         });
-  //                       },
-  //                       child: Text.rich(
-  //                         TextSpan(
-  //                           style: GoogleFonts.montserrat(
-  //                             fontSize: 14.0,
-  //                             color: AppColors.textColor,
-  //                           ),
-  //                           children: [
-  //                             TextSpan(
-  //                               text: 'Hesabınıza ',
-  //                               style: GoogleFonts.montserrat(
-  //                                 fontWeight: FontWeight.w300,
-  //                               ),
-  //                             ),
-  //                             TextSpan(
-  //                               text: 'giriş yapabilir',
-  //                               style: GoogleFonts.montserrat(
-  //                                 color: AppColors.orangeColor,
-  //                                 fontWeight: FontWeight.w500,
-  //                               ),
-  //                             ),
-  //                             TextSpan(
-  //                               text: ' ',
-  //                               style: GoogleFonts.montserrat(
-  //                                 color: AppColors.orangeColor,
-  //                                 fontWeight: FontWeight.w300,
-  //                               ),
-  //                             ),
-  //                             TextSpan(
-  //                               text: 'veya \nhatırlamıyorsanız ',
-  //                               style: GoogleFonts.montserrat(
-  //                                 fontWeight: FontWeight.w300,
-  //                               ),
-  //                             ),
-  //                             TextSpan(
-  //                               text: 'şifrenizi \nyenileyebilirsiniz.',
-  //                               style: GoogleFonts.montserrat(
-  //                                 color: AppColors.orangeColor,
-  //                                 fontWeight: FontWeight.w500,
-  //                               ),
-  //                             ),
-  //                           ],
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //                 Spacer(
-  //                   flex: 5,
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         );
-  //       }
-  //     },
-  //   );
-  // }
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        final GenericState state = context.watch<UserAuthCubit>().state;
+        if (state is GenericInitial) {
+          return Container();
+        } else if (state is GenericLoading) {
+          return Container();
+        } else if (state is GenericCompleted) {
+          return AlertDialog(
+            title: Text('Hosgeldiniz'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('This is a demo alert dialog.'),
+                  Text('Would you like to approve of this message?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Approve'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        } else {
+          return ErrorAlertDialog(onTap: () {});
+        }
+      },
+    );
+  }
 
   Container buildCheckBox(BuildContext context) {
     return Container(
@@ -728,8 +545,8 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  TextFormField buildTextFormField(
-      String labelText, TextEditingController controller) {
+  TextFormField buildTextFormField(String labelText,
+      TextEditingController controller, String? Function(String?)? validator) {
     String phoneTR = '+90';
     String phoneEN = '+1';
 
@@ -741,6 +558,7 @@ class _RegisterViewState extends State<RegisterView> {
           isRulesVisible = false;
         });
       },
+      validator: validator,
       inputFormatters: [
         //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         FilteringTextInputFormatter.singleLineFormatter,
