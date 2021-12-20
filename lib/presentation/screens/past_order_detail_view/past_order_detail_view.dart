@@ -349,6 +349,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
             }),
           ),
         ),
+        SizedBox(
+          height: context.dynamicHeight(0.03),
+        ),
       ],
     );
   }
