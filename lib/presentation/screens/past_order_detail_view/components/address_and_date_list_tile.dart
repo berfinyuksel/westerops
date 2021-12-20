@@ -27,7 +27,7 @@ class _AddressAndDateListTileState extends State<AddressAndDateListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.13),
+      // height: context.dynamicHeight(0.12),
       child: ListTile(
         contentPadding: EdgeInsets.only(
           left: context.dynamicWidht(0.06),
@@ -39,8 +39,11 @@ class _AddressAndDateListTileState extends State<AddressAndDateListTile> {
                   orderInfo: widget.orderInfo,
                 ));
           },
-          child: SvgPicture.asset(ImageConstant.PAST_ORDER_DETAIL_ICON_ARROW,
-              fit: BoxFit.fitWidth),
+          child: SvgPicture.asset(
+            ImageConstant.PAST_ORDER_DETAIL_ICON_ARROW,
+            fit: BoxFit.fitWidth,
+            // height: context.dynamicHeight(0.15),
+          ),
         ),
         tileColor: Colors.white,
         title: AddressText(),
