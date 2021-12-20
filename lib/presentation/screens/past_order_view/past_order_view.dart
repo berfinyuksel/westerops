@@ -41,7 +41,7 @@ class _PastOrderViewState extends State<PastOrderView> {
             orderInfo.reversed;
             print(orderInfo.length);
             return ListView.builder(
-              reverse: true,
+                reverse: true,
                 itemCount: orderInfo.length,
                 itemBuilder: (BuildContext context, index) {
                   return GestureDetector(

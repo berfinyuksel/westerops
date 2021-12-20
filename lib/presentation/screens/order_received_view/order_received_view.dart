@@ -112,28 +112,27 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             }
           }
         }
-        SharedPrefs.setOrderRefCode(orderInfo.first.refCode!);
         bool surprisePackageStatus = true;
-        for (var i = 0; i < orderInfo.last.boxes!.length; i++) {
-          if (orderInfo.last.boxes![i].defined == false) {
-            surprisePackageStatus = false;
-            break;
+
+        if (orderInfo.isNotEmpty) {
+          SharedPrefs.setOrderRefCode(orderInfo.first.refCode!);
+          for (var i = 0; i < orderInfo.last.boxes!.length; i++) {
+            if (orderInfo.last.boxes![i].defined == false) {
+              surprisePackageStatus = false;
+              break;
+            }
+          }
+          if (orderInfo.last.boxes != null && surprisePackageStatus == false) {
+            NotificationService().initSurprisePackage(
+                orderInfo.last.refCode.toString(),
+                orderInfo.last.boxes!.first.saleDay!.startDate!
+                    .toLocal()
+                    .subtract(Duration(hours: 2)));
+            //DateTime.now().add(Duration(seconds: 10))
           }
         }
-        print('package surprise condition' + surprisePackageStatus.toString());
 
-        if (orderInfo.last.boxes != null && surprisePackageStatus == false) {
-          NotificationService().initSurprisePackage(
-              orderInfo.last.refCode.toString(),
-              orderInfo.last.boxes!.first.saleDay!.startDate!
-                  .toLocal()
-                  .subtract(Duration(hours: 2)));
-          /*   
-            
-                   DateTime.now().add(Duration(seconds: 10))
-          
-          */
-        }
+        print('package surprise condition' + surprisePackageStatus.toString());
 
         return orderInfo.isNotEmpty
             ? ListView(
@@ -206,8 +205,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                                   target: LatLng(latitude, longitude),
                                   zoom: 17.0,
                                 ),
-                                onMapCreated:
-                                    (GoogleMapController controller) {
+                                onMapCreated: (GoogleMapController controller) {
                                   _mapController.complete(controller);
                                 },
                                 mapType: MapType.normal,
@@ -242,8 +240,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                                         });
                                       },
                                       child: Container(
-                                          color: Colors.black
-                                              .withOpacity(0.2)))),
+                                          color:
+                                              Colors.black.withOpacity(0.2)))),
                             ],
                           ),
                           Visibility(
@@ -670,14 +668,13 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   } */
 }
 
-
 /*     int hour = buildHourForCountDown(
         DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate);
     int minute = buildMinuteForCountDown(
         DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate);
     int second = buildSecondsForCountDown(
         DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate); */
-    /*    List<int> timeNowHourCompo = buildTimeNow();
+/*    List<int> timeNowHourCompo = buildTimeNow();
     String cachedTimeForDelivery = SharedPrefs.getCountDownString;
     List<String> cachedTimeForDeliveryStringList =
         cachedTimeForDelivery.split(":").toList();
@@ -697,6 +694,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     minute = (duration - (hour * 60 * 60)) ~/ 60;
     second = (duration - (minute * 60) - (minute * 60 * 60)); */
 
-    /*    if (duration <= 0) {
+/*    if (duration <= 0) {
       context.read<OrderBarCubit>().stateOfBar(false);
     } */

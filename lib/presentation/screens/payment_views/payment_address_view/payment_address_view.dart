@@ -1,7 +1,18 @@
+import 'dart:typed_data';
+
+import 'package:dongu_mobile/data/services/location_service.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
+import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
+import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
+import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:async';
+import 'dart:ui' as ui;
 import '../../../../data/model/search_store.dart';
 import '../../../../data/shared/shared_prefs.dart';
 import '../../../../logic/cubits/address_cubit/address_cubit.dart';
@@ -28,6 +39,18 @@ class PaymentAddressView extends StatefulWidget {
 
 class _PaymentAddressViewState extends State<PaymentAddressView> {
   bool checkboxValue = false;
+  bool isShowOnMap = false;
+  bool isShowBottomInfo = false;
+  double latitude = 0;
+  double longitude = 0;
+  Completer<GoogleMapController> _mapController =
+      Completer<GoogleMapController>();
+  Map<MarkerId, Marker> markers = Map<MarkerId, Marker>();
+  late BitmapDescriptor markerIcon;
+  late BitmapDescriptor restaurantMarkerIcon;
+  late BitmapDescriptor restaurantSoldoutMarkerIcon;
+  final MarkerId markerId = MarkerId("my_location");
+  final MarkerId restaurantMarkerId = MarkerId("rest_1");
   @override
   void initState() {
     super.initState();
@@ -82,6 +105,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
           return Container(
             height: context.dynamicHeight(0.57),
             child: ListView(
+              physics: NeverScrollableScrollPhysics(),
               children: [
                 SizedBox(
                   height: context.dynamicHeight(0.04),
@@ -93,20 +117,85 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                         : LocaleKeys.payment_address_to_address,
                     widget.isGetIt!
                         ? LocaleKeys.payment_address_show_on_map
-                        : LocaleKeys.payment_address_change),
+                        : LocaleKeys.payment_address_change,
+                    deliveredRestaurant),
                 SizedBox(
                   height: context.dynamicHeight(0.01),
                 ),
                 Visibility(
                   visible: widget.isGetIt!,
-                  child: GetItAddressListTile(
-                    userAddress:
-                        '${deliveredRestaurant[0].address} ${deliveredRestaurant[0].province}',
-                    userAddressName: deliveredRestaurant[0].name,
-                    restaurantName: deliveredRestaurant[0].name,
-                    address:
-                        '${deliveredRestaurant[0].address} ${deliveredRestaurant[0].province}',
-                  ),
+                  child: !isShowOnMap
+                      ? GetItAddressListTile(
+                          userAddress:
+                              '${deliveredRestaurant[0].address} ${deliveredRestaurant[0].province}',
+                          userAddressName: deliveredRestaurant[0].name,
+                          restaurantName: deliveredRestaurant[0].name,
+                          address:
+                              '${deliveredRestaurant[0].address} ${deliveredRestaurant[0].province}',
+                        )
+                      : Container(
+                          height: context.dynamicHeight(0.5),
+                          width: double.infinity,
+                          child: Stack(
+                            children: [
+                              Stack(
+                                alignment: Alignment(0.81, 0.88),
+                                children: [
+                                  GoogleMap(
+                                    myLocationEnabled: true,
+                                    myLocationButtonEnabled: false,
+                                    initialCameraPosition: CameraPosition(
+                                      target: LatLng(latitude, longitude),
+                                      zoom: 17.0,
+                                    ),
+                                    onMapCreated:
+                                        (GoogleMapController controller) {
+                                      _mapController.complete(controller);
+                                    },
+                                    mapType: MapType.normal,
+                                    markers: Set<Marker>.of(markers.values),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      final GoogleMapController controller =
+                                          await _mapController.future;
+                                      setState(() {
+                                        latitude = LocationService.latitude;
+                                        longitude = LocationService.longitude;
+
+                                        controller.animateCamera(
+                                            CameraUpdate.newCameraPosition(
+                                          CameraPosition(
+                                            target: LatLng(latitude, longitude),
+                                            zoom: 17.0,
+                                          ),
+                                        ));
+                                      });
+                                    },
+                                    child: SvgPicture.asset(ImageConstant
+                                        .COMMONS_MY_LOCATION_BUTTON),
+                                  ),
+                                  Visibility(
+                                      visible: isShowBottomInfo,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              isShowBottomInfo = false;
+                                            });
+                                          },
+                                          child: Container(
+                                              color: Colors.black
+                                                  .withOpacity(0.2)))),
+                                ],
+                              ),
+                              Visibility(
+                                visible: isShowBottomInfo,
+                                child: buildBottomInfo(
+                                    context, deliveredRestaurant),
+                              ),
+                            ],
+                          ),
+                        ),
                 ),
                 Visibility(
                   visible: !widget.isGetIt!,
@@ -125,7 +214,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                     SizedBox(
                       height: context.dynamicHeight(0.02),
                     ),
-                    buildRowCheckBox(context),
+                    // buildRowCheckBox(context),
                   ]),
                 ),
 /*           SizedBox(
@@ -155,7 +244,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
       } else if (activeAddressState is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else {
-        print('wwwwalalalalalal');
         final error = activeAddressState as GenericError;
         print(error.message);
         if (error.statusCode == 204.toString()) {
@@ -191,8 +279,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
     );
   }
 
-  Padding buildRowTitleLeftRight(
-      BuildContext context, String titleLeft, String titleRight) {
+  Padding buildRowTitleLeftRight(BuildContext context, String titleLeft,
+      String titleRight, List<SearchStore> deliveredRestaurant) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -207,7 +295,17 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             style: AppTextStyles.bodyTitleStyle,
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              if (titleRight == LocaleKeys.payment_address_change) {
+                Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
+              } else {
+                setState(() {
+                  isShowOnMap = !isShowOnMap;
+                  _mapController = Completer<GoogleMapController>();
+                  setCustomMarker(deliveredRestaurant);
+                });
+              }
+            },
             child: LocaleText(
               text: titleRight,
               style: GoogleFonts.montserrat(
@@ -268,4 +366,99 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
       ),
     );
   }
+
+  Builder buildBottomInfo(
+      BuildContext context, List<SearchStore> deliveredRestaurant) {
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<SearchStoreCubit>().state;
+
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        return Positioned(
+            right: 0,
+            left: 0,
+            bottom: 0,
+            child: Container(
+              width: double.infinity,
+              height: context.dynamicHeight(0.176),
+              padding:
+                  EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+              color: Colors.white,
+              child: RestaurantInfoListTile(
+                minDiscountedOrderPrice: deliveredRestaurant
+                    .first.packageSettings!.minDiscountedOrderPrice,
+                minOrderPrice:
+                    deliveredRestaurant.first.packageSettings!.minOrderPrice,
+                packetNumber: deliveredRestaurant
+                            .first.calendar!.first.boxCount ==
+                        0
+                    ? LocaleKeys.home_page_soldout_icon
+                    : "${deliveredRestaurant.first.calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
+                deliveryType:
+                    int.parse(deliveredRestaurant.first.deliveryType!),
+                restaurantName: deliveredRestaurant.first.name,
+                distance: Haversine.distance(
+                        deliveredRestaurant.first.latitude!,
+                        deliveredRestaurant.first.longitude!,
+                        LocationService.latitude,
+                        LocationService.longitude)
+                    .toStringAsFixed(2),
+                availableTime:
+                    '${deliveredRestaurant[0].packageSettings!.deliveryTimeStart} - ${deliveredRestaurant[0].packageSettings!.deliveryTimeEnd}',
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                      arguments: ScreenArgumentsRestaurantDetail(
+                        restaurant: deliveredRestaurant.first,
+                      ));
+                },
+                icon: deliveredRestaurant.first.photo,
+              ),
+            ));
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
+  }
+
+  void setCustomMarker(List<SearchStore> deliveredRestaurant) async {
+    markerIcon =
+        await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
+    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_MARKER);
+    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
+    getLocation(deliveredRestaurant);
+  }
+
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
+      String assetName) async {
+    // Read SVG file as String
+    String svgString =
+        await DefaultAssetBundle.of(context).loadString(assetName);
+    // Create DrawableRoot from SVG String
+    DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
+
+    // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
+    MediaQueryData queryData = MediaQuery.of(context);
+    double devicePixelRatio = queryData.devicePixelRatio;
+    double width =
+        64 * devicePixelRatio; // where 32 is your SVG's original width
+    double height = 64 * devicePixelRatio; // same thing
+
+    // Convert to ui.Picture
+    ui.Picture picture = svgDrawableRoot.toPicture(size: Size(width, height));
+
+    // Convert to ui.Image. toImage() takes width and height as parameters
+    // you need to find the best size to suit your needs and take into account the
+    // screen DPI
+    ui.Image image = await picture.toImage(width.toInt(), height.toInt());
+    ByteData? bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    return BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
+  }
+
+  void getLocation(List<SearchStore> deliveredRestaurant) {}
 }
