@@ -163,7 +163,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 restaurantTitleAndAddressColumn(),
                 Spacer(flex: 2),
                 Padding(
-                  padding: EdgeInsets.only(top: context.dynamicHeight(0.009)),
+                  padding: EdgeInsets.only(top: context.dynamicHeight(0.014)),
                   child: restaurantStarIconRating(),
                 ),
                 Spacer(flex: 1),
