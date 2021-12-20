@@ -30,7 +30,7 @@ class CustomAlertDialog extends StatelessWidget {
       content: Container(
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
         width: context.dynamicWidht(0.87),
-        height: context.dynamicHeight(0.26),
+        height: context.dynamicHeight(0.33),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18.0),
           color: Colors.white,
@@ -66,7 +66,7 @@ class CustomAlertDialog extends StatelessWidget {
         children: [
           CustomButton(
             onPressed: onPressedOne,
-            width: context.dynamicWidht(0.35),
+            width: context.dynamicWidht(0.34),
             color: Colors.transparent,
             textColor: AppColors.greenColor,
             borderColor: AppColors.greenColor,
@@ -75,7 +75,7 @@ class CustomAlertDialog extends StatelessWidget {
           SizedBox(width: 5),
           CustomButton(
             onPressed: onPressedTwo,
-            width: context.dynamicWidht(0.35),
+            width: context.dynamicWidht(0.34),
             color: AppColors.greenColor,
             textColor: Colors.white,
             borderColor: AppColors.greenColor,
