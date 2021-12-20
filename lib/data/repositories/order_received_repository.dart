@@ -10,6 +10,8 @@ abstract class OrderReceivedRepository {
   Future<List<OrderReceived>> getOrder();
   Future<List<OrderReceived>> createOrder(
       int deliveryTyp, int addressId, int billingAddressIde);
+  Future<List<OrderReceived>> getOrderById(int id);
+
 }
 
 class SampleOrderReceivedRepository implements OrderReceivedRepository {
@@ -53,6 +55,27 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
       List<OrderReceived> orderReceivedList = List<OrderReceived>.from(
           jsonBody.map((model) => OrderReceived.fromJson(model))).toList();
       //print(boxLists[].text_name);
+      return orderReceivedList;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
+
+  Future<List<OrderReceived>> getOrderById(int id) async {
+    final response = await http.get(
+      Uri.parse("${UrlConstant.EN_URL}order/$id"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT ${SharedPrefs.getToken}'
+      },
+    );
+    print("GET Order By Id STATUS ${response.statusCode}");
+    if (response.statusCode == 200) {
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+      print(jsonBody); //utf8.decode for turkish characters
+      OrderReceived orderReceivedListItem = OrderReceived.fromJson(jsonBody);
+      //print(boxLists[].text_name);
+      List<OrderReceived> orderReceivedList = [];
+      orderReceivedList.add(orderReceivedListItem);
       return orderReceivedList;
     }
     throw NetworkError(response.statusCode.toString(), response.body);

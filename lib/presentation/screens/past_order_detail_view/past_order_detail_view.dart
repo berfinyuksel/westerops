@@ -1,5 +1,6 @@
 import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +49,12 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
   String mealNames = '';
   TextEditingController textController = TextEditingController();
 
+@override
+  void initState() {
+context.read<OrderReceivedCubit>().getOrderById(widget.orderInfo!.id!);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -57,6 +64,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
   }
 
   ListView buildBody(BuildContext context) {
+    if (widget.orderInfo!.review!.isNotEmpty) {
+      editVisibility = true;
+    }
     return ListView(
       children: [
         SizedBox(
@@ -88,12 +98,12 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        buildStarListTile(
-            context, LocaleKeys.past_order_detail_evaluate_1, "service"),
-        buildStarListTile(
-            context, LocaleKeys.past_order_detail_evaluate_2, "quality"),
-        buildStarListTile(
-            context, LocaleKeys.past_order_detail_evaluate_3, "taste"),
+        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_1,
+            "service", widget.orderInfo),
+        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_2,
+            "quality", widget.orderInfo),
+        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_3,
+            "taste", widget.orderInfo),
         Visibility(
             visible: editVisibility, child: ThanksForEvaluationContainer()),
         Visibility(
@@ -194,7 +204,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                           Navigator.of(context).pop();
                         },
                         onPressedTwo: () async {
-                                                  Navigator.of(context).pop();
+                          Navigator.of(context).pop();
                           StatusCode statusCode =
                               await sl<UpdateOrderRepository>().cancelOrder(
                                   widget.orderInfo!.id!, textController.text);
@@ -244,8 +254,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                       .stateOfBar(false);
                                                   Navigator.of(context).pop();
                                                 },
-                                                width: context
-                                                    .dynamicWidht(0.35),
+                                                width:
+                                                    context.dynamicWidht(0.35),
                                                 color: AppColors.greenColor,
                                                 textColor: Colors.white,
                                                 borderColor:
@@ -273,14 +283,14 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                         .custom_drawer_register_button,
                                     imagePath: ImageConstant.SURPRISE_PACK,
                                     onPressedOne: () {
-                                      Navigator.of(context).pushNamed(
-                                          RouteConstant.LOGIN_VIEW);
-                                                  Navigator.of(context).pop();
+                                      Navigator.of(context)
+                                          .pushNamed(RouteConstant.LOGIN_VIEW);
+                                      Navigator.of(context).pop();
                                     },
                                     onPressedTwo: () {
                                       Navigator.of(context).pushNamed(
                                           RouteConstant.REGISTER_VIEW);
-                                                  Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
                                     }),
                               );
                               break;
@@ -329,8 +339,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                       .stateOfBar(false);
                                                   Navigator.of(context).pop();
                                                 },
-                                                width: context
-                                                    .dynamicWidht(0.35),
+                                                width:
+                                                    context.dynamicWidht(0.35),
                                                 color: AppColors.greenColor,
                                                 textColor: Colors.white,
                                                 borderColor:
@@ -350,6 +360,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                   );
                 });
           }),
+        ),
+        SizedBox(
+          height: context.dynamicHeight(0.03),
         ),
       ],
     );
@@ -375,8 +388,22 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
     );
   }
 
-  ListTile buildStarListTile(
-      BuildContext context, String title, String whichStars) {
+  ListTile buildStarListTile(BuildContext context, String title,
+      String whichStars, OrderReceived? orderInfo) {
+    if (orderInfo!.review!.isNotEmpty) {
+      switch (whichStars) {
+        case 'service':
+          starDegreeService = orderInfo.review!.first.servicePoint!;
+          break;
+        case 'quality':
+          starDegreeQuality = orderInfo.review!.first.qualityPoint!;
+          break;
+        case 'taste':
+          starDegreeQuality = orderInfo.review!.first.qualityPoint!;
+          break;
+        default:
+      }
+    }
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
