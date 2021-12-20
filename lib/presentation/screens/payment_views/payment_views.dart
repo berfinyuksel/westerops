@@ -419,7 +419,7 @@ class _PaymentViewsState extends State<PaymentViews>
       ),
       alignment: Alignment.center,
       color: Colors.white,
-      height: context.dynamicHeight(0.1),
+      height: context.dynamicHeight(0.09),
       width: double.infinity,
       child: Row(
         mainAxisAlignment: tabController!.index == 2
