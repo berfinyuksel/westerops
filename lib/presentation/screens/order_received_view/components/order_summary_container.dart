@@ -35,7 +35,7 @@ class OrderSummaryContainer extends StatelessWidget {
             Spacer(flex: 2),
             LocaleText(
               text:
-                  "${SharedPrefs.getTimeIntervalForGetIt}${state.isGetIt! ? LocaleKeys.order_received_take_from_restaurant.locale : LocaleKeys.payment_description_text.locale}",
+                  "${orderInfo!.deliveryType == '1' ? SharedPrefs.getTimeIntervalForGetIt : SharedPrefs.getCourierHourText}${state.isGetIt! ? LocaleKeys.order_received_take_from_restaurant.locale : LocaleKeys.payment_description_text.locale}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 2),

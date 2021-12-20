@@ -194,6 +194,10 @@ class SharedPrefs {
     _prefs.setBool('updatePermissionForPhone', updatePermissionForPhone);
   }
 
+ static Future<void> setCourierHourText(String courierHourText) async {
+    _prefs.setString('courierHourText', courierHourText);
+  }
+
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
@@ -253,4 +257,5 @@ class SharedPrefs {
       _prefs.getBool('updatePermissionForEmail') ?? true;
   static bool get getPermissionForPhone =>
       _prefs.getBool('updatePermissionForPhone') ?? true;
+  static String get getCourierHourText => _prefs.getString('courierHourText') ?? "";
 }

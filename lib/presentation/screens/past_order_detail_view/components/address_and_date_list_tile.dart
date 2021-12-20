@@ -35,7 +35,7 @@ class _AddressAndDateListTileState extends State<AddressAndDateListTile> {
           left: context.dynamicWidht(0.06),
         ),
         trailing: Visibility(
-              visible: widget.orderStatus == 2 || widget.orderStatus == 9,
+              visible: widget.orderStatus == 2 || widget.orderStatus == 9 || widget.orderStatus == 1,
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).pushNamed(RouteConstant.SWIPE_VIEW,
