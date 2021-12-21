@@ -97,7 +97,8 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
                           });
                         },
                         initialCameraPosition: CameraPosition(
-                          target: LatLng(latitude, longitude),
+                          target: LatLng(LocationService.latitude,
+                              LocationService.latitude),
                           zoom: 17.0,
                         ),
                         onMapCreated: (GoogleMapController controller) {
@@ -251,7 +252,7 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
           });
           context.read<SearchLocationCubit>().getLocations(searchedText);
         },
-             inputFormatters: [
+        inputFormatters: [
           //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
           FilteringTextInputFormatter.singleLineFormatter,
         ],

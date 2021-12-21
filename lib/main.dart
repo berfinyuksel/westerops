@@ -134,7 +134,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<OrderBarCubit>(create: (_) => OrderBarCubit()),
         BlocProvider<SocialLoginCubit>(create: (_) => SocialLoginCubit()),
         BlocProvider<SumPriceOrderCubit>(create: (_) => SumPriceOrderCubit()),
-        BlocProvider<SumOldPriceOrderCubit>(create: (_) => SumOldPriceOrderCubit()),
+        BlocProvider<SumOldPriceOrderCubit>(
+            create: (_) => SumOldPriceOrderCubit()),
         BlocProvider<SortFilterCubit>(create: (_) => SortFilterCubit()),
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
@@ -185,13 +186,13 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
-       
+
         List<int> sumPrices = [];
         for (var i = 0; i < SharedPrefs.getSumPrice.length; i++) {
           sumPrices.add(int.parse(SharedPrefs.getSumPrice[i]));
         }
         context.read<SumPriceOrderCubit>().sumprice(sumPrices);
-             List<int> sumOldPrices = [];
+        List<int> sumOldPrices = [];
         for (var i = 0; i < SharedPrefs.getSumOldPrice.length; i++) {
           sumOldPrices.add(int.parse(SharedPrefs.getSumOldPrice[i]));
         }

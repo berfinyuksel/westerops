@@ -145,7 +145,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                                     myLocationEnabled: true,
                                     myLocationButtonEnabled: false,
                                     initialCameraPosition: CameraPosition(
-                                      target: LatLng(latitude, longitude),
+                                      target: LatLng(LocationService.latitude,
+                                          LocationService.latitude),
                                       zoom: 17.0,
                                     ),
                                     onMapCreated:

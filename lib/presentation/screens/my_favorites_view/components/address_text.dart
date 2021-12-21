@@ -63,10 +63,19 @@ class _AddressTextState extends State<AddressText> {
               )
             : GestureDetector(
                 onTap: () {
-                  if (LocationService.latitude != 0) {
+                  print("tapped");
+                  if (LocationService.latitude != 0 &&
+                      !SharedPrefs.getIsLogined) {
                     Navigator.of(context).pushNamed(RouteConstant.LOGIN_VIEW);
                   } else {
-                    Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
+                    if (stateOfAddress.response.isEmpty) {
+                      print("state address empty");
+                      Navigator.of(context)
+                          .pushNamed(RouteConstant.ADDRESS_VIEW);
+                    } else {
+                      print("state address not empty");
+                      Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
+                    }
                   }
                 },
                 child: Row(
@@ -80,9 +89,13 @@ class _AddressTextState extends State<AddressText> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6.0),
                       child: LocaleText(
-                        text: LocationService.latitude != 0
+                        text: LocationService.latitude != 0 &&
+                                !SharedPrefs.getIsLogined
                             ? LocaleKeys.login_text_login2
-                            : LocaleKeys.my_favorites_permission_for_location,
+                            : stateOfAddress.response.isEmpty
+                                ? LocaleKeys.address_no_address
+                                : LocaleKeys
+                                    .my_favorites_permission_for_location,
                         style: GoogleFonts.montserrat(
                           color: AppColors.yellowColor,
                           fontWeight: FontWeight.w500,

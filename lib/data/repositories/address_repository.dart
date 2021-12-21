@@ -170,6 +170,11 @@ class SampleAdressRepository implements AdressRepository {
 
       return result;
     }
+    if (response.statusCode == 204) {
+      List<AddressValues> result = [];
+
+      return result;
+    }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 
