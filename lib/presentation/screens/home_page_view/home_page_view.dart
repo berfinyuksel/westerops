@@ -128,7 +128,7 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  Builder buildBuilderSearch() {
+  Builder buildBuilderSearch(List<SearchStore> restaurants) {
     return Builder(builder: (context) {
       final GenericState stateSearch = context.watch<SearchCubit>().state;
 
@@ -138,9 +138,13 @@ class _HomePageViewState extends State<HomePageView> {
         return Center(child: CircularProgressIndicator());
       } else if (stateSearch is GenericCompleted) {
         List<Search> searchList = [];
-
+        List<Search> restaurant = [];
         for (int i = 0; i < stateSearch.response.length; i++) {
           searchList.add(stateSearch.response[i]);
+          if (stateSearch is GenericCompleted) {
+            restaurant.add(stateSearch.response[i]);
+          }
+          
         }
         names = searchList;
         filteredNames = names;
@@ -148,7 +152,7 @@ class _HomePageViewState extends State<HomePageView> {
         return Center(
             child: filteredNames.length == 0
                 ? emptySearchHistory()
-                : searchListViewBuilder(stateSearch, searchList));
+                : searchListViewBuilder(stateSearch, searchList, restaurant, restaurants));
       } else {
         final error = stateSearch as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -203,18 +207,22 @@ class _HomePageViewState extends State<HomePageView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildSearchBar(context),
-                 // Spacer(),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
-                      },
-                      child:
-                          SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON)),
+                  // Spacer(),
+                  visible
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouteConstant.FILTER_VIEW);
+                          },
+                          child: SvgPicture.asset(
+                              ImageConstant.COMMONS_FILTER_ICON))
+                      : searchCancelTextButton(context),
                 ],
               ),
             ),
+
             SizedBox(height: context.dynamicHeight(0.03)),
-            Visibility(visible: true, child: buildBuilderSearch()),
+            visible ? SizedBox() : buildBuilderSearch(restaurants),
             Visibility(
               visible: visible,
               child: Padding(
@@ -721,16 +729,20 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   ListView searchListViewBuilder(
-      GenericState stateSearch, List<Search> searchList) {
+      GenericState stateSearch,
+      List<Search> searchList,
+      List<Search> restaurant,
+      List<SearchStore> restaurants,
+      ) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: searchList.isEmpty ||
                 controller!.text.isEmpty ||
                 filteredNames.isEmpty
             ? 0
-            : filteredNames.length,
+            : searchList.length,
         itemBuilder: (context, index) {
-              List<String> meals = [];
+          List<String> meals = [];
 
           if (filteredNames[index].storeMeals == null) {
             return Text("Aradığınız isimde bir yemek bulunmamaktadır.");
@@ -740,6 +752,7 @@ class _HomePageViewState extends State<HomePageView> {
             }
             mealNames = meals.join(', ');
           }
+
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.06),
@@ -748,26 +761,43 @@ class _HomePageViewState extends State<HomePageView> {
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-
-              // leading: Image.network(
-              //   searches.urlImage,
-              //   fit: BoxFit.cover,
-              //   width: 50,
-              //   height: 50,
-              // ),
-              title: Text("${filteredNames[index].name}".isEmpty ||
-                      searchList.isEmpty ||
-                      filteredNames.isEmpty
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteConstant.RESTAURANT_DETAIL,
+                  arguments: ScreenArgumentsRestaurantDetail(
+                    restaurant: restaurants[index],
+                  ),
+                );
+              },
+              title: Text(searchList.isEmpty ||
+                      filteredNames.isEmpty ||
+                      "${filteredNames[index].name}".isEmpty
                   ? ""
                   : "${filteredNames[index].name}"),
-              subtitle: Text(
-                mealNames.isEmpty ||
-                          searchList.isEmpty ||
-                          filteredNames.isEmpty
-                      ? ""
-                      : mealNames),
+              subtitle: Text(searchList.isEmpty ||
+                      filteredNames.isEmpty ||
+                      mealNames.isEmpty
+                  ? ""
+                  : mealNames),
             ),
           );
         });
+  }
+
+  TextButton searchCancelTextButton(BuildContext context) {
+    return TextButton(
+        onPressed: () {
+          FocusScope.of(context).unfocus();
+          setState(() {
+            FocusScope.of(context).unfocus();
+            visible = !visible;
+          });
+        },
+        child: Text(
+          LocaleKeys.search_cancel_button.locale,
+          style: AppTextStyles.bodyTitleStyle
+              .copyWith(color: AppColors.orangeColor, fontSize: 12),
+        ));
   }
 }
