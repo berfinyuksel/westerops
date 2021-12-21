@@ -397,8 +397,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                         0
                     ? LocaleKeys.home_page_soldout_icon
                     : "${deliveredRestaurant.first.calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
-                deliveryType:
-                    int.parse(deliveredRestaurant.first.deliveryType!),
+                deliveryType: int.parse(
+                    deliveredRestaurant.first.packageSettings!.deliveryType!),
                 restaurantName: deliveredRestaurant.first.name,
                 distance: Haversine.distance(
                         deliveredRestaurant.first.latitude!,
@@ -460,5 +460,69 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
     return BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
   }
 
-  void getLocation(List<SearchStore> deliveredRestaurant) {}
+  Future<void> getLocation(List<SearchStore> deliveredRestaurant) async {
+    await LocationService.getCurrentLocation();
+    final GoogleMapController controller = await _mapController.future;
+    setState(() {
+      latitude = LocationService.latitude;
+      longitude = LocationService.longitude;
+
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(latitude, longitude),
+          zoom: 17.0,
+        ),
+      ));
+      final Marker marker = Marker(
+        onTap: () {
+          setState(() {
+            isShowBottomInfo = false;
+          });
+        },
+        infoWindow: InfoWindow(title: LocaleKeys.general_settings_my_location),
+        icon: markerIcon,
+        markerId: markerId,
+        position: LatLng(latitude, longitude),
+      );
+      markers[markerId] = marker;
+      Marker restMarker = Marker(
+        onTap: () {
+          setState(() {
+            isShowBottomInfo = !isShowBottomInfo;
+          });
+        },
+        icon: restaurantMarkerIcon,
+        markerId: MarkerId(deliveredRestaurant.first.id.toString()),
+        position: LatLng(deliveredRestaurant.first.latitude!,
+            deliveredRestaurant.first.longitude!),
+      );
+      markers[MarkerId(deliveredRestaurant.first.id.toString())] = restMarker;
+/*       for (int i = 1; i < 3; i++) {
+        Marker restMarker = Marker(
+          onTap: () {
+            setState(() {
+              isShowBottomInfo = !isShowBottomInfo;
+            });
+          },
+          icon: restaurantMarkerIcon,
+          markerId: MarkerId("rest_$i"),
+          position: LatLng(latitude + i * 0.0005, longitude + i * 0.0005),
+        );
+        markers[MarkerId("rest_$i")] = restMarker;
+      }
+      for (int i = 1; i < 3; i++) {
+        Marker restMarker = Marker(
+          onTap: () {
+            setState(() {
+              isShowBottomInfo = !isShowBottomInfo;
+            });
+          },
+          icon: restaurantSoldoutMarkerIcon,
+          markerId: MarkerId("rest_${3 + i}"),
+          position: LatLng(latitude - i * 0.0005, longitude - i * 0.0005),
+        );
+        markers[MarkerId("rest_${3 + i}")] = restMarker;
+      } */
+    });
+  }
 }
