@@ -21,8 +21,6 @@ import 'package:dongu_mobile/presentation/screens/home_page_view/components/oppo
 
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
 
-import 'package:dongu_mobile/utils/haversine.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +35,6 @@ import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
-import '../../widgets/restaurant_info_card/restaurant_info_card.dart';
 import '../../widgets/text/locale_text.dart';
 import '../my_favorites_view/components/address_text.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
@@ -128,7 +125,8 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  Builder buildBuilderSearch() {
+  Builder buildBuilderSearch(
+      BuildContext context, List<SearchStore> restaurants) {
     return Builder(builder: (context) {
       final GenericState stateSearch = context.watch<SearchCubit>().state;
 
@@ -148,7 +146,7 @@ class _HomePageViewState extends State<HomePageView> {
         return Center(
             child: filteredNames.length == 0
                 ? emptySearchHistory()
-                : searchListViewBuilder(stateSearch, searchList));
+                : searchListViewBuilder(stateSearch, searchList, restaurants));
       } else {
         final error = stateSearch as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -203,17 +201,39 @@ class _HomePageViewState extends State<HomePageView> {
                 children: [
                   buildSearchBar(context),
                   Spacer(),
-                  GestureDetector(
+                  Visibility(
+                    visible: visible,
+                    child: GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
                       },
                       child:
-                          SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON)),
+                          SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON),
+                    ),
+                  ),
+                  Visibility(
+                    visible: !visible,
+                    child: TextButton(
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        setState(() {
+                          FocusScope.of(context).unfocus();
+                          visible = !visible;
+                        });
+                      },
+                      child: Text(
+                        LocaleKeys.search_cancel_button.locale,
+                        style: AppTextStyles.bodyTitleStyle.copyWith(
+                            color: AppColors.orangeColor, fontSize: 12),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
             SizedBox(height: context.dynamicHeight(0.03)),
-            Visibility(visible: true, child: buildBuilderSearch()),
+            Visibility(
+                visible: true, child: buildBuilderSearch(context, restaurants)),
             Visibility(
               visible: visible,
               child: Padding(
@@ -596,7 +616,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   Container buildSearchBar(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.72),
+      width: visible ? context.dynamicWidht(0.72) : context.dynamicWidht(0.68),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(25.0),
@@ -719,8 +739,8 @@ class _HomePageViewState extends State<HomePageView> {
     return durationOfitems;
   }
 
-  ListView searchListViewBuilder(
-      GenericState stateSearch, List<Search> searchList) {
+  ListView searchListViewBuilder(GenericState stateSearch,
+      List<Search> searchList, List<SearchStore> restaurants) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: searchList.isEmpty ||
@@ -747,7 +767,15 @@ class _HomePageViewState extends State<HomePageView> {
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteConstant.RESTAURANT_DETAIL,
+                  arguments: ScreenArgumentsRestaurantDetail(
+                    restaurant: restaurants[index],
+                  ),
+                );
+              },
               // leading: Image.network(
               //   searches.urlImage,
               //   fit: BoxFit.cover,
