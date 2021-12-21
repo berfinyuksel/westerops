@@ -539,7 +539,8 @@
         "kind9": "Tatlı",
         "kind10": "Kahve",
         "cancel_button": "Vazgeç",
-        "search_history_clean": "Arama geçmişiniz bulunmamaktadır."
+        "search_history_clean": "Arama geçmişiniz bulunmamaktadır.",
+        "search_bar_empty_result": "Aradığınız ürün bulunmamaktadır."
     },
     "restaurant_detail": {
         "app_bar_title":"Restoran Detayları",
