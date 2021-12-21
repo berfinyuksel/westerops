@@ -203,7 +203,7 @@ class _HomePageViewState extends State<HomePageView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildSearchBar(context),
-                 // Spacer(),
+                  // Spacer(),
                   GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
@@ -548,7 +548,7 @@ class _HomePageViewState extends State<HomePageView> {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+            Navigator.pushNamed(context, RouteConstant.ADDRESS_VIEW);
           },
           child: LocaleText(
             text: titleRight,
@@ -728,7 +728,7 @@ class _HomePageViewState extends State<HomePageView> {
             ? 0
             : filteredNames.length,
         itemBuilder: (context, index) {
-              List<String> meals = [];
+          List<String> meals = [];
 
           if (filteredNames[index].storeMeals == null) {
             return Text("Aradığınız isimde bir yemek bulunmamaktadır.");
@@ -758,12 +758,11 @@ class _HomePageViewState extends State<HomePageView> {
                       filteredNames.isEmpty
                   ? ""
                   : "${filteredNames[index].name}"),
-              subtitle: Text(
-                mealNames.isEmpty ||
-                          searchList.isEmpty ||
-                          filteredNames.isEmpty
-                      ? ""
-                      : mealNames),
+              subtitle: Text(mealNames.isEmpty ||
+                      searchList.isEmpty ||
+                      filteredNames.isEmpty
+                  ? ""
+                  : mealNames),
             ),
           );
         });

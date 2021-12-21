@@ -91,8 +91,9 @@ class _LocationViewState extends State<LocationView> {
       color: AppColors.greenColor,
       textColor: AppColors.appBarColor,
       title: LocaleKeys.premission_location_button1.locale,
-      onPressed: () {
+      onPressed: () async {
         Geolocator.requestPermission();
+        await Geolocator.openLocationSettings();
         Navigator.pushNamed(context, RouteConstant.FOOD_WASTE_VIEW);
       },
     );

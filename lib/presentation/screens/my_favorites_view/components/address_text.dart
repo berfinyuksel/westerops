@@ -1,5 +1,6 @@
+import 'package:dongu_mobile/data/services/location_service.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
-
 import '../../../../logic/cubits/address_cubit/address_cubit.dart';
 import '../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../widgets/text/locale_text.dart';
@@ -62,7 +63,11 @@ class _AddressTextState extends State<AddressText> {
               )
             : GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
+                  if (LocationService.latitude != 0) {
+                    Navigator.of(context).pushNamed(RouteConstant.LOGIN_VIEW);
+                  } else {
+                    Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
+                  }
                 },
                 child: Row(
                   children: [
@@ -75,7 +80,9 @@ class _AddressTextState extends State<AddressText> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6.0),
                       child: LocaleText(
-                        text: LocaleKeys.my_favorites_permission_for_location,
+                        text: LocationService.latitude != 0
+                            ? LocaleKeys.login_text_login2
+                            : LocaleKeys.my_favorites_permission_for_location,
                         style: GoogleFonts.montserrat(
                           color: AppColors.yellowColor,
                           fontWeight: FontWeight.w500,
