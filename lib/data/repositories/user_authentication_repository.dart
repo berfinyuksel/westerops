@@ -122,7 +122,7 @@ class SampleUserAuthenticationRepository
 
     print(response.statusCode);
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(response.body);
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       var jsonResults = jsonBody['user'];
 
       SharedPrefs.setToken(jsonBody['token']);

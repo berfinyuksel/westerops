@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -248,6 +249,8 @@ class _RegisterViewState extends State<RegisterView> {
                         passwordController.text.isNotEmpty) {
                       Navigator.popAndPushNamed(
                           context, RouteConstant.SMS_VERIFY_VIEW);
+                      print(phoneTR);
+                      SharedPrefs.setRegisterPhone(phoneTR);
                       // showDialog(
                       //     context: context,
                       //     builder: (_) => CustomAlertDialogResetPassword(

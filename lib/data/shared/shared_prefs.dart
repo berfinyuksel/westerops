@@ -120,7 +120,7 @@ class SharedPrefs {
     return sumPrice;
   }
 
-    static Future<List<String>> setSumOldPrice(List<String> sumOldPrice) async {
+  static Future<List<String>> setSumOldPrice(List<String> sumOldPrice) async {
     _prefs.setStringList('sumOldPrice', sumOldPrice);
     return sumOldPrice;
   }
@@ -194,8 +194,12 @@ class SharedPrefs {
     _prefs.setBool('updatePermissionForPhone', updatePermissionForPhone);
   }
 
- static Future<void> setCourierHourText(String courierHourText) async {
+  static Future<void> setCourierHourText(String courierHourText) async {
     _prefs.setString('courierHourText', courierHourText);
+  }
+
+  static Future<void> setRegisterPhone(String registerPhone) async {
+    _prefs.setString('registerPhone', registerPhone);
   }
 
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
@@ -235,7 +239,8 @@ class SharedPrefs {
   static int get getDeliveredRestaurantAddressId =>
       _prefs.getInt('deliveredRestaurantId') ?? 0;
   static List<String> get getSumPrice => _prefs.getStringList('sumPrice') ?? [];
-  static List<String> get getSumOldPrice => _prefs.getStringList('sumOldPrice') ?? [];
+  static List<String> get getSumOldPrice =>
+      _prefs.getStringList('sumOldPrice') ?? [];
   static List<String> get getFavorites =>
       _prefs.getStringList('favorites') ?? [];
   static int get getCourierHourId => _prefs.getInt('courierHourId') ?? 0;
@@ -257,5 +262,7 @@ class SharedPrefs {
       _prefs.getBool('updatePermissionForEmail') ?? true;
   static bool get getPermissionForPhone =>
       _prefs.getBool('updatePermissionForPhone') ?? true;
-  static String get getCourierHourText => _prefs.getString('courierHourText') ?? "";
+  static String get getCourierHourText =>
+      _prefs.getString('courierHourText') ?? "";
+  static String get getRegisterPhone => _prefs.getString('registerPhone') ?? "";
 }

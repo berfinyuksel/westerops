@@ -1,17 +1,17 @@
 {
-    "months" :{
-        "jan" : "January",
-        "feb" : "February",
-        "mar" : "March",
-        "apr" : "April",
-        "may" : "May",
-        "june" : "June",
-        "july" : "July",
-        "aug" : "August",
-        "sept" : "September",
-        "oct" : "October",
-        "nov" : "November", 
-        "dec" : "December"
+    "months": {
+        "jan": "January",
+        "feb": "February",
+        "mar": "March",
+        "apr": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "aug": "August",
+        "sept": "September",
+        "oct": "October",
+        "nov": "November",
+        "dec": "December"
     },
     "bottom_nav_bar": {
         "item_1": "Home",
@@ -52,8 +52,8 @@
         "error_alert_dialog_text2": " you can sign up",
         "error_alert_dialog_text3": "\nor if you don't remember it",
         "error_alert_dialog_text4": " reset\nyour password.",
-        "password_error_alert_dialog" : "We've noticed that\nyour password or\nphone number is wrong.",
-        "login_success_alert_dialog_text" : "Welcome",
+        "password_error_alert_dialog": "We've noticed that\nyour password or\nphone number is wrong.",
+        "login_success_alert_dialog_text": "Welcome",
         "text_login": "Sign In",
         "text_login2": "Please Sign In",
         "phone": "Phone",
@@ -68,12 +68,12 @@
         "full_name": "Full Name",
         "email": "E-mail",
         "password": "Password",
-        "pop_up_text":{
+        "pop_up_text": {
             "title": "We noticed that you  have an account with this e-mail address.",
-            "subtitle_1":"You can log in",
-            "subtitle_2":"to your account",
-            "subtitle_3":"or  reset your password",
-            "subtitle_4":"if you don't remember it"
+            "subtitle_1": "You can log in",
+            "subtitle_2": "to your account",
+            "subtitle_3": "or  reset your password",
+            "subtitle_4": "if you don't remember it"
         },
         "consent": {
             "text1": "I would like to receive electronic messages within the scope of ",
@@ -87,10 +87,10 @@
             "text4": "Clarification Text",
             "text5": " regarding your personal data."
         },
-        "password_rules":{
-            "number":"1 number",
-            "letter":"1 capital letter",
-            "character":"8 characters"
+        "password_rules": {
+            "number": "1 number",
+            "letter": "1 capital letter",
+            "character": "8 characters"
         },
         "social_auth": "Go on"
     },
@@ -175,12 +175,12 @@
         "cancel_button": "Cancelled"
     },
     "past_order_detail": {
-        "no_restaurant_info" : "Sorry. There is no restaurant information.",
-        "cancel_order_error" : "Your order cannot be canceled in accordance with the determined rules",
-        "unautherized_move" : "You must login",
-        "cancelled_order_successfully" : "Your order has been successfully canceled",
-        "cancel_order_alert_dialog_text" : "Are you sure you want to cancel the order?",
-        "cancel_order" : "Cancel Order",
+        "no_restaurant_info": "Sorry. There is no restaurant information.",
+        "cancel_order_error": "Your order cannot be canceled in accordance with the determined rules",
+        "unautherized_move": "You must login",
+        "cancelled_order_successfully": "Your order has been successfully canceled",
+        "cancel_order_alert_dialog_text": "Are you sure you want to cancel the order?",
+        "cancel_order": "Cancel Order",
         "title": "My Past Orders",
         "body_title_1": "Restaurant",
         "body_title_2": "Evaluate",
@@ -199,28 +199,28 @@
         "thanks": "Thank You for Your Evaluation"
     },
     "address": {
-        "no_address" : "You do not have a registered address yet.",
-        "address_approval" : "Approve",
-        "delete_alert_dialog_text" : "Are you sure you want to delete your registered address?",
-        "preparing" : "Preparing",
-        "address_name" : "Name of Address",
-        "district" : "District",
-        "addresss" : "Adress",
-        "address_description" : "Address Description",
-        "phone_number" : "Phone Number",
-        "save" : "Save",
-        "address_type" : "Address Type",
-        "billing_address" : "Billing Address",
+        "no_address": "You do not have a registered address yet.",
+        "address_approval": "Approve",
+        "delete_alert_dialog_text": "Are you sure you want to delete your registered address?",
+        "preparing": "Preparing",
+        "address_name": "Name of Address",
+        "district": "District",
+        "addresss": "Adress",
+        "address_description": "Address Description",
+        "phone_number": "Phone Number",
+        "save": "Save",
+        "address_type": "Address Type",
+        "billing_address": "Billing Address",
         "title": "My Adresses",
         "body_title": "My Recorded Addresses",
         "button": "Add New Address",
-        "text_1":"Home",
-        "text_2":"My Office",
+        "text_1": "Home",
+        "text_2": "My Office",
         "text_3": "Beşiktaş (Kuruçeşme, Muallim Cad.)",
-        "text_4":" jonh.doe@mail.com Lorem Ipsum Dolor sit amet No:5 D:5 +90 555 555 55 55 Süpermarketin üstü " 
+        "text_4": " jonh.doe@mail.com Lorem Ipsum Dolor sit amet No:5 D:5 +90 555 555 55 55 Süpermarketin üstü "
     },
     "registered_cards": {
-        "delete_alert_dialog_text" : "Are you sure you want to delete your saved card?",
+        "delete_alert_dialog_text": "Are you sure you want to delete your saved card?",
         "title": "My Registered Cards",
         "button": "Add New Card"
     },
@@ -228,7 +228,7 @@
         "title": "Language Settings"
     },
     "general_settings": {
-        "my_location" : "My Location",
+        "my_location": "My Location",
         "title": "General Settings",
         "body_title_1": "Communication Permissions",
         "body_title_2": "Notifications",
@@ -256,8 +256,8 @@
         "body_title": "Contact Us",
         "list_tile_1": "Customer Service"
     },
-    "my_information_view" : {
-        "update_success" : "Your information has been successfully updated."
+    "my_information_view": {
+        "update_success": "Your information has been successfully updated."
     },
     "help_center": {
         "title": "Help Center",
@@ -277,14 +277,14 @@
         "list_tile_subtitle_1": ".  Having access to a wide variety of delicious food at great prices,  . To be able to contribute to the prevention of food waste while reaching quality food at affordable prices,  . The Cycle is waiting for you if you want to do your part in protecting the environment, which is a social responsibility."
     },
     "change_location": {
-        "no_serve_text" :"For now, we only serve in the Istanbul region. Soon we will start serving in other regions... 🙂",
+        "no_serve_text": "For now, we only serve in the Istanbul region. Soon we will start serving in other regions... 🙂",
         "title": "Change Region",
         "hint_text": "Search City"
     },
     "home_page": {
-        "active_order" : "Active Order",
+        "active_order": "Active Order",
         "soldout_icon": "sold out",
-        "packet_number" : "package",
+        "packet_number": "package",
         "location": "My Location",
         "edit": "Edit",
         "closer": "Near me",
@@ -302,9 +302,9 @@
         "hint_text": "Search for food, restaurants"
     },
     "my_favorites": {
-        "sign_in_to_monitor" : "Please login to\nview your favorite restaurants.",
-        "no_favorites" : "You do not have a favorite restaurant.",
-        "permission_for_location" : "Allow location services",
+        "sign_in_to_monitor": "Please login to\nview your favorite restaurants.",
+        "no_favorites": "You do not have a favorite restaurant.",
+        "permission_for_location": "Allow location services",
         "title": "My Favorites",
         "location": "My Location",
         "edit": "Change",
@@ -313,7 +313,7 @@
         "show_list": "Show as List"
     },
     "cart": {
-        "box_delete_alert_dialog" : "Are you sure you want to delete the product in your cart?",
+        "box_delete_alert_dialog": "Are you sure you want to delete the product in your cart?",
         "title": "My Cart",
         "button_empty": "See Restaurants",
         "button": "Go ahead",
@@ -322,7 +322,7 @@
         "not_logged_in": "Upps! You must be logged in to add products to the cart."
     },
     "payment": {
-        "description_text" : " It will be delivered to your address by courier.",
+        "description_text": " It will be delivered to your address by courier.",
         "tab_1": "Address",
         "tab_2": "Delivery",
         "tab_3": "Payment",
@@ -338,7 +338,7 @@
             "button_add_address": "Add New Delivery Address",
             "button_add_bill": "Add New Billing Address",
             "use_as_billing": "Use as billing address",
-            "restaurant_address":"Restaurant address not found",
+            "restaurant_address": "Restaurant address not found",
             "active_address": "Specify active address"
         },
         "delivery": {
@@ -346,11 +346,11 @@
             "delivery_available_time": "Restaurant delivery times are not available.",
             "text": "Today - ",
             "warning_text": "Make your payment by showing\nthe order number we have sent\nyou to the restaurant.",
-            "courier":"Courier not available"
+            "courier": "Courier not available"
         },
         "payment": {
-            "year_text" : "Year",
-            "month_text" : "Month",
+            "year_text": "Year",
+            "month_text": "Month",
             "choose_card": "Choose from My Registered Cards",
             "cancel": "Cancel",
             "name_card": "Name Card",
@@ -364,22 +364,22 @@
             "name_on_card": "Name on The Card",
             "card_number": "Card Number",
             "add_to_registered_cards": "Add to My Saved Cards",
-            "warning_container":"Your payment method cannot be changed  at the door during order delivery.",
+            "warning_container": "Your payment method cannot be changed  at the door during order delivery.",
             "warning_container_2": "Make your payment by showing  the order number we have  sent you to the restaurant.",
             "pay_with_another_card": "Our payment system is provided by\niyzico and your transaction security\nis under the assurance of Iyzico.",
             "card_info_month": "Month",
             "card_info_year": "Year",
-            "checkbox_agreement_text1" : "Pre-information conditions ",
-            "checkbox_agreement_text2" : "I have read and I approve.",
-            "checkbox_agreement_text3" : "Distance sales agreement ",
-            "checkbox_agreement_text4" : "I have read and I approve.",
+            "checkbox_agreement_text1": "Pre-information conditions ",
+            "checkbox_agreement_text2": "I have read and I approve.",
+            "checkbox_agreement_text3": "Distance sales agreement ",
+            "checkbox_agreement_text4": "I have read and I approve.",
             "online_payment": "Online Payment"
         }
     },
     "order_received": {
-        "amount_in_cart" : "Amount of items in the cart: ",
-        "get_it_package" : "Take away Package",
-        "courier_package" : "Motor Courier",
+        "amount_in_cart": "Amount of items in the cart: ",
+        "get_it_package": "Take away Package",
+        "courier_package": "Motor Courier",
         "headline": "Your Order Has Been Received",
         "headline1": "Receiving Your Order...",
         "order_number": "Order Number: ",
@@ -418,11 +418,11 @@
         "title": "Freeze My Account",
         "text_1": "Are you leaving?",
         "text_2": "Why do you want to delete your account? Please choose. Your information will be stored for 30 days. If you come back within 30 days, you can log into your account as if nothing had happened.",
-        "text_3":"I am not satisfied with the application.",
-        "text_4":"I had problems with businesses",
-        "text_5":"Product variety was insufficient.",
-        "text_6":"Business variety was insufficient.",
-        "text_7":"Payment method is not suitable for me.",
+        "text_3": "I am not satisfied with the application.",
+        "text_4": "I had problems with businesses",
+        "text_5": "Product variety was insufficient.",
+        "text_6": "Business variety was insufficient.",
+        "text_7": "Payment method is not suitable for me.",
         "button": "Freeze My Account",
         "hint_text": "You can add another description",
         "popup_text_successful": "Your account has been successfully frozen.",
@@ -436,7 +436,7 @@
         "alert_button1": "No",
         "alert_button2": "Yes",
         "alert_text": "Are you sure you want to Cancel your package?",
-        "cancel_descrption" : "Write the reason for canceling the order."
+        "cancel_descrption": "Write the reason for canceling the order."
     },
     "surprise_pack_canceled": {
         "canceled_your_pack": "You Canceled Your Specified Package!",
@@ -446,13 +446,13 @@
         "warning_container": "Your Surprise Pack has been cancelled. Available again now. If you change your mind you should hurry"
     },
     "address_from_map": {
-        "alert_dialog_text" :  "Your address will be saved according to the location marked on the map. Are you sure the location flag  is correct?",
+        "alert_dialog_text": "Your address will be saved according to the location marked on the map. Are you sure the location flag  is correct?",
         "title": "Add New Address",
         "hint_text": "Search district, street",
         "button": "Use This Address"
     },
-    "address_update" : {
-        "title" : "Edit Your Address"
+    "address_update": {
+        "title": "Edit Your Address"
     },
     "premission_notification": {
         "text1": "Allow notifications from  Döngü",
@@ -473,9 +473,9 @@
         "button2": "Action"
     },
     "filters": {
-        "no_restaurant_text" : "Sorry.\nNo restaurants were found matching your criteria.",
-        "title" : "Filter",
-        "done_title" : "Filtered",
+        "no_restaurant_text": "Sorry.\nNo restaurants were found matching your criteria.",
+        "title": "Filter",
+        "done_title": "Filtered",
         "sort": {
             "title": "Sort",
             "item1": "Sort By Distance",
@@ -539,7 +539,7 @@
         "search_history_clean": "You have no search history"
     },
     "restaurant_detail": {
-        "app_bar_title":"Restaurant Details",
+        "app_bar_title": "Restaurant Details",
         "text1": "Packets",
         "text2": "Informations",
         "text3": "Add Restaurant To Favorite",
@@ -555,7 +555,7 @@
         "sub_text2": "Surprise Packet 2",
         "sub_text3": "Surprise Packet 3",
         "button_text": "Buy",
-        "button_text2":"In My Cart",
+        "button_text2": "In My Cart",
         "sub_title2": "Defined Packages",
         "sub_text4": "Vegan 4 Packets",
         "sub_text5": "Broccoli Salad, Beans With Vegan  Sauce Soy Sauce",
@@ -571,14 +571,14 @@
             "sub_title3": "Online Credit/Debit Card - Cash on Delivery",
             "sub_title4": "Business Name Mini Burger",
             "sub_title5": "Main course, Vegan, Hamburger, Drink, Chicken...",
-            "sub_title6":"Take away Package",
-            "sub_title7":"Motor Courier",
-            "sub_title8":"There is no surprise package",
-            "sub_title9":"There is no defined package",
-            "sub_title10":"Time until package identification: "
+            "sub_title6": "Take away Package",
+            "sub_title7": "Motor Courier",
+            "sub_title8": "There is no surprise package",
+            "sub_title9": "There is no defined package",
+            "sub_title10": "Time until package identification: "
         },
-        "working_hours":{
-            "title":"Working Hours",
+        "working_hours": {
+            "title": "Working Hours",
             "month1": "January",
             "month2": "February",
             "month3": "March",
@@ -599,31 +599,31 @@
             "day6": "Saturday",
             "day7": "Sunday"
         },
-        "food_categories":{
-            "title":"Food Categories",
-            "text":"We are sad. There is no category for this restaurant yet."
+        "food_categories": {
+            "title": "Food Categories",
+            "text": "We are sad. There is no category for this restaurant yet."
         },
-        "show_dialog":{
-            "text":"Please Login Or Register",
-            "button1":"Login",
-            "button2":"Register"
+        "show_dialog": {
+            "text": "Please Login Or Register",
+            "button1": "Login",
+            "button2": "Register"
         },
-        "alert_dialog":{
-            "text_1":"Please select the address you want to send the order to",
-            "text_2":"Okay"
+        "alert_dialog": {
+            "text_1": "Please select the address you want to send the order to",
+            "text_2": "Okay"
         },
-        "diffrent_restaurant_show_dialog":{
-            "text_1":"You chose the product of a different restaurant",
-            "button1":"Continue shopping",
-            "button2":"Clean the cart"
+        "diffrent_restaurant_show_dialog": {
+            "text_1": "You chose the product of a different restaurant",
+            "button1": "Continue shopping",
+            "button2": "Clean the cart"
         },
-        "packet_container":{
-            "package":"package",
-            "sold_out":"sold out"
+        "packet_container": {
+            "package": "package",
+            "sold_out": "sold out"
         }
     },
     "restaurant_food_categories": {
-        "no_category_text" :"Sorry. There are no businesses in your area yet for this category.",
+        "no_category_text": "Sorry. There are no businesses in your area yet for this category.",
         "text1": "Buffet meal food safety",
         "text2": "Additional Suggestions",
         "text3": "This item contains food from the buffet",
@@ -661,40 +661,36 @@
             "favorite": "Favorite Restaurant has 10 packages today.  Hurry, become a partner in this Cycle!"
         }
     },
-    "swipe":{
+    "swipe": {
         "text1": "Get Your Order Delivered",
         "text2": "Order Number:",
-        "orderNo":"86123345",
-        "swipeButton":"Swipe to complete order",
-        "text3":"Anadolu Lezzetleri",
-        "text4":"Pastırmalı Kuru Fasulye, 1 porsiyon Kornişon Turşu",
-        "totalAmount":"Total Amount:",
-        "price":"35,25 TL",
-        "restaurant_name":"Restaurant Name",
-        "restaurant_address":"Restaurant Address"
+        "orderNo": "86123345",
+        "swipeButton": "Swipe to complete order",
+        "text3": "Anadolu Lezzetleri",
+        "text4": "Pastırmalı Kuru Fasulye, 1 porsiyon Kornişon Turşu",
+        "totalAmount": "Total Amount:",
+        "price": "35,25 TL",
+        "restaurant_name": "Restaurant Name",
+        "restaurant_address": "Restaurant Address"
     },
-    "agreement_kvkk":{
-        "confirmation_button":"I approve",
-        "underlined_text":"Sözleşme",
+    "agreement_kvkk": {
+        "confirmation_button": "I approve",
+        "underlined_text": "Sözleşme",
         "text": "yi okudum, onaylıyorum"
     },
-    "sms_verify":{
-        "text_1":"Please enter the registration code",
-        "text_2":"An SMS has been sent to your phone number ending with ***92. Please enter 6 digit code",
-        "text_3":"Resend code",
+    "sms_verify": {
+        "text_1": "Please enter the registration code",
+        "text_2": "ending phone number has received an SMS. Please enter 6 digit code",
+        "text_3": "Resend code",
         "button": "Let's start"
     },
-    "was_delivered":{
-        "headline":"Your Order Has Been Delivered",
-        "order_number":"Order Number:",
-        "restaurant_name":"Restaurant Name",
-        "restaurant_address":"Restaurant Address",
+    "was_delivered": {
+        "headline": "Your Order Has Been Delivered",
+        "order_number": "Order Number:",
+        "restaurant_name": "Restaurant Name",
+        "restaurant_address": "Restaurant Address",
         "headline_text": "Thanks for helping us protect the world!",
         "body_text": "Thank you for not leaving us alone on this road we set out to protect our planet! Now it's time to score your order!",
         "button": "Evaluate"
-
     }
-    
-    
-    
 }
