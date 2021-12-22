@@ -680,7 +680,7 @@
     },
     "sms_verify": {
         "text_1": "Lütfen kayıt kodunu giriniz",
-        "text_2": "ile biten telefon numaranıza SMS gönderildi. Lütfen 6 haneli kodu giriniz",
+        "text_2": " ile biten telefon numaranıza SMS gönderildi. Lütfen 6 haneli kodu giriniz",
         "text_3": "Kodu tekrar gönder",
         "button": "Başlayalım"
     },

@@ -680,7 +680,7 @@
     },
     "sms_verify": {
         "text_1": "Please enter the registration code",
-        "text_2": "ending phone number has received an SMS. Please enter 6 digit code",
+        "text_2": " ending phone number has received an SMS. Please enter 6 digit code",
         "text_3": "Resend code",
         "button": "Let's start"
     },

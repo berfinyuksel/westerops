@@ -172,24 +172,22 @@ class _SmsVerifyState extends State<SmsVerify> {
     return Container(
       height: 50,
       width: 390,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 130),
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              ImageConstant.SMS_OTP_VERIFY_RESEND_CODE_ICON,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            ImageConstant.SMS_OTP_VERIFY_RESEND_CODE_ICON,
+          ),
+          SizedBox(width: 5),
+          LocaleText(
+            text: LocaleKeys.sms_verify_text_3,
+            style: GoogleFonts.montserrat(
+              fontSize: 14.0,
+              color: AppColors.textColor,
             ),
-            SizedBox(width: 5),
-            LocaleText(
-              text: LocaleKeys.sms_verify_text_3,
-              style: GoogleFonts.montserrat(
-                fontSize: 14.0,
-                color: AppColors.textColor,
-              ),
-              alignment: TextAlign.center,
-            ),
-          ],
-        ),
+            alignment: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
