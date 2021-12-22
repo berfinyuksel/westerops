@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "163234070864-9pb77sddsd46pub67vp8lmv6ujmcojro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dongu_mobile",
+            "certificate_hash": "5409f01fb80eaa820b9fea2b97e31026afeae70d"
+          }
+        },
+        {
           "client_id": "163234070864-ng058ucurpneeuj215n81pc8euoa993a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.dongu_mobile",
             "certificate_hash": "7d02ff1bf060698efb806cfec85ac367aa6bfd78"
+          }
+        },
+        {
+          "client_id": "163234070864-vcarlm81tu8i17veqp5npilplb71gl9i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dongu_mobile",
+            "certificate_hash": "6bae6910eed459aa16be644bde83ee387bd642e8"
           }
         },
         {
