@@ -168,7 +168,8 @@
         "new_password_again": "Repeat New Password",
         "button": "Save",
         "popup_text_fail": "Incorrect password or passwords did not match.",
-        "popup_text_successful": "Password changed successfully."
+        "popup_text_successful": "Password changed successfully.",
+        "pop_up_same_password": "The old password and the new password cannot be the same. Please enter a different password"
     },
     "past_order": {
         "title": "My Past Orders",
