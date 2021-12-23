@@ -67,7 +67,7 @@ class IyzicoCardRepository {
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
 
       List<CardDetail> cardLists = List<CardDetail>.from(
-          jsonBody.map((model) => CardDetail.fromJson(model)));
+          jsonBody["cardDetails"].map((model) => CardDetail.fromJson(model)));
 
       return cardLists;
     }
