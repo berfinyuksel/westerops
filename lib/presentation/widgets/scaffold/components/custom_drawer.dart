@@ -162,11 +162,6 @@ class CustomDrawer extends StatelessWidget {
         borderColor: AppColors.greenColor,
         textColor: AppColors.greenColor,
         onPressed: () {
-          FacebookSignInController().logOut();
-          AuthService().logOutFromGmail();
-          SharedPrefs.clearCache();
-          Navigator.pushReplacementNamed(
-              context, RouteConstant.CUSTOM_SCAFFOLD);
           context.read<OrderCubit>().clearBasket();
 
           SharedPrefs.setSumPrice([]);
@@ -175,7 +170,11 @@ class CustomDrawer extends StatelessWidget {
           SharedPrefs.setCounter(0);
           SharedPrefs.setMenuList([]);
           context.read<BasketCounterCubit>().setCounter(0);
-
+          FacebookSignInController().logOut();
+          AuthService().logOutFromGmail();
+          SharedPrefs.clearCache();
+          Navigator.pushReplacementNamed(
+              context, RouteConstant.CUSTOM_SCAFFOLD);
           //Navigator.pop(context);
         },
       ),

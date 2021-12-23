@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
+import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
@@ -126,6 +128,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
         BlocProvider<NearMePaddingCubit>(create: (_) => NearMePaddingCubit()),
+        BlocProvider<IyzicoCardCubit>(
+            create: (_) => IyzicoCardCubit(IyzicoCardRepository())),
         BlocProvider<OpportunityPaddingCubit>(
             create: (_) => OpportunityPaddingCubit()),
         BlocProvider<CategoryPaddingCubit>(
@@ -183,7 +187,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
-       
+
         List<int> sumPrices = [];
         for (var i = 0; i < SharedPrefs.getSumPrice.length; i++) {
           sumPrices.add(int.parse(SharedPrefs.getSumPrice[i]));

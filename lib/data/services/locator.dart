@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
 import 'package:dongu_mobile/data/repositories/update_permission_for_com_repository.dart';
 import '../repositories/basket_repository.dart';
 import '../repositories/update_order_repository.dart';
@@ -15,4 +16,5 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => UpdatePermissonRepository());
   getIt.registerLazySingleton(() => ChangeActiveAddressRepository());
   getIt.registerLazySingleton(() => UpdateOrderRepository());
+  getIt.registerLazySingleton(() => IyzicoCardRepository());
 }

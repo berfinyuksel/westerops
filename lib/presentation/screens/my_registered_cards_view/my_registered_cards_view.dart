@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -105,7 +104,7 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
-        onPressed: () {
+        onPressed: () async {
           Navigator.pushNamed(
               context, RouteConstant.MY_REGISTERED_CARD_UPDATE_VIEW);
         },
