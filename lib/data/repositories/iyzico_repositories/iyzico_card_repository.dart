@@ -34,12 +34,15 @@ class IyzicoCardRepository {
   }
 
   Future<StatusCode> deleteCard(String cardToken) async {
-    String json = '{"cardToken":$cardToken}';
+    String json = '{"cardToken":"$cardToken"}';
 
     final response = await http.post(
       Uri.parse("${UrlConstant.EN_URL}iyzico/cards/delete"),
       body: json,
-      headers: {'Authorization': 'JWT ${SharedPrefs.getToken}'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT ${SharedPrefs.getToken}',
+      },
     );
     print("Delete Card status ${response.statusCode}");
 

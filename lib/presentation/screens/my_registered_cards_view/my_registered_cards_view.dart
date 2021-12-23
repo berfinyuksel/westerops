@@ -1,6 +1,9 @@
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_registered_card.dart';
+import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -121,7 +124,45 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                     onPressedOne: () {
                       Navigator.of(context).pop();
                     },
-                    onPressedTwo: () {}),
+                    onPressedTwo: () async {
+                      Navigator.of(context).pop();
+                      StatusCode statusCode = await sl<IyzicoCardRepository>()
+                          .deleteCard(cards[index].cardToken.toString());
+                      switch (statusCode) {
+                        case StatusCode.success:
+                          showDialog(
+                              context: context,
+                              builder: (_) => CustomAlertDialogResetPassword(
+                                    description:
+                                        "Kartınız başarıyla silinmiştir",
+                                    onPressed: () => Navigator.popAndPushNamed(
+                                        context,
+                                        RouteConstant.MY_REGISTERED_CARD_VIEW),
+                                  ));
+                          break;
+                        case StatusCode.error:
+                          showDialog(
+                              context: context,
+                              builder: (_) => CustomAlertDialogResetPassword(
+                                    description:
+                                        "Bir şeyler ters gitti. Tekrar deneyiniz.",
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ));
+                          break;
+                        case StatusCode.unauthecticated:
+                          showDialog(
+                              context: context,
+                              builder: (_) => CustomAlertDialogResetPassword(
+                                    description:
+                                        "Kartınızı kaydedebilmek için giriş yapmalısınız.",
+                                    onPressed: () => Navigator.popAndPushNamed(
+                                        context, RouteConstant.LOGIN_VIEW),
+                                  ));
+                          break;
+                        default:
+                      }
+                    }),
               );
             },
           );
