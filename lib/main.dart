@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
+import 'package:dongu_mobile/data/services/ip_service.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
@@ -60,6 +61,7 @@ import 'logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'presentation/router/app_router.dart';
 import 'utils/constants/locale_constant.dart';
 import 'utils/theme/app_theme.dart';
+import 'package:dart_ipify/dart_ipify.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,7 +70,7 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   await SharedPrefs.initialize();
   await Firebase.initializeApp();
-
+  await IpService().detectIP();
   //fixed late arriving svg with future.wait function
   Future.wait([
     precachePicture(

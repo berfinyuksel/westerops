@@ -38,8 +38,8 @@ class _PaymentViewsState extends State<PaymentViews>
   bool checkboxValue = false;
   bool checkboxInfoValue = false;
   bool checkboxAgreementValue = false;
-  bool checkboxAddCardValue = false;
   List<String>? menuList = SharedPrefs.getMenuList;
+  bool checkboxAddCardValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,297 +72,6 @@ class _PaymentViewsState extends State<PaymentViews>
               child: buildBottomCard(context)),
         ],
       ),
-    );
-  }
-
-  GestureDetector buildBottomCard(BuildContext context) {
-    return GestureDetector(
-      onTap: () => showConfirmationBottomSheet(context),
-      child: Container(
-        width: double.infinity,
-        height: context.dynamicHeight(0.17),
-        padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-            right: context.dynamicWidht(0.06),
-            top: context.dynamicHeight(0.01),
-            bottom: context.dynamicHeight(0.04)),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(18.0),
-          ),
-          color: Colors.white,
-        ),
-        child: Builder(builder: (context) {
-          final stateOfSumPrice = context.watch<SumPriceOrderCubit>().state;
-
-          return Column(
-            children: [
-              Container(
-                height: 3,
-                width: context.dynamicWidht(0.15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(1.5),
-                  color: Color(0xFF707070),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  LocaleText(
-                      text: LocaleKeys.payment_payment_order_amount,
-                      style: AppTextStyles.bodyTextStyle),
-                  PaymentTotalPrice(
-                    price: stateOfSumPrice.toDouble(),
-                    withDecimal: true,
-                  ),
-                ],
-              ),
-              Divider(
-                height: context.dynamicHeight(0.01),
-                thickness: 2,
-                color: AppColors.borderAndDividerColor,
-              ),
-              Spacer(),
-              Row(
-                children: [
-                  Container(
-                    height: context.dynamicHeight(0.052),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: LocaleText(
-                            text: LocaleKeys.payment_payment_to_be_paid,
-                            style: AppTextStyles.myInformationBodyTextStyle,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Expanded(
-                          child: LocaleText(
-                            text:
-                                '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
-                            style: GoogleFonts.montserrat(
-                              fontSize: 18.0,
-                              color: AppColors.greenColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Spacer(),
-                  CustomButton(
-                    width: context.dynamicWidht(0.5),
-                    title: LocaleKeys.payment_payment_pay,
-                    color: checkboxAgreementValue && checkboxInfoValue
-                        ? AppColors.greenColor
-                        : AppColors.disabledButtonColor,
-                    textColor: Colors.white,
-                    borderColor: checkboxAgreementValue && checkboxInfoValue
-                        ? AppColors.greenColor
-                        : AppColors.disabledButtonColor,
-                  ),
-                ],
-              ),
-            ],
-          );
-        }),
-      ),
-    );
-  }
-
-  Future<dynamic> showConfirmationBottomSheet(BuildContext context) {
-    return showMaterialModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (BuildContext builder) {
-          return StatefulBuilder(builder: (context, StateSetter myState) {
-            return Container(
-              height: context.dynamicHeight(0.2),
-              padding:
-                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(18.0),
-                ),
-                color: Colors.white,
-              ),
-              child: Column(
-                children: [
-                  Spacer(
-                    flex: 1,
-                  ),
-                  Container(
-                    height: 3,
-                    width: context.dynamicWidht(0.3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(1.5),
-                      color: Color(0xFF707070),
-                    ),
-                  ),
-                  Spacer(
-                    flex: 2,
-                  ),
-                  buildRowCheckBoxAgreement(
-                      context,
-                      LocaleKeys
-                          .payment_payment_checkbox_agreement_text1.locale,
-                      LocaleKeys
-                          .payment_payment_checkbox_agreement_text2.locale,
-                      "info",
-                      myState),
-                  Spacer(
-                    flex: 2,
-                  ),
-                  buildRowCheckBoxAgreement(
-                      context,
-                      LocaleKeys
-                          .payment_payment_checkbox_agreement_text3.locale,
-                      LocaleKeys
-                          .payment_payment_checkbox_agreement_text4.locale,
-                      "agreement",
-                      myState),
-                  Spacer(
-                    flex: 4,
-                  ),
-                  buildRowTotalPayment(context),
-                  Spacer(
-                    flex: 4,
-                  ),
-                ],
-              ),
-            );
-          });
-        });
-  }
-
-  Row buildRowCheckBoxAgreement(BuildContext context, String underlinedText,
-      String text, String checkValue, StateSetter myState) {
-    return Row(
-      children: [
-        buildCheckBox(context, checkValue, myState),
-        Spacer(flex: 1),
-        AcceptAgreementText(
-          underlinedText: underlinedText,
-          text: text,
-          style: AppTextStyles.subTitleStyle,
-        ),
-        Spacer(flex: 5),
-      ],
-    );
-  }
-
-  Container buildCheckBox(
-      BuildContext context, String checkValue, StateSetter myState) {
-    return Container(
-      height: context.dynamicWidht(0.04),
-      width: context.dynamicWidht(0.04),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        border: Border.all(
-          color: Color(0xFFD1D0D0),
-        ),
-      ),
-      child: Theme(
-        data: ThemeData(unselectedWidgetColor: Colors.transparent),
-        child: Checkbox(
-          checkColor: Colors.greenAccent,
-          activeColor: Colors.transparent,
-          value: checkValue == "info"
-              ? checkboxInfoValue
-              : checkValue == "agreement"
-                  ? checkboxAgreementValue
-                  : checkboxAddCardValue,
-          onChanged: (value) {
-            myState(() {});
-            setState(() {
-              if (checkValue == "info") {
-                checkboxInfoValue = value!;
-              } else if (checkValue == "agreement") {
-                checkboxAgreementValue = value!;
-              } else {
-                checkboxAddCardValue = value!;
-              }
-            });
-          },
-        ),
-      ),
-    );
-  }
-
-  Row buildRowTotalPayment(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          height: context.dynamicHeight(0.052),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: LocaleText(
-                  text: LocaleKeys.payment_payment_to_be_paid,
-                  style: AppTextStyles.myInformationBodyTextStyle,
-                  maxLines: 1,
-                ),
-              ),
-              Expanded(
-                child: Builder(builder: (context) {
-                  final stateOfSumPrice =
-                      context.watch<SumPriceOrderCubit>().state;
-
-                  return LocaleText(
-                    text: '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
-                    style: GoogleFonts.montserrat(
-                      fontSize: 18.0,
-                      color: AppColors.greenColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  );
-                }),
-              ),
-            ],
-          ),
-        ),
-        Builder(builder: (context) {
-          return CustomButton(
-            width: context.dynamicWidht(0.5),
-            title: LocaleKeys.payment_payment_pay,
-            color: checkboxAgreementValue && checkboxInfoValue
-                ? AppColors.greenColor
-                : AppColors.disabledButtonColor,
-            textColor: Colors.white,
-            borderColor: checkboxAgreementValue && checkboxInfoValue
-                ? AppColors.greenColor
-                : AppColors.disabledButtonColor,
-            onPressed: () {
-              if (checkboxAgreementValue && checkboxInfoValue) {
-                NotificationService().gotOrder();
-
-                context.read<OrderBarCubit>().stateOfBar(true);
-                SharedPrefs.setOrderBar(true);
-                context.read<OrderReceivedCubit>().createOrder(
-                    SharedPrefs.getDeliveryType,
-                    SharedPrefs.getDeliveredRestaurantAddressId,
-                    SharedPrefs.getDeliveredRestaurantAddressId);
-                context
-                    .read<StoreCourierCubit>()
-                    .updateCourierHours(SharedPrefs.getCourierHourId);
-                menuList!.clear();
-                SharedPrefs.setCounter(0);
-                SharedPrefs.setMenuList([]);
-                context.read<BasketCounterCubit>().setCounter(0);
-                Navigator.pushReplacementNamed(
-                    context, RouteConstant.ORDER_RECEIVING_VIEW);
-              }
-            },
-          );
-        }),
-      ],
     );
   }
 
@@ -663,5 +372,310 @@ class _PaymentViewsState extends State<PaymentViews>
             );
           }
         });
+  }
+
+  GestureDetector buildBottomCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () => showConfirmationBottomSheet(context),
+      child: Container(
+        width: double.infinity,
+        height: context.dynamicHeight(0.17),
+        padding: EdgeInsets.only(
+            left: context.dynamicWidht(0.06),
+            right: context.dynamicWidht(0.06),
+            top: context.dynamicHeight(0.01),
+            bottom: context.dynamicHeight(0.04)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(18.0),
+          ),
+          color: Colors.white,
+        ),
+        child: Builder(builder: (context) {
+          final stateOfSumPrice = context.watch<SumPriceOrderCubit>().state;
+
+          return Column(
+            children: [
+              Container(
+                height: 3,
+                width: context.dynamicWidht(0.15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(1.5),
+                  color: Color(0xFF707070),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  LocaleText(
+                      text: LocaleKeys.payment_payment_order_amount,
+                      style: AppTextStyles.bodyTextStyle),
+                  PaymentTotalPrice(
+                    price: stateOfSumPrice.toDouble(),
+                    withDecimal: true,
+                  ),
+                ],
+              ),
+              Divider(
+                height: context.dynamicHeight(0.01),
+                thickness: 2,
+                color: AppColors.borderAndDividerColor,
+              ),
+              Spacer(),
+              Row(
+                children: [
+                  Container(
+                    height: context.dynamicHeight(0.052),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: LocaleText(
+                            text: LocaleKeys.payment_payment_to_be_paid,
+                            style: AppTextStyles.myInformationBodyTextStyle,
+                            maxLines: 1,
+                          ),
+                        ),
+                        Expanded(
+                          child: LocaleText(
+                            text:
+                                '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 18.0,
+                              color: AppColors.greenColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Spacer(),
+                  CustomButton(
+                    width: context.dynamicWidht(0.5),
+                    title: LocaleKeys.payment_payment_pay,
+                    color: checkboxAgreementValue && checkboxInfoValue
+                        ? AppColors.greenColor
+                        : AppColors.disabledButtonColor,
+                    textColor: Colors.white,
+                    borderColor: checkboxAgreementValue && checkboxInfoValue
+                        ? AppColors.greenColor
+                        : AppColors.disabledButtonColor,
+                  ),
+                ],
+              ),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+
+  Future<dynamic> showConfirmationBottomSheet(BuildContext context) {
+    return showMaterialModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (BuildContext builder) {
+          return StatefulBuilder(builder: (context, StateSetter myState) {
+            return Container(
+              height: context.dynamicHeight(0.2),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(18.0),
+                ),
+                color: Colors.white,
+              ),
+              child: Column(
+                children: [
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Container(
+                    height: 3,
+                    width: context.dynamicWidht(0.3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(1.5),
+                      color: Color(0xFF707070),
+                    ),
+                  ),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  buildRowCheckBoxAgreement(
+                      context,
+                      LocaleKeys
+                          .payment_payment_checkbox_agreement_text1.locale,
+                      LocaleKeys
+                          .payment_payment_checkbox_agreement_text2.locale,
+                      "info",
+                      myState),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  buildRowCheckBoxAgreement(
+                      context,
+                      LocaleKeys
+                          .payment_payment_checkbox_agreement_text3.locale,
+                      LocaleKeys
+                          .payment_payment_checkbox_agreement_text4.locale,
+                      "agreement",
+                      myState),
+                  Spacer(
+                    flex: 4,
+                  ),
+                  buildRowTotalPayment(context),
+                  Spacer(
+                    flex: 4,
+                  ),
+                ],
+              ),
+            );
+          });
+        });
+  }
+
+  Row buildRowCheckBoxAgreement(BuildContext context, String underlinedText,
+      String text, String checkValue, StateSetter myState) {
+    return Row(
+      children: [
+        buildCheckBoxForAggreements(context, checkValue, myState),
+        Spacer(flex: 1),
+        AcceptAgreementText(
+          underlinedText: underlinedText,
+          text: text,
+          style: AppTextStyles.subTitleStyle,
+        ),
+        Spacer(flex: 5),
+      ],
+    );
+  }
+
+  Row buildRowTotalPayment(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          height: context.dynamicHeight(0.052),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: LocaleText(
+                  text: LocaleKeys.payment_payment_to_be_paid,
+                  style: AppTextStyles.myInformationBodyTextStyle,
+                  maxLines: 1,
+                ),
+              ),
+              Expanded(
+                child: Builder(builder: (context) {
+                  final stateOfSumPrice =
+                      context.watch<SumPriceOrderCubit>().state;
+
+                  return LocaleText(
+                    text: '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 18.0,
+                      color: AppColors.greenColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                }),
+              ),
+            ],
+          ),
+        ),
+        Builder(builder: (context) {
+          return CustomButton(
+            width: context.dynamicWidht(0.5),
+            title: LocaleKeys.payment_payment_pay,
+            color: checkboxAgreementValue && checkboxInfoValue
+                ? AppColors.greenColor
+                : AppColors.disabledButtonColor,
+            textColor: Colors.white,
+            borderColor: checkboxAgreementValue && checkboxInfoValue
+                ? AppColors.greenColor
+                : AppColors.disabledButtonColor,
+            onPressed: () {
+              if (checkboxAgreementValue && checkboxInfoValue) {
+                if (SharedPrefs.getBoolForRegisteredCard) {
+                  NotificationService().gotOrder();
+                  context.read<OrderBarCubit>().stateOfBar(true);
+                  SharedPrefs.setOrderBar(true);
+
+                  context
+                      .read<OrderReceivedCubit>()
+                      .createOrderWithRegisteredCard(
+                        deliveryType: SharedPrefs.getDeliveryType,
+                        addressId: SharedPrefs.getActiveAddressId,
+                        billingAddressId: SharedPrefs.getActiveAddressId,
+                        ip: SharedPrefs.getIpV4,
+                        cardToken: SharedPrefs.getCardToken,
+                      );
+                  context
+                      .read<StoreCourierCubit>()
+                      .updateCourierHours(SharedPrefs.getCourierHourId);
+                  menuList!.clear();
+                  SharedPrefs.setCounter(0);
+                  SharedPrefs.setMenuList([]);
+                  context.read<BasketCounterCubit>().setCounter(0);
+                  Navigator.pushReplacementNamed(
+                      context, RouteConstant.ORDER_RECEIVING_VIEW);
+                } else {
+                  if (SharedPrefs.getThreeDBool) {
+// with threeD
+
+                  } else {
+                    //without threeD
+                  }
+                }
+              }
+            },
+          );
+        }),
+      ],
+    );
+  }
+
+  Container buildCheckBoxForAggreements(
+      BuildContext context, String checkValue, StateSetter myState) {
+    return Container(
+      height: context.dynamicWidht(0.04),
+      width: context.dynamicWidht(0.04),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4.0),
+        border: Border.all(
+          color: Color(0xFFD1D0D0),
+        ),
+      ),
+      child: Theme(
+        data: ThemeData(unselectedWidgetColor: Colors.transparent),
+        child: Checkbox(
+          checkColor: Colors.greenAccent,
+          activeColor: Colors.transparent,
+          value: checkValue == "info"
+              ? checkboxInfoValue
+              : checkValue == "agreement"
+                  ? checkboxAgreementValue
+                  : checkboxAddCardValue,
+          onChanged: (value) {
+            myState(() {});
+            setState(() {
+              if (checkValue == "info") {
+                checkboxInfoValue = value!;
+              } else if (checkValue == "agreement") {
+                checkboxAgreementValue = value!;
+              } else {
+                checkboxAddCardValue = value!;
+              }
+            });
+          },
+        ),
+      ),
+    );
   }
 }

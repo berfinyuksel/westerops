@@ -176,18 +176,17 @@ class SampleAdressRepository implements AdressRepository {
 
   @override
   Future<List<AddressValues>> deleteAddress(int? id) async {
-    String json = '{"id":"$id" }';
-
     final response = await http.delete(
       Uri.parse(
         ("${UrlConstant.EN_URL}user/address/$id/"),
       ),
-      body: json,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'JWT ${SharedPrefs.getToken}',
       },
     );
+    print(response.statusCode);
+    print(response.body);
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 }
