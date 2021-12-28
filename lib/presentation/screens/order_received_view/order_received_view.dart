@@ -38,6 +38,9 @@ import '../payment_views/payment_address_view/components/get_it_address_list_til
 import 'components/order_summary_container.dart';
 
 class OrderReceivedView extends StatefulWidget {
+  final OrderReceived? orderInfo;
+
+  const OrderReceivedView({Key? key, this.orderInfo}) : super(key: key);
   @override
   _OrderReceivedViewState createState() => _OrderReceivedViewState();
 }

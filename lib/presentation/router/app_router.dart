@@ -1,3 +1,6 @@
+import 'package:dongu_mobile/presentation/screens/order_received_view/screen_arguments_for_order_received/screen_arguments_for_order_received.dart';
+import 'package:dongu_mobile/presentation/screens/order_receiving_view/order_receiving_registered_card.dart';
+import 'package:dongu_mobile/presentation/screens/order_receiving_view/order_receiving_without3d.dart';
 import 'package:dongu_mobile/presentation/screens/sms_verify_view/sms_verify_view.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/screen_arguments_surprise_cancel.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +40,7 @@ import '../screens/my_registered_cards_view/my_registered_cards_view.dart';
 import '../screens/onboardings_view/onboardings_view.dart';
 import '../screens/order_delivered_view/order_delivered_view.dart';
 import '../screens/order_received_view/order_received_view.dart';
-import '../screens/order_receiving_view/order_receiving_view.dart';
+import '../screens/order_receiving_view/order_receiving_view_with3d.dart';
 import '../screens/past_order_detail_view/past_order_detail_view.dart';
 import '../screens/past_order_view/past_order_view.dart';
 import '../screens/payment_views/payment_views.dart';
@@ -159,9 +162,22 @@ class AppRouter {
       case RouteConstant.ORDER_DELIVERED_VIEW:
         return MaterialPageRoute(builder: (_) => OrderDeliveredView());
       case RouteConstant.ORDER_RECEIVED_VIEW:
-        return MaterialPageRoute(builder: (_) => OrderReceivedView());
-      case RouteConstant.ORDER_RECEIVING_VIEW:
-        return MaterialPageRoute(builder: (_) => OrderReceivingView());
+        final ScreenArgumentsForOrderReceived args =
+            routeSettings.arguments as ScreenArgumentsForOrderReceived;
+
+        return MaterialPageRoute(
+          builder: (_) => OrderReceivedView(
+            orderInfo: args.orderInfo,
+          ),
+        );
+      case RouteConstant.ORDER_RECEIVING_VIEW_WITH3D:
+        return MaterialPageRoute(builder: (_) => OrderReceivingViewWith3D());
+
+      case RouteConstant.ORDER_RECEIVING_VIEW_WITHOUT3D:
+        return MaterialPageRoute(builder: (_) => OrderReceivingViewWithout3D());
+      case RouteConstant.ORDER_RECEIVING_VIEW_REGISTERED_CARD:
+        return MaterialPageRoute(
+            builder: (_) => OrderReceivingViewWithRegisteredCard());
       case RouteConstant.PAST_ORDER_DETAIL_VIEW:
         final ScreenArgumentsRestaurantDetail args =
             routeSettings.arguments as ScreenArgumentsRestaurantDetail;

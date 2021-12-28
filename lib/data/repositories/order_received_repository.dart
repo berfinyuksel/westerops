@@ -1,5 +1,5 @@
 import 'dart:convert';
-import '../model/order_received.dart';
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 enum StatusCode { success, error, unauthecticated }
 
 abstract class OrderReceivedRepository {
-  Future<List<OrderReceived>> getOrder();
-  Future<List<OrderReceived>> createOrderWithRegisteredCard(
+  Future<List<IyzcoOrderCreate>> getOrder();
+  Future<List<IyzcoOrderCreate>> createOrderWithRegisteredCard(
     int deliveryType,
     int addressId,
     int billingAddressId,
@@ -19,7 +19,7 @@ abstract class OrderReceivedRepository {
 
 class SampleOrderReceivedRepository implements OrderReceivedRepository {
   @override
-  Future<List<OrderReceived>> createOrderWithRegisteredCard(
+  Future<List<IyzcoOrderCreate>> createOrderWithRegisteredCard(
     int deliveryType,
     int addressId,
     int billingAddressId,
@@ -41,14 +41,14 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
     print("Create Order status ${response.statusCode}");
     if (response.statusCode == 201) {
       print('order created');
-      List<OrderReceived> list = [];
+      List<IyzcoOrderCreate> list = [];
       return list;
     }
 
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 
-  Future<List<OrderReceived>> getOrder() async {
+  Future<List<IyzcoOrderCreate>> getOrder() async {
     final response = await http.get(
       Uri.parse("${UrlConstant.EN_URL}order/"),
       headers: {
@@ -60,8 +60,8 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       print(jsonBody); //utf8.decode for turkish characters
-      List<OrderReceived> orderReceivedList = List<OrderReceived>.from(
-          jsonBody.map((model) => OrderReceived.fromJson(model))).toList();
+      List<IyzcoOrderCreate> orderReceivedList = List<IyzcoOrderCreate>.from(
+          jsonBody.map((model) => IyzcoOrderCreate.fromJson(model))).toList();
       //print(boxLists[].text_name);
       return orderReceivedList;
     }

@@ -39,8 +39,11 @@ class _AddressTextState extends State<AddressText> {
       } else if (stateOfAddress is GenericLoading) {
         return SizedBox(height: 0, width: 0);
       } else if (stateOfAddress is GenericCompleted) {
-        final idOfAddress = stateOfAddress.response.first.id;
-        SharedPrefs.setActiveAddressId(idOfAddress);
+        if (stateOfAddress.response.isNotEmpty) {
+          final idOfAddress = stateOfAddress.response.first.id;
+          SharedPrefs.setActiveAddressId(idOfAddress);
+        }
+
         return stateOfAddress.response.isNotEmpty
             ? Container(
                 child: Text.rich(

@@ -1,10 +1,13 @@
+import 'dart:developer';
+
+import 'package:dongu_mobile/logic/cubits/iyzico_order_create_with_3d_cubit/iyzico_order_create_with_3d_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/components/html_view.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
 import '../../../data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
@@ -624,11 +627,40 @@ class _PaymentViewsState extends State<PaymentViews>
                   SharedPrefs.setMenuList([]);
                   context.read<BasketCounterCubit>().setCounter(0);
                   Navigator.pushReplacementNamed(
-                      context, RouteConstant.ORDER_RECEIVING_VIEW);
+                      context, RouteConstant.ORDER_RECEIVING_VIEW_WITH3D);
                 } else {
                   if (SharedPrefs.getThreeDBool) {
-// with threeD
+                    // with threeD
+                    context
+                        .read<IyzicoOrderCreateWith3DCubit>()
+                        .createOrderWith3D(
+                          deliveryType: SharedPrefs.getDeliveryType,
+                          addressId: SharedPrefs.getActiveAddressId,
+                          billingAddressId: SharedPrefs.getActiveAddressId,
+                          cardAlias: SharedPrefs.getCardAlias,
+                          cardHolderName: SharedPrefs.getCardHolderName,
+                          cardNumber: SharedPrefs.getCardNumber,
+                          expireMonth: SharedPrefs.getExpireMonth,
+                          registerCard: SharedPrefs.getCardRegisterBool ? 1 : 0,
+                          expireYear: SharedPrefs.getExpireYear,
+                          cvc: SharedPrefs.getCVC,
+                          ip: SharedPrefs.getIpV4,
+                        );
+                    log(SharedPrefs.getDeliveryType.toString());
+                    log(SharedPrefs.getActiveAddressId.toString());
+                    log(SharedPrefs.getCardAlias.toString());
+                    log(SharedPrefs.getCardHolderName.toString());
+                    log(SharedPrefs.getCardNumber.toString());
+                    log(SharedPrefs.getExpireMonth.toString());
+                    log(SharedPrefs.getCardRegisterBool.toString());
+                    log(SharedPrefs.getExpireYear.toString());
+                    log(SharedPrefs.getCVC.toString());
+                    log(SharedPrefs.getIpV4.toString());
 
+                    showDialog(
+                      context: context,
+                      builder: (_) => WebViewForThreeD(),
+                    );
                   } else {
                     //without threeD
                   }

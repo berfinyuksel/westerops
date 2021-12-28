@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_registered_card.dart';
 import 'package:dongu_mobile/data/services/ip_service.dart';
 import 'package:dongu_mobile/data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
@@ -218,8 +220,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
                 child: Column(
                   children: [
                     buildTextFormField(
-                        LocaleKeys.payment_payment_name_card.locale,
-                        cardNameController),
+                      LocaleKeys.payment_payment_name_card.locale,
+                      cardNameController,
+                    ),
                     SizedBox(
                       height: context.dynamicHeight(0.02),
                     ),
@@ -229,10 +232,13 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
               buildRowCheckBox(
                   context,
                   LocaleKeys.payment_payment_add_to_registered_cards,
-                  checkboxAddCardValue),
+                  'register'),
               SizedBox(height: context.dynamicHeight(0.01)),
               buildRowCheckBox(
-                  context, "3D Secure kullanmak istiyorum", threeDSecure),
+                context,
+                "3D Secure kullanmak istiyorum",
+                'threeD',
+              ),
               SizedBox(height: context.dynamicHeight(0.02)),
             ],
           ),
@@ -266,12 +272,14 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  Padding buildRowCheckBox(BuildContext context, String text, bool boolValue) {
+  Padding buildRowCheckBox(BuildContext context, String text, String value) {
     return Padding(
       padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
       child: Row(
         children: [
-          buildCheckBox(context, boolValue),
+          value == 'threeD'
+              ? buildCheckBoxForThreeD(context)
+              : buildCheckBoxForRegister(context),
           SizedBox(width: context.dynamicWidht(0.02)),
           LocaleText(
             text: text,
@@ -283,15 +291,22 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   }
 
   Column buildPayWithAnotherCard(BuildContext context) {
+    SharedPrefs.setCardHolderName(nameController.text.toString());
+    SharedPrefs.setCardNumber(cardController.text.toString());
+    SharedPrefs.setCardAlias(cardNameController.text.toString());
     return Column(
       children: [
         buildTextFormField(
-            LocaleKeys.payment_payment_name_on_card.locale, nameController),
+          LocaleKeys.payment_payment_name_on_card.locale,
+          nameController,
+        ),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
         buildTextFormField(
-            LocaleKeys.payment_payment_card_number.locale, cardController),
+          LocaleKeys.payment_payment_card_number.locale,
+          cardController,
+        ),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
@@ -338,6 +353,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         onChanged: (value) {
           setState(() {
             this.monthValue = value;
+            SharedPrefs.setExpireMonth(value.toString().substring(2, 4));
           });
         },
         items: months.map((String item) {
@@ -375,6 +391,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         onChanged: (value) {
           setState(() {
             this.yearValue = value;
+            SharedPrefs.setExpireYear(value.toString().substring(4, 6));
           });
         },
         items: years.map((String item) {
@@ -388,7 +405,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   }
 
   Padding buildTextFormField(
-      String labelText, TextEditingController controller) {
+    String labelText,
+    TextEditingController controller,
+  ) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
       child: Container(
@@ -422,6 +441,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   }
 
   Container buildCvvTextFormField() {
+    SharedPrefs.setCVC(cvvController.text.toString());
+
     return Container(
       height: context.dynamicHeight(0.06),
       width: context.dynamicWidht(0.33),
@@ -529,10 +550,6 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           cardTokenGlobal = cardToken;
           SharedPrefs.setBoolForRegisteredCard(true);
           SharedPrefs.setCardToken(cardToken);
-          print(cardToken);
-          print(SharedPrefs.getIpV4);
-          print(SharedPrefs.getDeliveryType);
-          print(SharedPrefs.getDeliveredRestaurantAddressId);
         });
       },
     );
@@ -567,7 +584,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  Container buildCheckBox(BuildContext context, bool boolValue) {
+  Container buildCheckBoxForThreeD(
+    BuildContext context,
+  ) {
     return Container(
       height: context.dynamicWidht(0.04),
       width: context.dynamicWidht(0.04),
@@ -583,12 +602,39 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         child: Checkbox(
           checkColor: Colors.greenAccent,
           activeColor: Colors.transparent,
-          value: boolValue,
+          value: threeDSecure,
           onChanged: (value) {
             setState(() {
-              boolValue = value!;
-              SharedPrefs.setCardRegisterBool(checkboxAddCardValue);
+              threeDSecure = value!;
               SharedPrefs.setThreeDBool(threeDSecure);
+            });
+          },
+        ),
+      ),
+    );
+  }
+
+  Container buildCheckBoxForRegister(BuildContext context) {
+    return Container(
+      height: context.dynamicWidht(0.04),
+      width: context.dynamicWidht(0.04),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4.0),
+        color: Colors.white,
+        border: Border.all(
+          color: Color(0xFFD1D0D0),
+        ),
+      ),
+      child: Theme(
+        data: ThemeData(unselectedWidgetColor: Colors.transparent),
+        child: Checkbox(
+          checkColor: Colors.greenAccent,
+          activeColor: Colors.transparent,
+          value: checkboxAddCardValue,
+          onChanged: (value) {
+            setState(() {
+              checkboxAddCardValue = value!;
+              SharedPrefs.setCardRegisterBool(checkboxAddCardValue);
             });
           },
         ),

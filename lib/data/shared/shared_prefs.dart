@@ -214,6 +214,34 @@ class SharedPrefs {
     _prefs.setBool('threeDBool', threeDBool);
   }
 
+  static Future<void> setCardAlias(String cardAlias) async {
+    _prefs.setString('cardAlias', cardAlias);
+  }
+
+  static Future<void> setCardHolderName(String cardHolderName) async {
+    _prefs.setString('cardHolderName', cardHolderName);
+  }
+
+  static Future<void> setCardNumber(String cardNumber) async {
+    _prefs.setString('cardNumber', cardNumber);
+  }
+
+  static Future<void> setExpireMonth(String expireMonth) async {
+    _prefs.setString('expireMonth', expireMonth);
+  }
+
+  static Future<void> setExpireYear(String expireYear) async {
+    _prefs.setString('expireYear', expireYear);
+  }
+
+  static Future<void> setCVC(String cvc) async {
+    _prefs.setString('cvc', cvc);
+  }
+
+  static Future<void> setConversationId(String conversationId) async {
+    _prefs.setString('conversationId', conversationId);
+  }
+
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
@@ -278,6 +306,15 @@ class SharedPrefs {
   static String get getCardToken => _prefs.getString('cardToken') ?? "";
   static int get getActiveAddressId => _prefs.getInt('activeAddressId') ?? 0;
   static bool get getCardRegisterBool =>
-      _prefs.getBool('cardRegisterBool') ?? true;
+      _prefs.getBool('cardRegisterBool') ?? false;
   static bool get getThreeDBool => _prefs.getBool('threeDBool') ?? true;
+  static String get getCardAlias => _prefs.getString('cardAlias') ?? "";
+  static String get getCardHolderName =>
+      _prefs.getString('cardHolderName') ?? "";
+  static String get getCardNumber => _prefs.getString('cardNumber') ?? "";
+  static String get getExpireMonth => _prefs.getString('expireMonth') ?? "";
+  static String get getExpireYear => _prefs.getString('expireYear') ?? "";
+  static String get getCVC => _prefs.getString('cvc') ?? "";
+  static String get getConversationId =>
+      _prefs.getString('conversationId') ?? "";
 }

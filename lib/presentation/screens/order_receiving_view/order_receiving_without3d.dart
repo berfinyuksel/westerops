@@ -8,12 +8,14 @@ import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/text/locale_text.dart';
 
-class OrderReceivingView extends StatefulWidget {
+class OrderReceivingViewWithout3D extends StatefulWidget {
   @override
-  _OrderReceivingViewState createState() => _OrderReceivingViewState();
+  _OrderReceivingViewWithout3DState createState() =>
+      _OrderReceivingViewWithout3DState();
 }
 
-class _OrderReceivingViewState extends State<OrderReceivingView> {
+class _OrderReceivingViewWithout3DState
+    extends State<OrderReceivingViewWithout3D> {
   @override
   void initState() {
     super.initState();
