@@ -1,7 +1,7 @@
-import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 
 class ScreenArgumentsSurpriseCancel {
-  final List<OrderReceived> orderInfo;
+  final List<IyzcoOrderCreate> orderInfo;
 
   ScreenArgumentsSurpriseCancel({required this.orderInfo});
 }

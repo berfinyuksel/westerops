@@ -1,4 +1,6 @@
-import '../../../../data/model/order_received.dart';
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
+
+
 import '../../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../../../../utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ import '../../my_favorites_view/components/address_text.dart';
 
 class AddressAndDateListTile extends StatefulWidget {
   final String? date;
-  final OrderReceived? orderInfo;
+  final IyzcoOrderCreate? orderInfo;
 
   const AddressAndDateListTile({
     Key? key,

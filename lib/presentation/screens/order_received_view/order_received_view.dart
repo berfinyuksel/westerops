@@ -110,7 +110,11 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         }
         print('package surprise condition' + surprisePackageStatus.toString());
 
-        if (orderInfo.boxes != null && surprisePackageStatus == false) {
+        if (orderInfo.boxes != null &&
+            surprisePackageStatus == false &&
+            DateTime.now()
+                .toLocal()
+                .isAfter(orderInfo.boxes!.first.saleDay!.startDate!)) {
           NotificationService().initSurprisePackage(
               orderInfo.refCode.toString(),
               orderInfo.boxes!.first.saleDay!.startDate!
@@ -276,7 +280,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             : Text("${orderInfo.id} order endpointi boş");
       } else {
         final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
+        return Center(
+            child: Text("${error.message}\n${error.statusCode} aaaa"));
       }
     });
   }

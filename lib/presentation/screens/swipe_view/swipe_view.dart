@@ -1,4 +1,4 @@
-import '../../../data/model/order_received.dart';
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import '../../../data/repositories/update_order_repository.dart';
 import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
@@ -18,7 +18,7 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/text/locale_text.dart';
 
 class SwipeView extends StatefulWidget {
-  final OrderReceived? orderInfo;
+  final IyzcoOrderCreate? orderInfo;
   const SwipeView({Key? key, this.orderInfo}) : super(key: key);
 
   @override

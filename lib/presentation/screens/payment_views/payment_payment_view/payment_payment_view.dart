@@ -1,25 +1,16 @@
-import 'dart:developer';
-
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_registered_card.dart';
-import 'package:dongu_mobile/data/services/ip_service.dart';
-import 'package:dongu_mobile/data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
+
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
+
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/agreement_view/components/accept_agreement_text.dart';
-import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/components/payment_total_price.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/extensions/string_extension.dart';
@@ -294,6 +285,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     SharedPrefs.setCardHolderName(nameController.text.toString());
     SharedPrefs.setCardNumber(cardController.text.toString());
     SharedPrefs.setCardAlias(cardNameController.text.toString());
+    print(SharedPrefs.getBoolForRegisteredCard);
+
     return Column(
       children: [
         buildTextFormField(
@@ -486,6 +479,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
   buildCards(List<CardDetail> cards) {
     SharedPrefs.setBoolForRegisteredCard(true);
+    print(SharedPrefs.getBoolForRegisteredCard);
+
     return cards.isNotEmpty
         ? ListView.builder(
             shrinkWrap: true,

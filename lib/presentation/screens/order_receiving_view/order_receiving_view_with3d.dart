@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
@@ -27,20 +28,18 @@ class OrderReceivingViewWith3D extends StatefulWidget {
 class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
   Timer? _timer;
   bool boolForProgress = false;
-
   int counter = 0;
+
   @override
   void initState() {
     _timer = Timer.periodic(
         Duration(seconds: 5), (Timer timer) => requesForOrderResponse());
-    log(SharedPrefs.getConversationId);
-    print(SharedPrefs.getIpV4);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("orderreceiving init state request");
     context
         .read<SendRequestCubit>()
         .sendRequest(conversationId: SharedPrefs.getConversationId);
@@ -66,13 +65,10 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                   flex: 183,
                 ),
                 Builder(builder: (context) {
-                  print("asadasda");
                   final state = context.watch<SendRequestCubit>().state;
                   if (state is GenericInitial) {
-                    print("initial");
                     return Container();
                   } else if (state is GenericLoading) {
-                    print("loading");
                     return Center(
                       child: Column(
                         children: [
@@ -91,21 +87,20 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                     _timer!.cancel();
                     List<OrderReceived> orderInfo = [];
 
-                    print("completed");
                     if (state.response.isNotEmpty) {
                       boolForProgress = true;
-                      print("orderinfo is not empty");
+
                       for (int i = 0; i < state.response.length; i++) {
                         orderInfo.add(state.response[i]);
                       }
-                      print(orderInfo.length);
+
+                      NotificationService().gotOrder();
                       navigateToOrderReceivedView(orderInfo.first);
                       return LocaleText(
                         text: LocaleKeys.order_received_headline1,
                         style: AppTextStyles.headlineStyle,
                       );
                     } else {
-                      print("no change status");
                       return LocaleText(
                         text: LocaleKeys.order_received_headline1,
                         style: AppTextStyles.headlineStyle,
@@ -115,8 +110,7 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                     final error = state as GenericError;
                     if (error.statusCode == "500") {
                       _timer!.cancel();
-                      print("error message");
-                      print(error.message);
+
                       return Column(
                         children: [
                           LocaleText(
@@ -138,8 +132,6 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                         ],
                       );
                     } else if (error.statusCode == "404") {
-                      print("ödeme bekleniyor");
-                      print(error.message);
                       return Column(
                         children: [
                           LocaleText(
@@ -191,7 +183,6 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
   }
 
   navigateToOrderReceivedView(OrderReceived orderInfoA) {
-    print(orderInfoA);
     _timer?.cancel();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Navigator.of(context).pushNamed(RouteConstant.ORDER_RECEIVED_VIEW);

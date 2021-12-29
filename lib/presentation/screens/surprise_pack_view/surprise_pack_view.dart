@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/order_names_widget.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/screen_arguments_surprise_cancel.dart';
-import '../../../data/model/order_received.dart';
+
 import '../../../data/repositories/update_order_repository.dart';
 import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
@@ -53,8 +54,8 @@ class _SurprisePackViewState extends State<SurprisePackView> {
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        List<OrderReceived> orderInfoTotal = [];
-        List<OrderReceived> orderInfo = [];
+        List<IyzcoOrderCreate> orderInfoTotal = [];
+        List<IyzcoOrderCreate> orderInfo = [];
 
         for (var i = 0; i < state.response.length; i++) {
           orderInfoTotal.add(state.response[i]);
@@ -77,7 +78,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     });
   }
 
-  Column buildBody(BuildContext context, List<OrderReceived> orderInfo) {
+  Column buildBody(BuildContext context, List<IyzcoOrderCreate> orderInfo) {
     return Column(
       children: [
         Spacer(
@@ -106,7 +107,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
   }
 
   Container buildBottomCard(
-      BuildContext context, List<OrderReceived> orderInfo) {
+      BuildContext context, List<IyzcoOrderCreate> orderInfo) {
     return Container(
       width: double.infinity,
       height: context.dynamicHeight(0.26),
@@ -139,7 +140,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     );
   }
 
-  Row buildButtonsRow(BuildContext context, List<OrderReceived> orderInfo) {
+  Row buildButtonsRow(BuildContext context, List<IyzcoOrderCreate> orderInfo) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -216,7 +217,8 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     );
   }
 
-  Padding buildSecondRow(BuildContext context, List<OrderReceived> orderInfo) {
+  Padding buildSecondRow(
+      BuildContext context, List<IyzcoOrderCreate> orderInfo) {
     List<String> meals = [];
     String mealNames = "";
     if (orderInfo.last.boxes!.last.meals!.isNotEmpty) {
@@ -240,7 +242,8 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     );
   }
 
-  Padding buildFirstRow(BuildContext context, List<OrderReceived> orderInfo) {
+  Padding buildFirstRow(
+      BuildContext context, List<IyzcoOrderCreate> orderInfo) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
       child: Row(
@@ -261,7 +264,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
   }
 
   Container buildCountDown(
-      BuildContext context, List<OrderReceived> orderInfo) {
+      BuildContext context, List<IyzcoOrderCreate> orderInfo) {
     if (durationFinal <= 0) {
       context.read<OrderBarCubit>().stateOfBar(false);
       SharedPrefs.setOrderBar(false);
@@ -290,7 +293,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     );
   }
 
-  AutoSizeText buildOrderNumber(List<OrderReceived> orderInfo) {
+  AutoSizeText buildOrderNumber(List<IyzcoOrderCreate> orderInfo) {
     return AutoSizeText.rich(
       TextSpan(
         style: AppTextStyles.bodyTextStyle,
@@ -381,7 +384,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
     return durationOfitems;
   }
 
-  Widget countdown(List<OrderReceived> orderInfo) {
+  Widget countdown(List<IyzcoOrderCreate> orderInfo) {
     List<int> itemsOfCountDown = buildDurationForCountdown(
         DateTime.now(),
         orderInfo.first.boxes!.isNotEmpty

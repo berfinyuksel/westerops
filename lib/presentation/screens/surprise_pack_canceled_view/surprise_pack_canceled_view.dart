@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/data/repositories/update_order_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/order_names_widget.dart';
@@ -21,7 +22,7 @@ import '../../widgets/warning_container/warning_container.dart';
 import 'components/buy_button.dart';
 
 class SurprisePackCanceled extends StatefulWidget {
-  final List<OrderReceived> orderInfo;
+  final List<IyzcoOrderCreate> orderInfo;
   SurprisePackCanceled({Key? key, required this.orderInfo});
   @override
   _SurprisePackCanceledState createState() => _SurprisePackCanceledState();
@@ -75,7 +76,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
   }
 
   Container buildBottomCard(
-      BuildContext context, List<OrderReceived> orderInfo) {
+      BuildContext context, List<IyzcoOrderCreate> orderInfo) {
     return Container(
       width: double.infinity,
       height: context.dynamicHeight(0.52),
@@ -163,7 +164,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
   }
 
   Container buildSurprisePackContainer(
-      BuildContext context, List<OrderReceived> orderInfo) {
+      BuildContext context, List<IyzcoOrderCreate> orderInfo) {
     List<String> meals = [];
     String mealNames = "";
     if (orderInfo.last.boxes!.last.meals!.isNotEmpty) {
@@ -212,7 +213,7 @@ class _SurprisePackCanceledState extends State<SurprisePackCanceled> {
     );
   }
 
-  AutoSizeText buildOrderNumber(List<OrderReceived> orderInfo) {
+  AutoSizeText buildOrderNumber(List<IyzcoOrderCreate> orderInfo) {
     return AutoSizeText.rich(
       TextSpan(
         style: AppTextStyles.bodyTextStyle,

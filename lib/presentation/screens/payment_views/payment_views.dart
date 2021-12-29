@@ -610,36 +610,7 @@ class _PaymentViewsState extends State<PaymentViews>
                 } else {
                   if (SharedPrefs.getThreeDBool) {
                     // with threeD
-                    context
-                        .read<IyzicoOrderCreateWith3DCubit>()
-                        .createOrderWith3D(
-                          deliveryType: SharedPrefs.getDeliveryType,
-                          addressId: SharedPrefs.getActiveAddressId,
-                          billingAddressId: SharedPrefs.getActiveAddressId,
-                          cardAlias: SharedPrefs.getCardAlias,
-                          cardHolderName: SharedPrefs.getCardHolderName,
-                          cardNumber: SharedPrefs.getCardNumber,
-                          expireMonth: SharedPrefs.getExpireMonth,
-                          registerCard: SharedPrefs.getCardRegisterBool ? 1 : 0,
-                          expireYear: SharedPrefs.getExpireYear,
-                          cvc: SharedPrefs.getCVC,
-                          ip: SharedPrefs.getIpV4,
-                        );
-                    log(SharedPrefs.getDeliveryType.toString());
-                    log(SharedPrefs.getActiveAddressId.toString());
-                    log(SharedPrefs.getCardAlias.toString());
-                    log(SharedPrefs.getCardHolderName.toString());
-                    log(SharedPrefs.getCardNumber.toString());
-                    log(SharedPrefs.getExpireMonth.toString());
-                    log(SharedPrefs.getCardRegisterBool.toString());
-                    log(SharedPrefs.getExpireYear.toString());
-                    log(SharedPrefs.getCVC.toString());
-                    log(SharedPrefs.getIpV4.toString());
-
-                    showDialog(
-                      context: context,
-                      builder: (_) => WebViewForThreeD(),
-                    );
+                    buildWith3DPayment(context);
                   } else {
                     //without threeD
                   }
@@ -652,10 +623,49 @@ class _PaymentViewsState extends State<PaymentViews>
     );
   }
 
+  void buildWith3DPayment(BuildContext context) {
+    context.read<IyzicoOrderCreateWith3DCubit>().createOrderWith3D(
+          deliveryType: SharedPrefs.getDeliveryType,
+          addressId: SharedPrefs.getActiveAddressId,
+          billingAddressId: SharedPrefs.getActiveAddressId,
+          cardAlias: SharedPrefs.getCardAlias,
+          cardHolderName: SharedPrefs.getCardHolderName,
+          cardNumber: SharedPrefs.getCardNumber,
+          expireMonth: SharedPrefs.getExpireMonth,
+          registerCard: SharedPrefs.getCardRegisterBool ? 1 : 0,
+          expireYear: SharedPrefs.getExpireYear,
+          cvc: SharedPrefs.getCVC,
+          ip: SharedPrefs.getIpV4,
+        );
+    context
+        .read<StoreCourierCubit>()
+        .updateCourierHours(SharedPrefs.getCourierHourId);
+    menuList!.clear();
+    SharedPrefs.setCounter(0);
+    SharedPrefs.setMenuList([]);
+    context.read<BasketCounterCubit>().setCounter(0);
+    log(SharedPrefs.getDeliveryType.toString());
+    log(SharedPrefs.getActiveAddressId.toString());
+    log(SharedPrefs.getCardAlias.toString());
+    log(SharedPrefs.getCardHolderName.toString());
+    log(SharedPrefs.getCardNumber.toString());
+    log(SharedPrefs.getExpireMonth.toString());
+    log(SharedPrefs.getCardRegisterBool.toString());
+    log(SharedPrefs.getExpireYear.toString());
+    log(SharedPrefs.getCVC.toString());
+    log(SharedPrefs.getIpV4.toString());
+    context.read<OrderBarCubit>().stateOfBar(true);
+    SharedPrefs.setOrderBar(true);
+    showDialog(
+      context: context,
+      builder: (_) => WebViewForThreeD(),
+    );
+  }
+
   void buildPaymentForRegisteredCard(BuildContext context) {
-    //     NotificationService().gotOrder();
-    //  context.read<OrderBarCubit>().stateOfBar(true);
-    //  SharedPrefs.setOrderBar(true);
+    //   NotificationService().gotOrder();
+    context.read<OrderBarCubit>().stateOfBar(true);
+    SharedPrefs.setOrderBar(true);
 
     context.read<OrderReceivedCubit>().createOrderWithRegisteredCard(
           deliveryType: SharedPrefs.getDeliveryType,

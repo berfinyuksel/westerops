@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/model/search.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
@@ -378,15 +379,15 @@ class _HomePageViewState extends State<HomePageView> {
 
   Widget buildOrderStatusBar() {
     return Builder(builder: (context) {
-      final stateOfOrder = context.watch<SendRequestCubit>().state;
+      final stateOfOrder = context.watch<OrderReceivedCubit>().state;
 
       if (stateOfOrder is GenericInitial) {
         return Container();
       } else if (stateOfOrder is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (stateOfOrder is GenericCompleted) {
-        List<OrderReceived> orderInfoTotal = [];
-        List<OrderReceived> orderInfo = [];
+        List<IyzcoOrderCreate> orderInfoTotal = [];
+        List<IyzcoOrderCreate> orderInfo = [];
 
         for (var i = 0; i < stateOfOrder.response.length; i++) {
           orderInfoTotal.add(stateOfOrder.response[i]);
@@ -679,7 +680,7 @@ class _HomePageViewState extends State<HomePageView> {
     return timeNowHourComponentList;
   }
 
-  Widget countdown(List<OrderReceived> orderInfo) {
+  Widget countdown(List<IyzcoOrderCreate> orderInfo) {
     List<int> itemsOfCountDown = buildDurationForCountdown(
         DateTime.now(),
         orderInfo.first.boxes!.isNotEmpty

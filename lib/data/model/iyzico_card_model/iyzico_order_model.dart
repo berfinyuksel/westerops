@@ -197,7 +197,7 @@ class Box {
   });
 
   final int? id;
-  final dynamic? description;
+  final dynamic description;
   final bool? defined;
   final bool? sold;
   final String? checkTaskId;
