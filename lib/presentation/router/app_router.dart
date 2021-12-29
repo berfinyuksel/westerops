@@ -1,4 +1,3 @@
-import 'package:dongu_mobile/presentation/screens/order_received_view/screen_arguments_for_order_received/screen_arguments_for_order_received.dart';
 import 'package:dongu_mobile/presentation/screens/order_receiving_view/order_receiving_registered_card.dart';
 import 'package:dongu_mobile/presentation/screens/order_receiving_view/order_receiving_without3d.dart';
 import 'package:dongu_mobile/presentation/screens/sms_verify_view/sms_verify_view.dart';
@@ -162,14 +161,8 @@ class AppRouter {
       case RouteConstant.ORDER_DELIVERED_VIEW:
         return MaterialPageRoute(builder: (_) => OrderDeliveredView());
       case RouteConstant.ORDER_RECEIVED_VIEW:
-        final ScreenArgumentsForOrderReceived args =
-            routeSettings.arguments as ScreenArgumentsForOrderReceived;
+        return MaterialPageRoute(builder: (_) => OrderReceivedView());
 
-        return MaterialPageRoute(
-          builder: (_) => OrderReceivedView(
-            orderInfo: args.orderInfo,
-          ),
-        );
       case RouteConstant.ORDER_RECEIVING_VIEW_WITH3D:
         return MaterialPageRoute(builder: (_) => OrderReceivingViewWith3D());
 

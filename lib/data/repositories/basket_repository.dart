@@ -5,8 +5,6 @@ import 'package:http/http.dart' as http;
 enum StatusCode { success, error, unauthecticated }
 
 class BasketRepository {
-  final url = "${UrlConstant.EN_URL}order/basket/";
-
   Future<StatusCode> addToBasket(
       String boxId, int addressID, int billingAddressId) async {
     String json =

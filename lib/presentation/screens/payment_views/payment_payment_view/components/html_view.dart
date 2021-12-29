@@ -49,8 +49,9 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
               .decode(base64.decode(state.response.first.threeDsHtmlContent));
           log(htmlData);
           String conversationId = state.response.first.conversationId;
-          SharedPrefs.setConversationId(conversationId);
           print(conversationId);
+          SharedPrefs.setConversationId(conversationId);
+
           void loadLocalHtml() async {
             final url = Uri.dataFromString(
               htmlData,
@@ -85,7 +86,7 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
                     Navigator.of(context)
                         .pushNamed(RouteConstant.ORDER_RECEIVING_VIEW_WITH3D);
                     print("bbbbbb");
-                    return NavigationDecision.prevent;
+                    return NavigationDecision.navigate;
                   } else {
                     print("dddddd");
                     return NavigationDecision.navigate; // Default decision

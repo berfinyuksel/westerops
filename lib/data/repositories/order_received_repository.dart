@@ -41,8 +41,13 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
     print("Create Order status ${response.statusCode}");
     if (response.statusCode == 201) {
       print('order created');
-      List<IyzcoOrderCreate> list = [];
-      return list;
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+      print(jsonBody); //utf8.decode for turkish characters
+      List<IyzcoOrderCreate> orderReceivedList = [];
+      IyzcoOrderCreate orderItem = IyzcoOrderCreate.fromJson(jsonBody);
+      orderReceivedList.add(orderItem);
+      //print(boxLists[].text_name);
+      return orderReceivedList;
     }
 
     throw NetworkError(response.statusCode.toString(), response.body);

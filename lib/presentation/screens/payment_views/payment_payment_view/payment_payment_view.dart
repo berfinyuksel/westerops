@@ -485,6 +485,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   }
 
   buildCards(List<CardDetail> cards) {
+    SharedPrefs.setBoolForRegisteredCard(true);
     return cards.isNotEmpty
         ? ListView.builder(
             shrinkWrap: true,

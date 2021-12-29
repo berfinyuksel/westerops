@@ -606,28 +606,7 @@ class _PaymentViewsState extends State<PaymentViews>
             onPressed: () {
               if (checkboxAgreementValue && checkboxInfoValue) {
                 if (SharedPrefs.getBoolForRegisteredCard) {
-                  NotificationService().gotOrder();
-                  context.read<OrderBarCubit>().stateOfBar(true);
-                  SharedPrefs.setOrderBar(true);
-
-                  context
-                      .read<OrderReceivedCubit>()
-                      .createOrderWithRegisteredCard(
-                        deliveryType: SharedPrefs.getDeliveryType,
-                        addressId: SharedPrefs.getActiveAddressId,
-                        billingAddressId: SharedPrefs.getActiveAddressId,
-                        ip: SharedPrefs.getIpV4,
-                        cardToken: SharedPrefs.getCardToken,
-                      );
-                  context
-                      .read<StoreCourierCubit>()
-                      .updateCourierHours(SharedPrefs.getCourierHourId);
-                  menuList!.clear();
-                  SharedPrefs.setCounter(0);
-                  SharedPrefs.setMenuList([]);
-                  context.read<BasketCounterCubit>().setCounter(0);
-                  Navigator.pushReplacementNamed(
-                      context, RouteConstant.ORDER_RECEIVING_VIEW_WITH3D);
+                  buildPaymentForRegisteredCard(context);
                 } else {
                   if (SharedPrefs.getThreeDBool) {
                     // with threeD
@@ -671,6 +650,29 @@ class _PaymentViewsState extends State<PaymentViews>
         }),
       ],
     );
+  }
+
+  void buildPaymentForRegisteredCard(BuildContext context) {
+    //     NotificationService().gotOrder();
+    //  context.read<OrderBarCubit>().stateOfBar(true);
+    //  SharedPrefs.setOrderBar(true);
+
+    context.read<OrderReceivedCubit>().createOrderWithRegisteredCard(
+          deliveryType: SharedPrefs.getDeliveryType,
+          addressId: SharedPrefs.getActiveAddressId,
+          billingAddressId: SharedPrefs.getActiveAddressId,
+          ip: SharedPrefs.getIpV4,
+          cardToken: SharedPrefs.getCardToken,
+        );
+    context
+        .read<StoreCourierCubit>()
+        .updateCourierHours(SharedPrefs.getCourierHourId);
+    menuList!.clear();
+    SharedPrefs.setCounter(0);
+    SharedPrefs.setMenuList([]);
+    context.read<BasketCounterCubit>().setCounter(0);
+    Navigator.pushReplacementNamed(
+        context, RouteConstant.ORDER_RECEIVING_VIEW_REGISTERED_CARD);
   }
 
   Container buildCheckBoxForAggreements(

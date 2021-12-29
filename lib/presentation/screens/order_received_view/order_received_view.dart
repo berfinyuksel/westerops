@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
 
@@ -12,7 +13,6 @@ import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -38,9 +38,6 @@ import '../payment_views/payment_address_view/components/get_it_address_list_til
 import 'components/order_summary_container.dart';
 
 class OrderReceivedView extends StatefulWidget {
-  final OrderReceived? orderInfo;
-
-  const OrderReceivedView({Key? key, this.orderInfo}) : super(key: key);
   @override
   _OrderReceivedViewState createState() => _OrderReceivedViewState();
 }
@@ -68,7 +65,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   void initState() {
     super.initState();
     listenNotifications();
-    context.read<OrderReceivedCubit>().getOrder();
   }
 
   void listenNotifications() {
@@ -90,47 +86,34 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
 
   Builder buildBody(BuildContext context) {
     return Builder(builder: (context) {
-      final GenericState state = context.watch<OrderReceivedCubit>().state;
+      final GenericState state = context.watch<SendRequestCubit>().state;
 
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        List<OrderReceived> orderInfoTotal = [];
-        List<OrderReceived> orderInfo = [];
+        OrderReceived? orderInfo;
 
         for (var i = 0; i < state.response.length; i++) {
-          orderInfoTotal.add(state.response[i]);
+          orderInfo = state.response[i];
         }
-        for (var i = 0; i < orderInfoTotal.length; i++) {
-          print(orderInfoTotal[i].boxes!.length);
-          if (orderInfoTotal[i].boxes!.isNotEmpty) {
-            for (var j = 0; j < orderInfoTotal[i].boxes!.length; j++) {
-              if (SharedPrefs.getBoxIdForDeliver ==
-                  orderInfoTotal[i].boxes![j].id) {
-                orderInfo.add(orderInfoTotal[i]);
-                break;
-              }
-            }
-          }
-        }
-        print(orderInfo.first.refCode!);
-        SharedPrefs.setOrderRefCode(orderInfo.first.refCode!);
+        print(orderInfo!.refCode!);
+        SharedPrefs.setOrderRefCode(orderInfo.refCode!);
 
         bool surprisePackageStatus = true;
-        for (var i = 0; i < orderInfo.last.boxes!.length; i++) {
-          if (orderInfo.last.boxes![i].defined == false) {
+        for (var i = 0; i < orderInfo.boxes!.length; i++) {
+          if (orderInfo.boxes![i].defined == false) {
             surprisePackageStatus = false;
             break;
           }
         }
         print('package surprise condition' + surprisePackageStatus.toString());
 
-        if (orderInfo.last.boxes != null && surprisePackageStatus == false) {
+        if (orderInfo.boxes != null && surprisePackageStatus == false) {
           NotificationService().initSurprisePackage(
-              orderInfo.last.refCode.toString(),
-              orderInfo.last.boxes!.first.saleDay!.startDate!
+              orderInfo.refCode.toString(),
+              orderInfo.boxes!.first.saleDay!.startDate!
                   .toLocal()
                   .subtract(Duration(hours: 2)));
           /*   
@@ -140,7 +123,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           */
         }
 
-        return orderInfo.isNotEmpty
+        return orderInfo.id != null
             ? ListView(
                 children: [
                   SizedBox(
@@ -164,7 +147,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                     height: context.dynamicHeight(0.01),
                   ),
                   OrderSummaryContainer(
-                    orderInfo: orderInfo.last,
+                    orderInfo: orderInfo,
                   ),
                   SizedBox(
                     height: context.dynamicHeight(0.04),
@@ -184,13 +167,13 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                   Visibility(
                     visible: !isShowOnMap,
                     child: GetItAddressListTile(
-                      userAddress: orderInfo.last.address!.address,
-                      userAddressName: orderInfo.last.address!.name,
-                      restaurantName: orderInfo.last.boxes!.length != 0
-                          ? orderInfo.last.boxes![0].store!.name
+                      userAddress: orderInfo.address!.address,
+                      userAddressName: orderInfo.address!.name,
+                      restaurantName: orderInfo.boxes!.length != 0
+                          ? orderInfo.boxes![0].store!.name
                           : "",
-                      address: orderInfo.last.boxes!.length != 0
-                          ? orderInfo.last.boxes![0].store!.address
+                      address: orderInfo.boxes!.length != 0
+                          ? orderInfo.boxes![0].store!.address
                           : "",
                     ),
                   ),
@@ -209,7 +192,10 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                                   myLocationEnabled: true,
                                   myLocationButtonEnabled: false,
                                   initialCameraPosition: CameraPosition(
-                                    target: LatLng(latitude, longitude),
+                                    target: LatLng(
+                                        orderInfo.boxes!.first.store!.latitude!,
+                                        orderInfo
+                                            .boxes!.first.store!.longitude!),
                                     zoom: 17.0,
                                   ),
                                   onMapCreated:
@@ -287,7 +273,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                   ),
                 ],
               )
-            : Text("${orderInfo.length} order endpointi boş");
+            : Text("${orderInfo.id} order endpointi boş");
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -296,7 +282,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   }
 
   Container buildOrderNumberContainer(
-      BuildContext context, List<OrderReceived> orderInfo) {
+      BuildContext context, OrderReceived orderInfo) {
     return Container(
       width: double.infinity,
       height: context.dynamicHeight(0.28),
@@ -320,7 +306,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     );
   }
 
-  AutoSizeText buildOrderNumber(List<OrderReceived> orderInfo) {
+  AutoSizeText buildOrderNumber(OrderReceived orderInfo) {
     return AutoSizeText.rich(
       TextSpan(
         style: AppTextStyles.bodyTextStyle,
@@ -332,7 +318,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             ),
           ),
           TextSpan(
-            text: orderInfo.last.refCode.toString(),
+            text: orderInfo.refCode.toString(),
             style: GoogleFonts.montserrat(
               color: AppColors.greenColor,
               fontWeight: FontWeight.w600,
@@ -344,9 +330,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     );
   }
 
-  Container buildCountDown(
-      BuildContext context, List<OrderReceived> orderInfo) {
-    return orderInfo.last.boxes! != [] || durationFinal <= 0
+  Container buildCountDown(BuildContext context, OrderReceived orderInfo) {
+    return orderInfo.boxes! != [] || durationFinal <= 0
         ? Container(
             width: double.infinity,
             height: context.dynamicHeight(0.1),
@@ -390,7 +375,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   }
 
   Padding buildRowTitleLeftRight(BuildContext context, String titleLeft,
-      String titleCourier, String titleRight, List<OrderReceived> orderInfo) {
+      String titleCourier, String titleRight, OrderReceived orderInfo) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -443,7 +428,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     );
   }
 
-  void setCustomMarker(List<OrderReceived> orderInfo) async {
+  void setCustomMarker(OrderReceived orderInfo) async {
     markerIcon =
         await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
     restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(
@@ -479,7 +464,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     return BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
   }
 
-  Future<void> getLocation(List<OrderReceived> orderInfo) async {
+  Future<void> getLocation(OrderReceived orderInfo) async {
     await LocationService.getCurrentLocation();
     final GoogleMapController controller = await _mapController.future;
     setState(() {
@@ -511,11 +496,11 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           });
         },
         icon: restaurantMarkerIcon,
-        markerId: MarkerId(orderInfo.last.refCode!.toString()),
-        position: LatLng(orderInfo.last.boxes!.last.store!.latitude!,
-            orderInfo.last.boxes!.last.store!.longitude!),
+        markerId: MarkerId(orderInfo.refCode!.toString()),
+        position: LatLng(orderInfo.boxes!.last.store!.latitude!,
+            orderInfo.boxes!.last.store!.longitude!),
       );
-      markers[MarkerId(orderInfo.last.refCode!.toString())] = restMarker;
+      markers[MarkerId(orderInfo.refCode!.toString())] = restMarker;
 /*       for (int i = 1; i < 3; i++) {
         Marker restMarker = Marker(
           onTap: () {
@@ -545,7 +530,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     });
   }
 
-  Builder buildBottomInfo(BuildContext context, List<OrderReceived> orderInfo) {
+  Builder buildBottomInfo(BuildContext context, OrderReceived orderInfo) {
     return Builder(builder: (context) {
       final GenericState state = context.watch<SearchStoreCubit>().state;
 
@@ -561,8 +546,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           restaurants.add(state.response[i]);
         }
         for (var i = 0; i < restaurants.length; i++) {
-          for (var j = 0; j < orderInfo.first.boxes!.length; j++) {
-            if (orderInfo.first.boxes![j].store!.id == restaurants[i].id) {
+          for (var j = 0; j < orderInfo.boxes!.length; j++) {
+            if (orderInfo.boxes![j].store!.id == restaurants[i].id) {
               chosenRestaurant.add(restaurants[i]);
             }
           }
@@ -586,23 +571,23 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                         0
                     ? LocaleKeys.home_page_soldout_icon
                     : "${chosenRestaurant.first.calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
-                deliveryType: int.parse(orderInfo.first.deliveryType!),
-                restaurantName: orderInfo.first.boxes!.first.store!.name,
+                deliveryType: int.parse(orderInfo.deliveryType!),
+                restaurantName: orderInfo.boxes!.first.store!.name,
                 distance: Haversine.distance(
-                        orderInfo.last.boxes!.last.store!.latitude!,
-                        orderInfo.last.boxes!.last.store!.longitude!,
+                        orderInfo.boxes!.last.store!.latitude!,
+                        orderInfo.boxes!.last.store!.longitude!,
                         LocationService.latitude,
                         LocationService.longitude)
                     .toStringAsFixed(2),
                 availableTime:
-                    '${orderInfo.last.boxes!.last.saleDay!.startDate!.hour}:${orderInfo.last.boxes!.last.saleDay!.startDate!.minute}0 - ${orderInfo.last.boxes!.last.saleDay!.endDate!.hour}:${orderInfo.last.boxes!.last.saleDay!.endDate!.minute}0',
+                    '${orderInfo.boxes!.last.saleDay!.startDate!.hour}:${orderInfo.boxes!.last.saleDay!.startDate!.minute}0 - ${orderInfo.boxes!.last.saleDay!.endDate!.hour}:${orderInfo.boxes!.last.saleDay!.endDate!.minute}0',
                 onPressed: () {
                   Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                       arguments: ScreenArgumentsRestaurantDetail(
                         restaurant: chosenRestaurant.first,
                       ));
                 },
-                icon: orderInfo.first.boxes!.first.store!.photo,
+                icon: orderInfo.boxes!.first.store!.photo,
               ),
             ));
       } else {
@@ -639,12 +624,12 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     return durationOfitems;
   }
 
-  Widget countdown(List<OrderReceived> orderInfo) {
+  Widget countdown(OrderReceived orderInfo) {
     List<int> itemsOfCountDown = buildDurationForCountdown(
         DateTime.now(),
-        orderInfo.first.boxes!.isNotEmpty
-            ? orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal()
-            : orderInfo.first.buyingTime!.toLocal());
+        orderInfo.boxes!.isNotEmpty
+            ? orderInfo.boxes!.first.saleDay!.endDate!.toLocal()
+            : orderInfo.buyingTime!.toLocal());
     int hour = itemsOfCountDown[0];
     int minute = itemsOfCountDown[1];
     int second = itemsOfCountDown[2];

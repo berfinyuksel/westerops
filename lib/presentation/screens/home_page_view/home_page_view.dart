@@ -8,6 +8,7 @@ import 'package:device_info/device_info.dart';
 
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
 
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
@@ -103,6 +104,8 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Builder buildBuilder() {
+    buildSharedPrefNoData();
+
     return Builder(builder: (context) {
       final GenericState state = context.watch<SearchStoreCubit>().state;
 
@@ -203,7 +206,7 @@ class _HomePageViewState extends State<HomePageView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildSearchBar(context),
-                 // Spacer(),
+                  // Spacer(),
                   GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
@@ -375,7 +378,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   Widget buildOrderStatusBar() {
     return Builder(builder: (context) {
-      final stateOfOrder = context.watch<OrderReceivedCubit>().state;
+      final stateOfOrder = context.watch<SendRequestCubit>().state;
 
       if (stateOfOrder is GenericInitial) {
         return Container();
@@ -730,7 +733,7 @@ class _HomePageViewState extends State<HomePageView> {
             ? 0
             : filteredNames.length,
         itemBuilder: (context, index) {
-              List<String> meals = [];
+          List<String> meals = [];
 
           if (filteredNames[index].storeMeals == null) {
             return Text("Aradığınız isimde bir yemek bulunmamaktadır.");
@@ -760,14 +763,27 @@ class _HomePageViewState extends State<HomePageView> {
                       filteredNames.isEmpty
                   ? ""
                   : "${filteredNames[index].name}"),
-              subtitle: Text(
-                mealNames.isEmpty ||
-                          searchList.isEmpty ||
-                          filteredNames.isEmpty
-                      ? ""
-                      : mealNames),
+              subtitle: Text(mealNames.isEmpty ||
+                      searchList.isEmpty ||
+                      filteredNames.isEmpty
+                  ? ""
+                  : mealNames),
             ),
           );
         });
+  }
+
+  void buildSharedPrefNoData() {
+    SharedPrefs.setCardRegisterBool(false);
+    SharedPrefs.setThreeDBool(false);
+    SharedPrefs.setCardAlias("");
+    SharedPrefs.setCardHolderName("");
+    SharedPrefs.setCardNumber("");
+    SharedPrefs.setExpireMonth("");
+    SharedPrefs.setExpireYear("");
+    SharedPrefs.setCVC("");
+    SharedPrefs.setConversationId("");
+    SharedPrefs.setBoolForRegisteredCard(false);
+    SharedPrefs.setCardToken("");
   }
 }
