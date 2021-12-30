@@ -38,6 +38,9 @@ class _PaymentInquiryStarterState extends State<PaymentInquiryStarter> {
 
   @override
   Widget build(BuildContext context) {
+    if (boolForProgress) {
+      _timer?.cancel();
+    }
     print("text widget builded");
     context
         .read<SendRequestCubit>()

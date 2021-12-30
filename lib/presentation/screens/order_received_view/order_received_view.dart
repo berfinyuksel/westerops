@@ -68,7 +68,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   }
 
   void listenNotifications() {
-    // ignore: unnecessary_statements
     NotificationService.onNotification.stream.listen(onClickedNotification);
   }
 
@@ -112,9 +111,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
 
         if (orderInfo.boxes != null &&
             surprisePackageStatus == false &&
-            DateTime.now()
-                .toLocal()
-                .isAfter(orderInfo.boxes!.first.saleDay!.startDate!)) {
+            DateTime.now().toLocal().isBefore(
+                orderInfo.boxes!.first.saleDay!.startDate!.toLocal())) {
           NotificationService().initSurprisePackage(
               orderInfo.refCode.toString(),
               orderInfo.boxes!.first.saleDay!.startDate!

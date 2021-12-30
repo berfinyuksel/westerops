@@ -605,6 +605,10 @@ class _PaymentViewsState extends State<PaymentViews>
                 : AppColors.disabledButtonColor,
             onPressed: () {
               if (checkboxAgreementValue && checkboxInfoValue) {
+                log("BoolForRegisteredCard");
+                log(SharedPrefs.getBoolForRegisteredCard.toString());
+                log("ThreeDBool");
+                log(SharedPrefs.getThreeDBool.toString());
                 if (SharedPrefs.getBoolForRegisteredCard) {
                   buildPaymentForRegisteredCard(context);
                 } else {
@@ -612,7 +616,7 @@ class _PaymentViewsState extends State<PaymentViews>
                     // with threeD
                     buildWith3DPayment(context);
                   } else {
-                    //without threeD
+                    buildWithout3DPayment(context);
                   }
                 }
               }
@@ -621,6 +625,41 @@ class _PaymentViewsState extends State<PaymentViews>
         }),
       ],
     );
+  }
+
+  void buildWithout3DPayment(BuildContext context) {
+    context.read<OrderReceivedCubit>().createOrderWithout3D(
+          deliveryType: SharedPrefs.getDeliveryType,
+          addressId: SharedPrefs.getActiveAddressId,
+          billingAddressId: SharedPrefs.getActiveAddressId,
+          cardAlias: SharedPrefs.getCardAlias,
+          cardHolderName: SharedPrefs.getCardHolderName,
+          cardNumber: SharedPrefs.getCardNumber,
+          expireMonth: SharedPrefs.getExpireMonth,
+          registerCard: SharedPrefs.getCardRegisterBool ? 1 : 0,
+          expireYear: SharedPrefs.getExpireYear,
+          cvc: SharedPrefs.getCVC,
+          ip: SharedPrefs.getIpV4,
+        );
+    context
+        .read<StoreCourierCubit>()
+        .updateCourierHours(SharedPrefs.getCourierHourId);
+    menuList!.clear();
+    SharedPrefs.setCounter(0);
+    SharedPrefs.setMenuList([]);
+    context.read<BasketCounterCubit>().setCounter(0);
+    log(SharedPrefs.getDeliveryType.toString());
+    log(SharedPrefs.getActiveAddressId.toString());
+    log(SharedPrefs.getCardAlias.toString());
+    log(SharedPrefs.getCardHolderName.toString());
+    log(SharedPrefs.getCardNumber.toString());
+    log(SharedPrefs.getExpireMonth.toString());
+    log(SharedPrefs.getCardRegisterBool.toString());
+    log(SharedPrefs.getExpireYear.toString());
+    log(SharedPrefs.getCVC.toString());
+    log(SharedPrefs.getIpV4.toString());
+    context.read<OrderBarCubit>().stateOfBar(true);
+    SharedPrefs.setOrderBar(true);
   }
 
   void buildWith3DPayment(BuildContext context) {

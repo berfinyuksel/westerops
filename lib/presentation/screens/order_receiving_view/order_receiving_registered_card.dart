@@ -22,7 +22,6 @@ class _OrderReceivingViewWithRegisteredCardState
     extends State<OrderReceivingViewWithRegisteredCard> {
   @override
   void initState() {
-    context.read<OrderReceivedCubit>().getOrder();
     super.initState();
   }
 
