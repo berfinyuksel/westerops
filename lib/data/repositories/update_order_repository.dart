@@ -6,7 +6,8 @@ enum StatusCode { success, error, unauthecticated }
 
 class UpdateOrderRepository {
   Future<StatusCode> cancelOrder(int id, String description) async {
-    String json = '{"description": $description}';
+    String json =
+        '{"description": "$description","ip":"${SharedPrefs.getIpV4}","reason":"$description"}';
 
     final response = await http.delete(
       Uri.parse("${UrlConstant.EN_URL}order/$id/"),

@@ -722,6 +722,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         width: context.dynamicWidht(0.26),
                         borderColor: AppColors.greenColor,
                         onPressed: () async {
+                          print(menuItem);
                           await pressedBuyButton(state, index, context,
                               counterState, menuItem, addressState);
                         },

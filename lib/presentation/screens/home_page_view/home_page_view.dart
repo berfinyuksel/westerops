@@ -468,6 +468,11 @@ class _HomePageViewState extends State<HomePageView> {
             : SizedBox(height: 0, width: 0);
       } else {
         final error = stateOfOrder as GenericError;
+        if (error.statusCode == "400") {
+          context.read<OrderBarCubit>().stateOfBar(false);
+          SharedPrefs.setOrderBar(false);
+          return SizedBox();
+        }
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
     });

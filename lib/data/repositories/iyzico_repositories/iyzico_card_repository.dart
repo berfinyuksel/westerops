@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_registered_card.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
@@ -56,7 +57,7 @@ class IyzicoCardRepository {
     }
   }
 
-  Future<List<CardDetail>> getCards() async {
+  Future<List<IyzcoRegisteredCard>> getCards() async {
     final response = await http.post(
       Uri.parse("${UrlConstant.EN_URL}iyzico/cards/list"),
       headers: {
@@ -65,13 +66,14 @@ class IyzicoCardRepository {
       },
     );
     print("get Card status ${response.statusCode}");
+    log(response.body);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
 
-      List<CardDetail> cardLists = List<CardDetail>.from(
-          jsonBody["cardDetails"].map((model) => CardDetail.fromJson(model)));
-
+      List<IyzcoRegisteredCard> cardLists = [];
+      IyzcoRegisteredCard cardItem = IyzcoRegisteredCard.fromJson(jsonBody);
+      cardLists.add(cardItem);
       return cardLists;
     }
     throw NetworkError(response.statusCode.toString(), response.body);

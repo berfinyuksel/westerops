@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:dongu_mobile/data/model/order_received.dart';
+import 'package:dongu_mobile/data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
@@ -87,6 +88,8 @@ class _PaymentInquiryStarterState extends State<PaymentInquiryStarter> {
             style: AppTextStyles.headlineStyle,
           );
         } else {
+          boolForProgress = true;
+
           print("no change status");
           return LocaleText(
             text: LocaleKeys.order_received_headline1,
@@ -97,6 +100,7 @@ class _PaymentInquiryStarterState extends State<PaymentInquiryStarter> {
         final error = state as GenericError;
         if (error.statusCode == "500") {
           _timer!.cancel();
+          boolForProgress = true;
 
           return Column(
             children: [
@@ -131,6 +135,30 @@ class _PaymentInquiryStarterState extends State<PaymentInquiryStarter> {
               ),
             ],
           );
+        } else if (error.statusCode == "400") {
+          _timer!.cancel();
+          boolForProgress = true;
+
+          return Column(
+            children: [
+              LocaleText(
+                text: "Ödeme Alınamadı",
+                style: AppTextStyles.headlineStyle,
+              ),
+              SizedBox(height: context.dynamicHeight(0.05)),
+              CustomButton(
+                title: "Ana Sayfa",
+                color: AppColors.greenColor,
+                textColor: AppColors.appBarColor,
+                width: context.dynamicWidht(0.28),
+                borderColor: AppColors.greenColor,
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+                },
+              ),
+            ],
+          );
         }
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
@@ -138,7 +166,9 @@ class _PaymentInquiryStarterState extends State<PaymentInquiryStarter> {
   }
 
   navigateToOrderReceivedView(OrderReceived orderInfoA) {
+    boolForProgress = true;
     _timer?.cancel();
+    NotificationService().gotOrder();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Navigator.of(context).pushNamed(RouteConstant.ORDER_RECEIVED_VIEW);
     });

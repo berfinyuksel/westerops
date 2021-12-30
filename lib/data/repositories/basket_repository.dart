@@ -19,7 +19,6 @@ class BasketRepository {
       },
     );
     print("ADD BASKET status ${response.statusCode}");
-
     switch (response.statusCode) {
       case 200:
         return StatusCode.success;

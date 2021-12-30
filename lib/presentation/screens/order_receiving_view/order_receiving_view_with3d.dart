@@ -34,7 +34,6 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
   void initState() {
     _timer = Timer.periodic(
         Duration(seconds: 5), (Timer timer) => requesForOrderResponse());
-
     super.initState();
   }
 
@@ -84,6 +83,8 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                       ),
                     );
                   } else if (state is GenericCompleted) {
+                    boolForProgress = true;
+
                     _timer!.cancel();
                     List<OrderReceived> orderInfo = [];
 
@@ -109,6 +110,8 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                   } else {
                     final error = state as GenericError;
                     if (error.statusCode == "500") {
+                      boolForProgress = true;
+
                       _timer!.cancel();
 
                       return Column(
@@ -183,6 +186,7 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
   }
 
   navigateToOrderReceivedView(OrderReceived orderInfoA) {
+    boolForProgress = true;
     _timer?.cancel();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       Navigator.of(context).pushNamed(RouteConstant.ORDER_RECEIVED_VIEW);

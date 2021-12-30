@@ -6,6 +6,8 @@ import 'dart:convert';
 
 class IyzcoRegisteredCard {
   IyzcoRegisteredCard({
+    this.errorCode,
+    this.errorMessage,
     this.status,
     this.locale,
     this.systemTime,
@@ -13,7 +15,8 @@ class IyzcoRegisteredCard {
     this.cardUserKey,
     this.cardDetails,
   });
-
+  final String? errorCode;
+  final String? errorMessage;
   String? status;
   String? locale;
   int? systemTime;
@@ -28,6 +31,9 @@ class IyzcoRegisteredCard {
 
   factory IyzcoRegisteredCard.fromJson(Map<String, dynamic> json) =>
       IyzcoRegisteredCard(
+        errorCode: json["errorCode"] == null ? null : json["errorCode"],
+        errorMessage:
+            json["errorMessage"] == null ? null : json["errorMessage"],
         status: json["status"] == null ? null : json["status"],
         locale: json["locale"] == null ? null : json["locale"],
         systemTime: json["systemTime"] == null ? null : json["systemTime"],
@@ -41,6 +47,8 @@ class IyzcoRegisteredCard {
       );
 
   Map<String, dynamic> toJson() => {
+        "errorCode": errorCode == null ? null : errorCode,
+        "errorMessage": errorMessage == null ? null : errorMessage,
         "status": status == null ? null : status,
         "locale": locale == null ? null : locale,
         "systemTime": systemTime == null ? null : systemTime,

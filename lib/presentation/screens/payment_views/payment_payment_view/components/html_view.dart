@@ -83,6 +83,7 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
                   if (request.url
                       .contains('${UrlConstant.EN_URL}iyzico/callback')) {
                     print("aaaaa");
+
                     Navigator.of(context)
                         .pushNamed(RouteConstant.ORDER_RECEIVING_VIEW_WITH3D);
                     print("bbbbbb");

@@ -648,18 +648,10 @@ class _PaymentViewsState extends State<PaymentViews>
     SharedPrefs.setCounter(0);
     SharedPrefs.setMenuList([]);
     context.read<BasketCounterCubit>().setCounter(0);
-    log(SharedPrefs.getDeliveryType.toString());
-    log(SharedPrefs.getActiveAddressId.toString());
-    log(SharedPrefs.getCardAlias.toString());
-    log(SharedPrefs.getCardHolderName.toString());
-    log(SharedPrefs.getCardNumber.toString());
-    log(SharedPrefs.getExpireMonth.toString());
-    log(SharedPrefs.getCardRegisterBool.toString());
-    log(SharedPrefs.getExpireYear.toString());
-    log(SharedPrefs.getCVC.toString());
-    log(SharedPrefs.getIpV4.toString());
     context.read<OrderBarCubit>().stateOfBar(true);
     SharedPrefs.setOrderBar(true);
+    Navigator.pushReplacementNamed(
+        context, RouteConstant.ORDER_RECEIVING_VIEW_WITHOUT3D);
   }
 
   void buildWith3DPayment(BuildContext context) {
@@ -683,16 +675,6 @@ class _PaymentViewsState extends State<PaymentViews>
     SharedPrefs.setCounter(0);
     SharedPrefs.setMenuList([]);
     context.read<BasketCounterCubit>().setCounter(0);
-    log(SharedPrefs.getDeliveryType.toString());
-    log(SharedPrefs.getActiveAddressId.toString());
-    log(SharedPrefs.getCardAlias.toString());
-    log(SharedPrefs.getCardHolderName.toString());
-    log(SharedPrefs.getCardNumber.toString());
-    log(SharedPrefs.getExpireMonth.toString());
-    log(SharedPrefs.getCardRegisterBool.toString());
-    log(SharedPrefs.getExpireYear.toString());
-    log(SharedPrefs.getCVC.toString());
-    log(SharedPrefs.getIpV4.toString());
     context.read<OrderBarCubit>().stateOfBar(true);
     SharedPrefs.setOrderBar(true);
     showDialog(
@@ -703,8 +685,6 @@ class _PaymentViewsState extends State<PaymentViews>
 
   void buildPaymentForRegisteredCard(BuildContext context) {
     //   NotificationService().gotOrder();
-    context.read<OrderBarCubit>().stateOfBar(true);
-    SharedPrefs.setOrderBar(true);
 
     context.read<OrderReceivedCubit>().createOrderWithRegisteredCard(
           deliveryType: SharedPrefs.getDeliveryType,
@@ -716,6 +696,8 @@ class _PaymentViewsState extends State<PaymentViews>
     context
         .read<StoreCourierCubit>()
         .updateCourierHours(SharedPrefs.getCourierHourId);
+    context.read<OrderBarCubit>().stateOfBar(true);
+    SharedPrefs.setOrderBar(true);
     menuList!.clear();
     SharedPrefs.setCounter(0);
     SharedPrefs.setMenuList([]);

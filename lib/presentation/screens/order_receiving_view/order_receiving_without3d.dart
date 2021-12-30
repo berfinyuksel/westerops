@@ -1,4 +1,14 @@
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
+import 'package:dongu_mobile/presentation/screens/order_receiving_view/components/payment_inquiry_starter.dart';
+import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
+import 'package:dongu_mobile/utils/extensions/context_extension.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,12 +29,6 @@ class _OrderReceivingViewWithout3DState
   @override
   void initState() {
     super.initState();
-    sleep();
-  }
-
-  Future<void> sleep() async {
-    await Future.delayed(Duration(seconds: 5));
-    Navigator.pushReplacementNamed(context, RouteConstant.ORDER_RECEIVED_VIEW);
   }
 
   @override
@@ -50,10 +54,53 @@ class _OrderReceivingViewWithout3DState
                 Spacer(
                   flex: 183,
                 ),
-                LocaleText(
-                  text: LocaleKeys.order_received_headline1,
-                  style: AppTextStyles.headlineStyle,
-                ),
+                Builder(builder: (context) {
+                  final state = context.watch<OrderReceivedCubit>().state;
+                  if (state is GenericInitial) {
+                    print("initial");
+                    return Container();
+                  } else if (state is GenericLoading) {
+                    print("loading");
+                    return Center(
+                        child: CircularProgressIndicator(
+                      color: AppColors.greenColor,
+                    ));
+                  } else if (state is GenericCompleted) {
+                    List<IyzcoOrderCreate> orderInfo = [];
+                    for (int i = 0; i < state.response.length; i++) {
+                      orderInfo.add(state.response[i]);
+                    }
+                    return PaymentInquiryStarter(
+                        conversationId:
+                            state.response.first.refCode.toString());
+                  } else {
+                    final error = state as GenericError;
+                    if (error.statusCode == "400") {
+                      return Column(
+                        children: [
+                          LocaleText(
+                            text: "Ödeme Alınamadı",
+                            style: AppTextStyles.headlineStyle,
+                          ),
+                          SizedBox(height: context.dynamicHeight(0.05)),
+                          CustomButton(
+                            title: "Ana Sayfa",
+                            color: AppColors.greenColor,
+                            textColor: AppColors.appBarColor,
+                            width: context.dynamicWidht(0.28),
+                            borderColor: AppColors.greenColor,
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+                            },
+                          ),
+                        ],
+                      );
+                    }
+                    return Center(
+                        child: Text("${error.message}\n${error.statusCode}"));
+                  }
+                }),
                 Spacer(
                   flex: 197,
                 ),

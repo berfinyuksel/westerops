@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_registered_card.dart';
 
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
@@ -180,7 +182,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
             } else if (state is GenericLoading) {
               return Center(child: CircularProgressIndicator());
             } else if (state is GenericCompleted) {
-              List<CardDetail> cards = [];
+              List<IyzcoRegisteredCard> cards = [];
 
               for (int i = 0; i < state.response.length; i++) {
                 cards.add(state.response[i]);
@@ -188,7 +190,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
               return Column(
                 children: [
-                  buildCards(cards),
+                  cards.first.cardDetails != null
+                      ? buildCards(cards.first.cardDetails)
+                      : buildNoCardWidget(cards.first.errorMessage.toString()),
                   SizedBox(
                     height: context.dynamicHeight(0.02),
                   ),
@@ -285,7 +289,10 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     SharedPrefs.setCardHolderName(nameController.text.toString());
     SharedPrefs.setCardNumber(cardController.text.toString());
     SharedPrefs.setCardAlias(cardNameController.text.toString());
-    print(SharedPrefs.getBoolForRegisteredCard);
+    log("BoolForRegisteredCard");
+    log(SharedPrefs.getBoolForRegisteredCard.toString());
+    log("ThreeDBool");
+    log(SharedPrefs.getThreeDBool.toString());
 
     return Column(
       children: [
@@ -477,11 +484,10 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  buildCards(List<CardDetail> cards) {
+  buildCards(List<CardDetail>? cards) {
     SharedPrefs.setBoolForRegisteredCard(true);
     print(SharedPrefs.getBoolForRegisteredCard);
-
-    return cards.isNotEmpty
+    return cards != null
         ? ListView.builder(
             shrinkWrap: true,
             itemCount: cards.length,
@@ -646,6 +652,28 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       child: LocaleText(
         text: titleLeft,
         style: AppTextStyles.bodyTitleStyle,
+      ),
+    );
+  }
+
+  buildNoCardWidget(String errorMessage) {
+    Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 40,
+          ),
+          SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
+          SizedBox(
+            height: 20,
+          ),
+          LocaleText(
+            alignment: TextAlign.center,
+            text: errorMessage,
+            style: AppTextStyles.myInformationBodyTextStyle,
+          ),
+        ],
       ),
     );
   }
