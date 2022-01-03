@@ -207,50 +207,45 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                                   mapType: MapType.normal,
                                   markers: Set<Marker>.of(markers.values),
                                 ),
-                                onMapCreated: (GoogleMapController controller) {
-                                  _mapController.complete(controller);
-                                },
-                                mapType: MapType.normal,
-                                markers: Set<Marker>.of(markers.values),
-                              ),
-                              GestureDetector(
-                                onTap: () async {
-                                  final GoogleMapController controller =
-                                      await _mapController.future;
-                                  setState(() {
-                                    latitude = LocationService.latitude;
-                                    longitude = LocationService.longitude;
+                                GestureDetector(
+                                  onTap: () async {
+                                    final GoogleMapController controller =
+                                        await _mapController.future;
+                                    setState(() {
+                                      latitude = LocationService.latitude;
+                                      longitude = LocationService.longitude;
 
-                                    controller.animateCamera(
-                                        CameraUpdate.newCameraPosition(
-                                      CameraPosition(
-                                        target: LatLng(latitude, longitude),
-                                        zoom: 17.0,
-                                      ),
-                                    ));
-                                  });
-                                },
-                                child: SvgPicture.asset(
-                                    ImageConstant.COMMONS_MY_LOCATION_BUTTON),
-                              ),
-                              Visibility(
-                                  visible: isShowBottomInfo,
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          isShowBottomInfo = false;
-                                        });
-                                      },
-                                      child: Container(
-                                          color:
-                                              Colors.black.withOpacity(0.2)))),
-                            ],
-                          ),
-                          Visibility(
-                            visible: isShowBottomInfo,
-                            child: buildBottomInfo(context, orderInfo),
-                          ),
-                        ],
+                                      controller.animateCamera(
+                                          CameraUpdate.newCameraPosition(
+                                        CameraPosition(
+                                          target: LatLng(latitude, longitude),
+                                          zoom: 17.0,
+                                        ),
+                                      ));
+                                    });
+                                  },
+                                  child: SvgPicture.asset(
+                                      ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                                ),
+                                Visibility(
+                                    visible: isShowBottomInfo,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            isShowBottomInfo = false;
+                                          });
+                                        },
+                                        child: Container(
+                                            color: Colors.black
+                                                .withOpacity(0.2)))),
+                              ],
+                            ),
+                            Visibility(
+                              visible: isShowBottomInfo,
+                              child: buildBottomInfo(context, orderInfo),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

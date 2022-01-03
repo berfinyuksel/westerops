@@ -57,10 +57,10 @@ class SharedPrefs {
   static Future<void> setCounter(int counter) async {
     _prefs.setInt('counter', counter);
   }
-    static Future<void> setCounterNotifications(int counter) async {
+
+  static Future<void> setCounterNotifications(int counter) async {
     _prefs.setInt('notificationCounter', counter);
   }
-
 
   static Future<void> setMenuId(int menuId) async {
     _prefs.setInt('menuId', menuId);
@@ -249,6 +249,8 @@ class SharedPrefs {
 
   static Future<void> setConversationId(String conversationId) async {
     _prefs.setString('conversationId', conversationId);
+  }
+
   static Future<void> setCourierHourText(String courierHourText) async {
     _prefs.setString('courierHourText', courierHourText);
   }
@@ -271,7 +273,8 @@ class SharedPrefs {
   static String get getUserLastName => _prefs.getString('userLastName') ?? "";
   static String get getUserPassword => _prefs.getString('userPassword') ?? "";
   static int get getCounter => _prefs.getInt('counter') ?? 0;
-  static int get getNotificationCounter => _prefs.getInt('notificationCounter') ?? 0;
+  static int get getNotificationCounter =>
+      _prefs.getInt('notificationCounter') ?? 0;
   static int get getMenuId => _prefs.getInt('menuId') ?? 0;
   static List<String> get getMenuList => _prefs.getStringList('menuList') ?? [];
   static String get getAdressName => _prefs.getString('addressName') ?? "";

@@ -125,11 +125,11 @@ Future<void> main() async {
   HttpOverrides.global = new MyHttpOverrides();
   runApp(
     EasyLocalization(
-      // child: MyApp(),
-      child: DevicePreview(
+      child: MyApp(),
+      /*    child: DevicePreview(
         builder: (context) => MyApp(),
         enabled: !kReleaseMode,
-      ),
+      ), */
       path: LocaleConstant.LANG_PATH,
       supportedLocales: LocaleConstant.SUPPORTED_LOCALES,
     ),
@@ -248,11 +248,11 @@ class MyApp extends StatelessWidget {
           theme: appThemeData[AppTheme.PrimaryTheme],
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
-          // locale: context.locale,
+          locale: context.locale,
           onGenerateRoute: _appRouter.onGenerateRoute,
-          locale: DevicePreview.locale(context),
+          /*   locale: DevicePreview.locale(context),
           useInheritedMediaQuery: true,
-          builder: DevicePreview.appBuilder,
+          builder: DevicePreview.appBuilder, */
           //home: HomeScreen(),
         );
       }),

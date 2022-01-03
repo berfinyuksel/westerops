@@ -51,9 +51,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
   String mealNames = '';
   TextEditingController textController = TextEditingController();
 
-@override
+  @override
   void initState() {
-context.read<OrderReceivedCubit>().getOrderById(widget.orderInfo!.id!);
+    context.read<OrderReceivedCubit>().getOrderById(widget.orderInfo!.id!);
     super.initState();
   }
 
@@ -394,7 +394,7 @@ context.read<OrderReceivedCubit>().getOrderById(widget.orderInfo!.id!);
   }
 
   ListTile buildStarListTile(BuildContext context, String title,
-      String whichStars, OrderReceived? orderInfo) {
+      String whichStars, IyzcoOrderCreate? orderInfo) {
     if (orderInfo!.review!.isNotEmpty) {
       switch (whichStars) {
         case 'service':

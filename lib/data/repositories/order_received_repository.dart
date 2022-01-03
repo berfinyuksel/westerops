@@ -26,6 +26,7 @@ abstract class OrderReceivedRepository {
     String cvc,
     String ip,
   );
+  Future<List<IyzcoOrderCreate>> getOrderById(int id);
 }
 
 class SampleOrderReceivedRepository implements OrderReceivedRepository {
@@ -124,7 +125,7 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 
-  Future<List<OrderReceived>> getOrderById(int id) async {
+  Future<List<IyzcoOrderCreate>> getOrderById(int id) async {
     final response = await http.get(
       Uri.parse("${UrlConstant.EN_URL}order/$id"),
       headers: {
@@ -136,9 +137,10 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       print(jsonBody); //utf8.decode for turkish characters
-      OrderReceived orderReceivedListItem = OrderReceived.fromJson(jsonBody);
+      IyzcoOrderCreate orderReceivedListItem =
+          IyzcoOrderCreate.fromJson(jsonBody);
       //print(boxLists[].text_name);
-      List<OrderReceived> orderReceivedList = [];
+      List<IyzcoOrderCreate> orderReceivedList = [];
       orderReceivedList.add(orderReceivedListItem);
       return orderReceivedList;
     }
