@@ -1,17 +1,16 @@
 import 'dart:io';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/svg.dart';
-
 import 'data/repositories/address_repository.dart';
 import 'data/repositories/avg_review_repository.dart';
 import 'data/repositories/box_repository.dart';
@@ -58,9 +57,12 @@ import 'logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'presentation/router/app_router.dart';
 import 'utils/constants/locale_constant.dart';
 import 'utils/theme/app_theme.dart';
+import 'package:flutter/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   NotificationService().init();
   await setUpLocator();
   await EasyLocalization.ensureInitialized();
@@ -110,9 +112,13 @@ Future<void> main() async {
   HttpOverrides.global = new MyHttpOverrides();
   runApp(
     EasyLocalization(
+      // child: MyApp(),
+      child: DevicePreview(
+        builder: (context) => MyApp(),
+        enabled: !kReleaseMode,
+      ),
       path: LocaleConstant.LANG_PATH,
       supportedLocales: LocaleConstant.SUPPORTED_LOCALES,
-      child: MyApp(),
     ),
   );
 }
@@ -183,7 +189,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
-       
+
         List<int> sumPrices = [];
         for (var i = 0; i < SharedPrefs.getSumPrice.length; i++) {
           sumPrices.add(int.parse(SharedPrefs.getSumPrice[i]));
@@ -202,8 +208,11 @@ class MyApp extends StatelessWidget {
           theme: appThemeData[AppTheme.PrimaryTheme],
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
-          locale: context.locale,
+          // locale: context.locale,
           onGenerateRoute: _appRouter.onGenerateRoute,
+          locale: DevicePreview.locale(context),
+          useInheritedMediaQuery: true,
+          builder: DevicePreview.appBuilder,
           //home: HomeScreen(),
         );
       }),

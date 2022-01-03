@@ -30,7 +30,7 @@ class CustomAlertDialog extends StatelessWidget {
       content: Container(
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
         width: context.dynamicWidht(0.87),
-        height: context.dynamicHeight(0.33),
+        height: context.dynamicHeight(0.30),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18.0),
           color: Colors.white,
@@ -39,8 +39,10 @@ class CustomAlertDialog extends StatelessWidget {
           children: [
             SizedBox(height: 10),
             Container(
-              height: 90,
-              width: 90,
+              // height: 90,
+              // width: 90,
+              height: context.dynamicHeight(0.1),
+              width: context.dynamicWidht(0.2),
               child: SvgPicture.asset(
                 imagePath!,
               ),
@@ -52,7 +54,7 @@ class CustomAlertDialog extends StatelessWidget {
               alignment: TextAlign.center,
             ),
             SizedBox(height: 10),
-            buildButtons(context),
+            Expanded(child: buildButtons(context)),
           ],
         ),
       ),

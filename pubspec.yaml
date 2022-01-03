@@ -52,6 +52,7 @@ dependencies:
   shared_preferences: ^2.0.5
   smooth_page_indicator: ^1.0.0+2
   url_launcher: ^6.0.17
+  device_preview: ^1.0.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.2

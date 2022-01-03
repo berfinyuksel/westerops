@@ -101,13 +101,13 @@ class _MyRegisteredCardsUpdateViewState
                   Row(
                     children: [
                       Container(
-                        width: context.dynamicWidht(0.25),
+                        width: context.dynamicWidht(0.30),
                         height: context.dynamicHeight(0.06),
                         color: Colors.white,
                         child: DropdownButton<String>(
                           underline: SizedBox(),
                           hint: Padding(
-                            padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
+                            padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
                             child: Text(
                               LocaleKeys.payment_payment_month_text.locale,
                             ),
@@ -128,13 +128,13 @@ class _MyRegisteredCardsUpdateViewState
                       ),
                       Spacer(),
                       Container(
-                        width: context.dynamicWidht(0.23),
+                        width: context.dynamicWidht(0.26),
                         height: context.dynamicHeight(0.06),
                         color: Colors.white,
                         child: DropdownButton<String>(
                           underline: SizedBox(),
                           hint: Padding(
-                            padding: const EdgeInsets.fromLTRB(19, 0, 20, 0),
+                            padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
                             child: Text(
                               LocaleKeys.payment_payment_year_text.locale,
                             ),
@@ -174,6 +174,7 @@ class _MyRegisteredCardsUpdateViewState
                       Navigator.of(context).pop();
                     },
                   ),
+                  Spacer(flex: 3),
                 ],
               ),
             ),
@@ -187,11 +188,11 @@ class _MyRegisteredCardsUpdateViewState
       String labelText, TextEditingController controller) {
     return Container(
       width: controller == cvvController
-          ? context.dynamicWidht(0.31)
+          ? context.dynamicWidht(0.29)
           : context.dynamicWidht(5.0),
       height: context.dynamicHeight(0.06),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.borderAndDividerColor, width: 2),
+        border: Border.all(color: AppColors.borderAndDividerColor, width: 0.4),
         borderRadius: BorderRadius.circular(4.0),
         color: Colors.white,
       ),
@@ -209,7 +210,7 @@ class _MyRegisteredCardsUpdateViewState
         controller: controller,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
-                horizontal: context.dynamicWidht(0.05), vertical: 0),
+                horizontal: context.dynamicWidht(0.03), vertical: 0),
             labelText: labelText,
             labelStyle: AppTextStyles.bodyTextStyle,
             enabledBorder: InputBorder.none,

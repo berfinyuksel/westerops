@@ -424,6 +424,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     }
 
     return ListView(
+      // physics: NeverScrollableScrollPhysics(),
+      // shrinkWrap: true,
       children: [
         SizedBox(
           height: context.dynamicHeight(0.02),

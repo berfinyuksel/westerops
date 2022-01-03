@@ -256,7 +256,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           Row(
             children: [
               buildSearchBar(context),
-              Spacer(),
+              SizedBox(width: 16),
               GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
@@ -386,34 +386,37 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     );
   }
 
-  Container buildSearchBar(BuildContext context) {
-    return Container(
-      width: context.dynamicWidht(0.72),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.horizontal(
-          right: Radius.circular(25.0),
-          left: Radius.circular(4.0),
+  Expanded buildSearchBar(BuildContext context) {
+    return Expanded(
+      child: Container(
+        width: context.dynamicWidht(0.72),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.horizontal(
+            right: Radius.circular(25.0),
+            left: Radius.circular(4.0),
+          ),
+          color: Colors.white,
         ),
-        color: Colors.white,
-      ),
-      child: TextFormField(
-        cursorColor: AppColors.cursorColor,
-        style: AppTextStyles.bodyTextStyle,
-        inputFormatters: [
-          //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-          FilteringTextInputFormatter.singleLineFormatter,
-        ],
-        decoration: InputDecoration(
-            suffixIcon: SvgPicture.asset(
-              ImageConstant.COMMONS_SEARCH_ICON,
-            ),
-            border: buildOutlineInputBorder(),
-            focusedBorder: buildOutlineInputBorder(),
-            enabledBorder: buildOutlineInputBorder(),
-            errorBorder: buildOutlineInputBorder(),
-            disabledBorder: buildOutlineInputBorder(),
-            contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.046)),
-            hintText: LocaleKeys.my_near_hint_text.locale),
+        child: TextFormField(
+          cursorColor: AppColors.cursorColor,
+          style: AppTextStyles.bodyTextStyle,
+          inputFormatters: [
+            //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+            FilteringTextInputFormatter.singleLineFormatter,
+          ],
+          decoration: InputDecoration(
+              suffixIcon: SvgPicture.asset(
+                ImageConstant.COMMONS_SEARCH_ICON,
+              ),
+              border: buildOutlineInputBorder(),
+              focusedBorder: buildOutlineInputBorder(),
+              enabledBorder: buildOutlineInputBorder(),
+              errorBorder: buildOutlineInputBorder(),
+              disabledBorder: buildOutlineInputBorder(),
+              contentPadding:
+                  EdgeInsets.only(left: context.dynamicWidht(0.046)),
+              hintText: LocaleKeys.my_near_hint_text.locale),
+        ),
       ),
     );
   }
