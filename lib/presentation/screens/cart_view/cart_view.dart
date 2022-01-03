@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -40,11 +41,11 @@ class _CartViewState extends State<CartView> {
   List<BoxOrder> itemList = [];
   List<String> sumOfPricesString = SharedPrefs.getSumPrice;
   List<int> sumOfPricesInt = [];
-  List<int> sumOfOldPrices = [];
+  List<String> sumOfOldPrices = SharedPrefs.getSumOldPrice;
+  List<int> sumOfOldPricesInt = [];
   @override
   void initState() {
     super.initState();
-
     context.read<OrderCubit>().getBasket();
   }
 
@@ -64,15 +65,16 @@ class _CartViewState extends State<CartView> {
         for (int i = 0; i < state.response.length; i++) {
           itemList.add(state.response[i]);
         }
-        if (state.response.length == 0) {
+        if (itemList.length == 0) {
           return EmptyCartView();
+        } else if ( SharedPrefs.getIsLogined == false) {
+          return NotLoggedInEmptyCartView();
         } else {
           return Center(child: buildBody(context, state, itemList));
         }
       } else {
-        return SharedPrefs.getIsLogined == false
-            ? NotLoggedInEmptyCartView()
-            : CartView(); //Center(child: Text("${error.message}\n${error.statusCode}"));
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
 
       }
     });
@@ -87,7 +89,7 @@ class _CartViewState extends State<CartView> {
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(
-              top: context.dynamicHeight(0.02),
+              top: context.dynamicHeight(0.02)
             ),
             children: [
               PastOrderDetailBodyTitle(
@@ -109,23 +111,20 @@ class _CartViewState extends State<CartView> {
               ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: state.response.length,
+                  itemCount: itemList.length,
                   itemBuilder: (context, index) {
                     return Builder(builder: (context) {
                       context
                           .read<StoreBoxesCubit>()
                           .getStoreBoxes(itemList[index].id!);
-
                       context
                           .read<StoreCourierCubit>()
                           .getCourierHours(itemList[index].store!.id!);
                       final counterState =
                           context.watch<BasketCounterCubit>().state;
-                      print(itemList[index]
-                          .packageSetting
-                          ?.minDiscountedOrderPrice);
                       sumOfOldPrices
-                          .add(itemList[index].packageSetting!.minOrderPrice!);
+                          .add(itemList[index].packageSetting!.minOrderPrice!.toString());
+                          print(sumOfOldPrices.length);
                       return Dismissible(
                         direction: DismissDirection.endToStart,
                         key: UniqueKey(),
@@ -157,30 +156,43 @@ class _CartViewState extends State<CartView> {
                                   Navigator.of(context).pop();
                                 },
                                 onPressedTwo: () {
+                                  sumOfOldPrices.remove(itemList[index].packageSetting!.minOrderPrice.toString());
                                   sumOfPricesString.remove(itemList[index]
                                       .packageSetting!
                                       .minDiscountedOrderPrice!
                                       .toString());
                                   SharedPrefs.setSumPrice(sumOfPricesString);
+                                  SharedPrefs.setSumOldPrice(sumOfOldPrices);
+
                                   for (var i = 0;
                                       i < sumOfPricesString.length;
                                       i++) {
                                     sumOfPricesInt
                                         .add(int.parse(sumOfPricesString[i]));
                                   }
+                                     for (var i = 0;
+                                      i < sumOfOldPrices.length;
+                                      i++) {
+                                    sumOfOldPricesInt
+                                        .add(int.parse(sumOfOldPrices[i]));
+                                  }
+                                   context
+                                      .read<SumOldPriceOrderCubit>()
+                                      .sumprice(sumOfOldPricesInt);
                                   context
                                       .read<SumPriceOrderCubit>()
                                       .sumprice(sumOfPricesInt);
 
                                   context.read<OrderCubit>().deleteBasket(
-                                      "${state.response[index].id}");
+                                      "${itemList[index].id}");
                                   context
                                       .read<BasketCounterCubit>()
                                       .decrement();
                                   SharedPrefs.setCounter(counterState - 1);
                                   menuList.remove(
-                                      state.response[index].id.toString());
+                                    itemList[index].id.toString());
                                   SharedPrefs.setMenuList(menuList);
+                                  itemList.remove(itemList[index]);
                                   Navigator.of(context).pop();
                                 }),
                           );
@@ -215,8 +227,7 @@ class _CartViewState extends State<CartView> {
                 final state = context.watch<SumPriceOrderCubit>().state;
 
                 return PastOrderDetailPaymentListTile(
-                  oldPrice: sumOfOldPrices.fold(
-                      0, (previous, current) => previous! + current),
+              oldPrice: true,
                   title: LocaleKeys.past_order_detail_payment_1,
                   price: state.toDouble(),
                   lineTrough: false,
@@ -227,6 +238,7 @@ class _CartViewState extends State<CartView> {
                 final state = context.watch<SumPriceOrderCubit>().state;
 
                 return PastOrderDetailTotalPaymentListTile(
+                  
                   title: LocaleKeys.past_order_detail_payment_4,
                   price: (state.toDouble()),
                   withDecimal: true,
@@ -278,7 +290,7 @@ class _CartViewState extends State<CartView> {
     return ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: state.response.length,
+        itemCount: itemList.length,
         itemBuilder: (context, index) {
           if (!restaurantNames.contains(itemList[index].store!.name)) {
             restaurantNames.add(itemList[index].store!.name);

@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,9 +52,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   int favouriteId = 0;
   bool showInfo = false;
   List<String>? menuList = SharedPrefs.getMenuList;
+    List<String> sumOfOldPricesString = [];
+  List<int> sumOfOldPricesInt = [];
   List<String> sumOfPricesString = [];
   List<int> sumOfPricesInt = [];
   int? priceOfMenu = null ?? 0;
+  int? oldPriceOfMenu = null ?? 0;
+
   List<String>? favouritedRestaurants = SharedPrefs.getFavorites;
   String mealNames = '';
 
@@ -119,7 +124,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       } else if (state is GenericLoading) {
         return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        //print(state.response[0].description);
+
         return Center(child: customBody(context, state));
       } else {
         final error = state as GenericError;
@@ -633,6 +638,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                           priceOfMenu = chosenRestaurat[0]
                               .packageSettings!
                               .minDiscountedOrderPrice;
+                              oldPriceOfMenu = chosenRestaurat[0]
+                              .packageSettings!
+                              .minOrderPrice;
                         }
                       }
 
@@ -813,23 +821,31 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
       );
     } else {
-      print(statusCode);
+
       switch (statusCode) {
         case StatusCode.success:
           if (!menuList!.contains(menuItem.toString())) {
             sumOfPricesInt.add(priceOfMenu!);
+            sumOfOldPricesInt.add(oldPriceOfMenu!);
             context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
+            context.read<SumOldPriceOrderCubit>().sumprice(sumOfOldPricesInt);
             sumOfPricesString.add(sumOfPricesInt.last.toString());
             SharedPrefs.setSumPrice(sumOfPricesString);
+               sumOfOldPricesString.add(sumOfOldPricesInt.last.toString());
+            SharedPrefs.setSumOldPrice(sumOfOldPricesString);
             context.read<BasketCounterCubit>().increment();
             SharedPrefs.setCounter(counterState + 1);
             menuList!.add(menuItem.toString());
             SharedPrefs.setMenuList(menuList!);
-            print("Successss");
+
           } else {
             sumOfPricesInt.remove(priceOfMenu!);
             sumOfPricesString.remove(priceOfMenu.toString());
             context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
+            SharedPrefs.setSumPrice(sumOfPricesString);
+             sumOfOldPricesInt.remove(oldPriceOfMenu!);
+            sumOfOldPricesString.remove(oldPriceOfMenu.toString());
+            context.read<SumOldPriceOrderCubit>().sumprice(sumOfOldPricesInt);
             SharedPrefs.setSumPrice(sumOfPricesString);
             context
                 .read<OrderCubit>()
@@ -838,8 +854,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             SharedPrefs.setCounter(counterState - 1);
             menuList!.remove(state.response[index].id.toString());
             SharedPrefs.setMenuList(menuList!);
-            print("real Successss");
-            print(SharedPrefs.getMenuList);
+
+
           }
           break;
         default:
@@ -855,6 +871,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     sumOfPricesString.clear();
                     SharedPrefs.setSumPrice([]);
                     context.read<SumPriceOrderCubit>().sumprice([]);
+                         sumOfOldPricesInt.clear();
+                    sumOfOldPricesString.clear();
+                    SharedPrefs.setSumOldPrice([]);
+                    context.read<SumOldPriceOrderCubit>().sumprice([]);
 
                     menuList!.clear();
                     SharedPrefs.setCounter(0);
@@ -870,7 +890,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                       .restaurant_detail_diffrent_restaurant_show_dialog_button1,
                   buttonTwoTittle: LocaleKeys
                       .restaurant_detail_diffrent_restaurant_show_dialog_button2));
-          print("Errorrr");
+
       }
     }
   }
@@ -1260,7 +1280,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                           favouritedRestaurants!
                               .remove(widget.restaurant!.id.toString());
                           SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
-                          print(SharedPrefs.getFavorites);
+
                         } else {
                           context
                               .read<FavoriteCubit>()
@@ -1268,7 +1288,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                           favouritedRestaurants!
                               .add(widget.restaurant!.id.toString());
                           SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
-                          print(SharedPrefs.getFavorites);
+
                         }
                         setState(() {
                           isFavourite = !isFavourite;

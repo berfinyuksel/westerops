@@ -113,30 +113,27 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             }
           }
         }
-        print(orderInfo.first.refCode!);
-        SharedPrefs.setOrderRefCode(orderInfo.first.refCode!);
-
         bool surprisePackageStatus = true;
-        for (var i = 0; i < orderInfo.last.boxes!.length; i++) {
-          if (orderInfo.last.boxes![i].defined == false) {
-            surprisePackageStatus = false;
-            break;
+
+        if (orderInfo.isNotEmpty) {
+          SharedPrefs.setOrderRefCode(orderInfo.first.refCode!);
+          for (var i = 0; i < orderInfo.last.boxes!.length; i++) {
+            if (orderInfo.last.boxes![i].defined == false) {
+              surprisePackageStatus = false;
+              break;
+            }
+          }
+          if (orderInfo.last.boxes != null && surprisePackageStatus == false) {
+            NotificationService().initSurprisePackage(
+                orderInfo.last.refCode.toString(),
+                orderInfo.last.boxes!.first.saleDay!.startDate!
+                    .toLocal()
+                    .subtract(Duration(hours: 2)));
+            //DateTime.now().add(Duration(seconds: 10))
           }
         }
-        print('package surprise condition' + surprisePackageStatus.toString());
 
-        if (orderInfo.last.boxes != null && surprisePackageStatus == false) {
-          NotificationService().initSurprisePackage(
-              orderInfo.last.refCode.toString(),
-              orderInfo.last.boxes!.first.saleDay!.startDate!
-                  .toLocal()
-                  .subtract(Duration(hours: 2)));
-          /*   
-            
-                   DateTime.now().add(Duration(seconds: 10))
-          
-          */
-        }
+        print('package surprise condition' + surprisePackageStatus.toString());
 
         return orderInfo.isNotEmpty
             ? ListView(
@@ -194,68 +191,66 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                   ),
                   Visibility(
                     visible: isShowOnMap,
-                    child: Expanded(
-                      child: Container(
-                        height: context.dynamicHeight(0.54),
-                        width: double.infinity,
-                        child: Stack(
-                          children: [
-                            Stack(
-                              alignment: Alignment(0.81, 0.88),
-                              children: [
-                                GoogleMap(
-                                  myLocationEnabled: true,
-                                  myLocationButtonEnabled: false,
-                                  initialCameraPosition: CameraPosition(
-                                    target: LatLng(latitude, longitude),
-                                    zoom: 17.0,
-                                  ),
-                                  onMapCreated:
-                                      (GoogleMapController controller) {
-                                    _mapController.complete(controller);
-                                  },
-                                  mapType: MapType.normal,
-                                  markers: Set<Marker>.of(markers.values),
+                    child: Container(
+                      height: context.dynamicHeight(0.54),
+                      width: double.infinity,
+                      child: Stack(
+                        children: [
+                          Stack(
+                            alignment: Alignment(0.81, 0.88),
+                            children: [
+                              GoogleMap(
+                                myLocationEnabled: true,
+                                myLocationButtonEnabled: false,
+                                initialCameraPosition: CameraPosition(
+                                  target: LatLng(LocationService.latitude,
+                                      LocationService.latitude),
+                                  zoom: 17.0,
                                 ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    final GoogleMapController controller =
-                                        await _mapController.future;
-                                    setState(() {
-                                      latitude = LocationService.latitude;
-                                      longitude = LocationService.longitude;
+                                onMapCreated: (GoogleMapController controller) {
+                                  _mapController.complete(controller);
+                                },
+                                mapType: MapType.normal,
+                                markers: Set<Marker>.of(markers.values),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  final GoogleMapController controller =
+                                      await _mapController.future;
+                                  setState(() {
+                                    latitude = LocationService.latitude;
+                                    longitude = LocationService.longitude;
 
-                                      controller.animateCamera(
-                                          CameraUpdate.newCameraPosition(
-                                        CameraPosition(
-                                          target: LatLng(latitude, longitude),
-                                          zoom: 17.0,
-                                        ),
-                                      ));
-                                    });
-                                  },
-                                  child: SvgPicture.asset(
-                                      ImageConstant.COMMONS_MY_LOCATION_BUTTON),
-                                ),
-                                Visibility(
-                                    visible: isShowBottomInfo,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            isShowBottomInfo = false;
-                                          });
-                                        },
-                                        child: Container(
-                                            color: Colors.black
-                                                .withOpacity(0.2)))),
-                              ],
-                            ),
-                            Visibility(
-                              visible: isShowBottomInfo,
-                              child: buildBottomInfo(context, orderInfo),
-                            ),
-                          ],
-                        ),
+                                    controller.animateCamera(
+                                        CameraUpdate.newCameraPosition(
+                                      CameraPosition(
+                                        target: LatLng(latitude, longitude),
+                                        zoom: 17.0,
+                                      ),
+                                    ));
+                                  });
+                                },
+                                child: SvgPicture.asset(
+                                    ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                              ),
+                              Visibility(
+                                  visible: isShowBottomInfo,
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isShowBottomInfo = false;
+                                        });
+                                      },
+                                      child: Container(
+                                          color:
+                                              Colors.black.withOpacity(0.2)))),
+                            ],
+                          ),
+                          Visibility(
+                            visible: isShowBottomInfo,
+                            child: buildBottomInfo(context, orderInfo),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -675,14 +670,13 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   } */
 }
 
-
 /*     int hour = buildHourForCountDown(
         DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate);
     int minute = buildMinuteForCountDown(
         DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate);
     int second = buildSecondsForCountDown(
         DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate); */
-    /*    List<int> timeNowHourCompo = buildTimeNow();
+/*    List<int> timeNowHourCompo = buildTimeNow();
     String cachedTimeForDelivery = SharedPrefs.getCountDownString;
     List<String> cachedTimeForDeliveryStringList =
         cachedTimeForDelivery.split(":").toList();
@@ -702,6 +696,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     minute = (duration - (hour * 60 * 60)) ~/ 60;
     second = (duration - (minute * 60) - (minute * 60 * 60)); */
 
-    /*    if (duration <= 0) {
+/*    if (duration <= 0) {
       context.read<OrderBarCubit>().stateOfBar(false);
     } */

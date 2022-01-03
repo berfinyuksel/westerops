@@ -53,7 +53,7 @@ class _ContactListTileState extends State<ContactListTile> {
         style: AppTextStyles.bodyTextStyle,
       ),
       onTap: () {
-        customLaunch('tel:+90 850 123 123 23 23');
+        customLaunch('tel:+908501231232323');
       },
     );
   }

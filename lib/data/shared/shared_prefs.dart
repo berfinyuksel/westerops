@@ -120,6 +120,11 @@ class SharedPrefs {
     return sumPrice;
   }
 
+  static Future<List<String>> setSumOldPrice(List<String> sumOldPrice) async {
+    _prefs.setStringList('sumOldPrice', sumOldPrice);
+    return sumOldPrice;
+  }
+
   static Future<List<String>> setFavoriteIdList(List<String> favorites) async {
     _prefs.setStringList('favorites', favorites);
     return favorites;
@@ -189,6 +194,14 @@ class SharedPrefs {
     _prefs.setBool('updatePermissionForPhone', updatePermissionForPhone);
   }
 
+  static Future<void> setCourierHourText(String courierHourText) async {
+    _prefs.setString('courierHourText', courierHourText);
+  }
+
+  static Future<void> setRegisterPhone(String registerPhone) async {
+    _prefs.setString('registerPhone', registerPhone);
+  }
+
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
@@ -226,6 +239,8 @@ class SharedPrefs {
   static int get getDeliveredRestaurantAddressId =>
       _prefs.getInt('deliveredRestaurantId') ?? 0;
   static List<String> get getSumPrice => _prefs.getStringList('sumPrice') ?? [];
+  static List<String> get getSumOldPrice =>
+      _prefs.getStringList('sumOldPrice') ?? [];
   static List<String> get getFavorites =>
       _prefs.getStringList('favorites') ?? [];
   static int get getCourierHourId => _prefs.getInt('courierHourId') ?? 0;
@@ -235,7 +250,6 @@ class SharedPrefs {
   static String get getCountDownString =>
       _prefs.getString('countDownString') ?? "";
   static bool get getOrderBar => _prefs.getBool('orderActive') ?? false;
-
   static bool get getSortByDistance => _prefs.getBool('sortByDistance') ?? true;
   static String get getMyFavorites => _prefs.getString('myFavorites') ?? "";
   static String get getUserRating => _prefs.getString('userRating') ?? "";
@@ -248,4 +262,7 @@ class SharedPrefs {
       _prefs.getBool('updatePermissionForEmail') ?? true;
   static bool get getPermissionForPhone =>
       _prefs.getBool('updatePermissionForPhone') ?? true;
+  static String get getCourierHourText =>
+      _prefs.getString('courierHourText') ?? "";
+  static String get getRegisterPhone => _prefs.getString('registerPhone') ?? "";
 }

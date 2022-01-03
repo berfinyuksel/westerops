@@ -202,6 +202,7 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                             SharedPrefs.setCourierHourId(
                                 list[selectedIndex].id!);
                             SharedPrefs.setDeliveryType(deliveryType);
+                            SharedPrefs.setCourierHourText("${list[index].startDate!.format("H:i")} - ${list[index].endDate!.format("H:i")}");
                           }
                         : null,
                   );

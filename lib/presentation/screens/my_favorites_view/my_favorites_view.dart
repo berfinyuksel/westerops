@@ -138,7 +138,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                           GoogleMap(
                             myLocationButtonEnabled: false,
                             initialCameraPosition: CameraPosition(
-                              target: LatLng(latitude, longitude),
+                                  target: LatLng(LocationService.latitude,
+                                  LocationService.latitude),
                               zoom: 17.0,
                             ),
                             onMapCreated: (GoogleMapController controller) {

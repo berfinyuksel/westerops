@@ -36,19 +36,11 @@ class PastOrderListTile extends StatelessWidget {
         children: [
           Visibility(
               visible: statusSituationForCancel!,
-              child: Container(
-                alignment: Alignment.center,
-                width: context.dynamicWidht(0.16),
-                height: context.dynamicHeight(0.04),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.0),
-                  color: AppColors.scaffoldBackgroundColor,
-                ),
-                child: LocaleText(
-                  text: LocaleKeys.past_order_cancel_button,
-                  style: AppTextStyles.bodyBoldTextStyle
-                      .copyWith(color: AppColors.redColor),
-                ),
+              child: LocaleText(
+                textOverFlow: TextOverflow.ellipsis,
+                text: LocaleKeys.past_order_cancel_button,
+                style: AppTextStyles.bodyBoldTextStyle
+                    .copyWith(color: AppColors.redColor),
               )),
           SizedBox(
             width: 5,

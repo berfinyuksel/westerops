@@ -4,11 +4,11 @@ import 'dart:ui' as ui;
 
 import 'package:device_info/device_info.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -159,7 +159,8 @@ class _MyNearViewState extends State<MyNearView> {
                         myLocationEnabled: true,
                         myLocationButtonEnabled: false,
                         initialCameraPosition: CameraPosition(
-                          target: LatLng(latitude, longitude),
+                              target: LatLng(LocationService.latitude,
+                              LocationService.latitude),
                           zoom: 17.0,
                         ),
                         onMapCreated: (GoogleMapController controller) {
@@ -318,7 +319,11 @@ class _MyNearViewState extends State<MyNearView> {
           buildRowTitleLeftRight(
               context, LocaleKeys.my_near_location, LocaleKeys.my_near_edit,
               () {
-            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+            if (SharedPrefs.getIsLogined) {
+              Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+            } else {
+              Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+            }
           }),
           Divider(
             thickness: 4,

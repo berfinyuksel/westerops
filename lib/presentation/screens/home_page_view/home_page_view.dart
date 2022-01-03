@@ -491,9 +491,7 @@ class _HomePageViewState extends State<HomePageView> {
         return NotificationListener<ScrollUpdateNotification>(
             onNotification: (ScrollUpdateNotification notification) {
               setState(() {});
-              print(valueOfPaddingForNearMe);
-              print("AAAAA");
-              print(notification.metrics.pixels);
+
               if (notification.metrics.pixels <= 0) {
                 scroolNearMeLeft = true;
               } else {
@@ -558,7 +556,7 @@ class _HomePageViewState extends State<HomePageView> {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+            Navigator.pushNamed(context, RouteConstant.ADDRESS_VIEW);
           },
           child: LocaleText(
             text: titleRight,

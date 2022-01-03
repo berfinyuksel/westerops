@@ -176,7 +176,7 @@ class FoodWasteExpandedView extends StatelessWidget {
               borderColor: AppColors.greenColor,
               textColor: Colors.white,
               onPressed: () {
-                Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+                Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
               },
             ),
             SizedBox(
