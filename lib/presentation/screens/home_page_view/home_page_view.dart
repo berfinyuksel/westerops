@@ -203,9 +203,8 @@ class _HomePageViewState extends State<HomePageView> {
                 visible: visible,
                 child: SizedBox(height: context.dynamicHeight(0.03))),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26),
+              padding: EdgeInsets.symmetric(horizontal: 22),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildSearchBar(context),
                   // Spacer(),
@@ -774,6 +773,11 @@ class _HomePageViewState extends State<HomePageView> {
               title: Text(searchList.isEmpty ||
                       filteredNames.isEmpty ||
                       "${filteredNames[index].name}".isEmpty
+                  ? ""
+                  : "${filteredNames[index].name}"),
+              subtitle: Text(mealNames.isEmpty ||
+                      searchList.isEmpty ||
+                      filteredNames.isEmpty
                   ? ""
                   : "${filteredNames[index].name}"),
               subtitle: Text(mealNames.isEmpty ||
