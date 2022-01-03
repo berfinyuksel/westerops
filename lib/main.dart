@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
@@ -18,9 +19,11 @@ import 'data/repositories/box_repository.dart';
 import 'data/repositories/category_name_repository.dart';
 import 'data/repositories/favourite_repository.dart';
 import 'data/repositories/filters_repository.dart';
+import 'data/repositories/get_notification_repository.dart';
 import 'data/repositories/notification_repository.dart';
 import 'data/repositories/order_received_repository.dart';
 import 'data/repositories/order_repository.dart';
+import 'data/repositories/put_notification_repository.dart';
 import 'data/repositories/search_location_repository.dart';
 import 'data/repositories/search_repository.dart';
 import 'data/repositories/search_store_repository.dart';
@@ -41,6 +44,8 @@ import 'logic/cubits/favourite_cubit/favourite_cubit.dart';
 import 'logic/cubits/filters_cubit/filters_cubit.dart';
 import 'logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'logic/cubits/filters_cubit/sort_filters_cubit.dart';
+import 'logic/cubits/notificaiton_cubit/get_notification_cubit.dart';
+import 'logic/cubits/notificaiton_cubit/put_notification_cubit.dart';
 import 'logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'logic/cubits/order_cubit/order_cubit.dart';
 import 'logic/cubits/order_cubit/order_received_cubit.dart';
@@ -125,6 +130,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
+        BlocProvider<NotificationsCounterCubit>(create: (_) => NotificationsCounterCubit()),
         BlocProvider<NearMePaddingCubit>(create: (_) => NearMePaddingCubit()),
         BlocProvider<OpportunityPaddingCubit>(
             create: (_) => OpportunityPaddingCubit()),
@@ -140,6 +146,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<NotificationCubit>(
             create: (context) =>
                 NotificationCubit(SampleNotificationRepository())),
+                 BlocProvider<GetNotificationCubit>(
+            create: (context) =>
+                GetNotificationCubit(SampleGetNotificationRepository())),
+                        BlocProvider<PutNotificationCubit>(
+            create: (context) =>
+                PutNotificationCubit(SamplePutNotificationRepository())),
         BlocProvider<TimeIntervalCubit>(
             create: (context) =>
                 TimeIntervalCubit(SampleTimeIntervalRepository())),
@@ -183,7 +195,8 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
-       
+        context.read<NotificationsCounterCubit>().setCounter(SharedPrefs.getCounter);
+    
         List<int> sumPrices = [];
         for (var i = 0; i < SharedPrefs.getSumPrice.length; i++) {
           sumPrices.add(int.parse(SharedPrefs.getSumPrice[i]));

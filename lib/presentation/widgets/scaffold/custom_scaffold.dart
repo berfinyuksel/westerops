@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
+
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import '../../screens/my_notifications_view/my_notifications_view.dart';
@@ -199,8 +201,34 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           label: LocaleKeys.bottom_nav_bar_item_3.locale,
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            ImageConstant.NAVBAR_NOTIFACATIONS,
+          icon: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              SvgPicture.asset(
+                ImageConstant.NAVBAR_NOTIFACATIONS,
+              ),
+              Builder(builder: (context) {
+                final counterNotificaitonState = context.watch<NotificationsCounterCubit>().state;
+
+                return Visibility(
+                  visible: counterNotificaitonState > 0 && SharedPrefs.getIsLogined,
+                  child: Container(
+                    height: 14,
+                    width: 14,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.yellowColor),
+                    child: Text(
+                      counterNotificaitonState.toString(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
+                    ),
+                  ),
+                );
+              }),
+            ],
           ),
           activeIcon: SvgPicture.asset(
             ImageConstant.NAVBAR_NOTIFACATIONS_ACTIVE,

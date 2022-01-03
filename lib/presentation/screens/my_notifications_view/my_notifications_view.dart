@@ -1,9 +1,14 @@
+import 'package:dongu_mobile/data/model/results_notification.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/get_notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:googleapis/language/v1.dart';
 import 'package:provider/src/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
@@ -24,22 +29,49 @@ class MyNotificationsView extends StatefulWidget {
 class _MyNotificationsViewState extends State<MyNotificationsView>
     with SingleTickerProviderStateMixin {
   TabController? _controller;
-  void notificationToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    print("TOKEN REG : $token");
-  }
+  // void notificationToken() async {
+  //   String? token = await FirebaseMessaging.instance.getToken();
+  //   print("TOKEN REG : $token");
+  // }
 
   @override
   void initState() {
     super.initState();
     _controller = TabController(length: 3, vsync: this);
-    notificationToken();
-     context.read<NotificationCubit>().getNotification();
+    context.read<GetNotificationCubit>().getNotification();
+    // notificationToken();
+    //  context.read<NotificationCubit>().getNotification();
   }
 
   @override
   Widget build(BuildContext context) {
     return buildBody(context);
+  }
+
+  Builder buildBuilder() {
+    return Builder(builder: (context) {
+      final GenericState state = context.watch<GetNotificationCubit>().state;
+
+      if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        List<Result> notifications = [];
+
+        for (int i = 0; i < state.response.length; i++) {
+          notifications.add(state.response[i]);
+          context.read<NotificationsCounterCubit>().increment();
+        }
+
+        print("STATE RESPONSE : ${state.response}");
+
+        return Center(child: buildBody(context));
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
   Column buildBody(BuildContext context) {
