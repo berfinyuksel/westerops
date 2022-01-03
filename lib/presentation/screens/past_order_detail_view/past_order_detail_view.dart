@@ -366,6 +366,9 @@ context.read<OrderReceivedCubit>().getOrderById(widget.orderInfo!.id!);
         SizedBox(
           height: context.dynamicHeight(0.03),
         ),
+        SizedBox(
+          height: context.dynamicHeight(0.03),
+        ),
       ],
     );
   }

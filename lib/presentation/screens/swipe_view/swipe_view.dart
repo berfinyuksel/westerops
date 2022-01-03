@@ -217,14 +217,14 @@ class _SwipeViewState extends State<SwipeView> {
                 );
               }),
           Spacer(
-            flex: 15,
+            flex: 20,
           ),
           Divider(
             height: context.dynamicHeight(0.001),
             thickness: 1,
           ),
           Spacer(
-            flex: 10,
+            flex: 40,
           ),
           Padding(
             padding: EdgeInsets.only(
@@ -233,6 +233,7 @@ class _SwipeViewState extends State<SwipeView> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 LocaleText(
                   text: LocaleKeys.swipe_totalAmount,
