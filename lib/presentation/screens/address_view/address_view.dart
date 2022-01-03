@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -69,7 +70,7 @@ class _AddressViewState extends State<AddressView> {
         if (state is GenericInitial) {
           return Text(LocaleKeys.address_preparing);
         } else if (state is GenericLoading) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CustomCircularProgressIndicator());
         } else if (state is GenericCompleted) {
           List<Result> list = [];
           for (var i = 0; i < state.response.length; i++) {

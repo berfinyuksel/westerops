@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -58,7 +59,7 @@ class _CartViewState extends State<CartView> {
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         for (int i = 0; i < state.response.length; i++) {
           itemList.add(state.response[i]);
@@ -321,7 +322,7 @@ class _CartViewState extends State<CartView> {
               } else if (stateOfSearchStore is GenericInitial) {
                 return Container();
               } else if (stateOfSearchStore is GenericLoading) {
-                return Center(child: CircularProgressIndicator());
+                return Center(child: CustomCircularProgressIndicator());
               } else {
                 final error = stateOfSearchStore as GenericError;
 

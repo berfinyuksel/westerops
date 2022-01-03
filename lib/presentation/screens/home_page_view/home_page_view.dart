@@ -20,6 +20,7 @@ import 'package:dongu_mobile/presentation/screens/home_page_view/components/near
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/opportunity_restaurant_list_view_widget.dart';
 
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 
 import 'package:dongu_mobile/utils/haversine.dart';
 
@@ -111,7 +112,7 @@ class _HomePageViewState extends State<HomePageView> {
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         List<SearchStore> restaurants = [];
         List<double> distances = [];
@@ -135,7 +136,7 @@ class _HomePageViewState extends State<HomePageView> {
       if (stateSearch is GenericInitial) {
         return Container();
       } else if (stateSearch is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (stateSearch is GenericCompleted) {
         List<Search> searchList = [];
         List<Search> restaurant = [];
@@ -388,7 +389,7 @@ class _HomePageViewState extends State<HomePageView> {
       if (stateOfOrder is GenericInitial) {
         return Container();
       } else if (stateOfOrder is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (stateOfOrder is GenericCompleted) {
         List<OrderReceived> orderInfoTotal = [];
         List<OrderReceived> orderInfo = [];
@@ -775,9 +776,9 @@ class _HomePageViewState extends State<HomePageView> {
                       "${filteredNames[index].name}".isEmpty
                   ? ""
                   : "${filteredNames[index].name}"),
-              subtitle: Text(searchList.isEmpty ||
-                      filteredNames.isEmpty ||
-                      mealNames.isEmpty
+              subtitle: Text(mealNames.isEmpty ||
+                      searchList.isEmpty ||
+                      filteredNames.isEmpty
                   ? ""
                   : mealNames),
             ),
