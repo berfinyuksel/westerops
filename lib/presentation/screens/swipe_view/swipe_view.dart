@@ -217,14 +217,14 @@ class _SwipeViewState extends State<SwipeView> {
                 );
               }),
           Spacer(
-            flex: 40,
+            flex: 15,
           ),
           Divider(
             height: context.dynamicHeight(0.001),
             thickness: 1,
           ),
           Spacer(
-            flex: 20,
+            flex: 10,
           ),
           Padding(
             padding: EdgeInsets.only(
