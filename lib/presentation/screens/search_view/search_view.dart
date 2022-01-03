@@ -5,7 +5,6 @@ import 'package:dongu_mobile/presentation/screens/restaurant_details_views/scree
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -76,9 +75,16 @@ class _SearchViewState extends State<SearchView> {
         filteredNames = names;
 
         return Center(
-            child: filteredNames.length == 0
-                ? emptySearchHistory()
-                : searchListViewBuilder(state, searchList, restaurant));
+          child: filteredNames.length == 0
+              ? Visibility(
+                  visible: !visible,
+                  child: LocaleText(
+                    text: LocaleKeys.search_search_bar_empty_result.locale,
+                    style: AppTextStyles.bodyTextStyle,
+                  ),
+                )
+              : searchListViewBuilder(state, searchList, restaurant),
+        );
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -110,7 +116,16 @@ class _SearchViewState extends State<SearchView> {
           Visibility(
               visible: visible, child: searchHistoryAndCleanTexts(context)),
           Visibility(visible: visible, child: dividerOne(context)),
-          //  Spacer(flex:2),
+          Spacer(flex: 2),
+          Container(child: emptySearchHistory()),
+          // Visibility(
+          //   visible: visible,
+          //   child: LocaleText(
+          //     text: LocaleKeys.search_search_history_clean,
+          //     style: AppTextStyles.bodyTextStyle
+          //         .copyWith(color: AppColors.cursorColor),
+          //   ),
+          // ),
           Visibility(visible: visible, child: Spacer(flex: 2)),
           SingleChildScrollView(child: buildBuilder()),
           isClean
@@ -273,6 +288,7 @@ class _SearchViewState extends State<SearchView> {
           List<String> meals = [];
 
           if (filteredNames[index].storeMeals == null) {
+            print("buradayımm");
             return Text("Aradığınız isimde bir yemek bulunmamaktadır.");
           } else if (filteredNames[index].storeMeals != null) {
             for (var i = 0; i < filteredNames[index].storeMeals!.length; i++) {
@@ -399,18 +415,26 @@ class _SearchViewState extends State<SearchView> {
   }
 
   emptySearchHistory() {
-    return Container(
-      height: context.dynamicHeight(0.05),
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 25),
-        child: LocaleText(
-            text: LocaleKeys.search_search_history_clean,
-            style: AppTextStyles.bodyTextStyle
-                .copyWith(color: AppColors.cursorColor)),
-      ),
-    );
+    if (filteredNames.length == 0) {
+      return LocaleText(
+        text: LocaleKeys.search_search_history_clean.locale,
+        style: AppTextStyles.bodyTextStyle,
+      );
+    } else {
+      return Container();
+    }
   }
+  // return Container(
+  //   height: context.dynamicHeight(0.05),
+  //   width: double.infinity,
+  //   child: Padding(
+  //     padding: const EdgeInsets.only(left: 25),
+  //     child: LocaleText(
+  //         text: LocaleKeys.search_search_history_clean,
+  //         style: AppTextStyles.bodyTextStyle
+  //             .copyWith(color: AppColors.cursorColor)),
+  //   ),
+  // );
 
   // Widget buildSearch(GenericState state, List<Search> searchList) => ListTile(
   //       // leading: Image.network(
