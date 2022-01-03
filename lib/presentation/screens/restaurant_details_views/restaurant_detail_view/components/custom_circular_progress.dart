@@ -27,7 +27,7 @@ class CustomCircularProgress extends StatelessWidget {
             valueColor: AlwaysStoppedAnimation<Color>(valueColor),
           ),
           Positioned(
-            top: 4,
+            top: 5,
             bottom: 0,
             left: 6.5,
             right: 0,
