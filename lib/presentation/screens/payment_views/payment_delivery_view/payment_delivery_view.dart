@@ -1,4 +1,5 @@
 import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import '../../../../data/model/search_store.dart';
@@ -40,7 +41,7 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         for (int i = 0; i < state.response.length; i++) {
           if (!list.contains(state.response[i])) {
@@ -83,7 +84,8 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                           if (stateOfRestaurants is GenericInitial) {
                             return Container();
                           } else if (stateOfRestaurants is GenericLoading) {
-                            return Center(child: CircularProgressIndicator());
+                            return Center(
+                                child: CustomCircularProgressIndicator());
                           } else if (stateOfRestaurants is GenericCompleted) {
                             List<SearchStore> restaurants = [];
                             List<SearchStore> chosenRestaurant = [];
@@ -200,6 +202,7 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                             SharedPrefs.setCourierHourId(
                                 list[selectedIndex].id!);
                             SharedPrefs.setDeliveryType(deliveryType);
+                            SharedPrefs.setCourierHourText("${list[index].startDate!.format("H:i")} - ${list[index].endDate!.format("H:i")}");
                           }
                         : null,
                   );

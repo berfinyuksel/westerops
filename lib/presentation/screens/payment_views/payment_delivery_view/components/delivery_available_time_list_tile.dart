@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+
 import '../../../../../data/model/search_store.dart';
 import '../../../../../data/model/store_courier_hours.dart';
 import '../../../../../logic/cubits/generic_state/generic_state.dart';
@@ -27,7 +29,7 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
             if (stateOfRestaurants is GenericInitial) {
               return Container();
             } else if (stateOfRestaurants is GenericLoading) {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: CustomCircularProgressIndicator());
             } else if (stateOfRestaurants is GenericCompleted) {
               List<SearchStore> restaurants = [];
               List<SearchStore> chosenRestaurant = [];

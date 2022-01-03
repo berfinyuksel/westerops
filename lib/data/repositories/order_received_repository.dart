@@ -123,6 +123,27 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
+
+  Future<List<OrderReceived>> getOrderById(int id) async {
+    final response = await http.get(
+      Uri.parse("${UrlConstant.EN_URL}order/$id"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT ${SharedPrefs.getToken}'
+      },
+    );
+    print("GET Order By Id STATUS ${response.statusCode}");
+    if (response.statusCode == 200) {
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+      print(jsonBody); //utf8.decode for turkish characters
+      OrderReceived orderReceivedListItem = OrderReceived.fromJson(jsonBody);
+      //print(boxLists[].text_name);
+      List<OrderReceived> orderReceivedList = [];
+      orderReceivedList.add(orderReceivedListItem);
+      return orderReceivedList;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
 }
 
 class NetworkError implements Exception {

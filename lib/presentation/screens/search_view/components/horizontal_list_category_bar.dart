@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,7 +34,7 @@ class _CustomHorizontalListCategoryState
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         List<Result> results = [];
         for (int i = 0; i < state.response.length; i++) {

@@ -22,6 +22,7 @@ import 'package:dongu_mobile/presentation/screens/home_page_view/components/near
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/opportunity_restaurant_list_view_widget.dart';
 
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 
 import 'package:dongu_mobile/utils/haversine.dart';
 
@@ -115,7 +116,7 @@ class _HomePageViewState extends State<HomePageView> {
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         List<SearchStore> restaurants = [];
         List<double> distances = [];
@@ -139,7 +140,7 @@ class _HomePageViewState extends State<HomePageView> {
       if (stateSearch is GenericInitial) {
         return Container();
       } else if (stateSearch is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (stateSearch is GenericCompleted) {
         List<Search> searchList = [];
         List<Search> restaurant = [];
@@ -206,9 +207,8 @@ class _HomePageViewState extends State<HomePageView> {
                 visible: visible,
                 child: SizedBox(height: context.dynamicHeight(0.03))),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26),
+              padding: EdgeInsets.symmetric(horizontal: 22),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildSearchBar(context),
                   // Spacer(),
@@ -392,7 +392,7 @@ class _HomePageViewState extends State<HomePageView> {
       if (stateOfOrder is GenericInitial) {
         return Container();
       } else if (stateOfOrder is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (stateOfOrder is GenericCompleted) {
         List<IyzcoOrderCreate> orderInfoTotal = [];
         List<IyzcoOrderCreate> orderInfo = [];
@@ -500,9 +500,7 @@ class _HomePageViewState extends State<HomePageView> {
         return NotificationListener<ScrollUpdateNotification>(
             onNotification: (ScrollUpdateNotification notification) {
               setState(() {});
-              print(valueOfPaddingForNearMe);
-              print("AAAAA");
-              print(notification.metrics.pixels);
+
               if (notification.metrics.pixels <= 0) {
                 scroolNearMeLeft = true;
               } else {
@@ -567,7 +565,7 @@ class _HomePageViewState extends State<HomePageView> {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+            Navigator.pushNamed(context, RouteConstant.ADDRESS_VIEW);
           },
           child: LocaleText(
             text: titleRight,
@@ -784,9 +782,14 @@ class _HomePageViewState extends State<HomePageView> {
                       "${filteredNames[index].name}".isEmpty
                   ? ""
                   : "${filteredNames[index].name}"),
-              subtitle: Text(searchList.isEmpty ||
-                      filteredNames.isEmpty ||
-                      mealNames.isEmpty
+              subtitle: Text(mealNames.isEmpty ||
+                      searchList.isEmpty ||
+                      filteredNames.isEmpty
+                  ? ""
+                  : "${filteredNames[index].name}"),
+              subtitle: Text(mealNames.isEmpty ||
+                      searchList.isEmpty ||
+                      filteredNames.isEmpty
                   ? ""
                   : mealNames),
             ),

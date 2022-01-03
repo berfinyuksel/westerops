@@ -7,7 +7,7 @@ abstract class SearchLocationRepository {
 }
 
 class SampleSearchLocationRepository implements SearchLocationRepository {
-  final key = "AIzaSyDmbISvHTI8ohyLzmek96__1ACHqTNkPLg";
+  final key = "AIzaSyDlcgkT0cnXnxEg36EVpWzRv2ZZTPiXmzs";
 
   @override
   Future<List<SearchedLocations>> getLocations(String search) async {

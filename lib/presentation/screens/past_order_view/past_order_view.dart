@@ -1,5 +1,6 @@
 import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,7 +34,7 @@ class _PastOrderViewState extends State<PastOrderView> {
           if (state is GenericInitial) {
             return Container();
           } else if (state is GenericLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CustomCircularProgressIndicator());
           } else if (state is GenericCompleted) {
             List<IyzcoOrderCreate> orderInfo = [];
             for (var i = 0; i < state.response.length; i++) {
@@ -43,6 +44,7 @@ class _PastOrderViewState extends State<PastOrderView> {
             print(orderInfo.length);
             orderInfo.reversed;
             return ListView.builder(
+                reverse: true,
                 itemCount: orderInfo.length,
                 itemBuilder: (BuildContext context, index) {
                   return GestureDetector(

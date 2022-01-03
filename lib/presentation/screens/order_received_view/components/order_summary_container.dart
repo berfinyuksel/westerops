@@ -35,13 +35,13 @@ class OrderSummaryContainer extends StatelessWidget {
             Spacer(flex: 2),
             LocaleText(
               text:
-                  "${SharedPrefs.getTimeIntervalForGetIt}${state.isGetIt! ? LocaleKeys.order_received_take_from_restaurant.locale : LocaleKeys.payment_description_text}",
+                  "${orderInfo!.deliveryType == '1' ? SharedPrefs.getTimeIntervalForGetIt : SharedPrefs.getCourierHourText}${state.isGetIt! ? LocaleKeys.order_received_take_from_restaurant.locale : LocaleKeys.payment_description_text.locale}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 2),
             LocaleText(
               text:
-                  "${state.isGetIt! ? LocaleKeys.order_received_get_it_package.locale : LocaleKeys.order_received_courier_package.locale} - ${state.isOnline! ? LocaleKeys.filters_payment_method_item1.locale : LocaleKeys.filters_payment_method_item2.locale}",
+                  "${SharedPrefs.getDeliveryType == 1 ? LocaleKeys.order_received_get_it_package.locale : LocaleKeys.order_received_courier_package.locale} - ${state.isOnline! ? LocaleKeys.filters_payment_method_item1.locale : LocaleKeys.filters_payment_method_item2.locale}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 5),

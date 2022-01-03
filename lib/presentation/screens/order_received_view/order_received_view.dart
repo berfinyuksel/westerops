@@ -9,6 +9,7 @@ import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/timer_countdown.dart';
 
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,7 +91,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         OrderReceived? orderInfo;
 
@@ -107,7 +108,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             break;
           }
         }
-        print('package surprise condition' + surprisePackageStatus.toString());
 
         if (orderInfo.boxes != null &&
             surprisePackageStatus == false &&
@@ -207,45 +207,50 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                                   mapType: MapType.normal,
                                   markers: Set<Marker>.of(markers.values),
                                 ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    final GoogleMapController controller =
-                                        await _mapController.future;
-                                    setState(() {
-                                      latitude = LocationService.latitude;
-                                      longitude = LocationService.longitude;
+                                onMapCreated: (GoogleMapController controller) {
+                                  _mapController.complete(controller);
+                                },
+                                mapType: MapType.normal,
+                                markers: Set<Marker>.of(markers.values),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  final GoogleMapController controller =
+                                      await _mapController.future;
+                                  setState(() {
+                                    latitude = LocationService.latitude;
+                                    longitude = LocationService.longitude;
 
-                                      controller.animateCamera(
-                                          CameraUpdate.newCameraPosition(
-                                        CameraPosition(
-                                          target: LatLng(latitude, longitude),
-                                          zoom: 17.0,
-                                        ),
-                                      ));
-                                    });
-                                  },
-                                  child: SvgPicture.asset(
-                                      ImageConstant.COMMONS_MY_LOCATION_BUTTON),
-                                ),
-                                Visibility(
-                                    visible: isShowBottomInfo,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            isShowBottomInfo = false;
-                                          });
-                                        },
-                                        child: Container(
-                                            color: Colors.black
-                                                .withOpacity(0.2)))),
-                              ],
-                            ),
-                            Visibility(
-                              visible: isShowBottomInfo,
-                              child: buildBottomInfo(context, orderInfo),
-                            ),
-                          ],
-                        ),
+                                    controller.animateCamera(
+                                        CameraUpdate.newCameraPosition(
+                                      CameraPosition(
+                                        target: LatLng(latitude, longitude),
+                                        zoom: 17.0,
+                                      ),
+                                    ));
+                                  });
+                                },
+                                child: SvgPicture.asset(
+                                    ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                              ),
+                              Visibility(
+                                  visible: isShowBottomInfo,
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isShowBottomInfo = false;
+                                        });
+                                      },
+                                      child: Container(
+                                          color:
+                                              Colors.black.withOpacity(0.2)))),
+                            ],
+                          ),
+                          Visibility(
+                            visible: isShowBottomInfo,
+                            child: buildBottomInfo(context, orderInfo),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -540,7 +545,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         List<SearchStore> restaurants = [];
         List<SearchStore> chosenRestaurant = [];
@@ -665,14 +670,13 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   } */
 }
 
-
 /*     int hour = buildHourForCountDown(
         DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate);
     int minute = buildMinuteForCountDown(
         DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate);
     int second = buildSecondsForCountDown(
         DateTime.now(), orderInfo.last.boxes!.first.saleDay!.endDate); */
-    /*    List<int> timeNowHourCompo = buildTimeNow();
+/*    List<int> timeNowHourCompo = buildTimeNow();
     String cachedTimeForDelivery = SharedPrefs.getCountDownString;
     List<String> cachedTimeForDeliveryStringList =
         cachedTimeForDelivery.split(":").toList();
@@ -692,6 +696,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     minute = (duration - (hour * 60 * 60)) ~/ 60;
     second = (duration - (minute * 60) - (minute * 60 * 60)); */
 
-    /*    if (duration <= 0) {
+/*    if (duration <= 0) {
       context.read<OrderBarCubit>().stateOfBar(false);
     } */

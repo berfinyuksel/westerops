@@ -6,6 +6,8 @@ import 'package:dongu_mobile/presentation/screens/past_order_detail_view/compone
 import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/order_names_widget.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/screen_arguments_surprise_cancel.dart';
 
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+import '../../../data/model/order_received.dart';
 import '../../../data/repositories/update_order_repository.dart';
 import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
@@ -52,7 +54,7 @@ class _SurprisePackViewState extends State<SurprisePackView> {
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         List<IyzcoOrderCreate> orderInfoTotal = [];
         List<IyzcoOrderCreate> orderInfo = [];

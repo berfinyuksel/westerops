@@ -11,6 +11,7 @@ import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -145,6 +146,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<OrderBarCubit>(create: (_) => OrderBarCubit()),
         BlocProvider<SocialLoginCubit>(create: (_) => SocialLoginCubit()),
         BlocProvider<SumPriceOrderCubit>(create: (_) => SumPriceOrderCubit()),
+        BlocProvider<SumOldPriceOrderCubit>(
+            create: (_) => SumOldPriceOrderCubit()),
         BlocProvider<SortFilterCubit>(create: (_) => SortFilterCubit()),
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
@@ -204,6 +207,11 @@ class MyApp extends StatelessWidget {
           sumPrices.add(int.parse(SharedPrefs.getSumPrice[i]));
         }
         context.read<SumPriceOrderCubit>().sumprice(sumPrices);
+        List<int> sumOldPrices = [];
+        for (var i = 0; i < SharedPrefs.getSumOldPrice.length; i++) {
+          sumOldPrices.add(int.parse(SharedPrefs.getSumOldPrice[i]));
+        }
+        context.read<SumPriceOrderCubit>().sumprice(sumOldPrices);
         for (var i = 0; i < SharedPrefs.getFavorites.length; i++) {
           context
               .read<FavoriteCubit>()

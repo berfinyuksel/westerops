@@ -27,7 +27,6 @@ class SwipeView extends StatefulWidget {
 
 class _SwipeViewState extends State<SwipeView> {
   String mealNames = '';
-
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -115,61 +114,64 @@ class _SwipeViewState extends State<SwipeView> {
                 Spacer(
                   flex: 30,
                 ),
-                Dismissible(
-                  key: UniqueKey(),
-                  onDismissed: (value) {
-                    SharedPrefs.setOrderBar(false);
-
-                    setState(() {
-                      Navigator.pushNamed(
-                          context, RouteConstant.WAS_DELIVERED_VIEW,
-                          arguments: ScreenArgumentsRestaurantDetail(
-                            orderInfo: widget.orderInfo,
-                          ));
-                    });
-                    sl<UpdateOrderRepository>()
-                        .updateOrderStatus(widget.orderInfo!.id!, 6);
-                    context.read<OrderBarCubit>().stateOfBar(false);
-                  },
-                  direction: DismissDirection.startToEnd,
-                  child: Container(
-                    //curve: Curve,
-                    height: context.dynamicHeight(0.12),
-                    width: context.dynamicWidht(0.9),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.0),
-                      color: AppColors.greenColor,
-                      border: Border.all(
-                        width: 2.0,
+                Visibility(
+                  visible: widget.orderInfo!.status == '1' || widget.orderInfo!.status == '2'|| widget.orderInfo!.status == '9',
+                  child: Dismissible(
+                    key: UniqueKey(),
+                    onDismissed: (value) {
+                      SharedPrefs.setOrderBar(false);
+                
+                      setState(() {
+                        Navigator.pushNamed(
+                            context, RouteConstant.WAS_DELIVERED_VIEW,
+                            arguments: ScreenArgumentsRestaurantDetail(
+                              orderInfo: widget.orderInfo,
+                            ));
+                      });
+                      sl<UpdateOrderRepository>()
+                          .updateOrderStatus(widget.orderInfo!.id!, 6);
+                      context.read<OrderBarCubit>().stateOfBar(false);
+                    },
+                    direction: DismissDirection.startToEnd,
+                    child: Container(
+                      //curve: Curve,
+                      height: context.dynamicHeight(0.12),
+                      width: context.dynamicWidht(0.9),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.0),
                         color: AppColors.greenColor,
+                        border: Border.all(
+                          width: 2.0,
+                          color: AppColors.greenColor,
+                        ),
                       ),
+                      child: TextButton(
+                          onPressed: null,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              LocaleText(
+                                  text: LocaleKeys.swipe_swipeButton,
+                                  style: AppTextStyles.bodyTitleStyle
+                                      .copyWith(color: AppColors.appBarColor)),
+                              SizedBox(
+                                width: context.dynamicWidht(0.02),
+                              ),
+                              SvgPicture.asset(
+                                ImageConstant.RIGHT_ICON,
+                                height: 24,
+                                color: AppColors.appBarColor,
+                              ),
+                              SvgPicture.asset(
+                                ImageConstant.RIGHT_ICON,
+                                height: 24,
+                                color: AppColors.appBarColor,
+                              ),
+                              // Icon(Icons.keyboard_arrow_right),
+                              // Icon(Icons.keyboard_arrow_right),
+                            ],
+                          )),
                     ),
-                    child: TextButton(
-                        onPressed: null,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            LocaleText(
-                                text: LocaleKeys.swipe_swipeButton,
-                                style: AppTextStyles.bodyTitleStyle
-                                    .copyWith(color: AppColors.appBarColor)),
-                            SizedBox(
-                              width: context.dynamicWidht(0.02),
-                            ),
-                            SvgPicture.asset(
-                              ImageConstant.RIGHT_ICON,
-                              height: 24,
-                              color: AppColors.appBarColor,
-                            ),
-                            SvgPicture.asset(
-                              ImageConstant.RIGHT_ICON,
-                              height: 24,
-                              color: AppColors.appBarColor,
-                            ),
-                            // Icon(Icons.keyboard_arrow_right),
-                            // Icon(Icons.keyboard_arrow_right),
-                          ],
-                        )),
                   ),
                 ),
                 Spacer(

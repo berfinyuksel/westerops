@@ -67,4 +67,14 @@ class OrderReceivedCubit extends Cubit<GenericState> {
       emit(GenericError(e.message, e.statusCode));
     }
   }
+
+  Future<void> getOrderById(int id) async {
+    try {
+      emit(GenericLoading());
+      final response = await _orderReceivedRepository.getOrderById(id);
+      emit(GenericCompleted(response));
+    } on NetworkError catch (e) {
+      emit(GenericError(e.message, e.statusCode));
+    }
+  }
 }

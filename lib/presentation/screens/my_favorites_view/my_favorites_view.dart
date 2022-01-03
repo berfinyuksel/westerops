@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+
 import '../../../data/model/search_store.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/favourite_cubit/favourite_cubit.dart';
@@ -71,7 +73,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         List<SearchStore> favourites = [];
         //List<double> distances = [];
@@ -101,7 +103,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       if (stateOfFavorites is GenericInitial) {
         return Container();
       } else if (stateOfFavorites is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (stateOfFavorites is GenericCompleted) {
         List<SearchStore> favouriteRestaurant = [];
         for (var i = 0; i < favourites.length; i++) {
@@ -136,7 +138,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                           GoogleMap(
                             myLocationButtonEnabled: false,
                             initialCameraPosition: CameraPosition(
-                              target: LatLng(latitude, longitude),
+                                  target: LatLng(LocationService.latitude,
+                                  LocationService.latitude),
                               zoom: 17.0,
                             ),
                             onMapCreated: (GoogleMapController controller) {

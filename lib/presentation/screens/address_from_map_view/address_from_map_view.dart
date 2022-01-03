@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-
 import '../../../data/model/place.dart';
 import '../../../data/services/location_service.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
@@ -97,7 +94,8 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
                           });
                         },
                         initialCameraPosition: CameraPosition(
-                          target: LatLng(latitude, longitude),
+                          target: LatLng(LocationService.latitude,
+                              LocationService.latitude),
                           zoom: 17.0,
                         ),
                         onMapCreated: (GoogleMapController controller) {
@@ -251,7 +249,7 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
           });
           context.read<SearchLocationCubit>().getLocations(searchedText);
         },
-             inputFormatters: [
+        inputFormatters: [
           //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
           FilteringTextInputFormatter.singleLineFormatter,
         ],
@@ -320,8 +318,10 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   }
 
   Future<Place> getPlace(String placeId) async {
+    final key = "AIzaSyDlcgkT0cnXnxEg36EVpWzRv2ZZTPiXmzs";
+
     var url =
-        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=AIzaSyDmbISvHTI8ohyLzmek96__1ACHqTNkPLg';
+        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key';
     var response = await http.get(Uri.parse(url));
     var json = convert.jsonDecode(response.body);
     var jsonResult = json['result'] as Map<String, dynamic>;

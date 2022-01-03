@@ -1,7 +1,9 @@
 import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -49,6 +51,12 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
   String mealNames = '';
   TextEditingController textController = TextEditingController();
 
+@override
+  void initState() {
+context.read<OrderReceivedCubit>().getOrderById(widget.orderInfo!.id!);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -58,12 +66,16 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
   }
 
   ListView buildBody(BuildContext context) {
+    if (widget.orderInfo!.review!.isNotEmpty) {
+      editVisibility = true;
+    }
     return ListView(
       children: [
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
         AddressAndDateListTile(
+          orderStatus: int.parse(widget.orderInfo!.status!),
           orderInfo: widget.orderInfo,
           date:
               '${widget.orderInfo!.buyingTime!.format(EuropeanDateFormats.standard)}',
@@ -88,12 +100,12 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        buildStarListTile(
-            context, LocaleKeys.past_order_detail_evaluate_1, "service"),
-        buildStarListTile(
-            context, LocaleKeys.past_order_detail_evaluate_2, "quality"),
-        buildStarListTile(
-            context, LocaleKeys.past_order_detail_evaluate_3, "taste"),
+        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_1,
+            "service", widget.orderInfo),
+        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_2,
+            "quality", widget.orderInfo),
+        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_3,
+            "taste", widget.orderInfo),
         Visibility(
             visible: editVisibility, child: ThanksForEvaluationContainer()),
         Visibility(
@@ -169,186 +181,190 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         SizedBox(
           height: context.dynamicHeight(0.03),
         ),
-        Visibility(
-          child: Padding(
-            padding: EdgeInsets.only(
-                left: context.dynamicWidht(0.06),
-                right: context.dynamicWidht(0.06)),
-            child: Builder(builder: (context) {
-              return CustomButton(
-                  width: double.infinity,
-                  title: LocaleKeys.past_order_detail_cancel_order,
-                  color: Colors.transparent,
-                  borderColor: AppColors.greenColor,
-                  textColor: AppColors.greenColor,
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) => CustomAlertDialogForCancelOrder(
-                          customTextController: textController,
-                          textMessage: LocaleKeys
-                              .past_order_detail_cancel_order_alert_dialog_text,
-                          buttonOneTitle: LocaleKeys.payment_payment_cancel,
-                          buttonTwoTittle: LocaleKeys.address_address_approval,
-                          imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                          onPressedOne: () {
-                            Navigator.of(context).pop();
-                          },
-                          onPressedTwo: () async {
-                            StatusCode statusCode =
-                                await sl<UpdateOrderRepository>().cancelOrder(
-                                    widget.orderInfo!.id!, textController.text);
-                            switch (statusCode) {
-                              case StatusCode.success:
-                                context.read<OrderBarCubit>().stateOfBar(false);
-                                showDialog(
-                                    context: context,
-                                    builder: (_) => AlertDialog(
-                                          contentPadding: EdgeInsets.zero,
-                                          content: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal:
-                                                    context.dynamicWidht(0.04)),
-                                            width: context.dynamicWidht(0.87),
-                                            height: context.dynamicHeight(0.29),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(18.0),
-                                              color: Colors.white,
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Spacer(
-                                                  flex: 8,
-                                                ),
-                                                SvgPicture.asset(
-                                                  ImageConstant.SURPRISE_PACK,
-                                                  height: context
-                                                      .dynamicHeight(0.134),
-                                                ),
-                                                SizedBox(height: 10),
-                                                LocaleText(
-                                                  text: LocaleKeys
-                                                      .past_order_detail_cancelled_order_successfully,
-                                                  style: AppTextStyles
-                                                      .bodyBoldTextStyle,
-                                                  alignment: TextAlign.center,
-                                                ),
-                                                Spacer(
-                                                  flex: 35,
-                                                ),
-                                                CustomButton(
-                                                  onPressed: () {
-                                                    context
-                                                        .read<OrderBarCubit>()
-                                                        .stateOfBar(false);
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  width: context
-                                                      .dynamicWidht(0.35),
-                                                  color: AppColors.greenColor,
-                                                  textColor: Colors.white,
-                                                  borderColor:
-                                                      AppColors.greenColor,
-                                                  title: LocaleKeys
-                                                      .forgot_password_ok,
-                                                ),
-                                                Spacer(
-                                                  flex: 20,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ));
-                                break;
-                              case StatusCode.unauthecticated:
-                                showDialog(
+        Padding(
+          padding: EdgeInsets.only(
+              left: context.dynamicWidht(0.06),
+              right: context.dynamicWidht(0.06)),
+          child: Builder(builder: (context) {
+            return CustomButton(
+                width: double.infinity,
+                title: LocaleKeys.past_order_detail_cancel_order,
+                color: Colors.transparent,
+                borderColor: AppColors.greenColor,
+                textColor: AppColors.greenColor,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => CustomAlertDialogForCancelOrder(
+                        customTextController: textController,
+                        textMessage: LocaleKeys
+                            .past_order_detail_cancel_order_alert_dialog_text,
+                        buttonOneTitle: LocaleKeys.payment_payment_cancel,
+                        buttonTwoTittle: LocaleKeys.address_address_approval,
+                        imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                        onPressedOne: () {
+                          Navigator.of(context).pop();
+                        },
+                        onPressedTwo: () async {
+                          Navigator.of(context).pop();
+                          StatusCode statusCode =
+                              await sl<UpdateOrderRepository>().cancelOrder(
+                                  widget.orderInfo!.id!, textController.text);
+                          switch (statusCode) {
+                            case StatusCode.success:
+                              context.read<OrderBarCubit>().stateOfBar(false);
+                              showDialog(
                                   context: context,
-                                  builder: (_) => CustomAlertDialog(
-                                      textMessage: LocaleKeys
-                                          .past_order_detail_unautherized_move,
-                                      buttonOneTitle:
-                                          LocaleKeys.custom_drawer_login_button,
-                                      buttonTwoTittle: LocaleKeys
-                                          .custom_drawer_register_button,
-                                      imagePath: ImageConstant.SURPRISE_PACK,
-                                      onPressedOne: () {
-                                        Navigator.of(context).pushNamed(
-                                            RouteConstant.LOGIN_VIEW);
-                                      },
-                                      onPressedTwo: () {
-                                        Navigator.of(context).pushNamed(
-                                            RouteConstant.REGISTER_VIEW);
-                                      }),
-                                );
-                                break;
-                              default:
-                                showDialog(
-                                    context: context,
-                                    builder: (_) => AlertDialog(
-                                          contentPadding: EdgeInsets.zero,
-                                          content: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal:
-                                                    context.dynamicWidht(0.04)),
-                                            width: context.dynamicWidht(0.87),
-                                            height: context.dynamicHeight(0.29),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(18.0),
-                                              color: Colors.white,
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Spacer(
-                                                  flex: 8,
-                                                ),
-                                                SvgPicture.asset(
-                                                  ImageConstant
-                                                      .SURPRISE_PACK_ALERT,
-                                                  height: context
-                                                      .dynamicHeight(0.134),
-                                                ),
-                                                SizedBox(height: 10),
-                                                LocaleText(
-                                                  text: LocaleKeys
-                                                      .past_order_detail_cancel_order_error,
-                                                  style: AppTextStyles
-                                                      .bodyBoldTextStyle,
-                                                  alignment: TextAlign.center,
-                                                ),
-                                                Spacer(
-                                                  flex: 35,
-                                                ),
-                                                CustomButton(
-                                                  onPressed: () {
-                                                    context
-                                                        .read<OrderBarCubit>()
-                                                        .stateOfBar(false);
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  width: context
-                                                      .dynamicWidht(0.35),
-                                                  color: AppColors.greenColor,
-                                                  textColor: Colors.white,
-                                                  borderColor:
-                                                      AppColors.greenColor,
-                                                  title: LocaleKeys
-                                                      .forgot_password_ok,
-                                                ),
-                                                Spacer(
-                                                  flex: 20,
-                                                ),
-                                              ],
-                                            ),
+                                  builder: (_) => AlertDialog(
+                                        contentPadding: EdgeInsets.zero,
+                                        content: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  context.dynamicWidht(0.04)),
+                                          width: context.dynamicWidht(0.87),
+                                          height: context.dynamicHeight(0.29),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                            color: Colors.white,
                                           ),
-                                        ));
-                            }
-                          }),
-                    );
-                  });
-            }),
-          ),
+                                          child: Column(
+                                            children: [
+                                              Spacer(
+                                                flex: 8,
+                                              ),
+                                              SvgPicture.asset(
+                                                ImageConstant.SURPRISE_PACK,
+                                                height: context
+                                                    .dynamicHeight(0.134),
+                                              ),
+                                              SizedBox(height: 10),
+                                              LocaleText(
+                                                text: LocaleKeys
+                                                    .past_order_detail_cancelled_order_successfully,
+                                                style: AppTextStyles
+                                                    .bodyBoldTextStyle,
+                                                alignment: TextAlign.center,
+                                              ),
+                                              Spacer(
+                                                flex: 35,
+                                              ),
+                                              CustomButton(
+                                                onPressed: () {
+                                                  context
+                                                      .read<OrderBarCubit>()
+                                                      .stateOfBar(false);
+                                                  Navigator.of(context).pop();
+                                                },
+                                                width:
+                                                    context.dynamicWidht(0.35),
+                                                color: AppColors.greenColor,
+                                                textColor: Colors.white,
+                                                borderColor:
+                                                    AppColors.greenColor,
+                                                title: LocaleKeys
+                                                    .forgot_password_ok,
+                                              ),
+                                              Spacer(
+                                                flex: 20,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ));
+                              break;
+                            case StatusCode.unauthecticated:
+                              showDialog(
+                                context: context,
+                                builder: (_) => CustomAlertDialog(
+                                    textMessage: LocaleKeys
+                                        .past_order_detail_unautherized_move,
+                                    buttonOneTitle:
+                                        LocaleKeys.custom_drawer_login_button,
+                                    buttonTwoTittle: LocaleKeys
+                                        .custom_drawer_register_button,
+                                    imagePath: ImageConstant.SURPRISE_PACK,
+                                    onPressedOne: () {
+                                      Navigator.of(context)
+                                          .pushNamed(RouteConstant.LOGIN_VIEW);
+                                      Navigator.of(context).pop();
+                                    },
+                                    onPressedTwo: () {
+                                      Navigator.of(context).pushNamed(
+                                          RouteConstant.REGISTER_VIEW);
+                                      Navigator.of(context).pop();
+                                    }),
+                              );
+                              break;
+                            default:
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                        contentPadding: EdgeInsets.zero,
+                                        content: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  context.dynamicWidht(0.04)),
+                                          width: context.dynamicWidht(0.87),
+                                          height: context.dynamicHeight(0.29),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                            color: Colors.white,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Spacer(
+                                                flex: 8,
+                                              ),
+                                              SvgPicture.asset(
+                                                ImageConstant
+                                                    .SURPRISE_PACK_ALERT,
+                                                height: context
+                                                    .dynamicHeight(0.134),
+                                              ),
+                                              SizedBox(height: 10),
+                                              LocaleText(
+                                                text: LocaleKeys
+                                                    .past_order_detail_cancel_order_error,
+                                                style: AppTextStyles
+                                                    .bodyBoldTextStyle,
+                                                alignment: TextAlign.center,
+                                              ),
+                                              Spacer(
+                                                flex: 35,
+                                              ),
+                                              CustomButton(
+                                                onPressed: () {
+                                                  context
+                                                      .read<OrderBarCubit>()
+                                                      .stateOfBar(false);
+                                                  Navigator.of(context).pop();
+                                                },
+                                                width:
+                                                    context.dynamicWidht(0.35),
+                                                color: AppColors.greenColor,
+                                                textColor: Colors.white,
+                                                borderColor:
+                                                    AppColors.greenColor,
+                                                title: LocaleKeys
+                                                    .forgot_password_ok,
+                                              ),
+                                              Spacer(
+                                                flex: 20,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ));
+                          }
+                        }),
+                  );
+                });
+          }),
+        ),
+        SizedBox(
+          height: context.dynamicHeight(0.03),
         ),
       ],
     );
@@ -374,8 +390,22 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
     );
   }
 
-  ListTile buildStarListTile(
-      BuildContext context, String title, String whichStars) {
+  ListTile buildStarListTile(BuildContext context, String title,
+      String whichStars, OrderReceived? orderInfo) {
+    if (orderInfo!.review!.isNotEmpty) {
+      switch (whichStars) {
+        case 'service':
+          starDegreeService = orderInfo.review!.first.servicePoint!;
+          break;
+        case 'quality':
+          starDegreeQuality = orderInfo.review!.first.qualityPoint!;
+          break;
+        case 'taste':
+          starDegreeQuality = orderInfo.review!.first.qualityPoint!;
+          break;
+        default:
+      }
+    }
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -507,7 +537,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
       } else if (stateOfSearchStore is GenericInitial) {
         return Container();
       } else if (stateOfSearchStore is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else {
         final error = stateOfSearchStore as GenericError;
 

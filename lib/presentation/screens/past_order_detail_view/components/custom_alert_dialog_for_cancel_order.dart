@@ -82,15 +82,16 @@ class _CustomAlertDialogForCancelOrderState
         children: [
           CustomButton(
             onPressed: widget.onPressedOne,
-            width: context.dynamicWidht(0.35),
+            width: context.dynamicWidht(0.33),
             color: Colors.transparent,
             textColor: AppColors.greenColor,
             borderColor: AppColors.greenColor,
             title: widget.buttonOneTitle,
           ),
+          Spacer(),
           CustomButton(
             onPressed: widget.onPressedTwo,
-            width: context.dynamicWidht(0.35),
+            width: context.dynamicWidht(0.33),
             color: AppColors.greenColor,
             textColor: Colors.white,
             borderColor: AppColors.greenColor,
