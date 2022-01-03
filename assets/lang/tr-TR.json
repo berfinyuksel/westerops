@@ -168,7 +168,8 @@
         "new_password_again": "Yeni şifre Tekrar",
         "button": "Kaydet",
         "popup_text_fail": "Hatalı şifre veya şifreler eşleşmedi.",
-        "popup_text_successful": "Şifre başarılı bir şekilde değiştirildi."
+        "popup_text_successful": "Şifre başarılı bir şekilde değiştirildi.",
+        "pop_up_same_password": "Eski şifre ile yeni şifre aynı olamaz. Lütfen farklı bir şifre giriniz."
     },
     "past_order": {
         "title": "Geçmiş Siparişlerim",
@@ -192,7 +193,7 @@
         "payment_1": "Sepet Tutarı",
         "payment_2": "Kurye Ücreti",
         "payment_3": "Poşet Ücreti",
-        "payment_4": "Ödenen Toplam Tutar",
+        "payment_4": "Ödenecek Toplam Tutar",
         "edit": "Düzenle",
         "button_1": "Değerlendirmemi Paylaş",
         "button_2": "Restoranları Keşfet",

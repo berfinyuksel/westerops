@@ -34,7 +34,7 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
     super.initState();
     _controller = TabController(length: 3, vsync: this);
     notificationToken();
-     context.read<NotificationCubit>().getNotification();
+    context.read<NotificationCubit>().getNotification();
   }
 
   @override
@@ -105,7 +105,7 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
   TabBar tabBar(BuildContext context) {
     return TabBar(
         labelPadding:
-            EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
+            EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
         indicator: UnderlineTabIndicator(
             borderSide: BorderSide(width: 3, color: AppColors.orangeColor),
             insets:

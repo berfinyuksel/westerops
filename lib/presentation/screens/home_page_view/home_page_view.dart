@@ -608,43 +608,47 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Container buildSearchBar(BuildContext context) {
-    return Container(
-      width: visible ? context.dynamicWidht(0.72) : context.dynamicWidht(0.68),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.horizontal(
-          right: Radius.circular(25.0),
-          left: Radius.circular(4.0),
+  Expanded buildSearchBar(BuildContext context) {
+    return Expanded(
+      child: Container(
+        width:
+            visible ? context.dynamicWidht(0.72) : context.dynamicWidht(0.68),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.horizontal(
+            right: Radius.circular(25.0),
+            left: Radius.circular(4.0),
+          ),
+          color: Colors.white,
         ),
-        color: Colors.white,
-      ),
-      child: TextFormField(
-        cursorColor: AppColors.cursorColor,
-        style: AppTextStyles.bodyTextStyle,
-        decoration: InputDecoration(
-            suffixIcon: SvgPicture.asset(
-              ImageConstant.COMMONS_SEARCH_ICON,
-            ),
-            border: buildOutlineInputBorder(),
-            focusedBorder: buildOutlineInputBorder(),
-            enabledBorder: buildOutlineInputBorder(),
-            errorBorder: buildOutlineInputBorder(),
-            disabledBorder: buildOutlineInputBorder(),
-            contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.046)),
-            hintText: LocaleKeys.my_near_hint_text.locale),
-        inputFormatters: [
-          //  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
-          FilteringTextInputFormatter.singleLineFormatter,
-        ],
-        onChanged: (value) {
-          context.read<SearchCubit>().getSearches(controller!.text);
-        },
-        onTap: () {
-          setState(() {
-            visible = !visible;
-          });
-        },
-        controller: controller,
+        child: TextFormField(
+          cursorColor: AppColors.cursorColor,
+          style: AppTextStyles.bodyTextStyle,
+          decoration: InputDecoration(
+              suffixIcon: SvgPicture.asset(
+                ImageConstant.COMMONS_SEARCH_ICON,
+              ),
+              border: buildOutlineInputBorder(),
+              focusedBorder: buildOutlineInputBorder(),
+              enabledBorder: buildOutlineInputBorder(),
+              errorBorder: buildOutlineInputBorder(),
+              disabledBorder: buildOutlineInputBorder(),
+              contentPadding:
+                  EdgeInsets.only(left: context.dynamicWidht(0.046)),
+              hintText: LocaleKeys.my_near_hint_text.locale),
+          inputFormatters: [
+            //  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+            FilteringTextInputFormatter.singleLineFormatter,
+          ],
+          onChanged: (value) {
+            context.read<SearchCubit>().getSearches(controller!.text);
+          },
+          onTap: () {
+            setState(() {
+              visible = !visible;
+            });
+          },
+          controller: controller,
+        ),
       ),
     );
   }

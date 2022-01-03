@@ -27,6 +27,8 @@ class LocaleText extends StatelessWidget {
       textAlign: alignment,
       minFontSize: 10,
       overflow: textOverFlow,
+      maxFontSize: 40,
+      textScaleFactor: MediaQuery.textScaleFactorOf(context),
     );
   }
 }

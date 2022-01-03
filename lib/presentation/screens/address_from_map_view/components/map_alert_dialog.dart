@@ -62,7 +62,7 @@ class MapAlertDialog extends StatelessWidget {
           borderColor: AppColors.greenColor,
           title: LocaleKeys.surprise_pack_alert_button1,
           onPressed: () {
-            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+            // Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
             Navigator.of(context).pop();
           },
         ),

@@ -17,6 +17,7 @@ import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../register_view/components/clipped_password_rules.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 class ChangePasswordView extends StatefulWidget {
   @override
   _ChangePasswordViewState createState() => _ChangePasswordViewState();
@@ -55,10 +56,17 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               ),
             ),
             Positioned(
-              top: context.height > 800 ? context.dynamicHeight(0.03) : context.dynamicHeight(0.125),
+              top: context.height > 800
+                  ? context.dynamicHeight(0.03)
+                  : context.dynamicHeight(0.125),
               left: context.dynamicWidht(0.365),
               right: context.dynamicWidht(0.365),
-              child: Visibility(visible: isRulesVisible, child: ClippedPasswordRules( child: PasswordRules(passwordController: passwordController),)),
+              child: Visibility(
+                  visible: isRulesVisible,
+                  child: ClippedPasswordRules(
+                    child:
+                        PasswordRules(passwordController: passwordController),
+                  )),
             ),
           ],
         ),
@@ -74,15 +82,21 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           SizedBox(
             height: context.dynamicHeight(0.01),
           ),
-          buildTextFormFieldPassword(LocaleKeys.change_password_current_password.locale, passwordController),
-          buildTextFormFieldNewPassword(LocaleKeys.change_password_new_password.locale),
-          buildTextFormFieldPassword(LocaleKeys.change_password_new_password_again.locale, newPasswordAgainController)
+          buildTextFormFieldPassword(
+              LocaleKeys.change_password_current_password.locale,
+              passwordController),
+          buildTextFormFieldNewPassword(
+              LocaleKeys.change_password_new_password.locale),
+          buildTextFormFieldPassword(
+              LocaleKeys.change_password_new_password_again.locale,
+              newPasswordAgainController)
         ],
       ),
     );
   }
 
-  TextFormField buildTextFormFieldPassword(String labelText, TextEditingController controller) {
+  TextFormField buildTextFormFieldPassword(
+      String labelText, TextEditingController controller) {
     return TextFormField(
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
       cursorColor: AppColors.cursorColor,
@@ -96,10 +110,14 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         FilteringTextInputFormatter.singleLineFormatter,
       ],
       controller: controller,
-      obscureText: controller == passwordController ? enableObscureOldPass : enableObscureNewAgainPass,
+      obscureText: controller == passwordController
+          ? enableObscureOldPass
+          : enableObscureNewAgainPass,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
-        suffixIconConstraints: BoxConstraints.tightFor(width: context.dynamicWidht(0.12), height: context.dynamicWidht(0.06)),
+        suffixIconConstraints: BoxConstraints.tightFor(
+            width: context.dynamicWidht(0.12),
+            height: context.dynamicWidht(0.06)),
         suffixIcon: Padding(
           padding: EdgeInsets.only(
             right: context.dynamicWidht(0.06),
@@ -162,7 +180,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           isRulesVisible = true;
         });
       },
-          inputFormatters: [
+      inputFormatters: [
         //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         FilteringTextInputFormatter.singleLineFormatter,
       ],
@@ -215,36 +233,67 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
 
   Padding buildButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.only(
+          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
       child: CustomButton(
         width: double.infinity,
         title: LocaleKeys.change_password_button,
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
-        onPressed: (){
+        onPressed: () {
           context.read<UserAuthCubit>().changePassword(
-                passwordController.text,
-                newPasswordController.text
+              passwordController.text, newPasswordController.text);
+          if (passwordController.text.isNotEmpty &&
+              newPasswordAgainController.text.isNotEmpty &&
+              newPasswordController.text.isNotEmpty) {
+            if (passwordController.text == newPasswordAgainController.text ||
+                passwordController.text == newPasswordController.text) {
+              print("BBB");
+              showDialog(
+                context: context,
+                builder: (_) => CustomAlertDialogResetPassword(
+                  description:
+                      LocaleKeys.change_password_pop_up_same_password.locale,
+                  onPressed: () => Navigator.popAndPushNamed(
+                      context, RouteConstant.CHANGE_PASSWORD_VIEW),
+                ),
               );
-                     if (passwordController.text.isNotEmpty && newPasswordAgainController.text.isNotEmpty && newPasswordController.text.isNotEmpty) {
-                    showDialog(
+            } else if (passwordController.text !=
+                    newPasswordAgainController.text &&
+                passwordController.text != newPasswordController.text &&
+                newPasswordController.text == newPasswordAgainController.text) {
+              print("AAA");
+              showDialog(
+                  context: context,
+                  builder: (_) => CustomAlertDialogResetPassword(
+                        description: LocaleKeys
+                            .change_password_popup_text_successful.locale,
+                        onPressed: () => Navigator.popAndPushNamed(
+                            context, RouteConstant.CUSTOM_SCAFFOLD),
+                      ));
+            } else {
+              print("CCC");
+              showDialog(
+                  context: context,
+                  builder: (_) => CustomAlertDialogResetPassword(
+                        description:
+                            LocaleKeys.change_password_popup_text_fail.locale,
+                        onPressed: () => Navigator.popAndPushNamed(
+                            context, RouteConstant.CHANGE_PASSWORD_VIEW),
+                      ));
+            }
+          } else {
+            print("CCC");
+            showDialog(
                 context: context,
                 builder: (_) => CustomAlertDialogResetPassword(
-                      description: LocaleKeys.change_password_popup_text_successful.locale,
-                      onPressed: () => Navigator.popAndPushNamed(
-                          context, RouteConstant.CUSTOM_SCAFFOLD),
-                    ));
-                     }else{
-                         showDialog(
-                context: context,
-                builder: (_) => CustomAlertDialogResetPassword(
-                      description: LocaleKeys
-                          .change_password_popup_text_fail.locale,
+                      description:
+                          LocaleKeys.change_password_popup_text_fail.locale,
                       onPressed: () => Navigator.popAndPushNamed(
                           context, RouteConstant.CHANGE_PASSWORD_VIEW),
                     ));
-                     }
+          }
         },
       ),
     );

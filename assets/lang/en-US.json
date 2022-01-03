@@ -168,7 +168,8 @@
         "new_password_again": "Repeat New Password",
         "button": "Save",
         "popup_text_fail": "Incorrect password or passwords did not match.",
-        "popup_text_successful": "Password changed successfully."
+        "popup_text_successful": "Password changed successfully.",
+        "pop_up_same_password": "The old password and the new password cannot be the same. Please enter a different password"
     },
     "past_order": {
         "title": "My Past Orders",
@@ -192,7 +193,7 @@
         "payment_1": "Cart Total",
         "payment_2": "Courier Fee",
         "payment_3": "Bag Fee",
-        "payment_4": "Total Amount Paid",
+        "payment_4": "Total Amount Payable",
         "edit": "Edit",
         "button_1": "Share My Review",
         "button_2": "Explore Restaurants",

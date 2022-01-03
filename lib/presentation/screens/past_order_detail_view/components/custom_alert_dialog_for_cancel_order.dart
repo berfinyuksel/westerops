@@ -41,7 +41,7 @@ class _CustomAlertDialogForCancelOrderState
       content: Container(
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
         width: context.dynamicWidht(0.87),
-        height: context.dynamicHeight(0.32),
+        height: context.dynamicHeight(0.38),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18.0),
           color: Colors.white,

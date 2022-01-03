@@ -100,14 +100,12 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                     borderColor: AppColors.greenColor,
                     textColor: Colors.white,
                     onPressed: () {
-                      print("BURADA");
                       if (addressNameController.text.isNotEmpty &&
                           descriptionController.text.isNotEmpty &&
                           addressController.text.isNotEmpty &&
                           phoneNumberController.text.isNotEmpty &&
                           tcController.text.isNotEmpty &&
                           descriptionController.text.isNotEmpty) {
-                        print("if içinde");
                         context.read<AddressCubit>().addAddress(
                             addressNameController.text,
                             adressType,
@@ -123,7 +121,6 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                         Navigator.of(context)
                             .pushNamed(RouteConstant.ADDRESS_VIEW);
                       } else {
-                        print("else içinde");
                         showDialog(
                           context: context,
                           builder: (_) => CustomAlertDialogResetPassword(
@@ -228,6 +225,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         ],
         controller: controller,
         decoration: InputDecoration(
+            // isDense: true,
             contentPadding: EdgeInsets.symmetric(
                 horizontal: context.dynamicWidht(0.05), vertical: 0),
             labelText: labelText,
