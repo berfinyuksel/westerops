@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 
 import '../../../../logic/cubits/address_cubit/address_cubit.dart';
@@ -38,6 +39,11 @@ class _AddressTextState extends State<AddressText> {
       } else if (stateOfAddress is GenericLoading) {
         return SizedBox(height: 0, width: 0);
       } else if (stateOfAddress is GenericCompleted) {
+        if (stateOfAddress.response.isNotEmpty) {
+          final idOfAddress = stateOfAddress.response.first.id;
+          SharedPrefs.setActiveAddressId(idOfAddress);
+        }
+
         return stateOfAddress.response.isNotEmpty
             ? Container(
                 child: Text.rich(

@@ -722,6 +722,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         width: context.dynamicWidht(0.26),
                         borderColor: AppColors.greenColor,
                         onPressed: () async {
+                          print(menuItem);
                           await pressedBuyButton(state, index, context,
                               counterState, menuItem, addressState);
                         },
@@ -745,8 +746,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       int counterState,
       int menuItem,
       GenericState addressState) async {
-    StatusCode statusCode =
-        await sl<BasketRepository>().addToBasket("${state.response[index].id}");
+    StatusCode statusCode = await sl<BasketRepository>().addToBasket(
+      "${state.response[index].id}",
+      SharedPrefs.getActiveAddressId,
+      SharedPrefs.getActiveAddressId,
+    );
     if (statusCode == StatusCode.unauthecticated) {
       showDialog(
         context: context,

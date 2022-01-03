@@ -32,7 +32,10 @@ class RouteConstant {
   static const ONBOARDINGS_VIEW = '/onBoardings';
   static const ORDER_DELIVERED_VIEW = '/orderDelivered';
   static const ORDER_RECEIVED_VIEW = '/orderReceived';
-  static const ORDER_RECEIVING_VIEW = '/orderReceiving';
+  static const ORDER_RECEIVING_VIEW_WITH3D = '/orderReceivingWith3D';
+  static const ORDER_RECEIVING_VIEW_WITHOUT3D = '/orderReceivingWithout3D';
+  static const ORDER_RECEIVING_VIEW_REGISTERED_CARD =
+      '/orderReceivingRegisteredCard';
   static const PAST_ORDER_DETAIL_VIEW = '/pastOrderDetail';
   static const PAST_ORDER_VIEW = '/pastOrder';
   static const PAYMENTS_VIEW = '/payments';

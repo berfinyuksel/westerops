@@ -1,8 +1,17 @@
+import 'dart:developer';
+
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_registered_card.dart';
+
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
@@ -53,21 +62,25 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     '  2029',
     '  2030'
   ];
-
   bool checkboxAddCardValue = false;
-
+  bool threeDSecure = false;
   String selectedCashOrCredit = "cash";
   int selectedIndex = 0;
   bool payWithAnotherCard = false;
-
+  String cardTokenGlobal = "";
   TextEditingController cardController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController cardNameController = TextEditingController();
 
   @override
+  void initState() {
+    context.read<IyzicoCardCubit>().getCards();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(SharedPrefs.getDeliveryType);
     return Container(
       height: context.dynamicHeight(0.48),
       child: ListView(
@@ -161,14 +174,36 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         ),
         Visibility(
           visible: !payWithAnotherCard,
-          child: Column(
-            children: [
-              Column(children: buildCards()),
-              SizedBox(
-                height: context.dynamicHeight(0.02),
-              ),
-            ],
-          ),
+          child: Builder(builder: (context) {
+            final GenericState state = context.watch<IyzicoCardCubit>().state;
+
+            if (state is GenericInitial) {
+              return Container();
+            } else if (state is GenericLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is GenericCompleted) {
+              List<IyzcoRegisteredCard> cards = [];
+
+              for (int i = 0; i < state.response.length; i++) {
+                cards.add(state.response[i]);
+              }
+
+              return Column(
+                children: [
+                  cards.first.cardDetails != null
+                      ? buildCards(cards.first.cardDetails)
+                      : buildNoCardWidget(cards.first.errorMessage.toString()),
+                  SizedBox(
+                    height: context.dynamicHeight(0.02),
+                  ),
+                ],
+              );
+            } else {
+              final error = state as GenericError;
+              return Center(
+                  child: Text("${error.message}\n${error.statusCode}"));
+            }
+          }),
         ),
         Visibility(
           visible: payWithAnotherCard,
@@ -179,18 +214,27 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
                 visible: checkboxAddCardValue,
                 child: Column(
                   children: [
-                    buildTextFormField(LocaleKeys.payment_payment_name_card,
-                        cardNameController),
+                    buildTextFormField(
+                      LocaleKeys.payment_payment_name_card.locale,
+                      cardNameController,
+                    ),
                     SizedBox(
                       height: context.dynamicHeight(0.02),
                     ),
                   ],
                 ),
               ),
-              buildRowCheckBox(context),
-              SizedBox(
-                height: context.dynamicHeight(0.02),
+              buildRowCheckBox(
+                  context,
+                  LocaleKeys.payment_payment_add_to_registered_cards,
+                  'register'),
+              SizedBox(height: context.dynamicHeight(0.01)),
+              buildRowCheckBox(
+                context,
+                "3D Secure kullanmak istiyorum",
+                'threeD',
               ),
+              SizedBox(height: context.dynamicHeight(0.02)),
             ],
           ),
         ),
@@ -223,15 +267,17 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  Padding buildRowCheckBox(BuildContext context) {
+  Padding buildRowCheckBox(BuildContext context, String text, String value) {
     return Padding(
       padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
       child: Row(
         children: [
-          buildCheckBox(context),
+          value == 'threeD'
+              ? buildCheckBoxForThreeD(context)
+              : buildCheckBoxForRegister(context),
           SizedBox(width: context.dynamicWidht(0.02)),
           LocaleText(
-            text: LocaleKeys.payment_payment_add_to_registered_cards,
+            text: text,
             style: AppTextStyles.subTitleStyle,
           ),
         ],
@@ -240,15 +286,27 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   }
 
   Column buildPayWithAnotherCard(BuildContext context) {
+    SharedPrefs.setCardHolderName(nameController.text.toString());
+    SharedPrefs.setCardNumber(cardController.text.toString());
+    SharedPrefs.setCardAlias(cardNameController.text.toString());
+    log("BoolForRegisteredCard");
+    log(SharedPrefs.getBoolForRegisteredCard.toString());
+    log("ThreeDBool");
+    log(SharedPrefs.getThreeDBool.toString());
+
     return Column(
       children: [
         buildTextFormField(
-            LocaleKeys.payment_payment_name_on_card.locale, nameController),
+          LocaleKeys.payment_payment_name_on_card.locale,
+          nameController,
+        ),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
         buildTextFormField(
-            LocaleKeys.payment_payment_card_number.locale, cardController),
+          LocaleKeys.payment_payment_card_number.locale,
+          cardController,
+        ),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
@@ -295,6 +353,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         onChanged: (value) {
           setState(() {
             this.monthValue = value;
+            SharedPrefs.setExpireMonth(value.toString().substring(2, 4));
           });
         },
         items: months.map((String item) {
@@ -332,6 +391,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         onChanged: (value) {
           setState(() {
             this.yearValue = value;
+            SharedPrefs.setExpireYear(value.toString().substring(4, 6));
           });
         },
         items: years.map((String item) {
@@ -345,7 +405,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   }
 
   Padding buildTextFormField(
-      String labelText, TextEditingController controller) {
+    String labelText,
+    TextEditingController controller,
+  ) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
       child: Container(
@@ -379,6 +441,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   }
 
   Container buildCvvTextFormField() {
+    SharedPrefs.setCVC(cvvController.text.toString());
+
     return Container(
       height: context.dynamicHeight(0.06),
       width: context.dynamicWidht(0.33),
@@ -420,17 +484,51 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  buildCards() {
-    List<Widget> cards = [];
-    cards.add(buildCardListTile(
-        cards, "İş Bankası Kartım", "492134******3434", cards.length));
-    cards.add(buildCardListTile(
-        cards, "Garanti Bankası Kartım", "492134******3434", cards.length));
-    return cards;
+  buildCards(List<CardDetail>? cards) {
+    SharedPrefs.setBoolForRegisteredCard(true);
+    print(SharedPrefs.getBoolForRegisteredCard);
+    return cards != null
+        ? ListView.builder(
+            shrinkWrap: true,
+            itemCount: cards.length,
+            itemBuilder: (context, index) {
+              return buildCardListTile(
+                cards,
+                cards[index].cardAlias.toString(),
+                "${cards[index].binNumber!.replaceRange(4, 6, "*")}****${cards[index].lastFourDigits!.replaceRange(0, 2, "*")}",
+                index,
+                cards[index].cardToken.toString(),
+              );
+            },
+          )
+        : Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 40,
+                ),
+                SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
+                SizedBox(
+                  height: 20,
+                ),
+                LocaleText(
+                  alignment: TextAlign.center,
+                  text: "Kayıtlı kartınız bulunmamaktadır.",
+                  style: AppTextStyles.myInformationBodyTextStyle,
+                ),
+              ],
+            ),
+          );
   }
 
   ListTile buildCardListTile(
-      List<Widget> cards, String text, String cardNumber, int index) {
+    List<CardDetail> cards,
+    String text,
+    String cardNumber,
+    int index,
+    String cardToken,
+  ) {
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -445,12 +543,15 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         cardNumber,
         style: AppTextStyles.myInformationBodyTextStyle,
       ),
-      trailing: selectedIndex == cards.length
+      trailing: selectedIndex == index
           ? SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_TICK)
           : null,
       onTap: () {
         setState(() {
           selectedIndex = index;
+          cardTokenGlobal = cardToken;
+          SharedPrefs.setBoolForRegisteredCard(true);
+          SharedPrefs.setCardToken(cardToken);
         });
       },
     );
@@ -474,8 +575,10 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           setState(() {
             if (!payWithAnotherCard) {
               payWithAnotherCard = true;
+              SharedPrefs.setBoolForRegisteredCard(false);
             } else {
               payWithAnotherCard = false;
+              SharedPrefs.setBoolForRegisteredCard(true);
             }
           });
         },
@@ -483,7 +586,37 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  Container buildCheckBox(BuildContext context) {
+  Container buildCheckBoxForThreeD(
+    BuildContext context,
+  ) {
+    return Container(
+      height: context.dynamicWidht(0.04),
+      width: context.dynamicWidht(0.04),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4.0),
+        color: Colors.white,
+        border: Border.all(
+          color: Color(0xFFD1D0D0),
+        ),
+      ),
+      child: Theme(
+        data: ThemeData(unselectedWidgetColor: Colors.transparent),
+        child: Checkbox(
+          checkColor: Colors.greenAccent,
+          activeColor: Colors.transparent,
+          value: threeDSecure,
+          onChanged: (value) {
+            setState(() {
+              threeDSecure = value!;
+              SharedPrefs.setThreeDBool(threeDSecure);
+            });
+          },
+        ),
+      ),
+    );
+  }
+
+  Container buildCheckBoxForRegister(BuildContext context) {
     return Container(
       height: context.dynamicWidht(0.04),
       width: context.dynamicWidht(0.04),
@@ -503,6 +636,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           onChanged: (value) {
             setState(() {
               checkboxAddCardValue = value!;
+              SharedPrefs.setCardRegisterBool(checkboxAddCardValue);
             });
           },
         ),
@@ -518,6 +652,28 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       child: LocaleText(
         text: titleLeft,
         style: AppTextStyles.bodyTitleStyle,
+      ),
+    );
+  }
+
+  buildNoCardWidget(String errorMessage) {
+    Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 40,
+          ),
+          SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
+          SizedBox(
+            height: 20,
+          ),
+          LocaleText(
+            alignment: TextAlign.center,
+            text: errorMessage,
+            style: AppTextStyles.myInformationBodyTextStyle,
+          ),
+        ],
       ),
     );
   }

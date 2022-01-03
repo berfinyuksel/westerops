@@ -1,7 +1,13 @@
+import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
+import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -27,20 +33,21 @@ class _MyRegisteredCardsUpdateViewState
   TextEditingController monthController = TextEditingController();
   TextEditingController yearController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
-
+  String yearValueForInput = "";
+  String monthValueForInput = "";
   final monthsList = [
-    LocaleKeys.months_jan.locale,
-    LocaleKeys.months_feb.locale,
-    LocaleKeys.months_mar.locale,
-    LocaleKeys.months_apr.locale,
-    LocaleKeys.months_may.locale,
-    LocaleKeys.months_june.locale,
-    LocaleKeys.months_july.locale,
-    LocaleKeys.months_aug.locale,
-    LocaleKeys.months_sept.locale,
-    LocaleKeys.months_oct.locale,
-    LocaleKeys.months_nov.locale,
-    LocaleKeys.months_dec.locale
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
   ];
 
   final yearsList = [
@@ -80,7 +87,7 @@ class _MyRegisteredCardsUpdateViewState
               bottom: context.dynamicHeight(0.03)),
           child: SingleChildScrollView(
             child: Container(
-              height: context.dynamicHeight(0.75),
+              height: context.dynamicHeight(0.7),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -101,7 +108,7 @@ class _MyRegisteredCardsUpdateViewState
                   Row(
                     children: [
                       Container(
-                        width: context.dynamicWidht(0.25),
+                        width: context.dynamicWidht(0.4),
                         height: context.dynamicHeight(0.06),
                         color: Colors.white,
                         child: DropdownButton<String>(
@@ -122,13 +129,18 @@ class _MyRegisteredCardsUpdateViewState
                             return DropdownMenuItem(
                               child: Text(item),
                               value: item,
+                              onTap: () {
+                                setState(() {
+                                  monthValueForInput = item;
+                                });
+                              },
                             );
                           }).toList(),
                         ),
                       ),
                       Spacer(),
                       Container(
-                        width: context.dynamicWidht(0.23),
+                        width: context.dynamicWidht(0.4),
                         height: context.dynamicHeight(0.06),
                         color: Colors.white,
                         child: DropdownButton<String>(
@@ -149,12 +161,17 @@ class _MyRegisteredCardsUpdateViewState
                             return DropdownMenuItem(
                               child: Text(item),
                               value: item,
+                              onTap: () {
+                                setState(() {
+                                  yearValueForInput = item;
+                                });
+                              },
                             );
                           }).toList(),
                         ),
                       ),
-                      Spacer(),
-                      buildTextFormField("CVV/CVV2", cvvController),
+                      //Spacer(),
+                      // buildTextFormField("CVV/CVV2", cvvController),
                     ],
                   ),
                   Spacer(flex: 3),
@@ -162,7 +179,7 @@ class _MyRegisteredCardsUpdateViewState
                       LocaleKeys.payment_payment_name_card.locale,
                       cardNameController),
                   Spacer(
-                    flex: 33,
+                    flex: 20,
                   ),
                   CustomButton(
                     width: double.infinity,
@@ -170,8 +187,47 @@ class _MyRegisteredCardsUpdateViewState
                     color: AppColors.greenColor,
                     borderColor: AppColors.greenColor,
                     textColor: Colors.white,
-                    onPressed: () {
-                      Navigator.of(context).pop();
+                    onPressed: () async {
+                      StatusCode statusCode = await sl<IyzicoCardRepository>()
+                          .addCard(
+                              cardNameController.text.toString(),
+                              nameController.text.toString(),
+                              cardNumberController.text.toString(),
+                              monthValueForInput.toString(),
+                              buildYearValue().toString());
+                      switch (statusCode) {
+                        case StatusCode.success:
+                          showDialog(
+                              context: context,
+                              builder: (_) => CustomAlertDialogResetPassword(
+                                    description:
+                                        "Kartınız başarıyla kaydedilmiştir.",
+                                    onPressed: () => Navigator.popAndPushNamed(
+                                        context, RouteConstant.CUSTOM_SCAFFOLD),
+                                  ));
+                          break;
+                        case StatusCode.error:
+                          showDialog(
+                              context: context,
+                              builder: (_) => CustomAlertDialogResetPassword(
+                                    description:
+                                        "Bir şeyler ters gitti. Tekrar deneyiniz.",
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ));
+                          break;
+                        case StatusCode.unauthecticated:
+                          showDialog(
+                              context: context,
+                              builder: (_) => CustomAlertDialogResetPassword(
+                                    description:
+                                        "Kartınızı kaydedebilmek için giriş yapmalısınız.",
+                                    onPressed: () => Navigator.popAndPushNamed(
+                                        context, RouteConstant.LOGIN_VIEW),
+                                  ));
+                          break;
+                        default:
+                      }
                     },
                   ),
                 ],
@@ -217,5 +273,14 @@ class _MyRegisteredCardsUpdateViewState
             border: InputBorder.none),
       ),
     );
+  }
+
+  String buildYearValue() {
+    List<String> temporaryList = yearValueForInput.split("").toList();
+    List<String> lastTwoDigits = [];
+    lastTwoDigits.add(temporaryList[temporaryList.length - 2]);
+    lastTwoDigits.add(temporaryList[temporaryList.length - 1]);
+    String lastTwoDigit = lastTwoDigits.join("");
+    return lastTwoDigit;
   }
 }

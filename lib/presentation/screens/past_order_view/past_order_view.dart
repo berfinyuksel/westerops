@@ -1,4 +1,5 @@
 import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,12 +35,13 @@ class _PastOrderViewState extends State<PastOrderView> {
           } else if (state is GenericLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (state is GenericCompleted) {
-            List<OrderReceived> orderInfo = [];
+            List<IyzcoOrderCreate> orderInfo = [];
             for (var i = 0; i < state.response.length; i++) {
               orderInfo.add(state.response[i]);
             }
-            orderInfo.reversed;
+
             print(orderInfo.length);
+            orderInfo.reversed;
             return ListView.builder(
                 itemCount: orderInfo.length,
                 itemBuilder: (BuildContext context, index) {

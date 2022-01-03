@@ -1,8 +1,7 @@
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../data/model/order_received.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -14,7 +13,7 @@ import '../../widgets/text/locale_text.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 
 class WasDeliveredView extends StatefulWidget {
-  final OrderReceived? orderInfo;
+  final IyzcoOrderCreate? orderInfo;
   const WasDeliveredView({Key? key, this.orderInfo}) : super(key: key);
   @override
   _WasDeliveredViewState createState() => _WasDeliveredViewState();

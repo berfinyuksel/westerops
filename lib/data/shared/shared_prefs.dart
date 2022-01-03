@@ -189,6 +189,59 @@ class SharedPrefs {
     _prefs.setBool('updatePermissionForPhone', updatePermissionForPhone);
   }
 
+  static Future<void> setIpV4(String ipv4) async {
+    _prefs.setString('ipv4', ipv4);
+  }
+
+  static Future<void> setBoolForRegisteredCard(
+      bool boolForRegisteredCard) async {
+    _prefs.setBool('boolForRegisteredCard', boolForRegisteredCard);
+  }
+
+  static Future<void> setCardToken(String cardToken) async {
+    _prefs.setString('cardToken', cardToken);
+  }
+
+  static Future<void> setActiveAddressId(int activeAddressId) async {
+    _prefs.setInt('activeAddressId', activeAddressId);
+  }
+
+  static Future<void> setCardRegisterBool(bool cardRegisterBool) async {
+    _prefs.setBool('cardRegisterBool', cardRegisterBool);
+  }
+
+  static Future<void> setThreeDBool(bool threeDBool) async {
+    _prefs.setBool('threeDBool', threeDBool);
+  }
+
+  static Future<void> setCardAlias(String cardAlias) async {
+    _prefs.setString('cardAlias', cardAlias);
+  }
+
+  static Future<void> setCardHolderName(String cardHolderName) async {
+    _prefs.setString('cardHolderName', cardHolderName);
+  }
+
+  static Future<void> setCardNumber(String cardNumber) async {
+    _prefs.setString('cardNumber', cardNumber);
+  }
+
+  static Future<void> setExpireMonth(String expireMonth) async {
+    _prefs.setString('expireMonth', expireMonth);
+  }
+
+  static Future<void> setExpireYear(String expireYear) async {
+    _prefs.setString('expireYear', expireYear);
+  }
+
+  static Future<void> setCVC(String cvc) async {
+    _prefs.setString('cvc', cvc);
+  }
+
+  static Future<void> setConversationId(String conversationId) async {
+    _prefs.setString('conversationId', conversationId);
+  }
+
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
@@ -235,7 +288,6 @@ class SharedPrefs {
   static String get getCountDownString =>
       _prefs.getString('countDownString') ?? "";
   static bool get getOrderBar => _prefs.getBool('orderActive') ?? false;
-
   static bool get getSortByDistance => _prefs.getBool('sortByDistance') ?? true;
   static String get getMyFavorites => _prefs.getString('myFavorites') ?? "";
   static String get getUserRating => _prefs.getString('userRating') ?? "";
@@ -248,4 +300,21 @@ class SharedPrefs {
       _prefs.getBool('updatePermissionForEmail') ?? true;
   static bool get getPermissionForPhone =>
       _prefs.getBool('updatePermissionForPhone') ?? true;
+  static String get getIpV4 => _prefs.getString('ipv4') ?? "";
+  static bool get getBoolForRegisteredCard =>
+      _prefs.getBool('boolForRegisteredCard') ?? false;
+  static String get getCardToken => _prefs.getString('cardToken') ?? "";
+  static int get getActiveAddressId => _prefs.getInt('activeAddressId') ?? 0;
+  static bool get getCardRegisterBool =>
+      _prefs.getBool('cardRegisterBool') ?? false;
+  static bool get getThreeDBool => _prefs.getBool('threeDBool') ?? true;
+  static String get getCardAlias => _prefs.getString('cardAlias') ?? "";
+  static String get getCardHolderName =>
+      _prefs.getString('cardHolderName') ?? "";
+  static String get getCardNumber => _prefs.getString('cardNumber') ?? "";
+  static String get getExpireMonth => _prefs.getString('expireMonth') ?? "";
+  static String get getExpireYear => _prefs.getString('expireYear') ?? "";
+  static String get getCVC => _prefs.getString('cvc') ?? "";
+  static String get getConversationId =>
+      _prefs.getString('conversationId') ?? "";
 }

@@ -1,4 +1,5 @@
 import 'package:date_time_format/date_time_format.dart';
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ import 'components/past_order_detail_total_payment_list_tile.dart';
 import 'components/thanks_for_evaluation_container.dart';
 
 class PastOrderDetailView extends StatefulWidget {
-  final OrderReceived? orderInfo;
+  final IyzcoOrderCreate? orderInfo;
 
   const PastOrderDetailView({Key? key, this.orderInfo}) : super(key: key);
   @override

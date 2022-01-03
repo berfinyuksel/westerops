@@ -1,12 +1,11 @@
 // To parse this JSON data, do
 //
-//     final orderReceived = orderReceivedFromJson(jsonString);
+//     final iyzcoRegisteredCard = iyzcoRegisteredCardFromJson(jsonString);
 
 import 'dart:convert';
 
-class OrderReceived {
-  OrderReceived({
-    this.error,
+class IyzcoOrderCreate {
+  IyzcoOrderCreate({
     this.id,
     this.boxes,
     this.courierTime,
@@ -26,7 +25,7 @@ class OrderReceived {
     this.address,
     this.billingAddress,
   });
-  final String? error;
+
   final int? id;
   final List<Box>? boxes;
   final dynamic courierTime;
@@ -36,7 +35,7 @@ class OrderReceived {
   final String? deliveryType;
   final int? cost;
   final int? refCode;
-  final DateTime? boxesDefinedTime;
+  final dynamic boxesDefinedTime;
   final bool? isVoted;
   final dynamic description;
   final String? paymentStatus;
@@ -46,13 +45,13 @@ class OrderReceived {
   final Address? address;
   final Address? billingAddress;
 
-  factory OrderReceived.fromRawJson(String str) =>
-      OrderReceived.fromJson(json.decode(str));
+  factory IyzcoOrderCreate.fromRawJson(String str) =>
+      IyzcoOrderCreate.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory OrderReceived.fromJson(Map<String, dynamic> json) => OrderReceived(
-        error: json["error"] == null ? null : json["error"],
+  factory IyzcoOrderCreate.fromJson(Map<String, dynamic> json) =>
+      IyzcoOrderCreate(
         id: json["id"] == null ? null : json["id"],
         boxes: json["boxes"] == null
             ? null
@@ -69,9 +68,7 @@ class OrderReceived {
             json["delivery_type"] == null ? null : json["delivery_type"],
         cost: json["cost"] == null ? null : json["cost"],
         refCode: json["ref_code"] == null ? null : json["ref_code"],
-        boxesDefinedTime: json["boxes_defined_time"] == null
-            ? null
-            : DateTime.parse(json["boxes_defined_time"]),
+        boxesDefinedTime: json["boxes_defined_time"],
         isVoted: json["is_voted"] == null ? null : json["is_voted"],
         description: json["description"],
         paymentStatus:
@@ -89,7 +86,6 @@ class OrderReceived {
       );
 
   Map<String, dynamic> toJson() => {
-        "error": error == null ? null : error,
         "id": id == null ? null : id,
         "boxes": boxes == null
             ? null
@@ -103,19 +99,17 @@ class OrderReceived {
         "delivery_type": deliveryType == null ? null : deliveryType,
         "cost": cost == null ? null : cost,
         "ref_code": refCode == null ? null : refCode,
-        "boxes_defined_time": boxesDefinedTime == null
-            ? null
-            : boxesDefinedTime?.toIso8601String(),
+        "boxes_defined_time": boxesDefinedTime,
         "is_voted": isVoted == null ? null : isVoted,
         "description": description,
         "payment_status": paymentStatus == null ? null : paymentStatus,
         "paymentId": paymentId == null ? null : paymentId,
         "payment_transaction_id":
             paymentTransactionId == null ? null : paymentTransactionId,
-        "user": user == null ? null : user!.toJson(),
-        "address": address == null ? null : address!.toJson(),
+        "user": user == null ? null : user?.toJson(),
+        "address": address == null ? null : address?.toJson(),
         "billing_address":
-            billingAddress == null ? null : billingAddress!.toJson(),
+            billingAddress == null ? null : billingAddress?.toJson(),
       };
 }
 
@@ -176,11 +170,11 @@ class Address {
         "name": name == null ? null : name,
         "type": type == null ? null : type,
         "address": address == null ? null : address,
+        "description": description == null ? null : description,
         "country": country == null ? null : country,
         "city": city == null ? null : city,
         "province": province == null ? null : province,
         "phone_number": phoneNumber == null ? null : phoneNumber,
-        "description": description == null ? null : description,
         "tckn_vkn": tcknVkn == null ? null : tcknVkn,
         "latitude": latitude == null ? null : latitude,
         "longitude": longitude == null ? null : longitude,
@@ -211,7 +205,7 @@ class Box {
   final Name? name;
   final Store? store;
   final SaleDay? saleDay;
-  final List<Meal>? meals;
+  final List<dynamic>? meals;
 
   factory Box.fromRawJson(String str) => Box.fromJson(json.decode(str));
 
@@ -232,7 +226,7 @@ class Box {
             : SaleDay.fromJson(json["sale_day"]),
         meals: json["meals"] == null
             ? null
-            : List<Meal>.from(json["meals"].map((x) => Meal.fromJson(x))),
+            : List<dynamic>.from(json["meals"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -245,63 +239,8 @@ class Box {
         "name": name == null ? null : name?.toJson(),
         "store": store == null ? null : store?.toJson(),
         "sale_day": saleDay == null ? null : saleDay?.toJson(),
-        "meals": meals == null
-            ? null
-            : List<dynamic>.from(meals!.map((x) => x.toJson())),
-      };
-}
-
-class Meal {
-  Meal({
-    this.id,
-    this.name,
-    this.description,
-    this.price,
-    this.photo,
-    this.favorite,
-    this.store,
-    this.category,
-    this.tag,
-  });
-
-  final int? id;
-  final String? name;
-  final String? description;
-  final int? price;
-  final String? photo;
-  final bool? favorite;
-  final int? store;
-  final int? category;
-  final List<int>? tag;
-
-  factory Meal.fromRawJson(String str) => Meal.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Meal.fromJson(Map<String, dynamic> json) => Meal(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        description: json["description"] == null ? null : json["description"],
-        price: json["price"] == null ? null : json["price"],
-        photo: json["photo"] == null ? null : json["photo"],
-        favorite: json["favorite"] == null ? null : json["favorite"],
-        store: json["store"] == null ? null : json["store"],
-        category: json["category"] == null ? null : json["category"],
-        tag: json["tag"] == null
-            ? null
-            : List<int>.from(json["tag"].map((x) => x)),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "description": description == null ? null : description,
-        "price": price == null ? null : price,
-        "photo": photo == null ? null : photo,
-        "favorite": favorite == null ? null : favorite,
-        "store": store == null ? null : store,
-        "category": category == null ? null : category,
-        "tag": tag == null ? null : List<dynamic>.from(tag!.map((x) => x)),
+        "meals":
+            meals == null ? null : List<dynamic>.from(meals!.map((x) => x)),
       };
 }
 
@@ -356,9 +295,9 @@ class SaleDay {
   final DateTime? startDate;
   final DateTime? endDate;
   final int? boxCount;
-  final String? detail;
+  final dynamic detail;
   final bool? isActive;
-  final String? boxCreateTaskId;
+  final dynamic boxCreateTaskId;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int? store;
@@ -376,11 +315,9 @@ class SaleDay {
         endDate:
             json["end_date"] == null ? null : DateTime.parse(json["end_date"]),
         boxCount: json["box_count"] == null ? null : json["box_count"],
-        detail: json["detail"] == null ? null : json["detail"],
+        detail: json["detail"],
         isActive: json["is_active"] == null ? null : json["is_active"],
-        boxCreateTaskId: json["box_create_task_id"] == null
-            ? null
-            : json["box_create_task_id"],
+        boxCreateTaskId: json["box_create_task_id"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -396,9 +333,9 @@ class SaleDay {
         "start_date": startDate == null ? null : startDate?.toIso8601String(),
         "end_date": endDate == null ? null : endDate?.toIso8601String(),
         "box_count": boxCount == null ? null : boxCount,
-        "detail": detail == null ? null : detail,
+        "detail": detail,
         "is_active": isActive == null ? null : isActive,
-        "box_create_task_id": boxCreateTaskId == null ? null : boxCreateTaskId,
+        "box_create_task_id": boxCreateTaskId,
         "created_at": createdAt == null ? null : createdAt?.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt?.toIso8601String(),
         "store": store == null ? null : store,

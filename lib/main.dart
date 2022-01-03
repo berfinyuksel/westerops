@@ -1,5 +1,12 @@
 import 'dart:io';
 
+import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
+import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_creat_order_with_3d.dart';
+import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_send_request_repository.dart';
+import 'package:dongu_mobile/data/services/ip_service.dart';
+import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/iyzico_order_create_with_3d_cubit/iyzico_order_create_with_3d_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
@@ -66,42 +73,42 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   await SharedPrefs.initialize();
   await Firebase.initializeApp();
-
+  await IpService().detectIP();
   //fixed late arriving svg with future.wait function
   Future.wait([
     precachePicture(
-      ExactAssetPicture(SvgPicture.svgStringDecoder,
+      ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
           'assets/images/permissions/location_image.svg'),
       null,
     ),
     precachePicture(
-      ExactAssetPicture(SvgPicture.svgStringDecoder,
+      ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
           'assets/images/permissions/notification_image.svg'),
       null,
     ),
     precachePicture(
-      ExactAssetPicture(SvgPicture.svgStringDecoder,
+      ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
           'assets/images/onboardings/onboarding_forth/onboarding_forth_background.svg'),
       null,
     ),
     precachePicture(
-      ExactAssetPicture(SvgPicture.svgStringDecoder,
+      ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
           'assets/images/order_receiving/background.svg'),
       null,
     ),
 
     precachePicture(
-      ExactAssetPicture(SvgPicture.svgStringDecoder,
+      ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
           'assets/images/order_receiving/receiving_dongu_logo.svg'),
       null,
     ),
     precachePicture(
-      ExactAssetPicture(SvgPicture.svgStringDecoder,
+      ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
           'assets/images/order_receiving/receiving_package_icon.svg'),
       null,
     ),
     precachePicture(
-      ExactAssetPicture(SvgPicture.svgStringDecoder,
+      ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
           'assets/images/food_waste/food_waste_symbol.svg'),
       null,
     ),
@@ -126,6 +133,11 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
         BlocProvider<NearMePaddingCubit>(create: (_) => NearMePaddingCubit()),
+        BlocProvider<IyzicoCardCubit>(
+            create: (_) => IyzicoCardCubit(IyzicoCardRepository())),
+        BlocProvider<IyzicoOrderCreateWith3DCubit>(
+            create: (_) => IyzicoOrderCreateWith3DCubit(
+                IyzicoCreateOrderWith3DRepository())),
         BlocProvider<OpportunityPaddingCubit>(
             create: (_) => OpportunityPaddingCubit()),
         BlocProvider<CategoryPaddingCubit>(
@@ -137,6 +149,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<SearchLocationCubit>(
             create: (context) =>
                 SearchLocationCubit(SampleSearchLocationRepository())),
+        BlocProvider<SendRequestCubit>(
+            create: (context) =>
+                SendRequestCubit(SampleSendRequestRepository())),
         BlocProvider<NotificationCubit>(
             create: (context) =>
                 NotificationCubit(SampleNotificationRepository())),
@@ -183,7 +198,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
-       
+
         List<int> sumPrices = [];
         for (var i = 0; i < SharedPrefs.getSumPrice.length; i++) {
           sumPrices.add(int.parse(SharedPrefs.getSumPrice[i]));

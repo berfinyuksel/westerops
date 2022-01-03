@@ -7,7 +7,6 @@ import '../model/box_order.dart';
 import '../shared/shared_prefs.dart';
 
 abstract class OrderRepository {
-  Future<List<String>> addToBasket(String boxId);
   Future<List<BoxOrder>> deleteBasket(String boxId);
 
   Future<List<BoxOrder>> getBasket();
@@ -16,28 +15,6 @@ abstract class OrderRepository {
 
 class SampleOrderRepository implements OrderRepository {
   final url = "${UrlConstant.EN_URL}order/basket/";
-
-  @override
-  Future<List<String>> addToBasket(String boxId) async {
-    String json = '{"box_id":"$boxId"}';
-    print("Hİİ");
-
-    final response = await http.post(
-      Uri.parse("${UrlConstant.EN_URL}order/basket/add_box_to_basket/"),
-      body: json,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'JWT ${SharedPrefs.getToken}'
-      },
-    );
-    print("ADD ORDER status ${response.statusCode}");
-    if (response.statusCode == 200) {
-      List<String> boxes = [];
-      boxes.add("box");
-      return boxes;
-    }
-    throw NetworkError(response.statusCode.toString(), response.body);
-  }
 
   Future<List<BoxOrder>> deleteBasket(String boxId) async {
     String json = '{"box_id":"$boxId" }';

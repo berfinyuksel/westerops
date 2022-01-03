@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/model/search.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
@@ -8,6 +9,7 @@ import 'package:device_info/device_info.dart';
 
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
 
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
@@ -103,6 +105,8 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Builder buildBuilder() {
+    buildSharedPrefNoData();
+
     return Builder(builder: (context) {
       final GenericState state = context.watch<SearchStoreCubit>().state;
 
@@ -390,8 +394,8 @@ class _HomePageViewState extends State<HomePageView> {
       } else if (stateOfOrder is GenericLoading) {
         return Center(child: CircularProgressIndicator());
       } else if (stateOfOrder is GenericCompleted) {
-        List<OrderReceived> orderInfoTotal = [];
-        List<OrderReceived> orderInfo = [];
+        List<IyzcoOrderCreate> orderInfoTotal = [];
+        List<IyzcoOrderCreate> orderInfo = [];
 
         for (var i = 0; i < stateOfOrder.response.length; i++) {
           orderInfoTotal.add(stateOfOrder.response[i]);
@@ -472,6 +476,11 @@ class _HomePageViewState extends State<HomePageView> {
             : SizedBox(height: 0, width: 0);
       } else {
         final error = stateOfOrder as GenericError;
+        if (error.statusCode == "400") {
+          context.read<OrderBarCubit>().stateOfBar(false);
+          SharedPrefs.setOrderBar(false);
+          return SizedBox();
+        }
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
     });
@@ -684,7 +693,7 @@ class _HomePageViewState extends State<HomePageView> {
     return timeNowHourComponentList;
   }
 
-  Widget countdown(List<OrderReceived> orderInfo) {
+  Widget countdown(List<IyzcoOrderCreate> orderInfo) {
     List<int> itemsOfCountDown = buildDurationForCountdown(
         DateTime.now(),
         orderInfo.first.boxes!.isNotEmpty
@@ -799,5 +808,17 @@ class _HomePageViewState extends State<HomePageView> {
           style: AppTextStyles.bodyTitleStyle
               .copyWith(color: AppColors.orangeColor, fontSize: 12),
         ));
+  void buildSharedPrefNoData() {
+    SharedPrefs.setCardRegisterBool(false);
+    SharedPrefs.setThreeDBool(false);
+    SharedPrefs.setCardAlias("");
+    SharedPrefs.setCardHolderName("");
+    SharedPrefs.setCardNumber("");
+    SharedPrefs.setExpireMonth("");
+    SharedPrefs.setExpireYear("");
+    SharedPrefs.setCVC("");
+    SharedPrefs.setConversationId("");
+    SharedPrefs.setBoolForRegisteredCard(false);
+    SharedPrefs.setCardToken("");
   }
 }
