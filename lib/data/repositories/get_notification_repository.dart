@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:dongu_mobile/data/model/notification.dart';
 import 'package:dongu_mobile/data/model/results_notification.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
@@ -9,35 +7,34 @@ import 'package:http/http.dart' as http;
 
 enum StatusCode { success, error }
 
-abstract class NotificationRepository {
-  Future<List<MyNotification>> postNotification(
-      String registrationId, String type);
+abstract class GetNotificationRepository {
+  Future<List<Result>> getNotification();
 }
 
-class SampleNotificationRepository implements NotificationRepository {
+class SampleGetNotificationRepository implements GetNotificationRepository {
   @override
-  Future<List<MyNotification>> postNotification(
-      String registrationId, String type) async {
-    String json = '{"registration_id": "$registrationId", "type": "$type"}';
-    final response = await http.post(
-      Uri.parse("${UrlConstant.EN_URL}devices/"),
-      body: json,
+  Future<List<Result>> getNotification() async {
+    final response = await http.get(
+      Uri.parse("${UrlConstant.EN_URL}notification/"),
       headers: {
         'Authorization': 'JWT ${SharedPrefs.getToken}',
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
     print("Notification StatusCode " + response.statusCode.toString());
-    print("Notification Body " + response.body);
+    print("Notification Body GET " + response.body);
 
-    if (response.statusCode == 201) {
-      List<MyNotification> boxess = [];
+    if (response.statusCode == 200) {
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
 
-      return boxess;
+      List<Result> notificationList = List<Result>.from(
+          jsonBody["results"].map((model) => Result.fromJson(model)));
+      // List<Result> boxes = [];
+
+      return notificationList;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-
 }
 
 class NetworkError implements Exception {

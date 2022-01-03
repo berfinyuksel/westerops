@@ -1,50 +1,88 @@
 // To parse this JSON data, do
 //
-//     final notification = notificationFromJson(jsonString);
+//     final myNotification = myNotificationFromJson(jsonString);
 
 import 'dart:convert';
 
-Notification notificationFromJson(String str) =>
-    Notification.fromJson(json.decode(str));
+MyNotification myNotificationFromJson(String str) =>
+    MyNotification.fromJson(json.decode(str));
 
-String notificationToJson(Notification data) => json.encode(data.toJson());
+String myNotificationToJson(MyNotification data) => json.encode(data.toJson());
 
-class Notification {
-  Notification({
+class MyNotification {
+  MyNotification({
+    this.count,
+    this.next,
+    this.previous,
+    this.results,
+  });
+
+  int? count;
+  dynamic next;
+  dynamic previous;
+  List<Result>? results;
+
+  factory MyNotification.fromJson(Map<String, dynamic> json) => MyNotification(
+        count: json["count"] ?? 0,
+        next: json["next"] ?? '',
+        previous: json["previous"] ?? '',
+        results: 
+            List<Result>.from(json["results"] .map((x) => Result.fromJson(x))).toList() ,
+      );
+
+  Map<String, dynamic> toJson() => {
+        "count": count,
+        "next": next,
+        "previous": previous,
+        "results": List<dynamic>.from(results!.map((x) => x.toJson())),
+      };
+}
+
+class Result {
+  Result({
     this.id,
-    this.name,
-    this.registrationId,
-    this.deviceId,
-    this.active,
-    this.dateCreated,
     this.type,
+    this.notifiedBy,
+    this.isRead,
+    this.message,
+    this.description,
+    this.date,
+    this.time,
+    this.timeDifference,
   });
 
   int? id;
-  dynamic name;
-  String? registrationId;
-  dynamic deviceId;
-  bool? active;
-  DateTime? dateCreated;
-  String? type;
+  int? type;
+  String? notifiedBy;
+  bool? isRead;
+  String? message;
+  String? description;
+  DateTime? date;
+  String? time;
+  String? timeDifference;
 
-  factory Notification.fromJson(Map<String, dynamic> json) => Notification(
-        id: json["id"],
-        name: json["name"],
-        registrationId: json["registration_id"],
-        deviceId: json["device_id"],
-        active: json["active"],
-        dateCreated: DateTime.parse(json["date_created"]),
-        type: json["type"],
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+        id: json["id"] ?? '',
+        type: json["type"] ?? '',
+        notifiedBy: json["notified_by"] ?? '',
+        isRead: json["is_read"] ?? '',
+        message: json["message"] ?? '',
+        description: json["description"] ?? '',
+        date: DateTime.parse(json["date"] ?? '') ,
+        time: json["time"] ?? '',
+        timeDifference: json["time_difference"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
-        "registration_id": registrationId,
-        "device_id": deviceId,
-        "active": active,
-        "date_created": dateCreated!.toIso8601String(),
         "type": type,
+        "notified_by": notifiedBy,
+        "is_read": isRead,
+        "message": message,
+        "description": description,
+        "date":
+           date== null  ? null : date,
+        "time": time == null ? null : time,
+        "time_difference":  timeDifference == null ? null : timeDifference,
       };
 }
