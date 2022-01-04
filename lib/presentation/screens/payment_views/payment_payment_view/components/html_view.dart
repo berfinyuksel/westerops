@@ -61,19 +61,19 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
             controller!.loadUrl(url);
           }
 
-          return SafeArea(
-            child: Scaffold(
-              appBar: AppBar(
-                leading: IconButton(
-                  icon: SvgPicture.asset(ImageConstant.BACK_ICON),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                backgroundColor: AppColors.appBarColor,
-                title: SvgPicture.asset(
-                  ImageConstant.COMMONS_APP_BAR_LOGO,
-                ),
+          return Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                icon: SvgPicture.asset(ImageConstant.BACK_ICON),
+                onPressed: () => Navigator.of(context).pop(),
               ),
-              body: WebView(
+              backgroundColor: AppColors.appBarColor,
+              title: SvgPicture.asset(
+                ImageConstant.COMMONS_APP_BAR_LOGO,
+              ),
+            ),
+            body: SafeArea(
+              child: WebView(
                 javascriptMode: JavascriptMode.unrestricted,
                 onWebViewCreated: (controller) {
                   this.controller = controller;

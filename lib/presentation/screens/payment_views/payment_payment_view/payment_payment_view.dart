@@ -84,6 +84,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     return Container(
       height: context.dynamicHeight(0.48),
       child: ListView(
+        shrinkWrap: true,
         children: [
           SizedBox(
             height: context.dynamicHeight(0.02),

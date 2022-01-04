@@ -34,7 +34,6 @@ class SampleSendRequestRepository implements SendRequestRepository {
       //print(boxLists[].text_name);
       return orderReceivedList;
     }
-
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 }

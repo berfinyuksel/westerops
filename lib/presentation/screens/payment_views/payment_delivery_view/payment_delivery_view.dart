@@ -66,8 +66,8 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   LocaleText(
-                    text:
-                        '${LocaleKeys.payment_delivery_text.locale} ${DateTime.now().format(EuropeanDateFormats.standard).toString()}',
+                    text: '${LocaleKeys.payment_delivery_text.locale}' +
+                        buildTimeString(DateTime.now().toLocal()),
                     style: AppTextStyles.bodyTitleStyle,
                   ),
                   SizedBox(
@@ -202,7 +202,8 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                             SharedPrefs.setCourierHourId(
                                 list[selectedIndex].id!);
                             SharedPrefs.setDeliveryType(deliveryType);
-                            SharedPrefs.setCourierHourText("${list[index].startDate!.format("H:i")} - ${list[index].endDate!.format("H:i")}");
+                            SharedPrefs.setCourierHourText(
+                                "${list[index].startDate!.format("H:i")} - ${list[index].endDate!.format("H:i")}");
                           }
                         : null,
                   );
@@ -213,6 +214,57 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
               text: LocaleKeys.payment_delivery_courier,
             ),
     );
+  }
+
+  String buildTimeString(DateTime orderTime) {
+    int month = orderTime.month;
+    int day = orderTime.day;
+    int year = orderTime.year;
+    String orderMonth = "";
+    switch (month) {
+      case 1:
+        orderMonth = LocaleKeys.months_jan.locale;
+        break;
+      case 2:
+        orderMonth = LocaleKeys.months_feb.locale;
+        break;
+      case 3:
+        orderMonth = LocaleKeys.months_mar.locale;
+        break;
+      case 4:
+        orderMonth = LocaleKeys.months_apr.locale;
+        break;
+      case 5:
+        orderMonth = LocaleKeys.months_may.locale;
+        break;
+      case 6:
+        orderMonth = LocaleKeys.months_june.locale;
+        break;
+      case 7:
+        orderMonth = LocaleKeys.months_july.locale;
+        break;
+      case 8:
+        orderMonth = LocaleKeys.months_aug.locale;
+        break;
+      case 9:
+        orderMonth = LocaleKeys.months_sept.locale;
+        break;
+      case 10:
+        orderMonth = LocaleKeys.months_oct.locale;
+        break;
+      case 11:
+        orderMonth = LocaleKeys.months_nov.locale;
+        break;
+      case 12:
+        orderMonth = LocaleKeys.months_dec.locale;
+        break;
+      default:
+        break;
+    }
+
+    String orderTimeBuilded = '$day $orderMonth $year';
+
+    return orderTimeBuilded;
   }
 
 /*   buildDeliveryButtons(BuildContext context) {
