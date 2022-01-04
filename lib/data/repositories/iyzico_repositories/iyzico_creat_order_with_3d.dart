@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_create_order_with_3d.dart';
-import 'package:dongu_mobile/data/services/ip_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;

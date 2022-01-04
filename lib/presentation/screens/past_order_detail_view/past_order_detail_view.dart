@@ -140,7 +140,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
             itemCount: widget.orderInfo!.boxes!.length,
             itemBuilder: (BuildContext context, index) {
               List<String> meals = [];
-              if (widget.orderInfo!.boxes![index].meals!.isNotEmpty) {
+
+              if (widget.orderInfo!.boxes!.isNotEmpty &&
+                  widget.orderInfo!.boxes![index].meals!.isNotEmpty) {
                 for (var i = 0;
                     i < widget.orderInfo!.boxes![index].meals!.length;
                     i++) {
@@ -153,7 +155,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                 price:
                     (widget.orderInfo!.cost! / widget.orderInfo!.boxes!.length),
                 withDecimal: false,
-                subTitle: widget.orderInfo!.boxes![index].meals!.isEmpty
+                subTitle: widget.orderInfo!.boxes!.isEmpty ||
+                        widget.orderInfo!.boxes![index].meals!.isEmpty
                     ? ""
                     : mealNames,
               );

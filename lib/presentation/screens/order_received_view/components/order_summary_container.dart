@@ -29,7 +29,7 @@ class OrderSummaryContainer extends StatelessWidget {
           children: [
             Spacer(flex: 5),
             LocaleText(
-              text: buildTimeString(orderInfo!.buyingTime!.toIso8601String()),
+              text: buildTimeString(orderInfo!.buyingTime!.toLocal()),
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             Spacer(flex: 2),
@@ -63,63 +63,56 @@ class OrderSummaryContainer extends StatelessWidget {
     });
   }
 
-  String buildTimeString(String orderTime) {
-    List<String> orderTimeList =
-        DateTime.now().toIso8601String().split("T").toList();
-    List<String> orderTimeCalendarList = orderTimeList[0].split('-').toList();
-    String orderMonth = '';
-    switch (orderTimeCalendarList[1]) {
-      case '1':
+  String buildTimeString(DateTime orderTime) {
+    int month = orderTime.month;
+    int day = orderTime.day;
+    int year = orderTime.year;
+    int hour = orderTime.hour;
+    int minutes = orderTime.minute;
+    String orderMonth = "";
+    switch (month) {
+      case 1:
         orderMonth = LocaleKeys.months_jan.locale;
         break;
-      case '2':
+      case 2:
         orderMonth = LocaleKeys.months_feb.locale;
         break;
-      case '3':
+      case 3:
         orderMonth = LocaleKeys.months_mar.locale;
         break;
-      case '4':
+      case 4:
         orderMonth = LocaleKeys.months_apr.locale;
         break;
-      case '5':
+      case 5:
         orderMonth = LocaleKeys.months_may.locale;
         break;
-      case '6':
+      case 6:
         orderMonth = LocaleKeys.months_june.locale;
         break;
-      case '7':
+      case 7:
         orderMonth = LocaleKeys.months_july.locale;
         break;
-      case '8':
+      case 8:
         orderMonth = LocaleKeys.months_aug.locale;
         break;
-      case '9':
+      case 9:
         orderMonth = LocaleKeys.months_sept.locale;
         break;
-      case '10':
+      case 10:
         orderMonth = LocaleKeys.months_oct.locale;
         break;
-      case '11':
+      case 11:
         orderMonth = LocaleKeys.months_nov.locale;
         break;
-      case '12':
+      case 12:
         orderMonth = LocaleKeys.months_dec.locale;
         break;
       default:
         break;
     }
 
-    List<String> orderTimeHourList = orderTimeList[1].split(".").toList();
-    List<String> orderTimeComponentsList =
-        orderTimeHourList[0].split(":").toList();
-    List<int> orderTimeHourComponentsList = [];
+    String orderTimeBuilded = '$day $orderMonth $year - $hour:$minutes';
 
-    orderTimeComponentsList.forEach((e) {
-      orderTimeHourComponentsList.add(int.parse(e));
-    });
-
-    String orderTimeBuilded =
-        '${orderTimeCalendarList[2]} $orderMonth 20${orderTimeCalendarList[1]} - ${orderTimeComponentsList[0]}:${orderTimeComponentsList[1]}';
     return orderTimeBuilded;
   }
 }

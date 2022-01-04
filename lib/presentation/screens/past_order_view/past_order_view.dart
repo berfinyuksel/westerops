@@ -1,5 +1,6 @@
 import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
+import 'package:dongu_mobile/presentation/screens/past_order_view/components/listview_for_orders.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,37 +41,8 @@ class _PastOrderViewState extends State<PastOrderView> {
             for (var i = 0; i < state.response.length; i++) {
               orderInfo.add(state.response[i]);
             }
-
-            print(orderInfo.length);
-            orderInfo.reversed;
-            return ListView.builder(
-                reverse: true,
-                itemCount: orderInfo.length,
-                itemBuilder: (BuildContext context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
-                              arguments: ScreenArgumentsRestaurantDetail(
-                                orderInfo: orderInfo[index],
-                              ));
-                    },
-                    child: PastOrderListTile(
-                      statusSituationForCancel:
-                          orderInfo[index].status == '5' ||
-                                  orderInfo[index].status == '4' ||
-                                  orderInfo[index].status == '0'
-                              ? true
-                              : false,
-                      title:
-                          "${orderInfo[index].address!.name} - ${orderInfo[index].buyingTime!.format(EuropeanDateFormats.standard)}",
-                      subtitle: orderInfo[index].boxes!.length != 0
-                          ? orderInfo[index].boxes![0].store!.name
-                          : '',
-                      price: "${orderInfo[index].cost}",
-                    ),
-                  );
-                });
+            orderInfo.sort((a, b) => a.buyingTime!.compareTo(b.buyingTime!));
+            return ListViewForOrders(orderInfo: orderInfo);
           } else {
             final error = state as GenericError;
             return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -78,6 +50,8 @@ class _PastOrderViewState extends State<PastOrderView> {
         }));
   }
 }
+
+
 /* ListView(
         padding: EdgeInsets.only(
           top: context.dynamicHeight(0.02),

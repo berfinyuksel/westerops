@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final iyzcoRegisteredCard = iyzcoRegisteredCardFromJson(jsonString);
+//     final iyzcoOrderCreate = iyzcoOrderCreateFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -21,6 +21,7 @@ class IyzcoOrderCreate {
     this.paymentStatus,
     this.paymentId,
     this.paymentTransactionId,
+    this.ip,
     this.user,
     this.address,
     this.billingAddress,
@@ -35,12 +36,13 @@ class IyzcoOrderCreate {
   final String? deliveryType;
   final int? cost;
   final int? refCode;
-  final dynamic boxesDefinedTime;
+  final DateTime? boxesDefinedTime;
   final bool? isVoted;
-  final dynamic description;
+  final dynamic? description;
   final String? paymentStatus;
   final String? paymentId;
   final String? paymentTransactionId;
+  final String? ip;
   final User? user;
   final Address? address;
   final Address? billingAddress;
@@ -68,7 +70,9 @@ class IyzcoOrderCreate {
             json["delivery_type"] == null ? null : json["delivery_type"],
         cost: json["cost"] == null ? null : json["cost"],
         refCode: json["ref_code"] == null ? null : json["ref_code"],
-        boxesDefinedTime: json["boxes_defined_time"],
+        boxesDefinedTime: json["boxes_defined_time"] == null
+            ? null
+            : DateTime.parse(json["boxes_defined_time"]),
         isVoted: json["is_voted"] == null ? null : json["is_voted"],
         description: json["description"],
         paymentStatus:
@@ -77,6 +81,7 @@ class IyzcoOrderCreate {
         paymentTransactionId: json["payment_transaction_id"] == null
             ? null
             : json["payment_transaction_id"],
+        ip: json["ip"] == null ? null : json["ip"],
         user: json["user"] == null ? null : User.fromJson(json["user"]),
         address:
             json["address"] == null ? null : Address.fromJson(json["address"]),
@@ -99,13 +104,16 @@ class IyzcoOrderCreate {
         "delivery_type": deliveryType == null ? null : deliveryType,
         "cost": cost == null ? null : cost,
         "ref_code": refCode == null ? null : refCode,
-        "boxes_defined_time": boxesDefinedTime,
+        "boxes_defined_time": boxesDefinedTime == null
+            ? null
+            : boxesDefinedTime?.toIso8601String(),
         "is_voted": isVoted == null ? null : isVoted,
         "description": description,
         "payment_status": paymentStatus == null ? null : paymentStatus,
         "paymentId": paymentId == null ? null : paymentId,
         "payment_transaction_id":
             paymentTransactionId == null ? null : paymentTransactionId,
+        "ip": ip == null ? null : ip,
         "user": user == null ? null : user?.toJson(),
         "address": address == null ? null : address?.toJson(),
         "billing_address":
@@ -205,7 +213,7 @@ class Box {
   final Name? name;
   final Store? store;
   final SaleDay? saleDay;
-  final List<dynamic>? meals;
+  final List<Meal>? meals;
 
   factory Box.fromRawJson(String str) => Box.fromJson(json.decode(str));
 
@@ -226,7 +234,7 @@ class Box {
             : SaleDay.fromJson(json["sale_day"]),
         meals: json["meals"] == null
             ? null
-            : List<dynamic>.from(json["meals"].map((x) => x)),
+            : List<Meal>.from(json["meals"].map((x) => Meal.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -239,8 +247,63 @@ class Box {
         "name": name == null ? null : name?.toJson(),
         "store": store == null ? null : store?.toJson(),
         "sale_day": saleDay == null ? null : saleDay?.toJson(),
-        "meals":
-            meals == null ? null : List<dynamic>.from(meals!.map((x) => x)),
+        "meals": meals == null
+            ? null
+            : List<dynamic>.from(meals!.map((x) => x.toJson())),
+      };
+}
+
+class Meal {
+  Meal({
+    this.id,
+    this.name,
+    this.description,
+    this.price,
+    this.photo,
+    this.favorite,
+    this.store,
+    this.category,
+    this.tag,
+  });
+
+  final int? id;
+  final String? name;
+  final String? description;
+  final int? price;
+  final String? photo;
+  final bool? favorite;
+  final int? store;
+  final int? category;
+  final List<int>? tag;
+
+  factory Meal.fromRawJson(String str) => Meal.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Meal.fromJson(Map<String, dynamic> json) => Meal(
+        id: json["id"] == null ? null : json["id"],
+        name: json["name"] == null ? null : json["name"],
+        description: json["description"] == null ? null : json["description"],
+        price: json["price"] == null ? null : json["price"],
+        photo: json["photo"] == null ? null : json["photo"],
+        favorite: json["favorite"] == null ? null : json["favorite"],
+        store: json["store"] == null ? null : json["store"],
+        category: json["category"] == null ? null : json["category"],
+        tag: json["tag"] == null
+            ? null
+            : List<int>.from(json["tag"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
+        "name": name == null ? null : name,
+        "description": description == null ? null : description,
+        "price": price == null ? null : price,
+        "photo": photo == null ? null : photo,
+        "favorite": favorite == null ? null : favorite,
+        "store": store == null ? null : store,
+        "category": category == null ? null : category,
+        "tag": tag == null ? null : List<dynamic>.from(tag!.map((x) => x)),
       };
 }
 
