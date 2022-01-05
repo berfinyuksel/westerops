@@ -190,7 +190,7 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
       children: [
         PacketNumber(
           text: packetNumber,
-          width: context.dynamicWidht(0.165),
+          width: context.dynamicWidht(0.185),
           height: context.dynamicHeight(0.035),
         ),
         Spacer(),

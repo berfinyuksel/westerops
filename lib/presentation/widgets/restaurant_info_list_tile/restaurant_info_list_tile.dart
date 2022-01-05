@@ -49,9 +49,9 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
     return Container(
       decoration: BoxDecoration(color: Colors.white, border: widget.border),
       padding: EdgeInsets.fromLTRB(
-        8,
+        12,
         context.dynamicHeight(0.02),
-        2,
+        0,
         context.dynamicHeight(0.02),
       ),
       height: context.dynamicHeight(0.13),
@@ -66,10 +66,15 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
           buildSecondColumn(context, widget.restaurantName!),
           Spacer(flex: 6),
           buildThirdColumn(context, widget.distance!, widget.availableTime!),
-          Spacer(),
-          IconButton(
-              onPressed: widget.onPressed,
-              icon: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON))
+          Spacer(flex: 2),
+          Container(
+            width: 35,
+            height: 35,
+            color: Colors.white,
+            child: IconButton(
+                onPressed: widget.onPressed,
+                icon: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON)),
+          )
         ],
       ),
     );
@@ -85,7 +90,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
         ),
         Spacer(flex: 1),
         AvailableTime(
-          width: context.dynamicWidht(0.23),
+          width: context.dynamicWidht(0.25),
           height: context.dynamicHeight(0.026),
           time: availableTime,
         ),
