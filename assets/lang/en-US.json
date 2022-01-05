@@ -636,7 +636,8 @@
         "tab_bar_title": {
             "title1": "My Orders",
             "title2": "All",
-            "title3": "Special to Me"
+            "title3": "Special to Me",
+            "sign_in_to_monitor": "Please login to view your notifications."
         },
         "delete_text": {
             "text": "Delete"

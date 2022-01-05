@@ -636,7 +636,8 @@
         "tab_bar_title": {
             "title1": "Siparişlerim",
             "title2": "Tümü",
-            "title3": "Bana Özel"
+            "title3": "Bana Özel",
+            "sign_in_to_monitor": "Bildirimlerinizi görüntülemek için giriş yapınız."
         },
         "delete_text": {
             "text": "Sil"
