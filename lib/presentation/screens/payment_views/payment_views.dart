@@ -164,7 +164,7 @@ class _PaymentViewsState extends State<PaymentViews>
         padding: EdgeInsets.only(left: context.dynamicWidht(0.02)),
         alignment: Alignment.center,
         height: context.dynamicHeight(0.052),
-        width: context.dynamicWidht(0.42),
+        width: context.dynamicWidht(0.45),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           color: Colors.white,

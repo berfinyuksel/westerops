@@ -125,10 +125,10 @@ Future<void> main() async {
   runApp(
     EasyLocalization(
       child: MyApp(),
-      /*    child: DevicePreview(
-        builder: (context) => MyApp(),
-        enabled: !kReleaseMode,
-      ), */
+      // child: DevicePreview(
+      //   builder: (context) => MyApp(),
+      //   enabled: !kReleaseMode,
+      // ),
       path: LocaleConstant.LANG_PATH,
       supportedLocales: LocaleConstant.SUPPORTED_LOCALES,
     ),
@@ -249,9 +249,9 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           onGenerateRoute: _appRouter.onGenerateRoute,
-          /*   locale: DevicePreview.locale(context),
-          useInheritedMediaQuery: true,
-          builder: DevicePreview.appBuilder, */
+          // locale: DevicePreview.locale(context),
+          // useInheritedMediaQuery: true,
+          // builder: DevicePreview.appBuilder,
           //home: HomeScreen(),
         );
       }),

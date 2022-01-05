@@ -209,7 +209,7 @@ class _HomePageViewState extends State<HomePageView> {
               child: Row(
                 children: [
                   buildSearchBar(context),
-                  // Spacer(),
+                  SizedBox(width: 16),
                   visible
                       ? GestureDetector(
                           onTap: () {
@@ -633,7 +633,7 @@ class _HomePageViewState extends State<HomePageView> {
               errorBorder: buildOutlineInputBorder(),
               disabledBorder: buildOutlineInputBorder(),
               contentPadding:
-                  EdgeInsets.only(left: context.dynamicWidht(0.046)),
+                  EdgeInsets.only(left: context.dynamicWidht(0.040)),
               hintText: LocaleKeys.my_near_hint_text.locale),
           inputFormatters: [
             //  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),

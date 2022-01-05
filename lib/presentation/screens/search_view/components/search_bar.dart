@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -40,10 +42,10 @@ class CustomSearchBar extends StatelessWidget {
             color: Colors.white,
           ),
           child: TextFormField(
-                 inputFormatters: [
-        FilteringTextInputFormatter.singleLineFormatter,
+            inputFormatters: [
+              FilteringTextInputFormatter.singleLineFormatter,
 
-             // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+              // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
             ],
             controller: controller,
             focusNode: focusNode,
@@ -65,7 +67,7 @@ class CustomSearchBar extends StatelessWidget {
                 disabledBorder: buildOutlineInputBorder(),
                 contentPadding:
                     EdgeInsets.only(left: context.dynamicWidht(0.046)),
-                hintText: "Yemek, restoran ara"),
+                hintText: LocaleKeys.my_near_hint_text.locale),
           ),
         ),
         Spacer(),
