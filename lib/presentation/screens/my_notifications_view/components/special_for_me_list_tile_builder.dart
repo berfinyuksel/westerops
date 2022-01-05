@@ -2,6 +2,7 @@ import 'package:dongu_mobile/data/model/results_notification.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/get_notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +45,7 @@ void initState() {
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
         List<Result> notifications = [];
 
@@ -148,6 +149,26 @@ void initState() {
     List<Widget> icons = [
       SvgPicture.asset(ImageConstant.NOTIFICATIONS_DISCOUNT_50_ICON),
       SvgPicture.asset(ImageConstant.NOTIFICATIONS_DISCOUNT_70_ICON),
+       Padding(
+        padding: EdgeInsets.all(context.dynamicHeight(0.007)),
+        child: SvgPicture.asset(ImageConstant.NOTIFICATIONS_ITSELF_ICON),
+      ),
+       Padding(
+        padding: EdgeInsets.all(context.dynamicHeight(0.007)),
+        child: SvgPicture.asset(ImageConstant.NOTIFICATIONS_ITSELF_ICON),
+      ),
+       Padding(
+        padding: EdgeInsets.all(context.dynamicHeight(0.007)),
+        child: SvgPicture.asset(ImageConstant.NOTIFICATIONS_ITSELF_ICON),
+      ),
+       Padding(
+        padding: EdgeInsets.all(context.dynamicHeight(0.007)),
+        child: SvgPicture.asset(ImageConstant.NOTIFICATIONS_ITSELF_ICON),
+      ),
+       Padding(
+        padding: EdgeInsets.all(context.dynamicHeight(0.007)),
+        child: SvgPicture.asset(ImageConstant.NOTIFICATIONS_ITSELF_ICON),
+      ),
       Padding(
         padding: EdgeInsets.all(context.dynamicHeight(0.007)),
         child: SvgPicture.asset(ImageConstant.NOTIFICATIONS_ITSELF_ICON),
