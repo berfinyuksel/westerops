@@ -488,7 +488,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   buildCards(List<CardDetail>? cards) {
     SharedPrefs.setBoolForRegisteredCard(true);
     print(SharedPrefs.getBoolForRegisteredCard);
-    return cards != null
+    return cards!.isNotEmpty
         ? ListView.builder(
             shrinkWrap: true,
             itemCount: cards.length,
