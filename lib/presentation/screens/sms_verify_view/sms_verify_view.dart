@@ -5,7 +5,6 @@ import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,7 +29,6 @@ class _SmsVerifyState extends State<SmsVerify> {
   String? userPhoneNumber;
   @override
   void initState() {
-    // TODO: implement initState
     print(SharedPrefs.getUserPhone);
     userPhoneNumber = SharedPrefs.getUserPhone;
     print(userPhoneNumber);
@@ -135,14 +133,6 @@ class _SmsVerifyState extends State<SmsVerify> {
   }
 
   Container buildText(BuildContext context) {
-    String phoneNumber = SharedPrefs.getRegisterPhone;
-    List<String> phoneNumberList = phoneNumber.split("").toList();
-    List<String> lastTwoDigitList = [];
-    int phoneLength = phoneNumberList.length;
-    lastTwoDigitList.add(phoneNumberList[phoneLength - 2]);
-    lastTwoDigitList.add(phoneNumberList[phoneLength - 1]);
-    String lastTwoDigits = lastTwoDigitList.join("");
-
     return Container(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: Column(
@@ -156,13 +146,8 @@ class _SmsVerifyState extends State<SmsVerify> {
             ),
           ),
           SizedBox(height: context.dynamicHeight(0.05)),
-          Text.rich(
-            TextSpan(children: [
-              TextSpan(text: "***" + lastTwoDigits),
-              TextSpan(
-                text: LocaleKeys.sms_verify_text_2.locale,
-              ),
-            ]),
+          LocaleText(
+            text: LocaleKeys.sms_verify_text_2,
           ),
         ],
       ),

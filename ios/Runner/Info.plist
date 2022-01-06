@@ -44,11 +44,16 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>https</string>
-	    <string>http</string>
-	    <string>tel</string>
+		<string>http</string>
+		<string>tel</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app needs access to location when in the background.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -72,15 +77,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSAppTransportSecurity</key>  
-    <dict>  
-     	<key>NSAllowsArbitraryLoads</key><true/>  
- 		</dict>
-		<key>LSApplicationQueriesSchemes</key>
-	<array>
-	    <string>https</string>
-        <string>http</string>
-	    <string>tel</string>
-	</array>
 </dict>
 </plist>
