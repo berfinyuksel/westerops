@@ -191,7 +191,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
               return Column(
                 children: [
-                  cards.first.cardDetails != null
+                  cards.first.status == 'success'
                       ? buildCards(cards.first.cardDetails)
                       : buildNoCardWidget(cards.first.errorMessage.toString()),
                   SizedBox(
