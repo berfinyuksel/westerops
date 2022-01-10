@@ -135,7 +135,7 @@ class _SmsVerifyState extends State<SmsVerify> {
   }
 
   Container buildText(BuildContext context) {
-    String phoneNumber = s!;
+    String? phoneNumber = userPhoneNumber!;
     List<String> phoneNumberList = phoneNumber.split("").toList();
     List<String> lastTwoDigitList = [];
     int phoneLength = phoneNumberList.length;

@@ -221,7 +221,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SurprisePackView());
       case RouteConstant.SPLASH_VIEW:
         return MaterialPageRoute(
-            builder: (_) => SharedPrefs.getIsOnboardingShown
+            builder: (_) => SharedPrefs.getIsLogined
                 ? CustomScaffold()
                 : SplashView());
       case RouteConstant.SPLASH_VIEW:
