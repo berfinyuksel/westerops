@@ -106,7 +106,7 @@ class AuthService {
         SharedPrefs.setUserId(jsonBody["user"]['id']);
         //  SharedPrefs.setUserAddress(jsonResults['address']);
         SharedPrefs.setUserBirth(jsonBody["user"]['birthday'] == null
-            ? "dd-mm-yyyy"
+            ? "--/--/----"
             : "${jsonBody['birthday']}");
         SharedPrefs.setUserEmail(jsonBody["user"]["email"]);
         SharedPrefs.setUserName(jsonBody["user"]["first_name"]);
