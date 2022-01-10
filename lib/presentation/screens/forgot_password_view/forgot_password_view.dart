@@ -222,10 +222,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       title: isCodeSent
                           ? LocaleKeys.forgot_password_reset_password
                           : LocaleKeys.forgot_password_send_code,
-                      color: isCodeSent
+                      color: codeController.text.isEmpty && codeController.text.isEmpty &&
+                              passwordController.text.isEmpty
                           ? AppColors.disabledButtonColor
                           : AppColors.greenColor,
-                      borderColor: isCodeSent
+                      borderColor: codeController.text.isEmpty && passwordController.text.isEmpty
                           ? AppColors.disabledButtonColor
                           : AppColors.greenColor,
                       textColor: Colors.white,
