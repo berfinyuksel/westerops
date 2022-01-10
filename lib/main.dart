@@ -179,8 +179,6 @@ class MyApp extends StatelessWidget {
         BlocProvider<TimeIntervalCubit>(
             create: (context) =>
                 TimeIntervalCubit(SampleTimeIntervalRepository())),
-        BlocProvider<AvgReviewCubit>(
-            create: (context) => AvgReviewCubit(AvgReviewRepository())),
         BlocProvider<OrderReceivedCubit>(
             create: (context) =>
                 OrderReceivedCubit(SampleOrderReceivedRepository())),
