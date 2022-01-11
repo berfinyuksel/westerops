@@ -108,13 +108,15 @@ class _MyRegisteredCardsUpdateViewState
                   Row(
                     children: [
                       Container(
-                        width: context.dynamicWidht(0.30),
+                        width: context.dynamicWidht(0.40),
                         height: context.dynamicHeight(0.06),
                         color: Colors.white,
                         child: DropdownButton<String>(
                           underline: SizedBox(),
                           hint: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
+                            padding: EdgeInsets.only(
+                                left: context.dynamicWidht(0.04),
+                                right: context.dynamicWidht(0.14)),
                             child: Text(
                               LocaleKeys.payment_payment_month_text.locale,
                             ),
@@ -140,13 +142,15 @@ class _MyRegisteredCardsUpdateViewState
                       ),
                       Spacer(),
                       Container(
-                        width: context.dynamicWidht(0.26),
+                        width: context.dynamicWidht(0.40),
                         height: context.dynamicHeight(0.06),
                         color: Colors.white,
                         child: DropdownButton<String>(
                           underline: SizedBox(),
                           hint: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
+                            padding: EdgeInsets.only(
+                                left: context.dynamicWidht(0.04),
+                                right: context.dynamicWidht(0.18)),
                             child: Text(
                               LocaleKeys.payment_payment_year_text.locale,
                             ),
@@ -200,8 +204,9 @@ class _MyRegisteredCardsUpdateViewState
                           showDialog(
                               context: context,
                               builder: (_) => CustomAlertDialogResetPassword(
-                                    description:
-                                        "Kartınız başarıyla kaydedilmiştir.",
+                                    description: LocaleKeys
+                                        .registered_cards_save_alert_dialog
+                                        .locale,
                                     onPressed: () => Navigator.popAndPushNamed(
                                         context, RouteConstant.CUSTOM_SCAFFOLD),
                                   ));
@@ -210,8 +215,9 @@ class _MyRegisteredCardsUpdateViewState
                           showDialog(
                               context: context,
                               builder: (_) => CustomAlertDialogResetPassword(
-                                    description:
-                                        "Bir şeyler ters gitti. Tekrar deneyiniz.",
+                                    description: LocaleKeys
+                                        .registered_cards_error_alert_dialog
+                                        .locale,
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                   ));
@@ -220,8 +226,9 @@ class _MyRegisteredCardsUpdateViewState
                           showDialog(
                               context: context,
                               builder: (_) => CustomAlertDialogResetPassword(
-                                    description:
-                                        "Kartınızı kaydedebilmek için giriş yapmalısınız.",
+                                    description: LocaleKeys
+                                        .registered_cards_unauthorized_alert_dialog
+                                        .locale,
                                     onPressed: () => Navigator.popAndPushNamed(
                                         context, RouteConstant.LOGIN_VIEW),
                                   ));

@@ -224,7 +224,10 @@
     "registered_cards": {
         "delete_alert_dialog_text": "Are you sure you want to delete your saved card?",
         "title": "My Registered Cards",
-        "button": "Add New Card"
+        "button": "Add New Card",
+        "save_alert_dialog": "Your card has been successfully registered.",
+        "error_alert_dialog": "Something went wrong. Try again.",
+        "unauthorized_alert_dialog": "You must be logged in to save your card."
     },
     "language_settings": {
         "title": "Language Settings"

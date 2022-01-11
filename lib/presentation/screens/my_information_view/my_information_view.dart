@@ -63,18 +63,40 @@ class _MyInformationViewState extends State<MyInformationView> {
                   color: Colors.white,
                   height: context.dynamicHeight(0.01),
                 ),
-                buildTextFormField(context,
-                    LocaleKeys.inform_list_tile_name.locale, nameController),
-                buildTextFormField(
-                    context,
-                    LocaleKeys.inform_list_tile_surname.locale,
-                    surnameController),
-                buildTextFormFieldBirthDate(context,
-                    LocaleKeys.inform_list_tile_birth.locale, birthController),
-                buildTextFormField(context,
-                    LocaleKeys.inform_list_tile_mail.locale, mailController),
-                buildTextFormField(context,
-                    LocaleKeys.inform_list_tile_phone.locale, phoneController),
+                Container(
+                  height: context.dynamicHeight(0.35),
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      SizedBox(height: context.dynamicHeight(0.01)),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_name.locale,
+                          nameController),
+                      SizedBox(height: context.dynamicHeight(0.01)),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_surname.locale,
+                          surnameController),
+                      SizedBox(height: context.dynamicHeight(0.01)),
+                      buildTextFormFieldBirthDate(
+                          context,
+                          LocaleKeys.inform_list_tile_birth.locale,
+                          birthController),
+                      SizedBox(height: context.dynamicHeight(0.01)),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_mail.locale,
+                          mailController),
+                      SizedBox(height: context.dynamicHeight(0.01)),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_phone.locale,
+                          phoneController),
+                    ],
+                  ),
+                ),
+
                 Spacer(
                   flex: 8,
                 ),
