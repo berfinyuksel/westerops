@@ -226,6 +226,7 @@
         "title": "Kayıtlı Kartlarım",
         "button": "Yeni Kart Ekle",
         "save_alert_dialog": "Kartınız başarıyla kaydedilmiştir.",
+        "delete_alert_dialog": "Kartınız başarıyla silinmiştir.",
         "error_alert_dialog": "Bir şeyler ters gitti. Tekrar deneyiniz.",
         "unauthorized_alert_dialog": "Kartınızı kaydedebilmek için giriş yapmalısınız."
     },

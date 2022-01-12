@@ -162,7 +162,9 @@ class _AddressViewState extends State<AddressView> {
                                   context
                                       .read<AddressCubit>()
                                       .deleteAddress(list[index].id);
-                                  Navigator.of(context).pop();
+                                  Navigator.of(context)
+                                      .pushNamed(RouteConstant.ADDRESS_VIEW);
+                                  // Navigator.of(context).pop();
                                 });
                               }),
                         );

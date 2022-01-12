@@ -56,7 +56,7 @@ class MapAlertDialog extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomButton(
-          width: context.dynamicWidht(0.35),
+          width: context.dynamicWidht(0.33),
           color: Colors.transparent,
           textColor: AppColors.greenColor,
           borderColor: AppColors.greenColor,
@@ -66,8 +66,9 @@ class MapAlertDialog extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
+        SizedBox(width: context.dynamicWidht(0.01)),
         CustomButton(
-          width: context.dynamicWidht(0.35),
+          width: context.dynamicWidht(0.33),
           color: AppColors.greenColor,
           textColor: Colors.white,
           borderColor: AppColors.greenColor,
