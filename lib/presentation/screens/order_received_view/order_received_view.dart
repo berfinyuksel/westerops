@@ -23,7 +23,6 @@ import '../../../data/services/location_service.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/order_bar_cubit/order_bar_cubit.dart';
-import '../../../logic/cubits/order_cubit/order_received_cubit.dart';
 import '../../../logic/cubits/payment_cubit/payment_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
@@ -116,7 +117,7 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
     print("GET Order STATUS ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-      print(jsonBody); //utf8.decode for turkish characters
+      log(jsonBody.toString()); //utf8.decode for turkish characters
       List<IyzcoOrderCreate> orderReceivedList = List<IyzcoOrderCreate>.from(
           jsonBody.map((model) => IyzcoOrderCreate.fromJson(model))).toList();
       //print(boxLists[].text_name);
@@ -134,9 +135,10 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
       },
     );
     print("GET Order By Id STATUS ${response.statusCode}");
+
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-      print(jsonBody); //utf8.decode for turkish characters
+      final jsonBody = jsonDecode(
+          utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
       IyzcoOrderCreate orderReceivedListItem =
           IyzcoOrderCreate.fromJson(jsonBody);
       //print(boxLists[].text_name);

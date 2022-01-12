@@ -30,7 +30,7 @@ class IyzcoOrderCreate {
   final int? id;
   final List<Box>? boxes;
   final dynamic courierTime;
-  final List<dynamic>? review;
+  final List<Review>? review;
   final DateTime? buyingTime;
   final String? status;
   final String? deliveryType;
@@ -61,7 +61,7 @@ class IyzcoOrderCreate {
         courierTime: json["courier_time"],
         review: json["review"] == null
             ? null
-            : List<dynamic>.from(json["review"].map((x) => x)),
+            : List<Review>.from(json["boxes"].map((x) => Review.fromJson(x))),
         buyingTime: json["buying_time"] == null
             ? null
             : DateTime.parse(json["buying_time"]),
@@ -250,6 +250,48 @@ class Box {
         "meals": meals == null
             ? null
             : List<dynamic>.from(meals!.map((x) => x.toJson())),
+      };
+}
+
+class Review {
+  Review({
+    this.id,
+    this.mealPoint,
+    this.servicePoint,
+    this.qualityPoint,
+    this.order,
+    this.user,
+  });
+
+  final int? id;
+  final int? mealPoint;
+  final int? servicePoint;
+  final int? qualityPoint;
+  final int? order;
+  final int? user;
+
+  factory Review.fromRawJson(String str) => Review.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Review.fromJson(Map<String, dynamic> json) => Review(
+        id: json["id"] == null ? null : json["id"],
+        mealPoint: json["meal_point"] == null ? null : json["meal_point"],
+        servicePoint:
+            json["service_point"] == null ? null : json["service_point"],
+        qualityPoint:
+            json["quality_point"] == null ? null : json["quality_point"],
+        order: json["order"] == null ? null : json["order"],
+        user: json["user"] == null ? null : json["user"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
+        "meal_point": mealPoint == null ? null : mealPoint,
+        "service_point": servicePoint == null ? null : servicePoint,
+        "quality_point": qualityPoint == null ? null : qualityPoint,
+        "order": order == null ? null : order,
+        "user": user == null ? null : user,
       };
 }
 

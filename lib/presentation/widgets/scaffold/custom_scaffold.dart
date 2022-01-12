@@ -1,5 +1,4 @@
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
-
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import '../../screens/my_notifications_view/my_notifications_view.dart';
@@ -208,10 +207,12 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 ImageConstant.NAVBAR_NOTIFACATIONS,
               ),
               Builder(builder: (context) {
-                final counterNotificaitonState = context.watch<NotificationsCounterCubit>().state;
+                final counterNotificaitonState =
+                    context.watch<NotificationsCounterCubit>().state;
 
                 return Visibility(
-                  visible: counterNotificaitonState > 0 && SharedPrefs.getIsLogined,
+                  visible:
+                      counterNotificaitonState > 0 && SharedPrefs.getIsLogined,
                   child: Container(
                     height: 14,
                     width: 14,

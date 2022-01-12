@@ -4,6 +4,7 @@ import 'package:dongu_mobile/data/repositories/avg_review_repository.dart'
     as avg;
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
@@ -55,7 +56,12 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
 
   @override
   void initState() {
-    context.read<OrderReceivedCubit>().getOrderById(widget.orderInfo!.id!);
+    context
+        .read<PastOrderDetailCubit>()
+        .getPastOrderById(widget.orderInfo!.id!);
+    if (widget.orderInfo!.review!.isNotEmpty) {
+      editVisibility = true;
+    }
     super.initState();
   }
 
@@ -259,7 +265,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                   context
                                                       .read<OrderBarCubit>()
                                                       .stateOfBar(false);
-                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context)
+                                                      .pushNamed(RouteConstant
+                                                          .CUSTOM_SCAFFOLD);
                                                 },
                                                 width:
                                                     context.dynamicWidht(0.35),
@@ -400,7 +408,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
 
   ListTile buildStarListTile(BuildContext context, String title,
       String whichStars, IyzcoOrderCreate? orderInfo) {
-    if (orderInfo!.review!.isNotEmpty) {
+    if (orderInfo!.review!.isNotEmpty &&
+        orderInfo.review!.first.servicePoint != null) {
       switch (whichStars) {
         case 'service':
           starDegreeService = orderInfo.review!.first.servicePoint!;
@@ -409,7 +418,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
           starDegreeQuality = orderInfo.review!.first.qualityPoint!;
           break;
         case 'taste':
-          starDegreeQuality = orderInfo.review!.first.qualityPoint!;
+          starDegreeQuality = orderInfo.review!.first.mealPoint!;
           break;
         default:
       }
@@ -616,7 +625,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
               widget.orderInfo!.boxes![0].store!.id!,
             );
             switch (statusCodeReview) {
-              case avg.StatusCode.success:
+              case avg.StatusCode.created:
                 setState(() {
                   editVisibility = true;
                 });

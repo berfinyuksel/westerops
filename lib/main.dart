@@ -9,6 +9,7 @@ import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_
 import 'package:device_preview/device_preview.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
@@ -103,7 +104,6 @@ Future<void> main() async {
           'assets/images/order_receiving/background.svg'),
       null,
     ),
-
     precachePicture(
       ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
           'assets/images/order_receiving/receiving_dongu_logo.svg'),
@@ -118,8 +118,7 @@ Future<void> main() async {
       ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
           'assets/images/food_waste/food_waste_symbol.svg'),
       null,
-    ),
-    // other SVGs or images here
+    ), // other SVGs or images here
   ]);
   HttpOverrides.global = new MyHttpOverrides();
   runApp(
@@ -148,6 +147,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<NearMePaddingCubit>(create: (_) => NearMePaddingCubit()),
         BlocProvider<IyzicoCardCubit>(
             create: (_) => IyzicoCardCubit(IyzicoCardRepository())),
+        BlocProvider<PastOrderDetailCubit>(
+            create: (_) =>
+                PastOrderDetailCubit(SampleOrderReceivedRepository())),
         BlocProvider<IyzicoOrderCreateWith3DCubit>(
             create: (_) => IyzicoOrderCreateWith3DCubit(
                 IyzicoCreateOrderWith3DRepository())),
@@ -217,11 +219,9 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
-
         context
             .read<NotificationsCounterCubit>()
             .setCounter(SharedPrefs.getCounter);
-
         List<int> sumPrices = [];
         for (var i = 0; i < SharedPrefs.getSumPrice.length; i++) {
           sumPrices.add(int.parse(SharedPrefs.getSumPrice[i]));
@@ -238,7 +238,6 @@ class MyApp extends StatelessWidget {
               .addFavorite(int.parse(SharedPrefs.getFavorites[i]));
         }
         context.read<OrderBarCubit>().stateOfBar(SharedPrefs.getOrderBar);
-
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Döngü',

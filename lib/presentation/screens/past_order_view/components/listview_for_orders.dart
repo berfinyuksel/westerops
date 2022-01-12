@@ -28,11 +28,12 @@ class ListViewForOrders extends StatelessWidget {
                       ));
             },
             child: PastOrderListTile(
-              statusSituationForCancel: orderInfo[index].status == '5' ||
-                      orderInfoReversed[index].status == '4' ||
-                      orderInfoReversed[index].status == '0'
-                  ? true
-                  : false,
+              statusSituationForCancel:
+                  orderInfoReversed[index].status == '5' ||
+                          orderInfoReversed[index].status == '4' ||
+                          orderInfoReversed[index].status == '0'
+                      ? true
+                      : false,
               title: "${orderInfoReversed[index].address!.name} - " +
                   buildTimeString(orderInfoReversed[index].buyingTime!),
               subtitle: orderInfoReversed[index].boxes!.length != 0
