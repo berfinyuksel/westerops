@@ -59,8 +59,11 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
     context
         .read<PastOrderDetailCubit>()
         .getPastOrderById(widget.orderInfo!.id!);
+
     if (widget.orderInfo!.review!.isNotEmpty) {
       editVisibility = true;
+    } else {
+      editVisibility = false;
     }
     super.initState();
   }
@@ -74,9 +77,13 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
   }
 
   ListView buildBody(BuildContext context) {
-    if (widget.orderInfo!.review!.isNotEmpty) {
-      editVisibility = true;
+    if (widget.orderInfo!.review!.isNotEmpty &&
+        widget.orderInfo!.review!.first.servicePoint != null) {
+      starDegreeService = widget.orderInfo!.review!.first.servicePoint ?? 3;
+      starDegreeQuality = widget.orderInfo!.review!.first.qualityPoint ?? 3;
+      starDegreeTaste = widget.orderInfo!.review!.first.mealPoint ?? 3;
     }
+    print(widget.orderInfo!.refCode);
     return ListView(
       children: [
         SizedBox(
@@ -108,12 +115,12 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_1,
-            "service", widget.orderInfo),
-        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_2,
-            "quality", widget.orderInfo),
-        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_3,
-            "taste", widget.orderInfo),
+        buildStarListTile(
+            context, LocaleKeys.past_order_detail_evaluate_1, "service"),
+        buildStarListTile(
+            context, LocaleKeys.past_order_detail_evaluate_2, "quality"),
+        buildStarListTile(
+            context, LocaleKeys.past_order_detail_evaluate_3, "taste"),
         Visibility(
             visible: editVisibility, child: ThanksForEvaluationContainer()),
         Visibility(
@@ -406,23 +413,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
     );
   }
 
-  ListTile buildStarListTile(BuildContext context, String title,
-      String whichStars, IyzcoOrderCreate? orderInfo) {
-    if (orderInfo!.review!.isNotEmpty &&
-        orderInfo.review!.first.servicePoint != null) {
-      switch (whichStars) {
-        case 'service':
-          starDegreeService = orderInfo.review!.first.servicePoint!;
-          break;
-        case 'quality':
-          starDegreeQuality = orderInfo.review!.first.qualityPoint!;
-          break;
-        case 'taste':
-          starDegreeQuality = orderInfo.review!.first.mealPoint!;
-          break;
-        default:
-      }
-    }
+  ListTile buildStarListTile(
+      BuildContext context, String title, String whichStars) {
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
