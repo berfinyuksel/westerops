@@ -50,14 +50,10 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
           DateTime startOfRes =
               DateTime.parse(widget.restaurant!.calendar![index].startDate!)
                   .toLocal();
-          print(startOfRes);
 
           DateTime endOfRes =
               DateTime.parse(widget.restaurant!.calendar![index].endDate!)
                   .toLocal();
-
-          print(widget.restaurant!.calendar![index].endDate!);
-          print(endOfRes);
 
           return Container(
             padding: EdgeInsets.symmetric(

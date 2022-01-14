@@ -49,6 +49,7 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
               .decode(base64.decode(state.response.first.threeDsHtmlContent));
           log(htmlData);
           String conversationId = state.response.first.conversationId;
+          print("ahmettttt");
           print(conversationId);
           SharedPrefs.setConversationId(conversationId);
 
@@ -62,6 +63,7 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
           }
 
           return Scaffold(
+            resizeToAvoidBottomInset: true,
             appBar: AppBar(
               leading: IconButton(
                 icon: SvgPicture.asset(ImageConstant.BACK_ICON),
@@ -72,24 +74,22 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
                 ImageConstant.COMMONS_APP_BAR_LOGO,
               ),
             ),
-            body: SafeArea(
-              child: WebView(
-                javascriptMode: JavascriptMode.unrestricted,
-                onWebViewCreated: (controller) {
-                  this.controller = controller;
-                  loadLocalHtml();
-                },
-                navigationDelegate: (request) {
-                  if (request.url
-                      .contains('${UrlConstant.EN_URL}iyzico/callback')) {
-                    Navigator.of(context)
-                        .pushNamed(RouteConstant.ORDER_RECEIVING_VIEW_WITH3D);
-                    return NavigationDecision.navigate;
-                  } else {
-                    return NavigationDecision.navigate; // Default decision
-                  }
-                },
-              ),
+            body: WebView(
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (controller) {
+                this.controller = controller;
+                loadLocalHtml();
+              },
+              navigationDelegate: (request) {
+                if (request.url
+                    .contains('${UrlConstant.EN_URL}iyzico/callback')) {
+                  Navigator.of(context)
+                      .pushNamed(RouteConstant.ORDER_RECEIVING_VIEW_WITH3D);
+                  return NavigationDecision.navigate;
+                } else {
+                  return NavigationDecision.navigate; // Default decision
+                }
+              },
             ),
           );
         } else {
@@ -106,17 +106,30 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
       } else {
         final error = state as GenericError;
         final String errorMessage = error.message;
-        final String emptyBasketMessage =
-            "\"Sepetinde Ã¼rÃ¼n bulunmamaktadÄ±r\"";
+
         print(errorMessage);
         return CustomAlertDialogResetPassword(
-          description:
-              "${errorMessage == emptyBasketMessage ? "Sepetinde ürün bulunmamaktadır" : error.message}\n Hata Kodu: ${error.statusCode}",
+          description: buildErrorMessage(errorMessage),
+          /* "${errorMessage == emptyBasketMessage ? "Sepetinde ürün bulunmamaktadır" : error.message}\n Hata Kodu: ${error.statusCode}", */
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
           },
         );
       }
     });
+  }
+
+  buildErrorMessage(String errorMessage) {
+    const String emptyBasketMessage = "\"Sepetinde Ã¼rÃ¼n bulunmamaktadÄ±r\"";
+    const String soldBasketMessage =
+        "\"Sepetindeki bazÄ± Ã¼rÃ¼nler satÄ±ldÄ±, iÅleme devam etmek iÃ§in sepetini boÅaltmalÄ±sÄ±n.Ä°lgili Ã¼rÃ¼nler: Surprise Box\"";
+    switch (errorMessage) {
+      case emptyBasketMessage:
+        return "Sepetinde ürün bulunmamaktadır";
+      case soldBasketMessage:
+        return "Sepetindeki bazı ürünler satıldı, işleme devam etmek için sepetini boşaltmalısın.";
+      default:
+        return errorMessage;
+    }
   }
 }

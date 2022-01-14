@@ -97,6 +97,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         for (var i = 0; i < state.response.length; i++) {
           orderInfo = state.response[i];
         }
+        print("betüüüll");
         print(orderInfo!.refCode!);
         SharedPrefs.setOrderRefCode(orderInfo.refCode!);
 

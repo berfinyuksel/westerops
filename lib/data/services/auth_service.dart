@@ -86,7 +86,7 @@ class AuthService {
           await googleSignIn.currentUser!.authentication;
       // SharedPrefs.setToken(googleSignInAuthentication.idToken!);
       print(googleSignInAuthentication.idToken);
-      print("jsnjdnjdnjsdjdnsjnsj");
+
       log(googleSignInAuthentication.idToken!);
       String json = '{"auth_token":"${googleSignInAuthentication.idToken}"}';
       final response = await http.post(
@@ -95,7 +95,7 @@ class AuthService {
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           });
-      print("asndjasndasdn");
+
       print(response.statusCode);
       if (response.statusCode == 200) {
         final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
@@ -134,10 +134,9 @@ class AuthService {
     String json = '{"auth_token":"$googleSignInAuthentication.idToken"}';
     final response = await http
         .post(Uri.parse("${UrlConstant.EN_URL}social_auth/google"), body: json);
-    print("asndjasndasdn");
+
     print(response.statusCode);
     if (response.statusCode == 200) {
-      print("qweqweqweqeqwe");
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       List<AuthToken> authToken = List<AuthToken>.from(
           jsonBody.map((model) => AuthToken.fromJson(model)));
