@@ -6,6 +6,14 @@ class SendRequestCubit extends Cubit<GenericState> {
   final SendRequestRepository _sendRequestRepository;
   SendRequestCubit(this._sendRequestRepository) : super(GenericInitial());
 
+  Future<void> initialValue() async {
+    try {
+      emit(GenericLoading());
+    } on NetworkError catch (e) {
+      emit(GenericError(e.message, e.statusCode));
+    }
+  }
+
   Future<void> sendRequest({required String conversationId}) async {
     try {
       emit(GenericLoading());

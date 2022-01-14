@@ -678,6 +678,7 @@ class _PaymentViewsState extends State<PaymentViews>
     context.read<OrderBarCubit>().stateOfBar(true);
     SharedPrefs.setOrderBar(true);
     showDialog(
+      useSafeArea: false,
       context: context,
       builder: (_) => WebViewForThreeD(),
     );
