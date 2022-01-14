@@ -310,7 +310,7 @@ class _LoginViewState extends State<LoginView> {
             ),
           );
         } else {
-          return ErrorAlertDialog(onTap: (){});
+          return ErrorAlertDialog(onTap: () {});
         }
       },
     );
@@ -405,15 +405,13 @@ class _LoginViewState extends State<LoginView> {
     String phoneTR = '+90';
     String phoneEN = '+1';
     return TextFormField(
-      // keyboardType: TextInputType.number,
+      keyboardType: controller == phoneController
+          ? TextInputType.number
+          : TextInputType.visiblePassword,
       //  focusNode: FocusScope.of(context).focusedChild!.children.first,
       validator: validator,
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
-      inputFormatters: [
-        //   FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-      ],
       controller: controller,
       obscureText: enableObscure && controller == passwordController,
       decoration: InputDecoration(

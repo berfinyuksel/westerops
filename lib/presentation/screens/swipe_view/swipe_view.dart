@@ -145,49 +145,47 @@ class _SwipeViewState extends State<SwipeView> {
                       context.read<OrderBarCubit>().stateOfBar(false);
                     },
                     direction: DismissDirection.startToEnd,
-                    child: Expanded(
-                      child: Container(
-                        //curve: Curve,
-                        height: context.dynamicHeight(0.08),
-                        width: context.dynamicWidht(0.93),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4.0),
+                    child: Container(
+                      //curve: Curve,
+                      height: context.dynamicHeight(0.08),
+                      width: context.dynamicWidht(0.93),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.0),
+                        color: AppColors.greenColor,
+                        border: Border.all(
+                          width: 2.0,
                           color: AppColors.greenColor,
-                          border: Border.all(
-                            width: 2.0,
-                            color: AppColors.greenColor,
-                          ),
                         ),
-                        child: TextButton(
-                            onPressed: null,
-                            child: Container(
-                              width: context.dynamicWidht(0.9),
-                              height: context.dynamicHeight(0.07),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  LocaleText(
-                                      text: LocaleKeys.swipe_swipeButton,
-                                      style: AppTextStyles.bodyTitleStyle
-                                          .copyWith(
-                                              color: AppColors.appBarColor)),
-                                  SizedBox(width: context.dynamicWidht(0.02)),
-                                  SvgPicture.asset(
-                                    ImageConstant.RIGHT_ICON,
-                                    height: 19,
-                                    color: AppColors.appBarColor,
-                                  ),
-                                  SvgPicture.asset(
-                                    ImageConstant.RIGHT_ICON,
-                                    height: 19,
-                                    color: AppColors.appBarColor,
-                                  ),
-                                  // Icon(Icons.keyboard_arrow_right),
-                                  // Icon(Icons.keyboard_arrow_right),
-                                ],
-                              ),
-                            )),
                       ),
+                      child: TextButton(
+                          onPressed: null,
+                          child: Container(
+                            width: context.dynamicWidht(0.9),
+                            height: context.dynamicHeight(0.07),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                LocaleText(
+                                    text: LocaleKeys.swipe_swipeButton,
+                                    style: AppTextStyles.bodyTitleStyle
+                                        .copyWith(
+                                            color: AppColors.appBarColor)),
+                                SizedBox(width: context.dynamicWidht(0.02)),
+                                SvgPicture.asset(
+                                  ImageConstant.RIGHT_ICON,
+                                  height: 19,
+                                  color: AppColors.appBarColor,
+                                ),
+                                SvgPicture.asset(
+                                  ImageConstant.RIGHT_ICON,
+                                  height: 19,
+                                  color: AppColors.appBarColor,
+                                ),
+                                // Icon(Icons.keyboard_arrow_right),
+                                // Icon(Icons.keyboard_arrow_right),
+                              ],
+                            ),
+                          )),
                     ),
                   ),
                 ),

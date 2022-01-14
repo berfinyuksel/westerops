@@ -219,11 +219,15 @@ class _AddressDetailViewState extends State<AddressDetailView> {
             : null,
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
-        inputFormatters: [
+        /* inputFormatters: [
           controller == phoneNumberController || controller == tcController
               ? FilteringTextInputFormatter.digitsOnly
               : FilteringTextInputFormatter.singleLineFormatter,
-        ],
+        ], */
+        keyboardType:
+            controller == phoneNumberController || controller == tcController
+                ? TextInputType.number
+                : TextInputType.text,
         controller: controller,
         decoration: InputDecoration(
           // isDense: true,
