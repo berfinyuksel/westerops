@@ -177,9 +177,13 @@ class _SwipeViewState extends State<SwipeView> {
                       SizedBox(height: 10),
                       Row(
                         children: [
-                          Text(widget.orderInfo!.boxes!.first.store!.name!),
+                           Text(widget.orderInfo!.boxes!.isEmpty
+                              ? "BOS"
+                              : widget.orderInfo!.boxes!.first.store!.name!),
                           Spacer(),
-                          Text(widget.orderInfo!.boxes!.first.store!.address!),
+                          Text(widget.orderInfo!.boxes!.isEmpty
+                              ? "BOS ADRES"
+                              : widget.orderInfo!.boxes!.first.store!.address!),
                         ],
                       ),
                     ],
