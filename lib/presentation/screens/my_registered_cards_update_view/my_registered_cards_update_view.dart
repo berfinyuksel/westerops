@@ -260,6 +260,7 @@ class _MyRegisteredCardsUpdateViewState
         inputFormatters: [
           //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
           FilteringTextInputFormatter.singleLineFormatter,
+          LengthLimitingTextInputFormatter(16),
         ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,

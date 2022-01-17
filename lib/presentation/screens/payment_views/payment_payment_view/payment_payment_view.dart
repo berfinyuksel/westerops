@@ -417,6 +417,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           inputFormatters: [
             //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
             FilteringTextInputFormatter.singleLineFormatter,
+            LengthLimitingTextInputFormatter(16),
           ],
           cursorColor: AppColors.cursorColor,
           style:
