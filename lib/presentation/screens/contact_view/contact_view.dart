@@ -41,7 +41,7 @@ class ContactView extends StatelessWidget {
           Spacer(),
           Center(child: SvgPicture.asset(ImageConstant.DONGU_LOGO)),
           SizedBox(
-            height: context.dynamicHeight(0.026),
+            height: context.dynamicHeight(0.033),
           ),
           Center(
             child: LocaleText(
