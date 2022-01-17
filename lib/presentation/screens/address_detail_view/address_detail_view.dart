@@ -226,14 +226,30 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         ],
         controller: controller,
         decoration: InputDecoration(
-            // isDense: true,
-            contentPadding: EdgeInsets.symmetric(
-                horizontal: context.dynamicWidht(0.05), vertical: 0),
-            labelText: labelText,
-            labelStyle: AppTextStyles.bodyTextStyle,
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            border: InputBorder.none),
+          // isDense: true,
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: context.dynamicWidht(0.05),
+              vertical: context.dynamicHeight(0.01)),
+          labelText: labelText,
+          labelStyle: AppTextStyles.bodyTextStyle,
+          // enabledBorder: InputBorder.none,
+          // focusedBorder: InputBorder.none,
+          // border: InputBorder.none,
+          enabledBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 1),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 1),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+        ),
       ),
     );
   }

@@ -415,7 +415,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         color: Colors.white,
         child: TextFormField(
           inputFormatters: [
-            //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+            /* controller == cvvController || controller == cardController
+                ? FilteringTextInputFormatter.digitsOnly
+                : FilteringTextInputFormatter.singleLineFormatter, */
             FilteringTextInputFormatter.singleLineFormatter,
           ],
           cursorColor: AppColors.cursorColor,
@@ -457,6 +459,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         style: AppTextStyles.bodyTextStyle,
         controller: cvvController,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(
+              vertical: context.dynamicHeight(0.01),
+              horizontal: context.dynamicWidht(0.03)),
           suffixIcon: Container(
             padding:
                 EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
@@ -464,7 +469,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
               ImageConstant.PAYMENT_CVV_ICON,
             ),
           ),
-          hintText: "CVV/CV2 ",
+          hintText: "CVC/CVC2",
           hintStyle: AppTextStyles.bodyTextStyle,
           enabledBorder: OutlineInputBorder(
             borderSide:

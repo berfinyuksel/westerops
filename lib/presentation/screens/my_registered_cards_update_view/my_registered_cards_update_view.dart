@@ -116,7 +116,7 @@ class _MyRegisteredCardsUpdateViewState
                           hint: Padding(
                             padding: EdgeInsets.only(
                                 left: context.dynamicWidht(0.04),
-                                right: context.dynamicWidht(0.14)),
+                                right: context.dynamicWidht(0.20)),
                             child: Text(
                               LocaleKeys.payment_payment_month_text.locale,
                             ),
@@ -150,7 +150,7 @@ class _MyRegisteredCardsUpdateViewState
                           hint: Padding(
                             padding: EdgeInsets.only(
                                 left: context.dynamicWidht(0.04),
-                                right: context.dynamicWidht(0.18)),
+                                right: context.dynamicWidht(0.20)),
                             child: Text(
                               LocaleKeys.payment_payment_year_text.locale,
                             ),
@@ -175,7 +175,7 @@ class _MyRegisteredCardsUpdateViewState
                         ),
                       ),
                       //Spacer(),
-                      // buildTextFormField("CVV/CVV2", cvvController),
+                      // buildTextFormField("CVC/CVC2", cvvController),
                     ],
                   ),
                   Spacer(flex: 3),
@@ -265,20 +265,36 @@ class _MyRegisteredCardsUpdateViewState
         //         ? context.dynamicHeight(0.11).toInt()
         //         : context.dynamicHeight(0.06).toInt(),
         inputFormatters: [
-          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-          FilteringTextInputFormatter.singleLineFormatter,
+          controller.text == cardNumberController.text
+              ? FilteringTextInputFormatter.digitsOnly
+              : FilteringTextInputFormatter.singleLineFormatter,
         ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
         controller: controller,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(
-                horizontal: context.dynamicWidht(0.03), vertical: 0),
-            labelText: labelText,
-            labelStyle: AppTextStyles.bodyTextStyle,
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            border: InputBorder.none),
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: context.dynamicWidht(0.03), vertical: 0),
+          labelText: labelText,
+          labelStyle: AppTextStyles.bodyTextStyle,
+          // enabledBorder: InputBorder.none,
+          // focusedBorder: InputBorder.none,
+          // border: InputBorder.none,
+          enabledBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+        ),
       ),
     );
   }

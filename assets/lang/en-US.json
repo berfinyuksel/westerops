@@ -226,6 +226,7 @@
         "title": "My Registered Cards",
         "button": "Add New Card",
         "save_alert_dialog": "Your card has been successfully registered.",
+        "delete_alert_dialog": "Your card has been successfully deleted.",
         "error_alert_dialog": "Something went wrong. Try again.",
         "unauthorized_alert_dialog": "You must be logged in to save your card."
     },
