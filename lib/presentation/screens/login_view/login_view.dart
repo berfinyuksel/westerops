@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/register_view/components/error_alert_dialog.dart';
+import 'package:dongu_mobile/presentation/screens/login_view/components/error_dialog_for_login.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,6 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     notificationToken();
   }
@@ -261,6 +260,8 @@ class _LoginViewState extends State<LoginView> {
         } else if (state is GenericLoading) {
           return Container();
         } else if (state is GenericCompleted) {
+          print('ajsndjasndsjandjklasn');
+          print(state.response);
           return AlertDialog(
             contentPadding: EdgeInsets.zero,
             content: Container(
@@ -310,7 +311,7 @@ class _LoginViewState extends State<LoginView> {
             ),
           );
         } else {
-          return ErrorAlertDialog(onTap: (){});
+          return ErrorAlertDialogForLogin();
         }
       },
     );
@@ -405,15 +406,13 @@ class _LoginViewState extends State<LoginView> {
     String phoneTR = '+90';
     String phoneEN = '+1';
     return TextFormField(
-      // keyboardType: TextInputType.number,
+      keyboardType: controller == phoneController
+          ? TextInputType.number
+          : TextInputType.visiblePassword,
       //  focusNode: FocusScope.of(context).focusedChild!.children.first,
       validator: validator,
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
-      inputFormatters: [
-        //   FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-      ],
       controller: controller,
       obscureText: enableObscure && controller == passwordController,
       decoration: InputDecoration(

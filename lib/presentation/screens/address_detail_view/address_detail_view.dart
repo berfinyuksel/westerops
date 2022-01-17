@@ -219,20 +219,41 @@ class _AddressDetailViewState extends State<AddressDetailView> {
             : null,
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
-        inputFormatters: [
-          // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-          FilteringTextInputFormatter.singleLineFormatter,
-        ],
+        /* inputFormatters: [
+          controller == phoneNumberController || controller == tcController
+              ? FilteringTextInputFormatter.digitsOnly
+              : FilteringTextInputFormatter.singleLineFormatter,
+        ], */
+        keyboardType:
+            controller == phoneNumberController || controller == tcController
+                ? TextInputType.number
+                : TextInputType.text,
         controller: controller,
         decoration: InputDecoration(
-            // isDense: true,
-            contentPadding: EdgeInsets.symmetric(
-                horizontal: context.dynamicWidht(0.05), vertical: 0),
-            labelText: labelText,
-            labelStyle: AppTextStyles.bodyTextStyle,
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            border: InputBorder.none),
+          // isDense: true,
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: context.dynamicWidht(0.05),
+              vertical: context.dynamicHeight(0.01)),
+          labelText: labelText,
+          labelStyle: AppTextStyles.bodyTextStyle,
+          // enabledBorder: InputBorder.none,
+          // focusedBorder: InputBorder.none,
+          // border: InputBorder.none,
+          enabledBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 1),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 1),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+        ),
       ),
     );
   }

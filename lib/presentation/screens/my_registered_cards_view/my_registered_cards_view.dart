@@ -4,6 +4,8 @@ import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../utils/constants/image_constant.dart';
@@ -64,7 +66,7 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
         if (state is GenericInitial) {
           return Container();
         } else if (state is GenericLoading) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CustomCircularProgressIndicator());
         } else if (state is GenericCompleted) {
           List<IyzcoRegisteredCard> cards = [];
 
@@ -72,7 +74,7 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
             cards.add(state.response[i]);
           }
 
-          return cards.first.cardDetails != null
+          return cards.first.status == 'success'
               ? buildRegisteredCards(cards.first.cardDetails!)
               : buildNoCardWidget();
         } else {
@@ -139,8 +141,9 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                                   context: context,
                                   builder: (_) =>
                                       CustomAlertDialogResetPassword(
-                                        description:
-                                            "Kartınız başarıyla silinmiştir",
+                                        description: LocaleKeys
+                                            .registered_cards_delete_alert_dialog
+                                            .locale,
                                         onPressed: () =>
                                             Navigator.popAndPushNamed(
                                                 context,
@@ -153,8 +156,9 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                                   context: context,
                                   builder: (_) =>
                                       CustomAlertDialogResetPassword(
-                                        description:
-                                            "Bir şeyler ters gitti. Tekrar deneyiniz.",
+                                        description: LocaleKeys
+                                            .registered_cards_error_alert_dialog
+                                            .locale,
                                         onPressed: () =>
                                             Navigator.of(context).pop(),
                                       ));
@@ -164,8 +168,9 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                                   context: context,
                                   builder: (_) =>
                                       CustomAlertDialogResetPassword(
-                                        description:
-                                            "Kartınızı kaydedebilmek için giriş yapmalısınız.",
+                                        description: LocaleKeys
+                                            .registered_cards_unauthorized_alert_dialog
+                                            .locale,
                                         onPressed: () =>
                                             Navigator.popAndPushNamed(context,
                                                 RouteConstant.LOGIN_VIEW),

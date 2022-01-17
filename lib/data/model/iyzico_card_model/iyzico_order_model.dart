@@ -29,14 +29,14 @@ class IyzcoOrderCreate {
 
   final int? id;
   final List<Box>? boxes;
-  final dynamic courierTime;
-  final List<dynamic>? review;
+  final dynamic? courierTime;
+  final List<Review>? review;
   final DateTime? buyingTime;
   final String? status;
   final String? deliveryType;
   final int? cost;
   final int? refCode;
-  final DateTime? boxesDefinedTime;
+  final dynamic? boxesDefinedTime;
   final bool? isVoted;
   final dynamic? description;
   final String? paymentStatus;
@@ -61,7 +61,7 @@ class IyzcoOrderCreate {
         courierTime: json["courier_time"],
         review: json["review"] == null
             ? null
-            : List<dynamic>.from(json["review"].map((x) => x)),
+            : List<Review>.from(json["review"].map((x) => Review.fromJson(x))),
         buyingTime: json["buying_time"] == null
             ? null
             : DateTime.parse(json["buying_time"]),
@@ -70,9 +70,7 @@ class IyzcoOrderCreate {
             json["delivery_type"] == null ? null : json["delivery_type"],
         cost: json["cost"] == null ? null : json["cost"],
         refCode: json["ref_code"] == null ? null : json["ref_code"],
-        boxesDefinedTime: json["boxes_defined_time"] == null
-            ? null
-            : DateTime.parse(json["boxes_defined_time"]),
+        boxesDefinedTime: json["boxes_defined_time"],
         isVoted: json["is_voted"] == null ? null : json["is_voted"],
         description: json["description"],
         paymentStatus:
@@ -96,17 +94,16 @@ class IyzcoOrderCreate {
             ? null
             : List<dynamic>.from(boxes!.map((x) => x.toJson())),
         "courier_time": courierTime,
-        "review":
-            review == null ? null : List<dynamic>.from(review!.map((x) => x)),
+        "review": review == null
+            ? null
+            : List<dynamic>.from(review!.map((x) => x.toJson())),
         "buying_time":
             buyingTime == null ? null : buyingTime?.toIso8601String(),
         "status": status == null ? null : status,
         "delivery_type": deliveryType == null ? null : deliveryType,
         "cost": cost == null ? null : cost,
         "ref_code": refCode == null ? null : refCode,
-        "boxes_defined_time": boxesDefinedTime == null
-            ? null
-            : boxesDefinedTime?.toIso8601String(),
+        "boxes_defined_time": boxesDefinedTime,
         "is_voted": isVoted == null ? null : isVoted,
         "description": description,
         "payment_status": paymentStatus == null ? null : paymentStatus,
@@ -358,9 +355,9 @@ class SaleDay {
   final DateTime? startDate;
   final DateTime? endDate;
   final int? boxCount;
-  final dynamic detail;
+  final String? detail;
   final bool? isActive;
-  final dynamic boxCreateTaskId;
+  final String? boxCreateTaskId;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int? store;
@@ -378,9 +375,11 @@ class SaleDay {
         endDate:
             json["end_date"] == null ? null : DateTime.parse(json["end_date"]),
         boxCount: json["box_count"] == null ? null : json["box_count"],
-        detail: json["detail"],
+        detail: json["detail"] == null ? null : json["detail"],
         isActive: json["is_active"] == null ? null : json["is_active"],
-        boxCreateTaskId: json["box_create_task_id"],
+        boxCreateTaskId: json["box_create_task_id"] == null
+            ? null
+            : json["box_create_task_id"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -396,9 +395,9 @@ class SaleDay {
         "start_date": startDate == null ? null : startDate?.toIso8601String(),
         "end_date": endDate == null ? null : endDate?.toIso8601String(),
         "box_count": boxCount == null ? null : boxCount,
-        "detail": detail,
+        "detail": detail == null ? null : detail,
         "is_active": isActive == null ? null : isActive,
-        "box_create_task_id": boxCreateTaskId,
+        "box_create_task_id": boxCreateTaskId == null ? null : boxCreateTaskId,
         "created_at": createdAt == null ? null : createdAt?.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt?.toIso8601String(),
         "store": store == null ? null : store,
@@ -519,6 +518,52 @@ class Store {
         "favorited_by": favoritedBy == null
             ? null
             : List<dynamic>.from(favoritedBy!.map((x) => x)),
+      };
+}
+
+class Review {
+  Review({
+    this.id,
+    this.mealPoint,
+    this.servicePoint,
+    this.qualityPoint,
+    this.order,
+    this.user,
+    this.store,
+  });
+
+  final int? id;
+  final int? mealPoint;
+  final int? servicePoint;
+  final int? qualityPoint;
+  final int? order;
+  final int? user;
+  final int? store;
+
+  factory Review.fromRawJson(String str) => Review.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Review.fromJson(Map<String, dynamic> json) => Review(
+        id: json["id"] == null ? null : json["id"],
+        mealPoint: json["meal_point"] == null ? null : json["meal_point"],
+        servicePoint:
+            json["service_point"] == null ? null : json["service_point"],
+        qualityPoint:
+            json["quality_point"] == null ? null : json["quality_point"],
+        order: json["order"] == null ? null : json["order"],
+        user: json["user"] == null ? null : json["user"],
+        store: json["store"] == null ? null : json["store"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
+        "meal_point": mealPoint == null ? null : mealPoint,
+        "service_point": servicePoint == null ? null : servicePoint,
+        "quality_point": qualityPoint == null ? null : qualityPoint,
+        "order": order == null ? null : order,
+        "user": user == null ? null : user,
+        "store": store == null ? null : store,
       };
 }
 

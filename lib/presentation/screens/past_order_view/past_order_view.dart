@@ -1,18 +1,12 @@
-import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_view/components/listview_for_orders.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../data/model/order_received.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
-import '../../../logic/cubits/order_cubit/order_received_cubit.dart';
-import '../../../utils/constants/route_constant.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
-import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
-import 'components/past_order_list_tile.dart';
 
 class PastOrderView extends StatefulWidget {
   @override
@@ -23,7 +17,7 @@ class _PastOrderViewState extends State<PastOrderView> {
   @override
   void initState() {
     super.initState();
-    context.read<OrderReceivedCubit>().getOrder();
+    context.read<PastOrderDetailCubit>().getPastOrder();
   }
 
   @override
@@ -31,7 +25,8 @@ class _PastOrderViewState extends State<PastOrderView> {
     return CustomScaffold(
         title: LocaleKeys.past_order_title,
         body: Builder(builder: (context) {
-          final GenericState state = context.watch<OrderReceivedCubit>().state;
+          final GenericState state =
+              context.watch<PastOrderDetailCubit>().state;
           if (state is GenericInitial) {
             return Container();
           } else if (state is GenericLoading) {
@@ -50,36 +45,3 @@ class _PastOrderViewState extends State<PastOrderView> {
         }));
   }
 }
-
-
-/* ListView(
-        padding: EdgeInsets.only(
-          top: context.dynamicHeight(0.02),
-        ),
-        children: [
-          PastOrderListTile(
-            title: "Ev - 27 Şubat 2021  20:08",
-            subtitle: "Canım Büfe",
-            price: "35",
-            onTap: () {
-              Navigator.pushNamed(context, RouteConstant.PAST_ORDER_DETAIL_VIEW);
-            },
-          ),
-          PastOrderListTile(
-            title: "Ev - 02 Ocak 2021  17:32",
-            subtitle: "Cafe On Numara",
-            price: "15",
-          ),
-          PastOrderListTile(
-            title: "İş Yerim - 03 Aralık 2020  19:08",
-            subtitle: "Babacan Cafe",
-            price: "45",
-          ),
-          PastOrderListTile(
-            title: "Ev - 29 Kasım 2020  13:32",
-            subtitle: "Renkli Cafe",
-            price: "30",
-          ),
-        ],
-      ),
-    */

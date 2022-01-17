@@ -74,6 +74,7 @@ class _HomePageViewState extends State<HomePageView> {
   void initState() {
     super.initState();
     context.read<SearchStoreCubit>().getSearchStore();
+    context.read<SendRequestCubit>().initialValue();
     LocationService.getCurrentLocation();
     getDeviceIdentifier();
   }

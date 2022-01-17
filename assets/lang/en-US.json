@@ -153,7 +153,7 @@
         "edit": "Edit",
         "list_tile_name": "Name",
         "list_tile_surname": "Surname",
-        "list_tile_birth": "Date of birth",
+        "list_tile_birth": "Date of Birth",
         "list_tile_mail": "E-mail",
         "list_tile_phone": "Phone number",
         "list_tile_change_password": "Change Password",
@@ -224,7 +224,11 @@
     "registered_cards": {
         "delete_alert_dialog_text": "Are you sure you want to delete your saved card?",
         "title": "My Registered Cards",
-        "button": "Add New Card"
+        "button": "Add New Card",
+        "save_alert_dialog": "Your card has been successfully registered.",
+        "delete_alert_dialog": "Your card has been successfully deleted.",
+        "error_alert_dialog": "Something went wrong. Try again.",
+        "unauthorized_alert_dialog": "You must be logged in to save your card."
     },
     "language_settings": {
         "title": "Language Settings"

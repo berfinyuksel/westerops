@@ -1,20 +1,23 @@
 import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
+import 'package:dongu_mobile/data/repositories/avg_review_repository.dart'
+    as avg;
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../data/model/order_received.dart';
 import '../../../data/model/search_store.dart';
 import '../../../data/repositories/update_order_repository.dart';
 import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
-import '../../../logic/cubits/avg_review_cubit/avg_review_cubit.dart';
+
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
@@ -53,7 +56,15 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
 
   @override
   void initState() {
-    context.read<OrderReceivedCubit>().getOrderById(widget.orderInfo!.id!);
+    context
+        .read<PastOrderDetailCubit>()
+        .getPastOrderById(widget.orderInfo!.id!);
+
+    if (widget.orderInfo!.review!.isNotEmpty) {
+      editVisibility = true;
+    } else {
+      editVisibility = false;
+    }
     super.initState();
   }
 
@@ -66,9 +77,13 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
   }
 
   ListView buildBody(BuildContext context) {
-    if (widget.orderInfo!.review!.isNotEmpty) {
-      editVisibility = true;
+    if (widget.orderInfo!.review!.isNotEmpty &&
+        widget.orderInfo!.review!.first.servicePoint != null) {
+      starDegreeService = widget.orderInfo!.review!.first.servicePoint ?? 3;
+      starDegreeQuality = widget.orderInfo!.review!.first.qualityPoint ?? 3;
+      starDegreeTaste = widget.orderInfo!.review!.first.mealPoint ?? 3;
     }
+    print(widget.orderInfo!.refCode);
     return ListView(
       children: [
         SizedBox(
@@ -100,12 +115,12 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_1,
-            "service", widget.orderInfo),
-        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_2,
-            "quality", widget.orderInfo),
-        buildStarListTile(context, LocaleKeys.past_order_detail_evaluate_3,
-            "taste", widget.orderInfo),
+        buildStarListTile(
+            context, LocaleKeys.past_order_detail_evaluate_1, "service"),
+        buildStarListTile(
+            context, LocaleKeys.past_order_detail_evaluate_2, "quality"),
+        buildStarListTile(
+            context, LocaleKeys.past_order_detail_evaluate_3, "taste"),
         Visibility(
             visible: editVisibility, child: ThanksForEvaluationContainer()),
         Visibility(
@@ -257,7 +272,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                   context
                                                       .read<OrderBarCubit>()
                                                       .stateOfBar(false);
-                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context)
+                                                      .pushNamed(RouteConstant
+                                                          .CUSTOM_SCAFFOLD);
                                                 },
                                                 width:
                                                     context.dynamicWidht(0.35),
@@ -396,22 +413,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
     );
   }
 
-  ListTile buildStarListTile(BuildContext context, String title,
-      String whichStars, IyzcoOrderCreate? orderInfo) {
-    if (orderInfo!.review!.isNotEmpty) {
-      switch (whichStars) {
-        case 'service':
-          starDegreeService = orderInfo.review!.first.servicePoint!;
-          break;
-        case 'quality':
-          starDegreeQuality = orderInfo.review!.first.qualityPoint!;
-          break;
-        case 'taste':
-          starDegreeQuality = orderInfo.review!.first.qualityPoint!;
-          break;
-        default:
-      }
-    }
+  ListTile buildStarListTile(
+      BuildContext context, String title, String whichStars) {
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
@@ -603,18 +606,40 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
           color: AppColors.greenColor,
           borderColor: AppColors.greenColor,
           textColor: Colors.white,
-          onPressed: () {
-            context.read<AvgReviewCubit>().postReview(
+          onPressed: () async {
+            avg.StatusCode statusCodeReview =
+                await sl<avg.AvgReviewRepository>().postReview(
+              starDegreeTaste,
+              starDegreeService,
+              starDegreeQuality,
+              widget.orderInfo!.id!,
+              SharedPrefs.getUserId,
+              widget.orderInfo!.boxes![0].store!.id!,
+            );
+            switch (statusCodeReview) {
+              case avg.StatusCode.created:
+                setState(() {
+                  editVisibility = true;
+                });
+                break;
+              case avg.StatusCode.error:
+                showDialog(
+                    context: context,
+                    builder: (_) => CustomAlertDialogResetPassword(
+                        description:
+                            'Belirlenen kurallar neticesinde değerlendirmeniz alınamamıştır.',
+                        onPressed: () => Navigator.of(context).pop()));
+                break;
+              default:
+            }
+            /*     context.read<AvgReviewCubit>().postReview(
                   starDegreeTaste,
                   starDegreeService,
                   starDegreeQuality,
                   widget.orderInfo!.id!,
                   SharedPrefs.getUserId,
                   widget.orderInfo!.boxes![0].store!.id!,
-                );
-            setState(() {
-              editVisibility = true;
-            });
+                ); */
           },
         ),
       ),

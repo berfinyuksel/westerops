@@ -203,6 +203,10 @@ abstract class  LocaleKeys {
   static const registered_cards_delete_alert_dialog_text = 'registered_cards.delete_alert_dialog_text';
   static const registered_cards_title = 'registered_cards.title';
   static const registered_cards_button = 'registered_cards.button';
+  static const registered_cards_save_alert_dialog = 'registered_cards.save_alert_dialog';
+  static const registered_cards_delete_alert_dialog = 'registered_cards.delete_alert_dialog';
+  static const registered_cards_error_alert_dialog = 'registered_cards.error_alert_dialog';
+  static const registered_cards_unauthorized_alert_dialog = 'registered_cards.unauthorized_alert_dialog';
   static const registered_cards = 'registered_cards';
   static const language_settings_title = 'language_settings.title';
   static const language_settings = 'language_settings';

@@ -8,6 +8,7 @@ import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pattern_formatter/pattern_formatter.dart';
 
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -101,20 +102,22 @@ class _MyRegisteredCardsUpdateViewState
                       LocaleKeys.payment_payment_name_on_card.locale,
                       nameController),
                   Spacer(flex: 3),
-                  buildTextFormField(
+                  buildCardNumberTextFormField(
                       LocaleKeys.payment_payment_card_number.locale,
                       cardNumberController),
                   Spacer(flex: 3),
                   Row(
                     children: [
                       Container(
-                        width: context.dynamicWidht(0.30),
+                        width: context.dynamicWidht(0.40),
                         height: context.dynamicHeight(0.06),
                         color: Colors.white,
                         child: DropdownButton<String>(
                           underline: SizedBox(),
                           hint: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
+                            padding: EdgeInsets.only(
+                                left: context.dynamicWidht(0.04),
+                                right: context.dynamicWidht(0.17)),
                             child: Text(
                               LocaleKeys.payment_payment_month_text.locale,
                             ),
@@ -140,13 +143,15 @@ class _MyRegisteredCardsUpdateViewState
                       ),
                       Spacer(),
                       Container(
-                        width: context.dynamicWidht(0.26),
+                        width: context.dynamicWidht(0.40),
                         height: context.dynamicHeight(0.06),
                         color: Colors.white,
                         child: DropdownButton<String>(
                           underline: SizedBox(),
                           hint: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
+                            padding: EdgeInsets.only(
+                                left: context.dynamicWidht(0.04),
+                                right: context.dynamicWidht(0.20)),
                             child: Text(
                               LocaleKeys.payment_payment_year_text.locale,
                             ),
@@ -171,7 +176,7 @@ class _MyRegisteredCardsUpdateViewState
                         ),
                       ),
                       //Spacer(),
-                      // buildTextFormField("CVV/CVV2", cvvController),
+                      // buildTextFormField("CVC/CVC2", cvvController),
                     ],
                   ),
                   Spacer(flex: 3),
@@ -200,8 +205,9 @@ class _MyRegisteredCardsUpdateViewState
                           showDialog(
                               context: context,
                               builder: (_) => CustomAlertDialogResetPassword(
-                                    description:
-                                        "Kartınız başarıyla kaydedilmiştir.",
+                                    description: LocaleKeys
+                                        .registered_cards_save_alert_dialog
+                                        .locale,
                                     onPressed: () => Navigator.popAndPushNamed(
                                         context, RouteConstant.CUSTOM_SCAFFOLD),
                                   ));
@@ -210,8 +216,9 @@ class _MyRegisteredCardsUpdateViewState
                           showDialog(
                               context: context,
                               builder: (_) => CustomAlertDialogResetPassword(
-                                    description:
-                                        "Bir şeyler ters gitti. Tekrar deneyiniz.",
+                                    description: LocaleKeys
+                                        .registered_cards_error_alert_dialog
+                                        .locale,
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                   ));
@@ -220,8 +227,9 @@ class _MyRegisteredCardsUpdateViewState
                           showDialog(
                               context: context,
                               builder: (_) => CustomAlertDialogResetPassword(
-                                    description:
-                                        "Kartınızı kaydedebilmek için giriş yapmalısınız.",
+                                    description: LocaleKeys
+                                        .registered_cards_unauthorized_alert_dialog
+                                        .locale,
                                     onPressed: () => Navigator.popAndPushNamed(
                                         context, RouteConstant.LOGIN_VIEW),
                                   ));
@@ -258,20 +266,78 @@ class _MyRegisteredCardsUpdateViewState
         //         ? context.dynamicHeight(0.11).toInt()
         //         : context.dynamicHeight(0.06).toInt(),
         inputFormatters: [
-          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-          FilteringTextInputFormatter.singleLineFormatter,
+          controller == nameController
+              ? FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
+              : FilteringTextInputFormatter.singleLineFormatter,
         ],
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
         controller: controller,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(
-                horizontal: context.dynamicWidht(0.03), vertical: 0),
-            labelText: labelText,
-            labelStyle: AppTextStyles.bodyTextStyle,
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            border: InputBorder.none),
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: context.dynamicWidht(0.03), vertical: 0),
+          labelText: labelText,
+          labelStyle: AppTextStyles.bodyTextStyle,
+          // enabledBorder: InputBorder.none,
+          // focusedBorder: InputBorder.none,
+          // border: InputBorder.none,
+          enabledBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildCardNumberTextFormField(
+      String labelText, TextEditingController controller) {
+    return Container(
+      width: context.dynamicWidht(5.0),
+      height: context.dynamicHeight(0.06),
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.borderAndDividerColor, width: 0.4),
+        borderRadius: BorderRadius.circular(4.0),
+        color: Colors.white,
+      ),
+      child: TextFormField(
+        keyboardType: TextInputType.number,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(16),
+        ],
+        cursorColor: AppColors.cursorColor,
+        style: AppTextStyles.myInformationBodyTextStyle,
+        controller: controller,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: context.dynamicWidht(0.03), vertical: 0),
+          labelText: labelText,
+          labelStyle: AppTextStyles.bodyTextStyle,
+          enabledBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+        ),
       ),
     );
   }

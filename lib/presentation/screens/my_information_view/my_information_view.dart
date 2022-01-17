@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
@@ -19,6 +19,7 @@ import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import 'components/update_popup.dart';
+import 'package:pattern_formatter/pattern_formatter.dart';
 
 class MyInformationView extends StatefulWidget {
   @override
@@ -69,18 +70,40 @@ class _MyInformationViewState extends State<MyInformationView> {
                   color: Colors.white,
                   height: context.dynamicHeight(0.01),
                 ),
-                buildTextFormField(context,
-                    LocaleKeys.inform_list_tile_name.locale, nameController),
-                buildTextFormField(
-                    context,
-                    LocaleKeys.inform_list_tile_surname.locale,
-                    surnameController),
-                buildTextFormField(context,
-                    LocaleKeys.inform_list_tile_birth.locale, birthController),
-                buildTextFormField(context,
-                    LocaleKeys.inform_list_tile_mail.locale, mailController),
-                buildTextFormField(context,
-                    LocaleKeys.inform_list_tile_phone.locale, phoneController),
+                Container(
+                  height: context.dynamicHeight(0.35),
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      SizedBox(height: context.dynamicHeight(0.01)),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_name.locale,
+                          nameController),
+                      SizedBox(height: context.dynamicHeight(0.01)),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_surname.locale,
+                          surnameController),
+                      SizedBox(height: context.dynamicHeight(0.01)),
+                      buildTextFormFieldBirthDate(
+                          context,
+                          LocaleKeys.inform_list_tile_birth.locale,
+                          birthController),
+                      SizedBox(height: context.dynamicHeight(0.01)),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_mail.locale,
+                          mailController),
+                      SizedBox(height: context.dynamicHeight(0.01)),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_phone.locale,
+                          phoneController),
+                    ],
+                  ),
+                ),
+
                 Spacer(
                   flex: 8,
                 ),
@@ -133,6 +156,45 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
+  Container buildTextFormFieldBirthDate(BuildContext context, String labelText,
+      TextEditingController controller) {
+    return Container(
+      height: context.dynamicHeight(0.06),
+      color: Colors.white,
+      child: TextFormField(
+        keyboardType: TextInputType.number,
+        inputFormatters: [
+          DateInputFormatter(),
+        ],
+        readOnly: isReadOnly,
+        style: AppTextStyles.myInformationBodyTextStyle,
+        cursorColor: AppColors.cursorColor,
+        onTap: () {
+          setState(() {});
+        },
+        controller: controller,
+        decoration: InputDecoration(
+          // icon: Padding(
+          //   padding: EdgeInsets.only(
+          //       left: context.dynamicWidht(0.05),
+          //       bottom: context.dynamicHeight(0.02)),
+          //   child: Icon(
+          //     Icons.calendar_today,
+          //     color: AppColors.orangeColor,
+          //   ),
+          // ),
+          contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+          hintStyle: AppTextStyles.myInformationBodyTextStyle,
+          labelStyle: AppTextStyles.bodyTextStyle,
+          labelText: labelText,
+          enabledBorder: buildOutlineInputBorder(),
+          focusedBorder: buildOutlineInputBorder(),
+          border: buildOutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+
   Container buildTextFormField(BuildContext context, String labelText,
       TextEditingController controller) {
     return Container(
@@ -153,36 +215,6 @@ class _MyInformationViewState extends State<MyInformationView> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
           labelText: labelText,
-          hintStyle: AppTextStyles.myInformationBodyTextStyle,
-          labelStyle: AppTextStyles.bodyTextStyle,
-          enabledBorder: buildOutlineInputBorder(),
-          focusedBorder: buildOutlineInputBorder(),
-          border: buildOutlineInputBorder(),
-        ),
-      ),
-    );
-  }
-
-  Container buildTextFormFieldPhoneNumber(
-      BuildContext context, TextEditingController controller) {
-    return Container(
-      height: context.dynamicHeight(0.06),
-      color: Colors.white,
-      child: TextFormField(
-        readOnly: isReadOnly,
-        style: AppTextStyles.myInformationBodyTextStyle,
-        cursorColor: AppColors.cursorColor,
-        onTap: () {
-          setState(() {});
-        },
-        inputFormatters: [
-          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-          FilteringTextInputFormatter.singleLineFormatter,
-        ],
-        controller: controller,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
-          labelText: LocaleKeys.inform_list_tile_phone,
           hintStyle: AppTextStyles.myInformationBodyTextStyle,
           labelStyle: AppTextStyles.bodyTextStyle,
           enabledBorder: buildOutlineInputBorder(),
