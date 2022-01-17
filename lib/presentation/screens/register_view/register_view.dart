@@ -565,8 +565,10 @@ class _RegisterViewState extends State<RegisterView> {
       validator: validator,
       inputFormatters: [
         //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-      ], // On
+        controller == phoneController
+            ? FilteringTextInputFormatter.digitsOnly
+            : FilteringTextInputFormatter.singleLineFormatter,
+      ],
       controller: controller,
       decoration: InputDecoration(
         labelText: labelText,

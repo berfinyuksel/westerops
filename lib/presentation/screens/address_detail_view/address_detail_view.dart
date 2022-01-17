@@ -220,8 +220,9 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
         inputFormatters: [
-          // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-          FilteringTextInputFormatter.singleLineFormatter,
+          controller == phoneNumberController || controller == tcController
+              ? FilteringTextInputFormatter.digitsOnly
+              : FilteringTextInputFormatter.singleLineFormatter,
         ],
         controller: controller,
         decoration: InputDecoration(

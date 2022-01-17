@@ -93,20 +93,23 @@ class _AddressTextState extends State<AddressText> {
                     SizedBox(width: 10),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6.0),
-                      child: LocaleText(
-                        text: LocationService.latitude != 0 &&
-                                !SharedPrefs.getIsLogined
-                            ? LocaleKeys.login_text_login2
-                            : stateOfAddress.response.isEmpty
-                                ? LocaleKeys.address_no_address
-                                : LocaleKeys
-                                    .my_favorites_permission_for_location,
-                        style: GoogleFonts.montserrat(
-                          color: AppColors.yellowColor,
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.underline,
-                          decorationThickness: 2,
-                          height: 2.0,
+                      child: Container(
+                        child: LocaleText(
+                          text: LocationService.latitude != 0 &&
+                                  !SharedPrefs.getIsLogined
+                              ? LocaleKeys.login_text_login2
+                              : stateOfAddress.response.isEmpty
+                                  ? LocaleKeys.address_no_address
+                                  : LocaleKeys
+                                      .my_favorites_permission_for_location,
+                          style: GoogleFonts.montserrat(
+                            color: AppColors.yellowColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13.5,
+                            decoration: TextDecoration.underline,
+                            decorationThickness: 2,
+                            height: 2.0,
+                          ),
                         ),
                       ),
                     ),
