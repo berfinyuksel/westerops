@@ -104,10 +104,10 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                           buildTitle(context, index)[index],
-                        //  LocaleText(
-                        //     text: "${notifications[index].description}",
-                        //   ),
+                            LocaleText(
+                            text: notifications[index].type == 16 || notifications[index].type == 15 || notifications[index].type == 14 || notifications[index].type == 13 || notifications[index].type == 11 || notifications[index].type == 8  ? "🔔 ${notifications[index].description}" :  notifications[index].type == 10 || notifications[index].type == 9 ? "🎉 ${notifications[index].description}" : "🛒 ${notifications[index].description}"
+                            ,
+                          ),
                             LocaleText(
                             text: "${notifications[index].date}",
                           )
@@ -132,127 +132,5 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
                 )),
           );
         });
-  }
-
-  buildTitle(BuildContext context, index) {
-    List<Widget> titleText = [];
-    List<Widget> title = [
-      LocaleText(
-        text: LocaleKeys.my_notifications_all_list_title1,
-        style:
-            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
-        alignment: TextAlign.start,
-      ),
-      LocaleText(
-        text: LocaleKeys.my_notifications_all_list_title1,
-        style:
-            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
-        alignment: TextAlign.start,
-      ),
-      LocaleText(
-        text: LocaleKeys.my_notifications_all_list_title2,
-        style:
-            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
-        alignment: TextAlign.start,
-      ),
-      LocaleText(
-        text: LocaleKeys.my_notifications_all_list_title3,
-        style:
-            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
-        alignment: TextAlign.start,
-      ),
-      LocaleText(
-        text: LocaleKeys.my_notifications_all_list_title2,
-        style:
-            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
-        alignment: TextAlign.start,
-      ),
-      LocaleText(
-        text: LocaleKeys.my_notifications_all_list_title3,
-        style:
-            AppTextStyles.subTitleStyle.copyWith(fontWeight: FontWeight.normal),
-        alignment: TextAlign.start,
-      ),
-    ];
-
-    for (int i = 0; i <= 6; i++) {
-      titleText.add(title[index]);
-    }
-    return titleText;
-  }
-
-  Padding forgetRateText2(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-      child: LocaleText(
-        text: LocaleKeys.my_notifications_my_orders_forgetRate,
-        style: AppTextStyles.bodyTextStyle
-            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor),
-        alignment: TextAlign.start,
-      ),
-    );
-  }
-
-  Padding courierItsWayText2(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-      child: LocaleText(
-        text: LocaleKeys.my_notifications_my_orders_courierItsWay,
-        style: AppTextStyles.bodyTextStyle
-            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor),
-        alignment: TextAlign.start,
-      ),
-    );
-  }
-
-  Padding forgetRateText(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-      child: LocaleText(
-        text: LocaleKeys.my_notifications_my_orders_forgetRate,
-        style: AppTextStyles.bodyTextStyle
-            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor),
-        alignment: TextAlign.start,
-      ),
-    );
-  }
-
-  Padding courierItsWayText(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
-      child: LocaleText(
-        text: LocaleKeys.my_notifications_my_orders_courierItsWay,
-        style: AppTextStyles.bodyTextStyle
-            .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor),
-        alignment: TextAlign.start,
-      ),
-    );
-  }
-
-  buildDateTrailing(BuildContext context, index) {
-    List<Widget> dateText = [];
-    List<String> date = [
-      "15 Mart 2021",
-      "16 Mart 2021",
-      "17 Mart 2021",
-      "21 Mart 2021"
-    ];
-
-    for (int i = 0; i <= 4; i++) {
-      dateText.add(
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            LocaleText(
-              text: "${date[index]}",
-              style: AppTextStyles.subTitleStyle,
-              alignment: TextAlign.start,
-            ),
-            //SizedBox(height: context.dynamicHeight(0.6),)
-          ],
-        ),
-      );
-    }
-    return dateText;
   }
 }

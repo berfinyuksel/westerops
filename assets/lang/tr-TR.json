@@ -696,5 +696,11 @@
         "headline_text": "Dünyayı korumamıza yardımcı olduğun için teşekkürler!",
         "body_text": "Gezegenimizi korumak çıktığımız bu yolda bizi yalnız bırakmadığın için teşekkürler! Şimdi sıra siparişini puanlamada!",
         "button": "Değerlendir"
+    },
+    "emoji_notifications":{
+        "bell": "🔔",
+        "basket": "🛒",
+        "surprise": "🎉"
     }
+
 }

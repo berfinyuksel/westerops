@@ -201,18 +201,18 @@
     },
     "address": {
         "pop_up_text": "Please enter the requested information correctly",
-        "no_address" : "You do not have a registered address yet.",
-        "address_approval" : "Approve",
-        "delete_alert_dialog_text" : "Are you sure you want to delete your registered address?",
-        "preparing" : "Preparing",
-        "address_name" : "Name of Address",
-        "district" : "District",
-        "addresss" : "Adress",
-        "address_description" : "Address Description",
-        "phone_number" : "Phone Number",
-        "save" : "Save",
-        "address_type" : "Address Type",
-        "billing_address" : "Billing Address",
+        "no_address": "You do not have a registered address yet.",
+        "address_approval": "Approve",
+        "delete_alert_dialog_text": "Are you sure you want to delete your registered address?",
+        "preparing": "Preparing",
+        "address_name": "Name of Address",
+        "district": "District",
+        "addresss": "Adress",
+        "address_description": "Address Description",
+        "phone_number": "Phone Number",
+        "save": "Save",
+        "address_type": "Address Type",
+        "billing_address": "Billing Address",
         "title": "My Adresses",
         "body_title": "My Recorded Addresses",
         "button": "Add New Address",
@@ -696,5 +696,10 @@
         "headline_text": "Thanks for helping us protect the world!",
         "body_text": "Thank you for not leaving us alone on this road we set out to protect our planet! Now it's time to score your order!",
         "button": "Evaluate"
+    },
+    "emoji_notifications": {
+        "bell": "🔔",
+        "basket": "🛒",
+        "surprise": "🎉"
     }
 }

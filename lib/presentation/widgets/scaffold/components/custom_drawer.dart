@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
 import '../../../../data/services/auth_service.dart';
 import '../../../../data/services/facebook_login_controller.dart';
 import '../../../../data/shared/shared_prefs.dart';
@@ -172,8 +174,12 @@ class CustomDrawer extends StatelessWidget {
           SharedPrefs.setCounter(0);
           SharedPrefs.setMenuList([]);
           context.read<BasketCounterCubit>().setCounter(0);
-          FacebookSignInController().logOut();
-          AuthService().logOutFromGmail();
+          if (SharedPrefs.getIsLogined ==false) {
+            FacebookSignInController().logOut();
+            AuthService().logOutFromGmail();
+          }
+          // FacebookSignInController().logOut();
+          // AuthService().logOutFromGmail();
           SharedPrefs.clearCache();
           Navigator.pushReplacementNamed(
               context, RouteConstant.CUSTOM_SCAFFOLD);

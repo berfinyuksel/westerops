@@ -622,5 +622,9 @@ abstract class  LocaleKeys {
   static const was_delivered_body_text = 'was_delivered.body_text';
   static const was_delivered_button = 'was_delivered.button';
   static const was_delivered = 'was_delivered';
+  static const emoji_notifications_bell = 'emoji_notifications.bell';
+  static const emoji_notifications_basket = 'emoji_notifications.basket';
+  static const emoji_notifications_surprise = 'emoji_notifications.surprise';
+  static const emoji_notifications = 'emoji_notifications';
 
 }
