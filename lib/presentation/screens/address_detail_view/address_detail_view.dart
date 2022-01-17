@@ -227,7 +227,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         decoration: InputDecoration(
             // isDense: true,
             contentPadding: EdgeInsets.symmetric(
-                horizontal: context.dynamicWidht(0.05), vertical: 0),
+                horizontal: context.dynamicWidht(0.05), vertical: 7),
             labelText: labelText,
             labelStyle: AppTextStyles.bodyTextStyle,
             enabledBorder: InputBorder.none,
