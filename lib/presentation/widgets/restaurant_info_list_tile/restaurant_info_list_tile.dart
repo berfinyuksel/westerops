@@ -86,7 +86,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Meters(
-          distance: "${(double.parse(distance) / 1000).toStringAsFixed(2)}",
+          distance: "${(double.parse(distance) / 100000).toStringAsFixed(2)}",
         ),
         Spacer(flex: 1),
         AvailableTime(
