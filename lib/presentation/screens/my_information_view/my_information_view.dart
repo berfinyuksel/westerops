@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +33,11 @@ class _MyInformationViewState extends State<MyInformationView> {
   TextEditingController phoneController = TextEditingController();
   bool isReadOnly = true;
   bool isVisibilty = false;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  bool showLoading = false;
+  MobileVerificationState currentState =
+      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  String? verificationId;
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -277,7 +284,7 @@ class _MyInformationViewState extends State<MyInformationView> {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
-        onPressed: () {
+        onPressed: () async {
           context.read<UserAuthCubit>().updateUser(
                 nameController.text,
                 surnameController.text,
@@ -289,9 +296,39 @@ class _MyInformationViewState extends State<MyInformationView> {
           setState(() {
             isReadOnly = true;
           });
-          showDialog(
-              context: context,
-              builder: (_) => CustomAlertDialogUpdateInform());
+          if (phoneController.text.isNotEmpty ||
+              mailController.text.isNotEmpty) {
+            Navigator.popAndPushNamed(context, RouteConstant.SMS_VERIFY_VIEW);
+            await _auth.verifyPhoneNumber(
+                phoneNumber: phoneController.text,
+                verificationCompleted: (phoneAuthCredential) async {
+                  // print(
+                  //     "SMS CODE : ${phoneAuthCredential.smsCode}");
+                  setState(() {
+                    showLoading = false;
+                  });
+                  //signInWithPhoneAuthCredential(phoneAuthCredential);
+                },
+                verificationFailed: (verificationFailed) async {
+                  setState(() {
+                    showLoading = false;
+                  });
+                  // ignore: deprecated_member_use
+                },
+                codeSent: (verificationId, resendingToken) async {
+                  setState(() {
+                    showLoading = false;
+                    currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
+                    this.verificationId = verificationId;
+                  });
+                },
+                codeAutoRetrievalTimeout: (verificationId) async {});
+            SharedPrefs.setUserPhone(phoneController.text);
+            SharedPrefs.setUserEmail(mailController.text);
+          }
+          // showDialog(
+          //     context: context,
+          //     builder: (_) => CustomAlertDialogUpdateInform());
         },
       ),
     );
