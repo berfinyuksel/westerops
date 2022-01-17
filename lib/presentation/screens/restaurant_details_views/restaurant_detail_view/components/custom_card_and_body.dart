@@ -1247,9 +1247,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             if (stateOfFavorites is GenericInitial) {
               return Container();
             } else if (stateOfFavorites is GenericLoading) {
-              return Center(
-                  child:
-                      SvgPicture.asset(ImageConstant.RESTAURANT_FAVORITE_ICON));
+              return Container(
+                height: 20,
+                width: 20,
+                child: CustomCircularProgressIndicator());
             } else if (stateOfFavorites is GenericCompleted) {
               for (var i = 0; i < stateOfFavorites.response.length; i++) {
                 if (stateOfFavorites.response[i].id == widget.restaurant!.id) {
