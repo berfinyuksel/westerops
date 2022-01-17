@@ -60,7 +60,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                 ),
                 Container(
                   color: Colors.white,
-                  height: context.dynamicHeight(0.01),
+                  height: context.dynamicHeight(0.02),
                 ),
                 buildTextFormField(context,
                     LocaleKeys.inform_list_tile_name.locale, nameController),
