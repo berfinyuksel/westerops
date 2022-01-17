@@ -153,7 +153,7 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
         ),
         Spacer(flex: 14),
         Meters(
-          distance: "${(double.parse(distance) / 1000).toStringAsFixed(2)}",
+          distance: "${(double.parse(distance) / 100000).toStringAsFixed(2)}",
         ),
       ],
     );

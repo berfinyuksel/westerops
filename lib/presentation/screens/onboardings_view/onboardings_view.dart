@@ -55,7 +55,7 @@ class _OnboardingsViewState extends State<OnboardingsView> {
       children: [
         Spacer(flex: 28),
         Expanded(
-          flex: 75,
+          flex: 85,
           child: GestureDetector(
             onTap: () {
               setState(() {

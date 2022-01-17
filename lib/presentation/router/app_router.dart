@@ -221,14 +221,14 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SurprisePackView());
       case RouteConstant.SPLASH_VIEW:
         return MaterialPageRoute(
-            builder: (_) => SharedPrefs.getIsOnboardingShown
+            builder: (_) => SharedPrefs.getIsLogined
                 ? CustomScaffold()
                 : SplashView());
-      case RouteConstant.SPLASH_VIEW:
-        return MaterialPageRoute(
-            builder: (_) => SharedPrefs.getIsOnboardingShown
-                ? CustomScaffold()
-                : SplashView());
+      // case RouteConstant.SPLASH_VIEW:
+      //   return MaterialPageRoute(
+      //       builder: (_) => SharedPrefs.getIsOnboardingShown
+      //           ? CustomScaffold()
+      //           : SplashView());
       case RouteConstant.SWIPE_VIEW:
         final ScreenArgumentsRestaurantDetail args =
             routeSettings.arguments as ScreenArgumentsRestaurantDetail;

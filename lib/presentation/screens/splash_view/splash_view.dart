@@ -3,6 +3,8 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/get_notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
+import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -33,6 +35,23 @@ class _SplashViewState extends State<SplashView> {
         ), () {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => OnboardingsView()));
+          if (SharedPrefs.getIsLogined) {
+        SharedPrefs.clearCache();
+        // Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+         Navigator.push(context,
+            MaterialPageRoute(builder: (context) => CustomScaffold()));
+          }
+    });
+    Future.delayed(
+        Duration(
+          days: 30,
+        ), () {
+      if (SharedPrefs.getIsLogined) {
+        SharedPrefs.clearCache();
+        // Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => CustomScaffold()));
+      }
     });
   }
 
@@ -53,7 +72,7 @@ class _SplashViewState extends State<SplashView> {
            context.read<NotificationsCounterCubit>().increment();
         }
         SharedPrefs.setCounterNotifications(notifications.length);
-        
+
 
         print("STATE RESPONSE : ${state.response}");
 
