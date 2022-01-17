@@ -266,7 +266,7 @@ class _SearchViewState extends State<SearchView> {
   Padding popularSearchText(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        right: context.dynamicWidht(0.5),
+        right: context.dynamicWidht(0.51),
       ),
       child: LocaleText(
         text: LocaleKeys.search_text3,
