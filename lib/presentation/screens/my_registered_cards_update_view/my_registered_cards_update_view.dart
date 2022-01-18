@@ -313,6 +313,8 @@ class _MyRegisteredCardsUpdateViewState
       child: TextFormField(
         keyboardType: TextInputType.number,
         inputFormatters: [
+          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
           LengthLimitingTextInputFormatter(16),
         ],
         cursorColor: AppColors.cursorColor,

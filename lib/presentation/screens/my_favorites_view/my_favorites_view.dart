@@ -138,7 +138,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                           GoogleMap(
                             myLocationButtonEnabled: false,
                             initialCameraPosition: CameraPosition(
-                                  target: LatLng(LocationService.latitude,
+                              target: LatLng(LocationService.latitude,
                                   LocationService.latitude),
                               zoom: 17.0,
                             ),
@@ -192,8 +192,10 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             Visibility(
                 visible: !isShowOnMap,
                 child: !SharedPrefs.getIsLogined
-                    ? Center(
+                    ? Padding(
+                        padding: const EdgeInsets.all(24),
                         child: LocaleText(
+                          alignment: ui.TextAlign.center,
                           text: LocaleKeys.my_favorites_sign_in_to_monitor,
                           style: AppTextStyles.bodyTextStyle
                               .copyWith(color: AppColors.cursorColor),

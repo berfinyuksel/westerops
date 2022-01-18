@@ -419,6 +419,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
                 ? FilteringTextInputFormatter.digitsOnly
                 : FilteringTextInputFormatter.singleLineFormatter, */
             FilteringTextInputFormatter.singleLineFormatter,
+            LengthLimitingTextInputFormatter(16),
           ],
           cursorColor: AppColors.cursorColor,
           style:

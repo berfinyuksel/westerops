@@ -68,7 +68,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                 ),
                 Container(
                   color: Colors.white,
-                  height: context.dynamicHeight(0.01),
+                  height: context.dynamicHeight(0.02),
                 ),
                 Container(
                   height: context.dynamicHeight(0.35),
