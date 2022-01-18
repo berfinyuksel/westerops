@@ -26,11 +26,7 @@ class CustomCircularProgress extends StatelessWidget {
             backgroundColor: AppColors.unSelectedpackageDeliveryColor,
             valueColor: AlwaysStoppedAnimation<Color>(valueColor),
           ),
-          Positioned(
-            top: 5,
-            bottom: 0,
-            left: 6.5,
-            right: 0,
+          Center(
             child: Text(
               ratingText ?? "0.0",
               style: AppTextStyles.subTitleStyle

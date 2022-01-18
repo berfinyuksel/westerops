@@ -709,8 +709,8 @@ class _PaymentViewsState extends State<PaymentViews>
   Container buildCheckBoxForAggreements(
       BuildContext context, String checkValue, StateSetter myState) {
     return Container(
-      height: context.dynamicWidht(0.04),
-      width: context.dynamicWidht(0.04),
+      height: context.dynamicWidht(0.05),
+      width: context.dynamicWidht(0.05),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         border: Border.all(
