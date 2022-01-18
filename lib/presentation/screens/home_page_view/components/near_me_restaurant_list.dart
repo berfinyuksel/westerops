@@ -1,7 +1,6 @@
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
-import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_card/restaurant_info_card.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';

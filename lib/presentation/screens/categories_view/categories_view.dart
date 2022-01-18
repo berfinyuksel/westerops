@@ -35,7 +35,7 @@ class CategoriesView extends StatelessWidget {
       final GenericState state = context.watch<SearchStoreCubit>().state;
 
       if (state is GenericInitial) {
-        return Container();
+        return Container(color: Colors.white);
       } else if (state is GenericLoading) {
         return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
