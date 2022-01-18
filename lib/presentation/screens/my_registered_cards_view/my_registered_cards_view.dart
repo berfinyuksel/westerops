@@ -74,7 +74,7 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
             cards.add(state.response[i]);
           }
 
-          return cards.first.status == 'success'
+          return cards.first.status == 'success' ||cards.first.status!.isNotEmpty
               ? buildRegisteredCards(cards.first.cardDetails!)
               : buildNoCardWidget();
         } else {
