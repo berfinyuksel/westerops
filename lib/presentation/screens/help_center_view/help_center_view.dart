@@ -45,10 +45,10 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         ),
         buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_1,
             LocaleKeys.help_center_list_tile_subtitle_1),
-        buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_2, ""),
-        buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_3, ""),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_2,
+            LocaleKeys.help_center_list_tile_subtitle_2),
+        // buildExpansionTile(
+        //     context, LocaleKeys.help_center_list_tile_title_3, ""),
         SizedBox(
           height: context.dynamicHeight(0.04),
         ),
@@ -58,20 +58,48 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_4,
+            LocaleKeys.help_center_list_tile_subtitle_4),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_5,
+            LocaleKeys.help_center_list_tile_subtitle_5),
+        // buildExpansionTile(
+        //     context, LocaleKeys.help_center_list_tile_title_6, ""),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_7,
+            LocaleKeys.help_center_list_tile_subtitle_7),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_8,
+            LocaleKeys.help_center_list_tile_subtitle_8),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_9,
+            LocaleKeys.help_center_list_tile_subtitle_9),
         buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_4, ""),
+          context,
+          LocaleKeys.help_center_list_tile_title_10,
+          LocaleKeys.help_center_list_tile_subtitle_10,
+        ),
         buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_5, ""),
+          context,
+          LocaleKeys.help_center_list_tile_title_12,
+          LocaleKeys.help_center_list_tile_subtitle_12,
+        ),
         buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_6, ""),
+          context,
+          LocaleKeys.help_center_list_tile_title_13,
+          LocaleKeys.help_center_list_tile_subtitle_13,
+        ),
         buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_7, ""),
+          context,
+          LocaleKeys.help_center_list_tile_title_14,
+          LocaleKeys.help_center_list_tile_subtitle_14,
+        ),
         buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_8, ""),
+          context,
+          LocaleKeys.help_center_list_tile_title_15,
+          LocaleKeys.help_center_list_tile_subtitle_15,
+        ),
         buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_9, ""),
-        buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_10, ""),
+          context,
+          LocaleKeys.help_center_list_tile_title_16,
+          LocaleKeys.help_center_list_tile_subtitle_16,
+        ),
         SizedBox(
           height: context.dynamicHeight(0.02),
         ),
