@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 
 import '../../../data/model/search_store.dart';
 import '../../../data/shared/shared_prefs.dart';
-import '../../../logic/cubits/favourite_cubit/favourite_cubit.dart';
 import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -56,12 +56,13 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   @override
   void initState() {
     super.initState();
-    context.read<FavoriteCubit>().getFavorite();
+    context.read<AllFavoriteCubit>().getFavorite();
     context.read<SearchStoreCubit>().getSearchStore();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.read<AllFavoriteCubit>().getFavorite();
     return buildBuilder();
   }
 
@@ -74,7 +75,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
         return Container(
-            color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
+            color: Colors.white,
+            child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> favourites = [];
         //List<double> distances = [];
@@ -99,13 +101,14 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       GenericCompleted state) {
     return Builder(builder: (context) {
       final GenericState stateOfFavorites =
-          context.watch<FavoriteCubit>().state;
+          context.watch<AllFavoriteCubit>().state;
 
       if (stateOfFavorites is GenericInitial) {
         return Container(color: Colors.white);
       } else if (stateOfFavorites is GenericLoading) {
         return Container(
-            color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
+            color: Colors.white,
+            child: Center(child: CustomCircularProgressIndicator()));
       } else if (stateOfFavorites is GenericCompleted) {
         List<SearchStore> favouriteRestaurant = [];
         for (var i = 0; i < favourites.length; i++) {

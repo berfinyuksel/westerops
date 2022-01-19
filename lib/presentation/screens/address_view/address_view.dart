@@ -32,11 +32,13 @@ class _AddressViewState extends State<AddressView> {
   List<int> boolList = [];
   @override
   void initState() {
+    context.read<UserAddressCubit>().getUserAddress();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserAddressCubit>().getUserAddress();
     return CustomScaffold(
       title: LocaleKeys.address_title,
       body: Padding(
@@ -58,8 +60,6 @@ class _AddressViewState extends State<AddressView> {
   }
 
   Container buildList(BuildContext context) {
-    context.read<UserAddressCubit>().getUserAddress();
-
     return Container(
       height: context.dynamicHeight(0.6),
       padding: EdgeInsets.only(

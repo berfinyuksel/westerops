@@ -2,6 +2,7 @@ import 'package:dongu_mobile/presentation/screens/forgot_password_view/component
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/services/location_service.dart';
@@ -37,7 +38,6 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   // TextEditingController daireNoController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -61,7 +61,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
               bottom: context.dynamicHeight(0.03)),
           child: SingleChildScrollView(
             child: Container(
-              height: context.dynamicHeight(0.75),
+              height: context.dynamicHeight(0.7),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -200,7 +200,9 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   // }
 
   Container buildTextFormField(
-      String labelText, TextEditingController controller) {
+    String labelText,
+    TextEditingController controller,
+  ) {
     return Container(
       height:
           controller == descriptionController || controller == addressController
@@ -212,6 +214,13 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         color: Colors.white,
       ),
       child: TextFormField(
+        inputFormatters: [
+          controller == tcController
+              ? LengthLimitingTextInputFormatter(11)
+              : controller == phoneNumberController
+                  ? LengthLimitingTextInputFormatter(11)
+                  : LengthLimitingTextInputFormatter(99),
+        ],
         maxLines: controller == descriptionController ||
                 controller == addressController
             ? context.dynamicHeight(0.11).toInt()

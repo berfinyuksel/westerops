@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     definedBoxes.clear();
     context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
     context.read<SearchStoreCubit>().getSearchStore();
-    context.read<FavoriteCubit>().getFavorite();
+    context.read<AllFavoriteCubit>().getFavorite();
     context.read<AddressCubit>().getActiveAddress();
 
     // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
@@ -1176,6 +1177,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Container packageCourierAndFavoriteContainer(
       BuildContext context, GenericState state) {
+    context.read<AllFavoriteCubit>().getFavorite();
+
     return Container(
       width: context.dynamicWidht(1),
       height: context.dynamicHeight(0.065),
@@ -1242,15 +1245,30 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           ),
           Builder(builder: (context) {
             final GenericState stateOfFavorites =
-                context.watch<FavoriteCubit>().state;
+                context.watch<AllFavoriteCubit>().state;
 
             if (stateOfFavorites is GenericInitial) {
               return Container();
             } else if (stateOfFavorites is GenericLoading) {
-              return Container(
-                height: 20,
-                width: 20,
-                child: CustomCircularProgressIndicator());
+              return Row(
+                children: [
+                  LocaleText(
+                    text: !isFavourite
+                        ? LocaleKeys.restaurant_detail_text3
+                        : LocaleKeys.restaurant_detail_text4,
+                    style: AppTextStyles.bodyTextStyle,
+                  ),
+                  SizedBox(
+                    width: context.dynamicWidht(0.02),
+                  ),
+                  SvgPicture.asset(
+                    ImageConstant.RESTAURANT_FAVORITE_ICON,
+                    color: isFavourite
+                        ? AppColors.orangeColor
+                        : AppColors.unSelectedpackageDeliveryColor,
+                  ),
+                ],
+              );
             } else if (stateOfFavorites is GenericCompleted) {
               for (var i = 0; i < stateOfFavorites.response.length; i++) {
                 if (stateOfFavorites.response[i].id == widget.restaurant!.id) {
@@ -1291,6 +1309,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         setState(() {
                           isFavourite = !isFavourite;
                         });
+                        context.read<AllFavoriteCubit>().getFavorite();
                       } else {
                         Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
                       }

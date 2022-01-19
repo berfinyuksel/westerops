@@ -59,7 +59,7 @@ class _AddressUpdateViewState extends State<AddressUpdateView> {
               bottom: context.dynamicHeight(0.03)),
           child: SingleChildScrollView(
             child: Container(
-              height: context.dynamicHeight(0.75),
+              height: context.dynamicHeight(0.7),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,8 +68,8 @@ class _AddressUpdateViewState extends State<AddressUpdateView> {
                     style: AppTextStyles.bodyTitleStyle,
                   ),
                   Spacer(flex: 5),
-                  buildDropDown(context, adressType),
-                  Spacer(flex: 10),
+                  /*   buildDropDown(context, adressType),
+                  Spacer(flex: 10), */
                   buildTextFormField(
                       addressList!.tcknVkn!, "VKN/TCKN", tcController),
                   Spacer(flex: 10),

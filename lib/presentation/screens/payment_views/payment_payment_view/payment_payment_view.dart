@@ -188,12 +188,12 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
               for (int i = 0; i < state.response.length; i++) {
                 cards.add(state.response[i]);
               }
-
+              log(cards.length.toString());
               return Column(
                 children: [
-                  cards.first.status == 'success'
-                      ? buildCards(cards.first.cardDetails)
-                      : buildNoCardWidget(cards.first.errorMessage.toString()),
+                  cards.isEmpty
+                      ? buildNoCardWidget()
+                      : buildCards(cards.first.cardDetails),
                   SizedBox(
                     height: context.dynamicHeight(0.02),
                   ),
@@ -663,8 +663,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  buildNoCardWidget(String errorMessage) {
-    Center(
+  Widget buildNoCardWidget() {
+    return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -677,7 +677,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           ),
           LocaleText(
             alignment: TextAlign.center,
-            text: errorMessage,
+            text: 'Kayıtlı kartınız bulunmamaktadır.',
             style: AppTextStyles.myInformationBodyTextStyle,
           ),
         ],

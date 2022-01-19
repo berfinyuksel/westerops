@@ -6,7 +6,7 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
-enum StatusCode { success, error, unauthecticated }
+enum StatusCode { success, error, unauthecticated, noCard }
 
 class IyzicoCardRepository {
   Future<StatusCode> addCard(String cardAlias, String cardHolderName,
@@ -27,6 +27,7 @@ class IyzicoCardRepository {
     switch (response.statusCode) {
       case 200:
         return StatusCode.success;
+
       case 401:
         return StatusCode.unauthecticated;
       default:
@@ -72,15 +73,13 @@ class IyzicoCardRepository {
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
       List<IyzcoRegisteredCard> cardLists = [];
 
-      if (jsonBody is String) {
-        
+      if (response.body == "\"KayÄ±tlÄ± kart bulunmamaktadÄ±r.\"") {
         return cardLists;
       } else {
         IyzcoRegisteredCard cardItem = IyzcoRegisteredCard.fromJson(jsonBody);
         cardLists.add(cardItem);
         return cardLists;
       }
-   
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }

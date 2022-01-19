@@ -3,11 +3,13 @@ import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_r
 import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_creat_order_with_3d.dart';
 import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_send_request_repository.dart';
 import 'package:dongu_mobile/data/services/ip_service.dart';
+import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_order_create_with_3d_cubit/iyzico_order_create_with_3d_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_all_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
@@ -146,6 +148,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<PastOrderDetailCubit>(
             create: (_) =>
                 PastOrderDetailCubit(SampleOrderReceivedRepository())),
+        BlocProvider<PastOrderAllCubit>(
+            create: (_) => PastOrderAllCubit(SampleOrderReceivedRepository())),
         BlocProvider<IyzicoOrderCreateWith3DCubit>(
             create: (_) => IyzicoOrderCreateWith3DCubit(
                 IyzicoCreateOrderWith3DRepository())),
@@ -199,6 +203,8 @@ class MyApp extends StatelessWidget {
             create: (context) => OrderCubit(SampleOrderRepository())),
         BlocProvider<FavoriteCubit>(
             create: (context) => FavoriteCubit(SampleFavoriteRepository())),
+        BlocProvider<AllFavoriteCubit>(
+            create: (context) => AllFavoriteCubit(SampleFavoriteRepository())),
         BlocProvider<CategoryNameCubit>(
             create: (context) =>
                 CategoryNameCubit(SampleCategoryNameRepository())),

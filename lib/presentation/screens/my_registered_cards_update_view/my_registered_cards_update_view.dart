@@ -7,7 +7,6 @@ import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -265,7 +264,7 @@ class _MyRegisteredCardsUpdateViewState
         //         : context.dynamicHeight(0.06).toInt(),
         inputFormatters: [
           controller == nameController
-              ? FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
+              ? FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))
               : FilteringTextInputFormatter.singleLineFormatter,
         ],
         cursorColor: AppColors.cursorColor,

@@ -25,14 +25,4 @@ class FavoriteCubit extends Cubit<GenericState> {
       emit(GenericError(e.message, e.statusCode));
     }
   }
-
-  Future<void> getFavorite() async {
-    try {
-      emit(GenericLoading());
-      final response = await _favoriteRepository.getFavorites();
-      emit(GenericCompleted(response));
-    } on NetworkError catch (e) {
-      emit(GenericError(e.message, e.statusCode));
-    }
-  }
 }

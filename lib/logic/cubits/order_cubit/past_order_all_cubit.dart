@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../generic_state/generic_state.dart';
 
-class PastOrderDetailCubit extends Cubit<GenericState> {
+class PastOrderAllCubit extends Cubit<GenericState> {
   final OrderReceivedRepository _orderReceivedRepository;
-  PastOrderDetailCubit(this._orderReceivedRepository) : super(GenericInitial());
+  PastOrderAllCubit(this._orderReceivedRepository) : super(GenericInitial());
 
-  Future<void> getPastOrderById(int id) async {
+  Future<void> getPastOrder() async {
     try {
       emit(GenericLoading());
-      final response = await _orderReceivedRepository.getOrderById(id);
+      final response = await _orderReceivedRepository.getOrder();
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));

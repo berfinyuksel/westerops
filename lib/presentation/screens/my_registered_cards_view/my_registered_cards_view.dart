@@ -74,9 +74,9 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
             cards.add(state.response[i]);
           }
 
-          return cards.first.status == 'success' ||cards.first.status!.isNotEmpty
-              ? buildRegisteredCards(cards.first.cardDetails!)
-              : buildNoCardWidget();
+          return cards.isEmpty
+              ? buildNoCardWidget()
+              : buildRegisteredCards(cards.first.cardDetails!);
         } else {
           final error = state as GenericError;
           return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -222,8 +222,8 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
     );
   }
 
-  buildNoCardWidget() {
-    Center(
+  Widget buildNoCardWidget() {
+    return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
