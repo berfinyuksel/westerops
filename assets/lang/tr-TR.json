@@ -60,6 +60,9 @@
             "subtitle_3": "veya  hatırlamıyorsanız",
             "subtitle_4": "şifrenizi  yenileyebilirsiniz"
         },
+            "fail_pop_up_text": {
+                "title": "Eksik bilgi hatası. Lütfen eksiksiz bir şekilde doldurun."
+            },
         "consent": {
             "text1": "Önemli kampanyalardan haberdar olmak için ",
             "text2": "Rıza Metni",

@@ -70,11 +70,17 @@ class IyzicoCardRepository {
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
-
       List<IyzcoRegisteredCard> cardLists = [];
-      IyzcoRegisteredCard cardItem = IyzcoRegisteredCard.fromJson(jsonBody);
-      cardLists.add(cardItem);
-      return cardLists;
+
+      if (jsonBody is String) {
+        
+        return cardLists;
+      } else {
+        IyzcoRegisteredCard cardItem = IyzcoRegisteredCard.fromJson(jsonBody);
+        cardLists.add(cardItem);
+        return cardLists;
+      }
+   
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }

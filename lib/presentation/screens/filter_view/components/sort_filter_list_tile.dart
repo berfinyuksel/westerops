@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,7 +38,7 @@ class _SortFilterListState extends State<SortFilterList> {
               children: [
                 SizedBox(height: context.dynamicHeight(0.01)),
                 buildRowCheckboxAndText(
-                    context, LocaleKeys.filters_sort_item1, "Sort by Distance",
+                    context, LocaleKeys.filters_sort_item1, "7",
                     () {
                   setState(() {
                     state.checkList![0] = !state.checkList![0];
@@ -45,21 +46,21 @@ class _SortFilterListState extends State<SortFilterList> {
                 }),
                 SizedBox(height: context.dynamicHeight(0.016)),
                 buildRowCheckboxAndText(
-                    context, LocaleKeys.filters_sort_item2, "Favorites", () {
+                    context, LocaleKeys.filters_sort_item2, "6", () {
                   setState(() {
                     state.checkList![1] = !state.checkList![1];
                   });
                 }),
                 SizedBox(height: context.dynamicHeight(0.016)),
                 buildRowCheckboxAndText(
-                    context, LocaleKeys.filters_sort_item3, "User Point", () {
+                    context, LocaleKeys.filters_sort_item3, "2", () {
                   setState(() {
                     state.checkList![2] = !state.checkList![2];
                   });
                 }),
                 SizedBox(height: context.dynamicHeight(0.016)),
                 buildRowCheckboxAndText(
-                    context, LocaleKeys.filters_sort_item4, "New Guest", () {
+                    context, LocaleKeys.filters_sort_item4, "4", () {
                   setState(() {
                     state.checkList![3] = !state.checkList![3];
                   });
@@ -92,21 +93,23 @@ class _SortFilterListState extends State<SortFilterList> {
       final FiltersState state = context.watch<FiltersCubit>().state;
 
       return CustomCheckbox(
+        
         onTap: () {
 
           setState(() {
-            if (checkValue == "Sort by Distance") {
+                      context.read<FiltersManagerCubit>().getPackageCategory(checkValue);
+            if (checkValue == "7") {
               state.checkList![0] = !state.checkList![0];
         SharedPrefs.setSortByDistance(state.checkList![0]);
 
-            } else if (checkValue == "Favorites") {
+            } else if (checkValue == "6") {
               state.checkList![1] = !state.checkList![1];
         SharedPrefs.setMyFavorites(checkValue);
 
               // if (state.checkList![1] = true) {
               // context.watch<FavoriteCubit>().getFavorite();
               // }
-            } else if (checkValue == "User Point") {
+            } else if (checkValue == "2") {
               state.checkList![2] = !state.checkList![2];
               SharedPrefs.setUserRating(checkValue);
 
@@ -116,15 +119,15 @@ class _SortFilterListState extends State<SortFilterList> {
             }
           });
         },
-        checkboxColor: checkValue == "Sort by Distance"
+        checkboxColor: checkValue == "7"
             ? state.checkList![0]
                 ? AppColors.greenColor
                 : Colors.white
-            : checkValue == "Favorites"
+            : checkValue == "6"
                 ? state.checkList![1]
                     ? AppColors.greenColor
                     : Colors.white
-                : checkValue == "User Point"
+                : checkValue == "2"
                     ? state.checkList![2]
                         ? AppColors.greenColor
                         : Colors.white

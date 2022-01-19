@@ -3,12 +3,11 @@ import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dar
 import 'package:dongu_mobile/data/repositories/avg_review_repository.dart'
     as avg;
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';

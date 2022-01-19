@@ -4,7 +4,6 @@ import 'package:dongu_mobile/presentation/screens/login_view/components/error_di
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -256,9 +255,9 @@ class _LoginViewState extends State<LoginView> {
       builder: (BuildContext context) {
         final GenericState state = context.watch<UserAuthCubit>().state;
         if (state is GenericInitial) {
-          return Container();
+          return Container(color: Colors.white);
         } else if (state is GenericLoading) {
-          return Container();
+          return Container(color: Colors.white);
         } else if (state is GenericCompleted) {
           print('ajsndjasndsjandjklasn');
           print(state.response);

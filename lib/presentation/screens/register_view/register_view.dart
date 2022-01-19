@@ -4,6 +4,7 @@ import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/error_alert_dialog.dart';
+import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +26,7 @@ import '../../widgets/text/locale_text.dart';
 import 'components/clipped_password_rules.dart';
 import 'components/consent_text.dart';
 import 'components/contract_text.dart';
+import 'components/error_popup.dart';
 import 'components/password_rules.dart';
 import 'components/sign_with_social_auth.dart';
 import 'package:validators/validators.dart';
@@ -254,69 +256,45 @@ class _RegisterViewState extends State<RegisterView> {
                       numberControl ||
                       firstName.isEmpty ||
                       lastName.isEmpty ||
-                      nameController.text.isEmpty) {
-                    _showMyDialog();
+                      nameController.text.isEmpty ||
+                      emailController.text.isEmpty ||
+                      passwordController.text.isEmpty) {
+                      showDialog(
+                      context: context,
+                      builder: (_) => CustomErrorPopup(
+                          textMessage:
+                              LocaleKeys.register_fail_pop_up_text_title.locale,
+                          buttonOneTitle: LocaleKeys.payment_payment_cancel,
+                          buttonTwoTittle: LocaleKeys.address_address_approval,
+                          imagePath: ImageConstant.COMMONS_WARNING_ICON,
+                          onPressedOne: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                    );
                   }
                   if (checkboxValue &&
                       numberControl &&
                       uppercaseControl &&
                       lengthControl &&
                       phoneControl) {
-                    SharedPrefs.setUserPhone(phoneTR);
-                    context.read<UserAuthCubit>().registerUser(
-                        firstName,
-                        lastName,
-                        emailController.text,
-                        phoneTR,
-                        passwordController.text);
-                    String phoneEN = '+1' + phoneController.text;
-
+                    //String phoneEN = '+1' + phoneController.text;
                     if (nameController.text.isNotEmpty &&
                         phoneController.text.isNotEmpty &&
                         passwordController.text.isNotEmpty &&
                         lastName.isNotEmpty &&
                         firstName.isNotEmpty) {
+                      SharedPrefs.setUserName(firstName);
+                      SharedPrefs.setUserLastName(lastName);
+                      SharedPrefs.setUserPhone(phoneTR);
+                      SharedPrefs.setUserEmail(emailController.text);
+                      SharedPrefs.setUserPassword(passwordController.text);
                       Navigator.popAndPushNamed(
-                          context, RouteConstant.SMS_VERIFY_VIEW);
-                      await _auth.verifyPhoneNumber(
-                          phoneNumber:
-                              dropdownValue == 'TR' ? phoneTR : phoneEN,
-                          verificationCompleted: (phoneAuthCredential) async {
-                            // print(
-                            //     "SMS CODE : ${phoneAuthCredential.smsCode}");
-                            setState(() {
-                              showLoading = false;
-                            });
-                            //signInWithPhoneAuthCredential(phoneAuthCredential);
-                          },
-                          verificationFailed: (verificationFailed) async {
-                            setState(() {
-                              showLoading = false;
-                            });
-                            // ignore: deprecated_member_use
-                          },
-                          codeSent: (verificationId, resendingToken) async {
-                            setState(() {
-                              showLoading = false;
-                              currentState =
-                                  MobileVerificationState.SHOW_OTP_FORM_STATE;
-                              this.verificationId = verificationId;
-                            });
-                          },
-                          codeAutoRetrievalTimeout: (verificationId) async {});
-
-                      // showDialog(
-                      //     context: context,
-                      //     builder: (_) => CustomAlertDialogResetPassword(
-                      //         description: "Hoş Geldiniz",
-                      //         onPressed: () => Navigator.popAndPushNamed(
-                      //             context, RouteConstant.SMS_VERIFY_VIEW)));
-
+                          context, RouteConstant.REGISTER_VERIFY_VIEW);
                     } else {
-                      _showMyDialog();
+                      ErrorAlertDialog(onTap: () {});
+
                     }
-                  } else {
-                    _showMyDialog();
                   }
                 }),
             Spacer(
@@ -336,43 +314,6 @@ class _RegisterViewState extends State<RegisterView> {
           ],
         ),
       ),
-    );
-  }
-
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        final GenericState state = context.watch<UserAuthCubit>().state;
-        if (state is GenericInitial) {
-          return Container();
-        } else if (state is GenericLoading) {
-          return Container();
-        } else if (state is GenericCompleted) {
-          return AlertDialog(
-            title: Text('Hosgeldiniz'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text('This is a demo alert dialog.'),
-                  Text('Would you like to approve of this message?'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Approve'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        } else {
-          return ErrorAlertDialog(onTap: () {});
-        }
-      },
     );
   }
 

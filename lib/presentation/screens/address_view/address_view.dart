@@ -181,7 +181,7 @@ class _AddressViewState extends State<AddressView> {
                   ),
                 );
         } else
-          return Container();
+          return Container(color: Colors.white);
       }),
     );
   }

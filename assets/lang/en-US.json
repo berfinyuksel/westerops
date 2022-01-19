@@ -75,6 +75,10 @@
             "subtitle_3": "or  reset your password",
             "subtitle_4": "if you don't remember it"
         },
+        "fail_pop_up_text": {
+            "title": "Missing information error. Please fill in completely."
+
+        },
         "consent": {
             "text1": "I would like to receive electronic messages within the scope of ",
             "text2": "Consent Text",

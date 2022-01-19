@@ -51,11 +51,11 @@ class _FilteredViewState extends State<FilteredView> {
       if (state is GenericInitial) {
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
+        return Container(color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> restaurants = [];
         //List<double> distances = [];
-
+        
         for (int i = 0; i < state.response.length; i++) {
           restaurants.add(state.response[i]);
         }

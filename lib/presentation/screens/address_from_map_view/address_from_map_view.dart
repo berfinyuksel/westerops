@@ -159,16 +159,16 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
     return Builder(builder: (context) {
       final GenericState state = context.watch<SearchLocationCubit>().state;
       if (state is GenericInitial) {
-        return Container();
+        return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Container();
+        return Container(color: Colors.white);
       } else if (state is GenericCompleted) {
         return ListView.builder(
             shrinkWrap: true,
             itemCount: state.response.length > 4 ? 5 : state.response.length,
             itemBuilder: (context, index) {
               return state.response.length == 0 || !isSearchesShown
-                  ? Container()
+                  ? Container(color: Colors.white)
                   : buildGestureDetector(state, index, context);
             });
       } else {

@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import '../../../data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
+
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import '../../../logic/cubits/order_bar_cubit/order_bar_cubit.dart';

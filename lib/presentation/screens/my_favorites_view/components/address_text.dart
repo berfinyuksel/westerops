@@ -35,7 +35,7 @@ class _AddressTextState extends State<AddressText> {
     return Builder(builder: (context) {
       final stateOfAddress = context.watch<AddressCubit>().state;
       if (stateOfAddress is GenericInitial) {
-        return Container();
+        return Container(color: Colors.white);
       } else if (stateOfAddress is GenericLoading) {
         return SizedBox(height: 0, width: 0);
       } else if (stateOfAddress is GenericCompleted) {

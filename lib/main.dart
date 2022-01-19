@@ -6,7 +6,6 @@ import 'package:dongu_mobile/data/services/ip_service.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_order_create_with_3d_cubit/iyzico_order_create_with_3d_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
@@ -16,12 +15,10 @@ import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_paddi
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'data/repositories/address_repository.dart';
-import 'data/repositories/avg_review_repository.dart';
 import 'data/repositories/box_repository.dart';
 import 'data/repositories/category_name_repository.dart';
 import 'data/repositories/favourite_repository.dart';
@@ -43,7 +40,6 @@ import 'data/services/local_notifications/local_notifications_service/local_noti
 import 'data/services/locator.dart';
 import 'data/shared/shared_prefs.dart';
 import 'logic/cubits/address_cubit/address_cubit.dart';
-import 'logic/cubits/avg_review_cubit/avg_review_cubit.dart';
 import 'logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'logic/cubits/box_cubit/box_cubit.dart';
 import 'logic/cubits/category_name_cubit/category_name_cubit.dart';

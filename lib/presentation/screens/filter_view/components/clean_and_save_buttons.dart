@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/filtered_view/not_filtered_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../data/shared/shared_prefs.dart';
@@ -40,9 +41,15 @@ class _CleanAndSaveButtonsState extends State<CleanAndSaveButtons> {
             borderColor: AppColors.greenColor,
             onPressed: () {
               SharedPrefs.getSortByDistance;
-
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FilteredView()));
+              if (SharedPrefs.getIsLogined ==false) {
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NotFilteredView()));
+              } 
+              else {
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FilteredView()));
+              }
+            
               //   Navigator.pushNamed(context, RouteConstant.REGISTER_VIEW);
             },
           ),

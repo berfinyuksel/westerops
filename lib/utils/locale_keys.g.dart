@@ -66,6 +66,8 @@ abstract class  LocaleKeys {
   static const register_pop_up_text_subtitle_3 = 'register.pop_up_text.subtitle_3';
   static const register_pop_up_text_subtitle_4 = 'register.pop_up_text.subtitle_4';
   static const register_pop_up_text = 'register.pop_up_text';
+  static const register_fail_pop_up_text_title = 'register.fail_pop_up_text.title';
+  static const register_fail_pop_up_text = 'register.fail_pop_up_text';
   static const register_consent_text1 = 'register.consent.text1';
   static const register_consent_text2 = 'register.consent.text2';
   static const register_consent_text3 = 'register.consent.text3';

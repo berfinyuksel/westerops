@@ -50,9 +50,9 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
                     final stateOfCategories =
                         context.watch<CategoryNameCubit>().state;
                     if (stateOfCategories is GenericInitial) {
-                      return Container();
+                      return Container(color: Colors.white);
                     } else if (stateOfCategories is GenericLoading) {
-                      return Center(child: CustomCircularProgressIndicator());
+                      return Container(color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
                     } else if (stateOfCategories is GenericCompleted) {
                       List<Result> categoryInfo = [];
                       for (int i = 0;

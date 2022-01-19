@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
-import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/model/search.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'dart:io';
@@ -112,9 +111,10 @@ class _HomePageViewState extends State<HomePageView> {
       //final FiltersState filterState = context.watch<FiltersCubit>().state;
 
       if (state is GenericInitial) {
-        return Container();
+        return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
+        return Container(
+            color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> restaurants = [];
         List<double> distances = [];
@@ -137,9 +137,10 @@ class _HomePageViewState extends State<HomePageView> {
       final GenericState stateSearch = context.watch<SearchCubit>().state;
 
       if (stateSearch is GenericInitial) {
-        return Container();
+        return Container(color: Colors.white);
       } else if (stateSearch is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
+        return Container(
+            color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
       } else if (stateSearch is GenericCompleted) {
         List<Search> searchList = [];
         List<Search> restaurant = [];
@@ -389,9 +390,10 @@ class _HomePageViewState extends State<HomePageView> {
       final stateOfOrder = context.watch<OrderReceivedCubit>().state;
 
       if (stateOfOrder is GenericInitial) {
-        return Container();
+        return Container(color: Colors.white);
       } else if (stateOfOrder is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
+        return Container(
+            color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
       } else if (stateOfOrder is GenericCompleted) {
         List<IyzcoOrderCreate> orderInfoTotal = [];
         List<IyzcoOrderCreate> orderInfo = [];

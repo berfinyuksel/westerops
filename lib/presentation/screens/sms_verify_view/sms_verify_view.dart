@@ -30,7 +30,7 @@ class _SmsVerifyState extends State<SmsVerify> {
   String? userPhoneNumber;
   @override
   void initState() {
-    // TODO: implement initState
+ 
     print(SharedPrefs.getUserPhone);
     userPhoneNumber = SharedPrefs.getUserPhone;
     print(userPhoneNumber);

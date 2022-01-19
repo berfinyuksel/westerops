@@ -2,7 +2,6 @@ import 'package:dongu_mobile/presentation/screens/forgot_password_view/component
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/services/location_service.dart';

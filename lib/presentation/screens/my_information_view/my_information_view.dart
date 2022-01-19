@@ -18,7 +18,6 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
-import 'components/update_popup.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 
 class MyInformationView extends StatefulWidget {

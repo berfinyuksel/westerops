@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/presentation/screens/order_receiving_view/order_receiving_registered_card.dart';
 import 'package:dongu_mobile/presentation/screens/order_receiving_view/order_receiving_without3d.dart';
+import 'package:dongu_mobile/presentation/screens/register_view/register_verify.dart';
 import 'package:dongu_mobile/presentation/screens/sms_verify_view/sms_verify_view.dart';
 import 'package:dongu_mobile/presentation/screens/surprise_pack_canceled_view/components/screen_arguments_surprise_cancel.dart';
 import 'package:flutter/material.dart';
@@ -195,6 +196,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PaymentViews());
       case RouteConstant.SMS_VERIFY_VIEW:
         return MaterialPageRoute(builder: (_) => SmsVerify());
+          case RouteConstant.REGISTER_VERIFY_VIEW:
+        return MaterialPageRoute(builder: (_) => RegisterVerify());
       case RouteConstant.REGISTER_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterView());
       case RouteConstant.RESTAURANT_DETAIL:

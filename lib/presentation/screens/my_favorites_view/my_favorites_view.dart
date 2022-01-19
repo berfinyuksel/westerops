@@ -71,9 +71,10 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       //final FiltersState filterState = context.watch<FiltersCubit>().state;
 
       if (state is GenericInitial) {
-        return Container();
+        return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
+        return Container(
+            color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> favourites = [];
         //List<double> distances = [];
@@ -101,9 +102,10 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           context.watch<FavoriteCubit>().state;
 
       if (stateOfFavorites is GenericInitial) {
-        return Container();
+        return Container(color: Colors.white);
       } else if (stateOfFavorites is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
+        return Container(
+            color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
       } else if (stateOfFavorites is GenericCompleted) {
         List<SearchStore> favouriteRestaurant = [];
         for (var i = 0; i < favourites.length; i++) {

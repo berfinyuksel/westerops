@@ -4,7 +4,7 @@ import '../../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../../../../utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';

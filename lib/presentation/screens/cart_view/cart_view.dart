@@ -58,7 +58,7 @@ class _CartViewState extends State<CartView> {
     return Builder(builder: (context) {
       final GenericState state = context.watch<OrderCubit>().state;
       if (state is GenericInitial) {
-        return Container();
+        return Container(color: Colors.white);
       } else if (state is GenericLoading) {
         return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
@@ -332,9 +332,9 @@ class _CartViewState extends State<CartView> {
                       );
                     });
               } else if (stateOfSearchStore is GenericInitial) {
-                return Container();
+                return Container(color: Colors.white);
               } else if (stateOfSearchStore is GenericLoading) {
-                return Center(child: CustomCircularProgressIndicator());
+                return Container(color: Colors.white,child: CustomCircularProgressIndicator());
               } else {
                 final error = stateOfSearchStore as GenericError;
 

@@ -69,7 +69,7 @@ class _PaymentInquiryStarterState extends State<PaymentInquiryStarter> {
             ],
           ),
         );
-        ;
+
       } else if (state is GenericCompleted) {
         _timer!.cancel();
 

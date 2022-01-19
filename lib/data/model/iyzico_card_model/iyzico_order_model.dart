@@ -29,16 +29,16 @@ class IyzcoOrderCreate {
 
   final int? id;
   final List<Box>? boxes;
-  final dynamic? courierTime;
+  final dynamic courierTime;
   final List<Review>? review;
   final DateTime? buyingTime;
   final String? status;
   final String? deliveryType;
   final int? cost;
   final int? refCode;
-  final dynamic? boxesDefinedTime;
+  final dynamic boxesDefinedTime;
   final bool? isVoted;
-  final dynamic? description;
+  final dynamic description;
   final String? paymentStatus;
   final String? paymentId;
   final String? paymentTransactionId;
