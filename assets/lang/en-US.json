@@ -308,7 +308,7 @@
         "hint_text": "Search for food, restaurants"
     },
     "my_favorites": {
-        "sign_in_to_monitor": "Please login to\nview your favorite restaurants.",
+        "sign_in_to_monitor": "Please login to view your favorite restaurants.",
         "no_favorites": "You do not have a favorite restaurant.",
         "permission_for_location": "Allow location services",
         "title": "My Favorites",
