@@ -414,7 +414,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     });
   }
 
-  ListView tabPackages(BuildContext context, GenericCompleted state) {
+  Column tabPackages(BuildContext context, GenericCompleted state) {
     List<Box> boxLists = [];
     for (var i = 0; i < state.response.length; i++) {
       boxLists.add(state.response[i]);
@@ -429,7 +429,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       }
     }
 
-    return ListView(
+    return Column(
       // physics: NeverScrollableScrollPhysics(),
       // shrinkWrap: true,
       children: [
