@@ -72,23 +72,53 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                   Spacer(flex: 5),
                   // buildDropDown(context, adressType),
                   // Spacer(flex: 10),
-                  buildTextFormField("VKN/TCKN", tcController),
-                  Spacer(flex: 10),
-                  buildTextFormField(LocaleKeys.address_address_name.locale,
-                      addressNameController),
+                  buildTextFormField(
+                    "VKN/TCKN",
+                    tcController,
+                  ),
+                  tcController.text.isEmpty
+                      ? buildValidatorText(tcController)
+                      : SizedBox(),
                   Spacer(flex: 10),
                   buildTextFormField(
-                      LocaleKeys.address_district.locale, districtController),
+                    LocaleKeys.address_address_name.locale,
+                    addressNameController,
+                  ),
+                  addressNameController.text.isEmpty
+                      ? buildValidatorText(addressNameController)
+                      : SizedBox(),
                   Spacer(flex: 10),
                   buildTextFormField(
-                      LocaleKeys.address_addresss.locale, addressController),
+                    LocaleKeys.address_district.locale,
+                    districtController,
+                  ),
+                  districtController.text.isEmpty
+                      ? buildValidatorText(districtController)
+                      : SizedBox(),
                   Spacer(flex: 10),
                   buildTextFormField(
-                      LocaleKeys.address_address_description.locale,
-                      descriptionController),
+                    LocaleKeys.address_addresss.locale,
+                    addressController,
+                  ),
+                  addressController.text.isEmpty
+                      ? buildValidatorText(addressController)
+                      : SizedBox(),
                   Spacer(flex: 10),
-                  buildTextFormField(LocaleKeys.address_phone_number.locale,
-                      phoneNumberController),
+                  buildTextFormField(
+                    LocaleKeys.address_address_description.locale,
+                    descriptionController,
+                  ),
+                  descriptionController.text.isEmpty
+                      ? buildValidatorText(descriptionController)
+                      : SizedBox(),
+                  Spacer(flex: 10),
+                  buildTextFormField(
+                    LocaleKeys.address_phone_number.locale,
+                    phoneNumberController,
+                  ),
+                  phoneNumberController.text.isEmpty
+                      ? buildValidatorText(phoneNumberController)
+                      : SizedBox(),
                   Spacer(
                     flex: 33,
                   ),
@@ -137,6 +167,28 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         ),
       ),
     );
+  }
+
+  Padding buildValidatorText(TextEditingController textController) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: LocaleText(
+        text: _errorText(textController)!,
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(color: Colors.red, fontSize: 12),
+      ),
+    );
+  }
+
+  String? _errorText(TextEditingController _controller) {
+    final text = _controller.value.text;
+
+    if (_controller == tcController && tcController.value.text.length <= 11) {
+      return 'Enter at least 11 character';
+    } else if (text.isEmpty) {
+      return 'Can\'t be empty';
+    }
+    return null;
   }
 
   // Container buildDropDown(BuildContext context, int dropdownValue) {
@@ -214,6 +266,9 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         color: Colors.white,
       ),
       child: TextFormField(
+        onChanged: (value) {
+          setState(() {});
+        },
         inputFormatters: [
           controller == tcController
               ? LengthLimitingTextInputFormatter(11)
@@ -248,8 +303,11 @@ class _AddressDetailViewState extends State<AddressDetailView> {
           // focusedBorder: InputBorder.none,
           // border: InputBorder.none,
           enabledBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppColors.borderAndDividerColor, width: 1),
+            borderSide: BorderSide(
+                color: controller.text.isEmpty
+                    ? Colors.red
+                    : AppColors.borderAndDividerColor,
+                width: 1),
             borderRadius: BorderRadius.circular(4.0),
           ),
           focusedBorder: OutlineInputBorder(
@@ -264,5 +322,16 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    tcController.dispose();
+    addressNameController.dispose();
+    districtController.dispose();
+    addressController.dispose();
+    descriptionController.dispose();
+    phoneNumberController.dispose();
+    super.dispose();
   }
 }
