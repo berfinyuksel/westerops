@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
+import 'package:intl/intl.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
@@ -19,6 +20,7 @@ import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
+import 'package:date_format/date_format.dart';
 
 class MyInformationView extends StatefulWidget {
   @override
@@ -31,6 +33,7 @@ class _MyInformationViewState extends State<MyInformationView> {
   TextEditingController mailController = TextEditingController();
   TextEditingController birthController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  DateTime? _selectedDate;
   bool isReadOnly = true;
   bool isVisibilty = false;
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -161,7 +164,7 @@ class _MyInformationViewState extends State<MyInformationView> {
       height: context.dynamicHeight(0.06),
       color: Colors.white,
       child: TextFormField(
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.none,
         inputFormatters: [
           DateInputFormatter(),
         ],
@@ -169,19 +172,52 @@ class _MyInformationViewState extends State<MyInformationView> {
         style: AppTextStyles.myInformationBodyTextStyle,
         cursorColor: AppColors.cursorColor,
         onTap: () {
-          setState(() {});
+          if (!isReadOnly) {
+            showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(1950),
+              lastDate: DateTime.now(),
+              builder: (context, child) {
+                return Theme(
+                  data: Theme.of(context).copyWith(
+                    colorScheme: ColorScheme.light(
+                      primary: AppColors.greenColor, // header background color
+                      onPrimary:
+                          AppColors.borderAndDividerColor, // header text color
+                      onSurface: AppColors.cursorColor, // body text color
+                    ),
+                    textButtonTheme: TextButtonThemeData(
+                      style: TextButton.styleFrom(
+                        primary: AppColors.greenColor, // button text color
+                      ),
+                    ),
+                  ),
+                  child: child!,
+                );
+              },
+            ).then((pickedDate) {
+              if (pickedDate == null) {
+                print("burda");
+                return;
+              }
+              setState(() {
+                _selectedDate = pickedDate;
+                // List<String> selectDate = _selectedDate!.split("T").toList();
+                // print(selectDate);
+                // print(selectDate[0]);
+                String datetime1 =
+                    DateFormat("dd/MM/yyyy").format(_selectedDate!);
+                birthController.text = datetime1;
+                print("AAAA: ${birthController.text}");
+
+                print(SharedPrefs.getUserBirth);
+              });
+            });
+          }
         },
         controller: controller,
         decoration: InputDecoration(
-          // icon: Padding(
-          //   padding: EdgeInsets.only(
-          //       left: context.dynamicWidht(0.05),
-          //       bottom: context.dynamicHeight(0.02)),
-          //   child: Icon(
-          //     Icons.calendar_today,
-          //     color: AppColors.orangeColor,
-          //   ),
-          // ),
           contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
           hintStyle: AppTextStyles.myInformationBodyTextStyle,
           labelStyle: AppTextStyles.bodyTextStyle,
@@ -316,13 +352,15 @@ class _MyInformationViewState extends State<MyInformationView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () async {
+          SharedPrefs.setUserBirth(birthController.text);
           context.read<UserAuthCubit>().updateUser(
                 nameController.text,
                 surnameController.text,
                 mailController.text,
                 phoneController.text,
                 SharedPrefs.getUserAddress,
-                birthController.text,
+                SharedPrefs.getUserBirth,
+                // birthController.text,
               );
           setState(() {
             isReadOnly = true;
