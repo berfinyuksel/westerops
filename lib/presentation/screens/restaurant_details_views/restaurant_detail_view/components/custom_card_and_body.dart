@@ -808,6 +808,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 ),
                 CustomButton(
                   onPressed: () {
+                    Navigator.of(context).pop();
                     Navigator.pushNamed(context, RouteConstant.ADDRESS_VIEW);
                   },
                   width: context.dynamicWidht(0.35),
