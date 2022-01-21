@@ -51,7 +51,10 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
+        return Padding(
+          padding:  EdgeInsets.symmetric(vertical:context.dynamicHeight(0.3)),
+          child: Center(child: CustomCircularProgressIndicator()),
+        );
       } else if (state is GenericCompleted) {
         List<Result> notifications = [];
 
@@ -81,9 +84,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       itemBuilder: (context, index) {
         //  context.read<NotificationCubit>().getNotification();
         // print("${notifications[index].results![index].message}");
-        context
-            .read<PutNotificationCubit>()
-            .putNotification(notifications[index].id.toString());
+    
         print(notifications[index].id.toString());
         return Container(
           height: 101,
@@ -131,43 +132,54 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          LocaleText(
-                            text: notifications[index].type == 16 ||
-                                    notifications[index].type == 15 ||
-                                    notifications[index].type == 14 ||
-                                    notifications[index].type == 13 ||
-                                    notifications[index].type == 11 ||
-                                    notifications[index].type == 8
-                                ? "🔔 ${notifications[index].description}"
-                                : notifications[index].type == 10 ||
-                                        notifications[index].type == 9
-                                    ? "🎉 ${notifications[index].description}"
-                                    : "🛒 ${notifications[index].description}",
-                          ),
-                          LocaleText(
-                            text: "${notifications[index].date}",
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: context.dynamicHeight(0.01)),
-                            child: LocaleText(
-                              text: "${notifications[index].message}",
-                              style: AppTextStyles.bodyTextStyle.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textColor,
-                                  height: 1.5),
-                              alignment: TextAlign.start,
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: LocaleText(
+                                text: notifications[index].type == 16 ||
+                                        notifications[index].type == 15 ||
+                                        notifications[index].type == 14 ||
+                                        notifications[index].type == 13 ||
+                                        notifications[index].type == 11 ||
+                                        notifications[index].type == 8
+                                    ? "🔔 ${notifications[index].description}"
+                                    : notifications[index].type == 10 ||
+                                            notifications[index].type == 9
+                                        ? "🎉 ${notifications[index].description}"
+                                        : "🛒 ${notifications[index].description}",
+                              ),
                             ),
-                          ))
-                        ],
+                            Spacer(flex: 1,),
+                            Expanded(
+                              flex: 2,
+                              child: LocaleText(
+                                text: "${notifications[index].date}",
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: context.dynamicHeight(0.01)),
+                              child: LocaleText(
+                                text: "${notifications[index].message}",
+                                style: AppTextStyles.bodyTextStyle.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.textColor,
+                                    height: 1.5),
+                                alignment: TextAlign.start,
+                              ),
+                            ))
+                          ],
+                        ),
                       ),
                     ],
                   ),
