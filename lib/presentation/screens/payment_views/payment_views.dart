@@ -648,8 +648,7 @@ class _PaymentViewsState extends State<PaymentViews>
     SharedPrefs.setCounter(0);
     SharedPrefs.setMenuList([]);
     context.read<BasketCounterCubit>().setCounter(0);
-    context.read<OrderBarCubit>().stateOfBar(true);
-    SharedPrefs.setOrderBar(true);
+    triggerGreenStatusBar(context);
     Navigator.pushReplacementNamed(
         context, RouteConstant.ORDER_RECEIVING_VIEW_WITHOUT3D);
   }
@@ -675,8 +674,7 @@ class _PaymentViewsState extends State<PaymentViews>
     SharedPrefs.setCounter(0);
     SharedPrefs.setMenuList([]);
     context.read<BasketCounterCubit>().setCounter(0);
-    context.read<OrderBarCubit>().stateOfBar(true);
-    SharedPrefs.setOrderBar(true);
+
     showDialog(
       useSafeArea: false,
       context: context,
@@ -697,14 +695,20 @@ class _PaymentViewsState extends State<PaymentViews>
     context
         .read<StoreCourierCubit>()
         .updateCourierHours(SharedPrefs.getCourierHourId);
-    context.read<OrderBarCubit>().stateOfBar(true);
-    SharedPrefs.setOrderBar(true);
+
+    triggerGreenStatusBar(context);
+
     menuList!.clear();
     SharedPrefs.setCounter(0);
     SharedPrefs.setMenuList([]);
     context.read<BasketCounterCubit>().setCounter(0);
     Navigator.pushReplacementNamed(
         context, RouteConstant.ORDER_RECEIVING_VIEW_REGISTERED_CARD);
+  }
+
+  void triggerGreenStatusBar(BuildContext context) {
+    context.read<OrderBarCubit>().stateOfBar(true);
+    SharedPrefs.setOrderBar(true);
   }
 
   Container buildCheckBoxForAggreements(

@@ -6,6 +6,7 @@ import 'package:dongu_mobile/data/services/local_notifications/local_notificatio
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
@@ -94,7 +95,8 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                       for (int i = 0; i < state.response.length; i++) {
                         orderInfo.add(state.response[i]);
                       }
-
+                      context.read<OrderBarCubit>().stateOfBar(true);
+                      SharedPrefs.setOrderBar(true);
                       NotificationService().gotOrder();
                       navigateToOrderReceivedView(orderInfo.first);
                       return LocaleText(

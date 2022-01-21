@@ -12,6 +12,7 @@ import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_
 
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_all_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
@@ -74,6 +75,7 @@ class _HomePageViewState extends State<HomePageView> {
     super.initState();
     context.read<SearchStoreCubit>().getSearchStore();
     context.read<SendRequestCubit>().initialValue();
+    context.read<PastOrderAllCubit>().getPastOrder();
     LocationService.getCurrentLocation();
     getDeviceIdentifier();
   }
@@ -114,7 +116,8 @@ class _HomePageViewState extends State<HomePageView> {
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
         return Container(
-            color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
+            color: Colors.white,
+            child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> restaurants = [];
         List<double> distances = [];
@@ -140,7 +143,8 @@ class _HomePageViewState extends State<HomePageView> {
         return Container(color: Colors.white);
       } else if (stateSearch is GenericLoading) {
         return Container(
-            color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
+            color: Colors.white,
+            child: Center(child: CustomCircularProgressIndicator()));
       } else if (stateSearch is GenericCompleted) {
         List<Search> searchList = [];
         List<Search> restaurant = [];
@@ -387,13 +391,14 @@ class _HomePageViewState extends State<HomePageView> {
 
   Widget buildOrderStatusBar() {
     return Builder(builder: (context) {
-      final stateOfOrder = context.watch<OrderReceivedCubit>().state;
+      final stateOfOrder = context.watch<PastOrderAllCubit>().state;
 
       if (stateOfOrder is GenericInitial) {
         return Container(color: Colors.white);
       } else if (stateOfOrder is GenericLoading) {
         return Container(
-            color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
+            color: Colors.white,
+            child: Center(child: CustomCircularProgressIndicator()));
       } else if (stateOfOrder is GenericCompleted) {
         List<IyzcoOrderCreate> orderInfoTotal = [];
         List<IyzcoOrderCreate> orderInfo = [];
@@ -406,7 +411,6 @@ class _HomePageViewState extends State<HomePageView> {
             orderInfo.add(orderInfoTotal[i]);
           }
         }
-
         return orderInfo.isNotEmpty
             ? GestureDetector(
                 onTap: () {
