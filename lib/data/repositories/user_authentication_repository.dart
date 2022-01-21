@@ -132,7 +132,7 @@ class SampleUserAuthenticationRepository
       SharedPrefs.setUserId(jsonResults['id']);
       //  SharedPrefs.setUserAddress(jsonResults['address']);
       SharedPrefs.setUserBirth(jsonResults['birthday'] == null
-          ? "--/--/----"
+          ? "dd/mm/yyyy"
           : "${jsonResults['birthday']}");
       SharedPrefs.setUserEmail(user.email!);
       SharedPrefs.setUserName(user.firstName!);
