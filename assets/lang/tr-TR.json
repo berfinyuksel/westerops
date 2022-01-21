@@ -60,9 +60,9 @@
             "subtitle_3": "veya  hatırlamıyorsanız",
             "subtitle_4": "şifrenizi  yenileyebilirsiniz"
         },
-            "fail_pop_up_text": {
-                "title": "Eksik bilgi hatası. Lütfen eksiksiz bir şekilde doldurun."
-            },
+        "fail_pop_up_text": {
+            "title": "Eksik bilgi hatası. Lütfen eksiksiz bir şekilde doldurun."
+        },
         "consent": {
             "text1": "Önemli kampanyalardan haberdar olmak için ",
             "text2": "Rıza Metni",
@@ -636,7 +636,7 @@
             "button2": "Kayıt Ol"
         },
         "alert_dialog": {
-            "text_1": "Siparişi Göndermek İstediğiniz Adresi Seçiniz",
+            "text_1": "Sepetinize ürün eklemek için adres seçmeniz gerekmektedir",
             "text_2": "Tamam"
         },
         "diffrent_restaurant_show_dialog": {
@@ -721,10 +721,9 @@
         "body_text": "Gezegenimizi korumak çıktığımız bu yolda bizi yalnız bırakmadığın için teşekkürler! Şimdi sıra siparişini puanlamada!",
         "button": "Değerlendir"
     },
-    "emoji_notifications":{
+    "emoji_notifications": {
         "bell": "🔔",
         "basket": "🛒",
         "surprise": "🎉"
     }
-
 }

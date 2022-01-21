@@ -717,7 +717,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     final counterState =
                         context.watch<BasketCounterCubit>().state;
                     return Builder(builder: (context) {
-                      final addressState = context.watch<AddressCubit>().state;
                       return CustomButton(
                         title: menuList!.contains(menuItem.toString())
                             ? LocaleKeys.restaurant_detail_button_text2
@@ -732,8 +731,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         borderColor: AppColors.greenColor,
                         onPressed: () async {
                           print(menuItem);
-                          await pressedBuyButton(state, index, context,
-                              counterState, menuItem, addressState);
+                          await pressedBuyButton(
+                              state, index, context, counterState, menuItem);
                         },
                       );
                     });
@@ -749,12 +748,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   }
 
   Future<void> pressedBuyButton(
-      GenericCompleted<dynamic> state,
-      int index,
-      BuildContext context,
-      int counterState,
-      int menuItem,
-      GenericState addressState) async {
+    GenericCompleted<dynamic> state,
+    int index,
+    BuildContext context,
+    int counterState,
+    int menuItem,
+  ) async {
     StatusCode statusCode = await sl<BasketRepository>().addToBasket(
       "${state.response[index].id}",
       SharedPrefs.getActiveAddressId,
@@ -775,7 +774,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               Navigator.of(context).pushNamed(RouteConstant.REGISTER_VIEW);
             }),
       );
-    } else if (addressState is GenericError) {
+    } else if (statusCode == StatusCode.noAddress) {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -809,6 +808,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 ),
                 CustomButton(
                   onPressed: () {
+                    Navigator.of(context).pop();
                     Navigator.pushNamed(context, RouteConstant.ADDRESS_VIEW);
                   },
                   width: context.dynamicWidht(0.35),
