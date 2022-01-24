@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/clarification_view/clarification_view.dart';
 import 'package:dongu_mobile/presentation/screens/order_receiving_view/order_receiving_registered_card.dart';
 import 'package:dongu_mobile/presentation/screens/order_receiving_view/order_receiving_without3d.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/register_verify.dart';
@@ -96,6 +97,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => ChangeLocationView());
       case RouteConstant.CHANGE_PASSWORD_VIEW:
         return MaterialPageRoute(builder: (_) => ChangePasswordView());
+      case RouteConstant.CLARIFICATION_VIEW:
+        return MaterialPageRoute(builder: (_) => ClarificationView());
       case RouteConstant.CONTACT_VIEW:
         return MaterialPageRoute(builder: (_) => ContactView());
       case RouteConstant.CUSTOM_SCAFFOLD:
@@ -196,7 +199,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PaymentViews());
       case RouteConstant.SMS_VERIFY_VIEW:
         return MaterialPageRoute(builder: (_) => SmsVerify());
-          case RouteConstant.REGISTER_VERIFY_VIEW:
+      case RouteConstant.REGISTER_VERIFY_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterVerify());
       case RouteConstant.REGISTER_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterView());
@@ -224,9 +227,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SurprisePackView());
       case RouteConstant.SPLASH_VIEW:
         return MaterialPageRoute(
-            builder: (_) => SharedPrefs.getIsLogined
-                ? CustomScaffold()
-                : SplashView());
+            builder: (_) =>
+                SharedPrefs.getIsLogined ? CustomScaffold() : SplashView());
       // case RouteConstant.SPLASH_VIEW:
       //   return MaterialPageRoute(
       //       builder: (_) => SharedPrefs.getIsOnboardingShown

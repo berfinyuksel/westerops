@@ -49,6 +49,9 @@ class AboutAppView extends StatelessWidget {
           ),
           AboutAppListTile(
             text: LocaleKeys.about_app_clarification,
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.CLARIFICATION_VIEW);
+            },
           ),
           AboutAppListTile(
             text: LocaleKeys.about_app_help_center,

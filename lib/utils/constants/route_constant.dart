@@ -10,6 +10,7 @@ class RouteConstant {
   static const CART_VIEW = '/cart';
   static const CHANGE_LOCATION_VIEW = '/changeLocation';
   static const CHANGE_PASSWORD_VIEW = '/changePass';
+  static const CLARIFICATION_VIEW = '/clarification';
   static const CONTACT_VIEW = '/contact';
   static const CUSTOM_SCAFFOLD = '/scaf';
   static const DELETE_ACCOUNT_VIEW = '/deleteAccount';
@@ -52,5 +53,5 @@ class RouteConstant {
   static const MY_REGISTERED_CARD_VIEW = '/myRegisteredCard';
   static const MY_REGISTERED_CARD_UPDATE_VIEW = '/myRegisteredCardUpdate';
   static const SMS_VERIFY_VIEW = '/smsVerify';
-    static const REGISTER_VERIFY_VIEW = '/registerVerify';
+  static const REGISTER_VERIFY_VIEW = '/registerVerify';
 }
