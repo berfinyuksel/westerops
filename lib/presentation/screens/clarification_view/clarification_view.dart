@@ -8,15 +8,15 @@ import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import '../agreement_view/components/accept_agreement_text.dart';
-import 'components/agreement_scrollbar_listview.dart';
+import 'components/clarification_scrollbar_listview.dart';
 import '../../../utils/extensions/string_extension.dart';
 
-class AgreementKvkkView extends StatefulWidget {
+class ClarificationView extends StatefulWidget {
   @override
-  _AgreementKvkkViewState createState() => _AgreementKvkkViewState();
+  _ClarificationViewState createState() => _ClarificationViewState();
 }
 
-class _AgreementKvkkViewState extends State<AgreementKvkkView> {
+class _ClarificationViewState extends State<ClarificationView> {
   bool checkboxValue = false;
 
   @override
@@ -33,12 +33,12 @@ class _AgreementKvkkViewState extends State<AgreementKvkkView> {
         child: Column(
           children: [
             LocaleText(
-              text: "Kullanıcı Sözleşmesi",
+              text: "Aydınlatma Metni",
               style: AppTextStyles.headlineStyle.copyWith(fontSize: 20),
               alignment: TextAlign.center,
             ),
             Spacer(flex: 40),
-            AgreementScrollBarListView(),
+            ClarificationScrollBarListView(),
             Spacer(flex: 40),
             Row(
               children: [
