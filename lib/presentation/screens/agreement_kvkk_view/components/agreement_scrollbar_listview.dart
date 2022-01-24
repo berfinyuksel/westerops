@@ -15,7 +15,7 @@ class AgreementScrollBarListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.5),
+      height: context.dynamicHeight(0.7),
       child: RawScrollbar(
         thumbColor: AppColors.greenColor,
         thickness: 10,

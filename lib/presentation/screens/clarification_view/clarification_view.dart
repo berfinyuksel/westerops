@@ -1,15 +1,9 @@
-import '../../../utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-
 import '../../../utils/extensions/context_extension.dart';
-import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
-import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
-import '../agreement_view/components/accept_agreement_text.dart';
 import 'components/clarification_scrollbar_listview.dart';
-import '../../../utils/extensions/string_extension.dart';
 
 class ClarificationView extends StatefulWidget {
   @override
@@ -33,14 +27,14 @@ class _ClarificationViewState extends State<ClarificationView> {
         child: Column(
           children: [
             LocaleText(
-              text: "Aydınlatma Metni",
+              text: "KVKK ve Aydınlatma Metni",
               style: AppTextStyles.headlineStyle.copyWith(fontSize: 20),
               alignment: TextAlign.center,
             ),
-            Spacer(flex: 40),
+            Spacer(flex: 5),
             ClarificationScrollBarListView(),
-            Spacer(flex: 40),
-            Row(
+            Spacer(flex: 5),
+            /* Row(
               children: [
                 buildCheckBox(context),
                 Spacer(flex: 1),
@@ -59,7 +53,7 @@ class _ClarificationViewState extends State<ClarificationView> {
               color: AppColors.greenColor,
               borderColor: AppColors.greenColor,
               textColor: Colors.white,
-            ),
+            ), */
           ],
         ),
       ),
