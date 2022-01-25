@@ -351,53 +351,31 @@ class _MyInformationViewState extends State<MyInformationView> {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
-        onPressed: () async {
+        onPressed: () {
           SharedPrefs.setUserBirth(birthController.text);
-          context.read<UserAuthCubit>().updateUser(
-                nameController.text,
-                surnameController.text,
-                mailController.text,
-                phoneController.text,
-                SharedPrefs.getUserAddress,
-                SharedPrefs.getUserBirth,
-                // birthController.text,
-              );
+          birthController.text = SharedPrefs.getUserBirth;
+          SharedPrefs.setUserName(nameController.text);
+          SharedPrefs.setUserLastName(surnameController.text);
+          if (phoneController.text != SharedPrefs.getUserPhone ||
+              mailController.text != SharedPrefs.getUserEmail) {
+            Navigator.popAndPushNamed(
+                context, RouteConstant.VERIFY_INFORMATION);
+            SharedPrefs.setUserPhone(phoneController.text);
+            SharedPrefs.setUserEmail(mailController.text);
+          } else {
+            context.read<UserAuthCubit>().updateUser(
+                  SharedPrefs.getUserName,
+                  SharedPrefs.getUserLastName,
+                  mailController.text,
+                  phoneController.text,
+                  SharedPrefs.getUserAddress,
+                  SharedPrefs.getUserBirth,
+                  // birthController.text,
+                );
+          }
           setState(() {
             isReadOnly = true;
           });
-          if (phoneController.text.isNotEmpty ||
-              mailController.text.isNotEmpty) {
-            Navigator.popAndPushNamed(context, RouteConstant.SMS_VERIFY_VIEW);
-            await _auth.verifyPhoneNumber(
-                phoneNumber: phoneController.text,
-                verificationCompleted: (phoneAuthCredential) async {
-                  // print(
-                  //     "SMS CODE : ${phoneAuthCredential.smsCode}");
-                  setState(() {
-                    showLoading = false;
-                  });
-                  //signInWithPhoneAuthCredential(phoneAuthCredential);
-                },
-                verificationFailed: (verificationFailed) async {
-                  setState(() {
-                    showLoading = false;
-                  });
-                  // ignore: deprecated_member_use
-                },
-                codeSent: (verificationId, resendingToken) async {
-                  setState(() {
-                    showLoading = false;
-                    currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
-                    this.verificationId = verificationId;
-                  });
-                },
-                codeAutoRetrievalTimeout: (verificationId) async {});
-            SharedPrefs.setUserPhone(phoneController.text);
-            SharedPrefs.setUserEmail(mailController.text);
-          }
-          // showDialog(
-          //     context: context,
-          //     builder: (_) => CustomAlertDialogUpdateInform());
         },
       ),
     );

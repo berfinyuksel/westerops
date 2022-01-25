@@ -54,4 +54,5 @@ class RouteConstant {
   static const MY_REGISTERED_CARD_UPDATE_VIEW = '/myRegisteredCardUpdate';
   static const SMS_VERIFY_VIEW = '/smsVerify';
   static const REGISTER_VERIFY_VIEW = '/registerVerify';
+  static const VERIFY_INFORMATION = '/verifyInformation';
 }

@@ -254,6 +254,9 @@ class SharedPrefs {
   static Future<void> setCourierHourText(String courierHourText) async {
     _prefs.setString('courierHourText', courierHourText);
   }
+  static Future<void> setNotificationsIsRead(bool isRead) async {
+    _prefs.setBool('notificationsIsRead', isRead);
+  }
 
   static Future<void> setRegisterPhone(String registerPhone) async {
     _prefs.setString('registerPhone', registerPhone);
@@ -261,6 +264,7 @@ class SharedPrefs {
 
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
+  static bool get getNotificationsIsRead => _prefs.getBool('notificationsIsRead') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
   static int get getUserId => _prefs.getInt('userId') ?? 0;
   static String get getUserEmail => _prefs.getString('userEmail') ?? "";

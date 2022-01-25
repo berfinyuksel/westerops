@@ -44,7 +44,10 @@ class _SpecialForMeListTileBuilderState
       if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.3)),
+          child: Center(child: CustomCircularProgressIndicator()),
+        );
       } else if (state is GenericCompleted) {
         List<Result> notifications = [];
 
@@ -113,34 +116,44 @@ class _SpecialForMeListTileBuilderState
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          //buildTitle(context, index)[index],
-                          //buildDateTrailing(context, index)[index]
-                          LocaleText(
-                            text: notifications[index].type == 16 || notifications[index].type == 15 || notifications[index].type == 14 || notifications[index].type == 13 || notifications[index].type == 11 || notifications[index].type == 8  ? "🔔 ${notifications[index].description}" :  notifications[index].type == 10 || notifications[index].type == 9 ? "🎉 ${notifications[index].description}" : "🛒 ${notifications[index].description}"
-                            ,
-                          ),
-                          LocaleText(
-                            text: "${notifications[index].date}",
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          buildIconsLeading(
-                              context, index, notifications)[index],
-                          Expanded(
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            //buildTitle(context, index)[index],
+                            //buildDateTrailing(context, index)[index]
+                            Expanded(
+                              flex:5,
                               child: LocaleText(
-                            text: "${notifications[index].message}",
-                            style: AppTextStyles.bodyTextStyle.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textColor,
-                                height: 1.5),
-                            alignment: TextAlign.start,
-                          ))
-                        ],
+                                text: notifications[index].type == 16 || notifications[index].type == 15 || notifications[index].type == 14 || notifications[index].type == 13 || notifications[index].type == 11 || notifications[index].type == 8  ? "🔔 ${notifications[index].description}" :  notifications[index].type == 10 || notifications[index].type == 9 ? "🎉 ${notifications[index].description}" : "🛒 ${notifications[index].description}"
+                                ,
+                              ),
+                            ),
+                            LocaleText(
+                              text: "${notifications[index].date}",
+                            )
+                          ],
+                        ),
+                      ),
+                      //Spacer(flex:1),
+                      Expanded(
+                        flex:2,
+                        child: Row(
+                          children: [
+                            buildIconsLeading(
+                                context, index, notifications)[index],
+                                SizedBox(width: 10,),
+                            Expanded(
+                                child: LocaleText(
+                              text: "${notifications[index].message}",
+                              style: AppTextStyles.bodyTextStyle.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textColor,
+                                  height: 1.5),
+                              alignment: TextAlign.start,
+                            ))
+                          ],
+                        ),
                       ),
                     ],
                   ),

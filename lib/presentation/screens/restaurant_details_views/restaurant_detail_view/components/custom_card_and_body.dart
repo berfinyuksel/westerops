@@ -788,7 +788,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               color: Colors.white,
             ),
             child: Column(
-              children: [
+              children: [ 
                 Spacer(
                   flex: 8,
                 ),
