@@ -47,6 +47,11 @@ class ContractText extends StatelessWidget {
               ),
             ),
             TextSpan(
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Navigator.pushNamed(
+                      context, RouteConstant.CLARIFICATION_VIEW);
+                },
               text: LocaleKeys.register_contract_text4.locale,
               style: GoogleFonts.montserrat(
                 color: AppColors.orangeColor,

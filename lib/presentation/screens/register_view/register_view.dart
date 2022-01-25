@@ -111,157 +111,161 @@ class _RegisterViewState extends State<RegisterView> {
     return Padding(
       padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom * 0.65),
-      child: Container(
-        padding: EdgeInsets.only(
-          bottom: context.dynamicHeight(0.02),
-        ),
-        height: context.dynamicHeight(0.69),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(18.0),
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            bottom: context.dynamicHeight(0.02),
           ),
-          color: Colors.white,
-        ),
-        child: Column(
-          children: [
-            Spacer(
-              flex: 2,
+          height: context.dynamicHeight(0.69),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(18.0),
             ),
-            LocaleText(
-              text: LocaleKeys.register_text_register,
-              maxLines: 1,
-              style: AppTextStyles.appBarTitleStyle,
-            ),
-            Spacer(
-              flex: 2,
-            ),
-            Divider(
-              height: 0,
-              thickness: 4,
-              color: AppColors.borderAndDividerColor,
-            ),
-            Spacer(
-              flex: 2,
-            ),
-            Expanded(
-              flex: 5,
-              child: Padding(
+            color: Colors.white,
+          ),
+          child: Column(
+            children: [
+              Spacer(
+                flex: 2,
+              ),
+              LocaleText(
+                text: LocaleKeys.register_text_register,
+                maxLines: 1,
+                style: AppTextStyles.appBarTitleStyle,
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Divider(
+                height: 0,
+                thickness: 4,
+                color: AppColors.borderAndDividerColor,
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 5,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildDropDown(context),
+                      Container(
+                        height: context.dynamicHeight(0.06),
+                        width: context.dynamicWidht(0.57),
+                        child: buildTextFormField(
+                            LocaleKeys.register_phone.locale,
+                            phoneController,
+                            (val) => !isNumeric(phoneController.text)
+                                ? "Invalid Phone"
+                                : null),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06)),
+                  child: buildTextFormField(
+                      LocaleKeys.register_full_name.locale,
+                      nameController,
+                      (value) {}),
+                ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06)),
+                  child: buildTextFormField(
+                      LocaleKeys.register_email.locale,
+                      emailController,
+                      (val) => isEmail(emailController.text)
+                          ? "Invalid Email"
+                          : null),
+                ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06)),
+                  child: buildTextFormFieldPassword(
+                      LocaleKeys.register_password.locale),
+                ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: context.dynamicWidht(0.06)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    buildDropDown(context),
-                    Container(
-                      height: context.dynamicHeight(0.06),
-                      width: context.dynamicWidht(0.57),
-                      child: buildTextFormField(
-                          LocaleKeys.register_phone.locale,
-                          phoneController,
-                          (val) => !isNumeric(phoneController.text)
-                              ? "Invalid Phone"
-                              : null),
+                    buildCheckBox(context),
+                    Spacer(
+                      flex: 1,
                     ),
+                    ConsentText(),
                   ],
                 ),
               ),
-            ),
-            Spacer(
-              flex: 2,
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.06)),
-                child: buildTextFormField(LocaleKeys.register_full_name.locale,
-                    nameController, (value) {}),
+              Spacer(
+                flex: 2,
               ),
-            ),
-            Spacer(
-              flex: 2,
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.06)),
-                child: buildTextFormField(
-                    LocaleKeys.register_email.locale,
-                    emailController,
-                    (val) =>
-                        isEmail(emailController.text) ? "Invalid Email" : null),
-              ),
-            ),
-            Spacer(
-              flex: 2,
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.06)),
-                child: buildTextFormFieldPassword(
-                    LocaleKeys.register_password.locale),
-              ),
-            ),
-            Spacer(
-              flex: 2,
-            ),
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  buildCheckBox(context),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  ConsentText(),
-                ],
-              ),
-            ),
-            Spacer(
-              flex: 2,
-            ),
-            CustomButton(
-                width: context.dynamicWidht(0.4),
-                title: LocaleKeys.register_text_register,
-                textColor: Colors.white,
-                color: checkboxValue
-                    ? AppColors.greenColor
-                    : AppColors.disabledButtonColor,
-                borderColor: checkboxValue
-                    ? AppColors.greenColor
-                    : AppColors.disabledButtonColor,
-                onPressed: () async {
-                  bool numberControl =
-                      passwordController.text.contains(RegExp(r'[0-9]'));
-                  bool uppercaseControl =
-                      passwordController.text.contains(RegExp(r'[A-Z]'));
-                  bool lengthControl = passwordController.text.length > 7;
-                  bool phoneControl = phoneTR.length >= 13;
-                  String firstName = nameController.text;
-                  String lastName = nameController.text;
-                  firstName.split(" ");
-                  lastName.split(" ");
-                  print(firstName);
-                  print(lastName);
-                  if (lengthControl ||
-                      nameController.text.isEmpty ||
-                      phoneController.text.isEmpty ||
-                      uppercaseControl ||
-                      phoneControl ||
-                      numberControl ||
-                      firstName.isEmpty ||
-                      lastName.isEmpty ||
-                      nameController.text.isEmpty ||
-                      emailController.text.isEmpty ||
-                      passwordController.text.isEmpty) {
+              CustomButton(
+                  width: context.dynamicWidht(0.4),
+                  title: LocaleKeys.register_text_register,
+                  textColor: Colors.white,
+                  color: checkboxValue
+                      ? AppColors.greenColor
+                      : AppColors.disabledButtonColor,
+                  borderColor: checkboxValue
+                      ? AppColors.greenColor
+                      : AppColors.disabledButtonColor,
+                  onPressed: () async {
+                    bool numberControl =
+                        passwordController.text.contains(RegExp(r'[0-9]'));
+                    bool uppercaseControl =
+                        passwordController.text.contains(RegExp(r'[A-Z]'));
+                    bool lengthControl = passwordController.text.length > 7;
+                    bool phoneControl = phoneTR.length >= 13;
+                    String firstName = nameController.text;
+                    String lastName = nameController.text;
+                    firstName.split(" ");
+                    lastName.split(" ");
+                    print(firstName);
+                    print(lastName);
+                    if (lengthControl ||
+                        nameController.text.isEmpty ||
+                        phoneController.text.isEmpty ||
+                        uppercaseControl ||
+                        phoneControl ||
+                        numberControl ||
+                        firstName.isEmpty ||
+                        lastName.isEmpty ||
+                        nameController.text.isEmpty ||
+                        emailController.text.isEmpty ||
+                        passwordController.text.isEmpty) {
                       showDialog(
-                      context: context,
-                      builder: (_) => CustomErrorPopup(
+                        context: context,
+                        builder: (_) => CustomErrorPopup(
                           textMessage:
                               LocaleKeys.register_fail_pop_up_text_title.locale,
                           buttonOneTitle: LocaleKeys.payment_payment_cancel,
@@ -271,47 +275,47 @@ class _RegisterViewState extends State<RegisterView> {
                             Navigator.of(context).pop();
                           },
                         ),
-                    );
-                  }
-                  if (checkboxValue &&
-                      numberControl &&
-                      uppercaseControl &&
-                      lengthControl &&
-                      phoneControl) {
-                    //String phoneEN = '+1' + phoneController.text;
-                    if (nameController.text.isNotEmpty &&
-                        phoneController.text.isNotEmpty &&
-                        passwordController.text.isNotEmpty &&
-                        lastName.isNotEmpty &&
-                        firstName.isNotEmpty) {
-                      SharedPrefs.setUserName(firstName);
-                      SharedPrefs.setUserLastName(lastName);
-                      SharedPrefs.setUserPhone(phoneTR);
-                      SharedPrefs.setUserEmail(emailController.text);
-                      SharedPrefs.setUserPassword(passwordController.text);
-                      Navigator.popAndPushNamed(
-                          context, RouteConstant.REGISTER_VERIFY_VIEW);
-                    } else {
-                      ErrorAlertDialog(onTap: () {});
-
+                      );
                     }
-                  }
-                }),
-            Spacer(
-              flex: 2,
-            ),
-            ContractText(),
-            Spacer(
-              flex: 2,
-            ),
-            Expanded(
-              flex: 4,
-              child: buildSocialAuths(context),
-            ),
-            Spacer(
-              flex: 2,
-            ),
-          ],
+                    if (checkboxValue &&
+                        numberControl &&
+                        uppercaseControl &&
+                        lengthControl &&
+                        phoneControl) {
+                      //String phoneEN = '+1' + phoneController.text;
+                      if (nameController.text.isNotEmpty &&
+                          phoneController.text.isNotEmpty &&
+                          passwordController.text.isNotEmpty &&
+                          lastName.isNotEmpty &&
+                          firstName.isNotEmpty) {
+                        SharedPrefs.setUserName(firstName);
+                        SharedPrefs.setUserLastName(lastName);
+                        SharedPrefs.setUserPhone(phoneTR);
+                        SharedPrefs.setUserEmail(emailController.text);
+                        SharedPrefs.setUserPassword(passwordController.text);
+                        Navigator.popAndPushNamed(
+                            context, RouteConstant.REGISTER_VERIFY_VIEW);
+                      } else {
+                        ErrorAlertDialog(onTap: () {});
+                      }
+                    }
+                  }),
+              Spacer(
+                flex: 2,
+              ),
+              ContractText(),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 4,
+                child: buildSocialAuths(context),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+            ],
+          ),
         ),
       ),
     );
