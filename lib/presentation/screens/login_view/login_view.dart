@@ -255,9 +255,9 @@ class _LoginViewState extends State<LoginView> {
       builder: (BuildContext context) {
         final GenericState state = context.watch<UserAuthCubit>().state;
         if (state is GenericInitial) {
-          return Container(color: Colors.white);
+          return Container();
         } else if (state is GenericLoading) {
-          return Container(color: Colors.white);
+          return Container();
         } else if (state is GenericCompleted) {
           print('ajsndjasndsjandjklasn');
           print(state.response);
