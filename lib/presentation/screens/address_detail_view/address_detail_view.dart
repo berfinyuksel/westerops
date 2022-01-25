@@ -38,6 +38,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   // TextEditingController daireNoController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  int counter = 0;
   @override
   void initState() {
     super.initState();
@@ -76,7 +77,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                     "VKN/TCKN",
                     tcController,
                   ),
-                  tcController.text.isEmpty
+                  tcController.text.isEmpty && counter > 0
                       ? buildValidatorText(tcController)
                       : SizedBox(),
                   Spacer(flex: 10),
@@ -84,7 +85,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                     LocaleKeys.address_address_name.locale,
                     addressNameController,
                   ),
-                  addressNameController.text.isEmpty
+                  addressNameController.text.isEmpty && counter > 0
                       ? buildValidatorText(addressNameController)
                       : SizedBox(),
                   Spacer(flex: 10),
@@ -92,7 +93,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                     LocaleKeys.address_district.locale,
                     districtController,
                   ),
-                  districtController.text.isEmpty
+                  districtController.text.isEmpty && counter > 0
                       ? buildValidatorText(districtController)
                       : SizedBox(),
                   Spacer(flex: 10),
@@ -100,7 +101,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                     LocaleKeys.address_addresss.locale,
                     addressController,
                   ),
-                  addressController.text.isEmpty
+                  addressController.text.isEmpty && counter > 0
                       ? buildValidatorText(addressController)
                       : SizedBox(),
                   Spacer(flex: 10),
@@ -108,7 +109,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                     LocaleKeys.address_address_description.locale,
                     descriptionController,
                   ),
-                  descriptionController.text.isEmpty
+                  descriptionController.text.isEmpty && counter > 0
                       ? buildValidatorText(descriptionController)
                       : SizedBox(),
                   Spacer(flex: 10),
@@ -116,7 +117,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                     LocaleKeys.address_phone_number.locale,
                     phoneNumberController,
                   ),
-                  phoneNumberController.text.isEmpty
+                  phoneNumberController.text.isEmpty && counter > 0
                       ? buildValidatorText(phoneNumberController)
                       : SizedBox(),
                   Spacer(
@@ -129,6 +130,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                     borderColor: AppColors.greenColor,
                     textColor: Colors.white,
                     onPressed: () {
+                      setState(() {});
+                      counter++;
                       if (addressNameController.text.isNotEmpty &&
                           descriptionController.text.isNotEmpty &&
                           addressController.text.isNotEmpty &&
@@ -304,7 +307,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
           // border: InputBorder.none,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-                color: controller.text.isEmpty
+                color: controller.text.isEmpty && counter > 0
                     ? Colors.red
                     : AppColors.borderAndDividerColor,
                 width: 1),

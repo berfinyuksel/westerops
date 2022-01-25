@@ -76,7 +76,6 @@ class _AddressViewState extends State<AddressView> {
           for (var i = 0; i < state.response.length; i++) {
             list.add(state.response[i]);
           }
-
           return list.length != 0
               ? ListView.builder(
                   itemCount: list.length,
