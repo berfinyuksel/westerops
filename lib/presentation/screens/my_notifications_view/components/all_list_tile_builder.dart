@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/model/results_notification.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/bulk_update_notication_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/get_notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/put_notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
@@ -33,7 +34,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
   void initState() {
     super.initState();
     notificationToken();
-  
+
     // SharedPrefs.setCounterNotifications(counterState! + 1);
     context.read<GetNotificationCubit>().getNotification();
   }
@@ -52,7 +53,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
         return Container();
       } else if (state is GenericLoading) {
         return Padding(
-          padding:  EdgeInsets.symmetric(vertical:context.dynamicHeight(0.3)),
+          padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.3)),
           child: Center(child: CustomCircularProgressIndicator()),
         );
       } else if (state is GenericCompleted) {
@@ -60,7 +61,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
 
         for (int i = 0; i < state.response.length; i++) {
           notifications.add(state.response[i]);
-            context.read<NotificationsCounterCubit>().decrement();
+          context.read<NotificationsCounterCubit>().decrement();
         }
         SharedPrefs.setCounterNotifications(notifications.length);
         print("STATE RESPONSE : ${state.response}");
@@ -79,12 +80,13 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
     GenericState state,
   ) {
     return ListView.builder(
+ 
       shrinkWrap: true,
       itemCount: notifications.length,
       itemBuilder: (context, index) {
         //  context.read<NotificationCubit>().getNotification();
         // print("${notifications[index].results![index].message}");
-    
+
         print(notifications[index].id.toString());
         return Container(
           height: 101,
@@ -116,10 +118,19 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                 ),
               ),
               key: UniqueKey(),
+              //Key(notifications[index].toString())
               onDismissed: (direction) {
-                setState(() {
-                  notifications.removeAt(index);
-                });
+                // context
+                //   .read<BulkUpdateNotificationCubit>()
+                //   .putNotification(notifications[index].id.toString());
+                //notifications.clear();
+                // setState(() {
+                //   notifications.removeAt(index);
+                // });
+
+                if (notifications.isNotEmpty) {
+                  notifications.length--;
+                }
               },
               child: GestureDetector(
                 onTap: () {
@@ -152,7 +163,9 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                                         : "🛒 ${notifications[index].description}",
                               ),
                             ),
-                            Spacer(flex: 1,),
+                            Spacer(
+                              flex: 1,
+                            ),
                             Expanded(
                               flex: 2,
                               child: LocaleText(
