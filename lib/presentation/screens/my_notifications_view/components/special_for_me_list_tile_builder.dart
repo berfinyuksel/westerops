@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/data/model/results_notification.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/bulk_update_notication_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/get_notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
@@ -76,8 +77,8 @@ class _SpecialForMeListTileBuilderState
         shrinkWrap: true,
         itemCount: notifications.length,
         itemBuilder: (context, index) {
-       
-          return Container(
+
+          return notifications[index].isDeleted == false ? Container(
             height: 101,
             padding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.065),
@@ -104,10 +105,16 @@ class _SpecialForMeListTileBuilderState
                 ),
                 key: UniqueKey(),
                 onDismissed: (direction) {
-                  setState(() {
-                    notifications.removeAt(index);
-                    notifications.clear();
-                  });
+                       if (notifications.isNotEmpty ) {
+                          context
+                              .read<BulkUpdateNotificationCubit>()
+                              .putNotification(
+                                  notifications[index].id.toString());
+                          notifications.removeAt(index);
+                          context
+                              .read<GetNotificationCubit>()
+                              .getNotification();
+                        }
                 },
                 child: Container(
                   padding: EdgeInsets.only(
@@ -158,7 +165,7 @@ class _SpecialForMeListTileBuilderState
                     ],
                   ),
                 )),
-          );
+          ) : Text("");
         });
   }
 

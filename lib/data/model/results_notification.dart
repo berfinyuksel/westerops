@@ -6,7 +6,7 @@ import 'dart:convert';
 
 class Results {
   Results({
-    this.results,
+    required this.results,
   });
 
   final List<Result>? results;
@@ -34,6 +34,7 @@ class Result {
     this.type,
     this.notifiedBy,
     this.isRead,
+    this.isDeleted,
     this.message,
     this.description,
     this.date,
@@ -45,6 +46,7 @@ class Result {
   final int? type;
   final String? notifiedBy;
   final bool? isRead;
+  final bool? isDeleted;
   final String? message;
   final String? description;
   final String? date;
@@ -60,6 +62,7 @@ class Result {
         type: json["type"] == null ? null : json["type"],
         notifiedBy: json["notified_by"] == null ? null : json["notified_by"],
         isRead: json["is_read"] == null ? null : json["is_read"],
+        isDeleted: json["is_deleted"] == null ? null : json["is_deleted"],
         message: json["message"] == null ? null : json["message"],
         description: json["description"] == null ? null : json["description"],
         date: json["date"] == null ? null : json["date"],
@@ -73,6 +76,7 @@ class Result {
         "type": type == null ? null : type,
         "notified_by": notifiedBy == null ? null : notifiedBy,
         "is_read": isRead == null ? null : isRead,
+        "is_deleted": isDeleted == null ? null : isDeleted,
         "message": message == null ? null : message,
         "description": description == null ? null : description,
         "date": date == null

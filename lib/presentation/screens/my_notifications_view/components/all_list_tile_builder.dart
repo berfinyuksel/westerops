@@ -34,7 +34,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
   void initState() {
     super.initState();
     notificationToken();
-
+    print(SharedPrefs.getToken);
     // SharedPrefs.setCounterNotifications(counterState! + 1);
     context.read<GetNotificationCubit>().getNotification();
   }
@@ -80,15 +80,11 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
     GenericState state,
   ) {
     return ListView.builder(
- 
       shrinkWrap: true,
-      itemCount: notifications.length,
+      itemCount:  notifications.length,
       itemBuilder: (context, index) {
-        //  context.read<NotificationCubit>().getNotification();
-        // print("${notifications[index].results![index].message}");
-
-        print(notifications[index].id.toString());
-        return Container(
+        print(notifications[index].isDeleted);
+        return notifications[index].isDeleted == false ? Container(
           height: 101,
           padding: EdgeInsets.symmetric(
             horizontal: context.dynamicWidht(0.065),
@@ -120,17 +116,17 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
               key: UniqueKey(),
               //Key(notifications[index].toString())
               onDismissed: (direction) {
-                // context
-                //   .read<BulkUpdateNotificationCubit>()
-                //   .putNotification(notifications[index].id.toString());
-                //notifications.clear();
-                // setState(() {
-                //   notifications.removeAt(index);
-                // });
+              if (notifications.isNotEmpty) {
+                  context
+                            .read<BulkUpdateNotificationCubit>()
+                            .putNotification(
+                                notifications[index].id.toString());
+                          notifications.removeAt(index);
+                          context
+                              .read<GetNotificationCubit>()
+                              .getNotification() ;
+              }
 
-                if (notifications.isNotEmpty) {
-                  notifications.length--;
-                }
               },
               child: GestureDetector(
                 onTap: () {
@@ -198,7 +194,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                   ),
                 ),
               )),
-        );
+        ) : Text("");
       },
     );
   }

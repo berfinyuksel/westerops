@@ -16,6 +16,7 @@ class SampleGetNotificationRepository implements GetNotificationRepository {
   Future<List<Result>> getNotification() async {
     final response = await http.get(
       Uri.parse("${UrlConstant.EN_URL}notification/"),
+      
       headers: {
         'Authorization': 'JWT ${SharedPrefs.getToken}',
         'Content-Type': 'application/json; charset=UTF-8',

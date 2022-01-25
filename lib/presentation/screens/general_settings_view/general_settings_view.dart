@@ -238,10 +238,8 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
                             sound: true, badge: true, alert: true))
                     .then((_) {
                   // when finished, check the permission status
-                  setState(() {
-                    permissionStatusFuture = getCheckNotificationPermStatus();
-                    isSwitchedNotification = value;
-                  });
+                   permissionStatusFuture = getCheckNotificationPermStatus();
+                  isSwitchedNotification = value;
                 });
               });
             },

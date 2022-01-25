@@ -75,8 +75,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               ));
     }
     try {
-      final authCredential =
-          await _auth.applyActionCode(codeController.text);
+
     // print(authCredential.user!.providerData);
       // print("SMS CODE : ${phoneAuthCredential.smsCode}");
       setState(() {
