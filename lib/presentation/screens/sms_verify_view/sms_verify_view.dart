@@ -42,6 +42,7 @@ class _SmsVerifyState extends State<SmsVerify> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         automaticallyImplyLeading: false,
         actions: [
           Padding(
             padding: EdgeInsets.only(right: context.dynamicWidht(0.4)),

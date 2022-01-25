@@ -69,6 +69,7 @@ class _VerifyInformationState extends State<VerifyInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         automaticallyImplyLeading: false,
         actions: [
           Padding(
             padding: EdgeInsets.only(right: context.dynamicWidht(0.4)),
