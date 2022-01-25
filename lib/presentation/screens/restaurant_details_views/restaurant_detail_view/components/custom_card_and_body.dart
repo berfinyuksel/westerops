@@ -211,7 +211,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Container customBody(BuildContext context, GenericCompleted state) {
     return Container(
-      height: context.dynamicHeight(0.7),
+      height: _controller!.index == 0
+          ? context.dynamicHeight(state.response.length * .17)
+          : context.dynamicHeight(.7),
       child: TabBarView(
           controller: _controller,
           children: [tabPackages(context, state), tabDetail(context)]),
@@ -530,9 +532,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           },
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-        ),
-        SizedBox(
-          height: 125,
         ),
       ],
     );
