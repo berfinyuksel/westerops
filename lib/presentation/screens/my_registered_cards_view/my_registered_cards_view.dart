@@ -79,6 +79,27 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
               : buildRegisteredCards(cards.first.cardDetails!);
         } else {
           final error = state as GenericError;
+          if (error.statusCode == "502") {
+            return Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 40,
+                  ),
+                  SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  LocaleText(
+                    alignment: TextAlign.center,
+                    text: "Üzgünüz. Kart bilgilerine ulaşamıyoruz.",
+                    style: AppTextStyles.myInformationBodyTextStyle,
+                  ),
+                ],
+              ),
+            );
+          }
           return Center(child: Text("${error.message}\n${error.statusCode}"));
         }
       }),
