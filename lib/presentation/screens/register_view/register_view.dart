@@ -248,28 +248,12 @@ class _RegisterViewState extends State<RegisterView> {
                   lastName.split(" ");
                   print(firstName);
                   print(lastName);
-                  if (!uppercaseControl || !phoneControl || !numberControl) {
-                    showDialog(
-                      context: context,
-                      builder: (_) => CustomErrorPopup(
-                        textMessage:
-                            "Lütfen şifre gereksinimlerini yerine getiriniz.\n1 rakam, 1 büyük harf, 8 karakter",
-                        buttonOneTitle: "Tamam",
-                        buttonTwoTittle: LocaleKeys.address_address_approval,
-                        imagePath: ImageConstant.COMMONS_WARNING_ICON,
-                        onPressedOne: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    );
-                  } else if (lengthControl ||
-                      nameController.text.isEmpty ||
-                      phoneController.text.isEmpty ||
+                  if (phoneController.text.isEmpty ||
                       firstName.isEmpty ||
                       lastName.isEmpty ||
-                      nameController.text.isEmpty ||
                       emailController.text.isEmpty ||
                       passwordController.text.isEmpty) {
+                    print("Text fieldlar boş bırakılırsa bu koşula gir");
                     showDialog(
                       context: context,
                       builder: (_) => CustomErrorPopup(
@@ -283,17 +267,31 @@ class _RegisterViewState extends State<RegisterView> {
                         },
                       ),
                     );
-                  } else if (checkboxValue &&
-                      numberControl &&
-                      uppercaseControl &&
-                      lengthControl &&
-                      phoneControl) {
+                  } else if (!uppercaseControl ||
+                      !phoneControl ||
+                      !numberControl) {
+                    print("Şifre koşulları sağlanmadığında bu koşula gir");
+                    showDialog(
+                      context: context,
+                      builder: (_) => CustomErrorPopup(
+                        textMessage:
+                            "Lütfen şifre gereksinimlerini yerine getiriniz.\n1 rakam, 1 büyük harf, 8 karakter",
+                        buttonOneTitle: "Tamam",
+                        buttonTwoTittle: LocaleKeys.address_address_approval,
+                        imagePath: ImageConstant.COMMONS_WARNING_ICON,
+                        onPressedOne: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    );
+                  } else {
                     //String phoneEN = '+1' + phoneController.text;
                     if (nameController.text.isNotEmpty &&
                         phoneController.text.isNotEmpty &&
                         passwordController.text.isNotEmpty &&
                         lastName.isNotEmpty &&
                         firstName.isNotEmpty) {
+                      print("Her şey doğru girildiğinde bu koşula gir");
                       SharedPrefs.setUserName(firstName);
                       SharedPrefs.setUserLastName(lastName);
                       SharedPrefs.setUserPhone(phoneTR);
