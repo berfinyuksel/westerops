@@ -60,7 +60,7 @@ class _ClarificationViewState extends State<ClarificationView> {
     );
   }
 
-  Container buildCheckBox(BuildContext context) {
+  /*  Container buildCheckBox(BuildContext context) {
     return Container(
       height: context.dynamicWidht(0.05),
       width: context.dynamicWidht(0.05),
@@ -84,5 +84,5 @@ class _ClarificationViewState extends State<ClarificationView> {
         ),
       ),
     );
-  }
+  } */
 }

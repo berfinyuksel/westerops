@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,20 +20,13 @@ class _AgreementViewState extends State<AgreementView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomScaffold(
+      title: "",
       body: Stack(
         children: [
-          Positioned(
-            top: context.dynamicHeight(0.06),
-            left: 0,
-            child: IconButton(
-              icon: SvgPicture.asset(ImageConstant.BACK_ICON),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ),
           Container(
             padding: EdgeInsets.only(
-              top: context.dynamicHeight(0.13),
+              top: context.dynamicHeight(0.02),
               left: context.dynamicWidht(0.06),
               right: context.dynamicWidht(0.06),
             ),
@@ -40,14 +34,14 @@ class _AgreementViewState extends State<AgreementView> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 LocaleText(
-                  text: "Örnek Sözleşme",
+                  text: "Kullanım Koşulları",
                   style: AppTextStyles.headlineStyle,
                   alignment: TextAlign.center,
                 ),
-                Spacer(flex: 2),
+                Spacer(flex: 5),
                 buildScrollBarListview(context),
-                Spacer(flex: 2),
-                Row(
+                Spacer(flex: 5),
+                /* Row(
                   children: [
                     buildCheckBox(context),
                     Spacer(flex: 1),
@@ -59,14 +53,14 @@ class _AgreementViewState extends State<AgreementView> {
                     Spacer(flex: 5),
                   ],
                 ),
-                Spacer(flex: 2),
+                Spacer(flex: 2), 
                 CustomButton(
                   width: context.dynamicWidht(0.86),
                   title: "Onaylıyorum",
                   color: AppColors.greenColor,
                   borderColor: AppColors.greenColor,
                   textColor: Colors.white,
-                ),
+                ),*/
                 Spacer(flex: 2),
               ],
             ),
@@ -93,7 +87,7 @@ class _AgreementViewState extends State<AgreementView> {
           ),
         ),
         Container(
-          height: context.dynamicHeight(0.6),
+          height: context.dynamicHeight(0.7),
           child: RawScrollbar(
             thumbColor: AppColors.greenColor,
             thickness: 10,
