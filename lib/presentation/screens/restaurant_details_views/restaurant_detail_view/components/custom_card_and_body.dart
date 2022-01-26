@@ -212,7 +212,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   Container customBody(BuildContext context, GenericCompleted state) {
     return Container(
       height: _controller!.index == 0
-          ? context.dynamicHeight(state.response.length * .2)
+          ? context.dynamicHeight(state.response.length * .2 + .25)
           : context.dynamicHeight(.7),
       child: TabBarView(
           controller: _controller,
