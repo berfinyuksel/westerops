@@ -248,32 +248,42 @@ class _RegisterViewState extends State<RegisterView> {
                   lastName.split(" ");
                   print(firstName);
                   print(lastName);
-                  if (lengthControl ||
+                  if (!uppercaseControl || !phoneControl || !numberControl) {
+                    showDialog(
+                      context: context,
+                      builder: (_) => CustomErrorPopup(
+                        textMessage:
+                            "Lütfen şifre gereksinimlerini yerine getiriniz.\n1 rakam, 1 büyük harf, 8 karakter",
+                        buttonOneTitle: "Tamam",
+                        buttonTwoTittle: LocaleKeys.address_address_approval,
+                        imagePath: ImageConstant.COMMONS_WARNING_ICON,
+                        onPressedOne: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    );
+                  } else if (lengthControl ||
                       nameController.text.isEmpty ||
                       phoneController.text.isEmpty ||
-                      uppercaseControl ||
-                      phoneControl ||
-                      numberControl ||
                       firstName.isEmpty ||
                       lastName.isEmpty ||
                       nameController.text.isEmpty ||
                       emailController.text.isEmpty ||
                       passwordController.text.isEmpty) {
-                      showDialog(
+                    showDialog(
                       context: context,
                       builder: (_) => CustomErrorPopup(
-                          textMessage:
-                              LocaleKeys.register_fail_pop_up_text_title.locale,
-                          buttonOneTitle: LocaleKeys.payment_payment_cancel,
-                          buttonTwoTittle: LocaleKeys.address_address_approval,
-                          imagePath: ImageConstant.COMMONS_WARNING_ICON,
-                          onPressedOne: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
+                        textMessage:
+                            LocaleKeys.register_fail_pop_up_text_title.locale,
+                        buttonOneTitle: LocaleKeys.payment_payment_cancel,
+                        buttonTwoTittle: LocaleKeys.address_address_approval,
+                        imagePath: ImageConstant.COMMONS_WARNING_ICON,
+                        onPressedOne: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
                     );
-                  }
-                  if (checkboxValue &&
+                  } else if (checkboxValue &&
                       numberControl &&
                       uppercaseControl &&
                       lengthControl &&
@@ -293,7 +303,6 @@ class _RegisterViewState extends State<RegisterView> {
                           context, RouteConstant.REGISTER_VERIFY_VIEW);
                     } else {
                       ErrorAlertDialog(onTap: () {});
-
                     }
                   }
                 }),
