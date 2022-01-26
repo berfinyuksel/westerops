@@ -119,16 +119,6 @@ class SharedPrefs {
     _prefs.setInt('deliveredRestaurantId', id);
   }
 
-  static Future<List<String>> setSumPrice(List<String> sumPrice) async {
-    _prefs.setStringList('sumPrice', sumPrice);
-    return sumPrice;
-  }
-
-  static Future<List<String>> setSumOldPrice(List<String> sumOldPrice) async {
-    _prefs.setStringList('sumOldPrice', sumOldPrice);
-    return sumOldPrice;
-  }
-
   static Future<List<String>> setFavoriteIdList(List<String> favorites) async {
     _prefs.setStringList('favorites', favorites);
     return favorites;
@@ -161,6 +151,14 @@ class SharedPrefs {
 
   static Future<void> setCourierHourId(int id) async {
     _prefs.setInt('courierHourId', id);
+  }
+
+  static Future<void> setOldSumPrice(int price) async {
+    _prefs.setInt('oldSumOfPrice', price);
+  }
+
+  static Future<void> setSumPrice(int price) async {
+    _prefs.setInt('sumOfPrice', price);
   }
 
   static Future<void> setDeliveryType(int deliveryType) async {
@@ -254,6 +252,7 @@ class SharedPrefs {
   static Future<void> setCourierHourText(String courierHourText) async {
     _prefs.setString('courierHourText', courierHourText);
   }
+
   static Future<void> setNotificationsIsRead(bool isRead) async {
     _prefs.setBool('notificationsIsRead', isRead);
   }
@@ -264,9 +263,12 @@ class SharedPrefs {
 
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
-  static bool get getNotificationsIsRead => _prefs.getBool('notificationsIsRead') ?? false;
+  static bool get getNotificationsIsRead =>
+      _prefs.getBool('notificationsIsRead') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
   static int get getUserId => _prefs.getInt('userId') ?? 0;
+  static int get getOldSumPrice => _prefs.getInt('oldSumOfPrice') ?? 0;
+  static int get getSumPrice => _prefs.getInt('sumOfPrice') ?? 0;
   static String get getUserEmail => _prefs.getString('userEmail') ?? "";
   static String get getUserPhone => _prefs.getString('userPhone') ?? "";
   static String get getUserName => _prefs.getString('userName') ?? "";
@@ -301,9 +303,6 @@ class SharedPrefs {
       _prefs.getDouble('addressLongitude') ?? 0.0;
   static int get getDeliveredRestaurantAddressId =>
       _prefs.getInt('deliveredRestaurantId') ?? 0;
-  static List<String> get getSumPrice => _prefs.getStringList('sumPrice') ?? [];
-  static List<String> get getSumOldPrice =>
-      _prefs.getStringList('sumOldPrice') ?? [];
   static List<String> get getFavorites =>
       _prefs.getStringList('favorites') ?? [];
   static int get getCourierHourId => _prefs.getInt('courierHourId') ?? 0;

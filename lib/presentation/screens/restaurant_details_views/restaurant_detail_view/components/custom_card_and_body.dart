@@ -53,10 +53,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   int favouriteId = 0;
   bool showInfo = false;
   List<String>? menuList = SharedPrefs.getMenuList;
-  List<String> sumOfOldPricesString = [];
-  List<int> sumOfOldPricesInt = [];
-  List<String> sumOfPricesString = [];
-  List<int> sumOfPricesInt = [];
   int? priceOfMenu = null ?? 0;
   int? oldPriceOfMenu = null ?? 0;
 
@@ -712,6 +708,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 padding: EdgeInsets.only(top: context.dynamicHeight(0.042)),
                 child: Builder(
                   builder: (context) {
+                    SharedPrefs.setSumPrice(
+                        context.watch<SumPriceOrderCubit>().state);
+                    SharedPrefs.setOldSumPrice(
+                        context.watch<SumOldPriceOrderCubit>().state);
                     int menuItem = state.response[index].id;
                     final counterState =
                         context.watch<BasketCounterCubit>().state;
@@ -825,30 +825,25 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
       );
     } else {
+      setState(() {});
       switch (statusCode) {
         case StatusCode.success:
           if (!menuList!.contains(menuItem.toString())) {
-            sumOfPricesInt.add(priceOfMenu!);
-            sumOfOldPricesInt.add(oldPriceOfMenu!);
-            context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
-            context.read<SumOldPriceOrderCubit>().sumprice(sumOfOldPricesInt);
-            sumOfPricesString.add(sumOfPricesInt.last.toString());
-            SharedPrefs.setSumPrice(sumOfPricesString);
-            sumOfOldPricesString.add(sumOfOldPricesInt.last.toString());
-            SharedPrefs.setSumOldPrice(sumOfOldPricesString);
+            context.read<SumPriceOrderCubit>().incrementPrice(priceOfMenu!);
+            context
+                .read<SumOldPriceOrderCubit>()
+                .incrementOldPrice(oldPriceOfMenu!);
+
             context.read<BasketCounterCubit>().increment();
             SharedPrefs.setCounter(counterState + 1);
             menuList!.add(menuItem.toString());
             SharedPrefs.setMenuList(menuList!);
           } else {
-            sumOfPricesInt.remove(priceOfMenu!);
-            sumOfPricesString.remove(priceOfMenu.toString());
-            context.read<SumPriceOrderCubit>().sumprice(sumOfPricesInt);
-            SharedPrefs.setSumPrice(sumOfPricesString);
-            sumOfOldPricesInt.remove(oldPriceOfMenu!);
-            sumOfOldPricesString.remove(oldPriceOfMenu.toString());
-            context.read<SumOldPriceOrderCubit>().sumprice(sumOfOldPricesInt);
-            SharedPrefs.setSumPrice(sumOfPricesString);
+            context.read<SumPriceOrderCubit>().decrementPrice(priceOfMenu!);
+            context
+                .read<SumOldPriceOrderCubit>()
+                .decrementOldPrice(priceOfMenu!);
+
             context
                 .read<OrderCubit>()
                 .deleteBasket("${state.response[index].id}");
@@ -867,14 +862,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   },
                   onPressedTwo: () {
                     context.read<OrderCubit>().clearBasket();
-                    sumOfPricesInt.clear();
-                    sumOfPricesString.clear();
-                    SharedPrefs.setSumPrice([]);
-                    context.read<SumPriceOrderCubit>().sumprice([]);
-                    sumOfOldPricesInt.clear();
-                    sumOfOldPricesString.clear();
-                    SharedPrefs.setSumOldPrice([]);
-                    context.read<SumOldPriceOrderCubit>().sumprice([]);
+
+                    context.read<SumPriceOrderCubit>().clearPrice();
+                    context.read<SumOldPriceOrderCubit>().clearOldPrice();
+                    SharedPrefs.setSumPrice(0);
+                    SharedPrefs.setOldSumPrice(0);
+
+                    print(SharedPrefs.getSumPrice);
+                    print(SharedPrefs.getOldSumPrice);
 
                     menuList!.clear();
                     SharedPrefs.setCounter(0);
