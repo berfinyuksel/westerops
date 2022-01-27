@@ -39,7 +39,7 @@ class FavoriteCubit extends Cubit<GenericState> {
       favouritedRestaurants!.remove(restaurant.id.toString());
       SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
     } else {
-      context.read<FavoriteCubit>().addFavorite(restaurant.id!);
+      addFavorite(restaurant.id!);
       favouritedRestaurants!.add(restaurant.id.toString());
       SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
     }
