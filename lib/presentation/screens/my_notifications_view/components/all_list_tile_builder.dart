@@ -33,7 +33,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
   void initState() {
     super.initState();
     notificationToken();
-  
+
     // SharedPrefs.setCounterNotifications(counterState! + 1);
     context.read<GetNotificationCubit>().getNotification();
   }
@@ -57,7 +57,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
 
         for (int i = 0; i < state.response.length; i++) {
           notifications.add(state.response[i]);
-            context.read<NotificationsCounterCubit>().decrement();
+          context.read<NotificationsCounterCubit>().decrement();
         }
         SharedPrefs.setCounterNotifications(notifications.length);
         print("STATE RESPONSE : ${state.response}");
@@ -81,9 +81,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       itemBuilder: (context, index) {
         //  context.read<NotificationCubit>().getNotification();
         // print("${notifications[index].results![index].message}");
-        context
-            .read<PutNotificationCubit>()
-            .putNotification(notifications[index].id.toString());
+        context.read<PutNotificationCubit>().putNotification(notifications[index].id.toString());
         print(notifications[index].id.toString());
         return Container(
           height: 101,
@@ -93,8 +91,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
           decoration: BoxDecoration(
               color: _selected
                   ? AppColors.greenColor.withOpacity(0.2)
-                  : Colors
-                      .white), //new notification color==> AppColors.greenColor
+                  : Colors.white), //new notification color==> AppColors.greenColor
           child: Dismissible(
               direction: DismissDirection.endToStart,
               background: Padding(
@@ -103,12 +100,10 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                   color: AppColors.redColor,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: context.dynamicHeight(0.038),
-                        horizontal: context.dynamicWidht(0.058)),
+                        vertical: context.dynamicHeight(0.038), horizontal: context.dynamicWidht(0.058)),
                     child: LocaleText(
                       text: LocaleKeys.my_notifications_delete_text_text,
-                      style: AppTextStyles.bodyTextStyle.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                       alignment: TextAlign.end,
                     ),
                   ),
@@ -142,8 +137,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                                     notifications[index].type == 11 ||
                                     notifications[index].type == 8
                                 ? "🔔 ${notifications[index].description}"
-                                : notifications[index].type == 10 ||
-                                        notifications[index].type == 9
+                                : notifications[index].type == 10 || notifications[index].type == 9
                                     ? "🎉 ${notifications[index].description}"
                                     : "🛒 ${notifications[index].description}",
                           ),
@@ -156,14 +150,11 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                         children: [
                           Expanded(
                               child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: context.dynamicHeight(0.01)),
+                            padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
                             child: LocaleText(
                               text: "${notifications[index].message}",
-                              style: AppTextStyles.bodyTextStyle.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textColor,
-                                  height: 1.5),
+                              style: AppTextStyles.bodyTextStyle
+                                  .copyWith(fontWeight: FontWeight.bold, color: AppColors.textColor, height: 1.5),
                               alignment: TextAlign.start,
                             ),
                           ))

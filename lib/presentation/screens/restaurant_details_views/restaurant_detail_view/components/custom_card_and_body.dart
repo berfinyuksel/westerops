@@ -47,7 +47,7 @@ class CustomCardAndBody extends StatefulWidget {
 
 class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTickerProviderStateMixin {
   List<Box> definedBoxes = [];
-  bool isFavourite = false;
+  bool isFavorite = false;
   int favouriteId = 0;
   bool showInfo = false;
   List<String>? menuList = SharedPrefs.getMenuList;
@@ -71,7 +71,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
     context.read<SearchStoreCubit>().getSearchStore();
     context.read<AllFavoriteCubit>().getFavorite();
     context.read<AddressCubit>().getActiveAddress();
-
     // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
   }
 
@@ -79,40 +78,42 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
   Widget build(
     BuildContext context,
   ) {
-    final GenericState state = context.watch<BoxCubit>().state;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          showInfo = false;
-        });
-      },
-      child: Stack(children: [
-        Column(
-          children: [
-            customCard(context, state),
-            SizedBox(
-              height: 20,
-            ),
-            packageCourierAndFavoriteContainer(context, state),
-            customBody(context, ),
-            buildBuilder(),
-          ],
-        ),
-        Positioned(
-          left: MediaQuery.of(context).size.width * 0.39,
-          top: MediaQuery.of(context).size.height * 0.27,
-          child: Visibility(
-              visible: showInfo,
-              child: ClippedPasswordRules(
-                  child: SingleChildScrollView(
-                child: Text(
-                  "Sürpriz Paketler ile alakalı bilgilendirme buraya gelecek",
-                  textAlign: TextAlign.justify,
+    return BlocBuilder<BoxCubit, GenericState>(
+      builder: (context, state) {
+        isFavorite = context.watch<FavoriteCubit>().isFavorite;
+        return GestureDetector(
+          onTap: () {
+            setState(() {
+              showInfo = false;
+            });
+          },
+          child: Stack(children: [
+            Column(
+              children: [
+                customCard(context, state),
+                SizedBox(
+                  height: 20,
                 ),
-              ))),
-        ),
-      ]),
+                packageCourierAndFavoriteContainer(context, state),
+                buildBuilder(),
+              ],
+            ),
+            Positioned(
+              left: MediaQuery.of(context).size.width * 0.39,
+              top: MediaQuery.of(context).size.height * 0.27,
+              child: Visibility(
+                  visible: showInfo,
+                  child: ClippedPasswordRules(
+                      child: SingleChildScrollView(
+                    child: Text(
+                      "Sürpriz Paketler ile alakalı bilgilendirme buraya gelecek",
+                      textAlign: TextAlign.justify,
+                    ),
+                  ))),
+            ),
+          ]),
+        );
+      },
     );
   }
 
@@ -1170,7 +1171,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               return Row(
                 children: [
                   LocaleText(
-                    text: !isFavourite ? LocaleKeys.restaurant_detail_text3 : LocaleKeys.restaurant_detail_text4,
+                    text: !isFavorite ? LocaleKeys.restaurant_detail_text3 : LocaleKeys.restaurant_detail_text4,
                     style: AppTextStyles.bodyTextStyle,
                   ),
                   SizedBox(
@@ -1178,22 +1179,22 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   ),
                   SvgPicture.asset(
                     ImageConstant.RESTAURANT_FAVORITE_ICON,
-                    color: isFavourite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                    color: isFavorite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
                   ),
                 ],
               );
             } else if (stateOfFavorites is GenericCompleted) {
               for (var i = 0; i < stateOfFavorites.response.length; i++) {
                 if (stateOfFavorites.response[i].id == widget.restaurant!.id) {
-                  isFavourite = true;
+                  isFavorite = true;
                 } else if (stateOfFavorites.response[i].id == null) {
-                  isFavourite = false;
+                  isFavorite = false;
                 }
               }
               return Row(
                 children: [
                   LocaleText(
-                    text: !isFavourite ? LocaleKeys.restaurant_detail_text3 : LocaleKeys.restaurant_detail_text4,
+                    text: !isFavorite ? LocaleKeys.restaurant_detail_text3 : LocaleKeys.restaurant_detail_text4,
                     style: AppTextStyles.bodyTextStyle,
                   ),
                   SizedBox(
@@ -1202,26 +1203,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   GestureDetector(
                     onTap: () {
                       if (SharedPrefs.getIsLogined) {
-                        if (isFavourite) {
-                          context.read<FavoriteCubit>().deleteFavorite(widget.restaurant!.id);
-                          favouritedRestaurants!.remove(widget.restaurant!.id.toString());
-                          SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
-                        } else {
-                          context.read<FavoriteCubit>().addFavorite(widget.restaurant!.id!);
-                          favouritedRestaurants!.add(widget.restaurant!.id.toString());
-                          SharedPrefs.setFavoriteIdList(favouritedRestaurants!);
-                        }
-                        setState(() {
-                          isFavourite = !isFavourite;
-                        });
-                        context.read<AllFavoriteCubit>().getFavorite();
+                        context.read<FavoriteCubit>().toggleIsFavorite(context, widget.restaurant!);
                       } else {
                         Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
                       }
                     },
                     child: SvgPicture.asset(
                       ImageConstant.RESTAURANT_FAVORITE_ICON,
-                      color: isFavourite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                      color: isFavorite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
                     ),
                   ),
                 ],
