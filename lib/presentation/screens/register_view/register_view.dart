@@ -248,42 +248,50 @@ class _RegisterViewState extends State<RegisterView> {
                   lastName.split(" ");
                   print(firstName);
                   print(lastName);
-                  if (lengthControl ||
-                      nameController.text.isEmpty ||
-                      phoneController.text.isEmpty ||
-                      uppercaseControl ||
-                      phoneControl ||
-                      numberControl ||
+                  if (phoneController.text.isEmpty ||
                       firstName.isEmpty ||
                       lastName.isEmpty ||
-                      nameController.text.isEmpty ||
                       emailController.text.isEmpty ||
                       passwordController.text.isEmpty) {
-                      showDialog(
+                    print("Text fieldlar boş bırakılırsa bu koşula gir");
+                    showDialog(
                       context: context,
                       builder: (_) => CustomErrorPopup(
-                          textMessage:
-                              LocaleKeys.register_fail_pop_up_text_title.locale,
-                          buttonOneTitle: LocaleKeys.payment_payment_cancel,
-                          buttonTwoTittle: LocaleKeys.address_address_approval,
-                          imagePath: ImageConstant.COMMONS_WARNING_ICON,
-                          onPressedOne: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
+                        textMessage:
+                            LocaleKeys.register_fail_pop_up_text_title.locale,
+                        buttonOneTitle: LocaleKeys.payment_payment_cancel,
+                        buttonTwoTittle: LocaleKeys.address_address_approval,
+                        imagePath: ImageConstant.COMMONS_WARNING_ICON,
+                        onPressedOne: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
                     );
-                  }
-                  if (checkboxValue &&
-                      numberControl &&
-                      uppercaseControl &&
-                      lengthControl &&
-                      phoneControl) {
+                  } else if (!uppercaseControl ||
+                      !phoneControl ||
+                      !numberControl) {
+                    print("Şifre koşulları sağlanmadığında bu koşula gir");
+                    showDialog(
+                      context: context,
+                      builder: (_) => CustomErrorPopup(
+                        textMessage:
+                            "Lütfen şifre gereksinimlerini yerine getiriniz.\n1 rakam, 1 büyük harf, 8 karakter",
+                        buttonOneTitle: "Tamam",
+                        buttonTwoTittle: LocaleKeys.address_address_approval,
+                        imagePath: ImageConstant.COMMONS_WARNING_ICON,
+                        onPressedOne: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    );
+                  } else {
                     //String phoneEN = '+1' + phoneController.text;
                     if (nameController.text.isNotEmpty &&
                         phoneController.text.isNotEmpty &&
                         passwordController.text.isNotEmpty &&
                         lastName.isNotEmpty &&
                         firstName.isNotEmpty) {
+                      print("Her şey doğru girildiğinde bu koşula gir");
                       SharedPrefs.setUserName(firstName);
                       SharedPrefs.setUserLastName(lastName);
                       SharedPrefs.setUserPhone(phoneTR);
@@ -293,7 +301,6 @@ class _RegisterViewState extends State<RegisterView> {
                           context, RouteConstant.REGISTER_VERIFY_VIEW);
                     } else {
                       ErrorAlertDialog(onTap: () {});
-
                     }
                   }
                 }),

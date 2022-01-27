@@ -39,10 +39,7 @@ class CartView extends StatefulWidget {
 class _CartViewState extends State<CartView> {
   List<String> menuList = SharedPrefs.getMenuList;
   List<BoxOrder> itemList = [];
-  List<String> sumOfPricesString = SharedPrefs.getSumPrice;
-  List<int> sumOfPricesInt = [];
-  List<String> sumOfOldPrices = SharedPrefs.getSumOldPrice;
-  List<int> sumOfOldPricesInt = [];
+
   @override
   void initState() {
     super.initState();
@@ -66,8 +63,18 @@ class _CartViewState extends State<CartView> {
           itemList.add(state.response[i]);
         }
         if (itemList.length == 0) {
-          return EmptyCartView();
-        } else if ( SharedPrefs.getIsLogined == false) {
+          return Builder(builder: (context) {
+            print('askndaksdkas');
+            context.read<SumOldPriceOrderCubit>().clearOldPrice();
+            context.read<SumPriceOrderCubit>().clearPrice();
+            SharedPrefs.setSumPrice(0);
+            print(SharedPrefs.getSumPrice);
+            SharedPrefs.setOldSumPrice(0);
+            print(SharedPrefs.getOldSumPrice);
+
+            return EmptyCartView();
+          });
+        } else if (SharedPrefs.getIsLogined == false) {
           return NotLoggedInEmptyCartView();
         } else {
           return Center(child: buildBody(context, state, itemList));
@@ -75,7 +82,6 @@ class _CartViewState extends State<CartView> {
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
-
       }
     });
   }
@@ -88,9 +94,7 @@ class _CartViewState extends State<CartView> {
           height: context.dynamicHeight(0.66),
           child: ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(
-              top: context.dynamicHeight(0.02)
-            ),
+            padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
             children: [
               PastOrderDetailBodyTitle(
                 title: LocaleKeys.past_order_detail_body_title_1,
@@ -114,6 +118,10 @@ class _CartViewState extends State<CartView> {
                   itemCount: itemList.length,
                   itemBuilder: (context, index) {
                     return Builder(builder: (context) {
+                      SharedPrefs.setSumPrice(
+                          context.watch<SumPriceOrderCubit>().state);
+                      SharedPrefs.setOldSumPrice(
+                          context.watch<SumOldPriceOrderCubit>().state);
                       context
                           .read<StoreBoxesCubit>()
                           .getStoreBoxes(itemList[index].id!);
@@ -122,9 +130,6 @@ class _CartViewState extends State<CartView> {
                           .getCourierHours(itemList[index].store!.id!);
                       final counterState =
                           context.watch<BasketCounterCubit>().state;
-                      sumOfOldPrices
-                          .add(itemList[index].packageSetting!.minOrderPrice!.toString());
-                          print(sumOfOldPrices.length);
                       return Dismissible(
                         direction: DismissDirection.endToStart,
                         key: UniqueKey(),
@@ -156,41 +161,26 @@ class _CartViewState extends State<CartView> {
                                   Navigator.of(context).pop();
                                 },
                                 onPressedTwo: () {
-                                  sumOfOldPrices.remove(itemList[index].packageSetting!.minOrderPrice.toString());
-                                  sumOfPricesString.remove(itemList[index]
-                                      .packageSetting!
-                                      .minDiscountedOrderPrice!
-                                      .toString());
-                                  SharedPrefs.setSumPrice(sumOfPricesString);
-                                  SharedPrefs.setSumOldPrice(sumOfOldPrices);
-
-                                  for (var i = 0;
-                                      i < sumOfPricesString.length;
-                                      i++) {
-                                    sumOfPricesInt
-                                        .add(int.parse(sumOfPricesString[i]));
-                                  }
-                                     for (var i = 0;
-                                      i < sumOfOldPrices.length;
-                                      i++) {
-                                    sumOfOldPricesInt
-                                        .add(int.parse(sumOfOldPrices[i]));
-                                  }
-                                   context
+                                  context
                                       .read<SumOldPriceOrderCubit>()
-                                      .sumprice(sumOfOldPricesInt);
+                                      .decrementOldPrice(itemList[index]
+                                          .packageSetting!
+                                          .minOrderPrice!);
                                   context
                                       .read<SumPriceOrderCubit>()
-                                      .sumprice(sumOfPricesInt);
+                                      .decrementPrice(itemList[index]
+                                          .packageSetting!
+                                          .minDiscountedOrderPrice!);
 
-                                  context.read<OrderCubit>().deleteBasket(
-                                      "${itemList[index].id}");
+                                  context
+                                      .read<OrderCubit>()
+                                      .deleteBasket("${itemList[index].id}");
                                   context
                                       .read<BasketCounterCubit>()
                                       .decrement();
                                   SharedPrefs.setCounter(counterState - 1);
-                                  menuList.remove(
-                                    itemList[index].id.toString());
+                                  menuList
+                                      .remove(itemList[index].id.toString());
                                   SharedPrefs.setMenuList(menuList);
                                   itemList.remove(itemList[index]);
                                   Navigator.of(context).pop();
@@ -227,7 +217,7 @@ class _CartViewState extends State<CartView> {
                 final state = context.watch<SumPriceOrderCubit>().state;
 
                 return PastOrderDetailPaymentListTile(
-              oldPrice: true,
+                  oldPrice: true,
                   title: LocaleKeys.past_order_detail_payment_1,
                   price: state.toDouble(),
                   lineTrough: false,
@@ -238,7 +228,6 @@ class _CartViewState extends State<CartView> {
                 final state = context.watch<SumPriceOrderCubit>().state;
 
                 return PastOrderDetailTotalPaymentListTile(
-                  
                   title: LocaleKeys.past_order_detail_payment_4,
                   price: (state.toDouble()),
                   withDecimal: true,
@@ -334,7 +323,9 @@ class _CartViewState extends State<CartView> {
               } else if (stateOfSearchStore is GenericInitial) {
                 return Container(color: Colors.white);
               } else if (stateOfSearchStore is GenericLoading) {
-                return Container(color: Colors.white,child: CustomCircularProgressIndicator());
+                return Container(
+                    color: Colors.white,
+                    child: CustomCircularProgressIndicator());
               } else {
                 final error = stateOfSearchStore as GenericError;
 

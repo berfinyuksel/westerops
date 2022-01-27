@@ -1,4 +1,3 @@
-
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
@@ -10,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../utils/constants/image_constant.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
-
 
 class ErrorAlertDialog extends StatelessWidget {
   final VoidCallback onTap;

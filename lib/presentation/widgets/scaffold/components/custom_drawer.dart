@@ -1,5 +1,4 @@
-
-
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 
 import '../../../../data/services/auth_service.dart';
 import '../../../../data/services/facebook_login_controller.dart';
@@ -167,13 +166,15 @@ class CustomDrawer extends StatelessWidget {
         onPressed: () {
           context.read<OrderCubit>().clearBasket();
 
-          SharedPrefs.setSumPrice([]);
-          context.read<SumPriceOrderCubit>().sumprice([]);
+          SharedPrefs.setSumPrice(0);
+          context.read<SumPriceOrderCubit>().clearPrice();
+          SharedPrefs.setOldSumPrice(0);
+          context.read<SumOldPriceOrderCubit>().clearOldPrice();
 
           SharedPrefs.setCounter(0);
           SharedPrefs.setMenuList([]);
           context.read<BasketCounterCubit>().setCounter(0);
-          if (SharedPrefs.getIsLogined ==false) {
+          if (SharedPrefs.getIsLogined == false) {
             FacebookSignInController().logOut();
             AuthService().logOutFromGmail();
           }

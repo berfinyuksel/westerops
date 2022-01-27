@@ -180,9 +180,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<PutNotificationCubit>(
             create: (context) =>
                 PutNotificationCubit(SamplePutNotificationRepository())),
-                        BlocProvider<BulkUpdateNotificationCubit>(
-            create: (context) =>
-                BulkUpdateNotificationCubit(SampleBulkUpdateNotificationRepository())),
+        BlocProvider<BulkUpdateNotificationCubit>(
+            create: (context) => BulkUpdateNotificationCubit(
+                SampleBulkUpdateNotificationRepository())),
         BlocProvider<TimeIntervalCubit>(
             create: (context) =>
                 TimeIntervalCubit(SampleTimeIntervalRepository())),
@@ -229,22 +229,21 @@ class MyApp extends StatelessWidget {
         context
             .read<NotificationsCounterCubit>()
             .setCounter(SharedPrefs.getCounter);
-        List<int> sumPrices = [];
-        for (var i = 0; i < SharedPrefs.getSumPrice.length; i++) {
-          sumPrices.add(int.parse(SharedPrefs.getSumPrice[i]));
-        }
-        context.read<SumPriceOrderCubit>().sumprice(sumPrices);
-        List<int> sumOldPrices = [];
-        for (var i = 0; i < SharedPrefs.getSumOldPrice.length; i++) {
-          sumOldPrices.add(int.parse(SharedPrefs.getSumOldPrice[i]));
-        }
-        context.read<SumPriceOrderCubit>().sumprice(sumOldPrices);
+
         for (var i = 0; i < SharedPrefs.getFavorites.length; i++) {
           context
               .read<FavoriteCubit>()
               .addFavorite(int.parse(SharedPrefs.getFavorites[i]));
         }
         context.read<OrderBarCubit>().stateOfBar(SharedPrefs.getOrderBar);
+
+        context
+            .read<SumPriceOrderCubit>()
+            .incrementPrice(SharedPrefs.getSumPrice);
+        context
+            .read<SumOldPriceOrderCubit>()
+            .incrementOldPrice(SharedPrefs.getOldSumPrice);
+
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Döngü',
