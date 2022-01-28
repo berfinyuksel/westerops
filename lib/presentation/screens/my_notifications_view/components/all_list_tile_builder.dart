@@ -3,7 +3,6 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/bulk_update_notication_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/get_notification_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/put_notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

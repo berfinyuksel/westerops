@@ -424,32 +424,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         Column(
           children: [
             SizedBox(
-              height: 20,
+              height: context.dynamicHeight(0.021)
             ),
             Padding(
               padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      LocaleText(
-                        text: LocaleKeys.restaurant_detail_sub_title1,
-                        style: AppTextStyles.bodyTitleStyle,
-                      ),
-                      SizedBox(
-                        width: context.dynamicWidht(0.01),
-                      ),
-                      GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              showInfo = !showInfo;
-                            });
-                          },
-                          child: SvgPicture.asset(ImageConstant.RESTAURANT_INFO_ICON)),
-
-                      //ClippedPasswordRules(child: Text("data"))
-                    ],
-                  ),
+                  restaurantInfoIconAndSubTitle(context),
                   Divider(
                     thickness: 5,
                     color: AppColors.borderAndDividerColor,
@@ -516,6 +497,29 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         ),
       ],
     );
+  }
+
+  Row restaurantInfoIconAndSubTitle(BuildContext context) {
+    return Row(
+                  children: [
+                    LocaleText(
+                      text: LocaleKeys.restaurant_detail_sub_title1,
+                      style: AppTextStyles.bodyTitleStyle,
+                    ),
+                    SizedBox(
+                      width: context.dynamicWidht(0.01),
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            showInfo = !showInfo;
+                          });
+                        },
+                        child: SvgPicture.asset(ImageConstant.RESTAURANT_INFO_ICON)),
+
+                    //ClippedPasswordRules(child: Text("data"))
+                  ],
+                );
   }
 
 //parametrs changes

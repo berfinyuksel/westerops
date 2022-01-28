@@ -20,7 +20,6 @@ import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
-import 'package:date_format/date_format.dart';
 
 class MyInformationView extends StatefulWidget {
   @override

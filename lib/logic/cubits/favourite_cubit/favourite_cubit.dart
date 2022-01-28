@@ -1,6 +1,5 @@
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/repositories/favourite_repository.dart';

@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/data/repositories/avg_review_repository.dart';
 import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
+import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
 import 'package:dongu_mobile/data/repositories/update_permission_for_com_repository.dart';
 import '../repositories/basket_repository.dart';
 import '../repositories/update_order_repository.dart';
@@ -19,4 +20,5 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => UpdateOrderRepository());
   getIt.registerLazySingleton(() => IyzicoCardRepository());
   getIt.registerLazySingleton(() => AvgReviewRepository());
+  getIt.registerLazySingleton(() => SampleSearchStoreRepository());
 }

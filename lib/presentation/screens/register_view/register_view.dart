@@ -1,19 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/error_alert_dialog.dart';
-import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../data/services/auth_service.dart';
 import '../../../data/services/facebook_login_controller.dart';
-import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -275,7 +271,7 @@ class _RegisterViewState extends State<RegisterView> {
                       context: context,
                       builder: (_) => CustomErrorPopup(
                         textMessage:
-                            "Lütfen şifre gereksinimlerini yerine getiriniz.\n1 rakam, 1 büyük harf, 8 karakter",
+                            "Eksik veya hatalı doldurdunuz. \nLütfen tekrar deneyiniz",
                         buttonOneTitle: "Tamam",
                         buttonTwoTittle: LocaleKeys.address_address_approval,
                         imagePath: ImageConstant.COMMONS_WARNING_ICON,

@@ -1,6 +1,5 @@
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_all_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_view/components/listview_for_orders.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';

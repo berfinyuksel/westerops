@@ -12,22 +12,29 @@ abstract class SearchStoreRepository {
 
 class SampleSearchStoreRepository implements SearchStoreRepository {
   final url = "${UrlConstant.EN_URL}store/searchstore/";
+  List<SearchStore> searchStores = [];
 
   @override
   Future<List<SearchStore>> getSearchStores() async {
-    final response = await http.get(
-      Uri.parse(url),
-    );
-    if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(
-          utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
+    if (searchStores.isEmpty) {
+      final response = await http.get(
+        Uri.parse(url),
+      );
+      if (response.statusCode == 200) {
+        final jsonBody = jsonDecode(utf8
+            .decode(response.bodyBytes)); //utf8.decode for turkish characters
 
-      List<SearchStore> searchStoreLists = List<SearchStore>.from(
-          jsonBody[0].map((model) => SearchStore.fromJson(model)));
-
-      return searchStoreLists;
+        List<SearchStore> searchStoreLists = List<SearchStore>.from(
+            jsonBody[0].map((model) => SearchStore.fromJson(model)));
+        searchStores = searchStoreLists;
+        print("IF ${searchStores.first.city}");
+        return searchStoreLists;
+      }
+      throw NetworkError(response.statusCode.toString(), response.body);
+    } else {
+      print("ELSE ${searchStores.first.city}");
+      return searchStores;
     }
-    throw NetworkError(response.statusCode.toString(), response.body);
   }
 
   @override

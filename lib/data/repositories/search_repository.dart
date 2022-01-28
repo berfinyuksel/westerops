@@ -1,19 +1,20 @@
 import 'dart:convert';
 
-import '../model/search.dart';
+import 'package:dongu_mobile/data/model/search_store.dart';
+
 
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
 abstract class SearchRepository {
-  Future<List<Search>> getSearches(String query);
+  Future<List<SearchStore>> getSearches(String query);
 }
 
 class SampleSearchRepository implements SearchRepository {
   final url = "${UrlConstant.EN_URL}store/searchstore/";
 
   @override
-  Future<List<Search>> getSearches(String query) async {
+  Future<List<SearchStore>> getSearches(String query) async {
     final response = await http.get(
       Uri.parse("${UrlConstant.EN_URL}store/searchstore/?keyword=$query"),
     );
@@ -23,8 +24,8 @@ class SampleSearchRepository implements SearchRepository {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); 
 
-      List<Search> searchLists =
-          List<Search>.from(jsonBody[0].map((model) => Search.fromJson(model)));
+      List<SearchStore> searchLists =
+          List<SearchStore>.from(jsonBody[0].map((model) => SearchStore.fromJson(model)));
       
       return searchLists;
     }

@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
-import 'package:dongu_mobile/data/model/search.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'dart:io';
 import 'package:device_info/device_info.dart';
+import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
 
 import 'package:dongu_mobile/data/services/location_service.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
 
-import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_all_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
@@ -68,8 +69,8 @@ class _HomePageViewState extends State<HomePageView> {
 
   bool visible = true;
   TextEditingController? controller = TextEditingController();
-  List<Search> names = [];
-  List<Search> filteredNames = [];
+  List<SearchStore> names = [];
+  List<SearchStore> filteredNames = [];
   @override
   void initState() {
     super.initState();
@@ -78,6 +79,7 @@ class _HomePageViewState extends State<HomePageView> {
     context.read<PastOrderAllCubit>().getPastOrder();
     LocationService.getCurrentLocation();
     getDeviceIdentifier();
+    print("SL ${sl<SampleSearchStoreRepository>().searchStores}");
   }
 
   Future<List<String>> getDeviceIdentifier() async {
@@ -146,8 +148,8 @@ class _HomePageViewState extends State<HomePageView> {
             color: Colors.white,
             child: Center(child: CustomCircularProgressIndicator()));
       } else if (stateSearch is GenericCompleted) {
-        List<Search> searchList = [];
-        List<Search> restaurant = [];
+        List<SearchStore> searchList = [];
+        List<SearchStore> restaurant = [];
         for (int i = 0; i < stateSearch.response.length; i++) {
           searchList.add(stateSearch.response[i]);
           if (stateSearch is GenericCompleted) {
@@ -746,8 +748,8 @@ class _HomePageViewState extends State<HomePageView> {
 
   ListView searchListViewBuilder(
     GenericState stateSearch,
-    List<Search> searchList,
-    List<Search> restaurant,
+    List<SearchStore> searchList,
+    List<SearchStore> restaurant,
     List<SearchStore> restaurants,
   ) {
     return ListView.builder(
