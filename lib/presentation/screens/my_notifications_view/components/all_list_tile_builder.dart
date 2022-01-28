@@ -92,8 +92,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
           decoration: BoxDecoration(
               color: _selected
                   ? AppColors.greenColor.withOpacity(0.2)
-                  : Colors
-                      .white), //new notification color==> AppColors.greenColor
+                  : Colors.white), //new notification color==> AppColors.greenColor
           child: Dismissible(
               direction: DismissDirection.endToStart,
               background: Padding(
@@ -102,12 +101,10 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                   color: AppColors.redColor,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: context.dynamicHeight(0.038),
-                        horizontal: context.dynamicWidht(0.058)),
+                        vertical: context.dynamicHeight(0.038), horizontal: context.dynamicWidht(0.058)),
                     child: LocaleText(
                       text: LocaleKeys.my_notifications_delete_text_text,
-                      style: AppTextStyles.bodyTextStyle.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                       alignment: TextAlign.end,
                     ),
                   ),
