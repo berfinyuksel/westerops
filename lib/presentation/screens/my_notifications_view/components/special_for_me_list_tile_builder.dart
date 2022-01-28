@@ -165,7 +165,7 @@ class _SpecialForMeListTileBuilderState
                     ],
                   ),
                 )),
-          ) : Text("");
+          ) :  SizedBox();
         });
   }
 

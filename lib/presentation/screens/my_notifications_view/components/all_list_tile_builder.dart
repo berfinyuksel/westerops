@@ -191,7 +191,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
                   ),
                 ),
               )),
-        ) : Text("");
+        ) : SizedBox();
       },
     );
   }

@@ -166,7 +166,8 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
                     ],
                   ),
                 )),
-          ) : Text("");
+          ) :  SizedBox();
+          
         });
   }
 }
