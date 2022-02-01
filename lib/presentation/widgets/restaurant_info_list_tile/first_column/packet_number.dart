@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import '../../text/locale_text.dart';
 
 class PacketNumber extends StatelessWidget {
   final String? text;
@@ -27,10 +26,10 @@ class PacketNumber extends StatelessWidget {
           color: text == LocaleKeys.home_page_soldout_icon
               ? AppColors.yellowColor
               : AppColors.orangeColor),
-      child: LocaleText(
-        text: text!,
+      child: Text(
+        text!,
+        textAlign: TextAlign.center,
         style: AppTextStyles.subTitleBoldStyle,
-        alignment: TextAlign.center,
       ),
     );
   }

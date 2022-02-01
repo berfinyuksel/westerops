@@ -28,11 +28,16 @@ class CategoryItem extends StatelessWidget {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        LocaleText(
-          textOverFlow: TextOverflow.ellipsis,
-          text: categoryName,
+        Text(
+          categoryName!,
           style: AppTextStyles.subTitleStyle,
-        )
+          overflow: TextOverflow.ellipsis,
+        ),
+        // LocaleText(
+        //   textOverFlow: TextOverflow.ellipsis,
+        //   text: categoryName,
+        //   style: AppTextStyles.subTitleStyle,
+        // ),
       ],
     );
   }

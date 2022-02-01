@@ -282,11 +282,10 @@ class _LoginViewState extends State<LoginView> {
                     height: context.dynamicHeight(0.134),
                   ),
                   SizedBox(height: 10),
-                  LocaleText(
-                    text:
-                        LocaleKeys.login_login_success_alert_dialog_text.locale,
+                  Text(
+                    LocaleKeys.login_login_success_alert_dialog_text.locale,
                     style: AppTextStyles.bodyBoldTextStyle,
-                    alignment: TextAlign.center,
+                    textAlign: TextAlign.center,
                   ),
                   Spacer(
                     flex: 35,
