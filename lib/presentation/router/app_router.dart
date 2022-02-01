@@ -70,9 +70,7 @@ class AppRouter {
         final ScreenArguments args = routeSettings.arguments as ScreenArguments;
 
         return MaterialPageRoute(
-          builder: (_) => AddressUpdateView(
-            addressList: args.list!,
-          ),
+          builder: (_) => AddressUpdateView(addressList: args.list!),
         );
       case RouteConstant.ADDRESS_DETAIL_VIEW:
         final ScreenArguments args = routeSettings.arguments as ScreenArguments;
@@ -216,7 +214,7 @@ class AppRouter {
       case RouteConstant.SURPRISE_PACK_VIEW:
         return MaterialPageRoute(builder: (_) => SurprisePackView());
       case RouteConstant.SPLASH_VIEW:
-        return MaterialPageRoute(builder: (_) =>  SplashView());
+        return MaterialPageRoute(builder: (_) => SplashView());
       // case RouteConstant.SPLASH_VIEW:
       //   return MaterialPageRoute(
       //       builder: (_) => SharedPrefs.getIsOnboardingShown
