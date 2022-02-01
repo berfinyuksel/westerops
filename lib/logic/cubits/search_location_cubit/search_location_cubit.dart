@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/repositories/search_location_repository.dart';
 import '../generic_state/generic_state.dart';
-
+import 'package:dongu_mobile/utils/network_error.dart';
 class SearchLocationCubit extends Cubit<GenericState> {
   final SearchLocationRepository _searchLocationRepository;
   SearchLocationCubit(this._searchLocationRepository) : super(GenericInitial());

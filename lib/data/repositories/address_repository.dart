@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dongu_mobile/utils/network_error.dart';
 import 'package:http/http.dart' as http;
 
 import '../../utils/constants/url_constant.dart';
@@ -195,8 +196,3 @@ class SampleAdressRepository implements AdressRepository {
   }
 }
 
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
-}

@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../model/user_address.dart';
 import '../shared/shared_prefs.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import '../../utils/constants/url_constant.dart';
 
 enum StatusCode { success, error }
@@ -38,8 +38,3 @@ class SampleUserAdressRepository implements UserAdressRepository {
   }
 }
 
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
-}

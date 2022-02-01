@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/network_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/repositories/box_repository.dart';

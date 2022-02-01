@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import '../../../data/repositories/store_boxes_repository.dart';
 import '../generic_state/generic_state.dart';
 

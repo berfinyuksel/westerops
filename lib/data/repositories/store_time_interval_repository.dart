@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import '../model/store_time_interval.dart';
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
@@ -28,10 +28,4 @@ class SampleStoreTimeIntervalsRepository
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-}
-
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
 }

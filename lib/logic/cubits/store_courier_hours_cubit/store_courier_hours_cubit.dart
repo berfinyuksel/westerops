@@ -1,6 +1,6 @@
 import '../../../data/repositories/store_courier_hours_repository.dart';
 import '../generic_state/generic_state.dart';
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StoreCourierCubit extends Cubit<GenericState> {

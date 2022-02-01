@@ -1,6 +1,6 @@
 import '../../../data/repositories/user_authentication_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import '../generic_state/generic_state.dart';
 
 class UserAuthCubit extends Cubit<GenericState> {
