@@ -1078,8 +1078,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 borderRadius: BorderRadius.circular(8.0),
                 color: AppColors.yellowColor,
               ),
-              child: LocaleText(
-                text: LocaleKeys.restaurant_detail_packet_container_sold_out,
+              child: Text(
+                LocaleKeys.restaurant_detail_packet_container_sold_out,
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(color: Colors.white),
               ),
