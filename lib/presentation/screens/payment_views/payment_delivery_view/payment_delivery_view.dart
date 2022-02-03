@@ -65,8 +65,8 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  LocaleText(
-                    text: '${LocaleKeys.payment_delivery_text.locale}' +
+                  Text(
+                    '${LocaleKeys.payment_delivery_text.locale}' +
                         buildTimeString(DateTime.now().toLocal()),
                     style: AppTextStyles.bodyTitleStyle,
                   ),

@@ -37,8 +37,8 @@ class _ContactListTileState extends State<ContactListTile> {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          LocaleText(
-            text: widget.trailingText == null ? "" : widget.trailingText,
+          Text(
+            widget.trailingText == null ? "" : widget.trailingText!,
             style: AppTextStyles.subTitleStyle,
           ),
           SizedBox(width: context.dynamicWidht(0.06)),

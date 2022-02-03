@@ -27,12 +27,12 @@ class SampleSearchStoreRepository implements SearchStoreRepository {
         List<SearchStore> searchStoreLists = List<SearchStore>.from(
             jsonBody[0].map((model) => SearchStore.fromJson(model)));
         searchStores = searchStoreLists;
-        print("IF ${searchStores.first.city}");
+        // print("IF ${searchStores.first.city}");
         return searchStoreLists;
       }
       throw NetworkError(response.statusCode.toString(), response.body);
     } else {
-      print("ELSE ${searchStores.first.city}");
+      // print("ELSE ${searchStores.first.city}");
       return searchStores;
     }
   }

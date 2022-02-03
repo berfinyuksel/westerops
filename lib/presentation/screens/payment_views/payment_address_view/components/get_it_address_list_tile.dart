@@ -29,10 +29,8 @@ class GetItAddressListTile extends StatelessWidget {
           right: context.dynamicWidht(0.06),
         ),
         tileColor: Colors.white,
-        title: LocaleText(
-          text: SharedPrefs.getDeliveryType == 2
-              ? userAddressName
-              : restaurantName,
+        title: Text(
+          SharedPrefs.getDeliveryType == 2 ? userAddressName! : restaurantName!,
           style: AppTextStyles.myInformationBodyTextStyle,
         ),
         subtitle: Text(

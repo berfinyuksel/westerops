@@ -306,7 +306,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           return Container(child: Builder(builder: (context) {
             String? packettNumber() {
               if (favouriteRestaurant[index].calendar == null) {
-                return LocaleKeys.home_page_soldout_icon;
+                return LocaleKeys.home_page_soldout_icon.locale;
               } else if (favouriteRestaurant[index].calendar != null) {
                 for (int i = 0;
                     i < favouriteRestaurant[index].calendar!.length;
@@ -316,7 +316,6 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
 
                   String now = DateTime.now().toIso8601String();
                   List<String> currentDate = now.split("T").toList();
-                  print(currentDate[0]);
                   List<String> startDate = favouriteRestaurant[index]
                       .calendar![i]
                       .startDate!
@@ -332,7 +331,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                                 .boxCount ==
                             null ||
                         favouriteRestaurant[index].calendar![i].boxCount == 0) {
-                      return LocaleKeys.home_page_soldout_icon;
+                      return LocaleKeys.home_page_soldout_icon.locale;
                     }
                   }
                 }
@@ -363,7 +362,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                       LocationService.longitude)
                   .toStringAsFixed(2),
               packetNumber:
-                  packettNumber() ?? LocaleKeys.home_page_soldout_icon,
+                  packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
               availableTime:
                   '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
             );

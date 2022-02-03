@@ -67,8 +67,8 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
         ),
       ),
       tileColor: Colors.white,
-      title: LocaleText(
-        text: title!,
+      title: Text(
+        title!,
         style: AppTextStyles.myInformationBodyTextStyle,
       ),
       subtitle: Text(

@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class PacketNumber extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
-          color: text == LocaleKeys.home_page_soldout_icon
+          color: text == LocaleKeys.home_page_soldout_icon.locale
               ? AppColors.yellowColor
               : AppColors.orangeColor),
       child: Text(

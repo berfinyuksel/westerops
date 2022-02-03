@@ -227,12 +227,12 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
               ),
               buildRowCheckBox(
                   context,
-                  LocaleKeys.payment_payment_add_to_registered_cards,
+                  LocaleKeys.payment_payment_add_to_registered_cards.locale,
                   'register'),
               SizedBox(height: context.dynamicHeight(0.01)),
               buildRowCheckBox(
                 context,
-                "3D Secure kullanmak istiyorum",
+                LocaleKeys.payment_payment_3d_secure.locale,
                 'threeD',
               ),
               SizedBox(height: context.dynamicHeight(0.02)),
@@ -277,8 +277,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
               ? buildCheckBoxForThreeD(context)
               : buildCheckBoxForRegister(context),
           SizedBox(width: context.dynamicWidht(0.02)),
-          LocaleText(
-            text: text,
+          Text(
+            text,
             style: AppTextStyles.subTitleStyle,
           ),
         ],
@@ -675,9 +675,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           SizedBox(
             height: 20,
           ),
-          LocaleText(
-            alignment: TextAlign.center,
-            text: 'Kayıtlı kartınız bulunmamaktadır.',
+          Text(
+            LocaleKeys.payment_payment_no_register_card.locale,
+            textAlign: TextAlign.center,
             style: AppTextStyles.myInformationBodyTextStyle,
           ),
         ],

@@ -21,10 +21,12 @@ class NotificationView extends StatelessWidget {
       backgroundColor: AppColors.scaffoldBackgroundColor,
       body: Center(
         child: Padding(
-          padding:  EdgeInsets.only( bottom: context.dynamicHeight(0.06),),
+          padding: EdgeInsets.only(
+            bottom: context.dynamicHeight(0.06),
+          ),
           child: Column(
             children: [
-                 Spacer(
+              Spacer(
                 flex: 12,
               ),
               notificationImage(context),
@@ -33,23 +35,25 @@ class NotificationView extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.06),
-                  ),
+                  horizontal: context.dynamicWidht(0.06),
+                ),
                 child: titleText(),
               ),
               Spacer(
                 flex: 1,
               ),
               Container(
-                padding: EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                     horizontal: context.dynamicWidht(0.06),
                   ),
-                child: descriptionText()),
+                  child: descriptionText()),
               Spacer(
                 flex: 4,
               ),
               allowButton(context),
-              SizedBox(height: context.dynamicHeight(0.01),),
+              SizedBox(
+                height: context.dynamicHeight(0.01),
+              ),
               lateForNowButton(context),
             ],
           ),
@@ -61,12 +65,12 @@ class NotificationView extends StatelessWidget {
   GestureDetector lateForNowButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-              Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
-
+        Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
       },
       child: AutoSizeText(
         LocaleKeys.premission_notification_button2.locale,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w400),
       ),
     );
   }
@@ -77,7 +81,7 @@ class NotificationView extends StatelessWidget {
       borderColor: AppColors.greenColor,
       color: AppColors.greenColor,
       textColor: AppColors.appBarColor,
-      title: LocaleKeys.premission_notification_button1.locale,
+      title: LocaleKeys.premission_notification_button1,
       onPressed: () {
         Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
       },
@@ -103,8 +107,11 @@ class NotificationView extends StatelessWidget {
   }
 
   Container notificationImage(BuildContext context) {
-    return Container(padding: EdgeInsets.only(
-      right: context.dynamicWidht(0.06), left: context.dynamicWidht(0.06)), child: SvgPicture.asset(ImageConstant.NOTIFICATION_IMAGE));
+    return Container(
+        padding: EdgeInsets.only(
+            right: context.dynamicWidht(0.06),
+            left: context.dynamicWidht(0.06)),
+        child: SvgPicture.asset(ImageConstant.NOTIFICATION_IMAGE));
   }
 
   AppBar appBar(BuildContext context) {

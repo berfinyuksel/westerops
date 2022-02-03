@@ -236,9 +236,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               text: LocaleKeys.restaurant_detail_detail_tab_title1,
               style: AppTextStyles.subTitleStyle,
             ),
-            subtitle: LocaleText(
-              text:
-                  "${widget.restaurant!.packageSettings!.deliveryTimeStart} - ${widget.restaurant!.packageSettings!.deliveryTimeEnd}",
+            subtitle: Text(
+              "${widget.restaurant!.packageSettings!.deliveryTimeStart} - ${widget.restaurant!.packageSettings!.deliveryTimeEnd}",
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -338,9 +337,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 text: LocaleKeys.restaurant_detail_detail_tab_title5,
                 style: AppTextStyles.subTitleStyle,
               ),
-              subtitle: LocaleText(
-                text:
-                    "${LocaleKeys.swipe_restaurant_name.locale}: ${widget.restaurant!.name!}",
+              subtitle: Text(
+                "${LocaleKeys.swipe_restaurant_name.locale}: ${widget.restaurant!.name!}",
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -399,8 +397,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 text: LocaleKeys.restaurant_detail_detail_tab_title6,
                 style: AppTextStyles.subTitleStyle,
               ),
-              subtitle: LocaleText(
-                text: categoryNames,
+              subtitle: Text(
+                categoryNames,
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),

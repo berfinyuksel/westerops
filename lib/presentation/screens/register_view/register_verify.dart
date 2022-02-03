@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
@@ -55,7 +53,6 @@ class _RegisterVerifyState extends State<RegisterVerify> {
             showLoading = false;
             currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
             this.verificationId = verificationId;
-            
           });
         },
         codeAutoRetrievalTimeout: (verificationId) async {});

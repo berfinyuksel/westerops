@@ -259,7 +259,6 @@ class _LoginViewState extends State<LoginView> {
         } else if (state is GenericLoading) {
           return Container();
         } else if (state is GenericCompleted) {
-          print('ajsndjasndsjandjklasn');
           print(state.response);
           return AlertDialog(
             contentPadding: EdgeInsets.zero,

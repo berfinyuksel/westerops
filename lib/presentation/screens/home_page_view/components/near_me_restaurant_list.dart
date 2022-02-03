@@ -35,7 +35,7 @@ class NearMeRestaurantListViewWidget extends StatelessWidget {
         if (index + 1 == restaurants.length) {
           context.read<NearMePaddingCubit>().setPadding(sumOfWidthOpportunity -
               context.dynamicWidht(1) -
-              context.dynamicWidht(0.04) );
+              context.dynamicWidht(0.04));
         }
         return GestureDetector(
           onTap: () {
@@ -48,7 +48,7 @@ class NearMeRestaurantListViewWidget extends StatelessWidget {
             String? packettNumber() {
               if (restaurants[index].calendar == null) {
                 //calendar dizisi boş ise tükendi yazdırsın
-                return LocaleKeys.home_page_soldout_icon;
+                return LocaleKeys.home_page_soldout_icon.locale;
               } else if (restaurants[index].calendar != null) {
                 //calendar dizisi boş değilse aşağıdaki kodlar çalışsın
                 for (int i = 0; i < restaurants[index].calendar!.length; i++) {
@@ -70,7 +70,7 @@ class NearMeRestaurantListViewWidget extends StatelessWidget {
                     } else if (restaurants[index].calendar![i].boxCount ==
                             null ||
                         restaurants[index].calendar![i].boxCount == 0) {
-                      return LocaleKeys.home_page_soldout_icon;
+                      return LocaleKeys.home_page_soldout_icon.locale;
                     }
                   }
                 }
@@ -110,7 +110,7 @@ class NearMeRestaurantListViewWidget extends StatelessWidget {
               restaurantIcon: restaurants[index].photo,
               backgroundImage: restaurants[index].background,
               packetNumber:
-                  packettNumber() ?? LocaleKeys.home_page_soldout_icon,
+                  packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
               restaurantName: restaurants[index].name,
               grade: restaurants[index].avgReview!.toStringAsFixed(1),
               location: restaurants[index].city,
