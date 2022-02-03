@@ -233,13 +233,14 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
             value: isSwitchedNotification,
             onChanged: (value) {
               setState(() {
+                   isSwitchedNotification = value;
                 NotificationPermissions.requestNotificationPermissions(
                         iosSettings: const NotificationSettingsIos(
                             sound: true, badge: true, alert: true))
                     .then((_) {
                   // when finished, check the permission status
                    permissionStatusFuture = getCheckNotificationPermStatus();
-                  isSwitchedNotification = value;
+               
                 });
               });
             },

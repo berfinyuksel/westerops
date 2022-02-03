@@ -67,8 +67,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       key: scaffoldKey,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: widget.isDrawer == null
           ? widget.title == null
               ? _titles.elementAt(_selectedIndex) == null

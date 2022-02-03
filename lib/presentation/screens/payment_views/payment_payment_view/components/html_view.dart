@@ -75,7 +75,8 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
                 ImageConstant.COMMONS_APP_BAR_LOGO,
               ),
             ),
-            body: WebView(
+            // ignore: unnecessary_type_check
+            body: state is GenericCompleted ? WebView(
               javascriptMode: JavascriptMode.unrestricted,
               onWebViewCreated: (controller) {
                 this.controller = controller;
@@ -91,7 +92,7 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
                   return NavigationDecision.navigate; // Default decision
                 }
               },
-            ),
+            ) : Center(child: Text("ERRORR!"),),
           );
         } else {
           return Center(
