@@ -443,9 +443,8 @@ class _PaymentViewsState extends State<PaymentViews>
                           ),
                         ),
                         Expanded(
-                          child: LocaleText(
-                            text:
-                                '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
+                          child: Text(
+                            '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
                             style: GoogleFonts.montserrat(
                               fontSize: 18.0,
                               color: AppColors.greenColor,
@@ -581,8 +580,8 @@ class _PaymentViewsState extends State<PaymentViews>
                   final stateOfSumPrice =
                       context.watch<SumPriceOrderCubit>().state;
 
-                  return LocaleText(
-                    text: '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
+                  return Text(
+                    '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
                     style: GoogleFonts.montserrat(
                       fontSize: 18.0,
                       color: AppColors.greenColor,

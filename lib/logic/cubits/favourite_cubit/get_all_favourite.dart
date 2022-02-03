@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/utils/network_error.dart';
+
 import '../../../data/repositories/favourite_repository.dart';
 import '../generic_state/generic_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

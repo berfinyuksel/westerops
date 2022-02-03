@@ -255,10 +255,9 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
           SizedBox(
             height: 20,
           ),
-          LocaleText(
-            alignment: TextAlign.center,
-            text:
-                "Üzgünüz kayıtlı kartlarınızı görüntüleyemiyoruz. Tekrar deneyiniz.",
+          Text(
+            LocaleKeys.registered_cards_no_registered_card.locale,
+            textAlign: TextAlign.center,
             style: AppTextStyles.myInformationBodyTextStyle,
           ),
         ],

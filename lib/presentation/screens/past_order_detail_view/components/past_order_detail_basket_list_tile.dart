@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import '../../../widgets/text/locale_text.dart';
 
 class PastOrderDetailBasketListTile extends StatelessWidget {
   final String? title;
@@ -67,8 +66,8 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
         ),
       ),
       tileColor: Colors.white,
-      title: LocaleText(
-        text: title!,
+      title: Text(
+        title!,
         style: AppTextStyles.myInformationBodyTextStyle,
       ),
       subtitle: Text(

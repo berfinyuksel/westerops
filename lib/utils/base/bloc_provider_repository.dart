@@ -59,74 +59,46 @@ import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-List<BlocProvider> multiBlocProvider = [
+class BlocProviderRepository {
+  List<BlocProvider> multiBlocProvider = [
     BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
-  BlocProvider<NotificationsCounterCubit>(
-      create: (_) => NotificationsCounterCubit()),
-  BlocProvider<NearMePaddingCubit>(create: (_) => NearMePaddingCubit()),
-  BlocProvider<IyzicoCardCubit>(
-      create: (_) => IyzicoCardCubit(IyzicoCardRepository())),
-  BlocProvider<PastOrderDetailCubit>(
-      create: (_) => PastOrderDetailCubit(SampleOrderReceivedRepository())),
-  BlocProvider<PastOrderAllCubit>(
-      create: (_) => PastOrderAllCubit(SampleOrderReceivedRepository())),
-  BlocProvider<IyzicoOrderCreateWith3DCubit>(
-      create: (_) =>
-          IyzicoOrderCreateWith3DCubit(IyzicoCreateOrderWith3DRepository())),
-  BlocProvider<OpportunityPaddingCubit>(
-      create: (_) => OpportunityPaddingCubit()),
-  BlocProvider<CategoryPaddingCubit>(create: (_) => CategoryPaddingCubit()),
-  BlocProvider<OrderBarCubit>(create: (_) => OrderBarCubit()),
-  BlocProvider<SocialLoginCubit>(create: (_) => SocialLoginCubit()),
-  BlocProvider<SumPriceOrderCubit>(create: (_) => SumPriceOrderCubit()),
-  BlocProvider<SumOldPriceOrderCubit>(create: (_) => SumOldPriceOrderCubit()),
-  BlocProvider<SortFilterCubit>(create: (_) => SortFilterCubit()),
-  BlocProvider<SearchLocationCubit>(
-      create: (context) =>
-          SearchLocationCubit(SampleSearchLocationRepository())),
-  BlocProvider<SendRequestCubit>(
-      create: (context) => SendRequestCubit(SampleSendRequestRepository())),
-  BlocProvider<NotificationCubit>(
-      create: (context) => NotificationCubit(SampleNotificationRepository())),
-  BlocProvider<GetNotificationCubit>(
-      create: (context) =>
-          GetNotificationCubit(SampleGetNotificationRepository())),
-  BlocProvider<PutNotificationCubit>(
-      create: (context) =>
-          PutNotificationCubit(SamplePutNotificationRepository())),
-  BlocProvider<BulkUpdateNotificationCubit>(
-      create: (context) => BulkUpdateNotificationCubit(
-          SampleBulkUpdateNotificationRepository())),
-  BlocProvider<TimeIntervalCubit>(
-      create: (context) => TimeIntervalCubit(SampleTimeIntervalRepository())),
-  BlocProvider<OrderReceivedCubit>(
-      create: (context) => OrderReceivedCubit(SampleOrderReceivedRepository())),
-  BlocProvider<StoreCourierCubit>(
-      create: (context) =>
-          StoreCourierCubit(SampleStoreCourierHoursRepository())),
-  BlocProvider<SearchStoreCubit>(
-      create: (context) => SearchStoreCubit(SampleSearchStoreRepository())),
-  BlocProvider<StoreBoxesCubit>(
-      create: (context) => StoreBoxesCubit(SampleStoreBoxesRepository())),
-  BlocProvider<SearchCubit>(
-      create: (context) => SearchCubit(SampleSearchRepository())),
-  BlocProvider<BoxCubit>(create: (context) => BoxCubit(SampleBoxRepository())),
-  BlocProvider<UserAuthCubit>(
-      create: (context) => UserAuthCubit(SampleUserAuthenticationRepository())),
-  BlocProvider<OrderCubit>(
-      create: (context) => OrderCubit(SampleOrderRepository())),
-  BlocProvider<FavoriteCubit>(
-      create: (context) => FavoriteCubit(SampleFavoriteRepository())),
-  BlocProvider<AllFavoriteCubit>(
-      create: (context) => AllFavoriteCubit(SampleFavoriteRepository())),
-  BlocProvider<CategoryNameCubit>(
-      create: (context) => CategoryNameCubit(SampleCategoryNameRepository())),
-  BlocProvider<AddressCubit>(
-      create: (context) => AddressCubit(SampleAdressRepository())),
-  BlocProvider<UserAddressCubit>(
-      create: (context) => UserAddressCubit(SampleUserAdressRepository())),
-  BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
-  BlocProvider<FiltersCubit>(create: (context) => FiltersCubit()),
-  BlocProvider<FiltersManagerCubit>(
-      create: (context) => FiltersManagerCubit(SampleFiltersRepository())),
-];
+    BlocProvider<NotificationsCounterCubit>(create: (_) => NotificationsCounterCubit()),
+    BlocProvider<NearMePaddingCubit>(create: (_) => NearMePaddingCubit()),
+    BlocProvider<IyzicoCardCubit>(create: (_) => IyzicoCardCubit(IyzicoCardRepository())),
+    BlocProvider<PastOrderDetailCubit>(create: (_) => PastOrderDetailCubit(SampleOrderReceivedRepository())),
+    BlocProvider<PastOrderAllCubit>(create: (_) => PastOrderAllCubit(SampleOrderReceivedRepository())),
+    BlocProvider<IyzicoOrderCreateWith3DCubit>(
+        create: (_) => IyzicoOrderCreateWith3DCubit(IyzicoCreateOrderWith3DRepository())),
+    BlocProvider<OpportunityPaddingCubit>(create: (_) => OpportunityPaddingCubit()),
+    BlocProvider<CategoryPaddingCubit>(create: (_) => CategoryPaddingCubit()),
+    BlocProvider<OrderBarCubit>(create: (_) => OrderBarCubit()),
+    BlocProvider<SocialLoginCubit>(create: (_) => SocialLoginCubit()),
+    BlocProvider<SumPriceOrderCubit>(create: (_) => SumPriceOrderCubit()),
+    BlocProvider<SumOldPriceOrderCubit>(create: (_) => SumOldPriceOrderCubit()),
+    BlocProvider<SortFilterCubit>(create: (_) => SortFilterCubit()),
+    BlocProvider<SearchLocationCubit>(create: (context) => SearchLocationCubit(SampleSearchLocationRepository())),
+    BlocProvider<SendRequestCubit>(create: (context) => SendRequestCubit(SampleSendRequestRepository())),
+    BlocProvider<NotificationCubit>(create: (context) => NotificationCubit(SampleNotificationRepository())),
+    BlocProvider<GetNotificationCubit>(create: (context) => GetNotificationCubit(SampleGetNotificationRepository())),
+    BlocProvider<PutNotificationCubit>(create: (context) => PutNotificationCubit(SamplePutNotificationRepository())),
+    BlocProvider<BulkUpdateNotificationCubit>(
+        create: (context) => BulkUpdateNotificationCubit(SampleBulkUpdateNotificationRepository())),
+    BlocProvider<TimeIntervalCubit>(create: (context) => TimeIntervalCubit(SampleTimeIntervalRepository())),
+    BlocProvider<OrderReceivedCubit>(create: (context) => OrderReceivedCubit(SampleOrderReceivedRepository())),
+    BlocProvider<StoreCourierCubit>(create: (context) => StoreCourierCubit(SampleStoreCourierHoursRepository())),
+    BlocProvider<SearchStoreCubit>(create: (context) => SearchStoreCubit(SampleSearchStoreRepository())),
+    BlocProvider<StoreBoxesCubit>(create: (context) => StoreBoxesCubit(SampleStoreBoxesRepository())),
+    BlocProvider<SearchCubit>(create: (context) => SearchCubit(SampleSearchRepository())),
+    BlocProvider<BoxCubit>(create: (context) => BoxCubit(SampleBoxRepository())),
+    BlocProvider<UserAuthCubit>(create: (context) => UserAuthCubit(SampleUserAuthenticationRepository())),
+    BlocProvider<OrderCubit>(create: (context) => OrderCubit(SampleOrderRepository())),
+    BlocProvider<FavoriteCubit>(create: (context) => FavoriteCubit(SampleFavoriteRepository())),
+    BlocProvider<AllFavoriteCubit>(create: (context) => AllFavoriteCubit(SampleFavoriteRepository())),
+    BlocProvider<CategoryNameCubit>(create: (context) => CategoryNameCubit(SampleCategoryNameRepository())),
+    BlocProvider<AddressCubit>(create: (context) => AddressCubit(SampleAdressRepository())),
+    BlocProvider<UserAddressCubit>(create: (context) => UserAddressCubit(SampleUserAdressRepository())),
+    BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
+    BlocProvider<FiltersCubit>(create: (context) => FiltersCubit()),
+    BlocProvider<FiltersManagerCubit>(create: (context) => FiltersManagerCubit(SampleFiltersRepository())),
+  ];
+}

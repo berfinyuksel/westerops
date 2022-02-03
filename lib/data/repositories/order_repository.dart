@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import 'package:http/http.dart' as http;
 
 import '../../utils/constants/url_constant.dart';
@@ -96,10 +96,4 @@ class SampleOrderRepository implements OrderRepository {
 
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-}
-
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
 }

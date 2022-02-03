@@ -1,11 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import '../../../widgets/text/locale_text.dart';
 
 class AgreementScrollBarListView extends StatelessWidget {
   const AgreementScrollBarListView({
@@ -27,8 +25,8 @@ class AgreementScrollBarListView extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: context.dynamicWidht(0.05),
               ),
-              child: LocaleText(
-                text: "1. Taraflar",
+              child: Text(
+                "1. Taraflar",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
               ),
@@ -100,8 +98,8 @@ class AgreementScrollBarListView extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: context.dynamicWidht(0.05),
               ),
-              child: LocaleText(
-                text: "2. Sözleşme’nin Konusu",
+              child: Text(
+                "2. Sözleşme’nin Konusu",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
               ),
@@ -113,9 +111,8 @@ class AgreementScrollBarListView extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: context.dynamicWidht(0.05),
               ),
-              child: LocaleText(
-                text:
-                    "Döngü, Şirket tarafından yönetilen ve Şirket ile Üye İşyeri Sözleşmesi’ni akdetmiş olan üye işyerlerine (“Üye İşyeri”) gün içerisinde arz fazlalığından dolayı satamadıkları yiyecekleri, Kullanıcılar’a gıda kodeksine tam olarak uygun olarak tazeliklerini ve lezzetlerini kaybetmelerine müsade etmeden sunduğu, kullanıcıların da sevdikleri bu yiyeceklere indirimli fiyatlarla ulaşabileceği satışa konu yiyecek ve içecekleri (“Ürünler”) sunma imkanı veren bir satış platformudur. İşbu Sözleşme’nin konusu; Kullanıcılar’ın Uygulama’dan ve Uygulama üzerinden verilen hizmetlerden faydalanmasına ilişkin hüküm ve koşulların belirlenmesi ve bu doğrultuda Taraflar’ın hak ve yükümlülüklerinin düzenlenmesidir.",
+              child: Text(
+                "Döngü, Şirket tarafından yönetilen ve Şirket ile Üye İşyeri Sözleşmesi’ni akdetmiş olan üye işyerlerine (“Üye İşyeri”) gün içerisinde arz fazlalığından dolayı satamadıkları yiyecekleri, Kullanıcılar’a gıda kodeksine tam olarak uygun olarak tazeliklerini ve lezzetlerini kaybetmelerine müsade etmeden sunduğu, kullanıcıların da sevdikleri bu yiyeceklere indirimli fiyatlarla ulaşabileceği satışa konu yiyecek ve içecekleri (“Ürünler”) sunma imkanı veren bir satış platformudur. İşbu Sözleşme’nin konusu; Kullanıcılar’ın Uygulama’dan ve Uygulama üzerinden verilen hizmetlerden faydalanmasına ilişkin hüküm ve koşulların belirlenmesi ve bu doğrultuda Taraflar’ın hak ve yükümlülüklerinin düzenlenmesidir.",
                 style: AppTextStyles.bodyTextStyle,
               ),
             ),
@@ -126,8 +123,8 @@ class AgreementScrollBarListView extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: context.dynamicWidht(0.05),
               ),
-              child: LocaleText(
-                text: "3. Tarafların Hak ve Yükümlülükleri",
+              child: Text(
+                "3. Tarafların Hak ve Yükümlülükleri",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
               ),
@@ -319,8 +316,8 @@ class AgreementScrollBarListView extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: context.dynamicWidht(0.05),
               ),
-              child: LocaleText(
-                text: "4. Hizmetlere İlişkin Koşullar",
+              child: Text(
+                "4. Hizmetlere İlişkin Koşullar",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
               ),
@@ -512,8 +509,8 @@ class AgreementScrollBarListView extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: context.dynamicWidht(0.05),
               ),
-              child: LocaleText(
-                text: "5. Sorumluluğun Kısıtlandırılması",
+              child: Text(
+                "5. Sorumluluğun Kısıtlandırılması",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
               ),
@@ -605,8 +602,8 @@ class AgreementScrollBarListView extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: context.dynamicWidht(0.05),
               ),
-              child: LocaleText(
-                text: "6. Mücbir Sebepler",
+              child: Text(
+                "6. Mücbir Sebepler",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
               ),
@@ -658,8 +655,8 @@ class AgreementScrollBarListView extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: context.dynamicWidht(0.05),
               ),
-              child: LocaleText(
-                text: "7. Sözleşme’nin Askıya Alınması ve Feshi",
+              child: Text(
+                "7. Sözleşme’nin Askıya Alınması ve Feshi",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
               ),
@@ -711,8 +708,8 @@ class AgreementScrollBarListView extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: context.dynamicWidht(0.05),
               ),
-              child: LocaleText(
-                text: "8. Uyuşmazlıkların Çözümü",
+              child: Text(
+                "8. Uyuşmazlıkların Çözümü",
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
               ),
@@ -724,9 +721,8 @@ class AgreementScrollBarListView extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: context.dynamicWidht(0.05),
               ),
-              child: LocaleText(
-                text:
-                    "Uyuşmazlıkların Çözümü Bu Sözleşme ile ilgili olarak çıkabilecek bütün uyuşmazlıklarda öncelikle işbu metinde yer alan hükümler, hüküm bulunmayan konularda ise Türkiye Cumhuriyeti Kanunları uygulanacaktır. Sözleşme’nin uygulanmasından kaynaklanan ihtilafların çözümünde İstanbul Merkez (Çağlayan) Mahkemeleri ve İcra Daireleri yetkili olacaktır.",
+              child: Text(
+                "Uyuşmazlıkların Çözümü Bu Sözleşme ile ilgili olarak çıkabilecek bütün uyuşmazlıklarda öncelikle işbu metinde yer alan hükümler, hüküm bulunmayan konularda ise Türkiye Cumhuriyeti Kanunları uygulanacaktır. Sözleşme’nin uygulanmasından kaynaklanan ihtilafların çözümünde İstanbul Merkez (Çağlayan) Mahkemeleri ve İcra Daireleri yetkili olacaktır.",
                 style: AppTextStyles.bodyTextStyle,
               ),
             ),

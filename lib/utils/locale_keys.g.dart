@@ -209,6 +209,7 @@ abstract class  LocaleKeys {
   static const registered_cards_delete_alert_dialog = 'registered_cards.delete_alert_dialog';
   static const registered_cards_error_alert_dialog = 'registered_cards.error_alert_dialog';
   static const registered_cards_unauthorized_alert_dialog = 'registered_cards.unauthorized_alert_dialog';
+  static const registered_cards_no_registered_card = 'registered_cards.no_registered_card';
   static const registered_cards = 'registered_cards';
   static const language_settings_title = 'language_settings.title';
   static const language_settings = 'language_settings';
@@ -362,6 +363,8 @@ abstract class  LocaleKeys {
   static const payment_payment_checkbox_agreement_text3 = 'payment.payment.checkbox_agreement_text3';
   static const payment_payment_checkbox_agreement_text4 = 'payment.payment.checkbox_agreement_text4';
   static const payment_payment_online_payment = 'payment.payment.online_payment';
+  static const payment_payment_no_register_card = 'payment.payment.no_register_card';
+  static const payment_payment_3d_secure = 'payment.payment.3d_secure';
   static const payment_payment = 'payment.payment';
   static const payment = 'payment';
   static const order_received_amount_in_cart = 'order_received.amount_in_cart';

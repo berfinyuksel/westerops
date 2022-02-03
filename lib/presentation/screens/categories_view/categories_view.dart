@@ -63,7 +63,7 @@ class CategoriesView extends StatelessWidget {
   CustomScaffold buildCustomScaffold(
       BuildContext context, List<SearchStore> categorizedRestaurants) {
     return CustomScaffold(
-      title: LocaleKeys.home_page_categories.locale,
+      title: LocaleKeys.home_page_categories,
       body: Padding(
         padding: EdgeInsets.only(
           left: context.dynamicWidht(0.06),
@@ -89,9 +89,9 @@ class CategoriesView extends StatelessWidget {
     );
   }
 
-  LocaleText buildTitle(String title) {
-    return LocaleText(
-      text: title,
+  Text buildTitle(String title) {
+    return Text(
+      title,
       style: AppTextStyles.bodyTitleStyle,
     );
   }

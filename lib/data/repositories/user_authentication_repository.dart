@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import '../../utils/constants/url_constant.dart';
 import '../model/user.dart';
 import '../shared/shared_prefs.dart';
@@ -204,11 +204,7 @@ class SampleUserAuthenticationRepository
   }
 }
 
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
-}
+
 /**  @override
   Future<List<String>> updateUser(String firstName, String lastName,
       String email, String phone, String address, String birthday) async {

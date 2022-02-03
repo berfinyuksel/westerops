@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/data/repositories/notification_repository.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
+import 'package:dongu_mobile/utils/network_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotificationCubit extends Cubit<GenericState> {

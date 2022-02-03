@@ -232,7 +232,8 @@
         "save_alert_dialog": "Your card has been successfully registered.",
         "delete_alert_dialog": "Your card has been successfully deleted.",
         "error_alert_dialog": "Something went wrong. Try again.",
-        "unauthorized_alert_dialog": "You must be logged in to save your card."
+        "unauthorized_alert_dialog": "You must be logged in to save your card.",
+        "no_registered_card": "You do not have a registered card."
     },
     "language_settings": {
         "title": "Language Settings"
@@ -400,7 +401,9 @@
             "checkbox_agreement_text2": "I have read and I approve.",
             "checkbox_agreement_text3": "Distance sales agreement ",
             "checkbox_agreement_text4": "I have read and I approve.",
-            "online_payment": "Online Payment"
+            "online_payment": "Online Payment",
+            "no_register_card": "You do not have a registered card.",
+            "3d_secure": "I want to use 3D Secure"
         }
     },
     "order_received": {

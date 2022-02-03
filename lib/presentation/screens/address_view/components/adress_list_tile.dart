@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import '../../../widgets/text/locale_text.dart';
 
 class AddressListTile extends StatefulWidget {
   final Widget? trailing;
@@ -45,8 +44,8 @@ class _AddressListTileState extends State<AddressListTile> {
           bottom: context.dynamicHeight(0.01)),
       trailing: widget.trailing,
       tileColor: Colors.white,
-      title: LocaleText(
-        text: widget.title,
+      title: Text(
+        widget.title!,
         style: AppTextStyles.subTitleStyle,
       ),
       subtitle: AutoSizeText.rich(

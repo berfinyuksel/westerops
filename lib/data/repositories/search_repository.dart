@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:dongu_mobile/data/model/search_store.dart';
-
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,10 +29,4 @@ class SampleSearchRepository implements SearchRepository {
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-}
-
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
 }

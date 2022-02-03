@@ -1,7 +1,6 @@
 import 'dart:convert';
-
 import '../model/search_store.dart';
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,12 +26,12 @@ class SampleSearchStoreRepository implements SearchStoreRepository {
         List<SearchStore> searchStoreLists = List<SearchStore>.from(
             jsonBody[0].map((model) => SearchStore.fromJson(model)));
         searchStores = searchStoreLists;
-        print("IF ${searchStores.first.city}");
+        // print("IF ${searchStores.first.city}");
         return searchStoreLists;
       }
       throw NetworkError(response.statusCode.toString(), response.body);
     } else {
-      print("ELSE ${searchStores.first.city}");
+      // print("ELSE ${searchStores.first.city}");
       return searchStores;
     }
   }
@@ -56,8 +55,3 @@ class SampleSearchStoreRepository implements SearchStoreRepository {
   }
 }
 
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
-}

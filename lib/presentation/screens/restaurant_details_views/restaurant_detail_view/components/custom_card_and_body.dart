@@ -39,13 +39,15 @@ import 'custom_circular_progress.dart';
 class CustomCardAndBody extends StatefulWidget {
   final SearchStore? restaurant;
   final Box? boxes;
-  const CustomCardAndBody({Key? key, this.restaurant, this.boxes}) : super(key: key);
+  const CustomCardAndBody({Key? key, this.restaurant, this.boxes})
+      : super(key: key);
 
   @override
   _CustomCardAndBodyState createState() => _CustomCardAndBodyState();
 }
 
-class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTickerProviderStateMixin {
+class _CustomCardAndBodyState extends State<CustomCardAndBody>
+    with SingleTickerProviderStateMixin {
   List<Box> definedBoxes = [];
   bool isFavorite = false;
   int favouriteId = 0;
@@ -228,14 +230,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           height: context.dynamicHeight(0.1),
           padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
           child: ListTile(
-            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title1,
               style: AppTextStyles.subTitleStyle,
             ),
-            subtitle: LocaleText(
-              text:
-                  "${widget.restaurant!.packageSettings!.deliveryTimeStart} - ${widget.restaurant!.packageSettings!.deliveryTimeEnd}",
+            subtitle: Text(
+              "${widget.restaurant!.packageSettings!.deliveryTimeStart} - ${widget.restaurant!.packageSettings!.deliveryTimeEnd}",
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -248,7 +250,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
           child: ListTile(
             isThreeLine: true,
-            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title2,
               style: AppTextStyles.subTitleStyle,
@@ -266,18 +269,21 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         ),
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(RouteConstant.ABOUT_WORKING_HOUR_VIEW,
-                arguments: ScreenArgumentsRestaurantDetail(
-                  restaurant: widget.restaurant!,
-                ));
+            Navigator.of(context)
+                .pushNamed(RouteConstant.ABOUT_WORKING_HOUR_VIEW,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      restaurant: widget.restaurant!,
+                    ));
           },
           child: Container(
             color: AppColors.appBarColor,
             width: context.dynamicWidht(1),
             height: context.dynamicHeight(0.10),
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
             child: ListTile(
-              contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+              contentPadding:
+                  EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
               title: LocaleText(
                 text: LocaleKeys.restaurant_detail_detail_tab_title3,
                 style: AppTextStyles.subTitleStyle,
@@ -294,10 +300,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           color: AppColors.appBarColor,
           width: context.dynamicWidht(1),
           height: context.dynamicHeight(0.087),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          padding:
+              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
           child: ListTile(
             // isThreeLine: true,
-            contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding:
+                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title4,
               style: AppTextStyles.subTitleStyle,
@@ -320,15 +328,17 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
             color: AppColors.appBarColor,
             width: context.dynamicWidht(1),
             height: context.dynamicHeight(0.1),
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
             child: ListTile(
-              contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+              contentPadding:
+                  EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
               title: LocaleText(
                 text: LocaleKeys.restaurant_detail_detail_tab_title5,
                 style: AppTextStyles.subTitleStyle,
               ),
-              subtitle: LocaleText(
-                text: "${LocaleKeys.swipe_restaurant_name.locale}: ${widget.restaurant!.name!}",
+              subtitle: Text(
+                "${LocaleKeys.swipe_restaurant_name.locale}: ${widget.restaurant!.name!}",
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -371,21 +381,24 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         return GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
-                arguments: ScreenArgumentsCategories(categoriesList: relatedCategories));
+                arguments: ScreenArgumentsCategories(
+                    categoriesList: relatedCategories));
           },
           child: Container(
             color: AppColors.appBarColor,
             width: context.dynamicWidht(1),
             height: context.dynamicHeight(0.1),
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
             child: ListTile(
-              contentPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+              contentPadding:
+                  EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
               title: LocaleText(
                 text: LocaleKeys.restaurant_detail_detail_tab_title6,
                 style: AppTextStyles.subTitleStyle,
               ),
-              subtitle: LocaleText(
-                text: categoryNames,
+              subtitle: Text(
+                categoryNames,
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -423,9 +436,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         ),
         Column(
           children: [
-            SizedBox(
-              height: context.dynamicHeight(0.021)
-            ),
+            SizedBox(height: context.dynamicHeight(0.021)),
             Padding(
               padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
               child: Column(
@@ -449,7 +460,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               ),
             )),
         ListView.builder(
-          itemCount: surpriseBoxes.length, //widget.restaurant!.boxes!.length,//state.response.lenght
+          itemCount: surpriseBoxes
+              .length, //widget.restaurant!.boxes!.length,//state.response.lenght
           itemBuilder: (context, index) {
             return buildBox(context, index, state, surpriseBoxes);
           },
@@ -501,29 +513,30 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
 
   Row restaurantInfoIconAndSubTitle(BuildContext context) {
     return Row(
-                  children: [
-                    LocaleText(
-                      text: LocaleKeys.restaurant_detail_sub_title1,
-                      style: AppTextStyles.bodyTitleStyle,
-                    ),
-                    SizedBox(
-                      width: context.dynamicWidht(0.01),
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            showInfo = !showInfo;
-                          });
-                        },
-                        child: SvgPicture.asset(ImageConstant.RESTAURANT_INFO_ICON)),
+      children: [
+        LocaleText(
+          text: LocaleKeys.restaurant_detail_sub_title1,
+          style: AppTextStyles.bodyTitleStyle,
+        ),
+        SizedBox(
+          width: context.dynamicWidht(0.01),
+        ),
+        GestureDetector(
+            onTap: () {
+              setState(() {
+                showInfo = !showInfo;
+              });
+            },
+            child: SvgPicture.asset(ImageConstant.RESTAURANT_INFO_ICON)),
 
-                    //ClippedPasswordRules(child: Text("data"))
-                  ],
-                );
+        //ClippedPasswordRules(child: Text("data"))
+      ],
+    );
   }
 
 //parametrs changes
-  Container buildDefinedBox(BuildContext context, int index, List<Box> definedBoxes, GenericCompleted state) {
+  Container buildDefinedBox(BuildContext context, int index,
+      List<Box> definedBoxes, GenericCompleted state) {
     return Container(
         //alignment: Alignment(-0.8, 0.0),
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
@@ -599,12 +612,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                     style: AppTextStyles.myInformationBodyTextStyle,
                   ),
                   LocaleText(
-                    text: surpriseBoxes[index].defined == false ? "" : mealNames,
+                    text:
+                        surpriseBoxes[index].defined == false ? "" : mealNames,
                     style: AppTextStyles.subTitleStyle,
                   ),
                   SizedBox(height: context.dynamicHeight(0.020)),
                   Builder(builder: (context) {
-                    final GenericState stateOfSearchStore = context.watch<SearchStoreCubit>().state;
+                    final GenericState stateOfSearchStore =
+                        context.watch<SearchStoreCubit>().state;
 
                     if (stateOfSearchStore is GenericInitial) {
                       return Container();
@@ -612,11 +627,17 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                       return Center(child: SizedBox(height: 0, width: 0));
                     } else if (stateOfSearchStore is GenericCompleted) {
                       List<SearchStore> chosenRestaurat = [];
-                      for (var i = 0; i < stateOfSearchStore.response.length; i++) {
-                        if (stateOfSearchStore.response[i].id == state.response[index].store) {
+                      for (var i = 0;
+                          i < stateOfSearchStore.response.length;
+                          i++) {
+                        if (stateOfSearchStore.response[i].id ==
+                            state.response[index].store) {
                           chosenRestaurat.add(stateOfSearchStore.response[i]);
-                          priceOfMenu = chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice;
-                          oldPriceOfMenu = chosenRestaurat[0].packageSettings!.minOrderPrice;
+                          priceOfMenu = chosenRestaurat[0]
+                              .packageSettings!
+                              .minDiscountedOrderPrice;
+                          oldPriceOfMenu =
+                              chosenRestaurat[0].packageSettings!.minOrderPrice;
                         }
                       }
 
@@ -632,12 +653,18 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                               color: Colors.white,
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                              padding: EdgeInsets.only(
+                                  left: context.dynamicWidht(0.01)),
                               child: Text(
-                                chosenRestaurat[0].packageSettings!.minOrderPrice.toString() + " TL",
+                                chosenRestaurat[0]
+                                        .packageSettings!
+                                        .minOrderPrice
+                                        .toString() +
+                                    " TL",
                                 style: AppTextStyles.bodyBoldTextStyle.copyWith(
                                     decoration: TextDecoration.lineThrough,
-                                    color: AppColors.unSelectedpackageDeliveryColor),
+                                    color: AppColors
+                                        .unSelectedpackageDeliveryColor),
                               ),
                             ),
                           ),
@@ -653,9 +680,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                               color: AppColors.scaffoldBackgroundColor,
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                              padding: EdgeInsets.only(
+                                  left: context.dynamicWidht(0.01)),
                               child: Text(
-                                chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice.toString() + " TL",
+                                chosenRestaurat[0]
+                                        .packageSettings!
+                                        .minDiscountedOrderPrice
+                                        .toString() +
+                                    " TL",
                                 style: AppTextStyles.bodyBoldTextStyle.copyWith(
                                   color: AppColors.greenColor,
                                 ),
@@ -666,7 +698,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                       );
                     } else {
                       final error = stateOfSearchStore as GenericError;
-                      return Center(child: Text("${error.message}\n${error.statusCode}"));
+                      return Center(
+                          child: Text("${error.message}\n${error.statusCode}"));
                     }
                   }),
                 ],
@@ -681,19 +714,25 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                     SharedPrefs.setOldSumPrice(
                         context.watch<SumOldPriceOrderCubit>().state);
                     int menuItem = state.response[index].id;
-                    final counterState = context.watch<BasketCounterCubit>().state;
+                    final counterState =
+                        context.watch<BasketCounterCubit>().state;
                     return Builder(builder: (context) {
                       return CustomButton(
                         title: menuList!.contains(menuItem.toString())
                             ? LocaleKeys.restaurant_detail_button_text2
                             : LocaleKeys.restaurant_detail_button_text,
-                        color: menuList!.contains(menuItem.toString()) ? Colors.transparent : AppColors.greenColor,
-                        textColor: menuList!.contains(menuItem.toString()) ? AppColors.greenColor : Colors.white,
+                        color: menuList!.contains(menuItem.toString())
+                            ? Colors.transparent
+                            : AppColors.greenColor,
+                        textColor: menuList!.contains(menuItem.toString())
+                            ? AppColors.greenColor
+                            : Colors.white,
                         width: context.dynamicWidht(0.26),
                         borderColor: AppColors.greenColor,
                         onPressed: () async {
                           print(menuItem);
-                          await pressedBuyButton(state, index, context, counterState, menuItem);
+                          await pressedBuyButton(
+                              state, index, context, counterState, menuItem);
                         },
                       );
                     });
@@ -741,7 +780,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         builder: (_) => AlertDialog(
           contentPadding: EdgeInsets.zero,
           content: Container(
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
             width: context.dynamicWidht(0.87),
             height: context.dynamicHeight(0.29),
             decoration: BoxDecoration(
@@ -840,9 +880,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                     Navigator.pop(context);
                   },
                   imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                  textMessage: LocaleKeys.restaurant_detail_diffrent_restaurant_show_dialog_text_1,
-                  buttonOneTitle: LocaleKeys.restaurant_detail_diffrent_restaurant_show_dialog_button1,
-                  buttonTwoTittle: LocaleKeys.restaurant_detail_diffrent_restaurant_show_dialog_button2));
+                  textMessage: LocaleKeys
+                      .restaurant_detail_diffrent_restaurant_show_dialog_text_1,
+                  buttonOneTitle: LocaleKeys
+                      .restaurant_detail_diffrent_restaurant_show_dialog_button1,
+                  buttonTwoTittle: LocaleKeys
+                      .restaurant_detail_diffrent_restaurant_show_dialog_button2));
       }
     }
   }
@@ -854,7 +897,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
             showInfo = false;
           });
         },
-        labelPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
+        labelPadding:
+            EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
         indicator: UnderlineTabIndicator(
             borderSide: BorderSide(width: 3, color: AppColors.orangeColor),
             insets: EdgeInsets.symmetric(
@@ -890,9 +934,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
       int mealPoint = widget.restaurant!.review![i].qualityPoint!;
       mealPoints.add(mealPoint);
     }
-    int totalMealPoints = mealPoints.fold(0, (previousValue, element) => previousValue + element);
+    int totalMealPoints =
+        mealPoints.fold(0, (previousValue, element) => previousValue + element);
 
-    String? avgMealPoint = (totalMealPoints / widget.restaurant!.review!.length).toStringAsFixed(1);
+    String? avgMealPoint = (totalMealPoints / widget.restaurant!.review!.length)
+        .toStringAsFixed(1);
     return Row(
       children: [
         LocaleText(
@@ -918,9 +964,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
       int qualityPoint = widget.restaurant!.review![i].qualityPoint!;
       qualityPoints.add(qualityPoint);
     }
-    int totalQualityPoints = qualityPoints.fold(0, (previousValue, element) => previousValue + element);
+    int totalQualityPoints = qualityPoints.fold(
+        0, (previousValue, element) => previousValue + element);
 
-    String avgQualityPoint = (totalQualityPoints / widget.restaurant!.review!.length).toStringAsFixed(1);
+    String avgQualityPoint =
+        (totalQualityPoints / widget.restaurant!.review!.length)
+            .toStringAsFixed(1);
     return Row(
       children: [
         LocaleText(
@@ -933,7 +982,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         CustomCircularProgress(
           valueColor: AppColors.pinkColor,
           ratingText: qualityPoints.isNotEmpty ? avgQualityPoint : '0.0',
-          value: qualityPoints.isNotEmpty ? double.parse(avgQualityPoint) / 5 : 0.0,
+          value: qualityPoints.isNotEmpty
+              ? double.parse(avgQualityPoint) / 5
+              : 0.0,
         ),
       ],
     );
@@ -945,9 +996,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
       int servicePoint = widget.restaurant!.review![i].servicePoint!;
       servicePoints.add(servicePoint);
     }
-    int totalServicePoints = servicePoints.fold(0, (previousValue, element) => previousValue + element);
+    int totalServicePoints = servicePoints.fold(
+        0, (previousValue, element) => previousValue + element);
 
-    String avgServicePoint = (totalServicePoints / widget.restaurant!.review!.length).toStringAsFixed(1);
+    String avgServicePoint =
+        (totalServicePoints / widget.restaurant!.review!.length)
+            .toStringAsFixed(1);
     return Row(
       children: [
         LocaleText(
@@ -958,7 +1012,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           width: context.dynamicWidht(0.02),
         ),
         CustomCircularProgress(
-          value: servicePoints.isNotEmpty ? double.parse(avgServicePoint) / 5 : 0.0,
+          value: servicePoints.isNotEmpty
+              ? double.parse(avgServicePoint) / 5
+              : 0.0,
           valueColor: AppColors.greenColor,
           ratingText: servicePoints.isNotEmpty ? avgServicePoint : '0.0',
         ),
@@ -976,9 +1032,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         color: AppColors.scaffoldBackgroundColor,
       ),
       child: Text(
-        widget.restaurant!.packageSettings!.minDiscountedOrderPrice.toString() + " TL",
+        widget.restaurant!.packageSettings!.minDiscountedOrderPrice.toString() +
+            " TL",
         textAlign: TextAlign.center,
-        style: AppTextStyles.bodyBoldTextStyle.copyWith(fontWeight: FontWeight.w700, color: AppColors.greenColor),
+        style: AppTextStyles.bodyBoldTextStyle
+            .copyWith(fontWeight: FontWeight.w700, color: AppColors.greenColor),
       ),
     );
   }
@@ -986,8 +1044,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
   Text oldPriceText() {
     return Text(
       widget.restaurant!.packageSettings!.minOrderPrice.toString() + " TL",
-      style: AppTextStyles.bodyBoldTextStyle
-          .copyWith(decoration: TextDecoration.lineThrough, color: AppColors.unSelectedpackageDeliveryColor),
+      style: AppTextStyles.bodyBoldTextStyle.copyWith(
+          decoration: TextDecoration.lineThrough,
+          color: AppColors.unSelectedpackageDeliveryColor),
     );
   }
 
@@ -1004,7 +1063,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               ),
               child: Text(
                 "${state.response.length} ${LocaleKeys.restaurant_detail_packet_container_package.locale}",
-                style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
+                style: AppTextStyles.bodyBoldTextStyle
+                    .copyWith(color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             )
@@ -1016,9 +1076,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 borderRadius: BorderRadius.circular(8.0),
                 color: AppColors.yellowColor,
               ),
-              child: LocaleText(
-                text: LocaleKeys.restaurant_detail_packet_container_sold_out,
-                style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
+              child: Text(
+                LocaleKeys.restaurant_detail_packet_container_sold_out,
+                style: AppTextStyles.bodyBoldTextStyle
+                    .copyWith(color: Colors.white),
               ),
             );
     } else
@@ -1043,7 +1104,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           Text(
             "${widget.restaurant!.packageSettings!.deliveryTimeStart!}-${widget.restaurant!.packageSettings!.deliveryTimeEnd}",
             textAlign: TextAlign.center,
-            style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.yellowColor),
+            style: AppTextStyles.bodyBoldTextStyle
+                .copyWith(color: AppColors.yellowColor),
           ),
         ],
       ),
@@ -1075,11 +1137,16 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           width: context.dynamicWidht(0.4),
           child: Text(
             widget.restaurant!.name!,
-            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w600),
+            style: AppTextStyles.appBarTitleStyle
+                .copyWith(fontWeight: FontWeight.w600),
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        LocaleText(text: widget.restaurant!.address, style: AppTextStyles.subTitleStyle),
+        Text(
+          widget.restaurant!.address!,
+          style: AppTextStyles.subTitleStyle,
+        ),
+        // LocaleText(text: widget.restaurant!.address, style: AppTextStyles.subTitleStyle),
       ],
     );
   }
@@ -1105,7 +1172,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         ));
   }
 
-  Container packageCourierAndFavoriteContainer(BuildContext context, GenericState state) {
+  Container packageCourierAndFavoriteContainer(
+      BuildContext context, GenericState state) {
     context.read<AllFavoriteCubit>().getFavorite();
 
     return Container(
@@ -1122,8 +1190,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 height: context.dynamicHeight(0.039),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: widget.restaurant!.packageSettings!.deliveryType == "1" ||
-                          widget.restaurant!.packageSettings!.deliveryType == "3"
+                  color: widget.restaurant!.packageSettings!.deliveryType ==
+                              "1" ||
+                          widget.restaurant!.packageSettings!.deliveryType ==
+                              "3"
                       ? AppColors.greenColor
                       : Colors.white,
                 ),
@@ -1131,8 +1201,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   padding: EdgeInsets.all(context.dynamicHeight(0.004)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_PACKAGE_ICON,
-                    color: widget.restaurant!.packageSettings!.deliveryType == "1" ||
-                            widget.restaurant!.packageSettings!.deliveryType == "3"
+                    color: widget.restaurant!.packageSettings!.deliveryType ==
+                                "1" ||
+                            widget.restaurant!.packageSettings!.deliveryType ==
+                                "3"
                         ? Colors.white
                         : AppColors.unSelectedpackageDeliveryColor,
                   ),
@@ -1146,8 +1218,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 height: context.dynamicHeight(0.039),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: widget.restaurant!.packageSettings!.deliveryType == "2" ||
-                          widget.restaurant!.packageSettings!.deliveryType == "3"
+                  color: widget.restaurant!.packageSettings!.deliveryType ==
+                              "2" ||
+                          widget.restaurant!.packageSettings!.deliveryType ==
+                              "3"
                       ? AppColors.greenColor
                       : Colors.white,
                 ),
@@ -1155,8 +1229,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   padding: EdgeInsets.all(context.dynamicHeight(0.006)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_COURIER_ICON,
-                    color: widget.restaurant!.packageSettings!.deliveryType == "2" ||
-                            widget.restaurant!.packageSettings!.deliveryType == "3"
+                    color: widget.restaurant!.packageSettings!.deliveryType ==
+                                "2" ||
+                            widget.restaurant!.packageSettings!.deliveryType ==
+                                "3"
                         ? Colors.white
                         : AppColors.unSelectedpackageDeliveryColor,
                   ),
@@ -1165,7 +1241,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
             ],
           ),
           Builder(builder: (context) {
-            final GenericState stateOfFavorites = context.watch<AllFavoriteCubit>().state;
+            final GenericState stateOfFavorites =
+                context.watch<AllFavoriteCubit>().state;
 
             if (stateOfFavorites is GenericInitial) {
               return Container();
@@ -1173,7 +1250,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               return Row(
                 children: [
                   LocaleText(
-                    text: !isFavorite ? LocaleKeys.restaurant_detail_text3 : LocaleKeys.restaurant_detail_text4,
+                    text: !isFavorite
+                        ? LocaleKeys.restaurant_detail_text3
+                        : LocaleKeys.restaurant_detail_text4,
                     style: AppTextStyles.bodyTextStyle,
                   ),
                   SizedBox(
@@ -1181,7 +1260,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   ),
                   SvgPicture.asset(
                     ImageConstant.RESTAURANT_FAVORITE_ICON,
-                    color: isFavorite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                    color: isFavorite
+                        ? AppColors.orangeColor
+                        : AppColors.unSelectedpackageDeliveryColor,
                   ),
                 ],
               );
@@ -1196,7 +1277,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               return Row(
                 children: [
                   LocaleText(
-                    text: !isFavorite ? LocaleKeys.restaurant_detail_text3 : LocaleKeys.restaurant_detail_text4,
+                    text: !isFavorite
+                        ? LocaleKeys.restaurant_detail_text3
+                        : LocaleKeys.restaurant_detail_text4,
                     style: AppTextStyles.bodyTextStyle,
                   ),
                   SizedBox(
@@ -1205,21 +1288,26 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   GestureDetector(
                     onTap: () {
                       if (SharedPrefs.getIsLogined) {
-                        context.read<FavoriteCubit>().toggleIsFavorite(context, widget.restaurant!);
+                        context
+                            .read<FavoriteCubit>()
+                            .toggleIsFavorite(context, widget.restaurant!);
                       } else {
                         Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
                       }
                     },
                     child: SvgPicture.asset(
                       ImageConstant.RESTAURANT_FAVORITE_ICON,
-                      color: isFavorite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                      color: isFavorite
+                          ? AppColors.orangeColor
+                          : AppColors.unSelectedpackageDeliveryColor,
                     ),
                   ),
                 ],
               );
             } else {
               final error = stateOfFavorites as GenericError;
-              return Center(child: Text("${error.message}\n${error.statusCode}"));
+              return Center(
+                  child: Text("${error.message}\n${error.statusCode}"));
             }
           })
         ],

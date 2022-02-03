@@ -104,7 +104,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
             .deleteAccountUser(selectedIndex.toString());
         SharedPrefs.clearCache();
         if (selectedIndex >= 0 || textController.text.isNotEmpty) {
-            showDialog(
+          showDialog(
               context: context,
               builder: (_) => CustomAlertDialogResetPassword(
                     description:
@@ -112,8 +112,8 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
                     onPressed: () => Navigator.popAndPushNamed(
                         context, RouteConstant.CUSTOM_SCAFFOLD),
                   ));
-        }else{
-            showDialog(
+        } else {
+          showDialog(
               context: context,
               builder: (_) => CustomAlertDialogResetPassword(
                     description:
@@ -130,11 +130,11 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
   buildRadioButtons(BuildContext context) {
     List<Widget> buttons = [];
     List<String> des = [
-      LocaleKeys.delete_account_text_3.locale,
-      LocaleKeys.delete_account_text_4.locale,
-      LocaleKeys.delete_account_text_5.locale,
-      LocaleKeys.delete_account_text_6.locale,
-      LocaleKeys.delete_account_text_7.locale,
+      LocaleKeys.delete_account_text_3,
+      LocaleKeys.delete_account_text_4,
+      LocaleKeys.delete_account_text_5,
+      LocaleKeys.delete_account_text_6,
+      LocaleKeys.delete_account_text_7,
     ];
 
     for (int i = 0; i < 5; i++) {
@@ -196,7 +196,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
       child: TextFormField(
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.bodyTextStyle,
-             inputFormatters: [
+        inputFormatters: [
           //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
           FilteringTextInputFormatter.singleLineFormatter,
         ],

@@ -259,7 +259,6 @@ class _LoginViewState extends State<LoginView> {
         } else if (state is GenericLoading) {
           return Container();
         } else if (state is GenericCompleted) {
-          print('ajsndjasndsjandjklasn');
           print(state.response);
           return AlertDialog(
             contentPadding: EdgeInsets.zero,
@@ -282,11 +281,10 @@ class _LoginViewState extends State<LoginView> {
                     height: context.dynamicHeight(0.134),
                   ),
                   SizedBox(height: 10),
-                  LocaleText(
-                    text:
-                        LocaleKeys.login_login_success_alert_dialog_text.locale,
+                  Text(
+                    LocaleKeys.login_login_success_alert_dialog_text.locale,
                     style: AppTextStyles.bodyBoldTextStyle,
-                    alignment: TextAlign.center,
+                    textAlign: TextAlign.center,
                   ),
                   Spacer(
                     flex: 35,

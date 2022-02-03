@@ -33,8 +33,8 @@ class DeliveryCustomButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: onPressed,
-        child: LocaleText(
-          text: title,
+        child: Text(
+          title!,
           style: AppTextStyles.bodyTextStyle,
         ),
       ),

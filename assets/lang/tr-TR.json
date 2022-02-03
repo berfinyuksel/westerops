@@ -231,7 +231,8 @@
         "save_alert_dialog": "Kartınız başarıyla kaydedilmiştir.",
         "delete_alert_dialog": "Kartınız başarıyla silinmiştir.",
         "error_alert_dialog": "Bir şeyler ters gitti. Tekrar deneyiniz.",
-        "unauthorized_alert_dialog": "Kartınızı kaydedebilmek için giriş yapmalısınız."
+        "unauthorized_alert_dialog": "Kartınızı kaydedebilmek için giriş yapmalısınız.",
+        "no_registered_card": "Kayıtlı bir kartınız bulunmamaktadır."
     },
     "language_settings": {
         "title": "Dil Ayarları"
@@ -399,7 +400,9 @@
             "checkbox_agreement_text2": "’nı okudum, onaylıyorum.",
             "checkbox_agreement_text3": "Mesafeli Satış Sözleşmesi",
             "checkbox_agreement_text4": "'ni okudum, onaylıyorum.",
-            "online_payment": "Online Ödeme"
+            "online_payment": "Online Ödeme",
+            "no_register_card": "Kayıtlı kartınız bulunmamaktadır.",
+            "3d_secure": "3D Secure kullanmak istiyorum"
         }
     },
     "order_received": {

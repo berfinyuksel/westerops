@@ -3,7 +3,7 @@ import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dar
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:dongu_mobile/utils/network_error.dart';
 abstract class OrderReceivedRepository {
   Future<List<IyzcoOrderCreate>> getOrder();
   Future<List<IyzcoOrderCreate>> createOrderWithRegisteredCard(
@@ -147,10 +147,4 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-}
-
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
 }

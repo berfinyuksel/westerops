@@ -3,7 +3,7 @@ import 'package:dongu_mobile/data/services/ip_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'base/my_app.dart';
+import 'utils/base/my_app.dart';
 import 'data/services/http_overrides.dart';
 import 'data/services/locator.dart';
 import 'data/shared/shared_prefs.dart';

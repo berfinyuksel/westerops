@@ -159,7 +159,7 @@ class _MyNearViewState extends State<MyNearView> {
                         myLocationEnabled: true,
                         myLocationButtonEnabled: false,
                         initialCameraPosition: CameraPosition(
-                              target: LatLng(LocationService.latitude,
+                          target: LatLng(LocationService.latitude,
                               LocationService.latitude),
                           zoom: 17.0,
                         ),
@@ -363,8 +363,8 @@ class _MyNearViewState extends State<MyNearView> {
 
   ListView buildListViewRestaurantInfo(
       List<SearchStore> getrestaurants, List<double> distances) {
-    print("Search Store: ${getrestaurants.length}");
-    print("Distance: ${distances.length}");
+    // print("Search Store: ${getrestaurants.length}");
+    // print("Distance: ${distances.length}");
     return ListView.builder(
         itemCount: getrestaurants.length,
         itemBuilder: (context, index) {
@@ -372,7 +372,7 @@ class _MyNearViewState extends State<MyNearView> {
             child: Builder(builder: (context) {
               String? packettNumber() {
                 if (getrestaurants[index].calendar == null) {
-                  return LocaleKeys.home_page_soldout_icon;
+                  return LocaleKeys.home_page_soldout_icon.locale;
                 } else if (getrestaurants[index].calendar != null) {
                   for (int i = 0;
                       i < getrestaurants[index].calendar!.length;
@@ -381,7 +381,6 @@ class _MyNearViewState extends State<MyNearView> {
 
                     String now = DateTime.now().toIso8601String();
                     List<String> currentDate = now.split("T").toList();
-                    print(currentDate[0]);
                     List<String> startDate = getrestaurants[index]
                         .calendar![i]
                         .startDate!
@@ -395,7 +394,7 @@ class _MyNearViewState extends State<MyNearView> {
                       } else if (getrestaurants[index].calendar![i].boxCount ==
                               null ||
                           getrestaurants[index].calendar![i].boxCount == 0) {
-                        return LocaleKeys.home_page_soldout_icon;
+                        return LocaleKeys.home_page_soldout_icon.locale;
                       }
                     }
                   }
@@ -431,7 +430,7 @@ class _MyNearViewState extends State<MyNearView> {
                         LocationService.longitude)
                     .toString(),
                 packetNumber:
-                    packettNumber() ?? LocaleKeys.home_page_soldout_icon,
+                    packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
                 availableTime:
                     '${getrestaurants[index].packageSettings!.deliveryTimeStart} - ${getrestaurants[index].packageSettings!.deliveryTimeEnd}',
               );

@@ -117,8 +117,8 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         left: context.dynamicWidht(0.06),
         right: context.dynamicWidht(0.06),
       ),
-      trailing: LocaleText(
-        text: "+90 850 123 123 23 23",
+      trailing: Text(
+        "+90 850 123 123 23 23",
         style: AppTextStyles.subTitleStyle,
       ),
       tileColor: Colors.white,

@@ -307,8 +307,8 @@ class _CartViewState extends State<CartView> {
                       ImageConstant.COMMONS_FORWARD_ICON,
                     ),
                     tileColor: Colors.white,
-                    title: LocaleText(
-                      text: "${itemList[index].store!.name}",
+                    title: Text(
+                      "${itemList[index].store!.name}",
                       style: AppTextStyles.bodyTextStyle,
                     ),
                     onTap: () {

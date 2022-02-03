@@ -66,8 +66,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  LocaleText(
-                    text: "Adres",
+                  Text(
+                    LocaleKeys.address_addresss.locale,
                     style: AppTextStyles.bodyTitleStyle,
                   ),
                   Spacer(flex: 5),

@@ -416,8 +416,8 @@ class _SearchViewState extends State<SearchView> {
 
   emptySearchHistory() {
     if (filteredNames.length == 0) {
-      return LocaleText(
-        text: LocaleKeys.search_search_history_clean.locale,
+      return Text(
+        LocaleKeys.search_search_history_clean.locale,
         style: AppTextStyles.bodyTextStyle,
       );
     } else {
