@@ -11,7 +11,6 @@ import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_send_request_cubit.dart/iyzico_send_request_cubit.dart';
 
-
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_all_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
@@ -80,6 +79,7 @@ class _HomePageViewState extends State<HomePageView> {
     LocationService.getCurrentLocation();
     getDeviceIdentifier();
     print("SL ${sl<SampleSearchStoreRepository>().searchStores}");
+    print("USER TOKEN ${SharedPrefs.getToken}");
   }
 
   Future<List<String>> getDeviceIdentifier() async {
@@ -103,14 +103,19 @@ class _HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
-    return buildBuilder();
+    return BlocBuilder<SearchStoreCubit, GenericState>(
+      builder: (context, state) {
+
+        return buildBuilder(state);
+      },
+    );
   }
 
-  Builder buildBuilder() {
+  Builder buildBuilder(GenericState state) {
     buildSharedPrefNoData();
 
     return Builder(builder: (context) {
-      final GenericState state = context.watch<SearchStoreCubit>().state;
+  
 
       //final FiltersState filterState = context.watch<FiltersCubit>().state;
 

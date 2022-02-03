@@ -47,6 +47,8 @@ class _PaymentViewsState extends State<PaymentViews>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
+      resizeToAvoidBottomInset :false,
       appBar: buildAppBar(context),
       body: Builder(builder: (context) {
         final PaymentState state = context.watch<PaymentCubit>().state;
