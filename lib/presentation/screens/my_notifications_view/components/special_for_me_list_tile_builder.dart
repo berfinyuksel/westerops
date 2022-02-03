@@ -66,7 +66,6 @@ class _SpecialForMeListTileBuilderState
       }
     });
   }
- 
 
   ListView listViewBuilder(
     BuildContext context,
@@ -77,35 +76,38 @@ class _SpecialForMeListTileBuilderState
         shrinkWrap: true,
         itemCount: notifications.length,
         itemBuilder: (context, index) {
-
-          return notifications[index].isDeleted == false ? Container(
-            height: 101,
-            padding: EdgeInsets.symmetric(
-              horizontal: context.dynamicWidht(0.065),
-            ),
-            decoration: BoxDecoration(color: Colors.white),
-            child: Dismissible(
-                direction: DismissDirection.endToStart,
-                background: Padding(
-                  padding: EdgeInsets.only(left: context.dynamicWidht(0.65)),
-                  child: Container(
-                    color: AppColors.redColor,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: context.dynamicHeight(0.038),
-                          horizontal: context.dynamicWidht(0.058)),
-                      child: LocaleText(
-                        text: LocaleKeys.my_notifications_delete_text_text,
-                        style: AppTextStyles.bodyTextStyle.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                        alignment: TextAlign.end,
-                      ),
-                    ),
+          return notifications[index].isDeleted == false
+              ? Container(
+                  height: 101,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.dynamicWidht(0.065),
                   ),
-                ),
-                key: UniqueKey(),
-                onDismissed: (direction) {
-                       if (notifications.isNotEmpty ) {
+                  decoration: BoxDecoration(color: Colors.white),
+                  child: Dismissible(
+                      direction: DismissDirection.endToStart,
+                      background: Padding(
+                        padding:
+                            EdgeInsets.only(left: context.dynamicWidht(0.65)),
+                        child: Container(
+                          color: AppColors.redColor,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: context.dynamicHeight(0.038),
+                                horizontal: context.dynamicWidht(0.058)),
+                            child: LocaleText(
+                              text:
+                                  LocaleKeys.my_notifications_delete_text_text,
+                              style: AppTextStyles.bodyTextStyle.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              alignment: TextAlign.end,
+                            ),
+                          ),
+                        ),
+                      ),
+                      key: UniqueKey(),
+                      onDismissed: (direction) {
+                        if (notifications.isNotEmpty) {
                           context
                               .read<BulkUpdateNotificationCubit>()
                               .putNotification(
@@ -115,57 +117,70 @@ class _SpecialForMeListTileBuilderState
                               .read<GetNotificationCubit>()
                               .getNotification();
                         }
-                },
-                child: Container(
-                  padding: EdgeInsets.only(
-                    top: context.dynamicHeight(0.011),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          top: context.dynamicHeight(0.011),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            //buildTitle(context, index)[index],
-                            //buildDateTrailing(context, index)[index]
                             Expanded(
-                              flex:5,
-                              child: LocaleText(
-                                text: notifications[index].type == 16 || notifications[index].type == 15 || notifications[index].type == 14 || notifications[index].type == 13 || notifications[index].type == 11 || notifications[index].type == 8  ? "🔔 ${notifications[index].description}" :  notifications[index].type == 10 || notifications[index].type == 9 ? "🎉 ${notifications[index].description}" : "🛒 ${notifications[index].description}"
-                                ,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //buildTitle(context, index)[index],
+                                  //buildDateTrailing(context, index)[index]
+                                  Expanded(
+                                    flex: 5,
+                                    child: Text(
+                                      notifications[index].type == 16 ||
+                                              notifications[index].type == 15 ||
+                                              notifications[index].type == 14 ||
+                                              notifications[index].type == 13 ||
+                                              notifications[index].type == 11 ||
+                                              notifications[index].type == 8
+                                          ? "🔔 ${notifications[index].description}"
+                                          : notifications[index].type == 10 ||
+                                                  notifications[index].type == 9
+                                              ? "🎉 ${notifications[index].description}"
+                                              : "🛒 ${notifications[index].description}",
+                                    ),
+                                  ),
+                                  Text(
+                                    "${notifications[index].date}",
+                                  )
+                                ],
                               ),
                             ),
-                            LocaleText(
-                              text: "${notifications[index].date}",
-                            )
-                          ],
-                        ),
-                      ),
-                      //Spacer(flex:1),
-                      Expanded(
-                        flex:2,
-                        child: Row(
-                          children: [
-                            buildIconsLeading(
-                                context, index, notifications)[index],
-                                SizedBox(width: 10,),
+                            //Spacer(flex:1),
                             Expanded(
-                                child: LocaleText(
-                              text: "${notifications[index].message}",
-                              style: AppTextStyles.bodyTextStyle.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textColor,
-                                  height: 1.5),
-                              alignment: TextAlign.start,
-                            ))
+                              flex: 2,
+                              child: Row(
+                                children: [
+                                  buildIconsLeading(
+                                      context, index, notifications)[index],
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                    "${notifications[index].message}",
+                                    style: AppTextStyles.bodyTextStyle.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.textColor,
+                                        height: 1.5),
+                                    textAlign: TextAlign.start,
+                                  ))
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                )),
-          ) :  SizedBox();
+                      )),
+                )
+              : SizedBox();
         });
   }
 
@@ -190,9 +205,9 @@ class _SpecialForMeListTileBuilderState
           notifications[index].type == 14 ||
           notifications[index].type == 13 ||
           notifications[index].type == 11 ||
-          notifications[index].type == 8  ) {
-            //The icon will change according to notifications. notifications are currently in testing
-         containerIcon.add(
+          notifications[index].type == 8) {
+        //The icon will change according to notifications. notifications are currently in testing
+        containerIcon.add(
           Container(
             width: context.dynamicWidht(0.11),
             height: context.dynamicHeight(0.052),
@@ -207,8 +222,8 @@ class _SpecialForMeListTileBuilderState
             child: icons[3],
           ),
         );
-      }else{
-            containerIcon.add(
+      } else {
+        containerIcon.add(
           Container(
             width: context.dynamicWidht(0.11),
             height: context.dynamicHeight(0.052),
@@ -242,5 +257,4 @@ class _SpecialForMeListTileBuilderState
     }
     return containerIcon;
   }
-
 }

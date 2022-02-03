@@ -80,117 +80,124 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
   ) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount:  notifications.length,
+      itemCount: notifications.length,
       itemBuilder: (context, index) {
         print(notifications[index].isDeleted);
-        return notifications[index].isDeleted == false ? Container(
-          height: 101,
-          padding: EdgeInsets.symmetric(
-            horizontal: context.dynamicWidht(0.065),
-          ),
-          decoration: BoxDecoration(
-              color: _selected
-                  ? AppColors.greenColor.withOpacity(0.2)
-                  : Colors.white), //new notification color==> AppColors.greenColor
-          child: Dismissible(
-              direction: DismissDirection.endToStart,
-              background: Padding(
-                padding: EdgeInsets.only(left: context.dynamicWidht(0.65)),
-                child: Container(
-                  color: AppColors.redColor,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: context.dynamicHeight(0.038), horizontal: context.dynamicWidht(0.058)),
-                    child: LocaleText(
-                      text: LocaleKeys.my_notifications_delete_text_text,
-                      style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                      alignment: TextAlign.end,
-                    ),
-                  ),
+        return notifications[index].isDeleted == false
+            ? Container(
+                height: 101,
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.dynamicWidht(0.065),
                 ),
-              ),
-              key: UniqueKey(),
-              //Key(notifications[index].toString())
-              onDismissed: (direction) {
-              if (notifications.isNotEmpty) {
-                  context
+                decoration: BoxDecoration(
+                    color: _selected
+                        ? AppColors.greenColor.withOpacity(0.2)
+                        : Colors
+                            .white), //new notification color==> AppColors.greenColor
+                child: Dismissible(
+                    direction: DismissDirection.endToStart,
+                    background: Padding(
+                      padding:
+                          EdgeInsets.only(left: context.dynamicWidht(0.65)),
+                      child: Container(
+                        color: AppColors.redColor,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: context.dynamicHeight(0.038),
+                              horizontal: context.dynamicWidht(0.058)),
+                          child: LocaleText(
+                            text: LocaleKeys.my_notifications_delete_text_text,
+                            style: AppTextStyles.bodyTextStyle.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                            alignment: TextAlign.end,
+                          ),
+                        ),
+                      ),
+                    ),
+                    key: UniqueKey(),
+                    //Key(notifications[index].toString())
+                    onDismissed: (direction) {
+                      if (notifications.isNotEmpty) {
+                        context
                             .read<BulkUpdateNotificationCubit>()
                             .putNotification(
                                 notifications[index].id.toString());
-                          notifications.removeAt(index);
-                          context
-                              .read<GetNotificationCubit>()
-                              .getNotification() ;
-              }
-
-              },
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selected = !_selected;
-                  });
-                },
-                child: Container(
-                  padding: EdgeInsets.only(top: context.dynamicHeight(0.011)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        notifications.removeAt(index);
+                        context.read<GetNotificationCubit>().getNotification();
+                      }
+                    },
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selected = !_selected;
+                        });
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.only(top: context.dynamicHeight(0.011)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Expanded(
-                              flex: 5,
-                              child: LocaleText(
-                                text: notifications[index].type == 16 ||
-                                        notifications[index].type == 15 ||
-                                        notifications[index].type == 14 ||
-                                        notifications[index].type == 13 ||
-                                        notifications[index].type == 11 ||
-                                        notifications[index].type == 8
-                                    ? "🔔 ${notifications[index].description}"
-                                    : notifications[index].type == 10 ||
-                                            notifications[index].type == 9
-                                        ? "🎉 ${notifications[index].description}"
-                                        : "🛒 ${notifications[index].description}",
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Expanded(
+                                    flex: 5,
+                                    child: Text(
+                                      notifications[index].type == 16 ||
+                                              notifications[index].type == 15 ||
+                                              notifications[index].type == 14 ||
+                                              notifications[index].type == 13 ||
+                                              notifications[index].type == 11 ||
+                                              notifications[index].type == 8
+                                          ? "🔔 ${notifications[index].description}"
+                                          : notifications[index].type == 10 ||
+                                                  notifications[index].type == 9
+                                              ? "🎉 ${notifications[index].description}"
+                                              : "🛒 ${notifications[index].description}",
+                                    ),
+                                  ),
+                                  Spacer(
+                                    flex: 1,
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      "${notifications[index].date}",
+                                    ),
+                                  )
+                                ],
                               ),
-                            ),
-                            Spacer(
-                              flex: 1,
                             ),
                             Expanded(
-                              flex: 2,
-                              child: LocaleText(
-                                text: "${notifications[index].date}",
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: context.dynamicHeight(0.01)),
+                                    child: Text(
+                                      "${notifications[index].message}",
+                                      style: AppTextStyles.subTitleStyle
+                                          .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.textColor,
+                                              height: 1.5),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ))
+                                ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: context.dynamicHeight(0.01)),
-                              child: LocaleText(
-                                text: "${notifications[index].message}",
-                                style: AppTextStyles.bodyTextStyle.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.textColor,
-                                    height: 1.5),
-                                alignment: TextAlign.start,
-                              ),
-                            ))
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )),
-        ) : SizedBox();
+                    )),
+              )
+            : SizedBox();
       },
     );
   }
