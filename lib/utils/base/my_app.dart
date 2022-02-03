@@ -10,7 +10,7 @@ import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_
 import 'package:dongu_mobile/presentation/router/app_router.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/src/public_ext.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,19 +52,23 @@ class _MyAppState extends State<MyApp> {
 
         context.read<SumPriceOrderCubit>().incrementPrice(SharedPrefs.getSumPrice);
         context.read<SumOldPriceOrderCubit>().incrementOldPrice(SharedPrefs.getOldSumPrice);
+        //splash
 
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Döngü',
-          theme: appThemeData[AppTheme.PrimaryTheme],
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          onGenerateRoute: _appRouter.onGenerateRoute,
-          // locale: DevicePreview.locale(context),
-          // useInheritedMediaQuery: true,
-          // builder: DevicePreview.appBuilder,
-          //home: HomeScreen(),
+        return ScreenUtilInit(
+          designSize: Size(428,926),
+          builder: ()=> MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Döngü',
+            theme: appThemeData[AppTheme.PrimaryTheme],
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            onGenerateRoute: _appRouter.onGenerateRoute,
+            // locale: DevicePreview.locale(context),
+            // useInheritedMediaQuery: true,
+            // builder: DevicePreview.appBuilder,
+            //home: HomeScreen(),
+          ),
         );
       }),
     );

@@ -1,11 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/presentation/screens/onboardings_view/onboardings_view.dart';
-import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:googleapis/cloudbuild/v1.dart';
-import 'package:meta/meta.dart';
+
 
 part 'splash_cubit_state.dart';
 

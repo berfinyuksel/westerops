@@ -30,8 +30,9 @@ class _SplashViewState extends State<SplashView> {
             if (state is SplashCubitInitial) {
               return SizedBox();
             } else if (state is SplashCubitLoading) {
+              
               return Container(
-                width: double.infinity,
+                width: double.infinity, 
                 child: LottieBuilder.asset(
                   ImageConstant.SPLASH_ANIMATION,
                   repeat: false,
