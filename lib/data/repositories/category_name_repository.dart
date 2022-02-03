@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import '../model/category_name.dart';
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import 'package:http/http.dart' as http;
 
 abstract class CategoryNameRepository {
@@ -27,10 +27,4 @@ class SampleCategoryNameRepository implements CategoryNameRepository {
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-}
-
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
 }

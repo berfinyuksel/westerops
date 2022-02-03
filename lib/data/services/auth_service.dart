@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../model/auth_token.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
+import 'package:dongu_mobile/utils/network_error.dart';
 import 'dart:developer';
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 //import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -76,25 +77,21 @@ class AuthService {
       await googleSignIn.signIn();
       print(googleSignIn.currentUser!.displayName);
       SharedPrefs.setUserName(googleSignIn.currentUser!.displayName.toString());
-      SharedPrefs.setUserLastName(
-          googleSignIn.currentUser!.displayName.toString());
+      SharedPrefs.setUserLastName(googleSignIn.currentUser!.displayName.toString());
       SharedPrefs.setUserEmail(googleSignIn.currentUser!.email);
       //SharedPrefs.setUserPhone(googleSignIn.currentUser!);
 
       print(googleSignIn.currentUser!.email);
-      GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignIn.currentUser!.authentication;
+      GoogleSignInAuthentication googleSignInAuthentication = await googleSignIn.currentUser!.authentication;
       // SharedPrefs.setToken(googleSignInAuthentication.idToken!);
       print(googleSignInAuthentication.idToken);
 
       log(googleSignInAuthentication.idToken!);
       String json = '{"auth_token":"${googleSignInAuthentication.idToken}"}';
-      final response = await http.post(
-          Uri.parse("${UrlConstant.EN_URL}social_auth/google/"),
-          body: json,
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          });
+      final response =
+          await http.post(Uri.parse("${UrlConstant.EN_URL}social_auth/google/"), body: json, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      });
 
       print(response.statusCode);
       if (response.statusCode == 200) {
@@ -105,9 +102,7 @@ class AuthService {
 
         SharedPrefs.setUserId(jsonBody["user"]['id']);
         //  SharedPrefs.setUserAddress(jsonResults['address']);
-        SharedPrefs.setUserBirth(jsonBody["user"]['birthday'] == null
-            ? "dd/mm/yyyy"
-            : "${jsonBody['birthday']}");
+        SharedPrefs.setUserBirth(jsonBody["user"]['birthday'] == null ? "dd/mm/yyyy" : "${jsonBody['birthday']}");
         SharedPrefs.setUserEmail(jsonBody["user"]["email"]);
         SharedPrefs.setUserName(jsonBody["user"]["first_name"]);
         SharedPrefs.setUserLastName(jsonBody["user"]["last_name"]);
@@ -129,26 +124,17 @@ class AuthService {
         'email',
       ],
     );
-    GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignIn.currentUser!.authentication;
+    GoogleSignInAuthentication googleSignInAuthentication = await googleSignIn.currentUser!.authentication;
     String json = '{"auth_token":"$googleSignInAuthentication.idToken"}';
-    final response = await http
-        .post(Uri.parse("${UrlConstant.EN_URL}social_auth/google"), body: json);
+    final response = await http.post(Uri.parse("${UrlConstant.EN_URL}social_auth/google"), body: json);
 
     print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-      List<AuthToken> authToken = List<AuthToken>.from(
-          jsonBody.map((model) => AuthToken.fromJson(model)));
+      List<AuthToken> authToken = List<AuthToken>.from(jsonBody.map((model) => AuthToken.fromJson(model)));
       SharedPrefs.setUserName(googleSignIn.currentUser!.displayName.toString());
       return authToken;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-}
-
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
 }

@@ -1,6 +1,6 @@
 import '../../../data/repositories/order_received_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:dongu_mobile/utils/network_error.dart';
 import '../generic_state/generic_state.dart';
 
 class PastOrderAllCubit extends Cubit<GenericState> {

@@ -70,9 +70,7 @@ class AppRouter {
         final ScreenArguments args = routeSettings.arguments as ScreenArguments;
 
         return MaterialPageRoute(
-          builder: (_) => AddressUpdateView(
-            addressList: args.list!,
-          ),
+          builder: (_) => AddressUpdateView(addressList: args.list!),
         );
       case RouteConstant.ADDRESS_DETAIL_VIEW:
         final ScreenArguments args = routeSettings.arguments as ScreenArguments;
@@ -115,14 +113,9 @@ class AppRouter {
       case RouteConstant.FREEZE_ACCOUNT_VIEW:
         return MaterialPageRoute(builder: (_) => FreezeAccountView());
       case RouteConstant.FOOD_CATEGORIES_VIEW:
-        final ScreenArgumentsCategories args =
-            routeSettings.arguments as ScreenArgumentsCategories;
+        final ScreenArgumentsCategories args = routeSettings.arguments as ScreenArgumentsCategories;
 
-        return MaterialPageRoute(
-          builder: (_) => FoodCategories(
-            categories: args.categoriesList,
-          ),
-        );
+        return MaterialPageRoute(builder: (_) => FoodCategories(categories: args.categoriesList));
       case RouteConstant.FOOD_WASTE_EXPANDED_VIEW:
         return MaterialPageRoute(builder: (_) => FoodWasteExpandedView());
       case RouteConstant.FOOD_WASTE_VIEW:
@@ -150,8 +143,7 @@ class AppRouter {
       case RouteConstant.NOTIFICATION_VIEW:
         return MaterialPageRoute(builder: (_) => NotificationView());
       case RouteConstant.CATEGORIES_VIEW:
-        final ScreenArgumentsCategories args =
-            routeSettings.arguments as ScreenArgumentsCategories;
+        final ScreenArgumentsCategories args = routeSettings.arguments as ScreenArgumentsCategories;
 
         return MaterialPageRoute(
           builder: (_) => CategoriesView(
@@ -160,9 +152,7 @@ class AppRouter {
         );
       case RouteConstant.ONBOARDINGS_VIEW:
         return MaterialPageRoute(
-            builder: (_) => SharedPrefs.getIsOnboardingShown
-                ? CustomScaffold()
-                : OnboardingsView());
+            builder: (_) => SharedPrefs.getIsOnboardingShown ? CustomScaffold() : OnboardingsView());
       case RouteConstant.ORDER_DELIVERED_VIEW:
         return MaterialPageRoute(builder: (_) => OrderDeliveredView());
       case RouteConstant.ORDER_RECEIVED_VIEW:
@@ -174,11 +164,9 @@ class AppRouter {
       case RouteConstant.ORDER_RECEIVING_VIEW_WITHOUT3D:
         return MaterialPageRoute(builder: (_) => OrderReceivingViewWithout3D());
       case RouteConstant.ORDER_RECEIVING_VIEW_REGISTERED_CARD:
-        return MaterialPageRoute(
-            builder: (_) => OrderReceivingViewWithRegisteredCard());
+        return MaterialPageRoute(builder: (_) => OrderReceivingViewWithRegisteredCard());
       case RouteConstant.PAST_ORDER_DETAIL_VIEW:
-        final ScreenArgumentsRestaurantDetail args =
-            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+        final ScreenArgumentsRestaurantDetail args = routeSettings.arguments as ScreenArgumentsRestaurantDetail;
 
         return MaterialPageRoute(
           builder: (_) => PastOrderDetailView(
@@ -186,8 +174,7 @@ class AppRouter {
           ),
         );
       case RouteConstant.ABOUT_WORKING_HOUR_VIEW:
-        final ScreenArgumentsRestaurantDetail args =
-            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+        final ScreenArgumentsRestaurantDetail args = routeSettings.arguments as ScreenArgumentsRestaurantDetail;
 
         return MaterialPageRoute(
           builder: (_) => AboutWorkingHourView(
@@ -202,13 +189,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SmsVerify());
       case RouteConstant.REGISTER_VERIFY_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterVerify());
-                  case RouteConstant.VERIFY_INFORMATION:
-        return MaterialPageRoute(builder: (_) => VerifyInformation()); 
+      case RouteConstant.VERIFY_INFORMATION:
+        return MaterialPageRoute(builder: (_) => VerifyInformation());
       case RouteConstant.REGISTER_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterView());
       case RouteConstant.RESTAURANT_DETAIL:
-        final ScreenArgumentsRestaurantDetail args =
-            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+        final ScreenArgumentsRestaurantDetail args = routeSettings.arguments as ScreenArgumentsRestaurantDetail;
 
         return MaterialPageRoute(
           builder: (_) => RestaurantDetailView(
@@ -218,8 +204,7 @@ class AppRouter {
       // case RouteConstant.SEARCH_VIEW:
       //   return MaterialPageRoute(builder: (_) => SearchView());
       case RouteConstant.SURPRISE_PACK_CANCELED_VIEW:
-        final ScreenArgumentsSurpriseCancel args =
-            routeSettings.arguments as ScreenArgumentsSurpriseCancel;
+        final ScreenArgumentsSurpriseCancel args = routeSettings.arguments as ScreenArgumentsSurpriseCancel;
 
         return MaterialPageRoute(
           builder: (_) => SurprisePackCanceled(
@@ -229,17 +214,14 @@ class AppRouter {
       case RouteConstant.SURPRISE_PACK_VIEW:
         return MaterialPageRoute(builder: (_) => SurprisePackView());
       case RouteConstant.SPLASH_VIEW:
-        return MaterialPageRoute(
-            builder: (_) =>
-                SharedPrefs.getIsLogined ? CustomScaffold() : SplashView());
+        return MaterialPageRoute(builder: (_) => SplashView());
       // case RouteConstant.SPLASH_VIEW:
       //   return MaterialPageRoute(
       //       builder: (_) => SharedPrefs.getIsOnboardingShown
       //           ? CustomScaffold()
       //           : SplashView());
       case RouteConstant.SWIPE_VIEW:
-        final ScreenArgumentsRestaurantDetail args =
-            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+        final ScreenArgumentsRestaurantDetail args = routeSettings.arguments as ScreenArgumentsRestaurantDetail;
 
         return MaterialPageRoute(
           builder: (_) => SwipeView(
@@ -247,8 +229,7 @@ class AppRouter {
           ),
         );
       case RouteConstant.WAS_DELIVERED_VIEW:
-        final ScreenArgumentsRestaurantDetail args =
-            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+        final ScreenArgumentsRestaurantDetail args = routeSettings.arguments as ScreenArgumentsRestaurantDetail;
 
         return MaterialPageRoute(
           builder: (_) => WasDeliveredView(
@@ -256,8 +237,7 @@ class AppRouter {
           ),
         );
       case RouteConstant.STORE_INFO_VIEW:
-        final ScreenArgumentsRestaurantDetail args =
-            routeSettings.arguments as ScreenArgumentsRestaurantDetail;
+        final ScreenArgumentsRestaurantDetail args = routeSettings.arguments as ScreenArgumentsRestaurantDetail;
 
         return MaterialPageRoute(
           builder: (_) => StoreInfoView(

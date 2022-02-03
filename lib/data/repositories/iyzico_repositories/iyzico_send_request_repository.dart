@@ -3,7 +3,7 @@ import 'package:dongu_mobile/data/model/order_received.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:dongu_mobile/utils/network_error.dart';
 abstract class SendRequestRepository {
   Future<List<OrderReceived>> sendRequest(String conversationId);
 }
@@ -36,10 +36,4 @@ class SampleSendRequestRepository implements SendRequestRepository {
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
-}
-
-class NetworkError implements Exception {
-  final String statusCode;
-  final String message;
-  NetworkError(this.statusCode, this.message);
 }

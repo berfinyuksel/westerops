@@ -10,11 +10,12 @@ import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_
 import 'package:dongu_mobile/presentation/router/app_router.dart';
 import 'package:dongu_mobile/utils/theme/app_theme.dart';
 import 'package:easy_localization/src/public_ext.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'image_svg_onboarding.dart';
-import 'multi_bloc_provider.dart';
+import 'svg_image_repository.dart';
+import 'bloc_provider_repository.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -26,40 +27,31 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-
     super.initState();
-    Future.wait(svgImageListOnboarding);
-
   }
-@override
-  void didChangeDependencies() async{
 
+  @override
+  void didChangeDependencies() async {
     super.didChangeDependencies();
+    await sl<SvgImageRepository>().preCacheSvgPictures();
     await sl<SampleSearchStoreRepository>().getSearchStores();
   }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: multiBlocProvider,
+      providers: sl<BlocProviderRepository>().multiBlocProvider,
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
-        context
-            .read<NotificationsCounterCubit>()
-            .setCounter(SharedPrefs.getCounter);
+        context.read<NotificationsCounterCubit>().setCounter(SharedPrefs.getCounter);
 
         for (var i = 0; i < SharedPrefs.getFavorites.length; i++) {
-          context
-              .read<FavoriteCubit>()
-              .addFavorite(int.parse(SharedPrefs.getFavorites[i]));
+          context.read<FavoriteCubit>().addFavorite(int.parse(SharedPrefs.getFavorites[i]));
         }
         context.read<OrderBarCubit>().stateOfBar(SharedPrefs.getOrderBar);
 
-        context
-            .read<SumPriceOrderCubit>()
-            .incrementPrice(SharedPrefs.getSumPrice);
-        context
-            .read<SumOldPriceOrderCubit>()
-            .incrementOldPrice(SharedPrefs.getOldSumPrice);
+        context.read<SumPriceOrderCubit>().incrementPrice(SharedPrefs.getSumPrice);
+        context.read<SumOldPriceOrderCubit>().incrementOldPrice(SharedPrefs.getOldSumPrice);
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
