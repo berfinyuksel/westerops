@@ -20,6 +20,7 @@ import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyInformationView extends StatefulWidget {
   @override
@@ -50,53 +51,43 @@ class _MyInformationViewState extends State<MyInformationView> {
         },
         child: SingleChildScrollView(
           child: Container(
-            height: context.dynamicHeight(0.8),
+            height: 780.h,
             child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Spacer(
-                  flex: 4,
-                ),
+                SizedBox(height: 20.h),
                 Padding(
                   padding: EdgeInsets.only(
-                    left: context.dynamicWidht(0.06),
-                    right: context.dynamicWidht(0.06),
+                    left: 28.w,
+                    right: 28.w,
                   ),
                   child: buildRowTitleAndEdit(),
                 ),
-                Spacer(
-                  flex: 2,
-                ),
+                SizedBox(height: 10.h),
                 Container(
                   color: Colors.white,
-                  height: context.dynamicHeight(0.02),
+                  height: 12.h,
                 ),
                 Container(
-                  height: context.dynamicHeight(0.35),
+                  height: 280.h,
                   color: Colors.white,
                   child: Column(
                     children: [
-                      SizedBox(height: context.dynamicHeight(0.01)),
                       buildTextFormField(
                           context,
                           LocaleKeys.inform_list_tile_name.locale,
                           nameController),
-                      SizedBox(height: context.dynamicHeight(0.01)),
                       buildTextFormField(
                           context,
                           LocaleKeys.inform_list_tile_surname.locale,
                           surnameController),
-                      SizedBox(height: context.dynamicHeight(0.01)),
                       buildTextFormFieldBirthDate(
                           context,
                           LocaleKeys.inform_list_tile_birth.locale,
                           birthController),
-                      SizedBox(height: context.dynamicHeight(0.01)),
                       buildTextFormField(
                           context,
                           LocaleKeys.inform_list_tile_mail.locale,
                           mailController),
-                      SizedBox(height: context.dynamicHeight(0.01)),
                       buildTextFormField(
                           context,
                           LocaleKeys.inform_list_tile_phone.locale,
@@ -104,10 +95,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                     ],
                   ),
                 ),
-
-                Spacer(
-                  flex: 8,
-                ),
+                SizedBox(height: 40.h),
                 buildChangePassword(context),
                 // Spacer(
                 //   flex: 8,
@@ -118,10 +106,9 @@ class _MyInformationViewState extends State<MyInformationView> {
                 //   title: LocaleKeys.inform_list_tile_remove_link,
                 //   image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
                 // ),
-                Spacer(
-                  flex: 15,
-                ),
+                SizedBox(height: 134.h),
                 Visibility(visible: isVisibilty, child: buildButton(context)),
+                // SizedBox(height: 32.h),
                 Center(
                   child: TextButton(
                     onPressed: () {
@@ -134,6 +121,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                     ),
                   ),
                 ),
+                // SizedBox(height: 32.h),
                 Center(
                   child: TextButton(
                     onPressed: () {
@@ -146,9 +134,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                     ),
                   ),
                 ),
-                Spacer(
-                  flex: 8,
-                ),
+                SizedBox(height: 40.h),
               ],
             ),
           ),
@@ -160,7 +146,7 @@ class _MyInformationViewState extends State<MyInformationView> {
   Container buildTextFormFieldBirthDate(BuildContext context, String labelText,
       TextEditingController controller) {
     return Container(
-      height: context.dynamicHeight(0.06),
+      height: 56.h,
       color: Colors.white,
       child: TextFormField(
         keyboardType: TextInputType.none,
@@ -197,20 +183,16 @@ class _MyInformationViewState extends State<MyInformationView> {
               },
             ).then((pickedDate) {
               if (pickedDate == null) {
-                print("burda");
                 return;
               }
               setState(() {
                 _selectedDate = pickedDate;
-                // List<String> selectDate = _selectedDate!.split("T").toList();
-                // print(selectDate);
-                // print(selectDate[0]);
                 String datetime1 =
                     DateFormat("dd/MM/yyyy").format(_selectedDate!);
                 birthController.text = datetime1;
-                print("AAAA: ${birthController.text}");
+                // print("AAAA: ${birthController.text}");
 
-                print(SharedPrefs.getUserBirth);
+                // print(SharedPrefs.getUserBirth);
               });
             });
           }
@@ -232,7 +214,7 @@ class _MyInformationViewState extends State<MyInformationView> {
   Container buildTextFormField(BuildContext context, String labelText,
       TextEditingController controller) {
     return Container(
-      height: context.dynamicHeight(0.06),
+      height: 56.h,
       color: Colors.white,
       child: TextFormField(
         readOnly: isReadOnly,
@@ -298,7 +280,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                 fontSize: 12.0,
                 color: AppColors.orangeColor,
                 fontWeight: FontWeight.w600,
-                height: 2.0,
+                height: 2.0.h,
               ),
               alignment: TextAlign.right,
             ),
@@ -311,8 +293,8 @@ class _MyInformationViewState extends State<MyInformationView> {
   ListTile buildChangePassword(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 29.w,
       ),
       tileColor: Colors.white,
       title: LocaleText(
@@ -342,8 +324,7 @@ class _MyInformationViewState extends State<MyInformationView> {
 
   Padding buildButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.only(left: 28.w, right: 28.w),
       child: CustomButton(
         width: double.infinity,
         title: LocaleKeys.inform_button,

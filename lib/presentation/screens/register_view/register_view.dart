@@ -6,6 +6,7 @@ import 'package:dongu_mobile/presentation/screens/register_view/components/error
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../data/services/auth_service.dart';
@@ -70,7 +71,7 @@ class _RegisterViewState extends State<RegisterView> {
               child: buildBackground,
             ),
             Positioned(
-              top: context.dynamicHeight(0.06),
+              top: 57.h,
               left: 0,
               child: IconButton(
                 icon: SvgPicture.asset(ImageConstant.BACK_ICON,
@@ -79,9 +80,9 @@ class _RegisterViewState extends State<RegisterView> {
               ),
             ),
             Positioned(
-              bottom: -10,
-              left: context.dynamicWidht(0.035),
-              right: context.dynamicWidht(0.035),
+              bottom: -10.h,
+              left: 15.w,
+              right: 15.w,
               child: buildCardBody(context),
             ),
             Positioned(
@@ -109,9 +110,9 @@ class _RegisterViewState extends State<RegisterView> {
           bottom: MediaQuery.of(context).viewInsets.bottom * 0.65),
       child: Container(
         padding: EdgeInsets.only(
-          bottom: context.dynamicHeight(0.02),
+          bottom: 20.h,
         ),
-        height: context.dynamicHeight(0.69),
+        height: 630.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(18.0),
@@ -120,37 +121,30 @@ class _RegisterViewState extends State<RegisterView> {
         ),
         child: Column(
           children: [
-            Spacer(
-              flex: 2,
-            ),
+            SizedBox(height: 21.h),
             LocaleText(
               text: LocaleKeys.register_text_register,
               maxLines: 1,
               style: AppTextStyles.appBarTitleStyle,
             ),
-            Spacer(
-              flex: 2,
-            ),
+            SizedBox(height: 19.5.h),
             Divider(
               height: 0,
               thickness: 4,
               color: AppColors.borderAndDividerColor,
             ),
-            Spacer(
-              flex: 2,
-            ),
+            SizedBox(height: 20.5.h),
             Expanded(
               flex: 5,
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.06)),
+                padding: EdgeInsets.symmetric(horizontal: 28.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     buildDropDown(context),
                     Container(
-                      height: context.dynamicHeight(0.06),
-                      width: context.dynamicWidht(0.57),
+                      height: 56.h,
+                      width: 245.w,
                       child: buildTextFormField(
                           LocaleKeys.register_phone.locale,
                           phoneController,
@@ -168,20 +162,16 @@ class _RegisterViewState extends State<RegisterView> {
             Expanded(
               flex: 5,
               child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.06)),
+                padding: EdgeInsets.symmetric(horizontal: 28.w),
                 child: buildTextFormField(LocaleKeys.register_full_name.locale,
                     nameController, (value) {}),
               ),
             ),
-            Spacer(
-              flex: 2,
-            ),
+            SizedBox(height: 20.h),
             Expanded(
               flex: 5,
               child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.06)),
+                padding: EdgeInsets.symmetric(horizontal: 28.w),
                 child: buildTextFormField(
                     LocaleKeys.register_email.locale,
                     emailController,
@@ -189,22 +179,17 @@ class _RegisterViewState extends State<RegisterView> {
                         isEmail(emailController.text) ? "Invalid Email" : null),
               ),
             ),
-            Spacer(
-              flex: 2,
-            ),
+            SizedBox(height: 20.h),
             Expanded(
               flex: 5,
               child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.06)),
+                padding: EdgeInsets.symmetric(horizontal: 28.w),
                 child: buildTextFormFieldPassword(
                     LocaleKeys.register_password.locale),
               ),
             ),
-            Spacer(
-              flex: 2,
-            ),
-            Padding(
+            SizedBox(height: 20.h),
+            /* Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
               child: Row(
@@ -217,10 +202,7 @@ class _RegisterViewState extends State<RegisterView> {
                   ConsentText(),
                 ],
               ),
-            ),
-            Spacer(
-              flex: 2,
-            ),
+            ), */
             CustomButton(
                 width: context.dynamicWidht(0.4),
                 title: LocaleKeys.register_text_register,
@@ -300,20 +282,14 @@ class _RegisterViewState extends State<RegisterView> {
                     }
                   }
                 }),
-            Spacer(
-              flex: 2,
-            ),
+            SizedBox(height: 20.h),
             ContractText(),
-            Spacer(
-              flex: 2,
-            ),
+            SizedBox(height: 20.h),
             Expanded(
               flex: 4,
               child: buildSocialAuths(context),
             ),
-            Spacer(
-              flex: 2,
-            ),
+            SizedBox(height: 27.h),
           ],
         ),
       ),
@@ -322,8 +298,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   Container buildCheckBox(BuildContext context) {
     return Container(
-      height: context.dynamicWidht(0.08),
-      width: context.dynamicWidht(0.08),
+      height: 32.h,
+      width: 32.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         border: Border.all(
@@ -348,7 +324,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   Padding buildSocialAuths(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
+      padding: EdgeInsets.symmetric(horizontal: 45.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -389,8 +365,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   Container buildDropDown(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.06),
-      width: context.dynamicWidht(0.19),
+      height: 56.h,
+      width: 81.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
@@ -403,7 +379,7 @@ class _RegisterViewState extends State<RegisterView> {
         underline: Text(""),
         value: dropdownValue,
         icon: Padding(
-          padding: EdgeInsets.only(left: context.dynamicWidht(0.04)),
+          padding: EdgeInsets.only(left: 20.w),
           child: const Icon(Icons.keyboard_arrow_down),
         ),
         iconSize: 15,
@@ -446,11 +422,10 @@ class _RegisterViewState extends State<RegisterView> {
       controller: passwordController,
       obscureText: enableObscure,
       decoration: InputDecoration(
-        suffixIconConstraints: BoxConstraints.tightFor(
-            width: context.dynamicWidht(0.09),
-            height: context.dynamicWidht(0.06)),
+        suffixIconConstraints:
+            BoxConstraints.tightFor(width: 35.w, height: 35.h),
         suffixIcon: Padding(
-          padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
+          padding: EdgeInsets.only(right: 15.w),
           child: GestureDetector(
             onTap: () {
               setState(() {

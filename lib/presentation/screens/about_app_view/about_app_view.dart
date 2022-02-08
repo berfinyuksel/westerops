@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,8 +29,8 @@ class AboutAppView extends StatelessWidget {
   Padding buildBody(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: context.dynamicHeight(0.02),
-        bottom: context.dynamicHeight(0.04),
+        top: 18.h,
+        bottom: 33.h,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,11 +66,9 @@ class AboutAppView extends StatelessWidget {
               Navigator.pushNamed(context, RouteConstant.CONTACT_VIEW);
             },
           ),
-          Spacer(),
+          SizedBox(height: 306.7.h),
           Center(child: SvgPicture.asset(ImageConstant.DONGU_LOGO)),
-          SizedBox(
-            height: context.dynamicHeight(0.026),
-          ),
+          SizedBox(height: 25.1.h),
           Center(
             child: LocaleText(
               text: LocaleKeys.about_app_version,

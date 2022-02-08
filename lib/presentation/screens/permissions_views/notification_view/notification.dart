@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../utils/constants/image_constant.dart';
@@ -52,7 +53,7 @@ class NotificationView extends StatelessWidget {
               ),
               allowButton(context),
               SizedBox(
-                height: context.dynamicHeight(0.01),
+                height: 16.h,
               ),
               lateForNowButton(context),
             ],
@@ -77,7 +78,7 @@ class NotificationView extends StatelessWidget {
 
   CustomButton allowButton(BuildContext context) {
     return CustomButton(
-      width: context.dynamicWidht(0.9),
+      width: 372.w,
       borderColor: AppColors.greenColor,
       color: AppColors.greenColor,
       textColor: AppColors.appBarColor,
@@ -106,12 +107,15 @@ class NotificationView extends StatelessWidget {
     );
   }
 
-  Container notificationImage(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.only(
-            right: context.dynamicWidht(0.06),
-            left: context.dynamicWidht(0.06)),
-        child: SvgPicture.asset(ImageConstant.NOTIFICATION_IMAGE));
+  Padding notificationImage(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        right: 28.w,
+        left: 28.w,
+      ),
+      child:
+          Container(child: SvgPicture.asset(ImageConstant.NOTIFICATION_IMAGE)),
+    );
   }
 
   AppBar appBar(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -40,9 +41,7 @@ class _LocationViewState extends State<LocationView> {
                 flex: 6,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.dynamicWidht(0.06),
-                ),
+                padding: EdgeInsets.only(left: 35, right: 35),
                 child: titleText(),
               ),
               Spacer(
@@ -60,7 +59,7 @@ class _LocationViewState extends State<LocationView> {
               ),
               enableButton(context),
               SizedBox(
-                height: context.dynamicHeight(0.01),
+                height: 16.h,
               ),
               lateForNowButton(),
             ],
@@ -85,7 +84,7 @@ class _LocationViewState extends State<LocationView> {
 
   CustomButton enableButton(BuildContext context) {
     return CustomButton(
-      width: context.dynamicWidht(0.9),
+      width: 372.w,
       borderColor: AppColors.greenColor,
       color: AppColors.greenColor,
       textColor: AppColors.appBarColor,
@@ -115,15 +114,14 @@ class _LocationViewState extends State<LocationView> {
     );
   }
 
-  Container locationImage(BuildContext context) {
-    return Container(
-      height: context.dynamicHeight(0.56),
-      //padding: EdgeInsets.only(top: context.dynamicHeight(1)),
-      //padding: EdgeInsets.only(top: context.dynamicHeight(0.10)),
-      padding: EdgeInsets.only(
-          right: context.dynamicWidht(0.06), left: context.dynamicWidht(0.06)),
-      child: SvgPicture.asset(
-        ImageConstant.LOCATION_IMAGE,
+  Padding locationImage(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 28, right: 27),
+      child: Container(
+        height: 424.h,
+        child: SvgPicture.asset(
+          ImageConstant.LOCATION_IMAGE,
+        ),
       ),
     );
   }

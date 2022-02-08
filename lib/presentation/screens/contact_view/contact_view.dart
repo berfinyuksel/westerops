@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../utils/constants/image_constant.dart';
@@ -22,8 +23,8 @@ class ContactView extends StatelessWidget {
   Padding buildBody(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: context.dynamicHeight(0.02),
-        bottom: context.dynamicHeight(0.04),
+        top: 20.h,
+        bottom: 40.h,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +33,7 @@ class ContactView extends StatelessWidget {
             text: LocaleKeys.contact_view_body_title,
           ),
           SizedBox(
-            height: context.dynamicHeight(0.01),
+            height: 10.h,
           ),
           ContactListTile(
             text: LocaleKeys.contact_view_list_tile_1,
@@ -41,7 +42,7 @@ class ContactView extends StatelessWidget {
           Spacer(),
           Center(child: SvgPicture.asset(ImageConstant.DONGU_LOGO)),
           SizedBox(
-            height: context.dynamicHeight(0.033),
+            height: 25.1.h,
           ),
           Center(
             child: LocaleText(

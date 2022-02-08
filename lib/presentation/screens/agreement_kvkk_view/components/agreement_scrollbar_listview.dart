@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
@@ -28,7 +29,7 @@ class AgreementScrollBarListView extends StatelessWidget {
               child: Text(
                 "1. Taraflar",
                 style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
               ),
             ),
             SizedBox(
@@ -41,7 +42,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "1.1 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -61,7 +62,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "1.2 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -81,7 +82,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "1.3 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -101,7 +102,7 @@ class AgreementScrollBarListView extends StatelessWidget {
               child: Text(
                 "2. Sözleşme’nin Konusu",
                 style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
               ),
             ),
             SizedBox(
@@ -126,7 +127,7 @@ class AgreementScrollBarListView extends StatelessWidget {
               child: Text(
                 "3. Tarafların Hak ve Yükümlülükleri",
                 style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
               ),
             ),
             SizedBox(
@@ -139,7 +140,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "3.1 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -159,7 +160,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "3.2 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -179,7 +180,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "3.3 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -199,7 +200,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "3.4 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -219,7 +220,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "3.5 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -239,7 +240,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "3.6 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -259,7 +260,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "3.7 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -279,7 +280,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "3.8 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -299,7 +300,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "3.9 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -319,7 +320,7 @@ class AgreementScrollBarListView extends StatelessWidget {
               child: Text(
                 "4. Hizmetlere İlişkin Koşullar",
                 style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
               ),
             ),
             SizedBox(
@@ -332,7 +333,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "4.1 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -352,7 +353,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "4.2 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -372,7 +373,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "4.3 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -392,7 +393,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "4.4 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -412,7 +413,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "4.5 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -432,7 +433,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "4.6 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -452,7 +453,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "4.7 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -472,7 +473,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "4.8 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -492,7 +493,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "4.9 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -512,7 +513,7 @@ class AgreementScrollBarListView extends StatelessWidget {
               child: Text(
                 "5. Sorumluluğun Kısıtlandırılması",
                 style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
               ),
             ),
             SizedBox(
@@ -525,7 +526,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "5.1 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -545,7 +546,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "5.2 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -565,7 +566,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "5.3 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -585,7 +586,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "5.4 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -605,7 +606,7 @@ class AgreementScrollBarListView extends StatelessWidget {
               child: Text(
                 "6. Mücbir Sebepler",
                 style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
               ),
             ),
             SizedBox(
@@ -618,7 +619,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "6.1 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -638,7 +639,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "6.2 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -658,7 +659,7 @@ class AgreementScrollBarListView extends StatelessWidget {
               child: Text(
                 "7. Sözleşme’nin Askıya Alınması ve Feshi",
                 style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
               ),
             ),
             SizedBox(
@@ -671,7 +672,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "7.1 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -691,7 +692,7 @@ class AgreementScrollBarListView extends StatelessWidget {
                   TextSpan(
                     text: "7.2 ",
                     style: AppTextStyles.bodyBoldTextStyle
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                        .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
                     text:
@@ -711,7 +712,7 @@ class AgreementScrollBarListView extends StatelessWidget {
               child: Text(
                 "8. Uyuşmazlıkların Çözümü",
                 style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
               ),
             ),
             SizedBox(

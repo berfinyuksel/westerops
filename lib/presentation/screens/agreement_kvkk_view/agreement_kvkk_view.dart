@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
@@ -16,13 +17,13 @@ class _AgreementKvkkViewState extends State<AgreementKvkkView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "",
+      title: "Kullanıcı Sözleşmesi ve KVKK",
       body: Padding(
         padding: EdgeInsets.only(
-          top: context.dynamicHeight(0.02),
-          bottom: context.dynamicHeight(0.04),
-          left: context.dynamicWidht(0.06),
-          right: context.dynamicWidht(0.06),
+          top: 25.h,
+          bottom: 25.h,
+          left: 28.w,
+          right: 16.w,
         ),
         child: Column(
           children: [
@@ -31,9 +32,8 @@ class _AgreementKvkkViewState extends State<AgreementKvkkView> {
               style: AppTextStyles.headlineStyle.copyWith(fontSize: 20),
               alignment: TextAlign.center,
             ),
-            Spacer(flex: 5),
+            SizedBox(height: 37.h),
             AgreementScrollBarListView(),
-            Spacer(flex: 5),
             /* Row(
               children: [
                 buildCheckBox(context),

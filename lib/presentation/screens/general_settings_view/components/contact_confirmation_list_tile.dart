@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../utils/extensions/context_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/text/locale_text.dart';
@@ -14,8 +13,9 @@ class ContactConfirmationListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 30.h,
+        top: 19.h,
       ),
       tileColor: Colors.white,
       title: LocaleText(

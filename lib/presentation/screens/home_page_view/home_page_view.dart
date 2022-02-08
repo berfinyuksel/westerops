@@ -27,6 +27,7 @@ import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/cu
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -105,7 +106,6 @@ class _HomePageViewState extends State<HomePageView> {
   Widget build(BuildContext context) {
     return BlocBuilder<SearchStoreCubit, GenericState>(
       builder: (context, state) {
-
         return buildBuilder(state);
       },
     );
@@ -115,8 +115,6 @@ class _HomePageViewState extends State<HomePageView> {
     buildSharedPrefNoData();
 
     return Builder(builder: (context) {
-  
-
       //final FiltersState filterState = context.watch<FiltersCubit>().state;
 
       if (state is GenericInitial) {
@@ -188,7 +186,7 @@ class _HomePageViewState extends State<HomePageView> {
             Visibility(
                 visible: context.watch<OrderBarCubit>().state,
                 child: buildOrderStatusBar()),
-            SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Visibility(
               visible: visible,
               child: Padding(
@@ -215,14 +213,15 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             Visibility(
-                visible: visible,
-                child: SizedBox(height: context.dynamicHeight(0.03))),
+              visible: visible,
+              child: SizedBox(height: 30.h),
+            ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 22),
+              padding: EdgeInsets.symmetric(horizontal: 28.w),
               child: Row(
                 children: [
                   buildSearchBar(context),
-                  SizedBox(width: 16),
+                  SizedBox(width: 16.w),
                   visible
                       ? GestureDetector(
                           onTap: () {
@@ -236,12 +235,12 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
 
-            SizedBox(height: context.dynamicHeight(0.03)),
+            SizedBox(height: 30.h),
             visible ? SizedBox() : buildBuilderSearch(context, restaurants),
             Visibility(
               visible: visible,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 26),
+                padding: EdgeInsets.symmetric(horizontal: 28.w),
                 child: buildRowTitleLeftRightNearMeAll(context,
                     LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
               ),
@@ -249,7 +248,7 @@ class _HomePageViewState extends State<HomePageView> {
             Visibility(
               visible: visible,
               child: Padding(
-                padding: EdgeInsets.only(left: 26),
+                padding: EdgeInsets.only(left: 28.h),
                 child: Divider(
                   thickness: 4,
                   color: AppColors.borderAndDividerColor,
@@ -257,21 +256,22 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             Visibility(
-                visible: visible,
-                child: SizedBox(height: context.dynamicHeight(0.02))),
+              visible: visible,
+              child: SizedBox(height: 22.h),
+            ),
             //bool scrool = false;
             Visibility(
               visible: visible,
               child: Padding(
                 padding: scroolNearMeLeft == true
                     ? EdgeInsets.only(
-                        left: 26,
-                        right: 0,
+                        left: 26.w,
+                        right: 0.w,
                       )
                     : scroolNearMeRight == true
                         ? EdgeInsets.only(
-                            left: 0,
-                            right: 26,
+                            left: 0.w,
+                            right: 26.w,
                           )
                         : EdgeInsets.only(),
                 child:
@@ -279,12 +279,13 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             Visibility(
-                visible: visible,
-                child: SizedBox(height: context.dynamicHeight(0.04))),
+              visible: visible,
+              child: SizedBox(height: 40.h),
+            ),
             Visibility(
               visible: visible,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 26),
+                padding: EdgeInsets.symmetric(horizontal: 28.w),
                 child: LocaleText(
                   text: LocaleKeys.home_page_categories,
                   style: AppTextStyles.bodyTitleStyle,
@@ -295,7 +296,7 @@ class _HomePageViewState extends State<HomePageView> {
               visible: visible,
               child: Padding(
                 // scroll edildiğinde 0 olacak
-                padding: EdgeInsets.only(left: 26),
+                padding: EdgeInsets.only(left: 28.w),
                 child: Divider(
                   thickness: 4,
                   color: AppColors.borderAndDividerColor,
@@ -303,24 +304,25 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             Visibility(
-                visible: visible,
-                child: SizedBox(height: context.dynamicHeight(0.01))),
+              visible: visible,
+              child: SizedBox(height: 15.h),
+            ),
             Visibility(
               visible: visible,
               child: Padding(
                 padding: scroolCategoriesLeft == true
                     ? EdgeInsets.only(
-                        left: 26,
-                        right: 0,
+                        left: 26.w,
+                        right: 0.w,
                       )
                     : scroolCategoriesRight == true
                         ? EdgeInsets.only(
-                            left: 0,
-                            right: 26,
+                            left: 0.w,
+                            right: 26.w,
                           )
                         : EdgeInsets.only(),
                 child: Container(
-                    height: context.dynamicHeight(0.18),
+                    height: 105.h,
                     child: Builder(builder: (context) {
                       final categoryPadding =
                           context.watch<CategoryPaddingCubit>().state;
@@ -346,10 +348,11 @@ class _HomePageViewState extends State<HomePageView> {
                     })),
               ),
             ),
+            SizedBox(height: 40.h),
             Visibility(
               visible: visible,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 26),
+                padding: EdgeInsets.symmetric(horizontal: 28.w),
                 child: LocaleText(
                   text: LocaleKeys.home_page_opportunities,
                   style: AppTextStyles.bodyTitleStyle,
@@ -359,7 +362,7 @@ class _HomePageViewState extends State<HomePageView> {
             Visibility(
               visible: visible,
               child: Padding(
-                padding: EdgeInsets.only(left: 26),
+                padding: EdgeInsets.only(left: 28.w),
                 child: Divider(
                   thickness: 4,
                   color: AppColors.borderAndDividerColor,
@@ -367,20 +370,21 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             Visibility(
-                visible: visible,
-                child: SizedBox(height: context.dynamicHeight(0.01))),
+              visible: visible,
+              child: SizedBox(height: 10.h),
+            ),
             Visibility(
               visible: visible,
               child: Padding(
                 padding: scroolOpportunitiesLeft == true
                     ? EdgeInsets.only(
-                        left: 26,
-                        right: 0,
+                        left: 26.w,
+                        right: 0.w,
                       )
                     : scroolOpportunitiesRight == true
                         ? EdgeInsets.only(
-                            left: 0,
-                            right: 26,
+                            left: 0.w,
+                            right: 26.w,
                           )
                         : EdgeInsets.only(),
                 child:
@@ -388,8 +392,9 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
             Visibility(
-                visible: visible,
-                child: SizedBox(height: context.dynamicHeight(0.01))),
+              visible: visible,
+              child: SizedBox(height: 10.h),
+            ),
           ],
         );
       }),
@@ -428,8 +433,8 @@ class _HomePageViewState extends State<HomePageView> {
                           ));
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  height: 93,
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  height: 93.h,
                   color: AppColors.greenColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -464,8 +469,8 @@ class _HomePageViewState extends State<HomePageView> {
                         alignment: Alignment.center,
                         margin:
                             EdgeInsets.only(left: context.dynamicWidht(0.01)),
-                        width: 69,
-                        height: 36,
+                        width: 69.w,
+                        height: 36.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4.0),
                           color: AppColors.scaffoldBackgroundColor,
@@ -485,7 +490,7 @@ class _HomePageViewState extends State<HomePageView> {
                   ),
                 ),
               )
-            : SizedBox(height: 0, width: 0);
+            : SizedBox(height: 0.h, width: 0.w);
       } else {
         final error = stateOfOrder as GenericError;
         if (error.statusCode == "400") {
@@ -505,7 +510,7 @@ class _HomePageViewState extends State<HomePageView> {
       GenericCompleted state) {
     return Container(
       width: context.dynamicWidht(0.64),
-      height: context.dynamicHeight(0.29),
+      height: 265.h,
       child: Builder(builder: (context) {
         double valueOfPaddingForNearMe =
             context.watch<NearMePaddingCubit>().state;
@@ -538,7 +543,7 @@ class _HomePageViewState extends State<HomePageView> {
   ) {
     return Container(
       width: context.dynamicWidht(0.64),
-      height: context.dynamicHeight(0.29),
+      height: 265.h,
       child: Builder(builder: (context) {
         double valueOfPaddingForOpportunity =
             context.watch<OpportunityPaddingCubit>().state;
@@ -585,7 +590,7 @@ class _HomePageViewState extends State<HomePageView> {
               fontSize: 12.0,
               color: AppColors.orangeColor,
               fontWeight: FontWeight.w600,
-              height: 2.0,
+              height: 2.0.h,
             ),
             alignment: TextAlign.right,
           ),
@@ -613,7 +618,7 @@ class _HomePageViewState extends State<HomePageView> {
               fontSize: 12.0,
               color: AppColors.orangeColor,
               fontWeight: FontWeight.w600,
-              height: 2.0,
+              height: 2.0.h,
             ),
             alignment: TextAlign.right,
           ),
@@ -625,8 +630,7 @@ class _HomePageViewState extends State<HomePageView> {
   Expanded buildSearchBar(BuildContext context) {
     return Expanded(
       child: Container(
-        width:
-            visible ? context.dynamicWidht(0.72) : context.dynamicWidht(0.68),
+        width: visible ? 308.w : 270.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.horizontal(
             right: Radius.circular(25.0),
@@ -669,10 +673,11 @@ class _HomePageViewState extends State<HomePageView> {
 
   emptySearchHistory() {
     return Container(
-      height: context.dynamicHeight(0.05),
+      color: Colors.orange,
+      height: 50.h,
       width: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.only(left: 25),
+        padding: EdgeInsets.only(left: 30.w),
         child: LocaleText(
             text: LocaleKeys.search_search_history_clean,
             style: AppTextStyles.bodyTextStyle
@@ -778,8 +783,7 @@ class _HomePageViewState extends State<HomePageView> {
 
           return Container(
             padding: EdgeInsets.symmetric(
-              horizontal: context.dynamicWidht(0.06),
-              // vertical: context.dynamicHeight(0.00006)
+              horizontal: 20.w,
             ),
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
@@ -820,7 +824,7 @@ class _HomePageViewState extends State<HomePageView> {
         child: Text(
           LocaleKeys.search_cancel_button.locale,
           style: AppTextStyles.bodyTitleStyle
-              .copyWith(color: AppColors.orangeColor, fontSize: 12),
+              .copyWith(color: AppColors.orangeColor, fontSize: 12.sp),
         ));
   }
 

@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../data/model/search_store.dart';
 import '../../../data/shared/shared_prefs.dart';
@@ -198,7 +199,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                 visible: !isShowOnMap,
                 child: !SharedPrefs.getIsLogined
                     ? Padding(
-                        padding: const EdgeInsets.all(24),
+                        padding: EdgeInsets.all(24.h),
                         child: LocaleText(
                           alignment: ui.TextAlign.center,
                           text: LocaleKeys.my_favorites_sign_in_to_monitor,
@@ -214,12 +215,12 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                      height: 40,
+                                      height: 40.h,
                                     ),
                                     SvgPicture.asset(
                                         ImageConstant.SURPRISE_PACK_ALERT),
                                     SizedBox(
-                                      height: 20,
+                                      height: 20.h,
                                     ),
                                     LocaleText(
                                       alignment: TextAlign.center,
@@ -245,10 +246,10 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       BuildContext context, List<SearchStore> favouriteRestaurant) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-        top: context.dynamicHeight(0.02),
-        bottom: context.dynamicHeight(0.02),
+        left: 28.w,
+        right: 28.w,
+        top: 20.h,
+        bottom: 20.h,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,11 +263,11 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             color: AppColors.borderAndDividerColor,
           ),
           AddressText(),
-          SizedBox(height: context.dynamicHeight(0.03)),
+          SizedBox(height: 30.h),
           Row(
             children: [
               buildSearchBar(context),
-              SizedBox(width: 16),
+              SizedBox(width: 16.w),
               GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
@@ -274,7 +275,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                   child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON)),
             ],
           ),
-          SizedBox(height: context.dynamicHeight(0.03)),
+          SizedBox(height: 40.h),
           buildRowTitleLeftRight(
               context,
               LocaleKeys.my_favorites_body_title,

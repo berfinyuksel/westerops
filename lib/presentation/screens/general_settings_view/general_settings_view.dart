@@ -2,6 +2,7 @@ import 'package:dongu_mobile/data/repositories/update_permission_for_com_reposit
 
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:notification_permissions/notification_permissions.dart';
@@ -83,7 +84,7 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   Padding buildBody(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: context.dynamicHeight(0.02),
+        top: 20.h,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,36 +92,24 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
           GeneralSettingsBodyTitle(
             text: LocaleKeys.general_settings_body_title_1,
           ),
-          Spacer(
-            flex: 1,
-          ),
+          SizedBox(height: 10.h),
           ContactConfirmationListTile(),
           buildListTileSms(context),
           buildListTileEmail(context),
           buildListTilePhoneCall(context),
-          Spacer(
-            flex: 4,
-          ),
+          SizedBox(height: 40.h),
           GeneralSettingsBodyTitle(
             text: LocaleKeys.general_settings_body_title_2,
           ),
-          Spacer(
-            flex: 1,
-          ),
+          SizedBox(height: 10.h),
           buildListTileNotification(context),
-          Spacer(
-            flex: 4,
-          ),
+          SizedBox(height: 40.h),
           GeneralSettingsBodyTitle(
             text: LocaleKeys.general_settings_body_title_3,
           ),
-          Spacer(
-            flex: 1,
-          ),
+          SizedBox(height: 10.h),
           buildListTileLocation(context),
-          Spacer(
-            flex: 15,
-          ),
+          SizedBox(height: 147.h),
         ],
       ),
     );
@@ -129,8 +118,8 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   ListTile buildListTileSms(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       tileColor: Colors.white,
       trailing: Transform.scale(
@@ -156,8 +145,8 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   ListTile buildListTileEmail(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       tileColor: Colors.white,
       trailing: Transform.scale(
@@ -187,8 +176,9 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   ListTile buildListTilePhoneCall(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        bottom: 20.h,
+        left: 28.w,
+        right: 28.w,
       ),
       tileColor: Colors.white,
       trailing: Transform.scale(
@@ -222,8 +212,8 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   ListTile buildListTileNotification(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       tileColor: Colors.white,
       trailing: Transform.scale(
@@ -233,14 +223,13 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
             value: isSwitchedNotification,
             onChanged: (value) {
               setState(() {
-                   isSwitchedNotification = value;
+                isSwitchedNotification = value;
                 NotificationPermissions.requestNotificationPermissions(
                         iosSettings: const NotificationSettingsIos(
                             sound: true, badge: true, alert: true))
                     .then((_) {
                   // when finished, check the permission status
-                   permissionStatusFuture = getCheckNotificationPermStatus();
-               
+                  permissionStatusFuture = getCheckNotificationPermStatus();
                 });
               });
             },
@@ -257,8 +246,8 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   ListTile buildListTileLocation(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       tileColor: Colors.white,
       trailing: Transform.scale(

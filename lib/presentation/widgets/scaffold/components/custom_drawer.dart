@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../data/services/auth_service.dart';
 import '../../../../data/services/facebook_login_controller.dart';
@@ -37,19 +38,19 @@ class CustomDrawer extends StatelessWidget {
           isDrawer: true,
           title: LocaleKeys.custom_drawer_title,
           body: ListView(
-            padding: EdgeInsets.only(bottom: context.dynamicHeight(0.05)),
+            padding: EdgeInsets.only(bottom: 40.h),
             children: <Widget>[
               SizedBox(
-                height: context.dynamicHeight(0.03),
+                height: 36.h,
               ),
               Padding(
-                padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+                padding: EdgeInsets.only(left: 28.w),
                 child: SharedPrefs.getIsLogined
                     ? buildLoginedProfile(context)
                     : buildAuthButtons(context),
               ),
               SizedBox(
-                height: context.dynamicHeight(0.03),
+                height: 30.h,
               ),
               DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_inform,
@@ -87,13 +88,13 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
               SizedBox(
-                height: context.dynamicHeight(0.03),
+                height: 40.h,
               ),
               DrawerBodyTitle(
                 text: LocaleKeys.custom_drawer_body_title_1,
               ),
               SizedBox(
-                height: context.dynamicHeight(0.02),
+                height: 12.h,
               ),
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_general_settings,
@@ -121,13 +122,13 @@ class CustomDrawer extends StatelessWidget {
                 title: LocaleKeys.custom_drawer_body_list_tile_rate_app,
               ),
               SizedBox(
-                height: context.dynamicHeight(0.03),
+                height: 40.h,
               ),
               DrawerBodyTitle(
                 text: LocaleKeys.custom_drawer_body_title_2,
               ),
               SizedBox(
-                height: context.dynamicHeight(0.02),
+                height: 10.h,
               ),
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_about_app,
@@ -142,7 +143,7 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
               SizedBox(
-                height: context.dynamicHeight(0.04),
+                height: 40.h,
               ),
               Visibility(
                   visible: SharedPrefs.getIsLogined,
@@ -156,7 +157,7 @@ class CustomDrawer extends StatelessWidget {
 
   Padding buildLogoutButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
       child: CustomButton(
         width: double.infinity,
         title: LocaleKeys.custom_drawer_log_out_button,
@@ -196,7 +197,7 @@ class CustomDrawer extends StatelessWidget {
       children: [
         SvgPicture.asset(
           ImageConstant.COMMONS_PROFILE_ICON,
-          height: context.dynamicHeight(0.042),
+          height: 39.34.h,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -206,15 +207,15 @@ class CustomDrawer extends StatelessWidget {
               style: AppTextStyles.bodyTitleStyle,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.008),
+              height: 7.h,
             ),
             Container(
-              height: context.dynamicHeight(0.004),
-              width: context.dynamicWidht(0.78),
+              height: 4.h,
+              width: 335.w,
               color: AppColors.borderAndDividerColor,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.013),
+              height: 12.h,
             ),
             Text(
               SharedPrefs.getUserAddress,
@@ -232,7 +233,7 @@ class CustomDrawer extends StatelessWidget {
       child: Row(
         children: [
           CustomButton(
-            width: context.dynamicWidht(0.4),
+            width: 176.w,
             title: LocaleKeys.custom_drawer_login_button,
             textColor: AppColors.greenColor,
             color: Colors.transparent,
@@ -241,9 +242,9 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pushReplacementNamed(context, RouteConstant.LOGIN_VIEW);
             },
           ),
-          Spacer(flex: 1),
+          SizedBox(width: 20.w),
           CustomButton(
-            width: context.dynamicWidht(0.4),
+            width: 176.w,
             title: LocaleKeys.custom_drawer_register_button,
             textColor: Colors.white,
             color: AppColors.greenColor,

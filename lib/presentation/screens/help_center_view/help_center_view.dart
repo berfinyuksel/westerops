@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../utils/extensions/context_extension.dart';
@@ -114,8 +115,8 @@ class _HelpCenterViewState extends State<HelpCenterView> {
   ListTile buildContactListTile(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       trailing: Text(
         "+90 850 123 123 23 23",
@@ -138,16 +139,16 @@ class _HelpCenterViewState extends State<HelpCenterView> {
       data: ThemeData(dividerColor: Colors.transparent),
       child: custom.ExpansionTile(
         tilePadding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06),
-          right: context.dynamicWidht(0.06),
+          left: 28.w,
+          right: 29.w,
         ),
         backgroundColor: Colors.white,
         collapsedBackgroundColor: Colors.white,
         title: LocaleText(
             text: title, style: AppTextStyles.myInformationBodyTextStyle),
         childrenPadding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06),
-          right: context.dynamicWidht(0.06),
+          left: 28.w,
+          right: 28.w,
         ),
         children: [
           LocaleText(
@@ -175,7 +176,7 @@ class HelpCenterBodyTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
+        left: 28.w,
       ),
       child: LocaleText(
         text: text!,

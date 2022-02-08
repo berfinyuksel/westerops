@@ -1,11 +1,14 @@
 import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
+import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -78,14 +81,11 @@ class _MyRegisteredCardsUpdateViewState
       child: CustomScaffold(
         title: LocaleKeys.custom_drawer_body_list_tile_cards,
         body: Padding(
-          padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06),
-              top: context.dynamicHeight(0.02),
-              bottom: context.dynamicHeight(0.03)),
+          padding:
+              EdgeInsets.only(left: 28.w, right: 28.w, top: 20.h, bottom: 29.h),
           child: SingleChildScrollView(
             child: Container(
-              height: context.dynamicHeight(0.7),
+              height: 748.h,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -93,28 +93,29 @@ class _MyRegisteredCardsUpdateViewState
                     text: LocaleKeys.registered_cards_button,
                     style: AppTextStyles.bodyTitleStyle,
                   ),
-                  Spacer(flex: 2),
+                  SizedBox(height: 10.h),
                   //buildDropDown(context),
                   buildTextFormField(
                       LocaleKeys.payment_payment_name_on_card.locale,
                       nameController),
-                  Spacer(flex: 3),
+                  SizedBox(height: 20.h),
                   buildCardNumberTextFormField(
                       LocaleKeys.payment_payment_card_number.locale,
                       cardNumberController),
-                  Spacer(flex: 3),
+                  SizedBox(height: 20.h),
                   Row(
                     children: [
                       Container(
-                        width: context.dynamicWidht(0.40),
-                        height: context.dynamicHeight(0.06),
+                        width: 95.w,
+                        height: 56.h,
                         color: Colors.white,
                         child: DropdownButton<String>(
                           underline: SizedBox(),
                           hint: Padding(
                             padding: EdgeInsets.only(
-                                left: context.dynamicWidht(0.04),
-                                right: context.dynamicWidht(0.17)),
+                              left: 20.w,
+                              right: 15.w,
+                            ),
                             child: Text(
                               LocaleKeys.payment_payment_month_text.locale,
                             ),
@@ -138,17 +139,18 @@ class _MyRegisteredCardsUpdateViewState
                           }).toList(),
                         ),
                       ),
-                      Spacer(),
+                      SizedBox(width: 20.w),
                       Container(
-                        width: context.dynamicWidht(0.40),
-                        height: context.dynamicHeight(0.06),
+                        width: 95.w,
+                        height: 56.h,
                         color: Colors.white,
                         child: DropdownButton<String>(
                           underline: SizedBox(),
                           hint: Padding(
                             padding: EdgeInsets.only(
-                                left: context.dynamicWidht(0.04),
-                                right: context.dynamicWidht(0.20)),
+                              left: 20.w,
+                              right: 15.w,
+                            ),
                             child: Text(
                               LocaleKeys.payment_payment_year_text.locale,
                             ),
@@ -172,17 +174,26 @@ class _MyRegisteredCardsUpdateViewState
                           }).toList(),
                         ),
                       ),
-                      //Spacer(),
-                      // buildTextFormField("CVC/CVC2", cvvController),
+                      SizedBox(width: 20.w),
+                      buildTextFormField("CVC/CVC2", cvvController),
                     ],
                   ),
-                  Spacer(flex: 3),
+                  SizedBox(height: 20.h),
                   buildTextFormField(
                       LocaleKeys.payment_payment_name_card.locale,
                       cardNameController),
-                  Spacer(
-                    flex: 20,
+                  SizedBox(height: 32.h),
+                  Row(
+                    children: [
+                      SvgPicture.asset(ImageConstant.IYZICO_LOGO),
+                      SizedBox(width: 17.w),
+                      Text(
+                        "Ödeme sistemimiz Iyzico tarafından\nsağlanmaktadır ve işlem güvenliğiniz\nIyzico güvencesi altındadır.",
+                        style: AppTextStyles.subTitleStyle,
+                      ),
+                    ],
                   ),
+                  SizedBox(height: 256.h),
                   CustomButton(
                     width: double.infinity,
                     title: LocaleKeys.change_password_button,
@@ -235,7 +246,7 @@ class _MyRegisteredCardsUpdateViewState
                       }
                     },
                   ),
-                  Spacer(flex: 3),
+                  SizedBox(height: 29.h),
                 ],
               ),
             ),
@@ -248,10 +259,8 @@ class _MyRegisteredCardsUpdateViewState
   Container buildTextFormField(
       String labelText, TextEditingController controller) {
     return Container(
-      width: controller == cvvController
-          ? context.dynamicWidht(0.29)
-          : context.dynamicWidht(5.0),
-      height: context.dynamicHeight(0.06),
+      width: controller == cvvController ? 142.w : 372.w,
+      height: 56.h,
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.borderAndDividerColor, width: 0.4),
         borderRadius: BorderRadius.circular(4.0),
@@ -300,8 +309,8 @@ class _MyRegisteredCardsUpdateViewState
   Container buildCardNumberTextFormField(
       String labelText, TextEditingController controller) {
     return Container(
-      width: context.dynamicWidht(5.0),
-      height: context.dynamicHeight(0.06),
+      width: 372.w,
+      height: 56.h,
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.borderAndDividerColor, width: 0.4),
         borderRadius: BorderRadius.circular(4.0),

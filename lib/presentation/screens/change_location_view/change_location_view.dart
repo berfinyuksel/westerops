@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
@@ -36,36 +37,23 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
       title: LocaleKeys.change_location_title,
       body: Column(
         children: [
-          /* Spacer(
-            flex: 3,
-          ),*/
-
-          //buildSearchBar(context),
-          /* Spacer(
-            flex: 3,
-          ),*/
-          SizedBox(height: context.dynamicHeight(0.01)),
+          SizedBox(height: 10.h),
           ChangeLocationListTile(
             cityText: chosedCity,
             cityCodeText: chosedCityIndex,
           ),
-          Spacer(
-            flex: 1,
-          ),
+          SizedBox(height: 40.h),
           Container(
-            height: context.dynamicHeight(0.6),
+            height: 90.h,
             child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.05)),
+                padding: EdgeInsets.only(left: 32.w, top: 15.h, right: 29.w),
                 child: Text(
                   LocaleKeys.change_location_no_serve_text.locale,
                   style: AppTextStyles.subTitleBoldStyle
-                      .copyWith(fontSize: 15, color: AppColors.textColor),
+                      .copyWith(fontSize: 15.sp, color: AppColors.textColor),
                 )),
           ),
-          Spacer(
-            flex: 1,
-          ),
+          SizedBox(height: 560.h),
         ],
       ),
     );

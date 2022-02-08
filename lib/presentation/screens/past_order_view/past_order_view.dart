@@ -7,6 +7,7 @@ import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../utils/locale_keys.g.dart';
@@ -49,11 +50,11 @@ class _PastOrderViewState extends State<PastOrderView> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 40,
+                          height: 40.h,
                         ),
                         SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
                         SizedBox(
-                          height: 20,
+                          height: 20.h,
                         ),
                         LocaleText(
                           alignment: TextAlign.center,

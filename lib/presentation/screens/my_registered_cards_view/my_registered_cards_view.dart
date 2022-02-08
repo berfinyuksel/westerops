@@ -7,6 +7,7 @@ import 'package:dongu_mobile/presentation/screens/forgot_password_view/component
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -39,8 +40,8 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
       title: LocaleKeys.registered_cards_title,
       body: Padding(
         padding: EdgeInsets.only(
-          top: context.dynamicHeight(0.02),
-          bottom: context.dynamicHeight(0.04),
+          top: 20.h,
+          bottom: 29.h,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,10 +57,7 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
 
   Container buildList(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.6),
-      // padding: EdgeInsets.only(
-      //   top: context.dynamicHeight(0.01),
-      // ),
+      height: 600.h,
       child: Builder(builder: (context) {
         final GenericState state = context.watch<IyzicoCardCubit>().state;
 
@@ -85,11 +83,11 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 40,
+                    height: 40.h,
                   ),
                   SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
                   SizedBox(
-                    height: 20,
+                    height: 20.h,
                   ),
                   LocaleText(
                     alignment: TextAlign.center,
@@ -122,20 +120,17 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                   subtitleBold:
                       "${cards[index].binNumber!.replaceRange(4, 6, "*")}****${cards[index].lastFourDigits!.replaceRange(0, 2, "*")}",
                 ),
-                background: Padding(
-                  padding: EdgeInsets.only(left: context.dynamicWidht(0.65)),
-                  child: Container(
-                    color: AppColors.redColor,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: context.dynamicHeight(0.038),
-                          horizontal: context.dynamicWidht(0.058)),
-                      child: LocaleText(
-                        text: LocaleKeys.my_notifications_delete_text_text,
-                        style: AppTextStyles.bodyTextStyle.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                        alignment: TextAlign.end,
-                      ),
+                background: Container(
+                  height: 56.h,
+                  width: 68.w,
+                  color: AppColors.redColor,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(25.w, 35.h, 25.w, 25.h),
+                    child: LocaleText(
+                      text: LocaleKeys.my_notifications_delete_text_text,
+                      style: AppTextStyles.bodyTextStyle.copyWith(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      alignment: TextAlign.end,
                     ),
                   ),
                 ),
@@ -209,11 +204,11 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 40,
+                  height: 40.h,
                 ),
                 SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
                 SizedBox(
-                  height: 20,
+                  height: 20.h,
                 ),
                 LocaleText(
                   alignment: TextAlign.center,
@@ -228,7 +223,9 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
   Padding buildButton(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+        left: 28.w,
+        right: 28.w,
+      ),
       child: CustomButton(
         width: double.infinity,
         title: LocaleKeys.registered_cards_button,
@@ -249,11 +246,11 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 40,
+            height: 40.h,
           ),
           SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           Text(
             LocaleKeys.registered_cards_no_registered_card.locale,

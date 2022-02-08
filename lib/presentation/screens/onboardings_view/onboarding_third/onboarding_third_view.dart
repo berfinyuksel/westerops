@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
@@ -38,7 +39,7 @@ class OnboardingThirdView extends StatelessWidget {
 
   Container buildBottomText(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.3),
+      height: 324.h,
       child: Column(
         children: [
           Spacer(flex: 13),

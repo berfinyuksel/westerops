@@ -10,6 +10,7 @@ import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/cu
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../data/model/search_store.dart';
@@ -82,11 +83,11 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
       starDegreeQuality = widget.orderInfo!.review!.first.qualityPoint ?? 3;
       starDegreeTaste = widget.orderInfo!.review!.first.mealPoint ?? 3;
     }
-    print(widget.orderInfo!.refCode);
+    // print(widget.orderInfo!.refCode);
     return ListView(
       children: [
         SizedBox(
-          height: context.dynamicHeight(0.01),
+          height: 20.h,
         ),
         AddressAndDateListTile(
           orderStatus: int.parse(widget.orderInfo!.status!),
@@ -95,24 +96,24 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
               '${widget.orderInfo!.buyingTime!.format(EuropeanDateFormats.standard)}',
         ),
         SizedBox(
-          height: context.dynamicHeight(0.03),
+          height: 40.h,
         ),
         PastOrderDetailBodyTitle(
           title: LocaleKeys.past_order_detail_body_title_1,
         ),
         SizedBox(
-          height: context.dynamicHeight(0.01),
+          height: 10.h,
         ),
         buildRestaurantListTile(context),
         SizedBox(
-          height: context.dynamicHeight(0.03),
+          height: 40.h,
         ),
         buildRowTitleLeftRight(
             context,
             LocaleKeys.past_order_detail_body_title_2,
             LocaleKeys.past_order_detail_edit),
         SizedBox(
-          height: context.dynamicHeight(0.01),
+          height: 10.h,
         ),
         buildStarListTile(
             context, LocaleKeys.past_order_detail_evaluate_1, "service"),
@@ -127,7 +128,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
           child: Column(
             children: [
               SizedBox(
-                height: context.dynamicHeight(0.02),
+                height: 20.h,
               ),
               buildButtonSecond(context),
             ],
@@ -136,18 +137,18 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
         Visibility(
           visible: !editVisibility,
           child: SizedBox(
-            height: context.dynamicHeight(0.02),
+            height: 20.h,
           ),
         ),
         buildButtonFirst(context),
         SizedBox(
-          height: context.dynamicHeight(0.03),
+          height: 30.h,
         ),
         PastOrderDetailBodyTitle(
           title: LocaleKeys.past_order_detail_body_title_3,
         ),
         SizedBox(
-          height: context.dynamicHeight(0.01),
+          height: 10.h,
         ),
         ListView.builder(
             shrinkWrap: true,
@@ -176,13 +177,13 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
               );
             }),
         SizedBox(
-          height: context.dynamicHeight(0.03),
+          height: 40.h,
         ),
         PastOrderDetailBodyTitle(
           title: LocaleKeys.past_order_detail_body_title_4,
         ),
         SizedBox(
-          height: context.dynamicHeight(0.01),
+          height: 10.h,
         ),
         PastOrderDetailPaymentListTile(
           title: LocaleKeys.past_order_detail_payment_1,
@@ -196,12 +197,13 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
           withDecimal: true,
         ),
         SizedBox(
-          height: context.dynamicHeight(0.03),
+          height: 30.h,
         ),
         Padding(
           padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06)),
+            left: 28.w,
+            right: 28.w,
+          ),
           child: Builder(builder: (context) {
             return CustomButton(
                 width: double.infinity,
@@ -255,7 +257,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                 height: context
                                                     .dynamicHeight(0.134),
                                               ),
-                                              SizedBox(height: 10),
+                                              SizedBox(height: 10.h),
                                               LocaleText(
                                                 text: LocaleKeys
                                                     .past_order_detail_cancelled_order_successfully,
@@ -342,7 +344,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                                                 height: context
                                                     .dynamicHeight(0.134),
                                               ),
-                                              SizedBox(height: 10),
+                                              SizedBox(height: 10.h),
                                               LocaleText(
                                                 text: LocaleKeys
                                                     .past_order_detail_cancel_order_error,
@@ -383,10 +385,10 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
           }),
         ),
         SizedBox(
-          height: context.dynamicHeight(0.03),
+          height: 30.h,
         ),
         SizedBox(
-          height: context.dynamicHeight(0.03),
+          height: 30.h,
         ),
       ],
     );
@@ -528,11 +530,11 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 40,
+                      height: 40.h,
                     ),
                     SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
                     SizedBox(
-                      height: 20,
+                      height: 20.h,
                     ),
                     LocaleText(
                       alignment: TextAlign.center,
@@ -597,8 +599,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
       visible: !editVisibility,
       child: Padding(
         padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-            right: context.dynamicWidht(0.06)),
+          left: 28.w,
+          right: 28.w,
+        ),
         child: CustomButton(
           width: double.infinity,
           title: LocaleKeys.past_order_detail_button_1,

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../utils/constants/image_constant.dart';
@@ -41,7 +42,7 @@ class OnboardingView extends StatelessWidget {
 
   Container buildBottomText(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.3),
+      height: 325.h,
       child: Column(
         children: [
           Spacer(flex: 13),

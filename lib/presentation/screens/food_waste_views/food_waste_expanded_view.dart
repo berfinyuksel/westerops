@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
-import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -18,9 +18,9 @@ class FoodWasteExpandedView extends StatelessWidget {
       title: LocaleKeys.food_waste_title,
       body: Container(
         padding: EdgeInsets.only(
-          top: context.dynamicHeight(0.02),
-          left: context.dynamicWidht(0.06),
-          right: context.dynamicWidht(0.06),
+          top: 26.h,
+          left: 45.w,
+          right: 45.w,
         ),
         child: ListView(
           children: [
@@ -31,7 +31,7 @@ class FoodWasteExpandedView extends StatelessWidget {
               maxLines: 2,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.02),
+              height: 23.h,
             ),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_body1,
@@ -40,14 +40,14 @@ class FoodWasteExpandedView extends StatelessWidget {
               maxLines: 2,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.04),
+              height: 40.h,
             ),
             SvgPicture.asset(
               ImageConstant.FOOD_WASTE_EXPANDED_IMAGE_1,
-              height: context.dynamicHeight(0.09),
+              height: 85.81.h,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.02),
+              height: 20.h,
             ),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_body2,
@@ -55,14 +55,14 @@ class FoodWasteExpandedView extends StatelessWidget {
               alignment: TextAlign.center,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.04),
+              height: 40.h,
             ),
             SvgPicture.asset(
               ImageConstant.FOOD_WASTE_EXPANDED_IMAGE_2,
-              height: context.dynamicHeight(0.14),
+              height: 137.02.h,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.02),
+              height: 20.h,
             ),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_body3,
@@ -70,7 +70,7 @@ class FoodWasteExpandedView extends StatelessWidget {
               alignment: TextAlign.center,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.05),
+              height: 50.2.h,
             ),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_headline2,
@@ -79,14 +79,14 @@ class FoodWasteExpandedView extends StatelessWidget {
               maxLines: 1,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.02),
+              height: 20.h,
             ),
             SvgPicture.asset(
               ImageConstant.FOOD_WASTE_EXPANDED_IMAGE_3,
-              height: context.dynamicHeight(0.15),
+              height: 145.h,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.01),
+              height: 10.h,
             ),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_body4,
@@ -95,14 +95,14 @@ class FoodWasteExpandedView extends StatelessWidget {
               maxLines: 2,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.02),
+              height: 40.h,
             ),
             SvgPicture.asset(
               ImageConstant.FOOD_WASTE_EXPANDED_IMAGE_4,
-              height: context.dynamicHeight(0.15),
+              height: 145.h,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.01),
+              height: 10.h,
             ),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_body5,
@@ -111,14 +111,14 @@ class FoodWasteExpandedView extends StatelessWidget {
               maxLines: 2,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.02),
+              height: 40.h,
             ),
             SvgPicture.asset(
               ImageConstant.FOOD_WASTE_EXPANDED_IMAGE_5,
-              height: context.dynamicHeight(0.15),
+              height: 145.h,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.01),
+              height: 10.h,
             ),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_body6,
@@ -127,14 +127,14 @@ class FoodWasteExpandedView extends StatelessWidget {
               maxLines: 2,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.02),
+              height: 40.h,
             ),
             SvgPicture.asset(
               ImageConstant.FOOD_WASTE_EXPANDED_IMAGE_6,
-              height: context.dynamicHeight(0.15),
+              height: 145.h,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.01),
+              height: 10.h,
             ),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_body7,
@@ -143,7 +143,7 @@ class FoodWasteExpandedView extends StatelessWidget {
               maxLines: 2,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.05),
+              height: 50.h,
             ),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_headline3,
@@ -152,14 +152,14 @@ class FoodWasteExpandedView extends StatelessWidget {
               maxLines: 1,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.02),
+              height: 20.h,
             ),
             SvgPicture.asset(
               ImageConstant.FOOD_WASTE_EXPANDED_IMAGE_7,
-              height: context.dynamicHeight(0.17),
+              height: 160.81.h,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.02),
+              height: 20.2.h,
             ),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_body8,
@@ -167,10 +167,10 @@ class FoodWasteExpandedView extends StatelessWidget {
               alignment: TextAlign.center,
             ),
             SizedBox(
-              height: context.dynamicHeight(0.04),
+              height: 40.h,
             ),
             CustomButton(
-              width: context.dynamicWidht(0.86),
+              width: 372.w,
               title: LocaleKeys.food_waste_expanded_button,
               color: AppColors.greenColor,
               borderColor: AppColors.greenColor,
@@ -180,7 +180,7 @@ class FoodWasteExpandedView extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: context.dynamicHeight(0.02),
+              height: 30.h,
             ),
           ],
         ),

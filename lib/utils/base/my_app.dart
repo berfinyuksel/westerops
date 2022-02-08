@@ -43,20 +43,36 @@ class _MyAppState extends State<MyApp> {
       providers: sl<BlocProviderRepository>().multiBlocProvider,
       child: Builder(builder: (context) {
         context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
-        context.read<NotificationsCounterCubit>().setCounter(SharedPrefs.getCounter);
+        context
+            .read<NotificationsCounterCubit>()
+            .setCounter(SharedPrefs.getCounter);
 
         for (var i = 0; i < SharedPrefs.getFavorites.length; i++) {
-          context.read<FavoriteCubit>().addFavorite(int.parse(SharedPrefs.getFavorites[i]));
+          context
+              .read<FavoriteCubit>()
+              .addFavorite(int.parse(SharedPrefs.getFavorites[i]));
         }
         context.read<OrderBarCubit>().stateOfBar(SharedPrefs.getOrderBar);
 
-        context.read<SumPriceOrderCubit>().incrementPrice(SharedPrefs.getSumPrice);
-        context.read<SumOldPriceOrderCubit>().incrementOldPrice(SharedPrefs.getOldSumPrice);
+        context
+            .read<SumPriceOrderCubit>()
+            .incrementPrice(SharedPrefs.getSumPrice);
+        context
+            .read<SumOldPriceOrderCubit>()
+            .incrementOldPrice(SharedPrefs.getOldSumPrice);
         //splash
 
         return ScreenUtilInit(
-          designSize: Size(428,926),
-          builder: ()=> MaterialApp(
+          designSize: Size(428, 926),
+          builder: () => MaterialApp(
+            builder: (context, widget) {
+              ScreenUtil.setContext(context);
+              return MediaQuery(
+                //Setting font does not change with system font size
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                child: widget!,
+              );
+            },
             debugShowCheckedModeBanner: false,
             title: 'Döngü',
             theme: appThemeData[AppTheme.PrimaryTheme],

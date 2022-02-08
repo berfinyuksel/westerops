@@ -2,6 +2,7 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -38,30 +39,30 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
   Padding buildBody(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-        bottom: context.dynamicHeight(0.03),
+        left: 28.w,
+        right: 28.w,
       ),
       child: Column(
         children: [
-          Spacer(flex: 72),
+          SizedBox(height: 66.4.h),
           SvgPicture.asset(
             ImageConstant.DELETE_ACCOUNT_LOVE,
-            height: context.dynamicHeight(0.1),
+            height: 97.26.h,
           ),
-          Spacer(flex: 26),
+          SizedBox(height: 26.4.h),
           buildLocaleTextFirst(),
-          Spacer(flex: 10),
+          SizedBox(height: 10.h),
           buildLocaleTextSecond(context),
-          Spacer(flex: 62),
+          SizedBox(height: 62.h),
           Column(
             children: buildRadioButtons(context),
           ),
-          Spacer(flex: 2),
+          SizedBox(height: 22.h),
           buildTextFormField(
               LocaleKeys.delete_account_hint_text.locale, textController),
-          Spacer(flex: 91),
-          buildCustomButton()
+          SizedBox(height: 91.h),
+          buildCustomButton(),
+          // SizedBox(height: 28.h),
         ],
       ),
     );
@@ -93,7 +94,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
 
   CustomButton buildCustomButton() {
     return CustomButton(
-      width: double.infinity,
+      width: 372.w,
       title: LocaleKeys.delete_account_button,
       color: Colors.transparent,
       borderColor: Color(0xFFF36262),
@@ -122,7 +123,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
                         context, RouteConstant.CUSTOM_SCAFFOLD),
                   ));
         }
-        print(selectedIndex.toString());
+        // print(selectedIndex.toString());
       },
     );
   }
@@ -147,7 +148,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
           },
           child: Container(
             margin: EdgeInsets.only(
-              bottom: context.dynamicHeight(0.02),
+              bottom: 19.h,
             ),
             child: Row(
               children: [
@@ -155,11 +156,9 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
                   margin: EdgeInsets.only(
                     right: context.dynamicWidht(0.02),
                   ),
-                  height: context.dynamicWidht(0.05),
-                  width: context.dynamicWidht(0.05),
-                  padding: EdgeInsets.all(
-                    context.dynamicWidht(0.005),
-                  ),
+                  height: 22.h,
+                  width: 22.w,
+                  padding: EdgeInsets.all(4.h),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4.0),
                     color: Colors.white,
@@ -191,7 +190,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
   Container buildTextFormField(
       String hintText, TextEditingController controller) {
     return Container(
-      height: context.dynamicHeight(0.052),
+      height: 48.h,
       color: Colors.white,
       child: TextFormField(
         cursorColor: AppColors.cursorColor,

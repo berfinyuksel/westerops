@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -24,7 +25,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.052),
+      height: 48.h,
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),

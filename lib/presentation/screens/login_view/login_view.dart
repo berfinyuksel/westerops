@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:validators/validators.dart';
@@ -65,8 +66,8 @@ class _LoginViewState extends State<LoginView> {
               child: buildBackground,
             ),
             Positioned(
-              top: context.dynamicHeight(0.06),
-              left: 0,
+              top: 28.h,
+              left: 5.w,
               child: IconButton(
                 icon: Icon(Icons.close, color: Colors.white),
                 onPressed: () =>
@@ -75,8 +76,8 @@ class _LoginViewState extends State<LoginView> {
             ),
             Positioned(
               bottom: 0,
-              left: context.dynamicWidht(0.035),
-              right: context.dynamicWidht(0.035),
+              left: 15.w,
+              right: 15.w,
               child: buildCardBody(context),
             ),
           ],
@@ -93,44 +94,43 @@ class _LoginViewState extends State<LoginView> {
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
           padding: EdgeInsets.only(
-            bottom: context.dynamicHeight(0.02),
+            bottom: 20.h,
           ),
-          height: context.dynamicHeight(0.54),
+          height: 503.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.vertical(
-              top: Radius.circular(18.0),
+              top: Radius.circular(18.0.h),
             ),
             color: Colors.white,
           ),
           child: Column(
             children: [
-              Spacer(flex: 2),
+              SizedBox(height: 21.h),
               LocaleText(
                 text: LocaleKeys.login_text_login,
                 maxLines: 1,
                 style: AppTextStyles.appBarTitleStyle,
               ),
-              Spacer(flex: 2),
+              SizedBox(height: 19.5.h),
               Divider(
                 thickness: 4,
                 height: 0,
                 color: AppColors.borderAndDividerColor,
               ),
-              Spacer(
-                flex: 2,
-              ),
+              SizedBox(height: 20.5.h),
               Expanded(
                 flex: 4,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: context.dynamicWidht(0.06)),
+                    horizontal: 28.w,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       buildDropDown(context),
                       Container(
-                        height: context.dynamicHeight(0.06),
-                        width: context.dynamicWidht(0.57),
+                        height: 56.h,
+                        width: 245.w,
                         child: buildTextFormField(
                             LocaleKeys.register_phone.locale,
                             phoneController,
@@ -142,21 +142,20 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
-              Spacer(
-                flex: 2,
-              ),
+              SizedBox(height: 20.h),
               Expanded(
                 flex: 4,
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: context.dynamicWidht(0.06)),
+                    horizontal: 28.w,
+                  ),
                   child: buildTextFormField(LocaleKeys.register_password.locale,
                       passwordController, (val) {}),
                 ),
               ),
-              Spacer(flex: 2),
+              SizedBox(height: 26.h),
               CustomButton(
-                width: context.dynamicWidht(0.4),
+                width: 176.w,
                 title: LocaleKeys.login_text_login,
                 textColor: Colors.white,
                 color: AppColors.greenColor,
@@ -194,7 +193,7 @@ class _LoginViewState extends State<LoginView> {
                   }
                 },
               ),
-              Spacer(flex: 1),
+              SizedBox(height: 16.h),
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
@@ -206,14 +205,12 @@ class _LoginViewState extends State<LoginView> {
                   maxLines: 1,
                 ),
               ),
-              Spacer(flex: 2),
+              SizedBox(height: 32.h),
               Expanded(
                 flex: 4,
                 child: buildSocialAuths(context),
               ),
-              Spacer(
-                flex: 2,
-              ),
+              SizedBox(height: 48.h),
               AutoSizeText.rich(
                 TextSpan(
                   style: AppTextStyles.bodyTextStyle,
@@ -240,7 +237,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              Spacer(flex: 2),
+              SizedBox(height: 42.h),
             ],
           ),
         ),
@@ -357,8 +354,8 @@ class _LoginViewState extends State<LoginView> {
 
   Container buildDropDown(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.06),
-      width: context.dynamicWidht(0.19),
+      height: 56.h,
+      width: 81.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),

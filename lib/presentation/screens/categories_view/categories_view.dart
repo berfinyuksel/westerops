@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../data/model/category_name.dart';
 import '../../../data/model/search_store.dart';
@@ -13,7 +14,6 @@ import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
-import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/haversine.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -66,10 +66,10 @@ class CategoriesView extends StatelessWidget {
       title: LocaleKeys.home_page_categories,
       body: Padding(
         padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06),
-          right: context.dynamicWidht(0.06),
-          top: context.dynamicHeight(0.02),
-          bottom: context.dynamicHeight(0.02),
+          left: 30.w,
+          right: 30.w,
+          top: 20.h,
+          bottom: 20.h,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class CategoriesView extends StatelessWidget {
               color: AppColors.borderAndDividerColor,
             ),
             SizedBox(
-              height: 10,
+              height: 10.h,
             ),
             buildRestaurantList(categorizedRestaurants),
           ],
@@ -143,11 +143,11 @@ class CategoriesView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 40,
+                  height: 40.h,
                 ),
                 SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
                 SizedBox(
-                  height: 20,
+                  height: 20.h,
                 ),
                 LocaleText(
                   alignment: TextAlign.center,

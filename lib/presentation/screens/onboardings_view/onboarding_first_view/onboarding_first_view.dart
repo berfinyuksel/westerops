@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
@@ -23,7 +24,7 @@ class OnboardingFirstView extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: context.dynamicHeight(0.08),
+            bottom: context.dynamicHeight(0.083),
             left: 0,
             right: 0,
             child: buildBottomText(context),
@@ -35,19 +36,19 @@ class OnboardingFirstView extends StatelessWidget {
 
   Container buildBottomText(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.3),
+      height: 323.h,
       child: Column(
         children: [
           Spacer(flex: 13),
           Expanded(
-            flex: 8,
+            flex: 5,
             child: OnboardingHeadlineText(
               headlineText: LocaleKeys.onboardings_first_text_headline,
             ),
           ),
           Spacer(flex: 2),
           Expanded(
-            flex: 8,
+            flex: 4,
             child: OnboardingText(
               text: LocaleKeys.onboardings_first_text_first,
             ),

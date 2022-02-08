@@ -1,3 +1,5 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -144,7 +146,7 @@ class _OnboardingsViewState extends State<OnboardingsView> {
         Positioned(
           left: 0,
           right: 0,
-          bottom: context.dynamicHeight(0.03),
+          bottom: 28.2.h,
           child: Container(
             child: pageIndex != 4
                 ? buildRowFromFirstToThird(context)
