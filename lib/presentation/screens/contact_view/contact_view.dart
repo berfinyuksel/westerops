@@ -3,12 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../utils/constants/image_constant.dart';
-import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
-import 'components/contact_body_title.dart';
 import 'components/contact_list_tile.dart';
 
 class ContactView extends StatelessWidget {
@@ -29,15 +27,19 @@ class ContactView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ContactBodyTitle(
+          /* ContactBodyTitle(
             text: LocaleKeys.contact_view_body_title,
-          ),
+          ), */
           SizedBox(
             height: 10.h,
           ),
-          ContactListTile(
+          /* ContactListTile(
             text: LocaleKeys.contact_view_list_tile_1,
             trailingText: "+90 850 123 123 23 23",
+          ), */
+          ContactListTile(
+            text: "Bize Ulaşın",
+            // trailingText: "dongu@support.com",
           ),
           Spacer(),
           Center(child: SvgPicture.asset(ImageConstant.DONGU_LOGO)),
