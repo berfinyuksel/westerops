@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -332,17 +333,19 @@ class _MyInformationViewState extends State<MyInformationView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
-          SharedPrefs.setUserBirth(birthController.text);
-          birthController.text = SharedPrefs.getUserBirth;
-          SharedPrefs.setUserName(nameController.text);
-          SharedPrefs.setUserLastName(surnameController.text);
           if (phoneController.text != SharedPrefs.getUserPhone ||
               mailController.text != SharedPrefs.getUserEmail) {
             Navigator.popAndPushNamed(
                 context, RouteConstant.VERIFY_INFORMATION);
             SharedPrefs.setUserPhone(phoneController.text);
             SharedPrefs.setUserEmail(mailController.text);
-          } else {
+          } else if (birthController.text != SharedPrefs.getUserBirth ||
+              nameController.text != SharedPrefs.getUserName ||
+              surnameController.text != SharedPrefs.getUserLastName) {
+            SharedPrefs.setUserBirth(birthController.text);
+            birthController.text = SharedPrefs.getUserBirth;
+            SharedPrefs.setUserName(nameController.text);
+            SharedPrefs.setUserLastName(surnameController.text);
             context.read<UserAuthCubit>().updateUser(
                   SharedPrefs.getUserName,
                   SharedPrefs.getUserLastName,
@@ -352,6 +355,22 @@ class _MyInformationViewState extends State<MyInformationView> {
                   SharedPrefs.getUserBirth,
                   // birthController.text,
                 );
+            showDialog(
+              context: context,
+              builder: (_) => CustomAlertDialogResetPassword(
+                description: "Bilgileriniz güncellenmiştir.",
+                onPressed: () => Navigator.popAndPushNamed(
+                    context, RouteConstant.MY_INFORMATION_VIEW),
+              ),
+            );
+          } else {
+            showDialog(
+              context: context,
+              builder: (_) => CustomAlertDialogResetPassword(
+                description: "Bir şeyler yolunda gitmedi.",
+                onPressed: () => Navigator.pop(context),
+              ),
+            );
           }
           setState(() {
             isReadOnly = true;
