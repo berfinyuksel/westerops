@@ -66,7 +66,7 @@ class AboutAppView extends StatelessWidget {
               Navigator.pushNamed(context, RouteConstant.CONTACT_VIEW);
             },
           ),
-          SizedBox(height: 306.7.h),
+          Spacer(),
           Center(child: SvgPicture.asset(ImageConstant.DONGU_LOGO)),
           SizedBox(height: 25.1.h),
           Center(

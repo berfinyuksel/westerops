@@ -53,7 +53,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
                       .copyWith(fontSize: 15.sp, color: AppColors.textColor),
                 )),
           ),
-          SizedBox(height: 560.h),
+          Spacer(),
         ],
       ),
     );

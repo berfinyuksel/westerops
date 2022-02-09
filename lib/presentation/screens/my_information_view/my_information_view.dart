@@ -97,44 +97,32 @@ class _MyInformationViewState extends State<MyInformationView> {
                 ),
                 SizedBox(height: 40.h),
                 buildChangePassword(context),
-                // Spacer(
-                //   flex: 8,
-                // ),
-                // buildSocialAuthTitle(context),
-                // Spacer(flex: 2),
-                // SocialAuthListTile(
-                //   title: LocaleKeys.inform_list_tile_remove_link,
-                //   image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
-                // ),
-                SizedBox(height: 134.h),
+                Spacer(),
                 Visibility(visible: isVisibilty, child: buildButton(context)),
-                // SizedBox(height: 32.h),
-                Center(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                          context, RouteConstant.DELETE_ACCOUNT_VIEW);
-                    },
-                    child: LocaleText(
-                      text: LocaleKeys.inform_delete_account,
-                      style: AppTextStyles.bodyTextStyle,
-                    ),
+                // Spacer(),
+                SizedBox(height: 32.h),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, RouteConstant.DELETE_ACCOUNT_VIEW);
+                  },
+                  child: LocaleText(
+                    text: LocaleKeys.inform_delete_account,
+                    style: AppTextStyles.bodyTextStyle,
                   ),
                 ),
-                // SizedBox(height: 32.h),
-                Center(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                          context, RouteConstant.FREEZE_ACCOUNT_VIEW);
-                    },
-                    child: LocaleText(
-                      text: LocaleKeys.freeze_account_title,
-                      style: AppTextStyles.bodyTextStyle,
-                    ),
+                SizedBox(height: 32.h),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, RouteConstant.FREEZE_ACCOUNT_VIEW);
+                  },
+                  child: LocaleText(
+                    text: LocaleKeys.freeze_account_title,
+                    style: AppTextStyles.bodyTextStyle,
                   ),
                 ),
-                SizedBox(height: 40.h),
+                Spacer(),
               ],
             ),
           ),

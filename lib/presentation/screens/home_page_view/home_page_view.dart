@@ -322,7 +322,7 @@ class _HomePageViewState extends State<HomePageView> {
                           )
                         : EdgeInsets.only(),
                 child: Container(
-                    height: 105.h,
+                    height: 150.h,
                     child: Builder(builder: (context) {
                       final categoryPadding =
                           context.watch<CategoryPaddingCubit>().state;

@@ -10,7 +10,6 @@ import 'components/contact_confirmation_list_tile.dart';
 import 'components/general_settings_body_title.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
-import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -92,24 +91,24 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
           GeneralSettingsBodyTitle(
             text: LocaleKeys.general_settings_body_title_1,
           ),
-          SizedBox(height: 10.h),
+          Spacer(flex: 1),
           ContactConfirmationListTile(),
           buildListTileSms(context),
           buildListTileEmail(context),
           buildListTilePhoneCall(context),
-          SizedBox(height: 40.h),
+          Spacer(flex: 4),
           GeneralSettingsBodyTitle(
             text: LocaleKeys.general_settings_body_title_2,
           ),
-          SizedBox(height: 10.h),
+          Spacer(flex: 1),
           buildListTileNotification(context),
-          SizedBox(height: 40.h),
+          Spacer(flex: 4),
           GeneralSettingsBodyTitle(
             text: LocaleKeys.general_settings_body_title_3,
           ),
-          SizedBox(height: 10.h),
+          Spacer(flex: 1),
           buildListTileLocation(context),
-          SizedBox(height: 147.h),
+          Spacer(flex: 15),
         ],
       ),
     );
@@ -176,7 +175,7 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   ListTile buildListTilePhoneCall(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        bottom: 20.h,
+        // bottom: 10.h,
         left: 28.w,
         right: 28.w,
       ),

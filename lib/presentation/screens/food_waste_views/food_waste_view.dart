@@ -28,44 +28,32 @@ class FoodWasteView extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Container(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 28.w),
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 150.w, right: 150.w, top: 20.h),
-              child: LocaleText(
-                text: LocaleKeys.food_waste_title,
-                style: AppTextStyles.headlineStyle,
-                alignment: TextAlign.center,
-              ),
+            LocaleText(
+              text: LocaleKeys.food_waste_title,
+              style: AppTextStyles.headlineStyle,
+              alignment: TextAlign.center,
             ),
             SizedBox(height: 20.h),
-            Padding(
-              padding: EdgeInsets.only(left: 28.w, right: 28.w),
-              child: Container(
-                height: 243.h,
-                child: Column(
-                  children: [
-                    LocaleText(
-                      text: LocaleKeys.food_waste_text1,
-                      style: AppTextStyles.bodyBoldTextStyle,
-                      alignment: TextAlign.center,
-                    ),
-                    Spacer(),
-                    LocaleText(
-                      text: LocaleKeys.food_waste_text2,
-                      alignment: TextAlign.center,
-                      style: AppTextStyles.bodyBoldTextStyle,
-                    ),
-                    Spacer(),
-                    LocaleText(
-                      text: LocaleKeys.food_waste_text3,
-                      style: AppTextStyles.bodyBoldTextStyle,
-                      alignment: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
+            LocaleText(
+              text: LocaleKeys.food_waste_text1,
+              style: AppTextStyles.bodyBoldTextStyle,
+              alignment: TextAlign.center,
+            ),
+            SizedBox(height: 10.h),
+            LocaleText(
+              text: LocaleKeys.food_waste_text2,
+              alignment: TextAlign.center,
+              style: AppTextStyles.bodyBoldTextStyle,
+            ),
+            SizedBox(height: 10.h),
+            LocaleText(
+              text: LocaleKeys.food_waste_text3,
+              style: AppTextStyles.bodyBoldTextStyle,
+              alignment: TextAlign.center,
             ),
             SizedBox(height: 20.h),
             SvgPicture.asset(
@@ -86,7 +74,8 @@ class FoodWasteView extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             lateForNowButton(context),
-            SizedBox(height: 60.h),
+            // Spacer(),
+            // SizedBox(height: 60.h),
           ],
         ),
       ),

@@ -64,17 +64,13 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
             width: 5,
           ),
           buildSecondColumn(context, widget.restaurantName!),
-          Spacer(flex: 6),
+          // Spacer(flex: 6),
           buildThirdColumn(context, widget.distance!, widget.availableTime!),
           Spacer(flex: 2),
-          Container(
-            width: 35,
-            height: 35,
-            color: Colors.white,
-            child: IconButton(
-                onPressed: widget.onPressed,
-                icon: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON)),
-          )
+          GestureDetector(
+              onTap: widget.onPressed,
+              child: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON)),
+          Spacer(),
         ],
       ),
     );

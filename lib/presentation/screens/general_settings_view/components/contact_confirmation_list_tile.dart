@@ -14,8 +14,8 @@ class ContactConfirmationListTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: 28.w,
-        right: 30.h,
-        top: 19.h,
+        right: 28.h,
+        top: 4.h,
       ),
       tileColor: Colors.white,
       title: LocaleText(
