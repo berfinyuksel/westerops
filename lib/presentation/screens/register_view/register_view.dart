@@ -35,6 +35,7 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -231,7 +232,7 @@ class _RegisterViewState extends State<RegisterView> {
                 borderColor: checkboxValue
                     ? AppColors.greenColor
                     : AppColors.disabledButtonColor,
-                onPressed: () async {
+                onPressed: () {
                   bool numberControl =
                       passwordController.text.contains(RegExp(r'[0-9]'));
                   bool uppercaseControl =
@@ -242,8 +243,8 @@ class _RegisterViewState extends State<RegisterView> {
                   String lastName = nameController.text;
                   firstName.split(" ");
                   lastName.split(" ");
-                  print(firstName);
-                  print(lastName);
+                  print("FIRST NAME: ${firstName.split(" ").first}");
+                  print("LAST NAME: ${lastName.split(" ").last}");
                   if (phoneController.text.isEmpty ||
                       firstName.isEmpty ||
                       lastName.isEmpty ||
@@ -288,8 +289,8 @@ class _RegisterViewState extends State<RegisterView> {
                         lastName.isNotEmpty &&
                         firstName.isNotEmpty) {
                       print("Her şey doğru girildiğinde bu koşula gir");
-                      SharedPrefs.setUserName(firstName);
-                      SharedPrefs.setUserLastName(lastName);
+                      SharedPrefs.setUserName(firstName.split(" ").first);
+                      SharedPrefs.setUserLastName(lastName.split(" ").last);
                       SharedPrefs.setUserPhone(phoneTR);
                       SharedPrefs.setUserEmail(emailController.text);
                       SharedPrefs.setUserPassword(passwordController.text);

@@ -41,7 +41,7 @@ class SampleUserAuthenticationRepository
       },
     );
 
-    print(response.statusCode);
+    print("REGISTER USER STATUS CODE : ${response.statusCode}");
     if (response.statusCode == 201) {
       SharedPrefs.setUserPhone(phone);
       return loginUser(phone, password);
@@ -67,7 +67,7 @@ class SampleUserAuthenticationRepository
       },
     );
     print(SharedPrefs.getUserPassword);
-    print(response.statusCode);
+    print("USER UPDATE STATUS CODE : ${response.statusCode}");
 
     if (response.statusCode == 200) {
       SharedPrefs.setUserEmail(email);

@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
@@ -16,6 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'components/error_popup.dart';
+
 class RegisterVerify extends StatefulWidget {
   const RegisterVerify({Key? key}) : super(key: key);
 
@@ -29,6 +32,12 @@ class _RegisterVerifyState extends State<RegisterVerify> {
   PhoneAuthCredential? phoneAuthCredential;
   MobileVerificationState currentState =
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  TextEditingController codeController1 = TextEditingController();
+  TextEditingController codeController2 = TextEditingController();
+  TextEditingController codeController3 = TextEditingController();
+  TextEditingController codeController4 = TextEditingController();
+  TextEditingController codeController5 = TextEditingController();
+  TextEditingController codeController6 = TextEditingController();
   String? verificationId;
   String? userPhoneNumber;
   void sendCode(phoneAuthCredential) async {
@@ -81,7 +90,11 @@ class _RegisterVerifyState extends State<RegisterVerify> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+          leading: IconButton(
+          icon: SvgPicture.asset(ImageConstant.BACK_ICON),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        
         actions: [
           Padding(
             padding: EdgeInsets.only(right: context.dynamicWidht(0.4)),
@@ -106,12 +119,30 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    textFieldOtp(first: true, last: false),
-                    textFieldOtp(first: false, last: false),
-                    textFieldOtp(first: false, last: false),
-                    textFieldOtp(first: false, last: false),
-                    textFieldOtp(first: false, last: false),
-                    textFieldOtp(first: false, last: true),
+            textFieldOtp(
+                        first: true,
+                        last: false,
+                        otpController: codeController1),
+                    textFieldOtp(
+                        first: false,
+                        last: false,
+                        otpController: codeController2),
+                    textFieldOtp(
+                        first: false,
+                        last: false,
+                        otpController: codeController3),
+                    textFieldOtp(
+                        first: false,
+                        last: false,
+                        otpController: codeController4),
+                    textFieldOtp(
+                        first: false,
+                        last: false,
+                        otpController: codeController5),
+                    textFieldOtp(
+                        first: false,
+                        last: true,
+                        otpController: codeController6),
                   ],
                 ),
               ),
@@ -127,13 +158,15 @@ class _RegisterVerifyState extends State<RegisterVerify> {
     );
   }
 
-  textFieldOtp({required bool first, required bool last}) {
+  textFieldOtp({required bool first, required bool last,
+      required TextEditingController otpController}) {
     return Container(
       height: 55,
       width: 55,
       child: AspectRatio(
         aspectRatio: 0.5,
         child: TextField(
+          controller: otpController,
           autofocus: true,
           onChanged: (value) {
             if (value.length == 1 && last == false) {
@@ -219,19 +252,86 @@ class _RegisterVerifyState extends State<RegisterVerify> {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
-        onPressed: () {
+        onPressed: () async{
+          // if (verificationId == null) {
+          //     showDialog(
+          //     context: context,
+          //     builder: (_) => CustomErrorPopup(
+          //       textMessage:
+          //           "Telefon numarası veya SMS kodu hatalı. \nLütfen tekrar deneyiniz",
+          //       buttonOneTitle: "Tamam",
+          //       buttonTwoTittle: LocaleKeys.address_address_approval,
+          //       imagePath: ImageConstant.COMMONS_WARNING_ICON,
+          //       onPressedOne: () {
+          //           Navigator.popAndPushNamed(
+          //             context, RouteConstant.REGISTER_VIEW);
+          //       },
+          //     ),
+          //   );
+          // }
           if (verificationId!.isNotEmpty && userPhoneNumber!.isNotEmpty) {
             print(verificationId!);
             print(userPhoneNumber!);
-            context.read<UserAuthCubit>().registerUser(
-                SharedPrefs.getUserName,
-                SharedPrefs.getUserLastName,
-                SharedPrefs.getUserEmail,
-                SharedPrefs.getUserPhone,
-                SharedPrefs.getUserPassword);
-            Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+                  final AuthCredential credential = PhoneAuthProvider.credential(
+              verificationId: verificationId!,
+              smsCode: codeController1.text +
+                  codeController2.text +
+                  codeController3.text +
+                  codeController4.text +
+                  codeController5.text +
+                  codeController6.text,
+            );
+              try {
+             await FirebaseAuth.instance.signInWithCredential(credential);
+             context.read<UserAuthCubit>().registerUser(
+                  SharedPrefs.getUserName,
+                  SharedPrefs.getUserLastName,
+                  SharedPrefs.getUserEmail,
+                  SharedPrefs.getUserPhone,
+                  SharedPrefs.getUserPassword);
+              showDialog(
+                  context: context,
+                  builder: (_) => CustomAlertDialogResetPassword(
+                        description:
+                            "Başarılı bir şekilde Döngü'ye üye oldunuz.",
+                        onPressed: () => Navigator.popAndPushNamed(
+                            context, RouteConstant.CUSTOM_SCAFFOLD),
+                      ));
+              //                     SharedPrefs.setUserPhone(phoneController.text);
+              // SharedPrefs.setUserEmail(mailController.text);
+                                      
+            } on FirebaseAuthException catch (e) {
+              if (e.code == 'invalid-verification-code') {
+                showDialog(
+                    context: context,
+                    builder: (_) => CustomAlertDialogResetPassword(
+                          description: LocaleKeys.forgot_password_fail_changed,
+                          onPressed: () => Navigator.pop(context),
+                        ));
+              }
+              showDialog(
+                  context: context,
+                  builder: (_) => CustomAlertDialogResetPassword(
+                        description: LocaleKeys.forgot_password_fail_changed,
+                        onPressed: () => Navigator.pop(context),
+                      ));
+            } catch (e) {
+              showDialog(
+                  context: context,
+                  builder: (_) => CustomAlertDialogResetPassword(
+                        description: LocaleKeys.forgot_password_fail_changed,
+                        onPressed: () => Navigator.pop(context),
+                      ));
+            }
+
+            
           } else {
-            Navigator.of(context).pushNamed(RouteConstant.REGISTER_VIEW);
+              showDialog(
+                context: context,
+                builder: (_) => CustomAlertDialogResetPassword(
+                      description: LocaleKeys.forgot_password_fail_changed,
+                      onPressed: () => Navigator.pop(context),
+                    ));
           }
         },
       ),

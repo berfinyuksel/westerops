@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/splash_cubit/splash_cubit.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
+    //
     super.initState();
   }
 

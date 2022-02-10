@@ -80,6 +80,7 @@ class _HomePageViewState extends State<HomePageView> {
     getDeviceIdentifier();
     print("SL ${sl<SampleSearchStoreRepository>().searchStores}");
     print("USER TOKEN ${SharedPrefs.getToken}");
+    SharedPrefs.onboardingShown(true);
   }
 
   Future<List<String>> getDeviceIdentifier() async {

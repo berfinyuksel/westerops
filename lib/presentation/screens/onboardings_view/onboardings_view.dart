@@ -34,7 +34,7 @@ class _OnboardingsViewState extends State<OnboardingsView> {
           flex: 140,
           child: CustomButton(
             onPressed: () {
-              SharedPrefs.onboardingShown();
+              SharedPrefs.onboardingShown(true);
               Navigator.pushReplacementNamed(
                   context, RouteConstant.NOTIFICATION_VIEW);
             },

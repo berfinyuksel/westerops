@@ -297,33 +297,44 @@ class _SearchViewState extends State<SearchView> {
             mealNames = meals.join(', ');
           }
 
-          return Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: context.dynamicWidht(0.06),
-              // vertical: context.dynamicHeight(0.00006)
-            ),
-            decoration: BoxDecoration(color: Colors.white),
-            child: ListTile(
-              trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-              onTap: () {
+          return GestureDetector(
+            onTap: (){
                 Navigator.pushNamed(
-                  context,
-                  RouteConstant.RESTAURANT_DETAIL,
-                  arguments: ScreenArgumentsRestaurantDetail(
-                    restaurant: restaurant[index],
-                  ),
-                );
-              },
-              title: Text(searchList.isEmpty ||
-                      filteredNames.isEmpty ||
-                      "${filteredNames[index].name}".isEmpty
-                  ? ""
-                  : "${filteredNames[index].name}"),
-              subtitle: Text(searchList.isEmpty ||
-                      filteredNames.isEmpty ||
-                      mealNames.isEmpty
-                  ? ""
-                  : mealNames),
+                context,
+                RouteConstant.RESTAURANT_DETAIL,
+                arguments: ScreenArgumentsRestaurantDetail(
+                  restaurant: restaurant[index],
+                ),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: context.dynamicWidht(0.06),
+                // vertical: context.dynamicHeight(0.00006)
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+              child: ListTile(
+                trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteConstant.RESTAURANT_DETAIL,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      restaurant: restaurant[index],
+                    ),
+                  );
+                },
+                title: Text(searchList.isEmpty ||
+                        filteredNames.isEmpty ||
+                        "${filteredNames[index].name}".isEmpty
+                    ? ""
+                    : "${filteredNames[index].name}"),
+                subtitle: Text(searchList.isEmpty ||
+                        filteredNames.isEmpty ||
+                        mealNames.isEmpty
+                    ? ""
+                    : mealNames),
+              ),
             ),
           );
         });

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/presentation/screens/register_view/components/error_popup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,6 +44,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
   String? verificationId;
   bool showLoading = false;
+  PhoneAuthCredential? phoneOtpCode;
   void signInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCredential) async {
     String phoneTR = '+90' + phoneController.text;
@@ -55,40 +57,63 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     setState(() {
       showLoading = true;
     });
-    if (codeController.text.isNotEmpty &&
+
+    if (
+        codeController.text.isNotEmpty &&
         passwordController.text.isNotEmpty &&
-        phoneController.text.isNotEmpty && phoneAuthCredential.smsCode!.isNotEmpty && phoneAuthCredential.verificationId!.isNotEmpty) {
+        phoneController.text.isNotEmpty ) {
+        try {
+        await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
+        showDialog(
+            context: context,
+            builder: (_) => CustomAlertDialogResetPassword(
+                  description: LocaleKeys.forgot_password_successfully_changed,
+                  onPressed: () => Navigator.popAndPushNamed(
+                      context, RouteConstant.LOGIN_VIEW),
+                ));
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'invalid-verification-code') {
+          showDialog(
+              context: context,
+              builder: (_) => CustomAlertDialogResetPassword(
+                    description: LocaleKeys.forgot_password_fail_changed,
+                    onPressed: () => Navigator.pop(context),
+                  ));
+        }
+        showDialog(
+            context: context,
+            builder: (_) => CustomAlertDialogResetPassword(
+                  description: LocaleKeys.forgot_password_fail_changed,
+                  onPressed: () => Navigator.pop(context),
+                ));
+      } catch (e) {
+        showDialog(
+            context: context,
+            builder: (_) => CustomAlertDialogResetPassword(
+                  description: LocaleKeys.forgot_password_fail_changed,
+                  onPressed: () => Navigator.pop(context),
+                ));
+      }
+    } else {
       showDialog(
           context: context,
           builder: (_) => CustomAlertDialogResetPassword(
-                description: LocaleKeys.forgot_password_successfully_changed,
-                onPressed: () => Navigator.popAndPushNamed(
-                    context, RouteConstant.LOGIN_VIEW),
-              ));
-    }else{
-          showDialog(
-          context: context,
-          builder: (_) => CustomAlertDialogResetPassword(
                 description: LocaleKeys.forgot_password_fail_changed,
-                onPressed: () => Navigator.pop(
-                    context),
+                onPressed: () => Navigator.pop(context),
               ));
     }
-    try {
-
-    // print(authCredential.user!.providerData);
-      // print("SMS CODE : ${phoneAuthCredential.smsCode}");
-      setState(() {
-        showLoading = false;
-      });
-
-      
-    } on FirebaseAuthException catch (e) {
-      print(e);
-      setState(() {
-        showLoading = false;
-      });
-    }
+    // try {
+    //   // print(authCredential.user!.providerData);
+    //   // print("SMS CODE : ${phoneAuthCredential.smsCode}");
+    //   setState(() {
+    //     showLoading = false;
+    //   });
+    // } on FirebaseAuthException catch (e) {
+    //   print(e);
+    //   setState(() {
+    //     showLoading = false;
+    //   });
+    // }
   }
 
   @override
@@ -163,9 +188,28 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                               PhoneAuthProvider.credential(
                                   verificationId: verificationId.toString(),
                                   smsCode: codeController.text);
+                                  signInWithPhoneAuthCredential(phoneAuthCredential);
+                         
                           print(verificationId);
-                          signInWithPhoneAuthCredential(phoneAuthCredential);
+                          
                           // print("${phoneAuthCredential}");
+                          if (verificationId == null || phoneAuthCredential.smsCode == null) {
+                            showDialog(
+                              context: context,
+                              builder: (_) => CustomErrorPopup(
+                                textMessage:
+                                    "Telefon numarası veya SMS kodu hatalı. \nLütfen tekrar deneyiniz",
+                                buttonOneTitle: "Tamam",
+                                buttonTwoTittle:
+                                    LocaleKeys.address_address_approval,
+                                imagePath: ImageConstant.COMMONS_WARNING_ICON,
+                                onPressedOne: () {
+                                  Navigator.popAndPushNamed(context,
+                                      RouteConstant.FORGOT_PASSWORD_VIEW);
+                                },
+                              ),
+                            );
+                          }
                           if (verificationId == null ||
                               phoneAuthCredential.smsCode == null) {
                             showDialog(
@@ -173,9 +217,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                 builder: (_) => CustomAlertDialogResetPassword(
                                       description: LocaleKeys
                                           .forgot_password_fail_changed,
-                                      onPressed: () =>
-                                          Navigator.pop(
-                                              context,),
+                                      onPressed: () => Navigator.pop(
+                                        context,
+                                      ),
                                     ));
                           }
                         }
@@ -221,11 +265,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       title: isCodeSent
                           ? LocaleKeys.forgot_password_reset_password
                           : LocaleKeys.forgot_password_send_code,
-                      color: codeController.text.isEmpty && codeController.text.isEmpty &&
+                      color: codeController.text.isEmpty &&
+                              codeController.text.isEmpty &&
                               passwordController.text.isEmpty
                           ? AppColors.disabledButtonColor
                           : AppColors.greenColor,
-                      borderColor: codeController.text.isEmpty && passwordController.text.isEmpty
+                      borderColor: codeController.text.isEmpty &&
+                              passwordController.text.isEmpty
                           ? AppColors.disabledButtonColor
                           : AppColors.greenColor,
                       textColor: Colors.white,
