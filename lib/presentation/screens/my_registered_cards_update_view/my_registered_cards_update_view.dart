@@ -184,9 +184,10 @@ class _MyRegisteredCardsUpdateViewState
                       cardNameController),
                   SizedBox(height: 32.h),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SvgPicture.asset(ImageConstant.IYZICO_LOGO),
-                      SizedBox(width: 17.w),
+
                       Text(
                         "Ödeme sistemimiz Iyzico tarafından\nsağlanmaktadır ve işlem güvenliğiniz\nIyzico güvencesi altındadır.",
                         style: AppTextStyles.subTitleStyle,

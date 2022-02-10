@@ -149,7 +149,7 @@ class _HomePageViewState extends State<HomePageView> {
         return Container(color: Colors.white);
       } else if (stateSearch is GenericLoading) {
         return Container(
-            color: Colors.white,
+            color: Colors.transparent,
             child: Center(child: CustomCircularProgressIndicator()));
       } else if (stateSearch is GenericCompleted) {
         List<SearchStore> searchList = [];
@@ -674,13 +674,13 @@ class _HomePageViewState extends State<HomePageView> {
 
   emptySearchHistory() {
     return Container(
-      color: Colors.orange,
+      color: Colors.transparent,
       height: 50.h,
       width: double.infinity,
       child: Padding(
         padding: EdgeInsets.only(left: 30.w),
         child: LocaleText(
-            text: LocaleKeys.search_search_history_clean,
+            text: "Aradığınız isimde bir yemek bulunmamaktadır.",
             style: AppTextStyles.bodyTextStyle
                 .copyWith(color: AppColors.cursorColor)),
       ),
