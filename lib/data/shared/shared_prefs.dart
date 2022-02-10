@@ -6,8 +6,8 @@ class SharedPrefs {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static Future<void> onboardingShown() async {
-    _prefs.setBool('onboarding', true);
+  static Future<void> onboardingShown(bool isSeen) async {
+    _prefs.setBool('onboarding', isSeen);
   }
 
   static Future<void> login() async {

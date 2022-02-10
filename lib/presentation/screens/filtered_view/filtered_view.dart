@@ -108,33 +108,40 @@ class _FilteredViewState extends State<FilteredView> {
             }
           }
 
-          return RestaurantInfoListTile(
-            deliveryType:
-                int.parse(restaurants[index].packageSettings!.deliveryType!),
-            icon: restaurants[index].photo,
-            restaurantName: restaurants[index].name,
-            distance: Haversine.distance(
-                    restaurants[index].latitude!,
-                    restaurants[index].longitude,
-                    LocationService.latitude,
-                    LocationService.longitude)
-                .toString(),
-            packetNumber:
-                packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
-            availableTime:
-                '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
-            border: Border.all(
-              width: 1.0,
-              color: AppColors.borderAndDividerColor,
-            ),
-            minDiscountedOrderPrice:
-                restaurants[index].packageSettings?.minDiscountedOrderPrice,
-            minOrderPrice: restaurants[index].packageSettings?.minOrderPrice,
-            onPressed: () {
-              Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                  arguments: ScreenArgumentsRestaurantDetail(
-                      restaurant: restaurants[index]));
+          return GestureDetector(
+            onTap: (){
+               Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                      arguments: ScreenArgumentsRestaurantDetail(
+                          restaurant: restaurants[index]));
             },
+            child: RestaurantInfoListTile(
+              deliveryType:
+                  int.parse(restaurants[index].packageSettings!.deliveryType!),
+              icon: restaurants[index].photo,
+              restaurantName: restaurants[index].name,
+              distance: Haversine.distance(
+                      restaurants[index].latitude!,
+                      restaurants[index].longitude,
+                      LocationService.latitude,
+                      LocationService.longitude)
+                  .toString(),
+              packetNumber:
+                  packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
+              availableTime:
+                  '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
+              border: Border.all(
+                width: 1.0,
+                color: AppColors.borderAndDividerColor,
+              ),
+              minDiscountedOrderPrice:
+                  restaurants[index].packageSettings?.minDiscountedOrderPrice,
+              minOrderPrice: restaurants[index].packageSettings?.minOrderPrice,
+              onPressed: () {
+                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                        restaurant: restaurants[index]));
+              },
+            ),
           );
         })
       : Center(

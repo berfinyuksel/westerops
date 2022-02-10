@@ -45,6 +45,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   final MarkerId restaurantMarkerId = MarkerId("rest_1");
 
   late Completer<GoogleMapController> _mapController;
+  //Completer<GoogleMapController> _mapController = Completer();
   Map<MarkerId, Marker> markers = Map<MarkerId, Marker>();
   double latitude = 0;
   double longitude = 0;
@@ -99,7 +100,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   }
 
   Builder buildBody(BuildContext context, List<SearchStore> favourites,
-      GenericCompleted state) {
+      GenericState state) {
     return Builder(builder: (context) {
       final GenericState stateOfFavorites =
           context.watch<AllFavoriteCubit>().state;
@@ -144,12 +145,12 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                           GoogleMap(
                             myLocationButtonEnabled: false,
                             initialCameraPosition: CameraPosition(
-                              target: LatLng(LocationService.latitude,
-                                  LocationService.latitude),
-                              zoom: 17.0,
+                              target: LatLng(41.0082,
+                                  28.9784),
+                              zoom: 10.0,
                             ),
                             onMapCreated: (GoogleMapController controller) {
-                              _mapController.complete(controller);
+                          _mapController.complete(controller);
                             },
                             mapType: MapType.normal,
                             markers: Set<Marker>.of(markers.values),
@@ -339,33 +340,41 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
               }
             }
 
-            return RestaurantInfoListTile(
-              deliveryType: int.parse(
-                  favouriteRestaurant[index].packageSettings!.deliveryType ??
-                      '3'),
-              minDiscountedOrderPrice: favouriteRestaurant[index]
-                  .packageSettings!
-                  .minDiscountedOrderPrice,
-              minOrderPrice:
-                  favouriteRestaurant[index].packageSettings!.minOrderPrice,
-              onPressed: () {
+            return GestureDetector(
+              onTap: () {
                 Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                     arguments: ScreenArgumentsRestaurantDetail(
                       restaurant: favouriteRestaurant[index],
                     ));
               },
-              icon: favouriteRestaurant[index].photo,
-              restaurantName: favouriteRestaurant[index].name,
-              distance: Haversine.distance(
-                      favouriteRestaurant[index].latitude!,
-                      favouriteRestaurant[index].longitude,
-                      LocationService.latitude,
-                      LocationService.longitude)
-                  .toStringAsFixed(2),
-              packetNumber:
-                  packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
-              availableTime:
-                  '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
+              child: RestaurantInfoListTile(
+                deliveryType: int.parse(
+                    favouriteRestaurant[index].packageSettings!.deliveryType ??
+                        '3'),
+                minDiscountedOrderPrice: favouriteRestaurant[index]
+                    .packageSettings!
+                    .minDiscountedOrderPrice,
+                minOrderPrice:
+                    favouriteRestaurant[index].packageSettings!.minOrderPrice,
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                      arguments: ScreenArgumentsRestaurantDetail(
+                        restaurant: favouriteRestaurant[index],
+                      ));
+                },
+                icon: favouriteRestaurant[index].photo,
+                restaurantName: favouriteRestaurant[index].name,
+                distance: Haversine.distance(
+                        favouriteRestaurant[index].latitude!,
+                        favouriteRestaurant[index].longitude,
+                        LocationService.latitude,
+                        LocationService.longitude)
+                    .toStringAsFixed(2),
+                packetNumber:
+                    packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
+                availableTime:
+                    '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
+              ),
             );
           }));
         });
@@ -461,43 +470,52 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       left: 0,
       bottom: 0,
       child: favourites.isNotEmpty
-          ? Container(
-              width: double.infinity,
-              height: context.dynamicHeight(0.176),
-              padding:
-                  EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
-              color: Colors.white,
-              child: RestaurantInfoListTile(
-                minDiscountedOrderPrice: favourites[selectedIndex]
-                    .packageSettings!
-                    .minDiscountedOrderPrice,
-                minOrderPrice:
-                    favourites[selectedIndex].packageSettings!.minOrderPrice,
-                packetNumber: favourites[selectedIndex]
-                            .calendar!
-                            .first
-                            .boxCount ==
-                        0
-                    ? LocaleKeys.home_page_soldout_icon
-                    : "${favourites[selectedIndex].calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
-                deliveryType: int.parse(
-                    favourites[selectedIndex].packageSettings!.deliveryType!),
-                restaurantName: favourites[selectedIndex].name,
-                distance: Haversine.distance(
-                        favourites[selectedIndex].latitude!,
-                        favourites[selectedIndex].longitude!,
-                        LocationService.latitude,
-                        LocationService.longitude)
-                    .toStringAsFixed(2),
-                availableTime:
-                    '${favourites[selectedIndex].packageSettings!.deliveryTimeStart} - ${favourites[selectedIndex].packageSettings!.deliveryTimeEnd}',
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                      arguments: ScreenArgumentsRestaurantDetail(
-                        restaurant: favourites[selectedIndex],
-                      ));
-                },
-                icon: favourites[selectedIndex].photo,
+          ? GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      restaurant: favourites[selectedIndex],
+                    ));
+              },
+              child: Container(
+                width: double.infinity,
+                height: context.dynamicHeight(0.176),
+                padding:
+                    EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+                color: Colors.white,
+                child: RestaurantInfoListTile(
+                  minDiscountedOrderPrice: favourites[selectedIndex]
+                      .packageSettings!
+                      .minDiscountedOrderPrice,
+                  minOrderPrice:
+                      favourites[selectedIndex].packageSettings!.minOrderPrice,
+                  packetNumber: favourites[selectedIndex]
+                              .calendar!
+                              .first
+                              .boxCount ==
+                          0
+                      ? LocaleKeys.home_page_soldout_icon
+                      : "${favourites[selectedIndex].calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
+                  deliveryType: int.parse(
+                      favourites[selectedIndex].packageSettings!.deliveryType!),
+                  restaurantName: favourites[selectedIndex].name,
+                  distance: Haversine.distance(
+                          favourites[selectedIndex].latitude!,
+                          favourites[selectedIndex].longitude!,
+                          LocationService.latitude,
+                          LocationService.longitude)
+                      .toStringAsFixed(2),
+                  availableTime:
+                      '${favourites[selectedIndex].packageSettings!.deliveryTimeStart} - ${favourites[selectedIndex].packageSettings!.deliveryTimeEnd}',
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, RouteConstant.RESTAURANT_DETAIL,
+                        arguments: ScreenArgumentsRestaurantDetail(
+                          restaurant: favourites[selectedIndex],
+                        ));
+                  },
+                  icon: favourites[selectedIndex].photo,
+                ),
               ),
             )
           : SizedBox(height: 0, width: 0),

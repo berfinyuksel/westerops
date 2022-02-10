@@ -23,7 +23,7 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => IyzicoCardRepository());
   getIt.registerLazySingleton(() => AvgReviewRepository());
   getIt.registerLazySingleton(() => SampleSearchStoreRepository());
-    getIt.registerLazySingleton(() => BlocProviderRepository());
+  getIt.registerLazySingleton(() => BlocProviderRepository());
   getIt.registerLazySingleton(() => SvgImageRepository());
 
 }

@@ -103,14 +103,14 @@ class CustomDrawer extends StatelessWidget {
                       context, RouteConstant.GENERAL_SETTINGS_VIEW);
                 },
               ),
-              DrawerListTile(
-                title:
-                    LocaleKeys.custom_drawer_body_list_tile_language_settings,
-                onTap: () {
-                  Navigator.pushNamed(
-                      context, RouteConstant.LANGUAGE_SETTINGS_VIEW);
-                },
-              ),
+              // DrawerListTile(
+              //   title:
+              //       LocaleKeys.custom_drawer_body_list_tile_language_settings,
+              //   onTap: () {
+              //     Navigator.pushNamed(
+              //         context, RouteConstant.LANGUAGE_SETTINGS_VIEW);
+              //   },
+              // ),
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_change_location,
                 onTap: () {

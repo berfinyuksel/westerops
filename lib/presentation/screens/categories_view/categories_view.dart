@@ -102,40 +102,48 @@ class CategoriesView extends StatelessWidget {
             shrinkWrap: true,
             itemCount: categorizedRestaurants.length,
             itemBuilder: (context, index) {
-              return RestaurantInfoListTile(
-                deliveryType: int.parse(categorizedRestaurants[index]
-                        .packageSettings!
-                        .deliveryType ??
-                    '3'),
-                packetNumber: categorizedRestaurants[index]
-                            .calendar!
-                            .first
-                            .boxCount ==
-                        0
-                    ? LocaleKeys.home_page_soldout_icon
-                    : "${categorizedRestaurants[index].calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
-                minDiscountedOrderPrice: categorizedRestaurants[index]
-                    .packageSettings!
-                    .minDiscountedOrderPrice,
-                minOrderPrice: categorizedRestaurants[index]
-                    .packageSettings!
-                    .minOrderPrice,
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+              return GestureDetector(
+                onTap: (){
+                      Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                       arguments: ScreenArgumentsRestaurantDetail(
                         restaurant: categorizedRestaurants[index],
                       ));
                 },
-                icon: categorizedRestaurants[index].photo,
-                restaurantName: categorizedRestaurants[index].name,
-                distance: Haversine.distance(
-                        categorizedRestaurants[index].latitude!,
-                        categorizedRestaurants[index].longitude,
-                        LocationService.latitude,
-                        LocationService.longitude)
-                    .toStringAsFixed(2),
-                availableTime:
-                    '${categorizedRestaurants[index].packageSettings!.deliveryTimeStart} - ${categorizedRestaurants[index].packageSettings!.deliveryTimeEnd}',
+                child: RestaurantInfoListTile(
+                  deliveryType: int.parse(categorizedRestaurants[index]
+                          .packageSettings!
+                          .deliveryType ??
+                      '3'),
+                  packetNumber: categorizedRestaurants[index]
+                              .calendar!
+                              .first
+                              .boxCount ==
+                          0
+                      ? LocaleKeys.home_page_soldout_icon
+                      : "${categorizedRestaurants[index].calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
+                  minDiscountedOrderPrice: categorizedRestaurants[index]
+                      .packageSettings!
+                      .minDiscountedOrderPrice,
+                  minOrderPrice: categorizedRestaurants[index]
+                      .packageSettings!
+                      .minOrderPrice,
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                        arguments: ScreenArgumentsRestaurantDetail(
+                          restaurant: categorizedRestaurants[index],
+                        ));
+                  },
+                  icon: categorizedRestaurants[index].photo,
+                  restaurantName: categorizedRestaurants[index].name,
+                  distance: Haversine.distance(
+                          categorizedRestaurants[index].latitude!,
+                          categorizedRestaurants[index].longitude,
+                          LocationService.latitude,
+                          LocationService.longitude)
+                      .toStringAsFixed(2),
+                  availableTime:
+                      '${categorizedRestaurants[index].packageSettings!.deliveryTimeStart} - ${categorizedRestaurants[index].packageSettings!.deliveryTimeEnd}',
+                ),
               );
             })
         : Center(

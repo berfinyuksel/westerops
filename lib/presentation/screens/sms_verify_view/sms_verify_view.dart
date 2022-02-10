@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
+import 'package:dongu_mobile/presentation/screens/register_view/components/error_popup.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
@@ -42,7 +43,10 @@ class _SmsVerifyState extends State<SmsVerify> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         automaticallyImplyLeading: false,
+         leading: IconButton(
+          icon: SvgPicture.asset(ImageConstant.BACK_ICON),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: context.dynamicWidht(0.4)),
@@ -181,6 +185,22 @@ class _SmsVerifyState extends State<SmsVerify> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
+                   if (verificationId == null) {
+            showDialog(
+              context: context,
+              builder: (_) => CustomErrorPopup(
+                textMessage:
+                    "Telefon numarası veya SMS kodu hatalı. \nLütfen tekrar deneyiniz",
+                buttonOneTitle: "Tamam",
+                buttonTwoTittle: LocaleKeys.address_address_approval,
+                imagePath: ImageConstant.COMMONS_WARNING_ICON,
+                onPressedOne: () {
+                  Navigator.popAndPushNamed(
+                      context, RouteConstant.REGISTER_VIEW);
+                },
+              ),
+            );
+          }
           Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
         },
       ),

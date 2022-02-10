@@ -128,8 +128,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HelpCenterView());
       case RouteConstant.HOME_PAGE_VIEW:
         return MaterialPageRoute(builder: (_) => HomePageView());
-      case RouteConstant.LANGUAGE_SETTINGS_VIEW:
-        return MaterialPageRoute(builder: (_) => LanguageSettingsView());
+      // case RouteConstant.LANGUAGE_SETTINGS_VIEW:
+      //   return MaterialPageRoute(builder: (_) => LanguageSettingsView());
       case RouteConstant.LOCATION_VIEW:
         return MaterialPageRoute(builder: (_) => LocationView());
       case RouteConstant.LOGIN_VIEW:
