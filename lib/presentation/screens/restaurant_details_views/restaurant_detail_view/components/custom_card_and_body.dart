@@ -1077,7 +1077,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 color: AppColors.yellowColor,
               ),
               child: Text(
-                LocaleKeys.restaurant_detail_packet_container_sold_out,
+                LocaleKeys.restaurant_detail_packet_container_sold_out.locale,
                 style: AppTextStyles.bodyBoldTextStyle
                     .copyWith(color: Colors.white),
               ),
