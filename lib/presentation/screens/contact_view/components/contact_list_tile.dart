@@ -19,11 +19,12 @@ class ContactListTile extends StatefulWidget {
 }
 
 class _ContactListTileState extends State<ContactListTile> {
-  void customLaunch(command) async {
-    if (await canLaunch(command)) {
-      await launch(command);
+  String email = "dongu@support.com";
+  void customLaunch() async {
+    if (await canLaunch("mailto:$email")) {
+      await launch("mailto:$email");
     } else {
-      print('Could not launch $command');
+      print('Could not launch');
     }
   }
 
@@ -53,7 +54,7 @@ class _ContactListTileState extends State<ContactListTile> {
         style: AppTextStyles.bodyTextStyle,
       ),
       onTap: () {
-        customLaunch('tel:+908501231232323');
+        customLaunch();
       },
     );
   }

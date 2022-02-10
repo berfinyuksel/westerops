@@ -16,11 +16,12 @@ class HelpCenterView extends StatefulWidget {
 }
 
 class _HelpCenterViewState extends State<HelpCenterView> {
-  void customLaunch(command) async {
-    if (await canLaunch(command)) {
-      await launch(command);
+  String email = "dongu@support.com";
+  void customLaunch() async {
+    if (await canLaunch("mailto:$email")) {
+      await launch("mailto:$email");
     } else {
-      print('Could not launch $command');
+      print('Could not launch');
     }
   }
 
@@ -118,8 +119,12 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         left: 28.w,
         right: 28.w,
       ),
-      trailing: Text(
+      /* trailing: Text(
         "+90 850 123 123 23 23",
+        style: AppTextStyles.subTitleStyle,
+      ), */
+      trailing: Text(
+        "dongu@support.com",
         style: AppTextStyles.subTitleStyle,
       ),
       tileColor: Colors.white,
@@ -128,7 +133,8 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         style: AppTextStyles.bodyTextStyle,
       ),
       onTap: () {
-        customLaunch("tel: +90 850 123 123 23 23");
+        // customLaunch("tel: +90 850 123 123 23 23");
+        customLaunch();
       },
     );
   }
