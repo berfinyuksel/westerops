@@ -561,7 +561,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         int? dailyBoxCount;
 
         for (var j = 0; j < mapsMarkers[i].calendar!.length; j++) {
-          if (DateTime.parse(mapsMarkers[i].calendar![j].startDate!).day ==
+          if (DateTime.parse(
+                      mapsMarkers[i].calendar![j].startDate!.toIso8601String())
+                  .day ==
               DateTime.now().toLocal().day) {
             dailyBoxCount = mapsMarkers[i].calendar![j].boxCount;
           }

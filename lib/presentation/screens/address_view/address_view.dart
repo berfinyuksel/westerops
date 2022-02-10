@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../data/model/user_address.dart';
@@ -43,8 +44,8 @@ class _AddressViewState extends State<AddressView> {
       title: LocaleKeys.address_title,
       body: Padding(
         padding: EdgeInsets.only(
-          top: context.dynamicHeight(0.02),
-          bottom: context.dynamicHeight(0.04),
+          top: 20.h,
+          bottom: 40.h,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,9 +62,9 @@ class _AddressViewState extends State<AddressView> {
 
   Container buildList(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.6),
+      height: 550.h,
       padding: EdgeInsets.only(
-        top: context.dynamicHeight(0.01),
+        top: 10.h,
       ),
       child: Builder(builder: (context) {
         final GenericState state = context.watch<UserAddressCubit>().state;
@@ -87,7 +88,7 @@ class _AddressViewState extends State<AddressView> {
                       child: AddressListTile(
                         trailing: Container(
                           height: double.infinity,
-                          width: context.dynamicWidht(0.03),
+                          width: 12.w,
                           child: GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(
@@ -123,23 +124,18 @@ class _AddressViewState extends State<AddressView> {
                         phoneNumber: "\n${list[index].phoneNumber}",
                         description: "\n${list[index].description}",
                       ),
-                      background: Padding(
-                        padding:
-                            EdgeInsets.only(left: context.dynamicWidht(0.65)),
-                        child: Container(
-                          color: AppColors.redColor,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: context.dynamicHeight(0.038),
-                                horizontal: context.dynamicWidht(0.058)),
-                            child: LocaleText(
-                              text:
-                                  LocaleKeys.my_notifications_delete_text_text,
-                              style: AppTextStyles.bodyTextStyle.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              alignment: TextAlign.end,
-                            ),
+                      background: Container(
+                        color: AppColors.redColor,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: context.dynamicHeight(0.038),
+                              horizontal: context.dynamicWidht(0.058)),
+                          child: LocaleText(
+                            text: LocaleKeys.my_notifications_delete_text_text,
+                            style: AppTextStyles.bodyTextStyle.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                            alignment: TextAlign.end,
                           ),
                         ),
                       ),
@@ -172,7 +168,7 @@ class _AddressViewState extends State<AddressView> {
                   })
               : Container(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0, top: 10.0),
+                    padding: EdgeInsets.only(left: 20.w, top: 10.h),
                     child: LocaleText(
                       text: LocaleKeys.address_no_address,
                       style: AppTextStyles.bodyTextStyle,
@@ -185,12 +181,10 @@ class _AddressViewState extends State<AddressView> {
     );
   }
 
-  Padding buildButton(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+  Widget buildButton(BuildContext context) {
+    return Center(
       child: CustomButton(
-        width: double.infinity,
+        width: 372.w,
         title: LocaleKeys.address_button,
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,

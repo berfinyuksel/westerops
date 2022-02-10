@@ -47,13 +47,15 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
         shrinkWrap: true,
         itemCount: widget.restaurant!.calendar!.length,
         itemBuilder: (context, index) {
-          DateTime startOfRes =
-              DateTime.parse(widget.restaurant!.calendar![index].startDate!)
-                  .toLocal();
+          DateTime startOfRes = DateTime.parse(widget
+                  .restaurant!.calendar![index].startDate!
+                  .toIso8601String())
+              .toLocal();
 
-          DateTime endOfRes =
-              DateTime.parse(widget.restaurant!.calendar![index].endDate!)
-                  .toLocal();
+          DateTime endOfRes = DateTime.parse(widget
+                  .restaurant!.calendar![index].endDate!
+                  .toIso8601String())
+              .toLocal();
 
           return Container(
             padding: EdgeInsets.symmetric(
