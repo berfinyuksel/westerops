@@ -55,4 +55,5 @@ class RouteConstant {
   static const SMS_VERIFY_VIEW = '/smsVerify';
   static const REGISTER_VERIFY_VIEW = '/registerVerify';
   static const VERIFY_INFORMATION = '/verifyInformation';
+  static const CHANGE_PASSWORD_VERIFY = '/verifyChangePassword';
 }

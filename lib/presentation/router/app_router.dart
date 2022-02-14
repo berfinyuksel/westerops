@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/change_password_view/verify_view_change_password.dart';
 import 'package:dongu_mobile/presentation/screens/clarification_view/clarification_view.dart';
 import 'package:dongu_mobile/presentation/screens/my_information_view/verify_information.dart';
 import 'package:dongu_mobile/presentation/screens/order_receiving_view/order_receiving_registered_card.dart';
@@ -189,6 +190,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SmsVerify());
       case RouteConstant.REGISTER_VERIFY_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterVerify());
+          case RouteConstant.CHANGE_PASSWORD_VERIFY:
+        return MaterialPageRoute(builder: (_) => ChangePasswordVerify());
       case RouteConstant.VERIFY_INFORMATION:
         return MaterialPageRoute(builder: (_) => VerifyInformation());
       case RouteConstant.REGISTER_VIEW:

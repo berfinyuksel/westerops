@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_registered_card.dart';
 import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
@@ -28,9 +29,11 @@ class MyRegisteredCardsView extends StatefulWidget {
 }
 
 class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
+  List<String> cardsList = [];
   @override
   void initState() {
     context.read<IyzicoCardCubit>().getCards();
+
     super.initState();
   }
 
@@ -67,9 +70,10 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
           return Center(child: CustomCircularProgressIndicator());
         } else if (state is GenericCompleted) {
           List<IyzcoRegisteredCard> cards = [];
-
           for (int i = 0; i < state.response.length; i++) {
             cards.add(state.response[i]);
+            // print("CARDS FIRST : ${cards.first.cardDetails!.first.binNumber}");
+            // print("CARDS LAST : ${cards.last.cardDetails!.last.binNumber}");
           }
 
           return cards.isEmpty
@@ -109,6 +113,26 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
         ? ListView.builder(
             itemCount: cards.length,
             itemBuilder: (context, index) {
+              // SharedPrefs.setNewCardNumber(
+              //     "${cards[index].binNumber}${cards[index].lastFourDigits}");
+
+              print(
+                  "CARDS LIST : ${cards[index].binNumber}${cards[index].lastFourDigits}");
+              cardsList.add(
+                  "${cards[index].binNumber}${cards[index].lastFourDigits}");
+              print("CARDS INDEX LIST : ${cardsList.length}");
+              SharedPrefs.setRegisterCards(cardsList);
+              print("CARDS SHARED LIST : ${SharedPrefs.getCardsList}");
+
+              // for (var i = 0; i < cards.length; i++) {
+              //   List<String> cardsNumberList = [];
+              //   cardsNumberList.add(
+              //       "${cards[index].binNumber}${cards[index].lastFourDigits}");
+              //   SharedPrefs.setRegisterCards(cardsNumberList);
+              //   print("CARDS NumberList : ${cardsNumberList.length}");
+              // }
+              // print(
+              //     "CARD BIN NUMBER: ${cards[index].binNumber}${cards[index].lastFourDigits}");
               return Dismissible(
                 direction: DismissDirection.endToStart,
                 key: UniqueKey(),
@@ -147,6 +171,10 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                           Navigator.of(context).pop();
                         },
                         onPressedTwo: () async {
+                          // List<String> removeCard = [];
+                          // SharedPrefs.setRegisterCards("");
+                          cardsList.remove(index);
+                          // cardsList.clear();
                           Navigator.of(context).pop();
                           StatusCode statusCode =
                               await sl<IyzicoCardRepository>().deleteCard(

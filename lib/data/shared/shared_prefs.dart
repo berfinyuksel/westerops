@@ -70,6 +70,11 @@ class SharedPrefs {
     _prefs.setStringList('menuList', menuList);
     return menuList;
   }
+  //my registered card info
+  static Future<List<String>> setRegisterCards(List<String> cardsList) async {
+    _prefs.setStringList('cardsList', cardsList);
+    return cardsList;
+  }
 
   static Future<void> setAddressName(String name) async {
     _prefs.setString('addressName', name);
@@ -260,7 +265,13 @@ class SharedPrefs {
   static Future<void> setRegisterPhone(String registerPhone) async {
     _prefs.setString('registerPhone', registerPhone);
   }
-
+//change password
+    static Future<void> setNewPassword(String newPassword) async {
+    _prefs.setString('newPassword', newPassword);
+  }
+      static Future<void> setOldPassword(String oldPassword) async {
+    _prefs.setString('oldPassword', oldPassword);
+  }
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static bool get getNotificationsIsRead =>
@@ -283,6 +294,7 @@ class SharedPrefs {
       _prefs.getInt('notificationCounter') ?? 0;
   static int get getMenuId => _prefs.getInt('menuId') ?? 0;
   static List<String> get getMenuList => _prefs.getStringList('menuList') ?? [];
+  static List<String> get getCardsList => _prefs.getStringList('cardsList') ?? [];
   static String get getAdressName => _prefs.getString('addressName') ?? "";
   static int get getAddressType => _prefs.getInt('addressType') ?? 0;
   static String get getAddress => _prefs.getString('address') ?? "";
@@ -344,4 +356,7 @@ class SharedPrefs {
   static String get getCourierHourText =>
       _prefs.getString('courierHourText') ?? "";
   static String get getRegisterPhone => _prefs.getString('registerPhone') ?? "";
+  static String get getNewCardNumber => _prefs.getString('newCardNumber') ?? "";
+  static String get getNewPassword => _prefs.getString('newPassword') ?? "";
+  static String get getOldPassword => _prefs.getString('oldPassword') ?? "";
 }

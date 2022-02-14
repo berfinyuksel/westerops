@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
@@ -36,6 +37,7 @@ class _MyRegisteredCardsUpdateViewState
   TextEditingController cvvController = TextEditingController();
   String yearValueForInput = "";
   String monthValueForInput = "";
+
   final monthsList = [
     "  01",
     "  02",
@@ -175,7 +177,8 @@ class _MyRegisteredCardsUpdateViewState
                         ),
                       ),
                       SizedBox(width: 20.w),
-                      buildTextFormField("CVC/CVC2", cvvController),
+                      // buildTextFormField("CVC/CVC2", cvvController),
+                      buildCVVTextFormField("CVC/CVC2", cvvController)
                     ],
                   ),
                   SizedBox(height: 20.h),
@@ -187,7 +190,6 @@ class _MyRegisteredCardsUpdateViewState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SvgPicture.asset(ImageConstant.IYZICO_LOGO),
-
                       Text(
                         "Ödeme sistemimiz Iyzico tarafından\nsağlanmaktadır ve işlem güvenliğiniz\nIyzico güvencesi altındadır.",
                         style: AppTextStyles.subTitleStyle,
@@ -202,49 +204,72 @@ class _MyRegisteredCardsUpdateViewState
                     borderColor: AppColors.greenColor,
                     textColor: Colors.white,
                     onPressed: () async {
-                      StatusCode statusCode = await sl<IyzicoCardRepository>()
-                          .addCard(
-                              cardNameController.text.toString(),
-                              nameController.text.toString(),
-                              cardNumberController.text.toString(),
-                              monthValueForInput.toString(),
-                              buildYearValue().toString());
-                      switch (statusCode) {
-                        case StatusCode.success:
-                          showDialog(
-                              context: context,
-                              builder: (_) => CustomAlertDialogResetPassword(
-                                    description: LocaleKeys
-                                        .registered_cards_save_alert_dialog
-                                        .locale,
-                                    onPressed: () => Navigator.popAndPushNamed(
-                                        context, RouteConstant.CUSTOM_SCAFFOLD),
-                                  ));
-                          break;
-                        case StatusCode.error:
-                          showDialog(
-                              context: context,
-                              builder: (_) => CustomAlertDialogResetPassword(
-                                    description: LocaleKeys
-                                        .registered_cards_error_alert_dialog
-                                        .locale,
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                  ));
-                          break;
-                        case StatusCode.unauthecticated:
-                          showDialog(
-                              context: context,
-                              builder: (_) => CustomAlertDialogResetPassword(
-                                    description: LocaleKeys
-                                        .registered_cards_unauthorized_alert_dialog
-                                        .locale,
-                                    onPressed: () => Navigator.popAndPushNamed(
-                                        context, RouteConstant.LOGIN_VIEW),
-                                  ));
-                          break;
-                        default:
+                      var lastFourDigits = cardNumberController.text
+                          .substring(cardNumberController.text.length - 4);
+                      var binNumber = cardNumberController.text.substring(0, 6);
+                      var cardNumberControl = binNumber + lastFourDigits;
+                      if (SharedPrefs.getCardsList.contains(cardNumberControl) == true) {
+                        showDialog(
+                            context: context,
+                            builder: (_) => CustomAlertDialogResetPassword(
+                                  description:
+                                      "Kart numarası, kayıtlı kartlarınızdan farklı olmalıdır.",
+                                  onPressed: () => Navigator.of(context).pop(),
+                                ));
+                      } else {
+                        StatusCode statusCode = await sl<IyzicoCardRepository>()
+                            .addCard(
+                                cardNameController.text.toString(),
+                                nameController.text.toString(),
+                                cardNumberController.text.toString(),
+                                monthValueForInput.toString(),
+                                buildYearValue().toString());
+
+                        switch (statusCode) {
+                          case StatusCode.success:
+                            showDialog(
+                                context: context,
+                                builder: (_) => CustomAlertDialogResetPassword(
+                                      description: LocaleKeys
+                                          .registered_cards_save_alert_dialog
+                                          .locale,
+                                      onPressed: () =>
+                                          Navigator.popAndPushNamed(context,
+                                              RouteConstant.CUSTOM_SCAFFOLD),
+                                    ));
+                            break;
+                          case StatusCode.error:
+                            showDialog(
+                                context: context,
+                                builder: (_) => CustomAlertDialogResetPassword(
+                                      description: LocaleKeys
+                                          .registered_cards_error_alert_dialog
+                                          .locale,
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    ));
+                            break;
+                          case StatusCode.unauthecticated:
+                            showDialog(
+                                context: context,
+                                builder: (_) => CustomAlertDialogResetPassword(
+                                      description: LocaleKeys
+                                          .registered_cards_unauthorized_alert_dialog
+                                          .locale,
+                                      onPressed: () =>
+                                          Navigator.popAndPushNamed(context,
+                                              RouteConstant.LOGIN_VIEW),
+                                    ));
+                            break;
+                          default:
+                        }
                       }
+
+                      print(
+                          "CARD NUMBER CONTROL lastFourDigits: ${lastFourDigits}");
+                      print("CARD NUMBER CONTROL binNumber: ${binNumber}");
+                      print(
+                          "CARD NUMBER CONTROL CACHE: ${SharedPrefs.getNewCardNumber}");
                     },
                   ),
                   SizedBox(height: 29.h),
@@ -281,6 +306,58 @@ class _MyRegisteredCardsUpdateViewState
         style: AppTextStyles.myInformationBodyTextStyle,
         controller: controller,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: context.dynamicWidht(0.03), vertical: 0),
+          labelText: labelText,
+          labelStyle: AppTextStyles.bodyTextStyle,
+          // enabledBorder: InputBorder.none,
+          // focusedBorder: InputBorder.none,
+          // border: InputBorder.none,
+          enabledBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildCVVTextFormField(
+      String labelText, TextEditingController controller) {
+    return Container(
+      width: controller == cvvController ? 142.w : 372.w,
+      height: 56.h,
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.borderAndDividerColor, width: 0.4),
+        borderRadius: BorderRadius.circular(4.0),
+        color: Colors.white,
+      ),
+      child: TextFormField(
+        maxLength: 3,
+        // maxLines:
+        //     controller == cardNumberController || controller == yearController
+        //         ? context.dynamicHeight(0.11).toInt()
+        //         : context.dynamicHeight(0.06).toInt(),
+        inputFormatters: [
+          controller == nameController
+              ? FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))
+              : FilteringTextInputFormatter.singleLineFormatter,
+        ],
+        cursorColor: AppColors.cursorColor,
+        style: AppTextStyles.myInformationBodyTextStyle,
+        controller: controller,
+        decoration: InputDecoration(
+          counterText: "",
           contentPadding: EdgeInsets.symmetric(
               horizontal: context.dynamicWidht(0.03), vertical: 0),
           labelText: labelText,

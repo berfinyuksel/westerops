@@ -67,9 +67,11 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
                   child: Text("${error.message}\n${error.statusCode}"));
             }
           })
-        : Center(
-            child: LocaleText(
-            text: LocaleKeys.payment_delivery_delivery_available_time,
-          ));
+        : SizedBox();
+        //text gelecek
+    // : Center(
+    //     child: LocaleText(
+    //     text: LocaleKeys.payment_delivery_delivery_available_time,
+    //   ));
   }
 }

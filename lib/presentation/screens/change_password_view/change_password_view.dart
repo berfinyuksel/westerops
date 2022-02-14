@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/services.dart';
 
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
@@ -242,36 +243,23 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
-          context.read<UserAuthCubit>().changePassword(
-              passwordController.text, newPasswordController.text);
+          SharedPrefs.setNewPassword(newPasswordController.text);
+          SharedPrefs.setOldPassword(passwordController.text);
           if (passwordController.text.isNotEmpty &&
               newPasswordAgainController.text.isNotEmpty &&
               newPasswordController.text.isNotEmpty) {
             if (passwordController.text == newPasswordAgainController.text ||
                 passwordController.text == newPasswordController.text) {
               print("BBB");
-              showDialog(
-                context: context,
-                builder: (_) => CustomAlertDialogResetPassword(
-                  description:
-                      LocaleKeys.change_password_pop_up_same_password.locale,
-                  onPressed: () => Navigator.popAndPushNamed(
-                      context, RouteConstant.CHANGE_PASSWORD_VIEW),
-                ),
-              );
+              Navigator.popAndPushNamed(
+                  context, RouteConstant.CHANGE_PASSWORD_VERIFY);
             } else if (passwordController.text !=
                     newPasswordAgainController.text &&
                 passwordController.text != newPasswordController.text &&
                 newPasswordController.text == newPasswordAgainController.text) {
               print("AAA");
-              showDialog(
-                  context: context,
-                  builder: (_) => CustomAlertDialogResetPassword(
-                        description: LocaleKeys
-                            .change_password_popup_text_successful.locale,
-                        onPressed: () => Navigator.popAndPushNamed(
-                            context, RouteConstant.CUSTOM_SCAFFOLD),
-                      ));
+             Navigator.popAndPushNamed(
+                  context, RouteConstant.CHANGE_PASSWORD_VERIFY);
             } else {
               print("CCC");
               showDialog(

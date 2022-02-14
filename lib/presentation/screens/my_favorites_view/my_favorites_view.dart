@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,6 +62,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     super.initState();
     context.read<AllFavoriteCubit>().getFavorite();
     context.read<SearchStoreCubit>().getSearchStore();
+    sl<SampleSearchStoreRepository>().searchStores;
   }
 
   @override
@@ -99,8 +102,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     });
   }
 
-  Builder buildBody(BuildContext context, List<SearchStore> favourites,
-      GenericState state) {
+  Builder buildBody(
+      BuildContext context, List<SearchStore> favourites, GenericState state) {
     return Builder(builder: (context) {
       final GenericState stateOfFavorites =
           context.watch<AllFavoriteCubit>().state;
@@ -145,12 +148,11 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                           GoogleMap(
                             myLocationButtonEnabled: false,
                             initialCameraPosition: CameraPosition(
-                              target: LatLng(41.0082,
-                                  28.9784),
+                              target: LatLng(41.0082, 28.9784),
                               zoom: 10.0,
                             ),
                             onMapCreated: (GoogleMapController controller) {
-                          _mapController.complete(controller);
+                              _mapController.complete(controller);
                             },
                             mapType: MapType.normal,
                             markers: Set<Marker>.of(markers.values),
