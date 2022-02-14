@@ -2,6 +2,8 @@ import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/data/repositories/avg_review_repository.dart'
     as avg;
+import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_cancel_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
@@ -205,7 +207,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
             right: 28.w,
           ),
           child: Builder(builder: (context) {
-            return CustomButton(
+            return context.read<CancelOrderCubit>().state==true ||
+                    context.read<CancelCancelCubit>().state
+                ==true ? CustomButton(
                 width: double.infinity,
                 title: LocaleKeys.past_order_detail_cancel_order,
                 color: Colors.transparent,
@@ -213,6 +217,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                 textColor: AppColors.greenColor,
                 onPressed: () {
                   showDialog(
+                  
                     context: context,
                     builder: (_) => CustomAlertDialogForCancelOrder(
                         customTextController: textController,
@@ -225,6 +230,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                           Navigator.of(context).pop();
                         },
                         onPressedTwo: () async {
+                          
                           Navigator.of(context).pop();
                           StatusCode statusCode =
                               await sl<UpdateOrderRepository>().cancelOrder(
@@ -232,6 +238,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                           switch (statusCode) {
                             case StatusCode.success:
                               context.read<OrderBarCubit>().stateOfBar(false);
+                                     context
+                                      .read<CancelCancelCubit>()
+                                      .cancelCancel(false);
                               showDialog(
                                   context: context,
                                   builder: (_) => AlertDialog(
@@ -381,7 +390,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                           }
                         }),
                   );
-                });
+                }): SizedBox();
           }),
         ),
         SizedBox(

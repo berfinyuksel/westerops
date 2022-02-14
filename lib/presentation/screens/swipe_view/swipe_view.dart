@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
+import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import '../../../data/repositories/update_order_repository.dart';
 import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
@@ -177,7 +178,7 @@ class _SwipeViewState extends State<SwipeView> {
                       SizedBox(height: 10),
                       Row(
                         children: [
-                           Text(widget.orderInfo!.boxes!.isEmpty
+                          Text(widget.orderInfo!.boxes!.isEmpty
                               ? "BOS"
                               : widget.orderInfo!.boxes!.first.store!.name!),
                           Spacer(),
@@ -224,6 +225,7 @@ class _SwipeViewState extends State<SwipeView> {
                       sl<UpdateOrderRepository>()
                           .updateOrderStatus(widget.orderInfo!.id!, 6);
                       context.read<OrderBarCubit>().stateOfBar(false);
+                      context.read<CancelOrderCubit>().cancelOrder(false);
                     },
                     direction: DismissDirection.startToEnd,
                     child: Container(

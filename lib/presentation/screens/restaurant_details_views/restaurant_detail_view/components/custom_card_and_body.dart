@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
@@ -754,6 +755,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     int counterState,
     int menuItem,
   ) async {
+          context.read<CancelOrderCubit>().cancelOrder(true);
     StatusCode statusCode = await sl<BasketRepository>().addToBasket(
       "${state.response[index].id}",
       SharedPrefs.getActiveAddressId,
