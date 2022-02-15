@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
@@ -12,8 +13,7 @@ class ClarificationScrollBarListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.white,
-      height: context.dynamicHeight(0.7),
+      height: 620.h,
       child: RawScrollbar(
         thumbColor: AppColors.greenColor,
         thickness: 10,

@@ -53,15 +53,16 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
           buildLocaleTextFirst(),
           SizedBox(height: 10.h),
           buildLocaleTextSecond(context),
-          SizedBox(height: 62.h),
+          Spacer(flex: 3),
           Column(
             children: buildRadioButtons(context),
           ),
           SizedBox(height: 22.h),
           buildTextFormField(
               LocaleKeys.delete_account_hint_text.locale, textController),
-          SizedBox(height: 91.h),
+          Spacer(flex: 3),
           buildCustomButton(),
+          Spacer(flex: 1),
           // SizedBox(height: 28.h),
         ],
       ),

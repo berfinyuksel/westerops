@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../data/repositories/update_order_repository.dart';
 import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
@@ -70,8 +71,8 @@ class _SwipeViewState extends State<SwipeView> {
   Padding buildTotalAmount(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 26.w,
+        right: 26.w,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,14 +85,14 @@ class _SwipeViewState extends State<SwipeView> {
           ),
           Container(
             alignment: Alignment.center,
-            width: context.dynamicWidht(0.16),
-            height: context.dynamicHeight(0.04),
+            width: 87.w,
+            height: 36.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4.0),
               color: AppColors.scaffoldBackgroundColor,
             ),
             child: Padding(
-              padding: EdgeInsets.only(left: context.dynamicWidht(0.01)),
+              padding: EdgeInsets.only(left: 18.w),
               child: LocaleText(
                 text: widget.orderInfo!.cost.toString() + ' TL',
                 style: AppTextStyles.bodyBoldTextStyle.copyWith(
@@ -151,16 +152,17 @@ class _SwipeViewState extends State<SwipeView> {
                     borderRadius: BorderRadius.circular(4.0),
                     color: Colors.white,
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 26.w, vertical: 15.h),
                   child: Column(
                     children: [
                       Row(
                         children: [
-                          SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           LocaleText(
                             text: LocaleKeys.swipe_restaurant_name,
                             style: AppTextStyles.appBarTitleStyle.copyWith(
-                                fontSize: 15,
+                                fontSize: 17.sp,
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.orangeColor),
                           ),
@@ -168,16 +170,16 @@ class _SwipeViewState extends State<SwipeView> {
                           LocaleText(
                             text: LocaleKeys.swipe_restaurant_address,
                             style: AppTextStyles.appBarTitleStyle.copyWith(
-                                fontSize: 15,
+                                fontSize: 17.sp,
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.orangeColor),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       Row(
                         children: [
-                           Text(widget.orderInfo!.boxes!.isEmpty
+                          Text(widget.orderInfo!.boxes!.isEmpty
                               ? "BOS"
                               : widget.orderInfo!.boxes!.first.store!.name!),
                           Spacer(),
@@ -200,7 +202,7 @@ class _SwipeViewState extends State<SwipeView> {
                   height: context.dynamicHeight(0.001),
                   thickness: 1,
                 ),
-                SizedBox(height: 19),
+                SizedBox(height: 19.h),
                 buildTotalAmount(context),
                 Spacer(
                   flex: 30,
@@ -226,47 +228,50 @@ class _SwipeViewState extends State<SwipeView> {
                       context.read<OrderBarCubit>().stateOfBar(false);
                     },
                     direction: DismissDirection.startToEnd,
-                    child: Container(
-                      //curve: Curve,
-                      height: context.dynamicHeight(0.08),
-                      width: context.dynamicWidht(0.93),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        color: AppColors.greenColor,
-                        border: Border.all(
-                          width: 2.0,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 28.w),
+                      child: Container(
+                        //curve: Curve,
+                        height: 76.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0),
                           color: AppColors.greenColor,
+                          border: Border.all(
+                            width: 2.0.w,
+                            color: AppColors.greenColor,
+                          ),
                         ),
+                        child: TextButton(
+                            onPressed: null,
+                            child: Container(
+                              width: 325.w,
+                              height: 24.h,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  LocaleText(
+                                      text: LocaleKeys.swipe_swipeButton,
+                                      style: AppTextStyles.bodyTitleStyle
+                                          .copyWith(
+                                              color: AppColors.appBarColor)),
+                                  SizedBox(width: 9.w),
+                                  SvgPicture.asset(
+                                    ImageConstant.RIGHT_ICON,
+                                    height: 30.h,
+                                    color: AppColors.appBarColor,
+                                  ),
+                                  SvgPicture.asset(
+                                    ImageConstant.RIGHT_ICON,
+                                    height: 30.h,
+                                    color: AppColors.appBarColor,
+                                  ),
+                                  // Icon(Icons.keyboard_arrow_right),
+                                  // Icon(Icons.keyboard_arrow_right),
+                                ],
+                              ),
+                            )),
                       ),
-                      child: TextButton(
-                          onPressed: null,
-                          child: Container(
-                            width: context.dynamicWidht(0.9),
-                            height: context.dynamicHeight(0.07),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                LocaleText(
-                                    text: LocaleKeys.swipe_swipeButton,
-                                    style: AppTextStyles.bodyTitleStyle
-                                        .copyWith(
-                                            color: AppColors.appBarColor)),
-                                SizedBox(width: context.dynamicWidht(0.02)),
-                                SvgPicture.asset(
-                                  ImageConstant.RIGHT_ICON,
-                                  height: 19,
-                                  color: AppColors.appBarColor,
-                                ),
-                                SvgPicture.asset(
-                                  ImageConstant.RIGHT_ICON,
-                                  height: 19,
-                                  color: AppColors.appBarColor,
-                                ),
-                                // Icon(Icons.keyboard_arrow_right),
-                                // Icon(Icons.keyboard_arrow_right),
-                              ],
-                            ),
-                          )),
                     ),
                   ),
                 ),

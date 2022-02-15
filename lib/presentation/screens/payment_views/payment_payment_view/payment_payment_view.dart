@@ -9,6 +9,7 @@ import 'package:dongu_mobile/logic/cubits/iyzico_card_cubit/iyzico_card_cubit.da
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,12 +83,12 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.48),
+      height: 450.h,
       child: ListView(
         shrinkWrap: true,
         children: [
           SizedBox(
-            height: context.dynamicHeight(0.02),
+            height: 20.h,
           ),
           Visibility(
             visible: widget.isOnline!,
@@ -112,7 +113,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           child: LocaleText(
             text: LocaleKeys.payment_payment_pay_type,
             style: GoogleFonts.montserrat(
-              fontSize: 16.0,
+              fontSize: 18.0.sp,
               color: AppColors.textColor,
               fontWeight: FontWeight.w600,
             ),
@@ -171,7 +172,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
               : LocaleKeys.payment_payment_choose_card,
         ),
         SizedBox(
-          height: context.dynamicHeight(0.01),
+          height: 10.h,
         ),
         Visibility(
           visible: !payWithAnotherCard,
@@ -195,7 +196,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
                       ? buildNoCardWidget()
                       : buildCards(cards.first.cardDetails),
                   SizedBox(
-                    height: context.dynamicHeight(0.02),
+                    height: 20.h,
                   ),
                 ],
               );
@@ -220,7 +221,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
                       cardNameController,
                     ),
                     SizedBox(
-                      height: context.dynamicHeight(0.02),
+                      height: 20.h,
                     ),
                   ],
                 ),
@@ -229,20 +230,19 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
                   context,
                   LocaleKeys.payment_payment_add_to_registered_cards.locale,
                   'register'),
-              SizedBox(height: context.dynamicHeight(0.01)),
+              SizedBox(height: 10.h),
               buildRowCheckBox(
                 context,
                 LocaleKeys.payment_payment_3d_secure.locale,
                 'threeD',
               ),
-              SizedBox(height: context.dynamicHeight(0.02)),
+              SizedBox(height: 20.h),
             ],
           ),
         ),
         payWithAnotherCard
             ? Padding(
-                padding:
-                    EdgeInsets.symmetric(vertical: context.dynamicHeight(0.01)),
+                padding: EdgeInsets.symmetric(vertical: 10.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -255,13 +255,11 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
                 ),
               )
             : Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.065),
-                    vertical: context.dynamicHeight(0.02)),
+                padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 20.h),
                 child: SvgPicture.asset(ImageConstant.CARDS_COMPANY),
               ),
         SizedBox(
-          height: context.dynamicHeight(0.03),
+          height: 30.h,
         ),
         buildAnotherCardButton(context),
       ],
@@ -270,13 +268,13 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
   Padding buildRowCheckBox(BuildContext context, String text, String value) {
     return Padding(
-      padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.only(left: 28.w),
       child: Row(
         children: [
           value == 'threeD'
               ? buildCheckBoxForThreeD(context)
               : buildCheckBoxForRegister(context),
-          SizedBox(width: context.dynamicWidht(0.02)),
+          SizedBox(width: 10.w),
           Text(
             text,
             style: AppTextStyles.subTitleStyle,
@@ -302,14 +300,14 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           nameController,
         ),
         SizedBox(
-          height: context.dynamicHeight(0.02),
+          height: 20.h,
         ),
         buildTextFormField(
           LocaleKeys.payment_payment_card_number.locale,
           cardController,
         ),
         SizedBox(
-          height: context.dynamicHeight(0.02),
+          height: 20.h,
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
@@ -323,7 +321,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           ),
         ),
         SizedBox(
-          height: context.dynamicHeight(0.02),
+          height: 20.h,
         ),
       ],
     );
@@ -331,21 +329,21 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
   Container buildMonthDropDown(BuildContext context, List<String> items) {
     return Container(
-      height: context.dynamicHeight(0.06),
-      width: context.dynamicWidht(0.28),
+      height: 56.h,
+      width: 95.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: Colors.white,
         border: Border.all(
           color: AppColors.borderAndDividerColor,
-          width: 2,
+          width: 2.w,
         ),
       ),
       child: DropdownButton<String>(
         underline: SizedBox(),
         hint: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 13, 0),
+          padding: EdgeInsets.fromLTRB(15.w, 0, 13.w, 0),
           child: LocaleText(
             text: LocaleKeys.payment_payment_card_info_month,
           ),
@@ -369,21 +367,21 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
   Container buildYearDropDown(BuildContext context, List<String> items) {
     return Container(
-      height: context.dynamicHeight(0.06),
-      width: context.dynamicWidht(0.26),
+      height: 56.h,
+      width: 95.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: Colors.white,
         border: Border.all(
           color: AppColors.borderAndDividerColor,
-          width: 2,
+          width: 2.w,
         ),
       ),
       child: DropdownButton<String>(
         underline: SizedBox(),
         hint: Padding(
-          padding: const EdgeInsets.fromLTRB(19, 0, 15, 0),
+          padding: EdgeInsets.fromLTRB(19.w, 0, 15.w, 0),
           child: LocaleText(
             text: LocaleKeys.payment_payment_card_info_year,
           ),
@@ -410,7 +408,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     TextEditingController controller,
   ) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
       child: Container(
         color: Colors.white,
         child: TextFormField(
@@ -448,8 +446,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     SharedPrefs.setCVC(cvvController.text.toString());
 
     return Container(
-      height: context.dynamicHeight(0.06),
-      width: context.dynamicWidht(0.33),
+      height: 56.h,
+      width: 142.w,
       color: Colors.white,
       child: TextFormField(
         inputFormatters: [
@@ -457,12 +455,11 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           FilteringTextInputFormatter.singleLineFormatter,
         ],
         cursorColor: AppColors.cursorColor,
-        style: AppTextStyles.bodyTextStyle,
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         controller: cvvController,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-              vertical: context.dynamicHeight(0.01),
-              horizontal: context.dynamicWidht(0.03)),
+          contentPadding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 15.w),
           suffixIcon: Container(
             padding:
                 EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
@@ -471,15 +468,16 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
             ),
           ),
           hintText: "CVC/CVC2",
-          hintStyle: AppTextStyles.bodyTextStyle,
+          hintStyle:
+              AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
           enabledBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2.w),
             borderRadius: BorderRadius.circular(4.0),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+                BorderSide(color: AppColors.borderAndDividerColor, width: 2.w),
             borderRadius: BorderRadius.circular(4.0),
           ),
           border: OutlineInputBorder(
@@ -513,11 +511,11 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 40,
+                  height: 40.h,
                 ),
                 SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
                 SizedBox(
-                  height: 20,
+                  height: 20.h,
                 ),
                 LocaleText(
                   alignment: TextAlign.center,
@@ -538,8 +536,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   ) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       tileColor: Colors.white,
       title: LocaleText(
@@ -567,8 +565,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   Padding buildAnotherCardButton(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       child: CustomButton(
         width: double.infinity,
@@ -597,8 +595,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     BuildContext context,
   ) {
     return Container(
-      height: context.dynamicWidht(0.04),
-      width: context.dynamicWidht(0.04),
+      height: 26.h,
+      width: 24.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: Colors.white,
@@ -625,8 +623,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
   Container buildCheckBoxForRegister(BuildContext context) {
     return Container(
-      height: context.dynamicWidht(0.04),
-      width: context.dynamicWidht(0.04),
+      height: 26.h,
+      width: 24.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: Colors.white,
@@ -654,7 +652,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   Padding buildBodyTitle(BuildContext context, String titleLeft) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
+        left: 28.w,
       ),
       child: LocaleText(
         text: titleLeft,
@@ -669,11 +667,11 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 40,
+            height: 40.h,
           ),
           SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           Text(
             LocaleKeys.payment_payment_no_register_card.locale,

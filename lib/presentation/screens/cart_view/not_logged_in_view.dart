@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
-import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../widgets/button/custom_button.dart';
@@ -47,7 +47,7 @@ class NotLoggedInEmptyCartView extends StatelessWidget {
                 LocaleText(
                   text: LocaleKeys.cart_not_logged_in,
                   style: GoogleFonts.montserrat(
-                    fontSize: 24.0,
+                    fontSize: 24.0.sp,
                     color: AppColors.textColor,
                     fontWeight: FontWeight.w600,
                   ),
@@ -73,20 +73,20 @@ class NotLoggedInEmptyCartView extends StatelessWidget {
   Padding buildButton(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-        bottom: context.dynamicHeight(0.03),
+        left: 28.w,
+        right: 28.w,
+        bottom: 30.h,
       ),
       child: CustomButton(
-            width: double.infinity,
-            title: LocaleKeys.login_text_login,
-            color: AppColors.greenColor,
-            borderColor: AppColors.greenColor,
-            textColor: Colors.white,
-            onPressed: () {
-              Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
-            },
-          ),
+        width: double.infinity,
+        title: LocaleKeys.login_text_login,
+        color: AppColors.greenColor,
+        borderColor: AppColors.greenColor,
+        textColor: Colors.white,
+        onPressed: () {
+          Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+        },
+      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/get_notification_cu
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,7 +47,7 @@ class _SpecialForMeListTileBuilderState
         return Container();
       } else if (state is GenericLoading) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.3)),
+          padding: EdgeInsets.symmetric(vertical: 30.h),
           child: Center(child: CustomCircularProgressIndicator()),
         );
       } else if (state is GenericCompleted) {
@@ -79,21 +80,17 @@ class _SpecialForMeListTileBuilderState
           return notifications[index].isDeleted == false
               ? Container(
                   height: 101,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.065),
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 28.w),
                   decoration: BoxDecoration(color: Colors.white),
                   child: Dismissible(
                       direction: DismissDirection.endToStart,
                       background: Padding(
-                        padding:
-                            EdgeInsets.only(left: context.dynamicWidht(0.65)),
+                        padding: EdgeInsets.only(left: 28.w),
                         child: Container(
                           color: AppColors.redColor,
                           child: Padding(
                             padding: EdgeInsets.symmetric(
-                                vertical: context.dynamicHeight(0.038),
-                                horizontal: context.dynamicWidht(0.058)),
+                                vertical: 35.h, horizontal: 28.w),
                             child: LocaleText(
                               text:
                                   LocaleKeys.my_notifications_delete_text_text,
@@ -118,70 +115,70 @@ class _SpecialForMeListTileBuilderState
                               .getNotification();
                         }
                       },
-                      child: Container(
-                        padding: EdgeInsets.only(
-                          top: context.dynamicHeight(0.011),
-                        ),
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 20.h),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  //buildTitle(context, index)[index],
-                                  //buildDateTrailing(context, index)[index]
-                                  Expanded(
-                                    flex: 5,
-                                    child: Text(
-                                      notifications[index].type == 16 ||
-                                              notifications[index].type == 15 ||
-                                              notifications[index].type == 14 ||
-                                              notifications[index].type == 13 ||
-                                              notifications[index].type == 11 ||
-                                              notifications[index].type == 8
-                                          ? "🔔 ${notifications[index].description}"
-                                          : notifications[index].type == 10 ||
-                                                  notifications[index].type == 9
-                                              ? "🎉 ${notifications[index].description}"
-                                              : "🛒 ${notifications[index].description}",
-                                    ),
-                                  ),
-                                  Text(
-                                    "${notifications[index].date}",
-                                  )
-                                ],
-                              ),
-                            ),
-                            //Spacer(flex:1),
-                            Expanded(
-                              flex: 2,
-                              child: Row(
-                                children: [
-                                  buildIconsLeading(
-                                      context, index, notifications)[index],
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                      child: Text(
-                                    "${notifications[index].message}",
-                                    style: AppTextStyles.bodyTextStyle.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.textColor,
-                                        height: 1.5),
-                                    textAlign: TextAlign.start,
-                                  ))
-                                ],
-                              ),
-                            ),
+                            notificationTitleAndDate(notifications, index),
+                            notificationSubtitle(context, index, notifications),
                           ],
                         ),
                       )),
                 )
               : SizedBox();
         });
+  }
+
+  Expanded notificationSubtitle(
+      BuildContext context, int index, List<Result> notifications) {
+    return Expanded(
+      flex: 2,
+      child: Row(
+        children: [
+          buildIconsLeading(context, index, notifications)[index],
+          SizedBox(width: 10.w),
+          Expanded(
+              child: Text(
+            "${notifications[index].message}",
+            style: AppTextStyles.bodyTextStyle.copyWith(
+                fontWeight: FontWeight.bold,
+                color: AppColors.textColor,
+                height: 1.5),
+            textAlign: TextAlign.start,
+          ))
+        ],
+      ),
+    );
+  }
+
+  Expanded notificationTitleAndDate(List<Result> notifications, int index) {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 5,
+            child: Text(
+              notifications[index].type == 16 ||
+                      notifications[index].type == 15 ||
+                      notifications[index].type == 14 ||
+                      notifications[index].type == 13 ||
+                      notifications[index].type == 11 ||
+                      notifications[index].type == 8
+                  ? "🔔 ${notifications[index].description}"
+                  : notifications[index].type == 10 ||
+                          notifications[index].type == 9
+                      ? "🎉 ${notifications[index].description}"
+                      : "🛒 ${notifications[index].description}",
+            ),
+          ),
+          Text(
+            "${notifications[index].date}",
+          )
+        ],
+      ),
+    );
   }
 
   buildIconsLeading(BuildContext context, index, List<Result> notifications) {

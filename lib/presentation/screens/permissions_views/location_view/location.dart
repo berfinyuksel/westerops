@@ -6,7 +6,6 @@ import 'package:geolocator/geolocator.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/constants/route_constant.dart';
-import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/extensions/string_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
@@ -29,7 +28,7 @@ class _LocationViewState extends State<LocationView> {
       body: Center(
         child: Padding(
           padding: EdgeInsets.only(
-            bottom: context.dynamicHeight(0.06),
+            bottom: 60.h,
           ),
           child: Column(
             children: [
@@ -41,7 +40,7 @@ class _LocationViewState extends State<LocationView> {
                 flex: 6,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 35, right: 35),
+                padding: EdgeInsets.symmetric(horizontal: 35.w),
                 child: titleText(),
               ),
               Spacer(
@@ -50,7 +49,7 @@ class _LocationViewState extends State<LocationView> {
               SingleChildScrollView(
                 child: Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: context.dynamicWidht(0.06),
+                      horizontal: 28.w,
                     ),
                     child: descriptionText()),
               ),
@@ -99,7 +98,7 @@ class _LocationViewState extends State<LocationView> {
   AutoSizeText descriptionText() {
     return AutoSizeText(
       LocaleKeys.premission_location_text2.locale,
-      style: AppTextStyles.bodyBoldTextStyle.copyWith(height: 1.5),
+      style: AppTextStyles.bodyBoldTextStyle.copyWith(height: 2.5.h),
       maxLines: 3,
       textAlign: TextAlign.center,
     );
@@ -116,7 +115,7 @@ class _LocationViewState extends State<LocationView> {
 
   Padding locationImage(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 28, right: 27),
+      padding: EdgeInsets.only(left: 28.w, right: 27.w),
       child: Container(
         height: 424.h,
         child: SvgPicture.asset(

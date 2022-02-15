@@ -1,4 +1,3 @@
-import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/splash_cubit/splash_cubit.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +31,8 @@ class _SplashViewState extends State<SplashView> {
             if (state is SplashCubitInitial) {
               return SizedBox();
             } else if (state is SplashCubitLoading) {
-              
               return Container(
-                width: double.infinity, 
+                width: double.infinity,
                 child: LottieBuilder.asset(
                   ImageConstant.SPLASH_ANIMATION,
                   repeat: false,

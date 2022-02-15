@@ -6,6 +6,7 @@ import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../data/model/search_store.dart';
@@ -51,11 +52,13 @@ class _FilteredViewState extends State<FilteredView> {
       if (state is GenericInitial) {
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Container(color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
+        return Container(
+            color: Colors.white,
+            child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> restaurants = [];
         //List<double> distances = [];
-        
+
         for (int i = 0; i < state.response.length; i++) {
           restaurants.add(state.response[i]);
         }
@@ -76,92 +79,101 @@ class _FilteredViewState extends State<FilteredView> {
     List<SearchStore> restaurants,
   ) {
     return restaurants.isNotEmpty
-     ? ListView.builder(
-        itemCount: restaurants.length,
-        itemBuilder: (context, index) {
-          String? packettNumber() {
-            if (restaurants[index].calendar == null) {
-              return LocaleKeys.home_page_soldout_icon.locale;
-            } else if (restaurants[index].calendar != null) {
-              for (int i = 0; i < restaurants[index].calendar!.length; i++) {
-                var boxcount = restaurants[index].calendar![i].boxCount;
+        ? ListView.builder(
+            itemCount: restaurants.length,
+            itemBuilder: (context, index) {
+              String? packettNumber() {
+                if (restaurants[index].calendar == null) {
+                  return LocaleKeys.home_page_soldout_icon.locale;
+                } else if (restaurants[index].calendar != null) {
+                  for (int i = 0;
+                      i < restaurants[index].calendar!.length;
+                      i++) {
+                    var boxcount = restaurants[index].calendar![i].boxCount;
 
-                String now = DateTime.now().toIso8601String();
-                List<String> currentDate = now.split("T").toList();
-                print(currentDate[0]);
-                List<String> startDate = restaurants[index]
-                    .calendar![i]
-                    .startDate!
-                    .toString()
-                    .split("T")
-                    .toList();
+                    String now = DateTime.now().toIso8601String();
+                    List<String> currentDate = now.split("T").toList();
+                    print(currentDate[0]);
+                    List<String> startDate = restaurants[index]
+                        .calendar![i]
+                        .startDate!
+                        .toString()
+                        .split("T")
+                        .toList();
 
-                if (currentDate[0] == startDate[0]) {
-                  if (restaurants[index].calendar![i].boxCount != 0) {
-                    return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-                  } else if (restaurants[index].calendar![i].boxCount == null ||
-                      restaurants[index].calendar![i].boxCount == 0) {
-                    return LocaleKeys.home_page_soldout_icon;
+                    if (currentDate[0] == startDate[0]) {
+                      if (restaurants[index].calendar![i].boxCount != 0) {
+                        return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
+                      } else if (restaurants[index].calendar![i].boxCount ==
+                              null ||
+                          restaurants[index].calendar![i].boxCount == 0) {
+                        return LocaleKeys.home_page_soldout_icon;
+                      }
+                    }
                   }
                 }
               }
-            }
-          }
 
-          return GestureDetector(
-            onTap: (){
-               Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                       arguments: ScreenArgumentsRestaurantDetail(
                           restaurant: restaurants[index]));
-            },
-            child: RestaurantInfoListTile(
-              deliveryType:
-                  int.parse(restaurants[index].packageSettings!.deliveryType!),
-              icon: restaurants[index].photo,
-              restaurantName: restaurants[index].name,
-              distance: Haversine.distance(
-                      restaurants[index].latitude!,
-                      restaurants[index].longitude,
-                      LocationService.latitude,
-                      LocationService.longitude)
-                  .toString(),
-              packetNumber:
-                  packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
-              availableTime:
-                  '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
-              border: Border.all(
-                width: 1.0,
-                color: AppColors.borderAndDividerColor,
-              ),
-              minDiscountedOrderPrice:
-                  restaurants[index].packageSettings?.minDiscountedOrderPrice,
-              minOrderPrice: restaurants[index].packageSettings?.minOrderPrice,
-              onPressed: () {
-                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                    arguments: ScreenArgumentsRestaurantDetail(
-                        restaurant: restaurants[index]));
-              },
+                },
+                child: RestaurantInfoListTile(
+                  deliveryType: int.parse(
+                      restaurants[index].packageSettings!.deliveryType!),
+                  icon: restaurants[index].photo,
+                  restaurantName: restaurants[index].name,
+                  distance: Haversine.distance(
+                          restaurants[index].latitude!,
+                          restaurants[index].longitude,
+                          LocationService.latitude,
+                          LocationService.longitude)
+                      .toString(),
+                  packetNumber: packettNumber() ??
+                      LocaleKeys.home_page_soldout_icon.locale,
+                  availableTime:
+                      '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
+                  border: Border.all(
+                    width: 1.0,
+                    color: AppColors.borderAndDividerColor,
+                  ),
+                  minDiscountedOrderPrice: restaurants[index]
+                      .packageSettings
+                      ?.minDiscountedOrderPrice,
+                  minOrderPrice:
+                      restaurants[index].packageSettings?.minOrderPrice,
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, RouteConstant.RESTAURANT_DETAIL,
+                        arguments: ScreenArgumentsRestaurantDetail(
+                            restaurant: restaurants[index]));
+                  },
+                ),
+              );
+            })
+        : Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 40.h,
+                ),
+                SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 28.w),
+                  child: LocaleText(
+                    alignment: TextAlign.center,
+                    text: LocaleKeys.filters_no_restaurant_text,
+                    style: AppTextStyles.myInformationBodyTextStyle,
+                  ),
+                ),
+              ],
             ),
           );
-        })
-      : Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 40,
-                          ),
-                          SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          LocaleText(
-                            alignment: TextAlign.center,
-                            text: LocaleKeys.filters_no_restaurant_text,
-                            style: AppTextStyles.myInformationBodyTextStyle,
-                          ),
-                        ],
-                      ),
-                    )  ;
   }
 }

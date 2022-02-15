@@ -99,8 +99,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     });
   }
 
-  Builder buildBody(BuildContext context, List<SearchStore> favourites,
-      GenericState state) {
+  Builder buildBody(
+      BuildContext context, List<SearchStore> favourites, GenericState state) {
     return Builder(builder: (context) {
       final GenericState stateOfFavorites =
           context.watch<AllFavoriteCubit>().state;
@@ -145,12 +145,11 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                           GoogleMap(
                             myLocationButtonEnabled: false,
                             initialCameraPosition: CameraPosition(
-                              target: LatLng(41.0082,
-                                  28.9784),
+                              target: LatLng(41.0082, 28.9784),
                               zoom: 10.0,
                             ),
                             onMapCreated: (GoogleMapController controller) {
-                          _mapController.complete(controller);
+                              _mapController.complete(controller);
                             },
                             mapType: MapType.normal,
                             markers: Set<Marker>.of(markers.values),
@@ -408,7 +407,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   Expanded buildSearchBar(BuildContext context) {
     return Expanded(
       child: Container(
-        width: context.dynamicWidht(0.72),
+        width: 308.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.horizontal(
             right: Radius.circular(25.0),
@@ -479,9 +478,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
               },
               child: Container(
                 width: double.infinity,
-                height: context.dynamicHeight(0.176),
-                padding:
-                    EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+                height: 124.h,
+                padding: EdgeInsets.symmetric(vertical: 28.w),
                 color: Colors.white,
                 child: RestaurantInfoListTile(
                   minDiscountedOrderPrice: favourites[selectedIndex]

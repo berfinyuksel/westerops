@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
@@ -58,11 +59,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       showLoading = true;
     });
 
-    if (
-        codeController.text.isNotEmpty &&
+    if (codeController.text.isNotEmpty &&
         passwordController.text.isNotEmpty &&
-        phoneController.text.isNotEmpty ) {
-        try {
+        phoneController.text.isNotEmpty) {
+      try {
         await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
         showDialog(
             context: context,
@@ -132,9 +132,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                top: context.dynamicHeight(0.04),
-                left: context.dynamicWidht(0.06),
-                right: context.dynamicWidht(0.06),
+                top: 30.h,
+                left: 28.w,
+                right: 28.w,
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -144,8 +144,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       children: [
                         buildDropDown(context),
                         Container(
-                          height: context.dynamicHeight(0.06),
-                          width: context.dynamicWidht(0.64),
+                          height: 56.h,
+                          width: 275.w,
                           color: Colors.white,
                           child: buildTextFormField(
                               LocaleKeys.forgot_password_phone.locale,
@@ -154,7 +154,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       ],
                     ),
                     SizedBox(
-                      height: context.dynamicHeight(0.02),
+                      height: 20.h,
                     ),
                     Visibility(
                         visible: isCodeSent,
@@ -167,7 +167,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     Visibility(
                       visible: isCodeSent,
                       child: SizedBox(
-                        height: context.dynamicHeight(0.02),
+                        height: 20.h,
                       ),
                     ),
                     Visibility(
@@ -177,7 +177,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                             child: buildTextFormFieldPassword(LocaleKeys
                                 .forgot_password_new_password.locale))),
                     SizedBox(
-                      height: context.dynamicHeight(0.02),
+                      height: 20.h,
                     ),
                     CustomButton(
                       onPressed: () async {
@@ -188,12 +188,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                               PhoneAuthProvider.credential(
                                   verificationId: verificationId.toString(),
                                   smsCode: codeController.text);
-                                  signInWithPhoneAuthCredential(phoneAuthCredential);
-                         
+                          signInWithPhoneAuthCredential(phoneAuthCredential);
+
                           print(verificationId);
-                          
-                          // print("${phoneAuthCredential}");
-                          if (verificationId == null || phoneAuthCredential.smsCode == null) {
+
+                          if (verificationId == null ||
+                              phoneAuthCredential.smsCode == null) {
                             showDialog(
                               context: context,
                               builder: (_) => CustomErrorPopup(
@@ -277,7 +277,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       textColor: Colors.white,
                     ),
                     SizedBox(
-                      height: context.dynamicHeight(0.02),
+                      height: 20.h,
                     ),
                     buildVisibilitySendAgainCode,
                   ],
@@ -371,15 +371,15 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   Container buildDropDown(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.06),
-      width: context.dynamicWidht(0.19),
+      height: 56.h,
+      width: 81.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4.0),
         border: Border.all(
           color: AppColors.borderAndDividerColor,
-          width: 2,
+          width: 2.w,
         ),
       ),
       child: DropdownButton<String>(
@@ -460,12 +460,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         enabledBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2.w),
           borderRadius: BorderRadius.circular(4.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2.w),
           borderRadius: BorderRadius.circular(4.0),
         ),
         border: OutlineInputBorder(
@@ -505,12 +505,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w700),
         enabledBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2.w),
           borderRadius: BorderRadius.circular(4.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2.w),
           borderRadius: BorderRadius.circular(4.0),
         ),
         border: OutlineInputBorder(

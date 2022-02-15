@@ -9,6 +9,7 @@ import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -104,12 +105,12 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
           );
         } else
           return Container(
-            height: context.dynamicHeight(0.57),
+            height: 530.h,
             child: ListView(
               physics: NeverScrollableScrollPhysics(),
               children: [
                 SizedBox(
-                  height: context.dynamicHeight(0.04),
+                  height: 40.h,
                 ),
                 buildRowTitleLeftRight(
                     context,
@@ -121,7 +122,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                         : LocaleKeys.payment_address_change,
                     deliveredRestaurant),
                 SizedBox(
-                  height: context.dynamicHeight(0.01),
+                  height: 10.h,
                 ),
                 Visibility(
                   visible: widget.isGetIt!,
@@ -209,12 +210,12 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                           "\n${activeAddressState.response[0].address}\n${activeAddressState.response[0].phoneNumber}\n${activeAddressState.response[0].description}",
                     ),
                     SizedBox(
-                      height: context.dynamicHeight(0.02),
+                      height: 20.h,
                     ),
                     buildButtonDeliveryAndBillingAddress(
                         context, LocaleKeys.payment_address_button_add_address),
                     SizedBox(
-                      height: context.dynamicHeight(0.02),
+                      height: 20.h,
                     ),
                     // buildRowCheckBox(context),
                   ]),
@@ -251,7 +252,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
         if (error.statusCode == 204.toString()) {
           return Column(
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
               LocaleText(
                 text: LocaleKeys.payment_address_active_address,
               ),
@@ -267,11 +268,11 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
 
   Padding buildRowCheckBox(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.only(left: 28.w),
       child: Row(
         children: [
           buildCheckBox(context),
-          SizedBox(width: context.dynamicWidht(0.02)),
+          SizedBox(width: 20.h),
           LocaleText(
             text: LocaleKeys.payment_address_use_as_billing,
             style: AppTextStyles.subTitleStyle,
@@ -285,8 +286,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
       String titleRight, List<SearchStore> deliveredRestaurant) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -311,7 +312,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             child: LocaleText(
               text: titleRight,
               style: GoogleFonts.montserrat(
-                fontSize: 12.0,
+                fontSize: 14.0.sp,
                 color: AppColors.orangeColor,
                 fontWeight: FontWeight.w600,
               ),
@@ -326,8 +327,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
       BuildContext context, String title) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       child: CustomButton(
         width: double.infinity,
@@ -344,8 +345,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
 
   Container buildCheckBox(BuildContext context) {
     return Container(
-      height: context.dynamicWidht(0.04),
-      width: context.dynamicWidht(0.04),
+      height: 40.h,
+      width: 40.w,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4.0),
@@ -385,9 +386,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             bottom: 0,
             child: Container(
               width: double.infinity,
-              height: context.dynamicHeight(0.176),
-              padding:
-                  EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+              height: 176.h,
+              padding: EdgeInsets.symmetric(vertical: 20.h),
               color: Colors.white,
               child: RestaurantInfoListTile(
                 minDiscountedOrderPrice: deliveredRestaurant

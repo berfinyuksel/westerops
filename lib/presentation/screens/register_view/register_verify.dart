@@ -6,7 +6,6 @@ import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
@@ -14,10 +13,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'components/error_popup.dart';
 
 class RegisterVerify extends StatefulWidget {
   const RegisterVerify({Key? key}) : super(key: key);
@@ -90,79 +88,70 @@ class _RegisterVerifyState extends State<RegisterVerify> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
+        leading: IconButton(
           icon: SvgPicture.asset(ImageConstant.BACK_ICON),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: context.dynamicWidht(0.4)),
+            padding: EdgeInsets.only(right: 170.w),
             child: SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: context.dynamicHeight(0.02),
-          bottom: context.dynamicHeight(0.04),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Spacer(flex: 10),
-            buildText(context),
-            Spacer(flex: 4),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(22.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-            textFieldOtp(
-                        first: true,
-                        last: false,
-                        otpController: codeController1),
-                    textFieldOtp(
-                        first: false,
-                        last: false,
-                        otpController: codeController2),
-                    textFieldOtp(
-                        first: false,
-                        last: false,
-                        otpController: codeController3),
-                    textFieldOtp(
-                        first: false,
-                        last: false,
-                        otpController: codeController4),
-                    textFieldOtp(
-                        first: false,
-                        last: false,
-                        otpController: codeController5),
-                    textFieldOtp(
-                        first: false,
-                        last: true,
-                        otpController: codeController6),
-                  ],
-                ),
+      body: Column(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Spacer(flex: 5),
+          buildText(context),
+          Spacer(flex: 4),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.w),
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  textFieldOtp(
+                      first: true, last: false, otpController: codeController1),
+                  textFieldOtp(
+                      first: false,
+                      last: false,
+                      otpController: codeController2),
+                  textFieldOtp(
+                      first: false,
+                      last: false,
+                      otpController: codeController3),
+                  textFieldOtp(
+                      first: false,
+                      last: false,
+                      otpController: codeController4),
+                  textFieldOtp(
+                      first: false,
+                      last: false,
+                      otpController: codeController5),
+                  textFieldOtp(
+                      first: false, last: true, otpController: codeController6),
+                ],
               ),
             ),
-            Spacer(flex: 2),
-            buildButton(context),
-            Spacer(flex: 5),
-            buildBottomTextAndIcon(context),
-            Spacer(flex: 100),
-          ],
-        ),
+          ),
+          Spacer(flex: 2),
+          Center(child: buildButton(context)),
+          Spacer(flex: 3),
+          Center(child: buildBottomTextAndIcon(context)),
+          Spacer(flex: 40),
+        ],
       ),
     );
   }
 
-  textFieldOtp({required bool first, required bool last,
+  textFieldOtp(
+      {required bool first,
+      required bool last,
       required TextEditingController otpController}) {
     return Container(
-      height: 55,
-      width: 55,
+      height: 70.h,
+      width: 55.w,
       child: AspectRatio(
         aspectRatio: 0.5,
         child: TextField(
@@ -186,21 +175,21 @@ class _RegisterVerifyState extends State<RegisterVerify> {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                width: 2,
+                width: 2.w,
                 color: Colors.black12,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                width: 2,
+                width: 2.w,
                 color: AppColors.greenColor,
               ),
             ),
           ),
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 24,
+            fontSize: 24.sp,
           ),
         ),
       ),
@@ -217,25 +206,29 @@ class _RegisterVerifyState extends State<RegisterVerify> {
     String lastTwoDigits = lastTwoDigitList.join("");
     print(lastTwoDigits);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: Column(
         children: [
-          LocaleText(
-            text: LocaleKeys.sms_verify_text_1,
-            style: GoogleFonts.montserrat(
-              fontSize: 18.0,
-              color: AppColors.orangeColor,
-              fontWeight: FontWeight.w600,
+          Center(
+            child: LocaleText(
+              text: LocaleKeys.sms_verify_text_1,
+              style: GoogleFonts.montserrat(
+                fontSize: 18.0.sp,
+                color: AppColors.orangeColor,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
-          SizedBox(height: context.dynamicHeight(0.05)),
-          Text.rich(
-            TextSpan(children: [
-              TextSpan(text: "***" + lastTwoDigits),
-              TextSpan(
-                text: LocaleKeys.sms_verify_text_2.locale,
-              ),
-            ]),
+          SizedBox(height: 37.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.w),
+            child: Text.rich(
+              TextSpan(children: [
+                TextSpan(text: "***" + lastTwoDigits),
+                TextSpan(
+                  text: LocaleKeys.sms_verify_text_2.locale,
+                ),
+              ]),
+            ),
           ),
         ],
       ),
@@ -244,15 +237,14 @@ class _RegisterVerifyState extends State<RegisterVerify> {
 
   Padding buildButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.only(left: 28.w, right: 28.w),
       child: CustomButton(
-        width: double.infinity,
+        width: 372.w,
         title: LocaleKeys.sms_verify_button,
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
-        onPressed: () async{
+        onPressed: () async {
           // if (verificationId == null) {
           //     showDialog(
           //     context: context,
@@ -272,7 +264,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
           if (verificationId!.isNotEmpty && userPhoneNumber!.isNotEmpty) {
             print(verificationId!);
             print(userPhoneNumber!);
-                  final AuthCredential credential = PhoneAuthProvider.credential(
+            final AuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationId!,
               smsCode: codeController1.text +
                   codeController2.text +
@@ -281,9 +273,9 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                   codeController5.text +
                   codeController6.text,
             );
-              try {
-             await FirebaseAuth.instance.signInWithCredential(credential);
-             context.read<UserAuthCubit>().registerUser(
+            try {
+              await FirebaseAuth.instance.signInWithCredential(credential);
+              context.read<UserAuthCubit>().registerUser(
                   SharedPrefs.getUserName,
                   SharedPrefs.getUserLastName,
                   SharedPrefs.getUserEmail,
@@ -299,7 +291,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                       ));
               //                     SharedPrefs.setUserPhone(phoneController.text);
               // SharedPrefs.setUserEmail(mailController.text);
-                                      
+
             } on FirebaseAuthException catch (e) {
               if (e.code == 'invalid-verification-code') {
                 showDialog(
@@ -323,10 +315,8 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                         onPressed: () => Navigator.pop(context),
                       ));
             }
-
-            
           } else {
-              showDialog(
+            showDialog(
                 context: context,
                 builder: (_) => CustomAlertDialogResetPassword(
                       description: LocaleKeys.forgot_password_fail_changed,
@@ -367,26 +357,23 @@ class _RegisterVerifyState extends State<RegisterVerify> {
             codeAutoRetrievalTimeout: (verificationId) async {});
       },
       child: Container(
-        height: context.dynamicHeight(0.053),
-        width: context.dynamicWidht(0.91),
-        child: Padding(
-          padding: EdgeInsets.only(left: context.dynamicWidht(0.30)),
-          child: Row(
-            children: [
-              SvgPicture.asset(
-                ImageConstant.SMS_OTP_VERIFY_RESEND_CODE_ICON,
+        height: 25.h,
+        width: 180.w,
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              ImageConstant.SMS_OTP_VERIFY_RESEND_CODE_ICON,
+            ),
+            SizedBox(width: 8.w),
+            LocaleText(
+              text: LocaleKeys.sms_verify_text_3,
+              style: GoogleFonts.montserrat(
+                fontSize: 14.0.sp,
+                color: AppColors.textColor,
               ),
-              SizedBox(width: context.dynamicWidht(0.011)),
-              LocaleText(
-                text: LocaleKeys.sms_verify_text_3,
-                style: GoogleFonts.montserrat(
-                  fontSize: 14.0,
-                  color: AppColors.textColor,
-                ),
-                alignment: TextAlign.center,
-              ),
-            ],
-          ),
+              alignment: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
