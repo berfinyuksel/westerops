@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -165,6 +166,7 @@ class CustomDrawer extends StatelessWidget {
         borderColor: AppColors.greenColor,
         textColor: AppColors.greenColor,
         onPressed: () {
+          context.read<OrderBarCubit>().stateOfBar(false);
           context.read<OrderCubit>().clearBasket();
 
           SharedPrefs.setSumPrice(0);

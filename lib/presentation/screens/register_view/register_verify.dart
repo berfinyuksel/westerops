@@ -1,8 +1,11 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
+import 'package:dongu_mobile/presentation/screens/register_view/components/error_alert_dialog.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
@@ -90,11 +93,10 @@ class _RegisterVerifyState extends State<RegisterVerify> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
+        leading: IconButton(
           icon: SvgPicture.asset(ImageConstant.BACK_ICON),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        
         actions: [
           Padding(
             padding: EdgeInsets.only(right: context.dynamicWidht(0.4)),
@@ -119,7 +121,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-            textFieldOtp(
+                    textFieldOtp(
                         first: true,
                         last: false,
                         otpController: codeController1),
@@ -158,7 +160,9 @@ class _RegisterVerifyState extends State<RegisterVerify> {
     );
   }
 
-  textFieldOtp({required bool first, required bool last,
+  textFieldOtp(
+      {required bool first,
+      required bool last,
       required TextEditingController otpController}) {
     return Container(
       height: 55,
@@ -252,27 +256,11 @@ class _RegisterVerifyState extends State<RegisterVerify> {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
-        onPressed: () async{
-          // if (verificationId == null) {
-          //     showDialog(
-          //     context: context,
-          //     builder: (_) => CustomErrorPopup(
-          //       textMessage:
-          //           "Telefon numarası veya SMS kodu hatalı. \nLütfen tekrar deneyiniz",
-          //       buttonOneTitle: "Tamam",
-          //       buttonTwoTittle: LocaleKeys.address_address_approval,
-          //       imagePath: ImageConstant.COMMONS_WARNING_ICON,
-          //       onPressedOne: () {
-          //           Navigator.popAndPushNamed(
-          //             context, RouteConstant.REGISTER_VIEW);
-          //       },
-          //     ),
-          //   );
-          // }
+        onPressed: () async {
           if (verificationId!.isNotEmpty && userPhoneNumber!.isNotEmpty) {
             print(verificationId!);
             print(userPhoneNumber!);
-                  final AuthCredential credential = PhoneAuthProvider.credential(
+            final AuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationId!,
               smsCode: codeController1.text +
                   codeController2.text +
@@ -281,25 +269,26 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                   codeController5.text +
                   codeController6.text,
             );
-              try {
-             await FirebaseAuth.instance.signInWithCredential(credential);
-             context.read<UserAuthCubit>().registerUser(
+            try {
+              await FirebaseAuth.instance.signInWithCredential(credential);
+              context.read<UserAuthCubit>().registerUser(
                   SharedPrefs.getUserName,
                   SharedPrefs.getUserLastName,
                   SharedPrefs.getUserEmail,
                   SharedPrefs.getUserPhone,
                   SharedPrefs.getUserPassword);
-              showDialog(
-                  context: context,
-                  builder: (_) => CustomAlertDialogResetPassword(
-                        description:
-                            "Başarılı bir şekilde Döngü'ye üye oldunuz.",
-                        onPressed: () => Navigator.popAndPushNamed(
-                            context, RouteConstant.CUSTOM_SCAFFOLD),
-                      ));
+              _showMyDialog();
+              // showDialog(
+              //     context: context,
+              //     builder: (_) => CustomAlertDialogResetPassword(
+              //           description:
+              //               "Başarılı bir şekilde Döngü'ye üye oldunuz.",
+              //           onPressed: () => Navigator.popAndPushNamed(
+              //               context, RouteConstant.CUSTOM_SCAFFOLD),
+              //         ));
               //                     SharedPrefs.setUserPhone(phoneController.text);
               // SharedPrefs.setUserEmail(mailController.text);
-                                      
+
             } on FirebaseAuthException catch (e) {
               if (e.code == 'invalid-verification-code') {
                 showDialog(
@@ -323,10 +312,8 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                         onPressed: () => Navigator.pop(context),
                       ));
             }
-
-            
           } else {
-              showDialog(
+            showDialog(
                 context: context,
                 builder: (_) => CustomAlertDialogResetPassword(
                       description: LocaleKeys.forgot_password_fail_changed,
@@ -389,6 +376,30 @@ class _RegisterVerifyState extends State<RegisterVerify> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        final GenericState state = context.watch<UserAuthCubit>().state;
+        if (state is GenericInitial) {
+          return Center(child: Container(child: CustomCircularProgressIndicator()));
+        } else if (state is GenericLoading) {
+          return Center(
+              child: Container(child: CustomCircularProgressIndicator()));
+        } else if (state is GenericCompleted) {
+          return CustomAlertDialogResetPassword(
+            description: "Başarılı bir şekilde Döngü'ye üye oldunuz.",
+            onPressed: () => Navigator.popAndPushNamed(
+                context, RouteConstant.CUSTOM_SCAFFOLD),
+          );
+        } else {
+          return ErrorAlertDialog(onTap: () {});
+        }
+      },
     );
   }
 }
