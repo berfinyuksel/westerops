@@ -12,6 +12,7 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
   final bool oldPrice;
   final bool? lineTrough;
   final bool? withDecimal;
+  final double? oldPriceValue;
 
   const PastOrderDetailPaymentListTile({
     Key? key,
@@ -20,6 +21,7 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
     this.oldPrice = false,
     @required this.lineTrough,
     this.withDecimal,
+    this.oldPriceValue,
   }) : super(key: key);
 
   @override
@@ -35,18 +37,16 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
         height: context.dynamicHeight(0.04),
         child: Row(
           children: [
-           oldPrice ? Builder(
-                  builder: (context) {
-                final state = context.watch<SumOldPriceOrderCubit>().state;
+            oldPrice
+                ? Builder(builder: (context) {
                     return Text(
-                        '${withDecimal! ? state.toDouble().toStringAsFixed(2) : state.toDouble().toStringAsFixed(0)} TL',
-                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            color: AppColors.unSelectedpackageDeliveryColor),
-                      );
-                  }
-                ) : Spacer()
-                ,
+                      '${withDecimal! ? oldPriceValue?.toStringAsFixed(2) : oldPriceValue?.toStringAsFixed(0)} TL',
+                      style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                          decoration: TextDecoration.lineThrough,
+                          color: AppColors.unSelectedpackageDeliveryColor),
+                    );
+                  })
+                : Spacer(),
             SizedBox(width: context.dynamicWidht(0.02)),
             Container(
               alignment: Alignment.center,
