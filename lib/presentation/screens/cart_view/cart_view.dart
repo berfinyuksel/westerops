@@ -51,6 +51,23 @@ class _CartViewState extends State<CartView> {
     return buildBuilder();
   }
 
+  double totalPayPrice() {
+    double totalPrice = 0;
+    for (var item in itemList) {
+      totalPrice =
+          totalPrice + item.packageSetting!.minDiscountedOrderPrice!.toDouble();
+    }
+    return totalPrice;
+  }
+
+  double totalBasketPrice() {
+    double totalPrice = 0;
+    for (var item in itemList) {
+      totalPrice = totalPrice + item.packageSetting!.minOrderPrice!.toDouble();
+    }
+    return totalPrice;
+  }
+
   Builder buildBuilder() {
     return Builder(builder: (context) {
       final GenericState state = context.watch<OrderCubit>().state;
@@ -62,6 +79,7 @@ class _CartViewState extends State<CartView> {
         for (int i = 0; i < state.response.length; i++) {
           itemList.add(state.response[i]);
         }
+        totalPayPrice();
         if (itemList.length == 0) {
           return Builder(builder: (context) {
             print('askndaksdkas');
@@ -218,8 +236,9 @@ class _CartViewState extends State<CartView> {
 
                 return PastOrderDetailPaymentListTile(
                   oldPrice: true,
+                  oldPriceValue: totalBasketPrice(),
                   title: LocaleKeys.past_order_detail_payment_1,
-                  price: state.toDouble(),
+                  price: totalPayPrice(),
                   lineTrough: false,
                   withDecimal: false,
                 );
@@ -229,7 +248,7 @@ class _CartViewState extends State<CartView> {
 
                 return PastOrderDetailTotalPaymentListTile(
                   title: LocaleKeys.past_order_detail_payment_4,
-                  price: (state.toDouble()),
+                  price: totalPayPrice(),
                   withDecimal: true,
                 );
               }),
