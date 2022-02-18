@@ -387,6 +387,7 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   }
 
   Future<void> getLocationDetails() async {
-    placemark = await placemarkFromCoordinates(latitude, longitude);
+    placemark = await placemarkFromCoordinates(latitude, longitude,
+        localeIdentifier: 'tr_TR');
   }
 }
