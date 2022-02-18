@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/filtered_view/not_filtered_view.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
@@ -49,13 +50,12 @@ class _FilteredViewState extends State<FilteredView> {
       //final FiltersState filterState = context.watch<FiltersCubit>().state;
 
       if (state is GenericInitial) {
-        return Container(color: Colors.white);
+        return NotFilteredView();
       } else if (state is GenericLoading) {
         return Container(color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> restaurants = [];
         //List<double> distances = [];
-        
         for (int i = 0; i < state.response.length; i++) {
           restaurants.add(state.response[i]);
         }

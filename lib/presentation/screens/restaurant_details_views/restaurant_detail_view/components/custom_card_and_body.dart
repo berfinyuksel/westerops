@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
+import 'package:dongu_mobile/logic/cubits/swipe_route_cubit.dart/swipe_route_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
@@ -731,6 +732,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         width: context.dynamicWidht(0.26),
                         borderColor: AppColors.greenColor,
                         onPressed: () async {
+                          context
+                              .read<SwipeRouteButton>()
+                              .swipeRouteButton(true);
                           print(menuItem);
                           await pressedBuyButton(
                               state, index, context, counterState, menuItem);

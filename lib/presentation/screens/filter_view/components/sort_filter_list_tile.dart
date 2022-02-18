@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/filters_cubit/favorites_filter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,13 +22,11 @@ class SortFilterList extends StatefulWidget {
 
 class _SortFilterListState extends State<SortFilterList> {
   // List<bool> checkList = [false,false,false];
-  @override
-  void initState() {
-    super.initState();
-  }
+  bool isShowFavorite = false;
 
   @override
   Widget build(BuildContext context) {
+    //Favorites are tied to the right place. Others depend on the category.
     return Builder(builder: (context) {
       final FiltersState state = context.watch<FiltersCubit>().state;
 
@@ -38,16 +37,21 @@ class _SortFilterListState extends State<SortFilterList> {
               children: [
                 SizedBox(height: context.dynamicHeight(0.01)),
                 buildRowCheckboxAndText(
-                    context, LocaleKeys.filters_sort_item1, "7",
-                    () {
+                    context, LocaleKeys.filters_sort_item1, "7", () {
                   setState(() {
                     state.checkList![0] = !state.checkList![0];
                   });
                 }),
                 SizedBox(height: context.dynamicHeight(0.016)),
-                buildRowCheckboxAndText(
+                buildFilterFavoritesCheckboxAndText(
                     context, LocaleKeys.filters_sort_item2, "6", () {
+
                   setState(() {
+                  context.read<FilterFavorites>().filterFavorites(isShowFavorite);
+
+                    isShowFavorite = !isShowFavorite;
+                    print(
+                        "FILTER FAVORITES STATE: ${context.read<FilterFavorites>().state}");
                     state.checkList![1] = !state.checkList![1];
                   });
                 }),
@@ -88,23 +92,35 @@ class _SortFilterListState extends State<SortFilterList> {
     );
   }
 
+  Row buildFilterFavoritesCheckboxAndText(BuildContext context, String text,
+      String checkValue, VoidCallback onPressed) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        buildFilterFavoritesCheckbox(context, checkValue),
+        Spacer(flex: 2),
+        GestureDetector(
+            onTap: onPressed,
+            child: LocaleText(text: text, style: AppTextStyles.bodyTextStyle)),
+        Spacer(flex: 35),
+      ],
+    );
+  }
+
   Builder buildCheckBox(BuildContext context, String checkValue) {
     return Builder(builder: (context) {
       final FiltersState state = context.watch<FiltersCubit>().state;
 
       return CustomCheckbox(
-        
         onTap: () {
-
           setState(() {
-                      context.read<FiltersManagerCubit>().getPackageCategory(checkValue);
+            context.read<FiltersManagerCubit>().getPackageCategory(checkValue);
             if (checkValue == "7") {
               state.checkList![0] = !state.checkList![0];
-        SharedPrefs.setSortByDistance(state.checkList![0]);
-
+              SharedPrefs.setSortByDistance(state.checkList![0]);
             } else if (checkValue == "6") {
               state.checkList![1] = !state.checkList![1];
-        SharedPrefs.setMyFavorites(checkValue);
+              SharedPrefs.setMyFavorites(checkValue);
 
               // if (state.checkList![1] = true) {
               // context.watch<FavoriteCubit>().getFavorite();
@@ -112,7 +128,6 @@ class _SortFilterListState extends State<SortFilterList> {
             } else if (checkValue == "2") {
               state.checkList![2] = !state.checkList![2];
               SharedPrefs.setUserRating(checkValue);
-
             } else {
               state.checkList![3] = !state.checkList![3];
               SharedPrefs.setNewUser(checkValue);
@@ -136,6 +151,35 @@ class _SortFilterListState extends State<SortFilterList> {
                         : Colors.white,
       );
     });
+  }
+
+  CustomCheckbox buildFilterFavoritesCheckbox(
+      BuildContext context, String checkValue) {
+        final FiltersState state = context.watch<FiltersCubit>().state;
+    return CustomCheckbox(
+      onTap: () {
+        // final FiltersState state = context.watch<FiltersCubit>().state;
+        setState(() {
+          // context.read<FiltersManagerCubit>().getPackageCategory(checkValue);
+          context.read<FilterFavorites>().filterFavorites(isShowFavorite);
+          if (checkValue == "6") {
+            isShowFavorite = !isShowFavorite;
+state.checkList![1] = !state.checkList![1];
+            SharedPrefs.setMyFavorites(checkValue);
+
+            // if (state.checkList![1] = true) {
+            // context.watch<FavoriteCubit>().getFavorite();
+            // }
+          }
+        });
+      },
+      checkboxColor: checkValue == "6"
+          ? state.checkList![1] &&  isShowFavorite 
+              ? AppColors.greenColor
+              : Colors.white
+          : Colors.white,
+          
+    );
   }
 }
 

@@ -208,9 +208,8 @@ class _RegisterViewState extends State<RegisterView> {
                 width: context.dynamicWidht(0.4),
                 title: LocaleKeys.register_text_register,
                 textColor: Colors.white,
-                color: checkboxValue
-                    ? AppColors.greenColor
-                    : AppColors.disabledButtonColor,
+                color:  AppColors.greenColor
+                    ,
                 borderColor: checkboxValue
                     ? AppColors.greenColor
                     : AppColors.disabledButtonColor,

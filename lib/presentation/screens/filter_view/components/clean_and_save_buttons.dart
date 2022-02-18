@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/logic/cubits/filters_cubit/clean_button_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/filters_cubit/favorites_filter_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/filtered_view/not_filtered_view.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +9,9 @@ import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../widgets/button/custom_button.dart';
 import '../../filtered_view/filtered_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'favorites_view.dart';
 
 class CleanAndSaveButtons extends StatefulWidget {
   final VoidCallback? onPressed;
@@ -40,16 +45,28 @@ class _CleanAndSaveButtonsState extends State<CleanAndSaveButtons> {
             color: AppColors.greenColor,
             borderColor: AppColors.greenColor,
             onPressed: () {
+              
               SharedPrefs.getSortByDistance;
-              if (SharedPrefs.getIsLogined ==false) {
-                  Navigator.push(context,
+              if (SharedPrefs.getIsLogined == false) {
+                Navigator.push(context,
                     MaterialPageRoute(builder: (context) => NotFilteredView()));
-              } 
-              else {
+              } else if (context.read<CleanButton>().state == false) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NotFilteredView()));
+              } else {
+                if (context.read<FilterFavorites>().state == false) {
+                  print(
+                      "FILTER FAVORITES STATE1: ${context.read<FilterFavorites>().state}");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FilterFavoritesView()));
+                } else {
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FilteredView()));
+                      MaterialPageRoute(builder: (context) => FilteredView()));
+                }
               }
-            
+
               //   Navigator.pushNamed(context, RouteConstant.REGISTER_VIEW);
             },
           ),

@@ -1,4 +1,6 @@
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
+import 'package:dongu_mobile/logic/cubits/swipe_route_cubit.dart/swipe_route_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../../../../utils/constants/route_constant.dart';
@@ -40,13 +42,14 @@ class _AddressAndDateListTileState extends State<AddressAndDateListTile> {
               widget.orderStatus == 1,
           child: GestureDetector(
             onTap: () {
+
               Navigator.of(context).pushNamed(RouteConstant.SWIPE_VIEW,
                   arguments: ScreenArgumentsRestaurantDetail(
                     orderInfo: widget.orderInfo,
                   ));
             },
-            child: SvgPicture.asset(ImageConstant.PAST_ORDER_DETAIL_ICON_ARROW,
-                fit: BoxFit.fitWidth),
+            child: context.read<SwipeRouteButton>().state ? SvgPicture.asset(ImageConstant.PAST_ORDER_DETAIL_ICON_ARROW,
+                fit: BoxFit.fitWidth) : SizedBox(),
           ),
         ),
         tileColor: Colors.white,
