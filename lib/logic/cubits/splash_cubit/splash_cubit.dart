@@ -21,13 +21,13 @@ class SplashCubit extends Cubit<SplashCubitState> {
     //await
     try {
       print('hello init calisti');
-      emit(SplashCubitInitial());
+      emit(SplashCubitLoading());
       await basketCounter(context);
       await notificationsCounter(context);
       await addFavorite(context);
       await stateOfBar(context);
       await sumOldNewPrice(context);
-      emit(SplashCubitLoading());
+      
       navigateToScreens(context);
       print("SPLASH try");
     } catch (e) {
