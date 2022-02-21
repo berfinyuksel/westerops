@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert' as convert;
+import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,8 +36,7 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   String searchedText = "";
   bool isSearchesShown = true;
 
-  Completer<GoogleMapController> _mapController =
-      Completer<GoogleMapController>();
+  Completer<GoogleMapController> _mapController = Completer<GoogleMapController>();
 
   Map<MarkerId, Marker> markers = Map<MarkerId, Marker>();
   BitmapDescriptor? markerIcon;
@@ -94,8 +94,7 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
                           });
                         },
                         initialCameraPosition: CameraPosition(
-                          target: LatLng(LocationService.latitude,
-                              LocationService.latitude),
+                          target: LatLng(LocationService.latitude, LocationService.latitude),
                           zoom: 17.0,
                         ),
                         onMapCreated: (GoogleMapController controller) {
@@ -106,14 +105,12 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
                       ),
                       GestureDetector(
                           onTap: () async {
-                            final GoogleMapController controller =
-                                await _mapController.future;
+                            final GoogleMapController controller = await _mapController.future;
                             setState(() {
                               latitude = LocationService.latitude;
                               longitude = LocationService.longitude;
 
-                              controller
-                                  .animateCamera(CameraUpdate.newCameraPosition(
+                              controller.animateCamera(CameraUpdate.newCameraPosition(
                                 CameraPosition(
                                   target: LatLng(latitude, longitude),
                                   zoom: 17.0,
@@ -130,8 +127,7 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
                               markers[markerId] = marker;
                             });
                           },
-                          child: SvgPicture.asset(
-                              ImageConstant.COMMONS_MY_LOCATION_BUTTON)),
+                          child: SvgPicture.asset(ImageConstant.COMMONS_MY_LOCATION_BUTTON)),
                     ],
                   ),
                 ),
@@ -178,8 +174,7 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
     });
   }
 
-  GestureDetector buildGestureDetector(
-      GenericCompleted state, int index, BuildContext context) {
+  GestureDetector buildGestureDetector(GenericCompleted state, int index, BuildContext context) {
     return GestureDetector(
       onTap: () async {
         Place place = await getPlace(state.response[index].placeId);
@@ -303,9 +298,11 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
         textColor: Colors.white,
         onPressed: () async {
           await getLocationDetails();
-          String address =
-              "${placemark[1].street}, ${placemark[1].thoroughfare}, ${placemark[1].subThoroughfare}, ${placemark[1].postalCode} ${placemark[1].subAdministrativeArea}, ${placemark[1].administrativeArea}";
-          String district = "${placemark[1].subAdministrativeArea}";
+          print(placemark.map((e) => e));
+          String address = Platform.isAndroid
+              ? "${placemark[1].street}, ${placemark[1].thoroughfare}, ${placemark[1].subThoroughfare}, ${placemark[1].postalCode} ${placemark[1].subAdministrativeArea}, ${placemark[1].administrativeArea}"
+              : "${placemark[0].name}, ${placemark[0].subLocality}, ${placemark[0].locality}, ${placemark[0].administrativeArea} ${placemark[0].postalCode}, ${placemark[0].country}";
+          String district = "${placemark[0].subAdministrativeArea}";
 
           showDialog(
               context: context,
@@ -321,8 +318,7 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   Future<Place> getPlace(String placeId) async {
     final key = "AIzaSyDlcgkT0cnXnxEg36EVpWzRv2ZZTPiXmzs";
 
-    var url =
-        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key';
+    var url = 'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key';
     var response = await http.get(Uri.parse(url));
     var json = convert.jsonDecode(response.body);
     var jsonResult = json['result'] as Map<String, dynamic>;
@@ -330,24 +326,20 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   }
 
   void setCustomMarker() async {
-    markerIcon =
-        await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
+    markerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
     getLocation();
   }
 
-  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
-      String assetName) async {
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(String assetName) async {
     // Read SVG file as String
-    String svgString =
-        await DefaultAssetBundle.of(context).loadString(assetName);
+    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
     // Create DrawableRoot from SVG String
     DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
 
     // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
     MediaQueryData queryData = MediaQuery.of(context);
     double devicePixelRatio = queryData.devicePixelRatio;
-    double width =
-        64 * devicePixelRatio; // where 32 is your SVG's original width
+    double width = 64 * devicePixelRatio; // where 32 is your SVG's original width
     double height = 64 * devicePixelRatio; // same thing
 
     // Convert to ui.Picture
@@ -387,7 +379,6 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   }
 
   Future<void> getLocationDetails() async {
-    placemark = await placemarkFromCoordinates(latitude, longitude,
-        localeIdentifier: 'tr_TR');
+    placemark = await placemarkFromCoordinates(latitude, longitude, localeIdentifier: 'tr_TR');
   }
 }
