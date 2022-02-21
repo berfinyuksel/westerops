@@ -2,6 +2,7 @@ import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/cu
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../data/model/box_order.dart';
@@ -109,26 +110,26 @@ class _CartViewState extends State<CartView> {
     return Column(
       children: [
         Container(
-          height: context.dynamicHeight(0.66),
+          height: 620.h,
           child: ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
+            padding: EdgeInsets.only(top: 20.h),
             children: [
               PastOrderDetailBodyTitle(
                 title: LocaleKeys.past_order_detail_body_title_1,
               ),
               SizedBox(
-                height: context.dynamicHeight(0.01),
+                height: 10.h,
               ),
               buildRestaurantListTile(context, state, itemList),
               SizedBox(
-                height: context.dynamicHeight(0.04),
+                height: 40.h,
               ),
               PastOrderDetailBodyTitle(
                 title: LocaleKeys.past_order_detail_body_title_3,
               ),
               SizedBox(
-                height: context.dynamicHeight(0.01),
+                height: 10.h,
               ),
               ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
@@ -154,8 +155,7 @@ class _CartViewState extends State<CartView> {
                         background: Container(
                           color: AppColors.redColor,
                           alignment: Alignment.centerRight,
-                          padding: EdgeInsets.only(
-                              right: context.dynamicWidht(0.06)),
+                          padding: EdgeInsets.only(right: 50.w),
                           child: LocaleText(
                             text: LocaleKeys.my_notifications_delete_text_text,
                             style: AppTextStyles.bodyTextStyle.copyWith(
@@ -223,13 +223,13 @@ class _CartViewState extends State<CartView> {
                     });
                   }),
               SizedBox(
-                height: context.dynamicHeight(0.04),
+                height: 40.h,
               ),
               PastOrderDetailBodyTitle(
                 title: LocaleKeys.past_order_detail_body_title_4,
               ),
               SizedBox(
-                height: context.dynamicHeight(0.01),
+                height: 10.h,
               ),
               Builder(builder: (context) {
                 final state = context.watch<SumPriceOrderCubit>().state;
@@ -253,12 +253,10 @@ class _CartViewState extends State<CartView> {
                 );
               }),
               SizedBox(
-                height: context.dynamicHeight(0.02),
+                height: 20.h,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: context.dynamicWidht(0.065),
-                    vertical: context.dynamicHeight(0.02)),
+                padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 20.h),
                 child: SvgPicture.asset(ImageConstant.CARDS_COMPANY),
               ),
             ],
@@ -273,9 +271,9 @@ class _CartViewState extends State<CartView> {
   Padding buildButton(BuildContext context, List<BoxOrder> itemList) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-        bottom: context.dynamicHeight(0.03),
+        left: 28.w,
+        right: 28.w,
+        bottom: 30.h,
       ),
       child: CustomButton(
         width: double.infinity,
@@ -354,8 +352,8 @@ class _CartViewState extends State<CartView> {
             });
           } else
             return SizedBox(
-              height: 0,
-              width: 0,
+              height: 0.h,
+              width: 0.w,
             );
         });
   }

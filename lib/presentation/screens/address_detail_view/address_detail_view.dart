@@ -4,6 +4,7 @@ import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../data/services/location_service.dart';
 import '../../../logic/cubits/address_cubit/address_cubit.dart';
@@ -56,13 +57,14 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         title: widget.title,
         body: Padding(
           padding: EdgeInsets.only(
-              left: context.dynamicWidht(0.06),
-              right: context.dynamicWidht(0.06),
-              top: context.dynamicHeight(0.02),
-              bottom: context.dynamicHeight(0.03)),
+            left: 28.w,
+            right: 28.w,
+            top: 20.h,
+            bottom: 30.h,
+          ),
           child: SingleChildScrollView(
             child: Container(
-              height: context.dynamicHeight(0.7),
+              height: 660.h,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -261,8 +263,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
     return Container(
       height:
           controller == descriptionController || controller == addressController
-              ? context.dynamicHeight(0.11)
-              : context.dynamicHeight(0.06),
+              ? 100.h
+              : 56.h,
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.borderAndDividerColor, width: 2),
         borderRadius: BorderRadius.circular(4.0),
@@ -298,8 +300,9 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         decoration: InputDecoration(
           // isDense: true,
           contentPadding: EdgeInsets.symmetric(
-              horizontal: context.dynamicWidht(0.05),
-              vertical: context.dynamicHeight(0.01)),
+            horizontal: 20.w,
+            vertical: 10.h,
+          ),
           labelText: labelText,
           labelStyle: AppTextStyles.bodyTextStyle,
           // enabledBorder: InputBorder.none,

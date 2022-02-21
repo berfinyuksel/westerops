@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
@@ -29,11 +28,12 @@ class _AgreementKvkkViewState extends State<AgreementKvkkView> {
           children: [
             LocaleText(
               text: "Kullanıcı Sözleşmesi",
-              style: AppTextStyles.headlineStyle.copyWith(fontSize: 20),
+              style: AppTextStyles.headlineStyle.copyWith(fontSize: 20.sp),
               alignment: TextAlign.center,
             ),
-            SizedBox(height: 37.h),
+            Spacer(flex: 5),
             AgreementScrollBarListView(),
+            Spacer(flex: 5),
             /* Row(
               children: [
                 buildCheckBox(context),

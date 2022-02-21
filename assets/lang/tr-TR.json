@@ -484,13 +484,13 @@
         "title": "Adresini Düzenle"
     },
     "premission_notification": {
-        "text1": "Döngü’nün sana bildirim göndermesine izin ver.",
+        "text1": "Döngü’nün sana bildirim göndermesine izin ver",
         "text2": "Yeni lezzetlerden ve mevcut kampanyalardan seni haberdar edebilmemiz için Döngü bildirim ayarlarını aktif hale getirmen yeterli.",
         "button1": "İzin Ver",
         "button2": "Şimdilik Geç"
     },
     "premission_location": {
-        "text1": "Konum servislerini aç.",
+        "text1": "Konum servislerini aç",
         "text2": "Yakınındaki Döngü işletmelerinin sunduğu lezzetleri görebilmen için mevcut konumunu bilmeye ihtiyacımız var.",
         "button1": "Etkinleştir",
         "button2": "Şimdilik Geç"

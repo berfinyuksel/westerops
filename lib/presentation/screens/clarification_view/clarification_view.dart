@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
@@ -28,7 +29,7 @@ class _ClarificationViewState extends State<ClarificationView> {
           children: [
             LocaleText(
               text: "KVKK ve Aydınlatma Metni",
-              style: AppTextStyles.headlineStyle.copyWith(fontSize: 20),
+              style: AppTextStyles.headlineStyle.copyWith(fontSize: 20.sp),
               alignment: TextAlign.center,
             ),
             Spacer(flex: 5),

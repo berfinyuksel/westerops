@@ -1,10 +1,10 @@
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
-import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
@@ -66,16 +66,17 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                     borderRadius: BorderRadius.circular(4.0),
                     color: Colors.white,
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                   child: Column(
                     children: [
                       Row(
                         children: [
-                          SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           LocaleText(
                             text: LocaleKeys.was_delivered_restaurant_name,
                             style: AppTextStyles.appBarTitleStyle.copyWith(
-                                fontSize: 15,
+                                fontSize: 17.sp,
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.orangeColor),
                           ),
@@ -83,13 +84,13 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                           LocaleText(
                             text: LocaleKeys.was_delivered_restaurant_address,
                             style: AppTextStyles.appBarTitleStyle.copyWith(
-                                fontSize: 15,
+                                fontSize: 17.sp,
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.orangeColor),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       Row(
                         children: [
                           Text(widget.orderInfo!.boxes!.first.store!.name!),
@@ -101,7 +102,7 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                   ),
                 ),
                 Container(
-                  height: context.dynamicHeight(0.3),
+                  height: 300.h,
                   child: SvgPicture.asset(ImageConstant.ORDER_DELIVERED_ICON),
                 ),
                 LocaleText(
@@ -125,19 +126,22 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                   flex: 3,
                 ),
 
-                CustomButton(
-                  title: LocaleKeys.was_delivered_button,
-                  textColor: Colors.white,
-                  width: context.dynamicWidht(0.86),
-                  color: AppColors.greenColor,
-                  borderColor: AppColors.greenColor,
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
-                            arguments: ScreenArgumentsRestaurantDetail(
-                              orderInfo: widget.orderInfo,
-                            ));
-                  },
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 28.w),
+                  child: CustomButton(
+                    title: LocaleKeys.was_delivered_button,
+                    textColor: Colors.white,
+                    width: double.infinity,
+                    color: AppColors.greenColor,
+                    borderColor: AppColors.greenColor,
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
+                              arguments: ScreenArgumentsRestaurantDetail(
+                                orderInfo: widget.orderInfo,
+                              ));
+                    },
+                  ),
                 ),
                 Spacer(
                   flex: 4,

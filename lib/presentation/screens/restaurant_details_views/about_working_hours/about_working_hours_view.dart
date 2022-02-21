@@ -2,9 +2,9 @@ import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../data/model/search_store.dart';
 import '../../../../logic/cubits/time_interval_cubit/time_interval_cubit.dart';
-import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/scaffold/custom_scaffold.dart';
 import '../../../widgets/text/locale_text.dart';
@@ -30,7 +30,7 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
     return CustomScaffold(
       title: LocaleKeys.restaurant_detail_working_hours_title,
       body: Padding(
-        padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
+        padding: EdgeInsets.only(top: 20.h),
         child: Column(
           children: [
             Expanded(
@@ -59,7 +59,7 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
 
           return Container(
             padding: EdgeInsets.symmetric(
-              horizontal: context.dynamicWidht(0.06),
+              horizontal: 26.w,
             ),
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
@@ -78,7 +78,7 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
               trailing: Column(
                 children: [
                   SizedBox(
-                    height: context.dynamicHeight(0.03),
+                    height: 30.h,
                   ),
                   LocaleText(
                     text: buildHourForTheDate(startOfRes, endOfRes),

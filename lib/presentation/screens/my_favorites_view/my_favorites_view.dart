@@ -410,7 +410,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   Expanded buildSearchBar(BuildContext context) {
     return Expanded(
       child: Container(
-        width: context.dynamicWidht(0.72),
+        width: 308.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.horizontal(
             right: Radius.circular(25.0),
@@ -481,9 +481,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
               },
               child: Container(
                 width: double.infinity,
-                height: context.dynamicHeight(0.176),
-                padding:
-                    EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+                height: 124.h,
+                padding: EdgeInsets.symmetric(vertical: 28.w),
                 color: Colors.white,
                 child: RestaurantInfoListTile(
                   minDiscountedOrderPrice: favourites[selectedIndex]

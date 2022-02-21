@@ -92,7 +92,7 @@ class NotificationView extends StatelessWidget {
   AutoSizeText descriptionText() {
     return AutoSizeText(
       LocaleKeys.premission_notification_text2.locale,
-      style: AppTextStyles.bodyBoldTextStyle.copyWith(height: 1.5),
+      style: AppTextStyles.bodyBoldTextStyle.copyWith(height: 2.5.h),
       maxLines: 4,
       textAlign: TextAlign.center,
     );
@@ -109,10 +109,7 @@ class NotificationView extends StatelessWidget {
 
   Padding notificationImage(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        right: 28.w,
-        left: 28.w,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
       child:
           Container(child: SvgPicture.asset(ImageConstant.NOTIFICATION_IMAGE)),
     );

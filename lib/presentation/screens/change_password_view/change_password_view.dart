@@ -1,5 +1,6 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../forgot_password_view/components/popup_reset_password.dart';
@@ -48,8 +49,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                top: context.dynamicHeight(0.02),
-                bottom: context.dynamicHeight(0.02),
+                top: 20.h,
+                bottom: 20.h,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,7 +82,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       child: Column(
         children: [
           SizedBox(
-            height: context.dynamicHeight(0.01),
+            height: 10.h,
           ),
           buildTextFormFieldPassword(
               LocaleKeys.change_password_current_password.locale,
@@ -115,13 +116,12 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           ? enableObscureOldPass
           : enableObscureNewAgainPass,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
-        suffixIconConstraints: BoxConstraints.tightFor(
-            width: context.dynamicWidht(0.12),
-            height: context.dynamicWidht(0.06)),
+        contentPadding: EdgeInsets.only(left: 28.w),
+        suffixIconConstraints:
+            BoxConstraints.tightFor(width: 50.w, height: 60.h),
         suffixIcon: Padding(
           padding: EdgeInsets.only(
-            right: context.dynamicWidht(0.06),
+            right: 25.w,
           ),
           child: GestureDetector(
             onTap: () {
@@ -188,14 +188,14 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       controller: newPasswordController,
       obscureText: enableObscureNewPass,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+        contentPadding: EdgeInsets.only(left: 28.w),
         suffixIconConstraints: BoxConstraints.tightFor(
-          width: context.dynamicWidht(0.12),
-          height: context.dynamicWidht(0.06),
+          width: 50.w,
+          height: 60.h,
         ),
         suffixIcon: Padding(
           padding: EdgeInsets.only(
-            right: context.dynamicWidht(0.06),
+            right: 25.w,
           ),
           child: GestureDetector(
             onTap: () {
@@ -234,8 +234,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
 
   Padding buildButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
       child: CustomButton(
         width: double.infinity,
         title: LocaleKeys.change_password_button,

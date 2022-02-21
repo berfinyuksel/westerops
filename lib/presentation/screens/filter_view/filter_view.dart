@@ -1,9 +1,9 @@
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../logic/cubits/filters_cubit/filters_cubit.dart';
-import '../../../utils/extensions/context_extension.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import 'components/choose_category_filter_list_tile.dart';
 import 'components/clean_and_save_buttons.dart';
@@ -26,25 +26,25 @@ class _FilterViewState extends State<FilterView> {
         title: LocaleKeys.filters_title,
         isNavBar: true,
         body: Padding(
-          padding: EdgeInsets.only(top: context.dynamicHeight(0.025)),
+          padding: EdgeInsets.only(top: 20.h),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Container(
-                  height: context.dynamicHeight(0.75),
+                  height: 700.h,
                   child: ListView(
                     children: [
                       SortFilterList(),
                       Divider(
-                        height: context.dynamicHeight(0.001),
+                        height: 0.1.h,
                       ),
                       PackagePriceFilterList(),
                       Divider(
-                        height: context.dynamicHeight(0.001),
+                        height: 0.1.h,
                       ),
                       PackageDeliveryFilterList(),
                       Divider(
-                        height: context.dynamicHeight(0.001),
+                        height: 0.1.h,
                       ),
                       ChooseCategoryFilterList(),
                       // SizedBox(

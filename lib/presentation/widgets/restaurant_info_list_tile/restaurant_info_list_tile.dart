@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../utils/constants/image_constant.dart';
@@ -49,24 +50,22 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
     return Container(
       decoration: BoxDecoration(color: Colors.white, border: widget.border),
       padding: EdgeInsets.fromLTRB(
-        12,
-        context.dynamicHeight(0.02),
-        0,
-        context.dynamicHeight(0.02),
+        26.w,
+        20.h,
+        0.w,
+        20.h,
       ),
-      height: context.dynamicHeight(0.13),
+      height: 124.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           buildFirstColumn(context, widget.packetNumber!, widget.icon!),
-          SizedBox(
-            width: 5,
-          ),
+          Spacer(flex: 1),
           buildSecondColumn(context, widget.restaurantName!),
-          // Spacer(flex: 6),
+          // Spacer(flex: 4),
           buildThirdColumn(context, widget.distance!, widget.availableTime!),
-          Spacer(flex: 2),
+          Spacer(flex: 1),
           GestureDetector(
               onTap: widget.onPressed,
               child: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON)),
@@ -86,8 +85,8 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
         ),
         Spacer(flex: 1),
         AvailableTime(
-          width: context.dynamicWidht(0.25),
-          height: context.dynamicHeight(0.026),
+          width: 97.w,
+          height: 24.h,
           time: availableTime,
         ),
         Spacer(flex: 1),
@@ -96,7 +95,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
           minDiscountedOrderPrice: widget.minDiscountedOrderPrice,
           textStyle: AppTextStyles.subTitleBoldStyle,
           width: context.dynamicWidht(0.11),
-          height: context.dynamicHeight(0.026),
+          height: 24.h,
         ),
       ],
     );
@@ -120,7 +119,8 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: context.dynamicWidht(0.3),
+          color: Colors.white,
+          width: 140.w,
           child: Text(
             restaurantName,
             style: AppTextStyles.bodyBoldTextStyle,
@@ -135,21 +135,21 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
             Visibility(
               visible: deliveryTypeForCourier,
               child: PackageDelivery(
-                width: context.dynamicWidht(0.1),
-                height: context.dynamicHeight(0.03),
+                width: 40.w,
+                height: 30.h,
                 image: ImageConstant.COMMONS_CARRIER_ICON,
                 color: Colors.white,
                 backgroundColor: AppColors.greenColor,
               ),
             ),
             SizedBox(
-              width: 3,
+              width: 4.w,
             ),
             Visibility(
               visible: deliveryTypeForGetIt,
               child: PackageDelivery(
-                width: context.dynamicWidht(0.1),
-                height: context.dynamicHeight(0.03),
+                width: 40.w,
+                height: 30.h,
                 image: ImageConstant.RESTAURANT_PACKAGE_ICON,
                 color: Colors.white,
                 backgroundColor: AppColors.greenColor,
@@ -172,8 +172,8 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
         Spacer(flex: 1),
         PacketNumber(
           text: packetNumber,
-          width: context.dynamicWidht(0.175),
-          height: context.dynamicHeight(0.03),
+          width: 75.w,
+          height: 28.h,
         ),
       ],
     );

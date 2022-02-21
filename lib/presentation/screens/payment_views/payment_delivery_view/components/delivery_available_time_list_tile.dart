@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../data/model/search_store.dart';
 import '../../../../../data/model/store_courier_hours.dart';
@@ -6,8 +7,6 @@ import '../../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../utils/extensions/context_extension.dart';
 import '../../../../../utils/locale_keys.g.dart';
 import '../../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../../widgets/text/locale_text.dart';
@@ -46,14 +45,14 @@ class DeliveryAvailableTimeListTile extends StatelessWidget {
               }
               return ListTile(
                 contentPadding: EdgeInsets.only(
-                  left: context.dynamicWidht(0.06),
-                  right: context.dynamicWidht(0.06),
+                  left: 28.w,
+                  right: 28.w,
                 ),
                 trailing: DeliveryAvailableTime(
                   time:
                       "${chosenRestaurant[0].packageSettings!.deliveryTimeStart}-${chosenRestaurant[0].packageSettings!.deliveryTimeEnd}",
-                  height: context.dynamicHeight(0.05),
-                  width: context.dynamicWidht(0.35),
+                  height: 48.h,
+                  width: 151.w,
                 ),
                 tileColor: Colors.white,
                 title: LocaleText(

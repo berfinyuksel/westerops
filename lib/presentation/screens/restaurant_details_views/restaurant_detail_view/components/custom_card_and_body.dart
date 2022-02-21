@@ -4,6 +4,7 @@ import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/cu
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -134,9 +135,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Container customCard(BuildContext context, GenericState state) {
     return Container(
-      //0.86 372.0 & 0.23 214
-      width: context.dynamicWidht(0.86),
-      height: context.dynamicHeight(0.3),
+      width: 372.w,
+      height: 280.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(18.0),
@@ -168,7 +168,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 restaurantTitleAndAddressColumn(),
                 Spacer(flex: 2),
                 Padding(
-                  padding: EdgeInsets.only(top: context.dynamicHeight(0.014)),
+                  padding: EdgeInsets.only(top: 10.h),
                   child: restaurantStarIconRating(),
                 ),
                 Spacer(flex: 1),
@@ -223,16 +223,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     return Column(
       children: [
         SizedBox(
-          height: context.dynamicHeight(0.02),
+          height: 20.h,
         ),
         Container(
           color: AppColors.appBarColor,
-          width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.1),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+          width: double.infinity,
+          height: 100.h,
+          padding: EdgeInsets.symmetric(horizontal: 28.w),
           child: ListTile(
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding: EdgeInsets.only(bottom: 7.h),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title1,
               style: AppTextStyles.subTitleStyle,
@@ -246,13 +245,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         Container(
           color: AppColors.appBarColor,
-          width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.085),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+          width: double.infinity,
+          height: 100.h,
+          padding: EdgeInsets.symmetric(horizontal: 28.w),
           child: ListTile(
             isThreeLine: true,
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding: EdgeInsets.only(bottom: 7.h),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title2,
               style: AppTextStyles.subTitleStyle,
@@ -278,13 +276,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           },
           child: Container(
             color: AppColors.appBarColor,
-            width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.10),
-            padding:
-                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+            width: double.infinity,
+            height: 100.h,
+            padding: EdgeInsets.symmetric(horizontal: 28.w),
             child: ListTile(
-              contentPadding:
-                  EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+              contentPadding: EdgeInsets.only(bottom: 7.h),
               title: LocaleText(
                 text: LocaleKeys.restaurant_detail_detail_tab_title3,
                 style: AppTextStyles.subTitleStyle,
@@ -299,14 +295,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         Container(
           color: AppColors.appBarColor,
-          width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.087),
-          padding:
-              EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+          width: double.infinity,
+          height: 100.h,
+          padding: EdgeInsets.symmetric(horizontal: 28.w),
           child: ListTile(
             // isThreeLine: true,
-            contentPadding:
-                EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+            contentPadding: EdgeInsets.only(bottom: 7.h),
             title: LocaleText(
               text: LocaleKeys.restaurant_detail_detail_tab_title4,
               style: AppTextStyles.subTitleStyle,
@@ -327,13 +321,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           },
           child: Container(
             color: AppColors.appBarColor,
-            width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.1),
-            padding:
-                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+            width: double.infinity,
+            height: 100.h,
+            padding: EdgeInsets.symmetric(horizontal: 28.w),
             child: ListTile(
-              contentPadding:
-                  EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+              contentPadding: EdgeInsets.only(bottom: 7.h),
               title: LocaleText(
                 text: LocaleKeys.restaurant_detail_detail_tab_title5,
                 style: AppTextStyles.subTitleStyle,
@@ -387,13 +379,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           },
           child: Container(
             color: AppColors.appBarColor,
-            width: context.dynamicWidht(1),
-            height: context.dynamicHeight(0.1),
-            padding:
-                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.065)),
+            width: double.infinity,
+            height: 100.h,
+            padding: EdgeInsets.symmetric(horizontal: 28.w),
             child: ListTile(
-              contentPadding:
-                  EdgeInsets.only(bottom: context.dynamicHeight(0.028)),
+              contentPadding: EdgeInsets.only(bottom: 7.h),
               title: LocaleText(
                 text: LocaleKeys.restaurant_detail_detail_tab_title6,
                 style: AppTextStyles.subTitleStyle,
@@ -429,17 +419,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     }
 
     return Column(
-      // physics: NeverScrollableScrollPhysics(),
-      // shrinkWrap: true,
       children: [
         SizedBox(
-          height: context.dynamicHeight(0.02),
+          height: 20.h,
         ),
         Column(
           children: [
-            SizedBox(height: context.dynamicHeight(0.021)),
+            SizedBox(height: 20.h),
             Padding(
-              padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
+              padding: EdgeInsets.only(left: 28.w),
               child: Column(
                 children: [
                   restaurantInfoIconAndSubTitle(context),
@@ -452,7 +440,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ),
           ],
         ),
-        SizedBox(height: context.dynamicHeight(0.02)),
+        SizedBox(height: 20.h),
         Visibility(
             visible: surpriseBoxes.isEmpty,
             child: Center(
@@ -461,20 +449,18 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               ),
             )),
         ListView.builder(
-          itemCount: surpriseBoxes
-              .length, //widget.restaurant!.boxes!.length,//state.response.lenght
+          itemCount: surpriseBoxes.length,
           itemBuilder: (context, index) {
             return buildBox(context, index, state, surpriseBoxes);
           },
           physics: NeverScrollableScrollPhysics(),
-          //   primary: false,
           shrinkWrap: true,
         ),
         SizedBox(
-          height: context.dynamicHeight(0.04),
+          height: 40.h,
         ),
         Padding(
-          padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+          padding: EdgeInsets.only(left: 28.w),
           child: Column(
             children: [
               Row(
@@ -492,7 +478,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ],
           ),
         ),
-        SizedBox(height: context.dynamicHeight(0.02)),
+        SizedBox(height: 20.h),
         Visibility(
             visible: definedBoxess.isEmpty,
             child: Center(
@@ -520,7 +506,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           style: AppTextStyles.bodyTitleStyle,
         ),
         SizedBox(
-          width: context.dynamicWidht(0.01),
+          width: 10.w,
         ),
         GestureDetector(
             onTap: () {
@@ -562,14 +548,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 ),
               ],
             ),
-            LocaleText(
-              text: "07:00:20",
-            ),
             CustomButton(
               title: LocaleKeys.restaurant_detail_button_text,
               color: AppColors.greenColor,
               textColor: AppColors.appBarColor,
-              width: context.dynamicWidht(0.28),
+              width: 110.w,
               borderColor: AppColors.greenColor,
               onPressed: () {},
             )
@@ -594,19 +577,18 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       children: [
         Container(
           //alignment: Alignment(-0.8, 0.0),
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-          width: context.dynamicWidht(1),
-          height: context.dynamicHeight(0.15),
+          padding: EdgeInsets.symmetric(horizontal: 28.w),
+          width: double.infinity,
+          height: 140.h,
           color: Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: context.dynamicHeight(0.021),
+                    height: 20.h,
                   ),
                   Text(
                     "${surpriseBoxes[index].textName}",
@@ -617,7 +599,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         surpriseBoxes[index].defined == false ? "" : mealNames,
                     style: AppTextStyles.subTitleStyle,
                   ),
-                  SizedBox(height: context.dynamicHeight(0.020)),
+                  SizedBox(height: 20.h),
                   Builder(builder: (context) {
                     final GenericState stateOfSearchStore =
                         context.watch<SearchStoreCubit>().state;
@@ -647,15 +629,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            width: context.dynamicWidht(0.16),
-                            height: context.dynamicHeight(0.04),
+                            width: 69.w,
+                            height: 36.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4.0),
                               color: Colors.white,
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(
-                                  left: context.dynamicWidht(0.01)),
+                              padding: EdgeInsets.only(left: 5.w),
                               child: Text(
                                 chosenRestaurat[0]
                                         .packageSettings!
@@ -670,19 +651,18 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                             ),
                           ),
                           SizedBox(
-                            width: context.dynamicWidht(0.04),
+                            width: 15.w,
                           ),
                           Container(
                             alignment: Alignment.center,
-                            width: context.dynamicWidht(0.16),
-                            height: context.dynamicHeight(0.04),
+                            width: 69.w,
+                            height: 36.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4.0),
                               color: AppColors.scaffoldBackgroundColor,
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(
-                                  left: context.dynamicWidht(0.01)),
+                              padding: EdgeInsets.only(left: 5.w),
                               child: Text(
                                 chosenRestaurat[0]
                                         .packageSettings!
@@ -707,7 +687,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               ),
               Padding(
                 //buy box
-                padding: EdgeInsets.only(top: context.dynamicHeight(0.042)),
+                padding: EdgeInsets.only(top: 40.h),
                 child: Builder(
                   builder: (context) {
                     SharedPrefs.setSumPrice(
@@ -728,7 +708,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                         textColor: menuList!.contains(menuItem.toString())
                             ? AppColors.greenColor
                             : Colors.white,
-                        width: context.dynamicWidht(0.26),
+                        width: 110.w,
                         borderColor: AppColors.greenColor,
                         onPressed: () async {
                           print(menuItem);
@@ -743,7 +723,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ],
           ),
         ),
-        SizedBox(height: 5),
+        SizedBox(height: 5.h),
       ],
     );
   }
@@ -799,7 +779,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   ImageConstant.SURPRISE_PACK,
                   height: context.dynamicHeight(0.134),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 LocaleText(
                   text: LocaleKeys.restaurant_detail_alert_dialog_text_1,
                   style: AppTextStyles.bodyBoldTextStyle,
@@ -912,10 +892,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         unselectedLabelColor: AppColors.textColor,
         unselectedLabelStyle: GoogleFonts.montserrat(
           decoration: TextDecoration.none,
-          fontSize: 16.0,
+          fontSize: 18.0.sp,
           color: AppColors.textColor,
           fontWeight: FontWeight.w300,
-          height: 1.5,
+          height: 2.5.h,
         ),
         indicatorColor: AppColors.orangeColor,
         controller: _controller,
@@ -948,7 +928,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           style: AppTextStyles.subTitleStyle,
         ),
         SizedBox(
-          width: context.dynamicWidht(0.02),
+          width: 10.w,
         ),
         CustomCircularProgress(
           valueColor: AppColors.cursorColor,
@@ -979,7 +959,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           style: AppTextStyles.subTitleStyle,
         ),
         SizedBox(
-          width: context.dynamicWidht(0.02),
+          width: 10.w,
         ),
         CustomCircularProgress(
           valueColor: AppColors.pinkColor,
@@ -1011,7 +991,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           style: AppTextStyles.subTitleStyle,
         ),
         SizedBox(
-          width: context.dynamicWidht(0.02),
+          width: 10.w,
         ),
         CustomCircularProgress(
           value: servicePoints.isNotEmpty
@@ -1057,8 +1037,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       return state.response.length != 0
           ? Container(
               alignment: Alignment(0.0, -0.11),
-              width: context.dynamicWidht(0.23),
-              height: context.dynamicHeight(0.04),
+              width: 85.w,
+              height: 36.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
                 color: AppColors.orangeColor,
@@ -1072,8 +1052,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             )
           : Container(
               alignment: Alignment(0.0, -0.11),
-              width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.04),
+              width: 85.w,
+              height: 36.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
                 color: AppColors.yellowColor,
@@ -1093,8 +1073,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Container clockContainer(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.30),
-      height: context.dynamicHeight(0.04),
+      width: 125.w,
+      height: 36.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: AppColors.scaffoldBackgroundColor,
@@ -1121,7 +1101,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         Container(
           child: SvgPicture.asset(ImageConstant.RESTAURANT_STAR_ICON),
         ),
-        SizedBox(width: context.dynamicWidht(0.02)),
+        SizedBox(width: 10.w),
         Text(
           widget.restaurant!.avgReview!.toStringAsFixed(1),
           style: AppTextStyles.bodyTextStyle,
@@ -1136,7 +1116,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: context.dynamicWidht(0.4),
+          width: 180.w,
           child: Text(
             widget.restaurant!.name!,
             style: AppTextStyles.appBarTitleStyle
@@ -1161,7 +1141,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           borderRadius: BorderRadius.circular(4.0),
           color: Colors.white,
           border: Border.all(
-            width: 2.0,
+            width: 2.0.w,
             color: AppColors.borderAndDividerColor,
           ),
         ),
@@ -1179,8 +1159,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     context.read<AllFavoriteCubit>().getFavorite();
 
     return Container(
-      width: context.dynamicWidht(1),
-      height: context.dynamicHeight(0.065),
+      width: double.infinity,
+      height: 65.h,
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1188,8 +1168,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           Row(
             children: [
               Container(
-                width: context.dynamicWidht(0.12),
-                height: context.dynamicHeight(0.039),
+                width: 51.w,
+                height: 36.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                   color: widget.restaurant!.packageSettings!.deliveryType ==
@@ -1213,11 +1193,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 ),
               ),
               SizedBox(
-                width: context.dynamicWidht(0.02),
+                width: 7.w,
               ),
               Container(
-                width: context.dynamicWidht(0.12),
-                height: context.dynamicHeight(0.039),
+                width: 51.w,
+                height: 36.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                   color: widget.restaurant!.packageSettings!.deliveryType ==
@@ -1258,7 +1238,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     style: AppTextStyles.bodyTextStyle,
                   ),
                   SizedBox(
-                    width: context.dynamicWidht(0.02),
+                    width: 8.w,
                   ),
                   SvgPicture.asset(
                     ImageConstant.RESTAURANT_FAVORITE_ICON,
@@ -1285,7 +1265,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     style: AppTextStyles.bodyTextStyle,
                   ),
                   SizedBox(
-                    width: context.dynamicWidht(0.02),
+                    width: 8.w,
                   ),
                   GestureDetector(
                     onTap: () {

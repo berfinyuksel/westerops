@@ -588,7 +588,7 @@ class _HomePageViewState extends State<HomePageView> {
           child: LocaleText(
             text: titleRight,
             style: GoogleFonts.montserrat(
-              fontSize: 12.0,
+              fontSize: 14.0.sp,
               color: AppColors.orangeColor,
               fontWeight: FontWeight.w600,
               height: 2.0.h,

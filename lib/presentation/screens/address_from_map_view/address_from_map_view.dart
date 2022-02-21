@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -139,16 +140,15 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
                 Positioned(
                   right: 0,
                   left: 0,
-                  top: context.dynamicHeight(0.07),
+                  top: 85.h,
                   child: buildBuilder(),
                 )
               ],
             ),
             // Spacer(),
-            SizedBox(
-              height: context.dynamicHeight(0.02),
-            ),
+            Spacer(flex: 3),
             buildButton(context),
+            Spacer(flex: 1),
           ],
         ),
       ),
@@ -207,10 +207,10 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+        padding: EdgeInsets.symmetric(horizontal: 25.w),
         alignment: Alignment.centerLeft,
         color: Colors.white,
-        height: 50,
+        height: 60.h,
         width: double.infinity,
         child: Text(
           state.response[index].description,
@@ -223,8 +223,8 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   Padding buildSearchBar(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       child: buildTextFormField(context),
     );
@@ -258,7 +258,7 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
         style: AppTextStyles.bodyTextStyle,
         decoration: InputDecoration(
           prefixIcon: Container(
-            margin: EdgeInsets.only(right: context.dynamicWidht(0.03)),
+            margin: EdgeInsets.only(right: 15.w),
             child: SvgPicture.asset(
               ImageConstant.COMMONS_SEARCH_ICON,
             ),
@@ -291,9 +291,9 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
   Padding buildButton(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-        bottom: context.dynamicHeight(0.03),
+        left: 28.w,
+        right: 28.w,
+        bottom: 30.h,
       ),
       child: CustomButton(
         width: double.infinity,

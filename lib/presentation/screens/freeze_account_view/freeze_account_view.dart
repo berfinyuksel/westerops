@@ -53,15 +53,16 @@ class _FreezeAccountViewState extends State<FreezeAccountView> {
           buildLocaleTextFirst(),
           SizedBox(height: 10.h),
           buildLocaleTextSecond(context),
-          SizedBox(height: 62.h),
+          Spacer(flex: 3),
           Column(
             children: buildRadioButtons(context),
           ),
           SizedBox(height: 22.h),
           buildTextFormField(
               LocaleKeys.freeze_account_hint_text.locale, textController),
-          SizedBox(height: 91.h),
-          buildCustomButton()
+          Spacer(flex: 3),
+          buildCustomButton(),
+          Spacer(flex: 1),
         ],
       ),
     );
@@ -69,7 +70,7 @@ class _FreezeAccountViewState extends State<FreezeAccountView> {
 
   Padding buildLocaleTextSecond(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.02)),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: LocaleText(
         text: LocaleKeys.freeze_account_text_2,
         style: AppTextStyles.myInformationBodyTextStyle,
@@ -83,7 +84,7 @@ class _FreezeAccountViewState extends State<FreezeAccountView> {
     return LocaleText(
       text: LocaleKeys.freeze_account_text_1,
       style: GoogleFonts.montserrat(
-        fontSize: 18.0,
+        fontSize: 20.0.sp,
         color: AppColors.textColor,
         fontWeight: FontWeight.w600,
       ),

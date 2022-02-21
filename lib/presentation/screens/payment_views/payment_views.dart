@@ -5,6 +5,7 @@ import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -47,8 +48,7 @@ class _PaymentViewsState extends State<PaymentViews>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      resizeToAvoidBottomInset :false,
+      resizeToAvoidBottomInset: false,
       appBar: buildAppBar(context),
       body: Builder(builder: (context) {
         final PaymentState state = context.watch<PaymentCubit>().state;
@@ -60,8 +60,8 @@ class _PaymentViewsState extends State<PaymentViews>
   Padding buildBody(BuildContext context, PaymentState state) {
     return Padding(
       padding: EdgeInsets.only(
-        top: context.dynamicHeight(0.02),
-        bottom: tabController!.index == 2 ? 0 : context.dynamicHeight(0.04),
+        top: 20.h,
+        bottom: tabController!.index == 2 ? 0.h : 40.h,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,12 +99,12 @@ class _PaymentViewsState extends State<PaymentViews>
   Padding buildTabsContainer(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: context.dynamicWidht(0.06),
+        horizontal: 28.w,
       ),
       child: Column(
         children: [
           Container(
-            height: context.dynamicHeight(0.07),
+            height: 70.h,
             alignment: Alignment.center,
             width: double.infinity,
             decoration: BoxDecoration(
@@ -129,11 +129,11 @@ class _PaymentViewsState extends State<PaymentViews>
   Container buildDeliveryType(BuildContext context, PaymentState state) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: context.dynamicWidht(0.06),
+        horizontal: 25.w,
       ),
       alignment: Alignment.center,
       color: Colors.white,
-      height: context.dynamicHeight(0.1),
+      height: 90.h,
       width: double.infinity,
       child: Row(
         mainAxisAlignment: tabController!.index == 2
@@ -163,15 +163,15 @@ class _PaymentViewsState extends State<PaymentViews>
         });
       },
       child: Container(
-        padding: EdgeInsets.only(left: context.dynamicWidht(0.02)),
+        padding: EdgeInsets.only(left: 15.w),
         alignment: Alignment.center,
-        height: context.dynamicHeight(0.052),
-        width: context.dynamicWidht(0.45),
+        height: 48.h,
+        width: 176.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           color: Colors.white,
           border: Border.all(
-            width: 1.0,
+            width: 1.0.w,
             color: const Color(0xFFD1D0D0),
           ),
         ),
@@ -185,18 +185,18 @@ class _PaymentViewsState extends State<PaymentViews>
             : Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: 2),
+                  SizedBox(width: 2.w),
                   SvgPicture.asset(
                     ImageConstant.PACKAGE_DELIVERY_ICON,
                     color: !state.isGetIt!
                         ? AppColors.greenColor
                         : AppColors.iconColor,
-                    height: 28,
+                    height: 32.h,
                     fit: BoxFit.fill,
                   ),
-                  SizedBox(width: 6),
+                  SizedBox(width: 6.w),
                   Padding(
-                    padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
+                    padding: EdgeInsets.only(right: 15.w),
                     child: LocaleText(
                         text: LocaleKeys.payment_package_delivery,
                         style: AppTextStyles.bodyTextStyle.copyWith(
@@ -225,13 +225,13 @@ class _PaymentViewsState extends State<PaymentViews>
       },
       child: Container(
         alignment: Alignment.center,
-        height: context.dynamicHeight(0.052),
-        width: context.dynamicWidht(tabController!.index == 2 ? 0.82 : 0.42),
+        height: 48.h,
+        width: tabController!.index == 2 ? 372.w : 176.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           color: Colors.white,
           border: Border.all(
-            width: 1.0,
+            width: 1.0.w,
             color: const Color(0xFFD1D0D0),
           ),
         ),
@@ -250,11 +250,11 @@ class _PaymentViewsState extends State<PaymentViews>
                     color: state.isGetIt!
                         ? AppColors.greenColor
                         : AppColors.iconColor,
-                    height: 30,
+                    height: 35.h,
                     fit: BoxFit.fill,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(right: context.dynamicWidht(0.04)),
+                    padding: EdgeInsets.only(right: 15.w),
                     child: LocaleText(
                       text: LocaleKeys.payment_get_it,
                       style: AppTextStyles.bodyTextStyle.copyWith(
@@ -295,7 +295,7 @@ class _PaymentViewsState extends State<PaymentViews>
       LocaleText(
         text: LocaleKeys.payment_tab_1,
         style: GoogleFonts.montserrat(
-          fontSize: 16.0,
+          fontSize: 18.0.sp,
           color: tabController!.index == 0
               ? AppColors.orangeColor
               : AppColors.textColor,
@@ -306,7 +306,7 @@ class _PaymentViewsState extends State<PaymentViews>
       LocaleText(
         text: LocaleKeys.payment_tab_2,
         style: GoogleFonts.montserrat(
-          fontSize: 16.0,
+          fontSize: 18.0.sp,
           color: tabController!.index == 1
               ? AppColors.orangeColor
               : AppColors.textColor,
@@ -317,7 +317,7 @@ class _PaymentViewsState extends State<PaymentViews>
       LocaleText(
         text: LocaleKeys.payment_tab_3,
         style: GoogleFonts.montserrat(
-          fontSize: 16.0,
+          fontSize: 18.0.sp,
           color: tabController!.index == 2
               ? AppColors.orangeColor
               : AppColors.textColor,
@@ -338,7 +338,7 @@ class _PaymentViewsState extends State<PaymentViews>
   Padding buildButton(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: context.dynamicWidht(0.06),
+        horizontal: 28.w,
       ),
       child: CustomButton(
         width: double.infinity,
@@ -384,12 +384,9 @@ class _PaymentViewsState extends State<PaymentViews>
       onTap: () => showConfirmationBottomSheet(context),
       child: Container(
         width: double.infinity,
-        height: context.dynamicHeight(0.17),
-        padding: EdgeInsets.only(
-            left: context.dynamicWidht(0.06),
-            right: context.dynamicWidht(0.06),
-            top: context.dynamicHeight(0.01),
-            bottom: context.dynamicHeight(0.04)),
+        height: 158.h,
+        padding:
+            EdgeInsets.only(left: 26.w, right: 26.w, top: 10.h, bottom: 30.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(18.0),
@@ -402,8 +399,8 @@ class _PaymentViewsState extends State<PaymentViews>
           return Column(
             children: [
               Container(
-                height: 3,
-                width: context.dynamicWidht(0.15),
+                height: 5.h,
+                width: 64.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(1.5),
                   color: Color(0xFF707070),
@@ -422,7 +419,7 @@ class _PaymentViewsState extends State<PaymentViews>
                 ],
               ),
               Divider(
-                height: context.dynamicHeight(0.01),
+                height: 10.h,
                 thickness: 2,
                 color: AppColors.borderAndDividerColor,
               ),
@@ -430,7 +427,7 @@ class _PaymentViewsState extends State<PaymentViews>
               Row(
                 children: [
                   Container(
-                    height: context.dynamicHeight(0.052),
+                    height: 48.h,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -446,7 +443,7 @@ class _PaymentViewsState extends State<PaymentViews>
                           child: Text(
                             '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
                             style: GoogleFonts.montserrat(
-                              fontSize: 18.0,
+                              fontSize: 18.0.sp,
                               color: AppColors.greenColor,
                               fontWeight: FontWeight.w600,
                             ),
@@ -457,7 +454,7 @@ class _PaymentViewsState extends State<PaymentViews>
                   ),
                   Spacer(),
                   CustomButton(
-                    width: context.dynamicWidht(0.5),
+                    width: 220.w,
                     title: LocaleKeys.payment_payment_pay,
                     color: checkboxAgreementValue && checkboxInfoValue
                         ? AppColors.greenColor
@@ -498,8 +495,8 @@ class _PaymentViewsState extends State<PaymentViews>
                     flex: 1,
                   ),
                   Container(
-                    height: 3,
-                    width: context.dynamicWidht(0.3),
+                    height: 5.h,
+                    width: 64.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(1.5),
                       color: Color(0xFF707070),
@@ -563,7 +560,7 @@ class _PaymentViewsState extends State<PaymentViews>
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          height: context.dynamicHeight(0.052),
+          height: 48.h,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -583,7 +580,7 @@ class _PaymentViewsState extends State<PaymentViews>
                   return Text(
                     '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
                     style: GoogleFonts.montserrat(
-                      fontSize: 18.0,
+                      fontSize: 18.0.sp,
                       color: AppColors.greenColor,
                       fontWeight: FontWeight.w600,
                     ),
@@ -595,7 +592,7 @@ class _PaymentViewsState extends State<PaymentViews>
         ),
         Builder(builder: (context) {
           return CustomButton(
-            width: context.dynamicWidht(0.5),
+            width: 220.w,
             title: LocaleKeys.payment_payment_pay,
             color: checkboxAgreementValue && checkboxInfoValue
                 ? AppColors.greenColor
@@ -715,8 +712,8 @@ class _PaymentViewsState extends State<PaymentViews>
   Container buildCheckBoxForAggreements(
       BuildContext context, String checkValue, StateSetter myState) {
     return Container(
-      height: context.dynamicWidht(0.05),
-      width: context.dynamicWidht(0.05),
+      height: 25.h,
+      width: 25.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         border: Border.all(

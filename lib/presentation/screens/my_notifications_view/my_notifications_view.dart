@@ -8,6 +8,7 @@ import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/cu
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,21 +84,15 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
         tabBarPadding(context),
         Expanded(
           child: TabBarView(controller: _controller, children: [
-            SingleChildScrollView(
-              child: !SharedPrefs.getIsLogined
-                  ? showTextWhenUnauthorized(context)
-                  : MyOrdersListTileBuilder(),
-            ),
-            SingleChildScrollView(
-              child: !SharedPrefs.getIsLogined
-                  ? showTextWhenUnauthorized(context)
-                  : AllListTileBuilder(),
-            ),
-            SingleChildScrollView(
-              child: !SharedPrefs.getIsLogined
-                  ? showTextWhenUnauthorized(context)
-                  : SpecialForMeListTileBuilder(),
-            ),
+            !SharedPrefs.getIsLogined
+                ? showTextWhenUnauthorized(context)
+                : MyOrdersListTileBuilder(),
+            !SharedPrefs.getIsLogined
+                ? showTextWhenUnauthorized(context)
+                : AllListTileBuilder(),
+            !SharedPrefs.getIsLogined
+                ? showTextWhenUnauthorized(context)
+                : SpecialForMeListTileBuilder(),
           ]),
         ),
       ],
@@ -106,13 +101,10 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
 
   Center showTextWhenUnauthorized(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: EdgeInsets.only(top: context.dynamicHeight(0.05)),
-        child: LocaleText(
-          text: LocaleKeys.my_notifications_tab_bar_title_sign_in_to_monitor,
-          style: AppTextStyles.bodyTextStyle
-              .copyWith(color: AppColors.cursorColor),
-        ),
+      child: LocaleText(
+        text: LocaleKeys.my_notifications_tab_bar_title_sign_in_to_monitor,
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(color: AppColors.cursorColor),
       ),
     );
   }
@@ -120,18 +112,19 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
   Padding tabBarPadding(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.065),
-          right: context.dynamicWidht(0.065),
-          top: context.dynamicHeight(0.028)),
+        left: 28.w,
+        right: 28.w,
+        top: 20.h,
+      ),
       child: tabBarContainer(context),
     );
   }
 
   Container tabBarContainer(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.87),
-      height: 63,
-      padding: EdgeInsets.only(top: 5),
+      width: 372.w,
+      height: 83.h,
+      padding: EdgeInsets.only(top: 7.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(18.0),
@@ -158,22 +151,21 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
 
   TabBar tabBar(BuildContext context) {
     return TabBar(
-        labelPadding:
-            EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+        labelPadding: EdgeInsets.symmetric(horizontal: 20.w),
         indicator: UnderlineTabIndicator(
             borderSide: BorderSide(width: 3, color: AppColors.orangeColor),
             insets:
                 EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.060))),
-        indicatorPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.01)),
+        indicatorPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.005)),
         labelColor: AppColors.orangeColor,
         labelStyle: AppTextStyles.bodyTitleStyle,
         unselectedLabelColor: AppColors.textColor,
         unselectedLabelStyle: GoogleFonts.montserrat(
           decoration: TextDecoration.none,
-          fontSize: 16.0,
+          fontSize: 16.0.sp,
           color: AppColors.textColor,
           fontWeight: FontWeight.w300,
-          height: 1.5,
+          height: 2.5.h,
         ),
         indicatorColor: AppColors.orangeColor,
         controller: _controller,

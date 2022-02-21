@@ -21,7 +21,6 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/text/locale_text.dart';
 import 'components/clipped_password_rules.dart';
-import 'components/consent_text.dart';
 import 'components/contract_text.dart';
 import 'components/error_popup.dart';
 import 'components/password_rules.dart';

@@ -5,13 +5,13 @@ import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
-import 'package:dongu_mobile/utils/extensions/context_extension.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,7 +31,6 @@ class _SmsVerifyState extends State<SmsVerify> {
   String? userPhoneNumber;
   @override
   void initState() {
- 
     print(SharedPrefs.getUserPhone);
     userPhoneNumber = SharedPrefs.getUserPhone;
     print(userPhoneNumber);
@@ -43,49 +42,43 @@ class _SmsVerifyState extends State<SmsVerify> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         leading: IconButton(
+        leading: IconButton(
           icon: SvgPicture.asset(ImageConstant.BACK_ICON),
           onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: context.dynamicWidht(0.4)),
+            padding: EdgeInsets.only(right: 170.w),
             child: SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
           ),
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.only(
-          top: context.dynamicHeight(0.02),
-          bottom: context.dynamicHeight(0.04),
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 28.w),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Spacer(flex: 10),
+            Spacer(flex: 5),
             buildText(context),
             Spacer(flex: 4),
             Container(
-              child: Padding(
-                padding: const EdgeInsets.all(22.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    textFieldOtp(first: true, last: false),
-                    textFieldOtp(first: false, last: false),
-                    textFieldOtp(first: false, last: false),
-                    textFieldOtp(first: false, last: false),
-                    textFieldOtp(first: false, last: false),
-                    textFieldOtp(first: false, last: true),
-                  ],
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  textFieldOtp(first: true, last: false),
+                  textFieldOtp(first: false, last: false),
+                  textFieldOtp(first: false, last: false),
+                  textFieldOtp(first: false, last: false),
+                  textFieldOtp(first: false, last: false),
+                  textFieldOtp(first: false, last: true),
+                ],
               ),
             ),
             Spacer(flex: 2),
             buildButton(context),
-            Spacer(flex: 5),
-            buildBottomTextAndIcon(context),
-            Spacer(flex: 100),
+            Spacer(flex: 3),
+            Center(child: buildBottomTextAndIcon(context)),
+            Spacer(flex: 40),
           ],
         ),
       ),
@@ -94,8 +87,8 @@ class _SmsVerifyState extends State<SmsVerify> {
 
   textFieldOtp({required bool first, required bool last}) {
     return Container(
-      height: 55,
-      width: 55,
+      height: 70.h,
+      width: 55.w,
       child: AspectRatio(
         aspectRatio: 0.5,
         child: TextField(
@@ -118,21 +111,21 @@ class _SmsVerifyState extends State<SmsVerify> {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                width: 2,
+                width: 2.w,
                 color: Colors.black12,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                width: 2,
+                width: 2.w,
                 color: AppColors.greenColor,
               ),
             ),
           ),
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 24,
+            fontSize: 24.sp,
           ),
         ),
       ),
@@ -149,18 +142,19 @@ class _SmsVerifyState extends State<SmsVerify> {
     String lastTwoDigits = lastTwoDigitList.join("");
     print(lastTwoDigits);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: Column(
         children: [
-          LocaleText(
-            text: LocaleKeys.sms_verify_text_1,
-            style: GoogleFonts.montserrat(
-              fontSize: 18.0,
-              color: AppColors.orangeColor,
-              fontWeight: FontWeight.w600,
+          Center(
+            child: LocaleText(
+              text: LocaleKeys.sms_verify_text_1,
+              style: GoogleFonts.montserrat(
+                fontSize: 18.0.sp,
+                color: AppColors.orangeColor,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
-          SizedBox(height: context.dynamicHeight(0.05)),
+          SizedBox(height: 37.h),
           Text.rich(
             TextSpan(children: [
               TextSpan(text: "***" + lastTwoDigits),
@@ -176,16 +170,15 @@ class _SmsVerifyState extends State<SmsVerify> {
 
   Padding buildButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+      padding: EdgeInsets.only(left: 28.w, right: 28.w),
       child: CustomButton(
-        width: double.infinity,
+        width: 372.w,
         title: LocaleKeys.sms_verify_button,
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
-                   if (verificationId == null) {
+          if (verificationId == null) {
             showDialog(
               context: context,
               builder: (_) => CustomErrorPopup(
@@ -236,26 +229,23 @@ class _SmsVerifyState extends State<SmsVerify> {
             codeAutoRetrievalTimeout: (verificationId) async {});
       },
       child: Container(
-        height: context.dynamicHeight(0.053),
-        width: context.dynamicWidht(0.91),
-        child: Padding(
-          padding: EdgeInsets.only(left: context.dynamicWidht(0.30)),
-          child: Row(
-            children: [
-              SvgPicture.asset(
-                ImageConstant.SMS_OTP_VERIFY_RESEND_CODE_ICON,
+        height: 25.h,
+        width: 180.w,
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              ImageConstant.SMS_OTP_VERIFY_RESEND_CODE_ICON,
+            ),
+            SizedBox(width: 8.w),
+            LocaleText(
+              text: LocaleKeys.sms_verify_text_3,
+              style: GoogleFonts.montserrat(
+                fontSize: 14.0.sp,
+                color: AppColors.textColor,
               ),
-              SizedBox(width: context.dynamicWidht(0.011)),
-              LocaleText(
-                text: LocaleKeys.sms_verify_text_3,
-                style: GoogleFonts.montserrat(
-                  fontSize: 14.0,
-                  color: AppColors.textColor,
-                ),
-                alignment: TextAlign.center,
-              ),
-            ],
-          ),
+              alignment: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

@@ -2,7 +2,6 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
-import 'package:dongu_mobile/presentation/screens/register_view/components/error_popup.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
@@ -29,16 +28,16 @@ class _VerifyInformationState extends State<VerifyInformation> {
   bool showLoading = false;
   MobileVerificationState currentState =
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
-        PhoneAuthCredential? phoneAuthCredential;
+  PhoneAuthCredential? phoneAuthCredential;
   String? verificationId;
   String? userPhoneNumber;
-    TextEditingController codeController1 = TextEditingController();
-    TextEditingController codeController2 = TextEditingController();
-    TextEditingController codeController3 = TextEditingController();
-    TextEditingController codeController4 = TextEditingController();
-    TextEditingController codeController5 = TextEditingController();
+  TextEditingController codeController1 = TextEditingController();
+  TextEditingController codeController2 = TextEditingController();
+  TextEditingController codeController3 = TextEditingController();
+  TextEditingController codeController4 = TextEditingController();
+  TextEditingController codeController5 = TextEditingController();
   TextEditingController codeController6 = TextEditingController();
-    void sendCode(phoneAuthCredential) async {
+  void sendCode(phoneAuthCredential) async {
     await _auth.verifyPhoneNumber(
         phoneNumber: SharedPrefs.getUserPhone,
         verificationCompleted: (phoneAuthCredential) async {
@@ -64,6 +63,7 @@ class _VerifyInformationState extends State<VerifyInformation> {
         },
         codeAutoRetrievalTimeout: (verificationId) async {});
   }
+
   @override
   void initState() {
     print(SharedPrefs.getUserPhone);
@@ -78,7 +78,7 @@ class _VerifyInformationState extends State<VerifyInformation> {
     return Scaffold(
       appBar: AppBar(
         //  automaticallyImplyLeading: false,
-         leading: IconButton(
+        leading: IconButton(
           icon: SvgPicture.asset(ImageConstant.BACK_ICON),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -106,12 +106,30 @@ class _VerifyInformationState extends State<VerifyInformation> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    textFieldOtp(first: true, last: false, otpController: codeController1),
-                    textFieldOtp(first: false, last: false,otpController: codeController2),
-                    textFieldOtp(first: false, last: false, otpController: codeController3),
-                    textFieldOtp(first: false, last: false, otpController: codeController4),
-                    textFieldOtp(first: false, last: false, otpController: codeController5),
-                    textFieldOtp(first: false, last: true, otpController: codeController6),
+                    textFieldOtp(
+                        first: true,
+                        last: false,
+                        otpController: codeController1),
+                    textFieldOtp(
+                        first: false,
+                        last: false,
+                        otpController: codeController2),
+                    textFieldOtp(
+                        first: false,
+                        last: false,
+                        otpController: codeController3),
+                    textFieldOtp(
+                        first: false,
+                        last: false,
+                        otpController: codeController4),
+                    textFieldOtp(
+                        first: false,
+                        last: false,
+                        otpController: codeController5),
+                    textFieldOtp(
+                        first: false,
+                        last: true,
+                        otpController: codeController6),
                   ],
                 ),
               ),
@@ -127,7 +145,10 @@ class _VerifyInformationState extends State<VerifyInformation> {
     );
   }
 
-  textFieldOtp({required bool first, required bool last, required TextEditingController otpController}) {
+  textFieldOtp(
+      {required bool first,
+      required bool last,
+      required TextEditingController otpController}) {
     return Container(
       height: 55,
       width: 55,
@@ -220,7 +241,7 @@ class _VerifyInformationState extends State<VerifyInformation> {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
-        onPressed: ()async {
+        onPressed: () async {
           if (verificationId!.isNotEmpty && userPhoneNumber!.isNotEmpty) {
             print(verificationId!);
             print(userPhoneNumber!);
@@ -234,7 +255,7 @@ class _VerifyInformationState extends State<VerifyInformation> {
                   codeController6.text,
             );
             try {
-             await FirebaseAuth.instance.signInWithCredential(credential);
+              await FirebaseAuth.instance.signInWithCredential(credential);
               showDialog(
                   context: context,
                   builder: (_) => CustomAlertDialogResetPassword(
@@ -245,7 +266,7 @@ class _VerifyInformationState extends State<VerifyInformation> {
                       ));
               //                     SharedPrefs.setUserPhone(phoneController.text);
               // SharedPrefs.setUserEmail(mailController.text);
-                            context.read<UserAuthCubit>().updateUser(
+              context.read<UserAuthCubit>().updateUser(
                   SharedPrefs.getUserName,
                   SharedPrefs.getUserLastName,
                   SharedPrefs.getUserEmail,
@@ -275,8 +296,8 @@ class _VerifyInformationState extends State<VerifyInformation> {
                         onPressed: () => Navigator.pop(context),
                       ));
             }
-          }else{
-               showDialog(
+          } else {
+            showDialog(
                 context: context,
                 builder: (_) => CustomAlertDialogResetPassword(
                       description: LocaleKeys.forgot_password_fail_changed,

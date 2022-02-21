@@ -2,6 +2,7 @@ import 'package:dongu_mobile/data/model/category_name.dart';
 import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'package:flutter/material.dart';
@@ -42,17 +43,21 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
           expansionTileBody: Padding(
             padding: EdgeInsets.only(left: context.dynamicWidht(0.074)),
             child: Container(
-              height: context.dynamicHeight(0.37),
+              color: Colors.white,
+              height: 220.h,
               child: Column(
                 children: [
-                  SizedBox(height: context.dynamicHeight(0.01)),
+                  SizedBox(height: 10.h),
                   Builder(builder: (context) {
                     final stateOfCategories =
                         context.watch<CategoryNameCubit>().state;
                     if (stateOfCategories is GenericInitial) {
                       return Container(color: Colors.white);
                     } else if (stateOfCategories is GenericLoading) {
-                      return Container(color: Colors.white,child: Center(child: CustomCircularProgressIndicator()));
+                      return Container(
+                          color: Colors.white,
+                          child:
+                              Center(child: CustomCircularProgressIndicator()));
                     } else if (stateOfCategories is GenericCompleted) {
                       List<Result> categoryInfo = [];
                       for (int i = 0;
@@ -80,7 +85,7 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
                           child: Text("${error.message}\n${error.statusCode}"));
                     }
                   }),
-                  SizedBox(height: context.dynamicHeight(0.030)),
+                  Spacer(),
                 ],
               ),
             ),
@@ -97,7 +102,7 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             buildCheckBox(context, checkValue),
-            SizedBox(width: 10),
+            SizedBox(width: 10.h),
             GestureDetector(
                 onTap: onTap,
                 child:
@@ -105,7 +110,7 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
             Spacer(flex: 35),
           ],
         ),
-        SizedBox(height: context.dynamicHeight(0.016)),
+        SizedBox(height: 15.h),
       ],
     );
   }

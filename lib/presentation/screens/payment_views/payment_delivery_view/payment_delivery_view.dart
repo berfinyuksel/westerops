@@ -2,6 +2,7 @@ import 'package:date_time_format/date_time_format.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../data/model/search_store.dart';
 import '../../../../data/model/store_courier_hours.dart';
 import '../../../../data/shared/shared_prefs.dart';
@@ -53,15 +54,14 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
           shrinkWrap: true,
           children: [
             SizedBox(
-              height: context.dynamicHeight(0.03),
+              height: 20.h,
             ),
             DeliveryAvailableTimeListTile(chosenRestaurantList: list),
             SizedBox(
-              height: context.dynamicHeight(0.03),
+              height: 40.h,
             ),
             Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
+              padding: EdgeInsets.symmetric(horizontal: 28.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -71,7 +71,7 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                     style: AppTextStyles.bodyTitleStyle,
                   ),
                   SizedBox(
-                    height: context.dynamicHeight(0.01),
+                    height: 10.h,
                   ),
                   Visibility(
                     visible: widget.isGetIt!,
@@ -133,13 +133,13 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                           }
                         }),
                         SizedBox(
-                          height: context.dynamicHeight(0.02),
+                          height: 20.h,
                         ),
                         WarningContainer(
                           text: LocaleKeys.payment_delivery_warning_text,
                         ),
                         SizedBox(
-                          height: context.dynamicHeight(0.02),
+                          height: 20.h,
                         ),
                       ],
                     ),

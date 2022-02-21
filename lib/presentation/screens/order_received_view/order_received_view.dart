@@ -13,6 +13,7 @@ import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/cu
 import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -97,7 +98,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         for (var i = 0; i < state.response.length; i++) {
           orderInfo = state.response[i];
         }
-        print("betüüüll");
         print(orderInfo!.refCode!);
         SharedPrefs.setOrderRefCode(orderInfo.refCode!);
 
@@ -118,18 +118,13 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
               orderInfo.boxes!.first.saleDay!.startDate!
                   .toLocal()
                   .subtract(Duration(hours: 2)));
-          /*   
-            
-                   DateTime.now().add(Duration(seconds: 10))
-          
-          */
         }
 
         return orderInfo.id != null
             ? ListView(
                 children: [
                   SizedBox(
-                    height: context.dynamicHeight(0.02),
+                    height: 20.h,
                   ),
                   buildOrderNumberContainer(context, orderInfo),
                   SizedBox(
@@ -288,7 +283,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       BuildContext context, OrderReceived orderInfo) {
     return Container(
       width: double.infinity,
-      height: context.dynamicHeight(0.28),
+      height: 280.h,
       color: Colors.white,
       child: Column(
         children: [
@@ -337,7 +332,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     return orderInfo.boxes! != [] || durationFinal <= 0
         ? Container(
             width: double.infinity,
-            height: context.dynamicHeight(0.1),
+            height: 100.h,
             color: Colors.white,
             child: Row(
               children: [
@@ -363,8 +358,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       Color textColor, VoidCallback onPressedd) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       child: CustomButton(
         width: double.infinity,
@@ -381,8 +376,8 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       String titleCourier, String titleRight, OrderReceived orderInfo) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 28.w,
+        right: 28.w,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -407,7 +402,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             child: LocaleText(
               text: titleRight,
               style: GoogleFonts.montserrat(
-                fontSize: 12.0,
+                fontSize: 14.0.sp,
                 color: AppColors.orangeColor,
                 fontWeight: FontWeight.w600,
               ),

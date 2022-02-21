@@ -8,6 +8,7 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -214,7 +215,7 @@ class _MyNearViewState extends State<MyNearView> {
           visible: isShowOnList,
           child: Expanded(
             child: Container(
-              height: context.dynamicHeight(0.54),
+              height: 540.h,
               child: buildListViewRestaurantInfo(getrestaurants, distances),
             ),
           ),
@@ -226,7 +227,7 @@ class _MyNearViewState extends State<MyNearView> {
   String? packettNumber(List<SearchStore> getrestaurants) {
     for (int j = 0; j < getrestaurants.length; j++) {
       if (getrestaurants[j].calendar == null) {
-        return LocaleKeys.home_page_soldout_icon;
+        return LocaleKeys.home_page_soldout_icon.locale;
       } else if (getrestaurants[j].calendar != null) {
         for (int i = 0; i < getrestaurants[j].calendar!.length; i++) {
           var boxcount = getrestaurants[j].calendar![i].boxCount;
@@ -245,7 +246,7 @@ class _MyNearViewState extends State<MyNearView> {
               return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
             } else if (getrestaurants[j].calendar![i].boxCount == null ||
                 getrestaurants[j].calendar![i].boxCount == 0) {
-              return LocaleKeys.home_page_soldout_icon;
+              return LocaleKeys.home_page_soldout_icon.locale;
             }
           }
         }
@@ -269,8 +270,8 @@ class _MyNearViewState extends State<MyNearView> {
         bottom: 0,
         child: Container(
           width: double.infinity,
-          height: context.dynamicHeight(0.176),
-          padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+          height: 163.h,
+          padding: EdgeInsets.symmetric(vertical: 20.h),
           color: Colors.white,
           child: RestaurantInfoListTile(
             deliveryType: 3,
@@ -283,7 +284,7 @@ class _MyNearViewState extends State<MyNearView> {
                     LocationService.longitude)
                 .toString(),
             packetNumber: packettNumber(getrestaurants) ??
-                LocaleKeys.home_page_soldout_icon,
+                LocaleKeys.home_page_soldout_icon.locale,
             availableTime:
                 '${getrestaurants[restaurantIndexOnMap].packageSettings?.deliveryTimeStart}-${getrestaurants[restaurantIndexOnMap].packageSettings?.deliveryTimeEnd}',
             minDiscountedOrderPrice: getrestaurants[restaurantIndexOnMap]
@@ -308,10 +309,10 @@ class _MyNearViewState extends State<MyNearView> {
   Padding buildTitlesAndSearchBar(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
-        top: context.dynamicHeight(0.02),
-        bottom: context.dynamicHeight(0.02),
+        left: 28.w,
+        right: 28.w,
+        top: 20.h,
+        bottom: 20.h,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -330,7 +331,7 @@ class _MyNearViewState extends State<MyNearView> {
             color: AppColors.borderAndDividerColor,
           ),
           AddressText(),
-          SizedBox(height: context.dynamicHeight(0.03)),
+          SizedBox(height: 30.h),
           Row(
             children: [
               buildSearchBar(context),
@@ -338,7 +339,7 @@ class _MyNearViewState extends State<MyNearView> {
               SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON),
             ],
           ),
-          SizedBox(height: context.dynamicHeight(0.03)),
+          SizedBox(height: 40.h),
           buildRowTitleLeftRight(
               context,
               LocaleKeys.my_near_body_title,
@@ -454,7 +455,7 @@ class _MyNearViewState extends State<MyNearView> {
           child: LocaleText(
             text: titleRight,
             style: GoogleFonts.montserrat(
-              fontSize: 12.0,
+              fontSize: 12.0.sp,
               color: AppColors.orangeColor,
               fontWeight: FontWeight.w600,
             ),
@@ -466,7 +467,7 @@ class _MyNearViewState extends State<MyNearView> {
 
   Container buildSearchBar(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.72),
+      width: 308.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.horizontal(
           right: Radius.circular(25.0),
@@ -476,7 +477,6 @@ class _MyNearViewState extends State<MyNearView> {
       ),
       child: TextFormField(
         inputFormatters: [
-          // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
           FilteringTextInputFormatter.singleLineFormatter,
         ],
         cursorColor: AppColors.cursorColor,
@@ -490,7 +490,7 @@ class _MyNearViewState extends State<MyNearView> {
             enabledBorder: buildOutlineInputBorder(),
             errorBorder: buildOutlineInputBorder(),
             disabledBorder: buildOutlineInputBorder(),
-            contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.046)),
+            contentPadding: EdgeInsets.only(left: 20.w),
             hintText: LocaleKeys.my_near_hint_text.locale),
       ),
     );
