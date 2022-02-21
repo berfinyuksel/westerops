@@ -207,9 +207,8 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
             right: 28.w,
           ),
           child: Builder(builder: (context) {
-            return context.read<CancelOrderCubit>().state==true ||
-                    context.read<CancelCancelCubit>().state
-                ==true ? CustomButton(
+            return context.read<CancelOrderCubit>().state==true
+                ? CustomButton(
                 width: double.infinity,
                 title: LocaleKeys.past_order_detail_cancel_order,
                 color: Colors.transparent,

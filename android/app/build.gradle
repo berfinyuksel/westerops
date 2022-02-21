@@ -28,7 +28,7 @@ apply plugin: 'com.google.gms.google-services'
 // 'com.google.secrets_gradle_plugin' version '0.5'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'

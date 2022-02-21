@@ -15,16 +15,23 @@ class SplashCubit extends Cubit<SplashCubitState> {
   SplashCubit() : super(SplashCubitInitial());
 
   splashInit(BuildContext context) async {
-    print('hello init calisti');
-    emit(SplashCubitLoading());
+    //await Future.delayed(Duration(seconds: 3));
 
-    await Future.delayed(Duration(seconds: 3));
-    basketCounter(context);
-    notificationsCounter(context);
-    addFavorite(context);
-    stateOfBar(context);
-    sumOldNewPrice(context);
-    navigateToScreens(context);
+    //await
+    try {
+      print('hello init calisti');
+      emit(SplashCubitLoading());
+      await basketCounter(context);
+      await notificationsCounter(context);
+      await addFavorite(context);
+      await stateOfBar(context);
+      await sumOldNewPrice(context);
+      
+      navigateToScreens(context);
+      print("SPLASH try");
+    } catch (e) {
+      print("SPLASH ERROR");
+    }
   }
 
   navigateToScreens(BuildContext context) {

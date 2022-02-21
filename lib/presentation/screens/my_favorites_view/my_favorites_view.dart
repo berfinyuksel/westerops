@@ -62,9 +62,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     super.initState();
     context.read<AllFavoriteCubit>().getFavorite();
     context.read<SearchStoreCubit>().getSearchStore();
-    sl<SampleSearchStoreRepository>().searchStores;
+    sl<SampleSearchStoreRepository>().searchStores; 
   }
-
+  
   @override
   Widget build(BuildContext context) {
     context.read<AllFavoriteCubit>().getFavorite();

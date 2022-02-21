@@ -1,8 +1,11 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
+import 'package:dongu_mobile/presentation/screens/register_view/components/error_alert_dialog.dart';
 import 'package:dongu_mobile/presentation/widgets/button/custom_button.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
@@ -281,14 +284,15 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                   SharedPrefs.getUserEmail,
                   SharedPrefs.getUserPhone,
                   SharedPrefs.getUserPassword);
-              showDialog(
-                  context: context,
-                  builder: (_) => CustomAlertDialogResetPassword(
-                        description:
-                            "Başarılı bir şekilde Döngü'ye üye oldunuz.",
-                        onPressed: () => Navigator.popAndPushNamed(
-                            context, RouteConstant.CUSTOM_SCAFFOLD),
-                      ));
+              _showMyDialog();
+              // showDialog(
+              //     context: context,
+              //     builder: (_) => CustomAlertDialogResetPassword(
+              //           description:
+              //               "Başarılı bir şekilde Döngü'ye üye oldunuz.",
+              //           onPressed: () => Navigator.popAndPushNamed(
+              //               context, RouteConstant.CUSTOM_SCAFFOLD),
+              //         ));
               //                     SharedPrefs.setUserPhone(phoneController.text);
               // SharedPrefs.setUserEmail(mailController.text);
 
@@ -376,6 +380,30 @@ class _RegisterVerifyState extends State<RegisterVerify> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        final GenericState state = context.watch<UserAuthCubit>().state;
+        if (state is GenericInitial) {
+          return Center(child: Container(child: CustomCircularProgressIndicator()));
+        } else if (state is GenericLoading) {
+          return Center(
+              child: Container(child: CustomCircularProgressIndicator()));
+        } else if (state is GenericCompleted) {
+          return CustomAlertDialogResetPassword(
+            description: "Başarılı bir şekilde Döngü'ye üye oldunuz.",
+            onPressed: () => Navigator.popAndPushNamed(
+                context, RouteConstant.CUSTOM_SCAFFOLD),
+          );
+        } else {
+          return ErrorAlertDialog(onTap: () {});
+        }
+      },
     );
   }
 }

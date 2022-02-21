@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:dongu_mobile/logic/cubits/swipe_route_cubit.dart/swipe_route_cubit.dart';
 import '../../../data/repositories/update_order_repository.dart';
 import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
@@ -216,7 +217,7 @@ class _SwipeViewState extends State<SwipeView> {
                     key: UniqueKey(),
                     onDismissed: (value) {
                       SharedPrefs.setOrderBar(false);
-
+                  context.read<SwipeRouteButton>().swipeRouteButton(false);
                       setState(() {
                         Navigator.pushNamed(
                             context, RouteConstant.WAS_DELIVERED_VIEW,

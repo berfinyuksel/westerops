@@ -609,11 +609,16 @@ class _PaymentViewsState extends State<PaymentViews>
                 log(SharedPrefs.getThreeDBool.toString());
                 if (SharedPrefs.getBoolForRegisteredCard) {
                   buildPaymentForRegisteredCard(context);
+                  print("IF");
                 } else {
                   if (SharedPrefs.getThreeDBool) {
+                  print("ELSE IN IF");
+
                     // with threeD
                     buildWith3DPayment(context);
                   } else {
+                  print("ELSE");
+
                     buildWithout3DPayment(context);
                   }
                 }

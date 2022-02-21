@@ -28,6 +28,8 @@ import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.
 import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
+import 'package:dongu_mobile/logic/cubits/filters_cubit/clean_button_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/filters_cubit/favorites_filter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_manager_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/sort_filters_cubit.dart';
@@ -56,6 +58,7 @@ import 'package:dongu_mobile/logic/cubits/store_boxes_cubit/store_boxes_cubit.da
 import 'package:dongu_mobile/logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/swipe_route_cubit.dart/swipe_route_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/time_interval_cubit/time_interval_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
@@ -66,6 +69,9 @@ class BlocProviderRepository {
     BlocProvider<BasketCounterCubit>(create: (_) => BasketCounterCubit()),
     BlocProvider<CancelOrderCubit>(create: (_) => CancelOrderCubit()),
     BlocProvider<CancelCancelCubit>(create: (_) => CancelCancelCubit()),
+    BlocProvider<FilterFavorites>(create: (_) => FilterFavorites()),
+    BlocProvider<CleanButton>(create: (_) => CleanButton()),
+    BlocProvider<SwipeRouteButton>(create: (_) => SwipeRouteButton()),
     BlocProvider<NotificationsCounterCubit>(create: (_) => NotificationsCounterCubit()),
     BlocProvider<NearMePaddingCubit>(create: (_) => NearMePaddingCubit()),
     BlocProvider<IyzicoCardCubit>(create: (_) => IyzicoCardCubit(IyzicoCardRepository())),
