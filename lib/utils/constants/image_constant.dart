@@ -49,6 +49,8 @@ class ImageConstant {
       "assets/images/register_login/icons/google_icon.svg";
   static const REGISTER_LOGIN_FACEBOOK_ICON =
       "assets/images/register_login/icons/facebook_icon.svg";
+  static const REGISTER_LOGIN_APPLE_ICON =
+      "assets/images/register_login/icons/apple_login.svg";
   static const REGISTER_LOGIN_PASSWORD_TICK =
       "assets/images/register_login/password_tick.svg";
   static const REGISTER_LOGIN_PASSWORD_ELIPSE =

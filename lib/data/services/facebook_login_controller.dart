@@ -26,7 +26,7 @@ class FacebookSignInController with ChangeNotifier {
       print(accessToken.token.toString());
       SharedPrefs.setUserEmail(userData!["email"]);
       SharedPrefs.setUserName(userData!["name"]);
-
+   
       String json = '{"auth_token":"${accessToken.token.toString()}"}';
       final response = await http.post(
           Uri.parse("${UrlConstant.EN_URL}social_auth/facebook/"),
