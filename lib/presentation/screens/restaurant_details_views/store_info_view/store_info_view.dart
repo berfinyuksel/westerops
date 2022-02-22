@@ -1,8 +1,10 @@
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
+
 import '../../../../data/model/search_store.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/scaffold/custom_scaffold.dart';
-import '../../../widgets/text/locale_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StoreInfoView extends StatefulWidget {
@@ -17,12 +19,12 @@ class _StoreInfoViewState extends State<StoreInfoView> {
   @override
   Widget build(BuildContext context) {
     var title = <String>[
-      "İşletme Adı",
-      "Adres",
-      "Web Sitesi",
-      "E-mail",
-      "Telefon",
-      "Telefon 2",
+      LocaleKeys.restaurant_detail_store_info_restaurant_name.locale,
+      LocaleKeys.restaurant_detail_store_info_restaurant_address.locale,
+      LocaleKeys.restaurant_detail_store_info_website_address.locale,
+      LocaleKeys.restaurant_detail_store_info_email.locale,
+      LocaleKeys.restaurant_detail_store_info_restaurant_phone_number.locale,
+      LocaleKeys.restaurant_detail_store_info_restaurant_phone_number2.locale,
     ];
     var info = <String>[
       widget.restaurant!.name.toString(),
@@ -36,7 +38,7 @@ class _StoreInfoViewState extends State<StoreInfoView> {
     ];
 
     return CustomScaffold(
-      title: "Mağaza Bilgileri",
+      title: LocaleKeys.restaurant_detail_store_info_title,
       body: Padding(
         padding: EdgeInsets.only(top: 20.h),
         child: Column(
@@ -62,17 +64,17 @@ class _StoreInfoViewState extends State<StoreInfoView> {
             ),
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
-              title: LocaleText(
-                text: "${title[index]}",
+              title: Text(
+                "${title[index]}",
                 style: AppTextStyles.subTitleStyle
                     .copyWith(fontWeight: FontWeight.normal),
-                alignment: TextAlign.start,
+                textAlign: TextAlign.start,
               ),
-              subtitle: LocaleText(
-                text: "${items[index]}",
+              subtitle: Text(
+                "${items[index]}",
                 style: AppTextStyles.bodyTextStyle
                     .copyWith(fontWeight: FontWeight.bold),
-                alignment: TextAlign.start,
+                textAlign: TextAlign.start,
               ),
             ),
           );

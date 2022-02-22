@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../data/model/category_name.dart';
@@ -31,9 +32,10 @@ class _FoodCategoriesState extends State<FoodCategories> {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  top: context.dynamicWidht(0.04),
-                  left: context.dynamicWidht(0.07),
-                  right: context.dynamicWidht(0.07)),
+                top: 20.h,
+                left: 26.w,
+                right: 26.w,
+              ),
               child: widget.categories!.isNotEmpty
                   ? GridView.builder(
                       shrinkWrap: true,
@@ -41,8 +43,8 @@ class _FoodCategoriesState extends State<FoodCategories> {
                         crossAxisCount: 4,
                         childAspectRatio: context.dynamicWidht(0.07) /
                             context.dynamicHeight(0.065),
-                        crossAxisSpacing: context.dynamicWidht(0.046),
-                        mainAxisSpacing: context.dynamicHeight(0.03),
+                        crossAxisSpacing: 20.w,
+                        mainAxisSpacing: 30.h,
                       ),
                       itemCount: widget.categories!.length,
                       physics: NeverScrollableScrollPhysics(),
@@ -70,11 +72,11 @@ class _FoodCategoriesState extends State<FoodCategories> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: 40,
+                            height: 40.h,
                           ),
                           SvgPicture.asset(ImageConstant.SURPRISE_PACK_ALERT),
                           SizedBox(
-                            height: 20,
+                            height: 20.h,
                           ),
                           LocaleText(
                             alignment: TextAlign.center,
@@ -87,26 +89,22 @@ class _FoodCategoriesState extends State<FoodCategories> {
                     ),
             ),
             SizedBox(
-              height: context.dynamicHeight(0.049),
+              height: 30.h,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: context.dynamicWidht(0.070),
-                    ),
-                    LocaleText(
-                      text: LocaleKeys.restaurant_food_categories_text1,
-                      style: AppTextStyles.bodyTitleStyle,
-                      alignment: TextAlign.start,
-                      maxLines: 1,
-                    ),
-                  ],
+                Padding(
+                  padding: EdgeInsets.only(left: 26.w),
+                  child: LocaleText(
+                    text: LocaleKeys.restaurant_food_categories_text1,
+                    style: AppTextStyles.bodyTitleStyle,
+                    alignment: TextAlign.start,
+                    maxLines: 1,
+                  ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
+                  padding: EdgeInsets.only(left: 26.w),
                   child: Divider(
                     thickness: 5,
                     color: AppColors.borderAndDividerColor,
@@ -115,38 +113,34 @@ class _FoodCategoriesState extends State<FoodCategories> {
               ],
             ),
             SizedBox(
-              height: context.dynamicHeight(0.015),
+              height: 10.h,
             ),
             Container(
-                width: context.dynamicWidht(1),
-                height: context.dynamicHeight(0.065),
+                width: double.infinity,
+                height: 60.h,
                 color: Colors.white,
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      top: context.dynamicHeight(0.020),
-                      left: context.dynamicWidht(0.065)),
+                  padding: EdgeInsets.only(top: 18.w, left: 26.w),
                   child: LocaleText(
                     text: LocaleKeys.restaurant_food_categories_text3,
                     style: AppTextStyles.bodyTextStyle,
                   ),
                 )),
             SizedBox(
-              height: context.dynamicHeight(0.04),
+              height: 30.h,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
-                      right: context.dynamicWidht(0.65),
-                      left: context.dynamicWidht(0.075)),
+                  padding: EdgeInsets.only(left: 26.w, right: 300.w),
                   child: LocaleText(
                     text: LocaleKeys.restaurant_food_categories_text2,
                     style: AppTextStyles.bodyTitleStyle,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: context.dynamicWidht(0.065)),
+                  padding: EdgeInsets.only(left: 26.w),
                   child: Divider(
                     thickness: 5,
                     color: AppColors.borderAndDividerColor,
@@ -155,16 +149,14 @@ class _FoodCategoriesState extends State<FoodCategories> {
               ],
             ),
             SizedBox(
-              height: context.dynamicHeight(0.015),
+              height: 10.h,
             ),
             Container(
-                width: context.dynamicWidht(1),
-                height: context.dynamicHeight(0.11),
+                width: double.infinity,
+                height: 80.h,
                 color: Colors.white,
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      top: context.dynamicHeight(0.020),
-                      left: context.dynamicWidht(0.065)),
+                  padding: EdgeInsets.only(top: 20.h, left: 26.w, right: 26.w),
                   child: LocaleText(
                     text: LocaleKeys.restaurant_food_categories_text4,
                     style: AppTextStyles.bodyTextStyle,

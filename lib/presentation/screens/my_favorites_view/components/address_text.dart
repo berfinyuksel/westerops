@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../logic/cubits/address_cubit/address_cubit.dart';
 import '../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../widgets/text/locale_text.dart';
@@ -105,10 +106,10 @@ class _AddressTextState extends State<AddressText> {
                           style: GoogleFonts.montserrat(
                             color: AppColors.yellowColor,
                             fontWeight: FontWeight.w500,
-                            fontSize: 13.5,
+                            fontSize: 15.sp,
                             decoration: TextDecoration.underline,
                             decorationThickness: 2,
-                            height: 2.0,
+                            height: 3.0.h,
                           ),
                         ),
                       ),

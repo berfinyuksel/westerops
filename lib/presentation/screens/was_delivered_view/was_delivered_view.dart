@@ -54,8 +54,8 @@ class _WasDeliveredViewState extends State<WasDeliveredView> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                LocaleText(
-                  text: widget.orderInfo!.refCode!.toString(),
+                Text(
+                  widget.orderInfo!.refCode!.toString(),
                   style: AppTextStyles.headlineStyle,
                 ),
                 Spacer(

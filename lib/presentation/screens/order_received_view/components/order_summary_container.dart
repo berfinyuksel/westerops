@@ -28,32 +28,28 @@ class OrderSummaryContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Spacer(flex: 5),
-            LocaleText(
-              text: buildTimeString(orderInfo!.buyingTime!.toLocal()),
+            Text(
+              buildTimeString(orderInfo!.buyingTime!.toLocal()),
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             Spacer(flex: 2),
-            LocaleText(
-              text:
-                  "${orderInfo!.deliveryType == '1' ? SharedPrefs.getTimeIntervalForGetIt : SharedPrefs.getCourierHourText}${state.isGetIt! ? LocaleKeys.order_received_take_from_restaurant.locale : LocaleKeys.payment_description_text.locale}",
+            Text(
+              "${orderInfo!.deliveryType == '1' ? SharedPrefs.getTimeIntervalForGetIt : SharedPrefs.getCourierHourText}${state.isGetIt! ? LocaleKeys.order_received_take_from_restaurant.locale : LocaleKeys.payment_description_text.locale}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 2),
-            LocaleText(
-              text:
-                  "${SharedPrefs.getDeliveryType == 1 ? LocaleKeys.order_received_get_it_package.locale : LocaleKeys.order_received_courier_package.locale} - ${state.isOnline! ? LocaleKeys.filters_payment_method_item1.locale : LocaleKeys.filters_payment_method_item2.locale}",
+            Text(
+              "${SharedPrefs.getDeliveryType == 1 ? LocaleKeys.order_received_get_it_package.locale : LocaleKeys.order_received_courier_package.locale} - ${state.isOnline! ? LocaleKeys.filters_payment_method_item1.locale : LocaleKeys.filters_payment_method_item2.locale}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 5),
-            LocaleText(
-              text:
-                  "${LocaleKeys.order_received_amount_in_cart.locale}${orderInfo!.boxes!.length}",
+            Text(
+              "${LocaleKeys.order_received_amount_in_cart.locale}${orderInfo!.boxes!.length}",
               style: AppTextStyles.bodyTextStyle,
             ),
             Spacer(flex: 3),
-            LocaleText(
-              text:
-                  "${LocaleKeys.order_received_total_amount.locale} ${orderInfo!.cost.toString()} TL",
+            Text(
+              "${LocaleKeys.order_received_total_amount.locale} ${orderInfo!.cost.toString()} TL",
               style: AppTextStyles.myInformationBodyTextStyle,
             ),
             Spacer(flex: 5),

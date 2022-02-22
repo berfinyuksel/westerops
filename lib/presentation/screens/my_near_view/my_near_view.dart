@@ -336,7 +336,12 @@ class _MyNearViewState extends State<MyNearView> {
             children: [
               buildSearchBar(context),
               Spacer(),
-              SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON),
+              GestureDetector(
+                child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON),
+                onTap: () {
+                  Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+                },
+              ),
             ],
           ),
           SizedBox(height: 40.h),

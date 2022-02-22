@@ -492,19 +492,18 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
   buildCards(List<CardDetail>? cards) {
     SharedPrefs.setBoolForRegisteredCard(true);
     print(SharedPrefs.getBoolForRegisteredCard);
-    
+
     return cards!.isNotEmpty
         ? ListView.builder(
             shrinkWrap: true,
             itemCount: cards.length,
             itemBuilder: (context, index) {
-    if (selectedIndex==0) {
-      SharedPrefs.setCardToken(cards.first.cardToken.toString());
-      print(
+              if (selectedIndex == 0) {
+                SharedPrefs.setCardToken(cards.first.cardToken.toString());
+                print(
                     "LISTVIEW BUILDER CARD TOKEN${cards.first.cardToken.toString()}");
-    }
-    
-          
+              }
+
               return buildCardListTile(
                 cards,
                 cards[index].cardAlias.toString(),
@@ -548,8 +547,8 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         right: 28.w,
       ),
       tileColor: Colors.white,
-      title: LocaleText(
-        text: text,
+      title: Text(
+        text,
         style: AppTextStyles.subTitleStyle,
       ),
       subtitle: Text(

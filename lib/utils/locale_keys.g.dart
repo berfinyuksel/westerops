@@ -548,6 +548,14 @@ abstract class  LocaleKeys {
   static const restaurant_detail_detail_tab_sub_title9 = 'restaurant_detail.detail_tab.sub_title9';
   static const restaurant_detail_detail_tab_sub_title10 = 'restaurant_detail.detail_tab.sub_title10';
   static const restaurant_detail_detail_tab = 'restaurant_detail.detail_tab';
+  static const restaurant_detail_store_info_title = 'restaurant_detail.store_info.title';
+  static const restaurant_detail_store_info_restaurant_name = 'restaurant_detail.store_info.restaurant_name';
+  static const restaurant_detail_store_info_restaurant_address = 'restaurant_detail.store_info.restaurant_address';
+  static const restaurant_detail_store_info_website_address = 'restaurant_detail.store_info.website_address';
+  static const restaurant_detail_store_info_email = 'restaurant_detail.store_info.email';
+  static const restaurant_detail_store_info_restaurant_phone_number = 'restaurant_detail.store_info.restaurant_phone_number';
+  static const restaurant_detail_store_info_restaurant_phone_number2 = 'restaurant_detail.store_info.restaurant_phone_number2';
+  static const restaurant_detail_store_info = 'restaurant_detail.store_info';
   static const restaurant_detail_working_hours_title = 'restaurant_detail.working_hours.title';
   static const restaurant_detail_working_hours_month1 = 'restaurant_detail.working_hours.month1';
   static const restaurant_detail_working_hours_month2 = 'restaurant_detail.working_hours.month2';

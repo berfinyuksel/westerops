@@ -1,9 +1,8 @@
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/button/custom_button.dart';
@@ -39,36 +38,35 @@ class _CustomAlertDialogForCancelOrderState
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
       content: Container(
-        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
-        width: context.dynamicWidht(0.87),
-        height: context.dynamicHeight(0.32),
+        padding: EdgeInsets.symmetric(horizontal: 26.w),
+        width: 372.w,
+        height: 270.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18.0),
           color: Colors.white,
         ),
         child: Column(
           children: [
-            SizedBox(height: 10),
-            Container(
-              height: 90,
-              width: 90,
-              child: SvgPicture.asset(
-                widget.imagePath!,
-              ),
+            Spacer(flex: 1),
+            SvgPicture.asset(
+              widget.imagePath!,
+              height: 56.h,
+              width: 46.w,
             ),
-            SizedBox(height: 10),
+            Spacer(flex: 2),
             LocaleText(
               text: widget.textMessage,
               style: AppTextStyles.bodyBoldTextStyle,
               alignment: TextAlign.center,
             ),
-            SizedBox(height: 10),
+            Spacer(flex: 2),
             buildTextFormField(
                 LocaleKeys.surprise_pack_cancel_descrption.locale,
                 widget.customTextController!,
                 context),
-            SizedBox(height: 10),
+            Spacer(flex: 2),
             buildButtons(context),
+            Spacer(flex: 3),
           ],
         ),
       ),
@@ -82,7 +80,7 @@ class _CustomAlertDialogForCancelOrderState
         children: [
           CustomButton(
             onPressed: widget.onPressedOne,
-            width: context.dynamicWidht(0.33),
+            width: 140.w,
             color: Colors.transparent,
             textColor: AppColors.greenColor,
             borderColor: AppColors.greenColor,
@@ -91,7 +89,7 @@ class _CustomAlertDialogForCancelOrderState
           Spacer(),
           CustomButton(
             onPressed: widget.onPressedTwo,
-            width: context.dynamicWidht(0.33),
+            width: 140.w,
             color: AppColors.greenColor,
             textColor: Colors.white,
             borderColor: AppColors.greenColor,
@@ -105,7 +103,7 @@ class _CustomAlertDialogForCancelOrderState
   Container buildTextFormField(
       String hintText, TextEditingController controller, BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.052),
+      height: 48.h,
       color: Colors.white,
       child: TextFormField(
         cursorColor: AppColors.cursorColor,

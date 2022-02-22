@@ -608,6 +608,15 @@
             "sub_title9": "There is no defined package",
             "sub_title10": "Time until package identification: "
         },
+        "store_info": {
+            "title": "Store Information",
+            "restaurant_name": "Restaurant Name",
+            "restaurant_address": "Address",
+            "website_address": "Website",
+            "email": "E-mail",
+            "restaurant_phone_number": "Phone Number",
+            "restaurant_phone_number2": "Phone Number 2"
+        },
         "working_hours": {
             "title": "Working Hours",
             "month1": "January",

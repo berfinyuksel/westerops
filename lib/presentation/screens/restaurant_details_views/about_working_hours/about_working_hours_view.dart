@@ -7,7 +7,6 @@ import '../../../../data/model/search_store.dart';
 import '../../../../logic/cubits/time_interval_cubit/time_interval_cubit.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/scaffold/custom_scaffold.dart';
-import '../../../widgets/text/locale_text.dart';
 
 class AboutWorkingHourView extends StatefulWidget {
   final SearchStore? restaurant;
@@ -63,28 +62,28 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
             ),
             decoration: BoxDecoration(color: Colors.white),
             child: ListTile(
-              title: LocaleText(
-                text: buildDateFormatOfTheDay(startOfRes),
+              title: Text(
+                buildDateFormatOfTheDay(startOfRes),
                 style: AppTextStyles.subTitleStyle
                     .copyWith(fontWeight: FontWeight.normal),
-                alignment: TextAlign.start,
+                textAlign: TextAlign.start,
               ),
-              subtitle: LocaleText(
-                text: buildWeekdayOftheDate(startOfRes),
+              subtitle: Text(
+                buildWeekdayOftheDate(startOfRes),
                 style: AppTextStyles.bodyTextStyle
                     .copyWith(fontWeight: FontWeight.bold),
-                alignment: TextAlign.start,
+                textAlign: TextAlign.start,
               ),
               trailing: Column(
                 children: [
                   SizedBox(
                     height: 30.h,
                   ),
-                  LocaleText(
-                    text: buildHourForTheDate(startOfRes, endOfRes),
+                  Text(
+                    buildHourForTheDate(startOfRes, endOfRes),
                     style: AppTextStyles.bodyTextStyle
                         .copyWith(fontWeight: FontWeight.bold),
-                    alignment: TextAlign.start,
+                    textAlign: TextAlign.start,
                   ),
                 ],
               ),

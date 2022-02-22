@@ -277,7 +277,7 @@ class _LoginViewState extends State<LoginView> {
                     ImageConstant.SURPRISE_PACK,
                     height: context.dynamicHeight(0.134),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Text(
                     LocaleKeys.login_login_success_alert_dialog_text.locale,
                     style: AppTextStyles.bodyBoldTextStyle,
@@ -291,11 +291,11 @@ class _LoginViewState extends State<LoginView> {
                       Navigator.pushNamed(
                           context, RouteConstant.CUSTOM_SCAFFOLD);
                     },
-                    width: context.dynamicWidht(0.35),
+                    width: 35.w,
                     color: AppColors.greenColor,
                     textColor: Colors.white,
                     borderColor: AppColors.greenColor,
-                    title: LocaleKeys.order_received_button_2.locale,
+                    title: LocaleKeys.order_received_button_2,
                   ),
                   Spacer(
                     flex: 20,

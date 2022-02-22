@@ -95,8 +95,8 @@ class _SwipeViewState extends State<SwipeView> {
             ),
             child: Padding(
               padding: EdgeInsets.only(left: 18.w),
-              child: LocaleText(
-                text: widget.orderInfo!.cost.toString() + ' TL',
+              child: Text(
+                widget.orderInfo!.cost.toString() + ' TL',
                 style: AppTextStyles.bodyBoldTextStyle.copyWith(
                   color: AppColors.greenColor,
                 ),
@@ -142,8 +142,8 @@ class _SwipeViewState extends State<SwipeView> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                LocaleText(
-                  text: widget.orderInfo!.refCode.toString(),
+                Text(
+                  widget.orderInfo!.refCode.toString(),
                   style: AppTextStyles.headlineStyle,
                 ),
                 Spacer(
@@ -217,7 +217,7 @@ class _SwipeViewState extends State<SwipeView> {
                     key: UniqueKey(),
                     onDismissed: (value) {
                       SharedPrefs.setOrderBar(false);
-                  context.read<SwipeRouteButton>().swipeRouteButton(false);
+                      context.read<SwipeRouteButton>().swipeRouteButton(false);
                       setState(() {
                         Navigator.pushNamed(
                             context, RouteConstant.WAS_DELIVERED_VIEW,

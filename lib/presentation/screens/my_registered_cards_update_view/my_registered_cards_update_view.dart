@@ -190,13 +190,16 @@ class _MyRegisteredCardsUpdateViewState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SvgPicture.asset(ImageConstant.IYZICO_LOGO),
-                      Text(
-                        "Ödeme sistemimiz Iyzico tarafından\nsağlanmaktadır ve işlem güvenliğiniz\nIyzico güvencesi altındadır.",
-                        style: AppTextStyles.subTitleStyle,
+                      Padding(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: Text(
+                          "Ödeme sistemimiz Iyzico\ntarafından sağlanmaktadır\nve işlem güvenliğiniz Iyzico\ngüvencesi altındadır.",
+                          style: AppTextStyles.subTitleStyle,
+                        ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 256.h),
+                  Spacer(flex: 4),
                   CustomButton(
                     width: double.infinity,
                     title: LocaleKeys.change_password_button,
@@ -208,7 +211,9 @@ class _MyRegisteredCardsUpdateViewState
                           .substring(cardNumberController.text.length - 4);
                       var binNumber = cardNumberController.text.substring(0, 6);
                       var cardNumberControl = binNumber + lastFourDigits;
-                      if (SharedPrefs.getCardsList.contains(cardNumberControl) == true) {
+                      if (SharedPrefs.getCardsList
+                              .contains(cardNumberControl) ==
+                          true) {
                         showDialog(
                             context: context,
                             builder: (_) => CustomAlertDialogResetPassword(
@@ -272,7 +277,9 @@ class _MyRegisteredCardsUpdateViewState
                           "CARD NUMBER CONTROL CACHE: ${SharedPrefs.getNewCardNumber}");
                     },
                   ),
-                  SizedBox(height: 29.h),
+                  Spacer(
+                    flex: 2,
+                  ),
                 ],
               ),
             ),

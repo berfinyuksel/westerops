@@ -128,26 +128,26 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                   ),
                   buildOrderNumberContainer(context, orderInfo),
                   SizedBox(
-                    height: context.dynamicHeight(0.02),
+                    height: 20.h,
                   ),
                   buildCountDown(context, orderInfo),
                   SizedBox(
-                    height: context.dynamicHeight(0.04),
+                    height: 40.h,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+                    padding: EdgeInsets.only(left: 26.w),
                     child: LocaleText(
                         text: LocaleKeys.order_received_order_summary,
                         style: AppTextStyles.bodyTitleStyle),
                   ),
                   SizedBox(
-                    height: context.dynamicHeight(0.01),
+                    height: 10.h,
                   ),
                   OrderSummaryContainer(
                     orderInfo: orderInfo,
                   ),
                   SizedBox(
-                    height: context.dynamicHeight(0.04),
+                    height: 40.h,
                   ),
                   buildRowTitleLeftRight(
                     context,

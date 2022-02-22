@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/constants/route_constant.dart';
-import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
@@ -22,9 +22,9 @@ class MapAlertDialog extends StatelessWidget {
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
       content: Container(
-        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
-        width: context.dynamicWidht(0.87),
-        height: context.dynamicHeight(0.29),
+        padding: EdgeInsets.symmetric(horizontal: 26.w),
+        width: 372.w,
+        height: 270.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18.0),
           color: Colors.white,
@@ -34,7 +34,7 @@ class MapAlertDialog extends StatelessWidget {
             Spacer(flex: 2),
             SvgPicture.asset(
               ImageConstant.ADDRESS_MAP_ALERT,
-              height: context.dynamicHeight(0.07),
+              height: 70.h,
             ),
             Spacer(flex: 1),
             LocaleText(
@@ -56,7 +56,7 @@ class MapAlertDialog extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomButton(
-          width: context.dynamicWidht(0.33),
+          width: 140.w,
           color: Colors.transparent,
           textColor: AppColors.greenColor,
           borderColor: AppColors.greenColor,
@@ -66,9 +66,9 @@ class MapAlertDialog extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
-        SizedBox(width: context.dynamicWidht(0.01)),
+        Spacer(),
         CustomButton(
-          width: context.dynamicWidht(0.33),
+          width: 140.w,
           color: AppColors.greenColor,
           textColor: Colors.white,
           borderColor: AppColors.greenColor,

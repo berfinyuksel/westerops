@@ -448,14 +448,14 @@ class _HomePageViewState extends State<HomePageView> {
                             text: LocaleKeys.home_page_active_order,
                             style: AppTextStyles.subTitleBoldStyle,
                           ),
-                          LocaleText(
-                            text:
-                                '${orderInfo.first.address!.name} - ${orderInfo.first.buyingTime!.toLocal().day}.${orderInfo.first.buyingTime!.toLocal().month}.${orderInfo.first.buyingTime!.toLocal().year}',
+                          Text(
+                            '${orderInfo.first.address!.name} - ${orderInfo.first.buyingTime!.toLocal().day}.${orderInfo.first.buyingTime!.toLocal().month}.${orderInfo.first.buyingTime!.toLocal().year}',
                             style: AppTextStyles.subTitleBoldStyle,
                           ),
-                          LocaleText(
-                            text: orderInfo.first.boxes!.isNotEmpty
+                          Text(
+                            orderInfo.first.boxes!.isNotEmpty
                                 ? orderInfo.first.boxes![0].store!.name
+                                    .toString()
                                 : '',
                             style: AppTextStyles.bodyBoldTextStyle
                                 .copyWith(color: Colors.white),

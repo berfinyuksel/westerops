@@ -207,189 +207,195 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
             right: 28.w,
           ),
           child: Builder(builder: (context) {
-            return context.read<CancelOrderCubit>().state==true
+            return context.read<CancelOrderCubit>().state == true
                 ? CustomButton(
-                width: double.infinity,
-                title: LocaleKeys.past_order_detail_cancel_order,
-                color: Colors.transparent,
-                borderColor: AppColors.greenColor,
-                textColor: AppColors.greenColor,
-                onPressed: () {
-                  showDialog(
-                  
-                    context: context,
-                    builder: (_) => CustomAlertDialogForCancelOrder(
-                        customTextController: textController,
-                        textMessage: LocaleKeys
-                            .past_order_detail_cancel_order_alert_dialog_text,
-                        buttonOneTitle: LocaleKeys.payment_payment_cancel,
-                        buttonTwoTittle: LocaleKeys.address_address_approval,
-                        imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                        onPressedOne: () {
-                          Navigator.of(context).pop();
-                        },
-                        onPressedTwo: () async {
-                          
-                          Navigator.of(context).pop();
-                          StatusCode statusCode =
-                              await sl<UpdateOrderRepository>().cancelOrder(
-                                  widget.orderInfo!.id!, textController.text);
-                          switch (statusCode) {
-                            case StatusCode.success:
-                              context.read<OrderBarCubit>().stateOfBar(false);
-                                     context
+                    width: double.infinity,
+                    title: LocaleKeys.past_order_detail_cancel_order,
+                    color: Colors.transparent,
+                    borderColor: AppColors.greenColor,
+                    textColor: AppColors.greenColor,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => CustomAlertDialogForCancelOrder(
+                            customTextController: textController,
+                            textMessage: LocaleKeys
+                                .past_order_detail_cancel_order_alert_dialog_text,
+                            buttonOneTitle: LocaleKeys.payment_payment_cancel,
+                            buttonTwoTittle:
+                                LocaleKeys.address_address_approval,
+                            imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                            onPressedOne: () {
+                              Navigator.of(context).pop();
+                            },
+                            onPressedTwo: () async {
+                              Navigator.of(context).pop();
+                              StatusCode statusCode =
+                                  await sl<UpdateOrderRepository>().cancelOrder(
+                                      widget.orderInfo!.id!,
+                                      textController.text);
+                              switch (statusCode) {
+                                case StatusCode.success:
+                                  context
+                                      .read<OrderBarCubit>()
+                                      .stateOfBar(false);
+                                  context
                                       .read<CancelCancelCubit>()
                                       .cancelCancel(false);
-                              showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                        contentPadding: EdgeInsets.zero,
-                                        content: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal:
-                                                  context.dynamicWidht(0.04)),
-                                          width: context.dynamicWidht(0.87),
-                                          height: context.dynamicHeight(0.29),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(18.0),
-                                            color: Colors.white,
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Spacer(
-                                                flex: 8,
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => AlertDialog(
+                                            contentPadding: EdgeInsets.zero,
+                                            content: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: context
+                                                      .dynamicWidht(0.04)),
+                                              width: context.dynamicWidht(0.87),
+                                              height:
+                                                  context.dynamicHeight(0.29),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(18.0),
+                                                color: Colors.white,
                                               ),
-                                              SvgPicture.asset(
-                                                ImageConstant.SURPRISE_PACK,
-                                                height: context
-                                                    .dynamicHeight(0.134),
+                                              child: Column(
+                                                children: [
+                                                  Spacer(
+                                                    flex: 8,
+                                                  ),
+                                                  SvgPicture.asset(
+                                                    ImageConstant.SURPRISE_PACK,
+                                                    height: context
+                                                        .dynamicHeight(0.134),
+                                                  ),
+                                                  SizedBox(height: 10.h),
+                                                  LocaleText(
+                                                    text: LocaleKeys
+                                                        .past_order_detail_cancelled_order_successfully,
+                                                    style: AppTextStyles
+                                                        .bodyBoldTextStyle,
+                                                    alignment: TextAlign.center,
+                                                  ),
+                                                  Spacer(
+                                                    flex: 35,
+                                                  ),
+                                                  CustomButton(
+                                                    onPressed: () {
+                                                      context
+                                                          .read<OrderBarCubit>()
+                                                          .stateOfBar(false);
+                                                      Navigator.of(context)
+                                                          .pushNamed(RouteConstant
+                                                              .CUSTOM_SCAFFOLD);
+                                                    },
+                                                    width: context
+                                                        .dynamicWidht(0.35),
+                                                    color: AppColors.greenColor,
+                                                    textColor: Colors.white,
+                                                    borderColor:
+                                                        AppColors.greenColor,
+                                                    title: LocaleKeys
+                                                        .forgot_password_ok,
+                                                  ),
+                                                  Spacer(
+                                                    flex: 20,
+                                                  ),
+                                                ],
                                               ),
-                                              SizedBox(height: 10.h),
-                                              LocaleText(
-                                                text: LocaleKeys
-                                                    .past_order_detail_cancelled_order_successfully,
-                                                style: AppTextStyles
-                                                    .bodyBoldTextStyle,
-                                                alignment: TextAlign.center,
+                                            ),
+                                          ));
+                                  break;
+                                case StatusCode.unauthecticated:
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => CustomAlertDialog(
+                                        textMessage: LocaleKeys
+                                            .past_order_detail_unautherized_move,
+                                        buttonOneTitle: LocaleKeys
+                                            .custom_drawer_login_button,
+                                        buttonTwoTittle: LocaleKeys
+                                            .custom_drawer_register_button,
+                                        imagePath: ImageConstant.SURPRISE_PACK,
+                                        onPressedOne: () {
+                                          Navigator.of(context).pushNamed(
+                                              RouteConstant.LOGIN_VIEW);
+                                          Navigator.of(context).pop();
+                                        },
+                                        onPressedTwo: () {
+                                          Navigator.of(context).pushNamed(
+                                              RouteConstant.REGISTER_VIEW);
+                                          Navigator.of(context).pop();
+                                        }),
+                                  );
+                                  break;
+                                default:
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => AlertDialog(
+                                            contentPadding: EdgeInsets.zero,
+                                            content: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: context
+                                                      .dynamicWidht(0.04)),
+                                              width: context.dynamicWidht(0.87),
+                                              height:
+                                                  context.dynamicHeight(0.29),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(18.0),
+                                                color: Colors.white,
                                               ),
-                                              Spacer(
-                                                flex: 35,
+                                              child: Column(
+                                                children: [
+                                                  Spacer(
+                                                    flex: 8,
+                                                  ),
+                                                  SvgPicture.asset(
+                                                    ImageConstant
+                                                        .SURPRISE_PACK_ALERT,
+                                                    height: context
+                                                        .dynamicHeight(0.134),
+                                                  ),
+                                                  SizedBox(height: 10.h),
+                                                  LocaleText(
+                                                    text: LocaleKeys
+                                                        .past_order_detail_cancel_order_error,
+                                                    style: AppTextStyles
+                                                        .bodyBoldTextStyle,
+                                                    alignment: TextAlign.center,
+                                                  ),
+                                                  Spacer(
+                                                    flex: 35,
+                                                  ),
+                                                  CustomButton(
+                                                    onPressed: () {
+                                                      context
+                                                          .read<OrderBarCubit>()
+                                                          .stateOfBar(false);
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    width: context
+                                                        .dynamicWidht(0.35),
+                                                    color: AppColors.greenColor,
+                                                    textColor: Colors.white,
+                                                    borderColor:
+                                                        AppColors.greenColor,
+                                                    title: LocaleKeys
+                                                        .forgot_password_ok,
+                                                  ),
+                                                  Spacer(
+                                                    flex: 20,
+                                                  ),
+                                                ],
                                               ),
-                                              CustomButton(
-                                                onPressed: () {
-                                                  context
-                                                      .read<OrderBarCubit>()
-                                                      .stateOfBar(false);
-                                                  Navigator.of(context)
-                                                      .pushNamed(RouteConstant
-                                                          .CUSTOM_SCAFFOLD);
-                                                },
-                                                width:
-                                                    context.dynamicWidht(0.35),
-                                                color: AppColors.greenColor,
-                                                textColor: Colors.white,
-                                                borderColor:
-                                                    AppColors.greenColor,
-                                                title: LocaleKeys
-                                                    .forgot_password_ok,
-                                              ),
-                                              Spacer(
-                                                flex: 20,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ));
-                              break;
-                            case StatusCode.unauthecticated:
-                              showDialog(
-                                context: context,
-                                builder: (_) => CustomAlertDialog(
-                                    textMessage: LocaleKeys
-                                        .past_order_detail_unautherized_move,
-                                    buttonOneTitle:
-                                        LocaleKeys.custom_drawer_login_button,
-                                    buttonTwoTittle: LocaleKeys
-                                        .custom_drawer_register_button,
-                                    imagePath: ImageConstant.SURPRISE_PACK,
-                                    onPressedOne: () {
-                                      Navigator.of(context)
-                                          .pushNamed(RouteConstant.LOGIN_VIEW);
-                                      Navigator.of(context).pop();
-                                    },
-                                    onPressedTwo: () {
-                                      Navigator.of(context).pushNamed(
-                                          RouteConstant.REGISTER_VIEW);
-                                      Navigator.of(context).pop();
-                                    }),
-                              );
-                              break;
-                            default:
-                              showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                        contentPadding: EdgeInsets.zero,
-                                        content: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal:
-                                                  context.dynamicWidht(0.04)),
-                                          width: context.dynamicWidht(0.87),
-                                          height: context.dynamicHeight(0.29),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(18.0),
-                                            color: Colors.white,
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Spacer(
-                                                flex: 8,
-                                              ),
-                                              SvgPicture.asset(
-                                                ImageConstant
-                                                    .SURPRISE_PACK_ALERT,
-                                                height: context
-                                                    .dynamicHeight(0.134),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              LocaleText(
-                                                text: LocaleKeys
-                                                    .past_order_detail_cancel_order_error,
-                                                style: AppTextStyles
-                                                    .bodyBoldTextStyle,
-                                                alignment: TextAlign.center,
-                                              ),
-                                              Spacer(
-                                                flex: 35,
-                                              ),
-                                              CustomButton(
-                                                onPressed: () {
-                                                  context
-                                                      .read<OrderBarCubit>()
-                                                      .stateOfBar(false);
-                                                  Navigator.of(context).pop();
-                                                },
-                                                width:
-                                                    context.dynamicWidht(0.35),
-                                                color: AppColors.greenColor,
-                                                textColor: Colors.white,
-                                                borderColor:
-                                                    AppColors.greenColor,
-                                                title: LocaleKeys
-                                                    .forgot_password_ok,
-                                              ),
-                                              Spacer(
-                                                flex: 20,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ));
-                          }
-                        }),
-                  );
-                }): SizedBox();
+                                            ),
+                                          ));
+                              }
+                            }),
+                      );
+                    })
+                : SizedBox();
           }),
         ),
         SizedBox(
@@ -516,9 +522,9 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                   ImageConstant.COMMONS_FORWARD_ICON,
                 ),
                 tileColor: Colors.white,
-                title: LocaleText(
-                  text: widget.orderInfo!.boxes!.length != 0
-                      ? widget.orderInfo!.boxes![0].store!.name
+                title: Text(
+                  widget.orderInfo!.boxes!.length != 0
+                      ? widget.orderInfo!.boxes![0].store!.name.toString()
                       : '',
                   style: AppTextStyles.bodyTextStyle,
                 ),
