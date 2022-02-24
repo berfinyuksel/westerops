@@ -577,153 +577,142 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     return Column(
       children: [
         Container(
-          //alignment: Alignment(-0.8, 0.0),
           padding: EdgeInsets.symmetric(horizontal: 28.w),
           width: double.infinity,
-          height: 140.h,
+          height: 145.h,
           color: Colors.white,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Text(
-                    "${surpriseBoxes[index].textName}",
-                    style: AppTextStyles.myInformationBodyTextStyle,
-                  ),
-                  LocaleText(
-                    text:
-                        surpriseBoxes[index].defined == false ? "" : mealNames,
-                    style: AppTextStyles.subTitleStyle,
-                  ),
-                  SizedBox(height: 20.h),
-                  Builder(builder: (context) {
-                    final GenericState stateOfSearchStore =
-                        context.watch<SearchStoreCubit>().state;
+              SizedBox(
+                height: 20.h,
+              ),
+              Text(
+                "${surpriseBoxes[index].textName}",
+                style: AppTextStyles.myInformationBodyTextStyle,
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              LocaleText(
+                text: surpriseBoxes[index].defined == false ? "" : mealNames,
+                style: AppTextStyles.subTitleStyle,
+              ),
+              SizedBox(height: 20.h),
+              Builder(builder: (context) {
+                final GenericState stateOfSearchStore =
+                    context.watch<SearchStoreCubit>().state;
 
-                    if (stateOfSearchStore is GenericInitial) {
-                      return Container();
-                    } else if (stateOfSearchStore is GenericLoading) {
-                      return Center(child: SizedBox(height: 0, width: 0));
-                    } else if (stateOfSearchStore is GenericCompleted) {
-                      List<SearchStore> chosenRestaurat = [];
-                      for (var i = 0;
-                          i < stateOfSearchStore.response.length;
-                          i++) {
-                        if (stateOfSearchStore.response[i].id ==
-                            state.response[index].store) {
-                          chosenRestaurat.add(stateOfSearchStore.response[i]);
-                          priceOfMenu = chosenRestaurat[0]
-                              .packageSettings!
-                              .minDiscountedOrderPrice;
-                          oldPriceOfMenu =
-                              chosenRestaurat[0].packageSettings!.minOrderPrice;
-                        }
-                      }
-
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            width: 69.w,
-                            height: 36.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4.0),
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 5.w),
-                              child: Text(
-                                chosenRestaurat[0]
-                                        .packageSettings!
-                                        .minOrderPrice
-                                        .toString() +
-                                    " TL",
-                                style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                                    decoration: TextDecoration.lineThrough,
-                                    color: AppColors
-                                        .unSelectedpackageDeliveryColor),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 15.w,
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            width: 69.w,
-                            height: 36.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4.0),
-                              color: AppColors.scaffoldBackgroundColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 5.w),
-                              child: Text(
-                                chosenRestaurat[0]
-                                        .packageSettings!
-                                        .minDiscountedOrderPrice
-                                        .toString() +
-                                    " TL",
-                                style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                                  color: AppColors.greenColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    } else {
-                      final error = stateOfSearchStore as GenericError;
-                      return Center(
-                          child: Text("${error.message}\n${error.statusCode}"));
+                if (stateOfSearchStore is GenericInitial) {
+                  return Container();
+                } else if (stateOfSearchStore is GenericLoading) {
+                  return Center(child: SizedBox(height: 0, width: 0));
+                } else if (stateOfSearchStore is GenericCompleted) {
+                  List<SearchStore> chosenRestaurat = [];
+                  for (var i = 0; i < stateOfSearchStore.response.length; i++) {
+                    if (stateOfSearchStore.response[i].id ==
+                        state.response[index].store) {
+                      chosenRestaurat.add(stateOfSearchStore.response[i]);
+                      priceOfMenu = chosenRestaurat[0]
+                          .packageSettings!
+                          .minDiscountedOrderPrice;
+                      oldPriceOfMenu =
+                          chosenRestaurat[0].packageSettings!.minOrderPrice;
                     }
-                  }),
-                ],
-              ),
-              Padding(
-                //buy box
-                padding: EdgeInsets.only(top: 40.h),
-                child: Builder(
-                  builder: (context) {
-                    SharedPrefs.setSumPrice(
-                        context.watch<SumPriceOrderCubit>().state);
-                    SharedPrefs.setOldSumPrice(
-                        context.watch<SumOldPriceOrderCubit>().state);
-                    int menuItem = state.response[index].id;
-                    final counterState =
-                        context.watch<BasketCounterCubit>().state;
-                    return Builder(builder: (context) {
-                      return CustomButton(
-                        title: menuList!.contains(menuItem.toString())
-                            ? LocaleKeys.restaurant_detail_button_text2
-                            : LocaleKeys.restaurant_detail_button_text,
-                        color: menuList!.contains(menuItem.toString())
-                            ? Colors.transparent
-                            : AppColors.greenColor,
-                        textColor: menuList!.contains(menuItem.toString())
-                            ? AppColors.greenColor
-                            : Colors.white,
-                        width: 110.w,
-                        borderColor: AppColors.greenColor,
-                        onPressed: () async {
-                          context
-                              .read<SwipeRouteButton>()
-                              .swipeRouteButton(true);
-                          print(menuItem);
-                          await pressedBuyButton(
-                              state, index, context, counterState, menuItem);
+                  }
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        width: 69.w,
+                        height: 36.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 5.w),
+                          child: Text(
+                            chosenRestaurat[0]
+                                    .packageSettings!
+                                    .minOrderPrice
+                                    .toString() +
+                                " TL",
+                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                                decoration: TextDecoration.lineThrough,
+                                color:
+                                    AppColors.unSelectedpackageDeliveryColor),
+                          ),
+                        ),
+                      ),
+                      Spacer(flex: 1),
+                      Container(
+                        alignment: Alignment.center,
+                        width: 69.w,
+                        height: 36.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0),
+                          color: AppColors.scaffoldBackgroundColor,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 5.w),
+                          child: Text(
+                            chosenRestaurat[0]
+                                    .packageSettings!
+                                    .minDiscountedOrderPrice
+                                    .toString() +
+                                " TL",
+                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                              color: AppColors.greenColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Spacer(flex: 4),
+                      Builder(
+                        builder: (context) {
+                          SharedPrefs.setSumPrice(
+                              context.watch<SumPriceOrderCubit>().state);
+                          SharedPrefs.setOldSumPrice(
+                              context.watch<SumOldPriceOrderCubit>().state);
+                          int menuItem = state.response[index].id;
+                          final counterState =
+                              context.watch<BasketCounterCubit>().state;
+                          return Builder(builder: (context) {
+                            return CustomButton(
+                              title: menuList!.contains(menuItem.toString())
+                                  ? LocaleKeys.restaurant_detail_button_text2
+                                  : LocaleKeys.restaurant_detail_button_text,
+                              color: menuList!.contains(menuItem.toString())
+                                  ? Colors.transparent
+                                  : AppColors.greenColor,
+                              textColor: menuList!.contains(menuItem.toString())
+                                  ? AppColors.greenColor
+                                  : Colors.white,
+                              width: 110.w,
+                              borderColor: AppColors.greenColor,
+                              onPressed: () async {
+                                context
+                                    .read<SwipeRouteButton>()
+                                    .swipeRouteButton(true);
+                                print(menuItem);
+                                await pressedBuyButton(state, index, context,
+                                    counterState, menuItem);
+                              },
+                            );
+                          });
                         },
-                      );
-                    });
-                  },
-                ),
-              ),
+                      ),
+                    ],
+                  );
+                } else {
+                  final error = stateOfSearchStore as GenericError;
+                  return Center(
+                      child: Text("${error.message}\n${error.statusCode}"));
+                }
+              }),
             ],
           ),
         ),
@@ -739,7 +728,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     int counterState,
     int menuItem,
   ) async {
-          context.read<CancelOrderCubit>().cancelOrder(true);
+    context.read<CancelOrderCubit>().cancelOrder(true);
     StatusCode statusCode = await sl<BasketRepository>().addToBasket(
       "${state.response[index].id}",
       SharedPrefs.getActiveAddressId,

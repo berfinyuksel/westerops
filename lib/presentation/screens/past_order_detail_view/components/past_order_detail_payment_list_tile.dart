@@ -1,7 +1,5 @@
-import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../utils/extensions/context_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/text/locale_text.dart';
@@ -28,13 +26,13 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 26.w,
+        right: 26.w,
       ),
       trailing: Container(
         alignment: Alignment.centerRight,
-        width: context.dynamicWidht(0.3),
-        height: context.dynamicHeight(0.04),
+        width: 130.w,
+        height: 40.h,
         child: Row(
           children: [
             oldPrice
@@ -47,11 +45,11 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
                     );
                   })
                 : Spacer(),
-            SizedBox(width: context.dynamicWidht(0.02)),
+            SizedBox(width: 10.w),
             Container(
               alignment: Alignment.center,
-              width: context.dynamicWidht(0.15),
-              height: context.dynamicHeight(0.04),
+              width: 60.w,
+              height: 40.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4.0),
                 color: AppColors.scaffoldBackgroundColor,

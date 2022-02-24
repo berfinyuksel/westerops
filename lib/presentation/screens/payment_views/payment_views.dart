@@ -1,6 +1,9 @@
 import 'dart:developer';
 
+import 'package:dongu_mobile/data/model/box_order.dart';
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_order_create_with_3d_cubit/iyzico_order_create_with_3d_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/components/html_view.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
@@ -393,82 +396,78 @@ class _PaymentViewsState extends State<PaymentViews>
           ),
           color: Colors.white,
         ),
-        child: Builder(builder: (context) {
-          final stateOfSumPrice = context.watch<SumPriceOrderCubit>().state;
-
-          return Column(
-            children: [
-              Container(
-                height: 5.h,
-                width: 64.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(1.5),
-                  color: Color(0xFF707070),
+        child: Column(
+          children: [
+            Container(
+              height: 5.h,
+              width: 64.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(1.5),
+                color: Color(0xFF707070),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                LocaleText(
+                    text: LocaleKeys.payment_payment_order_amount,
+                    style: AppTextStyles.bodyTextStyle),
+                PaymentTotalPrice(
+                  price: context.watch<OrderCubit>().totalPrice,
+                  withDecimal: true,
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  LocaleText(
-                      text: LocaleKeys.payment_payment_order_amount,
-                      style: AppTextStyles.bodyTextStyle),
-                  PaymentTotalPrice(
-                    price: stateOfSumPrice.toDouble(),
-                    withDecimal: true,
-                  ),
-                ],
-              ),
-              Divider(
-                height: 10.h,
-                thickness: 2,
-                color: AppColors.borderAndDividerColor,
-              ),
-              Spacer(),
-              Row(
-                children: [
-                  Container(
-                    height: 48.h,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: LocaleText(
-                            text: LocaleKeys.payment_payment_to_be_paid,
-                            style: AppTextStyles.myInformationBodyTextStyle,
-                            maxLines: 1,
+              ],
+            ),
+            Divider(
+              height: 10.h,
+              thickness: 2,
+              color: AppColors.borderAndDividerColor,
+            ),
+            Spacer(),
+            Row(
+              children: [
+                Container(
+                  height: 48.h,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: LocaleText(
+                          text: LocaleKeys.payment_payment_to_be_paid,
+                          style: AppTextStyles.myInformationBodyTextStyle,
+                          maxLines: 1,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          '${context.watch<OrderCubit>().totalPrice.toStringAsFixed(2)} TL',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 18.0.sp,
+                            color: AppColors.greenColor,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        Expanded(
-                          child: Text(
-                            '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
-                            style: GoogleFonts.montserrat(
-                              fontSize: 18.0.sp,
-                              color: AppColors.greenColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Spacer(),
-                  CustomButton(
-                    width: 220.w,
-                    title: LocaleKeys.payment_payment_pay,
-                    color: checkboxAgreementValue && checkboxInfoValue
-                        ? AppColors.greenColor
-                        : AppColors.disabledButtonColor,
-                    textColor: Colors.white,
-                    borderColor: checkboxAgreementValue && checkboxInfoValue
-                        ? AppColors.greenColor
-                        : AppColors.disabledButtonColor,
-                  ),
-                ],
-              ),
-            ],
-          );
-        }),
+                ),
+                Spacer(),
+                CustomButton(
+                  width: 220.w,
+                  title: LocaleKeys.payment_payment_pay,
+                  color: checkboxAgreementValue && checkboxInfoValue
+                      ? AppColors.greenColor
+                      : AppColors.disabledButtonColor,
+                  textColor: Colors.white,
+                  borderColor: checkboxAgreementValue && checkboxInfoValue
+                      ? AppColors.greenColor
+                      : AppColors.disabledButtonColor,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -573,19 +572,14 @@ class _PaymentViewsState extends State<PaymentViews>
                 ),
               ),
               Expanded(
-                child: Builder(builder: (context) {
-                  final stateOfSumPrice =
-                      context.watch<SumPriceOrderCubit>().state;
-
-                  return Text(
-                    '${stateOfSumPrice.toDouble().toStringAsFixed(2)} TL',
-                    style: GoogleFonts.montserrat(
-                      fontSize: 18.0.sp,
-                      color: AppColors.greenColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  );
-                }),
+                child: Text(
+                  '${context.watch<OrderCubit>().totalPrice.toStringAsFixed(2)} TL',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 18.0.sp,
+                    color: AppColors.greenColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ],
           ),
@@ -612,12 +606,12 @@ class _PaymentViewsState extends State<PaymentViews>
                   print("IF");
                 } else {
                   if (SharedPrefs.getThreeDBool) {
-                  print("ELSE IN IF");
+                    print("ELSE IN IF");
 
                     // with threeD
                     buildWith3DPayment(context);
                   } else {
-                  print("ELSE");
+                    print("ELSE");
 
                     buildWithout3DPayment(context);
                   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
@@ -21,13 +22,13 @@ class PastOrderDetailTotalPaymentListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(
-        left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        left: 26.w,
+        right: 26.w,
       ),
       trailing: Container(
         alignment: Alignment.center,
-        width: context.dynamicWidht(0.20),
-        height: context.dynamicHeight(0.04),
+        width: 80.w,
+        height: 40.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
           color: AppColors.scaffoldBackgroundColor,
