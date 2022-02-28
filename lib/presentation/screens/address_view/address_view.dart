@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/model/address.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +32,13 @@ class AddressView extends StatefulWidget {
 
 class _AddressViewState extends State<AddressView> {
   List<int> boolList = [];
+  int indexState = 0;
+  AddressValues? activeAddres;
   @override
   void initState() {
     context.read<UserAddressCubit>().getUserAddress();
+    context.read<AddressCubit>().getActiveAddress();
+    activeAddres = context.read<AddressCubit>().activeAdress;
     super.initState();
   }
 
@@ -81,7 +86,8 @@ class _AddressViewState extends State<AddressView> {
               ? ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-                    // print(index);
+                    print("ACTIVE ADDRESS ${activeAddres!.address}");
+
                     return Dismissible(
                       direction: DismissDirection.endToStart,
                       key: UniqueKey(),
@@ -89,31 +95,22 @@ class _AddressViewState extends State<AddressView> {
                         trailing: Container(
                           height: double.infinity,
                           width: 12.w,
+                          //getAdressActive
                           child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, RouteConstant.ADDRESS_UPDATE_VIEW,
-                                  arguments:
-                                      ScreenArguments(list: list[index]));
-                            },
-                            child: boolList.length != 0
-                                ? boolList[index] == 1
+                            onTap: () {},
+                            child: activeAddres!.address!.isNotEmpty
+                                ? indexState == index
                                     ? SvgPicture.asset(
                                         ImageConstant.COMMONS_CHECK_ICON,
                                         fit: BoxFit.fitWidth,
                                       )
-                                    : SvgPicture.asset(
-                                        ImageConstant.COMMONS_FORWARD_ICON,
-                                        fit: BoxFit.fitWidth,
-                                      )
-                                : SvgPicture.asset(
-                                    ImageConstant.COMMONS_FORWARD_ICON,
-                                    fit: BoxFit.fitWidth,
-                                  ),
+                                    : SizedBox()
+                                : SizedBox(),
                           ),
                         ),
                         onTap: () {
                           setState(() {
+                            indexState = index;
                             changeAddressActivation(
                                 list[index].id!, index, list.length);
                           });
