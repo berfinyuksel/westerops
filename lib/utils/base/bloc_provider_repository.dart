@@ -20,6 +20,7 @@ import 'package:dongu_mobile/data/repositories/store_courier_hours_repository.da
 import 'package:dongu_mobile/data/repositories/time_interval_repository.dart';
 import 'package:dongu_mobile/data/repositories/user_address_repository.dart';
 import 'package:dongu_mobile/data/repositories/user_authentication_repository.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
@@ -44,8 +45,6 @@ import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notificati
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_all_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
@@ -75,8 +74,6 @@ class BlocProviderRepository {
     BlocProvider<NotificationsCounterCubit>(create: (_) => NotificationsCounterCubit()),
     BlocProvider<NearMePaddingCubit>(create: (_) => NearMePaddingCubit()),
     BlocProvider<IyzicoCardCubit>(create: (_) => IyzicoCardCubit(IyzicoCardRepository())),
-    BlocProvider<PastOrderDetailCubit>(create: (_) => PastOrderDetailCubit(SampleOrderReceivedRepository())),
-    BlocProvider<PastOrderAllCubit>(create: (_) => PastOrderAllCubit(SampleOrderReceivedRepository())),
     BlocProvider<IyzicoOrderCreateWith3DCubit>(
         create: (_) => IyzicoOrderCreateWith3DCubit(IyzicoCreateOrderWith3DRepository())),
     BlocProvider<OpportunityPaddingCubit>(create: (_) => OpportunityPaddingCubit()),
@@ -94,9 +91,9 @@ class BlocProviderRepository {
     BlocProvider<BulkUpdateNotificationCubit>(
         create: (context) => BulkUpdateNotificationCubit(SampleBulkUpdateNotificationRepository())),
     BlocProvider<TimeIntervalCubit>(create: (context) => TimeIntervalCubit(SampleTimeIntervalRepository())),
-    BlocProvider<OrderReceivedCubit>(create: (context) => OrderReceivedCubit(SampleOrderReceivedRepository())),
+    BlocProvider<OrderReceivedCubit>(create: (context) => sl<OrderReceivedCubit>()),
     BlocProvider<StoreCourierCubit>(create: (context) => StoreCourierCubit(SampleStoreCourierHoursRepository())),
-    BlocProvider<SearchStoreCubit>(create: (context) => SearchStoreCubit(SampleSearchStoreRepository())),
+    BlocProvider<SearchStoreCubit>(create: (context) => sl<SearchStoreCubit>()),
     BlocProvider<StoreBoxesCubit>(create: (context) => StoreBoxesCubit(SampleStoreBoxesRepository())),
     BlocProvider<SearchCubit>(create: (context) => SearchCubit(SampleSearchRepository())),
     BlocProvider<BoxCubit>(create: (context) => BoxCubit(SampleBoxRepository())),

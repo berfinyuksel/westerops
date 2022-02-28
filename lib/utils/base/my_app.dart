@@ -26,8 +26,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    await sl<SvgImageRepository>().preCacheSvgPictures();
-    await sl<SampleSearchStoreRepository>().getSearchStores();
   }
 
   @override
