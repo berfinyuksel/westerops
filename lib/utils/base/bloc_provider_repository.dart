@@ -95,7 +95,7 @@ class BlocProviderRepository {
     BlocProvider<StoreCourierCubit>(create: (context) => StoreCourierCubit(SampleStoreCourierHoursRepository())),
     BlocProvider<SearchStoreCubit>(create: (context) => sl<SearchStoreCubit>()),
     BlocProvider<StoreBoxesCubit>(create: (context) => StoreBoxesCubit(SampleStoreBoxesRepository())),
-    BlocProvider<SearchCubit>(create: (context) => SearchCubit(SampleSearchRepository())),
+    BlocProvider<SearchCubit>(create: (context) => sl<SearchCubit>()),
     BlocProvider<BoxCubit>(create: (context) => BoxCubit(SampleBoxRepository())),
     BlocProvider<UserAuthCubit>(create: (context) => UserAuthCubit(SampleUserAuthenticationRepository())),
     BlocProvider<OrderCubit>(create: (context) => OrderCubit(SampleOrderRepository())),

@@ -73,6 +73,9 @@ class _HomePageViewState extends State<HomePageView> {
           BlocProvider<OrderReceivedCubit>(
             create: (BuildContext context) => sl<OrderReceivedCubit>()..getPastOrder(),
           ),
+          BlocProvider<SearchCubit>(
+            create: (BuildContext context) => sl<SearchCubit>()..getSearches(controller!.text),
+          ),
         ],
         child: BlocBuilder<HomePageCubit, HomePageState>(
           builder: (context, state) {
@@ -104,8 +107,34 @@ class _HomePageViewState extends State<HomePageView> {
         ));
   }
 
-  Builder buildBuilderSearch(BuildContext context, List<SearchStore> restaurants) {
-    return Builder(builder: (context) {
+  Widget buildBuilderSearch(BuildContext context, List<SearchStore> restaurants) {
+    return BlocBuilder<SearchCubit, GenericState>(builder: (context, state){
+            if (state is GenericInitial) {
+        return Container(color: Colors.white);
+      } else if (state is GenericLoading) {
+        return Container(color: Colors.transparent, child: Center(child: CustomCircularProgressIndicator()));
+      } else if (state is GenericCompleted) {
+        List<SearchStore> searchList = [];
+        List<SearchStore> restaurant = [];
+        for (int i = 0; i < state.response.length; i++) {
+          searchList.add(state.response[i]);
+          if (state is GenericCompleted) {
+            restaurant.add(state.response[i]);
+          }
+        }
+        names = searchList;
+        filteredNames = names;
+
+        return Center(
+            child: filteredNames.length == 0
+                ? emptySearchHistory()
+                : searchListViewBuilder(state, searchList, restaurant, restaurants));
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
+ /*    return Builder(builder: (context) {
       final GenericState stateSearch = context.watch<SearchCubit>().state;
 
       if (stateSearch is GenericInitial) {
@@ -132,7 +161,7 @@ class _HomePageViewState extends State<HomePageView> {
         final error = stateSearch as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
-    });
+    }); */
   }
 
   GestureDetector buildBody(BuildContext context, List<SearchStore> restaurants, GenericCompleted state) {

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../generic_state/generic_state.dart';
 import 'package:dongu_mobile/utils/network_error.dart';
 class SearchCubit extends Cubit<GenericState> {
-  final SearchRepository _searchRepository;
+  final SampleSearchRepository _searchRepository;
   SearchCubit(this._searchRepository) : super(GenericInitial());
 
   Future<void> getSearches(String query) async {

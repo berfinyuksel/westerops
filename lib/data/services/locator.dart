@@ -8,7 +8,9 @@ import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart'
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/utils/base/bloc_provider_repository.dart';
 import 'package:dongu_mobile/utils/base/svg_image_repository.dart';
+import '../../logic/cubits/search_cubit/search_cubit.dart';
 import '../repositories/basket_repository.dart';
+import '../repositories/search_repository.dart';
 import '../repositories/update_order_repository.dart';
 import '../repositories/change_active_address_repository.dart';
 
@@ -31,9 +33,11 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => AvgReviewRepository());
   getIt.registerLazySingleton(() => BlocProviderRepository());
   getIt.registerLazySingleton(() => SvgImageRepository());
+  getIt.registerLazySingleton(() => SampleSearchRepository());
   //Cubits
 
   getIt.registerLazySingleton(() => OrderReceivedCubit(sl()));
   getIt.registerLazySingleton(() => HomePageCubit());
-   getIt.registerLazySingleton(() => SearchStoreCubit(sl()));
+  getIt.registerLazySingleton(() => SearchStoreCubit(sl()));
+  getIt.registerLazySingleton(() => SearchCubit(sl()));
 }
