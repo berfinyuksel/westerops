@@ -193,10 +193,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               SizedBox(height: 32.h),
-              Expanded(
-                flex: 4,
-                child: buildSocialAuths(context),
-              ),
+              buildSocialAuths(context),
               SizedBox(height: 48.h),
               AutoSizeText.rich(
                 TextSpan(
@@ -296,36 +293,45 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget buildSocialAuths(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
       children: [
-        GestureDetector(
-          onTap: () {
-            AuthService().loginWithGmail();
-            Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
-          },
-          child: SignWithSocialAuth(
-            image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () {
+                AuthService().loginWithGmail();
+                Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+              },
+              child: SignWithSocialAuth(
+                image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                FacebookSignInController().login();
+                Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+              },
+              child: SignWithSocialAuth(
+                image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
+              ),
+            ),
+          ],
         ),
-        GestureDetector(
-          onTap: () {
-            FacebookSignInController().login();
-            Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
-          },
-          child: SignWithSocialAuth(
-            image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
-          ),
-        ),
+        SizedBox(height: 10.h),
         Visibility(
           visible: Platform.isIOS,
-          child: GestureDetector(
-            onTap: () {
-              AppleSignInController().login();
-              //  Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
-            },
-            child: SignWithSocialAuth(
-              image: ImageConstant.REGISTER_LOGIN_APPLE_ICON,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 110.h),
+            child: GestureDetector(
+              onTap: () async {
+                await AppleSignInController().login();
+                Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+              },
+              child: SignWithSocialAuth(
+                isApple: true,
+                image: ImageConstant.REGISTER_LOGIN_APPLE_ICON,
+              ),
             ),
           ),
         ),

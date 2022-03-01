@@ -10,9 +10,11 @@ import '../../../widgets/text/locale_text.dart';
 
 class SignWithSocialAuth extends StatelessWidget {
   final String? image;
+  final bool? isApple;
   const SignWithSocialAuth({
     Key? key,
     this.image,
+    this.isApple = false,
   }) : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class SignWithSocialAuth extends StatelessWidget {
             image!,
           ),
           LocaleText(
-            text: LocaleKeys.register_social_auth,
+            text: isApple! ? LocaleKeys.register_social_auth_apple : LocaleKeys.register_social_auth,
             style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 10),
           ),
           SizedBox(width: 10.w)

@@ -80,7 +80,8 @@
             "letter": "1 büyük harf",
             "character": "8 karakter"
         },
-        "social_auth": "Devam et"
+        "social_auth": "Devam et",
+        "social_auth_apple": "Apple ile devam et"
     },
     "login": {
         "error_alert_dialog_text1": "Yeni iseniz",
