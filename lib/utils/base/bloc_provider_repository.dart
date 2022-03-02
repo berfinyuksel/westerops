@@ -62,6 +62,9 @@ import 'package:dongu_mobile/logic/cubits/time_interval_cubit/time_interval_cubi
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
+import '../../logic/cubits/login_status_cubit/login_status_cubit.dart';
 
 class BlocProviderRepository {
   List<BlocProvider> multiBlocProvider = [
@@ -107,5 +110,7 @@ class BlocProviderRepository {
     BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
     BlocProvider<FiltersCubit>(create: (context) => FiltersCubit()),
     BlocProvider<FiltersManagerCubit>(create: (context) => FiltersManagerCubit(SampleFiltersRepository())),
+    BlocProvider<LoginStatusCubit>(create: (context) => sl<LoginStatusCubit>()),
+
   ];
 }

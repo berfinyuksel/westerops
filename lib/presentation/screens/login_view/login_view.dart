@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/logic/cubits/login_status_cubit/login_status_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/notification_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/login_view/components/error_dialog_for_login.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,6 +14,7 @@ import 'dart:io' show Platform;
 
 import '../../../data/services/auth_service.dart';
 import '../../../data/services/facebook_login_controller.dart';
+import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
@@ -26,6 +28,7 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/text/locale_text.dart';
 import '../register_view/components/sign_with_social_auth.dart';
+import 'components/social_error_auth_popup.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -38,6 +41,11 @@ class _LoginViewState extends State<LoginView> {
   bool enableObscure = true;
   String dropdownValue = "TR";
   String? token;
+  String _errorTitle = "'Üzgünüz\ngiriş yapamadınız.'";
+  String _errorDescription = 
+      "Lütfen daha önce aynı mail\n adresiniz\n ile giriş yapmadığınızdan\n emin olun.";
+  String _errorServiceTitle = "Sunucu\nhatası giriş yapamadınız";
+  String _errorServiceDescription = "Bilinmeyen bir\nsunucu hatası lütfen\n tekrar deneyiniz. ";
   void notificationToken() async {
     token = await FirebaseMessaging.instance.getToken();
     print("TOKEN REG : $token");
@@ -318,18 +326,61 @@ class _LoginViewState extends State<LoginView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () {
-              AuthService().loginWithGmail();
-              Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+            onTap: () async{
+             await AuthService().loginWithGmail();
+              print("LOGIN GOOGLE STATUS CUBİT : ${sl<LoginStatusCubit>().state}");
+
+            if (sl<LoginStatusCubit>().state == 403) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SocailAuthErrorPopup(
+                        title: _errorTitle,
+                        description: _errorDescription,
+                      );
+                    });
+              } else if (sl<LoginStatusCubit>().state != 200) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SocailAuthErrorPopup(
+                        title: _errorServiceTitle,
+                        description: _errorServiceDescription,
+                      );
+                    });
+              } else {
+                Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+              }
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
             ),
           ),
           GestureDetector(
-            onTap: () {
-              FacebookSignInController().login();
-              Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+            onTap: () async {
+              await FacebookSignInController().login();
+              print("LOGIN FACEBOOK STATUS CUBİT : ${sl<LoginStatusCubit>().state}");
+              if (sl<LoginStatusCubit>().state == 403) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SocailAuthErrorPopup(
+                        title: _errorTitle,
+                        description: _errorDescription,
+                      );
+                    });
+              } else if (sl<LoginStatusCubit>().state != 200) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SocailAuthErrorPopup(
+                        title: _errorServiceTitle,
+                        description: _errorServiceDescription,
+                      );
+                    });
+              } else {
+                Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+              }
             },
             child: SignWithSocialAuth(
               image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,

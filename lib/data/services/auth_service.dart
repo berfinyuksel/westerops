@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../logic/cubits/login_status_cubit/login_status_cubit.dart';
 import '../model/auth_token.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
@@ -9,6 +10,8 @@ import 'dart:developer';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:http/http.dart' as http;
+
+import 'locator.dart';
 
 class AuthService {
   /*GoogleSignInAccount? currentUser;
@@ -92,7 +95,7 @@ class AuthService {
           await http.post(Uri.parse("${UrlConstant.EN_URL}social_auth/google/"), body: json, headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       });
-
+      sl<LoginStatusCubit>().loginStatus(response.statusCode);
       print(response.statusCode);
       if (response.statusCode == 200) {
         final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
