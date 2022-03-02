@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
@@ -9,15 +10,16 @@ import '../../../widgets/text/locale_text.dart';
 
 class SignWithSocialAuth extends StatelessWidget {
   final String? image;
+  final bool? isApple;
   const SignWithSocialAuth({
     Key? key,
     this.image,
+    this.isApple = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: context.dynamicWidht(0.32),
       height: context.dynamicHeight(0.04),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
@@ -25,22 +27,15 @@ class SignWithSocialAuth extends StatelessWidget {
         border: Border.all(width: 2.0, color: AppColors.borderAndDividerColor),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset(
             image!,
           ),
-          Spacer(
-            flex: 1,
-          ),
           LocaleText(
-            text: LocaleKeys.register_social_auth,
-            style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 12),
-            maxLines: 1,
+            text: isApple! ? LocaleKeys.register_social_auth_apple : LocaleKeys.register_social_auth,
+            style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 10),
           ),
-          Spacer(
-            flex: 2,
-          ),
+          SizedBox(width: 10.w)
         ],
       ),
     );

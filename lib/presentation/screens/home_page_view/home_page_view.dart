@@ -121,9 +121,7 @@ class _HomePageViewState extends State<HomePageView> {
       if (state is GenericInitial) {
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Container(
-            color: Colors.white,
-            child: Center(child: CustomCircularProgressIndicator()));
+        return Container(color: Colors.white, child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> restaurants = [];
         List<double> distances = [];
@@ -140,17 +138,14 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  Builder buildBuilderSearch(
-      BuildContext context, List<SearchStore> restaurants) {
+  Builder buildBuilderSearch(BuildContext context, List<SearchStore> restaurants) {
     return Builder(builder: (context) {
       final GenericState stateSearch = context.watch<SearchCubit>().state;
 
       if (stateSearch is GenericInitial) {
         return Container(color: Colors.white);
       } else if (stateSearch is GenericLoading) {
-        return Container(
-            color: Colors.transparent,
-            child: Center(child: CustomCircularProgressIndicator()));
+        return Container(color: Colors.transparent, child: Center(child: CustomCircularProgressIndicator()));
       } else if (stateSearch is GenericCompleted) {
         List<SearchStore> searchList = [];
         List<SearchStore> restaurant = [];
@@ -166,8 +161,7 @@ class _HomePageViewState extends State<HomePageView> {
         return Center(
             child: filteredNames.length == 0
                 ? emptySearchHistory()
-                : searchListViewBuilder(
-                    stateSearch, searchList, restaurant, restaurants));
+                : searchListViewBuilder(stateSearch, searchList, restaurant, restaurants));
       } else {
         final error = stateSearch as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -175,8 +169,8 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  GestureDetector buildBody(BuildContext context, List<SearchStore> restaurants,
-      List<double> distances, GenericCompleted state) {
+  GestureDetector buildBody(
+      BuildContext context, List<SearchStore> restaurants, List<double> distances, GenericCompleted state) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -184,16 +178,14 @@ class _HomePageViewState extends State<HomePageView> {
       child: Builder(builder: (context) {
         return ListView(
           children: [
-            Visibility(
-                visible: context.watch<OrderBarCubit>().state,
-                child: buildOrderStatusBar()),
+            Visibility(visible: context.watch<OrderBarCubit>().state, child: buildOrderStatusBar()),
             SizedBox(height: 20.h),
             Visibility(
               visible: visible,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
-                child: buildRowTitleLeftRightLocation(context,
-                    LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
+                child:
+                    buildRowTitleLeftRightLocation(context, LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
               ),
             ),
             Visibility(
@@ -209,7 +201,7 @@ class _HomePageViewState extends State<HomePageView> {
             Visibility(
               visible: visible,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 26),
+                padding: EdgeInsets.only(left: 26.w),
                 child: AddressText(),
               ),
             ),
@@ -226,11 +218,9 @@ class _HomePageViewState extends State<HomePageView> {
                   visible
                       ? GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, RouteConstant.FILTER_VIEW);
+                            Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
                           },
-                          child: SvgPicture.asset(
-                              ImageConstant.COMMONS_FILTER_ICON))
+                          child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
                       : searchCancelTextButton(context),
                 ],
               ),
@@ -242,8 +232,8 @@ class _HomePageViewState extends State<HomePageView> {
               visible: visible,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 28.w),
-                child: buildRowTitleLeftRightNearMeAll(context,
-                    LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
+                child:
+                    buildRowTitleLeftRightNearMeAll(context, LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
               ),
             ),
             Visibility(
@@ -275,8 +265,7 @@ class _HomePageViewState extends State<HomePageView> {
                             right: 26.w,
                           )
                         : EdgeInsets.only(),
-                child:
-                    buildListViewNearMe(context, restaurants, distances, state),
+                child: buildListViewNearMe(context, restaurants, distances, state),
               ),
             ),
             Visibility(
@@ -325,19 +314,16 @@ class _HomePageViewState extends State<HomePageView> {
                 child: Container(
                     height: 150.h,
                     child: Builder(builder: (context) {
-                      final categoryPadding =
-                          context.watch<CategoryPaddingCubit>().state;
+                      final categoryPadding = context.watch<CategoryPaddingCubit>().state;
                       return NotificationListener<ScrollUpdateNotification>(
-                          onNotification:
-                              (ScrollUpdateNotification notification) {
+                          onNotification: (ScrollUpdateNotification notification) {
                             setState(() {
                               if (notification.metrics.pixels <= 0) {
                                 scroolCategoriesLeft = true;
                               } else {
                                 scroolCategoriesLeft = false;
                               }
-                              if (notification.metrics.pixels >=
-                                  categoryPadding) {
+                              if (notification.metrics.pixels >= categoryPadding) {
                                 scroolCategoriesRight = true;
                               } else {
                                 scroolCategoriesRight = false;
@@ -388,8 +374,7 @@ class _HomePageViewState extends State<HomePageView> {
                             right: 26.w,
                           )
                         : EdgeInsets.only(),
-                child:
-                    buildListViewOpportunities(context, restaurants, distances),
+                child: buildListViewOpportunities(context, restaurants, distances),
               ),
             ),
             Visibility(
@@ -409,9 +394,7 @@ class _HomePageViewState extends State<HomePageView> {
       if (stateOfOrder is GenericInitial) {
         return Container(color: Colors.white);
       } else if (stateOfOrder is GenericLoading) {
-        return Container(
-            color: Colors.white,
-            child: Center(child: CustomCircularProgressIndicator()));
+        return Container(color: Colors.white, child: Center(child: CustomCircularProgressIndicator()));
       } else if (stateOfOrder is GenericCompleted) {
         List<IyzcoOrderCreate> orderInfoTotal = [];
         List<IyzcoOrderCreate> orderInfo = [];
@@ -427,11 +410,10 @@ class _HomePageViewState extends State<HomePageView> {
         return orderInfo.isNotEmpty
             ? GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
-                          arguments: ScreenArgumentsRestaurantDetail(
-                            orderInfo: orderInfo.first,
-                          ));
+                  Navigator.of(context).pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
+                      arguments: ScreenArgumentsRestaurantDetail(
+                        orderInfo: orderInfo.first,
+                      ));
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -452,13 +434,9 @@ class _HomePageViewState extends State<HomePageView> {
                             '${orderInfo.first.address!.name} - ${orderInfo.first.buyingTime!.toLocal().day}.${orderInfo.first.buyingTime!.toLocal().month}.${orderInfo.first.buyingTime!.toLocal().year}',
                             style: AppTextStyles.subTitleBoldStyle,
                           ),
-                          Text(
-                            orderInfo.first.boxes!.isNotEmpty
-                                ? orderInfo.first.boxes![0].store!.name
-                                    .toString()
-                                : '',
-                            style: AppTextStyles.bodyBoldTextStyle
-                                .copyWith(color: Colors.white),
+                          LocaleText(
+                            text: orderInfo.first.boxes!.isNotEmpty ? orderInfo.first.boxes![0].store!.name : '',
+                            style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
                           ),
                         ],
                       ),
@@ -468,8 +446,7 @@ class _HomePageViewState extends State<HomePageView> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        margin:
-                            EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                        margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
                         width: 69.w,
                         height: 36.h,
                         decoration: BoxDecoration(
@@ -478,8 +455,7 @@ class _HomePageViewState extends State<HomePageView> {
                         ),
                         child: Text(
                           '${orderInfo.first.cost} TL',
-                          style: AppTextStyles.bodyBoldTextStyle
-                              .copyWith(color: AppColors.greenColor),
+                          style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.greenColor),
                         ),
                       ),
                       SvgPicture.asset(
@@ -505,16 +481,12 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Container buildListViewNearMe(
-      BuildContext context,
-      List<SearchStore> restaurants,
-      List<double> distances,
-      GenericCompleted state) {
+      BuildContext context, List<SearchStore> restaurants, List<double> distances, GenericCompleted state) {
     return Container(
       width: context.dynamicWidht(0.64),
       height: 265.h,
       child: Builder(builder: (context) {
-        double valueOfPaddingForNearMe =
-            context.watch<NearMePaddingCubit>().state;
+        double valueOfPaddingForNearMe = context.watch<NearMePaddingCubit>().state;
         return NotificationListener<ScrollUpdateNotification>(
             onNotification: (ScrollUpdateNotification notification) {
               setState(() {});
@@ -531,8 +503,7 @@ class _HomePageViewState extends State<HomePageView> {
               }
               return true;
             },
-            child: NearMeRestaurantListViewWidget(
-                restaurants: restaurants, controller: _controller));
+            child: NearMeRestaurantListViewWidget(restaurants: restaurants, controller: _controller));
       }),
     );
   }
@@ -546,8 +517,7 @@ class _HomePageViewState extends State<HomePageView> {
       width: context.dynamicWidht(0.64),
       height: 265.h,
       child: Builder(builder: (context) {
-        double valueOfPaddingForOpportunity =
-            context.watch<OpportunityPaddingCubit>().state;
+        double valueOfPaddingForOpportunity = context.watch<OpportunityPaddingCubit>().state;
         return NotificationListener<ScrollUpdateNotification>(
             onNotification: (ScrollUpdateNotification notification) {
               setState(() {
@@ -556,8 +526,7 @@ class _HomePageViewState extends State<HomePageView> {
                 } else {
                   scroolOpportunitiesLeft = false;
                 }
-                if (notification.metrics.pixels >=
-                    valueOfPaddingForOpportunity) {
+                if (notification.metrics.pixels >= valueOfPaddingForOpportunity) {
                   scroolOpportunitiesRight = true;
                 } else {
                   scroolOpportunitiesRight = false;
@@ -566,14 +535,12 @@ class _HomePageViewState extends State<HomePageView> {
 
               return true;
             },
-            child: OpportunityRestaurantListViewWidget(
-                restaurants: restaurants, controller: _controller));
+            child: OpportunityRestaurantListViewWidget(restaurants: restaurants, controller: _controller));
       }),
     );
   }
 
-  Row buildRowTitleLeftRightLocation(
-      BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRightLocation(BuildContext context, String titleLeft, String titleRight) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -600,8 +567,7 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Row buildRowTitleLeftRightNearMeAll(
-      BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRightNearMeAll(BuildContext context, String titleLeft, String titleRight) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -651,8 +617,7 @@ class _HomePageViewState extends State<HomePageView> {
               enabledBorder: buildOutlineInputBorder(),
               errorBorder: buildOutlineInputBorder(),
               disabledBorder: buildOutlineInputBorder(),
-              contentPadding:
-                  EdgeInsets.only(left: context.dynamicWidht(0.040)),
+              contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.040)),
               hintText: LocaleKeys.my_near_hint_text.locale),
           inputFormatters: [
             //  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
@@ -681,8 +646,7 @@ class _HomePageViewState extends State<HomePageView> {
         padding: EdgeInsets.only(left: 30.w),
         child: LocaleText(
             text: "Aradığınız isimde bir yemek bulunmamaktadır.",
-            style: AppTextStyles.bodyTextStyle
-                .copyWith(color: AppColors.cursorColor)),
+            style: AppTextStyles.bodyTextStyle.copyWith(color: AppColors.cursorColor)),
       ),
     );
   }
@@ -726,8 +690,7 @@ class _HomePageViewState extends State<HomePageView> {
         hour: hour,
         minute: minute,
         second: second,
-        textStyle:
-            AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white));
+        textStyle: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white));
   }
 
   List<int> buildDurationForCountdown(DateTime dateTime, DateTime local) {
@@ -741,8 +704,7 @@ class _HomePageViewState extends State<HomePageView> {
     int minuteOfitem = (durationFinal! - (hourOfitem * 60 * 60)) ~/ 60;
     results.add(minuteOfitem);
 
-    int secondOfitem =
-        (durationFinal! - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
+    int secondOfitem = (durationFinal! - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
     results.add(secondOfitem);
 
     return results;
@@ -752,8 +714,7 @@ class _HomePageViewState extends State<HomePageView> {
     int hourOfItem = dateTime.hour;
     int minuteOfitem = dateTime.minute;
     int secondsOfitem = dateTime.second;
-    int durationOfitems =
-        ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
+    int durationOfitems = ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
     return durationOfitems;
   }
 
@@ -765,11 +726,7 @@ class _HomePageViewState extends State<HomePageView> {
   ) {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: searchList.isEmpty ||
-                controller!.text.isEmpty ||
-                filteredNames.isEmpty
-            ? 0
-            : searchList.length,
+        itemCount: searchList.isEmpty || controller!.text.isEmpty || filteredNames.isEmpty ? 0 : searchList.length,
         itemBuilder: (context, index) {
           List<String> meals = [];
 
@@ -798,16 +755,10 @@ class _HomePageViewState extends State<HomePageView> {
                   ),
                 );
               },
-              title: Text(searchList.isEmpty ||
-                      filteredNames.isEmpty ||
-                      "${filteredNames[index].name}".isEmpty
+              title: Text(searchList.isEmpty || filteredNames.isEmpty || "${filteredNames[index].name}".isEmpty
                   ? ""
                   : "${filteredNames[index].name}"),
-              subtitle: Text(mealNames.isEmpty ||
-                      searchList.isEmpty ||
-                      filteredNames.isEmpty
-                  ? ""
-                  : mealNames),
+              subtitle: Text(mealNames.isEmpty || searchList.isEmpty || filteredNames.isEmpty ? "" : mealNames),
             ),
           );
         });
@@ -824,8 +775,7 @@ class _HomePageViewState extends State<HomePageView> {
         },
         child: Text(
           LocaleKeys.search_cancel_button.locale,
-          style: AppTextStyles.bodyTitleStyle
-              .copyWith(color: AppColors.orangeColor, fontSize: 12.sp),
+          style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12.sp),
         ));
   }
 
