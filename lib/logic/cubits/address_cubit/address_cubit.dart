@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/model/address.dart';
 import 'package:dongu_mobile/utils/network_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,6 +8,9 @@ import '../generic_state/generic_state.dart';
 class AddressCubit extends Cubit<GenericState> {
   final AdressRepository _addressRepository;
   AddressCubit(this._addressRepository) : super(GenericInitial());
+  AddressValues? activeAdress;
+  List<AddressValues>? allAddres;
+//ListAdress all adres value create - all in adress, active adress,
 
   Future<void> getAddress(int id) async {
     try {
@@ -44,6 +48,7 @@ class AddressCubit extends Cubit<GenericState> {
           tcknVkn,
           latitude,
           longitude);
+         allAddres = response;
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));
@@ -98,6 +103,8 @@ class AddressCubit extends Cubit<GenericState> {
     try {
       emit(GenericLoading());
       final response = await _addressRepository.getActiveAddress();
+      activeAdress = response[0];
+      //allAddres!.first = activeAdress!;
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));
