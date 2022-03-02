@@ -4,9 +4,9 @@ import '../../../data/repositories/search_store_repository.dart';
 import '../generic_state/generic_state.dart';
 
 class SearchStoreCubit extends Cubit<GenericState> {
-  final SearchStoreRepository _searchStoreRepository;
+  final SampleSearchStoreRepository _searchStoreRepository;
   SearchStoreCubit(this._searchStoreRepository) : super(GenericInitial());
-  
+
   Future<void> getSearchStore() async {
     try {
       emit(GenericLoading());

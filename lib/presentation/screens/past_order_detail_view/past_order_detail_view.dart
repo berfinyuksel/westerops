@@ -5,7 +5,8 @@ import 'package:dongu_mobile/data/repositories/avg_review_repository.dart'
 import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_cancel_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/order_cubit/past_order_detail_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/past_order_detail_view/components/custom_alert_dialog_for_cancel_order.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
@@ -59,7 +60,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
   @override
   void initState() {
     context
-        .read<PastOrderDetailCubit>()
+        .read<OrderReceivedCubit>()
         .getPastOrderById(widget.orderInfo!.id!);
 
     if (widget.orderInfo!.review!.isNotEmpty) {
