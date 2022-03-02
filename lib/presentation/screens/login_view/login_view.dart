@@ -202,7 +202,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               SizedBox(height: 32.h),
               buildSocialAuths(context),
-              SizedBox(height: 48.h),
+              SizedBox(height: 20.h),
               AutoSizeText.rich(
                 TextSpan(
                   style: AppTextStyles.bodyTextStyle,
@@ -228,7 +228,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 42.h),
+              SizedBox(height: 20.h),
             ],
           ),
         ),
