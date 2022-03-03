@@ -215,157 +215,121 @@ class _HomePageViewState extends State<HomePageView> {
               visible: context.watch<OrderBarCubit>().state,
               child: buildOrderStatusBar()),
           SizedBox(height: 20.h),
+          buildRowTitleLeftRightLocation(context, LocaleKeys.home_page_location,
+              LocaleKeys.home_page_edit),
+          buildDivider(),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            child: buildRowTitleLeftRightLocation(context,
-                LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 26),
-            child: Divider(
-              thickness: 4,
-              color: AppColors.borderAndDividerColor,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 26),
+            padding: EdgeInsets.symmetric(horizontal: 26.w),
             child: AddressText(),
           ),
           SizedBox(height: 30.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w),
-            child: Row(
-              children: [
-                buildSearchBar(context),
-                SizedBox(width: 16.w),
-                visible
-                    ? GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, RouteConstant.FILTER_VIEW);
-                        },
-                        child:
-                            SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
-                    : searchCancelTextButton(context),
-              ],
-            ),
-          ),
-
+          buildSearchBarAndFilterIcon(context),
           SizedBox(height: 30.h),
           visible ? SizedBox() : buildBuilderSearch(context, restaurants),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w),
-            child: buildRowTitleLeftRightNearMeAll(context,
-                LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 28.h),
-            child: Divider(
-              thickness: 4,
-              color: AppColors.borderAndDividerColor,
-            ),
-          ),
+          buildRowTitleLeftRightNearMeAll(context, LocaleKeys.home_page_closer,
+              LocaleKeys.home_page_see_all),
+          buildDivider(),
           SizedBox(height: 22.h),
-          //bool scrool = false;
-          Padding(
-            padding: scroolNearMeLeft == true
-                ? EdgeInsets.only(
-                    left: 26.w,
-                    right: 0.w,
-                  )
-                : scroolNearMeRight == true
-                    ? EdgeInsets.only(
-                        left: 0.w,
-                        right: 26.w,
-                      )
-                    : EdgeInsets.only(),
-            child: buildListViewNearMe(context, restaurants, state),
-          ),
+          buildListViewNearMe(context, restaurants, state),
           SizedBox(height: 40.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w),
-            child: LocaleText(
-              text: LocaleKeys.home_page_categories,
-              style: AppTextStyles.bodyTitleStyle,
-            ),
-          ),
-          Padding(
-            // scroll edildiğinde 0 olacak
-            padding: EdgeInsets.only(left: 28.w),
-            child: Divider(
-              thickness: 4,
-              color: AppColors.borderAndDividerColor,
-            ),
-          ),
+          buildCategoriesText(),
+          buildDivider(),
           SizedBox(height: 15.h),
-          Padding(
-            padding: scroolCategoriesLeft == true
-                ? EdgeInsets.only(
-                    left: 26.w,
-                    right: 0.w,
-                  )
-                : scroolCategoriesRight == true
-                    ? EdgeInsets.only(
-                        left: 0.w,
-                        right: 26.w,
-                      )
-                    : EdgeInsets.only(),
-            child: Container(
-                height: 150.h,
-                child: Builder(builder: (context) {
-                  final categoryPadding =
-                      context.watch<CategoryPaddingCubit>().state;
-                  return NotificationListener<ScrollUpdateNotification>(
-                      onNotification: (ScrollUpdateNotification notification) {
-                        setState(() {
-                          if (notification.metrics.pixels <= 0) {
-                            scroolCategoriesLeft = true;
-                          } else {
-                            scroolCategoriesLeft = false;
-                          }
-                          if (notification.metrics.pixels >= categoryPadding) {
-                            scroolCategoriesRight = true;
-                          } else {
-                            scroolCategoriesRight = false;
-                          }
-                        });
-                        return true;
-                      },
-                      child: CustomHorizontalListCategory());
-                })),
-          ),
+          buildCategories(),
           SizedBox(height: 40.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w),
-            child: LocaleText(
-              text: LocaleKeys.home_page_opportunities,
-              style: AppTextStyles.bodyTitleStyle,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 28.w),
-            child: Divider(
-              thickness: 4,
-              color: AppColors.borderAndDividerColor,
-            ),
-          ),
+          buildOpportunitiesText(),
+          buildDivider(),
           SizedBox(height: 10.h),
-          Padding(
-            padding: scroolOpportunitiesLeft == true
-                ? EdgeInsets.only(
-                    left: 26.w,
-                    right: 0.w,
-                  )
-                : scroolOpportunitiesRight == true
-                    ? EdgeInsets.only(
-                        left: 0.w,
-                        right: 26.w,
-                      )
-                    : EdgeInsets.only(),
-            child: buildListViewOpportunities(context, restaurants),
-          ),
+          buildListViewOpportunities(context, restaurants),
           SizedBox(height: 10.h),
         ],
+      ),
+    );
+  }
+
+  Padding buildOpportunitiesText() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
+      child: LocaleText(
+        text: LocaleKeys.home_page_opportunities,
+        style: AppTextStyles.bodyTitleStyle,
+      ),
+    );
+  }
+
+  Padding buildCategories() {
+    return Padding(
+      padding: scroolCategoriesLeft == true
+          ? EdgeInsets.only(
+              left: 26.w,
+              right: 0.w,
+            )
+          : scroolCategoriesRight == true
+              ? EdgeInsets.only(
+                  left: 0.w,
+                  right: 26.w,
+                )
+              : EdgeInsets.only(),
+      child: Container(
+          height: 150.h,
+          child: Builder(builder: (context) {
+            final categoryPadding = context.watch<CategoryPaddingCubit>().state;
+            return NotificationListener<ScrollUpdateNotification>(
+                onNotification: (ScrollUpdateNotification notification) {
+                  setState(() {
+                    if (notification.metrics.pixels <= 0) {
+                      scroolCategoriesLeft = true;
+                    } else {
+                      scroolCategoriesLeft = false;
+                    }
+                    if (notification.metrics.pixels >= categoryPadding) {
+                      scroolCategoriesRight = true;
+                    } else {
+                      scroolCategoriesRight = false;
+                    }
+                  });
+                  return true;
+                },
+                child: CustomHorizontalListCategory());
+          })),
+    );
+  }
+
+  Padding buildCategoriesText() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
+      child: LocaleText(
+        text: LocaleKeys.home_page_categories,
+        style: AppTextStyles.bodyTitleStyle,
+      ),
+    );
+  }
+
+  Padding buildSearchBarAndFilterIcon(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 26.w),
+      child: Row(
+        children: [
+          buildSearchBar(context),
+          SizedBox(width: 16.w),
+          visible
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+                  },
+                  child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
+              : searchCancelTextButton(context),
+        ],
+      ),
+    );
+  }
+
+  Padding buildDivider() {
+    return Padding(
+      padding: EdgeInsets.only(left: 26.w),
+      child: Divider(
+        thickness: 4,
+        color: AppColors.borderAndDividerColor,
       ),
     );
   }
@@ -471,115 +435,150 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  Container buildListViewNearMe(BuildContext context,
+  Padding buildListViewNearMe(BuildContext context,
       List<SearchStore> restaurants, GenericCompleted state) {
-    return Container(
+    return Padding(
+      padding: scroolNearMeLeft == true
+          ? EdgeInsets.only(
+              left: 26.w,
+              right: 0.w,
+            )
+          : scroolNearMeRight == true
+              ? EdgeInsets.only(
+                  left: 0.w,
+                  right: 26.w,
+                )
+              : EdgeInsets.only(),
+      child: Container(
         width: context.dynamicWidht(0.64),
         height: 265.h,
         child: NotificationListener<ScrollUpdateNotification>(
-            onNotification: (ScrollUpdateNotification notification) {
-              setState(() {});
+          onNotification: (ScrollUpdateNotification notification) {
+            setState(() {});
 
-              if (notification.metrics.pixels <= 0) {
-                scroolNearMeLeft = true;
-              } else {
-                scroolNearMeLeft = false;
-              }
-              if (notification.metrics.pixels >= 0) {
-                scroolNearMeRight = true;
-              } else {
-                scroolNearMeRight = false;
-              }
-              return true;
-            },
-            child: NearMeRestaurantListViewWidget(
-                controller: sl<HomePageCubit>().nearMeScrollController,
-                restaurants: restaurants)));
-  }
-
-  Container buildListViewOpportunities(
-    BuildContext context,
-    List<SearchStore> restaurants,
-  ) {
-    return Container(
-        width: context.dynamicWidht(0.64),
-        height: 265.h,
-        child: NotificationListener<ScrollUpdateNotification>(
-            onNotification: (ScrollUpdateNotification notification) {
-              setState(() {
-                if (notification.metrics.pixels <= 0) {
-                  scroolOpportunitiesLeft = true;
-                } else {
-                  scroolOpportunitiesLeft = false;
-                }
-                if (notification.metrics.pixels >= 0) {
-                  scroolOpportunitiesRight = true;
-                } else {
-                  scroolOpportunitiesRight = false;
-                }
-              });
-
-              return true;
-            },
-            child: OpportunityRestaurantListViewWidget(
-                restaurants: restaurants,
-                controller:
-                    sl<HomePageCubit>().opportunitiesScrollController)));
-  }
-
-  Row buildRowTitleLeftRightLocation(
-      BuildContext context, String titleLeft, String titleRight) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        LocaleText(
-          text: titleLeft,
-          style: AppTextStyles.bodyTitleStyle,
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, RouteConstant.ADDRESS_VIEW);
+            if (notification.metrics.pixels <= 0) {
+              scroolNearMeLeft = true;
+            } else {
+              scroolNearMeLeft = false;
+            }
+            if (notification.metrics.pixels >= 0) {
+              scroolNearMeRight = true;
+            } else {
+              scroolNearMeRight = false;
+            }
+            return true;
           },
-          child: LocaleText(
-            text: titleRight,
-            style: GoogleFonts.montserrat(
-              fontSize: 14.0.sp,
-              color: AppColors.orangeColor,
-              fontWeight: FontWeight.w600,
-              height: 2.0.h,
-            ),
-            alignment: TextAlign.right,
-          ),
+          child: NearMeRestaurantListViewWidget(
+              controller: sl<HomePageCubit>().nearMeScrollController,
+              restaurants: restaurants),
         ),
-      ],
+      ),
     );
   }
 
-  Row buildRowTitleLeftRightNearMeAll(
-      BuildContext context, String titleLeft, String titleRight) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        LocaleText(
-          text: titleLeft,
-          style: AppTextStyles.bodyTitleStyle,
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, RouteConstant.MY_NEAR_VIEW);
+  Padding buildListViewOpportunities(
+    BuildContext context,
+    List<SearchStore> restaurants,
+  ) {
+    return Padding(
+      padding: scroolOpportunitiesLeft == true
+          ? EdgeInsets.only(
+              left: 26.w,
+              right: 0.w,
+            )
+          : scroolOpportunitiesRight == true
+              ? EdgeInsets.only(
+                  left: 0.w,
+                  right: 26.w,
+                )
+              : EdgeInsets.only(),
+      child: Container(
+        width: context.dynamicWidht(0.64),
+        height: 265.h,
+        child: NotificationListener<ScrollUpdateNotification>(
+          onNotification: (ScrollUpdateNotification notification) {
+            setState(() {
+              if (notification.metrics.pixels <= 0) {
+                scroolOpportunitiesLeft = true;
+              } else {
+                scroolOpportunitiesLeft = false;
+              }
+              if (notification.metrics.pixels >= 0) {
+                scroolOpportunitiesRight = true;
+              } else {
+                scroolOpportunitiesRight = false;
+              }
+            });
+
+            return true;
           },
-          child: LocaleText(
-            text: titleRight,
-            style: GoogleFonts.montserrat(
-              fontSize: 12.0,
-              color: AppColors.orangeColor,
-              fontWeight: FontWeight.w600,
-              height: 2.0.h,
-            ),
-            alignment: TextAlign.right,
-          ),
+          child: OpportunityRestaurantListViewWidget(
+              restaurants: restaurants,
+              controller: sl<HomePageCubit>().opportunitiesScrollController),
         ),
-      ],
+      ),
+    );
+  }
+
+  Padding buildRowTitleLeftRightLocation(
+      BuildContext context, String titleLeft, String titleRight) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          LocaleText(
+            text: titleLeft,
+            style: AppTextStyles.bodyTitleStyle,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.ADDRESS_VIEW);
+            },
+            child: LocaleText(
+              text: titleRight,
+              style: GoogleFonts.montserrat(
+                fontSize: 14.0.sp,
+                color: AppColors.orangeColor,
+                fontWeight: FontWeight.w600,
+                height: 2.0.h,
+              ),
+              alignment: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding buildRowTitleLeftRightNearMeAll(
+      BuildContext context, String titleLeft, String titleRight) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          LocaleText(
+            text: titleLeft,
+            style: AppTextStyles.bodyTitleStyle,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.MY_NEAR_VIEW);
+            },
+            child: LocaleText(
+              text: titleRight,
+              style: GoogleFonts.montserrat(
+                fontSize: 12.0,
+                color: AppColors.orangeColor,
+                fontWeight: FontWeight.w600,
+                height: 2.0.h,
+              ),
+              alignment: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
