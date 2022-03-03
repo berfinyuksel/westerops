@@ -58,6 +58,7 @@ class _CustomHorizontalListCategoryState
                   context.dynamicWidht(0.04));
             }
             // print(context.dynamicWidht(0.04));
+            print("CATEGORY PHOTO: ${results[index].photo}");
             return GestureDetector(
               onTap: () {
                 Navigator.of(context).pushNamed(
