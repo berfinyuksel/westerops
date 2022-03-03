@@ -68,13 +68,16 @@ class _HomePageViewState extends State<HomePageView> {
             create: (BuildContext context) => sl<HomePageCubit>()..init(),
           ),
           BlocProvider<SearchStoreCubit>(
-            create: (BuildContext context) => sl<SearchStoreCubit>()..getSearchStore(),
+            create: (BuildContext context) =>
+                sl<SearchStoreCubit>()..getSearchStore(),
           ),
           BlocProvider<OrderReceivedCubit>(
-            create: (BuildContext context) => sl<OrderReceivedCubit>()..getPastOrder(),
+            create: (BuildContext context) =>
+                sl<OrderReceivedCubit>()..getPastOrder(),
           ),
           BlocProvider<SearchCubit>(
-            create: (BuildContext context) => sl<SearchCubit>()..getSearches(controller!.text),
+            create: (BuildContext context) =>
+                sl<SearchCubit>()..getSearches(controller!.text),
           ),
         ],
         child: BlocBuilder<HomePageCubit, HomePageState>(
@@ -87,7 +90,10 @@ class _HomePageViewState extends State<HomePageView> {
                   if (state is GenericInitial) {
                     return Container(color: Colors.white);
                   } else if (state is GenericLoading) {
-                    return Container(color: Colors.white, child: Center(child: CustomCircularProgressIndicator()));
+                    return Container(
+                        color: Colors.white,
+                        child:
+                            Center(child: CustomCircularProgressIndicator()));
                   } else if (state is GenericCompleted) {
                     List<SearchStore> restaurants = [];
 
@@ -95,10 +101,13 @@ class _HomePageViewState extends State<HomePageView> {
                       restaurants.add(state.response[i]);
                     }
 
-                    return Center(child: buildBody(context, restaurants, state));
+                    return !visible
+                        ? searchListView(context, restaurants)
+                        : Center(child: buildBody(context, restaurants, state));
                   } else {
                     final error = state as GenericError;
-                    return Center(child: Text("${error.message}\n${error.statusCode}"));
+                    return Center(
+                        child: Text("${error.message}\n${error.statusCode}"));
                   }
                 },
               );
@@ -107,12 +116,41 @@ class _HomePageViewState extends State<HomePageView> {
         ));
   }
 
-  Widget buildBuilderSearch(BuildContext context, List<SearchStore> restaurants) {
-    return BlocBuilder<SearchCubit, GenericState>(builder: (context, state){
-            if (state is GenericInitial) {
+  Column searchListView(BuildContext context, List<SearchStore> restaurants) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(28.w, 15.h, 28.w, 0.h),
+          child: Row(
+            children: [
+              buildSearchBar(context),
+              SizedBox(width: 16.w),
+              visible
+                  ? GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+                      },
+                      child:
+                          SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
+                  : searchCancelTextButton(context),
+            ],
+          ),
+        ),
+        SizedBox(height: 20.h),
+        buildBuilderSearch(context, restaurants),
+      ],
+    );
+  }
+
+  Widget buildBuilderSearch(
+      BuildContext context, List<SearchStore> restaurants) {
+    return BlocBuilder<SearchCubit, GenericState>(builder: (context, state) {
+      if (state is GenericInitial) {
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Container(color: Colors.transparent, child: Center(child: CustomCircularProgressIndicator()));
+        return Container(
+            color: Colors.transparent,
+            child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> searchList = [];
         List<SearchStore> restaurant = [];
@@ -128,13 +166,14 @@ class _HomePageViewState extends State<HomePageView> {
         return Center(
             child: filteredNames.length == 0
                 ? emptySearchHistory()
-                : searchListViewBuilder(state, searchList, restaurant, restaurants));
+                : searchListViewBuilder(
+                    state, searchList, restaurant, restaurants));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
     });
- /*    return Builder(builder: (context) {
+    /*    return Builder(builder: (context) {
       final GenericState stateSearch = context.watch<SearchCubit>().state;
 
       if (stateSearch is GenericInitial) {
@@ -164,43 +203,35 @@ class _HomePageViewState extends State<HomePageView> {
     }); */
   }
 
-  GestureDetector buildBody(BuildContext context, List<SearchStore> restaurants, GenericCompleted state) {
+  GestureDetector buildBody(BuildContext context, List<SearchStore> restaurants,
+      GenericCompleted state) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: ListView(
         children: [
-          Visibility(visible: context.watch<OrderBarCubit>().state, child: buildOrderStatusBar()),
+          Visibility(
+              visible: context.watch<OrderBarCubit>().state,
+              child: buildOrderStatusBar()),
           SizedBox(height: 20.h),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: buildRowTitleLeftRightLocation(context, LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: buildRowTitleLeftRightLocation(context,
+                LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 26),
+            child: Divider(
+              thickness: 4,
+              color: AppColors.borderAndDividerColor,
             ),
           ),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: EdgeInsets.only(left: 26),
-              child: Divider(
-                thickness: 4,
-                color: AppColors.borderAndDividerColor,
-              ),
-            ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 26),
+            child: AddressText(),
           ),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26),
-              child: AddressText(),
-            ),
-          ),
-          Visibility(
-            visible: visible,
-            child: SizedBox(height: 30.h),
-          ),
+          SizedBox(height: 30.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 28.w),
             child: Row(
@@ -210,9 +241,11 @@ class _HomePageViewState extends State<HomePageView> {
                 visible
                     ? GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+                          Navigator.pushNamed(
+                              context, RouteConstant.FILTER_VIEW);
                         },
-                        child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
+                        child:
+                            SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
                     : searchCancelTextButton(context),
               ],
             ),
@@ -220,170 +253,132 @@ class _HomePageViewState extends State<HomePageView> {
 
           SizedBox(height: 30.h),
           visible ? SizedBox() : buildBuilderSearch(context, restaurants),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w),
-              child:
-                  buildRowTitleLeftRightNearMeAll(context, LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.w),
+            child: buildRowTitleLeftRightNearMeAll(context,
+                LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 28.h),
+            child: Divider(
+              thickness: 4,
+              color: AppColors.borderAndDividerColor,
             ),
           ),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: EdgeInsets.only(left: 28.h),
-              child: Divider(
-                thickness: 4,
-                color: AppColors.borderAndDividerColor,
-              ),
-            ),
-          ),
-          Visibility(
-            visible: visible,
-            child: SizedBox(height: 22.h),
-          ),
+          SizedBox(height: 22.h),
           //bool scrool = false;
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: scroolNearMeLeft == true
-                  ? EdgeInsets.only(
-                      left: 26.w,
-                      right: 0.w,
-                    )
-                  : scroolNearMeRight == true
-                      ? EdgeInsets.only(
-                          left: 0.w,
-                          right: 26.w,
-                        )
-                      : EdgeInsets.only(),
-              child: buildListViewNearMe(context, restaurants, state),
-            ),
-          ),
-          Visibility(
-            visible: visible,
-            child: SizedBox(height: 40.h),
-          ),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w),
-              child: LocaleText(
-                text: LocaleKeys.home_page_categories,
-                style: AppTextStyles.bodyTitleStyle,
-              ),
-            ),
-          ),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              // scroll edildiğinde 0 olacak
-              padding: EdgeInsets.only(left: 28.w),
-              child: Divider(
-                thickness: 4,
-                color: AppColors.borderAndDividerColor,
-              ),
-            ),
-          ),
-          Visibility(
-            visible: visible,
-            child: SizedBox(height: 15.h),
-          ),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: scroolCategoriesLeft == true
-                  ? EdgeInsets.only(
-                      left: 26.w,
-                      right: 0.w,
-                    )
-                  : scroolCategoriesRight == true
-                      ? EdgeInsets.only(
-                          left: 0.w,
-                          right: 26.w,
-                        )
-                      : EdgeInsets.only(),
-              child: Container(
-                  height: 150.h,
-                  child: Builder(builder: (context) {
-                    final categoryPadding = context.watch<CategoryPaddingCubit>().state;
-                    return NotificationListener<ScrollUpdateNotification>(
-                        onNotification: (ScrollUpdateNotification notification) {
-                          setState(() {
-                            if (notification.metrics.pixels <= 0) {
-                              scroolCategoriesLeft = true;
-                            } else {
-                              scroolCategoriesLeft = false;
-                            }
-                            if (notification.metrics.pixels >= categoryPadding) {
-                              scroolCategoriesRight = true;
-                            } else {
-                              scroolCategoriesRight = false;
-                            }
-                          });
-                          return true;
-                        },
-                        child: CustomHorizontalListCategory());
-                  })),
-            ),
+          Padding(
+            padding: scroolNearMeLeft == true
+                ? EdgeInsets.only(
+                    left: 26.w,
+                    right: 0.w,
+                  )
+                : scroolNearMeRight == true
+                    ? EdgeInsets.only(
+                        left: 0.w,
+                        right: 26.w,
+                      )
+                    : EdgeInsets.only(),
+            child: buildListViewNearMe(context, restaurants, state),
           ),
           SizedBox(height: 40.h),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w),
-              child: LocaleText(
-                text: LocaleKeys.home_page_opportunities,
-                style: AppTextStyles.bodyTitleStyle,
-              ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.w),
+            child: LocaleText(
+              text: LocaleKeys.home_page_categories,
+              style: AppTextStyles.bodyTitleStyle,
             ),
           ),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: EdgeInsets.only(left: 28.w),
-              child: Divider(
-                thickness: 4,
-                color: AppColors.borderAndDividerColor,
-              ),
+          Padding(
+            // scroll edildiğinde 0 olacak
+            padding: EdgeInsets.only(left: 28.w),
+            child: Divider(
+              thickness: 4,
+              color: AppColors.borderAndDividerColor,
             ),
           ),
-          Visibility(
-            visible: visible,
-            child: SizedBox(height: 10.h),
+          SizedBox(height: 15.h),
+          Padding(
+            padding: scroolCategoriesLeft == true
+                ? EdgeInsets.only(
+                    left: 26.w,
+                    right: 0.w,
+                  )
+                : scroolCategoriesRight == true
+                    ? EdgeInsets.only(
+                        left: 0.w,
+                        right: 26.w,
+                      )
+                    : EdgeInsets.only(),
+            child: Container(
+                height: 150.h,
+                child: Builder(builder: (context) {
+                  final categoryPadding =
+                      context.watch<CategoryPaddingCubit>().state;
+                  return NotificationListener<ScrollUpdateNotification>(
+                      onNotification: (ScrollUpdateNotification notification) {
+                        setState(() {
+                          if (notification.metrics.pixels <= 0) {
+                            scroolCategoriesLeft = true;
+                          } else {
+                            scroolCategoriesLeft = false;
+                          }
+                          if (notification.metrics.pixels >= categoryPadding) {
+                            scroolCategoriesRight = true;
+                          } else {
+                            scroolCategoriesRight = false;
+                          }
+                        });
+                        return true;
+                      },
+                      child: CustomHorizontalListCategory());
+                })),
           ),
-          Visibility(
-            visible: visible,
-            child: Padding(
-              padding: scroolOpportunitiesLeft == true
-                  ? EdgeInsets.only(
-                      left: 26.w,
-                      right: 0.w,
-                    )
-                  : scroolOpportunitiesRight == true
-                      ? EdgeInsets.only(
-                          left: 0.w,
-                          right: 26.w,
-                        )
-                      : EdgeInsets.only(),
-              child: buildListViewOpportunities(context, restaurants),
+          SizedBox(height: 40.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.w),
+            child: LocaleText(
+              text: LocaleKeys.home_page_opportunities,
+              style: AppTextStyles.bodyTitleStyle,
             ),
           ),
-          Visibility(
-            visible: visible,
-            child: SizedBox(height: 10.h),
+          Padding(
+            padding: EdgeInsets.only(left: 28.w),
+            child: Divider(
+              thickness: 4,
+              color: AppColors.borderAndDividerColor,
+            ),
           ),
+          SizedBox(height: 10.h),
+          Padding(
+            padding: scroolOpportunitiesLeft == true
+                ? EdgeInsets.only(
+                    left: 26.w,
+                    right: 0.w,
+                  )
+                : scroolOpportunitiesRight == true
+                    ? EdgeInsets.only(
+                        left: 0.w,
+                        right: 26.w,
+                      )
+                    : EdgeInsets.only(),
+            child: buildListViewOpportunities(context, restaurants),
+          ),
+          SizedBox(height: 10.h),
         ],
       ),
     );
   }
 
   Widget buildOrderStatusBar() {
-    return BlocBuilder<OrderReceivedCubit, GenericState>(builder: (context, state) {
+    return BlocBuilder<OrderReceivedCubit, GenericState>(
+        builder: (context, state) {
       if (state is GenericInitial) {
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Container(color: Colors.white, child: Center(child: CustomCircularProgressIndicator()));
+        return Container(
+            color: Colors.white,
+            child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<IyzcoOrderCreate> orderInfoTotal = [];
         List<IyzcoOrderCreate> orderInfo = [];
@@ -399,10 +394,11 @@ class _HomePageViewState extends State<HomePageView> {
         return orderInfo.isNotEmpty
             ? GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
-                      arguments: ScreenArgumentsRestaurantDetail(
-                        orderInfo: orderInfo.first,
-                      ));
+                  Navigator.of(context)
+                      .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
+                          arguments: ScreenArgumentsRestaurantDetail(
+                            orderInfo: orderInfo.first,
+                          ));
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -424,8 +420,12 @@ class _HomePageViewState extends State<HomePageView> {
                             style: AppTextStyles.subTitleBoldStyle,
                           ),
                           Text(
-                            orderInfo.first.boxes!.isNotEmpty ? orderInfo.first.boxes![0].store!.name.toString() : '',
-                            style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
+                            orderInfo.first.boxes!.isNotEmpty
+                                ? orderInfo.first.boxes![0].store!.name
+                                    .toString()
+                                : '',
+                            style: AppTextStyles.bodyBoldTextStyle
+                                .copyWith(color: Colors.white),
                           ),
                         ],
                       ),
@@ -435,7 +435,8 @@ class _HomePageViewState extends State<HomePageView> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                        margin:
+                            EdgeInsets.only(left: context.dynamicWidht(0.01)),
                         width: 69.w,
                         height: 36.h,
                         decoration: BoxDecoration(
@@ -444,7 +445,8 @@ class _HomePageViewState extends State<HomePageView> {
                         ),
                         child: Text(
                           '${orderInfo.first.cost} TL',
-                          style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.greenColor),
+                          style: AppTextStyles.bodyBoldTextStyle
+                              .copyWith(color: AppColors.greenColor),
                         ),
                       ),
                       SvgPicture.asset(
@@ -469,7 +471,8 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  Container buildListViewNearMe(BuildContext context, List<SearchStore> restaurants, GenericCompleted state) {
+  Container buildListViewNearMe(BuildContext context,
+      List<SearchStore> restaurants, GenericCompleted state) {
     return Container(
         width: context.dynamicWidht(0.64),
         height: 265.h,
@@ -490,7 +493,8 @@ class _HomePageViewState extends State<HomePageView> {
               return true;
             },
             child: NearMeRestaurantListViewWidget(
-                controller: sl<HomePageCubit>().nearMeScrollController, restaurants: restaurants)));
+                controller: sl<HomePageCubit>().nearMeScrollController,
+                restaurants: restaurants)));
   }
 
   Container buildListViewOpportunities(
@@ -518,10 +522,13 @@ class _HomePageViewState extends State<HomePageView> {
               return true;
             },
             child: OpportunityRestaurantListViewWidget(
-                restaurants: restaurants, controller: sl<HomePageCubit>().opportunitiesScrollController)));
+                restaurants: restaurants,
+                controller:
+                    sl<HomePageCubit>().opportunitiesScrollController)));
   }
 
-  Row buildRowTitleLeftRightLocation(BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRightLocation(
+      BuildContext context, String titleLeft, String titleRight) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -548,7 +555,8 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Row buildRowTitleLeftRightNearMeAll(BuildContext context, String titleLeft, String titleRight) {
+  Row buildRowTitleLeftRightNearMeAll(
+      BuildContext context, String titleLeft, String titleRight) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -598,7 +606,8 @@ class _HomePageViewState extends State<HomePageView> {
               enabledBorder: buildOutlineInputBorder(),
               errorBorder: buildOutlineInputBorder(),
               disabledBorder: buildOutlineInputBorder(),
-              contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.040)),
+              contentPadding:
+                  EdgeInsets.only(left: context.dynamicWidht(0.040)),
               hintText: LocaleKeys.my_near_hint_text.locale),
           inputFormatters: [
             //  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
@@ -609,7 +618,10 @@ class _HomePageViewState extends State<HomePageView> {
           },
           onTap: () {
             setState(() {
-              visible = !visible;
+              if (visible) {
+                print("hello");
+                visible = !visible;
+              }
             });
           },
           controller: controller,
@@ -627,7 +639,8 @@ class _HomePageViewState extends State<HomePageView> {
         padding: EdgeInsets.only(left: 30.w),
         child: LocaleText(
             text: "Aradığınız isimde bir yemek bulunmamaktadır.",
-            style: AppTextStyles.bodyTextStyle.copyWith(color: AppColors.cursorColor)),
+            style: AppTextStyles.bodyTextStyle
+                .copyWith(color: AppColors.cursorColor)),
       ),
     );
   }
@@ -671,7 +684,8 @@ class _HomePageViewState extends State<HomePageView> {
         hour: hour,
         minute: minute,
         second: second,
-        textStyle: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white));
+        textStyle:
+            AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white));
   }
 
   List<int> buildDurationForCountdown(DateTime dateTime, DateTime local) {
@@ -685,7 +699,8 @@ class _HomePageViewState extends State<HomePageView> {
     int minuteOfitem = (durationFinal! - (hourOfitem * 60 * 60)) ~/ 60;
     results.add(minuteOfitem);
 
-    int secondOfitem = (durationFinal! - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
+    int secondOfitem =
+        (durationFinal! - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
     results.add(secondOfitem);
 
     return results;
@@ -695,7 +710,8 @@ class _HomePageViewState extends State<HomePageView> {
     int hourOfItem = dateTime.hour;
     int minuteOfitem = dateTime.minute;
     int secondsOfitem = dateTime.second;
-    int durationOfitems = ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
+    int durationOfitems =
+        ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
     return durationOfitems;
   }
 
@@ -707,7 +723,11 @@ class _HomePageViewState extends State<HomePageView> {
   ) {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: searchList.isEmpty || controller!.text.isEmpty || filteredNames.isEmpty ? 0 : searchList.length,
+        itemCount: searchList.isEmpty ||
+                controller!.text.isEmpty ||
+                filteredNames.isEmpty
+            ? 0
+            : searchList.length,
         itemBuilder: (context, index) {
           List<String> meals = [];
 
@@ -736,10 +756,16 @@ class _HomePageViewState extends State<HomePageView> {
                   ),
                 );
               },
-              title: Text(searchList.isEmpty || filteredNames.isEmpty || "${filteredNames[index].name}".isEmpty
+              title: Text(searchList.isEmpty ||
+                      filteredNames.isEmpty ||
+                      "${filteredNames[index].name}".isEmpty
                   ? ""
                   : "${filteredNames[index].name}"),
-              subtitle: Text(mealNames.isEmpty || searchList.isEmpty || filteredNames.isEmpty ? "" : mealNames),
+              subtitle: Text(mealNames.isEmpty ||
+                      searchList.isEmpty ||
+                      filteredNames.isEmpty
+                  ? ""
+                  : mealNames),
             ),
           );
         });
@@ -756,7 +782,8 @@ class _HomePageViewState extends State<HomePageView> {
         },
         child: Text(
           LocaleKeys.search_cancel_button.locale,
-          style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12.sp),
+          style: AppTextStyles.bodyTitleStyle
+              .copyWith(color: AppColors.orangeColor, fontSize: 12.sp),
         ));
   }
 }
