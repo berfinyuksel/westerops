@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:dongu_mobile/logic/cubits/favorite_status_cubit/favorite_status_cubit.dart';
+
 import '../model/favourite.dart';
+import '../services/locator.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:dongu_mobile/utils/network_error.dart';
@@ -83,6 +86,7 @@ class SampleFavoriteRepository implements FavoriteRepository {
       },
     );
     print("Get Favorite StatusCode" + response.statusCode.toString());
+    sl<FavoriteStatusCubit>().loginStatus(response.statusCode);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
 

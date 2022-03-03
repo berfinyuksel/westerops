@@ -103,7 +103,7 @@ class AddressCubit extends Cubit<GenericState> {
     try {
       emit(GenericLoading());
       final response = await _addressRepository.getActiveAddress();
-      activeAdress = response[0];
+      //activeAdress = response[0];
       //allAddres!.first = activeAdress!;
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {

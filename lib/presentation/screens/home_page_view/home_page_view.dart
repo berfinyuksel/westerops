@@ -62,6 +62,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
+    print("USER TOKEN ${SharedPrefs.getToken}");
     return MultiBlocProvider(
         providers: [
           BlocProvider<HomePageCubit>(

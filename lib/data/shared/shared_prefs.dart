@@ -14,6 +14,11 @@ class SharedPrefs {
     _prefs.setBool('login', true);
   }
 
+  static Future<void> logoutControl() async {
+    _prefs.setBool('logoutControl', false);
+  }
+
+
   static Future<void> setToken(String token) async {
     _prefs.setString('token', token);
   }
