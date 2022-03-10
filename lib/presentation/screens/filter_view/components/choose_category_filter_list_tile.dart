@@ -43,8 +43,8 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
           expansionTileBody: Padding(
             padding: EdgeInsets.only(left: context.dynamicWidht(0.074)),
             child: Container(
-              color: Colors.white,
-              height: 220.h,
+              color: Color.fromRGBO(255, 255, 255, 1),
+              height: 330.h,
               child: Column(
                 children: [
                   SizedBox(height: 10.h),
@@ -124,25 +124,27 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
               context
                   .read<FiltersManagerCubit>()
                   .getPackageCategory(checkValue);
-
-              if (checkValue == "7") {
+              print(checkValue);
+              if (checkValue == "22") {
                 state.checkList![8] = !state.checkList![8];
-              } else if (checkValue == "7") {
+              } else if (checkValue == "22") {
                 state.checkList![9] = !state.checkList![9];
-              } else if (checkValue == "6") {
+              } else if (checkValue == "24") {
                 state.checkList![10] = !state.checkList![10];
-              } else if (checkValue == "4") {
+              } else if (checkValue == "25") {
                 state.checkList![11] = !state.checkList![11];
-              } else if (checkValue == "2") {
+              } else if (checkValue == "14") {
                 state.checkList![12] = !state.checkList![12];
-              } else if (checkValue == "5") {
+              } else if (checkValue == "26") {
                 state.checkList![13] = !state.checkList![13];
-              } else if (checkValue == "7") {
+              } else if (checkValue == "27") {
                 state.checkList![14] = !state.checkList![14];
-              } else if (checkValue == "7") {
+              } else if (checkValue == "28") {
                 state.checkList![15] = !state.checkList![15];
-              } else {
-                state.checkList![16] = !state.checkList![16];
+              }else if (checkValue == "23") {
+             state.checkList![16] = !state.checkList![16];
+              }  else {
+              
                 state.checkList![10] = !state.checkList![10];
                 state.checkList![11] = !state.checkList![11];
                 state.checkList![12] = !state.checkList![12];
@@ -154,35 +156,35 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
               }
             });
           },
-          checkboxColor: checkValue == "7"
+          checkboxColor: checkValue == "22"
               ? state.checkList![8]
                   ? AppColors.greenColor
                   : Colors.white
-              : checkValue == "7"
+              : checkValue == "22"
                   ? state.checkList![9]
                       ? AppColors.greenColor
                       : Colors.white
-                  : checkValue == "6"
+                  : checkValue == "24"
                       ? state.checkList![10]
                           ? AppColors.greenColor
                           : Colors.white
-                      : checkValue == "4"
+                      : checkValue == "25"
                           ? state.checkList![11]
                               ? AppColors.greenColor
                               : Colors.white
-                          : checkValue == "2"
+                          : checkValue == "14"
                               ? state.checkList![12]
                                   ? AppColors.greenColor
                                   : Colors.white
-                              : checkValue == "5"
+                              : checkValue == "26"
                                   ? state.checkList![13]
                                       ? AppColors.greenColor
                                       : Colors.white
-                                  : checkValue == "7"
+                                  : checkValue == "27"
                                       ? state.checkList![14]
                                           ? AppColors.greenColor
                                           : Colors.white
-                                      : checkValue == "7"
+                                      : checkValue == "28"
                                           ? state.checkList![15]
                                               ? AppColors.greenColor
                                               : Colors.white

@@ -345,6 +345,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   }
 
   Builder buildCategoriesSection(BuildContext context) {
+    print("HELLOOOO");
     return Builder(builder: (context) {
       final stateOfCategories = context.watch<CategoryNameCubit>().state;
 
@@ -361,8 +362,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
         for (var i = 0; i < categoryList.length; i++) {
           for (var j = 0; j < widget.restaurant!.categories!.length; j++) {
-            if (categoryList[i].id == widget.restaurant!.categories![j].name) {
+            if (categoryList[i].id == widget.restaurant!.categories![j].id) {
               relatedCategories.add(categoryList[i]);
+              print("CATEGORY LIST ID : ${categoryList[i].id}");
+              print("CATEGORY LIST NAME : ${categoryList[i].name}");
+              print(
+                  "CATEGORY WIDGET STORE NAME : ${widget.restaurant!.categories![j].name}");
+              print(
+                  "CATEGORY WIDGET STORE ID : ${widget.restaurant!.categories![j].id}");
+              print("helloo");
             }
           }
         }
@@ -370,8 +378,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         for (var i = 0; i < relatedCategories.length; i++) {
           nameList.add(relatedCategories[i].name!);
         }
+        print(relatedCategories.map((e) => e.name));
         String categoryNames = nameList.join(', ');
-
+        print(categoryList.map((e) => e.name));
         return GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,

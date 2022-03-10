@@ -16,6 +16,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'dart:ui' as ui;
 import '../../../../data/model/search_store.dart';
+import '../../../../data/services/locator.dart';
 import '../../../../data/shared/shared_prefs.dart';
 import '../../../../logic/cubits/address_cubit/address_cubit.dart';
 import '../../../../logic/cubits/generic_state/generic_state.dart';
@@ -53,16 +54,58 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
   late BitmapDescriptor restaurantSoldoutMarkerIcon;
   final MarkerId markerId = MarkerId("my_location");
   final MarkerId restaurantMarkerId = MarkerId("rest_1");
-  @override
+/*   @override
   void initState() {
     super.initState();
-    context.read<SearchStoreCubit>().getSearchStore();
-    context.read<AddressCubit>().getActiveAddress();
-  }
+   // context.read<SearchStoreCubit>().getSearchStore();
+  //  context.read<AddressCubit>().getActiveAddress();
+  } */
 
   @override
   Widget build(BuildContext context) {
-    final GenericState state = context.watch<SearchStoreCubit>().state;
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<SearchStoreCubit>(
+            create: (BuildContext context) =>
+                sl<SearchStoreCubit>()..getSearchStore(),
+          ),
+          BlocProvider<AddressCubit>(
+            create: (BuildContext context) =>
+                sl<AddressCubit>()..getActiveAddress(),
+          )
+        ],
+        child: BlocBuilder<SearchStoreCubit, GenericState>(
+          builder: (context, state) {
+            if (state is GenericInitial) {
+              return Container();
+            } else if (state is GenericLoading) {
+              return Center(child: CustomCircularProgressIndicator());
+            } else if (state is GenericCompleted) {
+              List<SearchStore> restaurants = [];
+              List<SearchStore> deliveredRestaurant = [];
+              int? restaurantId = SharedPrefs.getDeliveredRestaurantAddressId;
+              print(state.response);
+              for (int i = 0; i < state.response.length; i++) {
+                restaurants.add(state.response[i]);
+              }
+
+              for (var i = 0; i < restaurants.length; i++) {
+                if (restaurants[i].id == restaurantId) {
+                  deliveredRestaurant.add(restaurants[i]);
+                }
+              }
+              print(deliveredRestaurant);
+              return Center(
+                child: buildBody(context, deliveredRestaurant),
+              );
+            } else {
+              final error = state as GenericError;
+              return Center(
+                  child: Text("${error.message}\n${error.statusCode}"));
+            }
+          },
+        ));
+    /*   final GenericState state = context.watch<SearchStoreCubit>().state;
 
     if (state is GenericInitial) {
       return Container();
@@ -89,16 +132,13 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
     } else {
       final error = state as GenericError;
       return Center(child: Text("${error.message}\n${error.statusCode}"));
-    }
+    } */
   }
 
-  Builder buildBody(
+  Widget buildBody(
       BuildContext context, List<SearchStore> deliveredRestaurant) {
-    return Builder(builder: (context) {
-      final GenericState activeAddressState =
-          context.watch<AddressCubit>().state;
-
-      if (activeAddressState is GenericCompleted) {
+    return BlocBuilder<AddressCubit, GenericState>(builder: (context, state) {
+      if (state is GenericCompleted) {
         if (deliveredRestaurant.isEmpty) {
           return LocaleText(
             text: LocaleKeys.payment_address_restaurant_address,
@@ -144,12 +184,11 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                                 alignment: Alignment(0.81, 0.88),
                                 children: [
                                   GoogleMap(
-                                    myLocationEnabled: true,
+                                  //  myLocationEnabled: true,
                                     myLocationButtonEnabled: false,
                                     initialCameraPosition: CameraPosition(
-                                      target: LatLng(LocationService.latitude,
-                                          LocationService.latitude),
-                                      zoom: 17.0,
+                                      target: LatLng(41.0082, 28.9784),
+                                      zoom: 10.0,
                                     ),
                                     onMapCreated:
                                         (GoogleMapController controller) {
@@ -204,10 +243,10 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                   visible: !widget.isGetIt!,
                   child: Column(children: [
                     AddressListTile(
-                      title: activeAddressState.response[0].name,
-                      subtitleBold: activeAddressState.response[0].province,
+                      title: state.response[0].name,
+                      subtitleBold: state.response[0].province,
                       address:
-                          "\n${activeAddressState.response[0].address}\n${activeAddressState.response[0].phoneNumber}\n${activeAddressState.response[0].description}",
+                          "\n${state.response[0].address}\n${state.response[0].phoneNumber}\n${state.response[0].description}",
                     ),
                     SizedBox(
                       height: 20.h,
@@ -217,37 +256,17 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    // buildRowCheckBox(context),
                   ]),
                 ),
-/*           SizedBox(
-              height: context.dynamicHeight(0.04),
-            ),
-            buildRowTitleLeftRight(context, LocaleKeys.payment_address_billing_info, LocaleKeys.payment_address_change),
-            SizedBox(
-              height: context.dynamicHeight(0.01),
-            ),
-            AddressListTile(
-              title: "Ev\t\t",
-              subtitleBold: "Beşiktaş (Kuruçeşme, Muallim Cad.)\t\t",
-              subtitle: "\njonh.doe@mail.com\t\t\nLorem Ipsum Dolor sit amet No:5 D:5\t\t\n+90 555 555 55 55\t\t\nSüpermarketin üstü\t\t", 
-            ),
-            SizedBox(
-              height: context.dynamicHeight(0.02),
-            ),
-            buildButtonDeliveryAndBillingAddress(context, LocaleKeys.payment_address_button_add_bill),
-               SizedBox(
-              height: context.dynamicHeight(0.02),
-            ), */
               ],
             ),
           );
-      } else if (activeAddressState is GenericInitial) {
+      } else if (state is GenericInitial) {
         return Container();
-      } else if (activeAddressState is GenericLoading) {
+      } else if (state is GenericLoading) {
         return Center(child: CustomCircularProgressIndicator());
       } else {
-        final error = activeAddressState as GenericError;
+        final error = state as GenericError;
         print(error.message);
         if (error.statusCode == 204.toString()) {
           return Column(
@@ -264,6 +283,12 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
     });
+    /*    Builder(builder: (context) {
+      final GenericState state =
+          context.watch<AddressCubit>().state;
+
+  
+    }); */
   }
 
   Padding buildRowCheckBox(BuildContext context) {
@@ -370,9 +395,59 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
     );
   }
 
-  Builder buildBottomInfo(
+  Widget buildBottomInfo(
       BuildContext context, List<SearchStore> deliveredRestaurant) {
-    return Builder(builder: (context) {
+    return BlocBuilder<SearchStoreCubit, GenericState>(builder: ((context, state) {
+          if (state is GenericInitial) {
+        return Container();
+      } else if (state is GenericLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else if (state is GenericCompleted) {
+        return Positioned(
+            right: 0,
+            left: 0,
+            bottom: 0,
+            child: Container(
+              width: double.infinity,
+              height: 176.h,
+              padding: EdgeInsets.symmetric(vertical: 20.h),
+              color: Colors.white,
+              child: RestaurantInfoListTile(
+                minDiscountedOrderPrice: deliveredRestaurant
+                    .first.packageSettings!.minDiscountedOrderPrice,
+                minOrderPrice:
+                    deliveredRestaurant.first.packageSettings!.minOrderPrice,
+                packetNumber: deliveredRestaurant
+                            .first.calendar!.first.boxCount ==
+                        0
+                    ? LocaleKeys.home_page_soldout_icon
+                    : "${deliveredRestaurant.first.calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
+                deliveryType: int.parse(
+                    deliveredRestaurant.first.packageSettings!.deliveryType!),
+                restaurantName: deliveredRestaurant.first.name,
+                distance: Haversine.distance(
+                        deliveredRestaurant.first.latitude!,
+                        deliveredRestaurant.first.longitude!,
+                        LocationService.latitude,
+                        LocationService.longitude)
+                    .toStringAsFixed(2),
+                availableTime:
+                    '${deliveredRestaurant[0].packageSettings!.deliveryTimeStart} - ${deliveredRestaurant[0].packageSettings!.deliveryTimeEnd}',
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                      arguments: ScreenArgumentsRestaurantDetail(
+                        restaurant: deliveredRestaurant.first,
+                      ));
+                },
+                icon: deliveredRestaurant.first.photo,
+              ),
+            ));
+      } else {
+        final error = state as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    }));
+    /* Builder(builder: (context) {
       final GenericState state = context.watch<SearchStoreCubit>().state;
 
       if (state is GenericInitial) {
@@ -423,7 +498,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
-    });
+    }); */
   }
 
   void setCustomMarker(List<SearchStore> deliveredRestaurant) async {
@@ -471,8 +546,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
 
       controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: LatLng(latitude, longitude),
-          zoom: 17.0,
+          target: LatLng(41.0082, 28.9784),
+          zoom: 10.0,
         ),
       ));
       final Marker marker = Marker(

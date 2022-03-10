@@ -47,11 +47,12 @@ class CategoriesView extends StatelessWidget {
         }
         for (var i = 0; i < restaurants.length; i++) {
           for (var j = 0; j < restaurants[i].categories!.length; j++) {
-            if (restaurants[i].categories![j].name == category!.id) {
+            if (restaurants[i].categories![j].id == category!.id) {
               categorizedRestaurants.add(restaurants[i]);
             }
           }
         }
+        print(restaurants.length);
         return buildCustomScaffold(context, categorizedRestaurants);
       } else {
         final error = state as GenericError;
@@ -71,19 +72,21 @@ class CategoriesView extends StatelessWidget {
           top: 20.h,
           bottom: 20.h,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildTitle(category!.name!),
-            Divider(
-              thickness: 4,
-              color: AppColors.borderAndDividerColor,
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            buildRestaurantList(categorizedRestaurants),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildTitle(category!.name!),
+              Divider(
+                thickness: 4,
+                color: AppColors.borderAndDividerColor,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              buildRestaurantList(categorizedRestaurants),
+            ],
+          ),
         ),
       ),
     );
@@ -103,8 +106,8 @@ class CategoriesView extends StatelessWidget {
             itemCount: categorizedRestaurants.length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: (){
-                      Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                onTap: () {
+                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                       arguments: ScreenArgumentsRestaurantDetail(
                         restaurant: categorizedRestaurants[index],
                       ));
@@ -128,7 +131,8 @@ class CategoriesView extends StatelessWidget {
                       .packageSettings!
                       .minOrderPrice,
                   onPressed: () {
-                    Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                    Navigator.pushNamed(
+                        context, RouteConstant.RESTAURANT_DETAIL,
                         arguments: ScreenArgumentsRestaurantDetail(
                           restaurant: categorizedRestaurants[index],
                         ));

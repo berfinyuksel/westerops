@@ -62,13 +62,14 @@ class _FilterViewState extends State<FilterView> {
                   return CleanAndSaveButtons(
                     onPressed: () {
                       context.read<CleanButton>().cleanButton(isClean);
-                      context.read<FilterFavorites>().filterFavorites(isClean);
+                     // context.read<FilterFavorites>().filterFavorites(isClean);
                       setState(() {
                         for (int i = 0; i < 17; i++) {
                           state.checkList![i] = false;
                           print("checkboxlar temizlendi");
-                          isClean = !isClean;
+                        isClean = !isClean;
                         }
+                        print(isClean);
                       });
                     },
                   );

@@ -6,7 +6,7 @@ import '../../../data/repositories/address_repository.dart';
 import '../generic_state/generic_state.dart';
 
 class AddressCubit extends Cubit<GenericState> {
-  final AdressRepository _addressRepository;
+  final SampleAdressRepository _addressRepository;
   AddressCubit(this._addressRepository) : super(GenericInitial());
   AddressValues? activeAdress;
   List<AddressValues>? allAddres;

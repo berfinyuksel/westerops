@@ -51,7 +51,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
       decoration: BoxDecoration(color: Colors.white, border: widget.border),
       padding: EdgeInsets.fromLTRB(
         26.w,
-        20.h,
+        0.h,
         0.w,
         20.h,
       ),

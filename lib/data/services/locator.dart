@@ -1,8 +1,11 @@
+import 'package:dongu_mobile/data/repositories/address_repository.dart';
 import 'package:dongu_mobile/data/repositories/avg_review_repository.dart';
+import 'package:dongu_mobile/data/repositories/filters_repository.dart';
 import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_repository.dart';
 import 'package:dongu_mobile/data/repositories/order_received_repository.dart';
 import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
 import 'package:dongu_mobile/data/repositories/update_permission_for_com_repository.dart';
+import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favorite_status_cubit/favorite_status_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/logic/cubits/home_page/home_page_cubit.dart';
@@ -39,6 +42,8 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => SvgImageRepository());
   getIt.registerLazySingleton(() => SampleSearchRepository());
   getIt.registerLazySingleton(() => SampleFavoriteRepository());
+  getIt.registerLazySingleton(() => SampleFiltersRepository());
+  getIt.registerLazySingleton(() => SampleAdressRepository());
   //Cubits
 
   getIt.registerLazySingleton(() => OrderReceivedCubit(sl()));
@@ -48,5 +53,6 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => LoginStatusCubit());
   getIt.registerLazySingleton(() => AllFavoriteCubit(sl()));
   getIt.registerLazySingleton(() => FavoriteStatusCubit());
+  getIt.registerLazySingleton(() => AddressCubit(sl()));
   
 }

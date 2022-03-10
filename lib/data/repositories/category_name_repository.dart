@@ -22,7 +22,7 @@ class SampleCategoryNameRepository implements CategoryNameRepository {
       List<Result> categoryNames = List<Result>.from(
           jsonBody['results'].map((model) => Result.fromJson(model)));
 
-      //print(boxLists[].text_name);
+      print(categoryNames.map((e) => e.id));
       return categoryNames;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
