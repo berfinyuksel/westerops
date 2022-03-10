@@ -6,20 +6,20 @@ PODS:
   - AppAuth/ExternalUserAgent (1.4.0)
   - device_info (0.0.1):
     - Flutter
-  - FBAEMKit (12.0.2):
-    - FBSDKCoreKit_Basics (= 12.0.2)
-  - FBSDKCoreKit (12.0.2):
-    - FBAEMKit (= 12.0.2)
-    - FBSDKCoreKit_Basics (= 12.0.2)
-  - FBSDKCoreKit_Basics (12.0.2)
-  - FBSDKLoginKit (12.0.2):
-    - FBSDKCoreKit (= 12.0.2)
-  - Firebase/Auth (8.8.0):
+  - FBAEMKit (12.1.0):
+    - FBSDKCoreKit_Basics (= 12.1.0)
+  - FBSDKCoreKit (12.1.0):
+    - FBAEMKit (= 12.1.0)
+    - FBSDKCoreKit_Basics (= 12.1.0)
+  - FBSDKCoreKit_Basics (12.1.0)
+  - FBSDKLoginKit (12.1.0):
+    - FBSDKCoreKit (= 12.1.0)
+  - Firebase/Auth (8.11.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 8.8.0)
-  - Firebase/CoreOnly (8.8.0):
-    - FirebaseCore (= 8.8.0)
-  - Firebase/Messaging (8.8.0):
+    - FirebaseAuth (~> 8.11.0)
+  - Firebase/CoreOnly (8.11.0):
+    - FirebaseCore (= 8.11.0)
+  - Firebase/Messaging (8.11.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 8.11.0)
   - firebase_auth (3.3.9):
@@ -30,18 +30,18 @@ PODS:
     - Firebase/CoreOnly (= 8.11.0)
     - Flutter
   - firebase_messaging (10.0.9):
-    - Firebase/Messaging (= 8.8.0)
+    - Firebase/Messaging (= 8.11.0)
     - firebase_core
     - Flutter
-  - FirebaseAuth (8.8.0):
+  - FirebaseAuth (8.11.0):
     - FirebaseCore (~> 8.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/Environment (~> 7.7)
     - GTMSessionFetcher/Core (~> 1.5)
-  - FirebaseCore (8.8.0):
+  - FirebaseCore (8.11.0):
     - FirebaseCoreDiagnostics (~> 8.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/Logger (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
   - FirebaseCoreDiagnostics (8.12.0):
     - GoogleDataTransport (~> 9.1)
     - GoogleUtilities/Environment (~> 7.7)
@@ -52,19 +52,19 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
     - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseMessaging (8.8.0):
+  - FirebaseMessaging (8.11.0):
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
-    - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/Reachability (~> 7.4)
-    - GoogleUtilities/UserDefaults (~> 7.4)
+    - GoogleDataTransport (~> 9.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Reachability (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
     - nanopb (~> 2.30908.0)
   - Flutter (1.0.0)
   - flutter_facebook_auth (3.5.3):
-    - FBSDKCoreKit (~> 12.0.2)
-    - FBSDKLoginKit (~> 12.0.2)
+    - FBSDKCoreKit (~> 12.1.0)
+    - FBSDKLoginKit (~> 12.1.0)
     - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
@@ -119,7 +119,7 @@ PODS:
   - nanopb/encode (2.30908.0)
   - notification_permissions (0.4.4):
     - Flutter
-  - path_provider (0.0.1):
+  - path_provider_ios (0.0.1):
     - Flutter
   - PromisesObjC (2.0.0)
   - shared_preferences_ios (0.0.1):
@@ -144,7 +144,7 @@ DEPENDENCIES:
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
   - notification_permissions (from `.symlinks/plugins/notification_permissions/ios`)
-  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
@@ -197,8 +197,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_sign_in/ios"
   notification_permissions:
     :path: ".symlinks/plugins/notification_permissions/ios"
-  path_provider:
-    :path: ".symlinks/plugins/path_provider/ios"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
   shared_preferences_ios:
     :path: ".symlinks/plugins/shared_preferences_ios/ios"
   sign_in_with_apple:
@@ -223,9 +223,9 @@ SPEC CHECKSUMS:
   FirebaseCore: 2f4f85b453cc8fea4bb2b37e370007d2bcafe3f0
   FirebaseCoreDiagnostics: 3b40dfadef5b90433a60ae01f01e90fe87aa76aa
   FirebaseInstallations: 25764cf322e77f99449395870a65b2bef88e1545
-  FirebaseMessaging: 419b5c9d84f294a753c6501d8cfb9ced1ce37304
+  FirebaseMessaging: 02e248e8997f71fa8cc9d78e9d49ec1a701ba14a
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  flutter_facebook_auth: 5638a1a8cc23016ec6f72945ba879f4482870c69
+  flutter_facebook_auth: dfd6b2563406c538098e2127512d385c9ffd70ad
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
   geolocator_apple: b741765c55dc21950e3e106e8b3584e55cf81ce5
