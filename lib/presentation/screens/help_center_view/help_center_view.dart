@@ -16,7 +16,7 @@ class HelpCenterView extends StatefulWidget {
 }
 
 class _HelpCenterViewState extends State<HelpCenterView> {
-  String email = "dongu@support.com";
+  String email = "destek@dongu.com";
   void customLaunch() async {
     if (await canLaunch("mailto:$email")) {
       await launch("mailto:$email");
@@ -124,7 +124,7 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         style: AppTextStyles.subTitleStyle,
       ), */
       trailing: Text(
-        "dongu@support.com",
+        "destek@dongu.com",
         style: AppTextStyles.subTitleStyle,
       ),
       tileColor: Colors.white,
