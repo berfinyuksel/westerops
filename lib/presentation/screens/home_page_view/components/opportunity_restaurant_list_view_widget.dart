@@ -76,6 +76,7 @@ class OpportunityRestaurantListViewWidget extends StatelessWidget {
                   }
                 }
               }
+              return null;
             }
 
             return RestaurantInfoCard(

@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:dongu_mobile/data/model/box_order.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_order_create_with_3d_cubit/iyzico_order_create_with_3d_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/payment_views/payment_payment_view/components/html_view.dart';
@@ -19,7 +17,6 @@ import '../../../logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import '../../../logic/cubits/order_cubit/order_received_cubit.dart';
 import '../../../logic/cubits/payment_cubit/payment_cubit.dart';
 import '../../../logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
-import '../../../logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';

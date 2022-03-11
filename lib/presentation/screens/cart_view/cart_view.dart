@@ -232,7 +232,7 @@ class _CartViewState extends State<CartView> {
                 height: 10.h,
               ),
               Builder(builder: (context) {
-                final state = context.watch<SumPriceOrderCubit>().state;
+          
 
                 return PastOrderDetailPaymentListTile(
                   oldPrice: true,
@@ -244,7 +244,7 @@ class _CartViewState extends State<CartView> {
                 );
               }),
               Builder(builder: (context) {
-                final state = context.watch<SumPriceOrderCubit>().state;
+             
 
                 return PastOrderDetailTotalPaymentListTile(
                   title: LocaleKeys.past_order_detail_payment_4,

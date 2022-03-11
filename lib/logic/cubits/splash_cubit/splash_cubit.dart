@@ -5,13 +5,10 @@ import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cu
 import 'package:dongu_mobile/logic/cubits/favorite_status_cubit/favorite_status_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
-import 'package:dongu_mobile/logic/cubits/login_status_cubit/login_status_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:dongu_mobile/utils/base/svg_image_repository.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +20,6 @@ class SplashCubit extends Cubit<SplashCubitState> {
   SplashCubit() : super(SplashCubitInitial());
 
   splashInit(BuildContext context) async {
-    //await Future.delayed(Duration(seconds: 3));
-
-    //await
     try {
       print("SHARED LOGIN: ${SharedPrefs.getIsLogined}");
       print("FAVORITE STATUS: ${sl<FavoriteStatusCubit>().state}");
@@ -65,16 +59,12 @@ class SplashCubit extends Cubit<SplashCubitState> {
   }
 
   notificationsCounter(BuildContext context) {
-    context
-        .read<NotificationsCounterCubit>()
-        .setCounter(SharedPrefs.getCounter);
+    context.read<NotificationsCounterCubit>().setCounter(SharedPrefs.getCounter);
   }
 
   addFavorite(BuildContext context) {
     for (var i = 0; i < SharedPrefs.getFavorites.length; i++) {
-      context
-          .read<FavoriteCubit>()
-          .addFavorite(int.parse(SharedPrefs.getFavorites[i]));
+      context.read<FavoriteCubit>().addFavorite(int.parse(SharedPrefs.getFavorites[i]));
     }
   }
 
@@ -84,14 +74,13 @@ class SplashCubit extends Cubit<SplashCubitState> {
 
   sumOldNewPrice(BuildContext context) {
     context.read<SumPriceOrderCubit>().incrementPrice(SharedPrefs.getSumPrice);
-    context
-        .read<SumOldPriceOrderCubit>()
-        .incrementOldPrice(SharedPrefs.getOldSumPrice);
+    context.read<SumOldPriceOrderCubit>().incrementOldPrice(SharedPrefs.getOldSumPrice);
   }
 
   checksIsLogin() async {
     await sl<AllFavoriteCubit>().getFavorite();
     if (sl<FavoriteStatusCubit>().state == 401) {
+      print('hello logout oluyor');
       SharedPrefs.logoutControl();
     } else if (sl<FavoriteStatusCubit>().state == 200) {
       SharedPrefs.login();

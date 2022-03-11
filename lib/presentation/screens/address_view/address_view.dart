@@ -18,7 +18,6 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
-import '../address_detail_view/string_arguments/string_arguments.dart';
 import '../surprise_pack_view/components/custom_alert_dialog.dart';
 import 'components/address_view_title.dart';
 import 'components/adress_list_tile.dart';

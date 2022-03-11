@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_type_check
+
 import 'dart:async';
 
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';

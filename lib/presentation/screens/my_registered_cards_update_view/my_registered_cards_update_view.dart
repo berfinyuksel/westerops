@@ -271,8 +271,8 @@ class _MyRegisteredCardsUpdateViewState
                       }
 
                       print(
-                          "CARD NUMBER CONTROL lastFourDigits: ${lastFourDigits}");
-                      print("CARD NUMBER CONTROL binNumber: ${binNumber}");
+                          "CARD NUMBER CONTROL lastFourDigits: $lastFourDigits");
+                      print("CARD NUMBER CONTROL binNumber: $binNumber");
                       print(
                           "CARD NUMBER CONTROL CACHE: ${SharedPrefs.getNewCardNumber}");
                     },

@@ -1,6 +1,5 @@
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +36,7 @@ class _MyInformationViewState extends State<MyInformationView> {
   DateTime? _selectedDate;
   bool isReadOnly = true;
   bool isVisibilty = false;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+
   bool showLoading = false;
   MobileVerificationState currentState =
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
