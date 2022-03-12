@@ -80,7 +80,6 @@ class SplashCubit extends Cubit<SplashCubitState> {
   checksIsLogin() async {
     await sl<AllFavoriteCubit>().getFavorite();
     if (sl<FavoriteStatusCubit>().state == 401) {
-      print('hello logout oluyor');
       SharedPrefs.logoutControl();
     } else if (sl<FavoriteStatusCubit>().state == 200) {
       SharedPrefs.login();

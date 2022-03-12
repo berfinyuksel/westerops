@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dongu_mobile/logic/cubits/favorite_status_cubit/favorite_status_cubit.dart';
+import 'package:flutter/material.dart';
 
 import '../model/favourite.dart';
 import '../services/locator.dart';
@@ -27,7 +28,7 @@ class SampleFavoriteRepository implements FavoriteRepository {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print("Add Favorite StatusCode" + response.statusCode.toString());
+    debugPrint("Add Favorite StatusCode" + response.statusCode.toString());
 
     if (response.statusCode == 200) {
       List<Favourite> boxes = [];
@@ -56,7 +57,7 @@ class SampleFavoriteRepository implements FavoriteRepository {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print("Delete Favorite StatusCode" + response.statusCode.toString());
+    debugPrint("Delete Favorite StatusCode" + response.statusCode.toString());
 
     if (response.statusCode == 200) {
       List<Favourite> boxes = [];
@@ -85,15 +86,15 @@ class SampleFavoriteRepository implements FavoriteRepository {
         'Content-Type': 'application/json',
       },
     );
-    print("Get Favorite StatusCode" + response.statusCode.toString());
+    debugPrint("Get Favorite StatusCode" + response.statusCode.toString());
     sl<FavoriteStatusCubit>().loginStatus(response.statusCode);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
 
       List<Favourite> favoritesList = List<Favourite>.from(
           jsonBody.map((model) => Favourite.fromJson(model)));
-      print("Response: $response");
-      print(jsonBody);
+      debugPrint("Response: $response");
+      debugPrint(jsonBody);
       return favoritesList;
     }
     if (response.statusCode == 401) {

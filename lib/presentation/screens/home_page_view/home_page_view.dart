@@ -621,7 +621,7 @@ class _HomePageViewState extends State<HomePageView> {
           onTap: () {
             setState(() {
               if (visible) {
-                print("hello");
+             
                 visible = !visible;
               }
             });
