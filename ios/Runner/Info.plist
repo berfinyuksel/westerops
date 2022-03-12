@@ -56,9 +56,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs access to location in order to find and save the address of the user for ordering food and to find available restaurants based on users location</string>
+	<string>Turning on location services allows us to save your address, show you nearby restaurants and help you watch live location of your deliveries.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when the app is in use in order to display the live delivery location status to the user.</string>
+	<string>Turning on location services allows us to save your address, show you nearby restaurants and help you watch live location of your deliveries.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
