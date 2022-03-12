@@ -21,7 +21,6 @@ class SampleBoxRepository implements BoxRepository {
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
       List<Box> boxLists =
           List<Box>.from(jsonBody.map((model) => Box.fromJson(model))).toList();
-      //print(boxLists[].text_name);
       return boxLists;
     }
     throw NetworkError(response.statusCode.toString(), response.body);

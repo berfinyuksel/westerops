@@ -113,6 +113,7 @@ class _FilteredViewState extends State<FilteredView> {
                     }
                   }
                 }
+                return null;
               }
 
               return GestureDetector(

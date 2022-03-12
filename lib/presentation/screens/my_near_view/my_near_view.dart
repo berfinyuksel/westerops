@@ -252,6 +252,7 @@ class _MyNearViewState extends State<MyNearView> {
         }
       }
     }
+    return null;
   }
 
   Positioned buildBottomInfo(BuildContext context,
@@ -405,6 +406,7 @@ class _MyNearViewState extends State<MyNearView> {
                     }
                   }
                 }
+                return null;
               }
 
               return RestaurantInfoListTile(

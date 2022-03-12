@@ -1,13 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/error_alert_dialog.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:validators/validators.dart';
 
 import '../../../data/services/auth_service.dart';
 import '../../../data/services/facebook_login_controller.dart';
@@ -25,7 +24,6 @@ import 'components/contract_text.dart';
 import 'components/error_popup.dart';
 import 'components/password_rules.dart';
 import 'components/sign_with_social_auth.dart';
-import 'package:validators/validators.dart';
 
 class RegisterView extends StatefulWidget {
   @override
@@ -38,7 +36,7 @@ class _RegisterViewState extends State<RegisterView> {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  FirebaseAuth _auth = FirebaseAuth.instance;
+
   bool showLoading = false;
   MobileVerificationState currentState =
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
@@ -164,7 +162,9 @@ class _RegisterViewState extends State<RegisterView> {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 28.w),
                 child: buildTextFormField(LocaleKeys.register_full_name.locale,
-                    nameController, (value) {}),
+                    nameController, (value) {
+                      return null;
+                    }),
               ),
             ),
             SizedBox(height: 20.h),
@@ -217,7 +217,6 @@ class _RegisterViewState extends State<RegisterView> {
                       passwordController.text.contains(RegExp(r'[0-9]'));
                   bool uppercaseControl =
                       passwordController.text.contains(RegExp(r'[A-Z]'));
-                  bool lengthControl = passwordController.text.length > 7;
                   bool phoneControl = phoneTR.length >= 13;
                   String firstName = nameController.text;
                   String lastName = nameController.text;

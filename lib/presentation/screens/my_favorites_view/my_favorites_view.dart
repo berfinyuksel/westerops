@@ -1,37 +1,33 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
-import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
-import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../data/model/search_store.dart';
-import '../../../data/shared/shared_prefs.dart';
-import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
-import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
-import '../../../utils/constants/route_constant.dart';
-import '../../../utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../../data/model/search_store.dart';
 import '../../../data/services/location_service.dart';
+import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
-
+import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
+import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
+import '../../../utils/extensions/string_extension.dart';
+import '../../../utils/haversine.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
 import '../../widgets/text/locale_text.dart';
+import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'components/address_text.dart';
-import '../../../utils/extensions/string_extension.dart';
 
 class MyFavoritesView extends StatefulWidget {
   @override
@@ -62,7 +58,6 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     super.initState();
     context.read<AllFavoriteCubit>().getFavorite();
     context.read<SearchStoreCubit>().getSearchStore();
-    sl<SampleSearchStoreRepository>().searchStores; 
   }
   
   @override
@@ -340,6 +335,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                   }
                 }
               }
+              return null;
             }
 
             return GestureDetector(

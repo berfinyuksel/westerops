@@ -152,7 +152,9 @@ class _LoginViewState extends State<LoginView> {
                   padding: EdgeInsets.symmetric(
                     horizontal: 28.w,
                   ),
-                  child: buildTextFormField(LocaleKeys.register_password.locale, passwordController, (val) {}),
+                  child: buildTextFormField(LocaleKeys.register_password.locale, passwordController, (val) {
+                    return null;
+                  }),
                 ),
               ),
               SizedBox(height: 26.h),
