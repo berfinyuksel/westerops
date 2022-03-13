@@ -22,16 +22,12 @@ class SplashCubit extends Cubit<SplashCubitState> {
   splashInit(BuildContext context) async {
     try {
       print("SHARED LOGIN: ${SharedPrefs.getIsLogined}");
-      print("FAVORITE STATUS: ${sl<FavoriteStatusCubit>().state}");
       emit(SplashCubitLoading());
       await sl<SvgImageRepository>().preCacheSvgPictures();
-
       await sl<SampleSearchStoreRepository>().getSearchStores();
       await checksIsLogin();
       print("FAVORITE STATUS: ${sl<FavoriteStatusCubit>().state}");
-
       print("SHARED LOGIN: ${SharedPrefs.getIsLogined}");
-
       await basketCounter(context);
       await notificationsCounter(context);
       await addFavorite(context);

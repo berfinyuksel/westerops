@@ -93,8 +93,6 @@ class SampleFavoriteRepository implements FavoriteRepository {
 
       List<Favourite> favoritesList = List<Favourite>.from(
           jsonBody.map((model) => Favourite.fromJson(model)));
-      debugPrint("Response: $response");
-      debugPrint(jsonBody);
       return favoritesList;
     }
     if (response.statusCode == 401) {
