@@ -332,6 +332,7 @@ class _LoginViewState extends State<LoginView> {
                       );
                     });
               } else {
+                
                 Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
               }
             },
