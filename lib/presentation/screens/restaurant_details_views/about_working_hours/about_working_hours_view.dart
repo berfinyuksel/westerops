@@ -25,8 +25,6 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
     context.read<TimeIntervalCubit>().getTimeInterval(widget.restaurant!.id!);
     calendar = widget.restaurant!.calendar!;
     calendar.sort((a, b) => a.startDate!.compareTo(b.startDate!));
-    //datetime sort
-    //print("CALENDAR MAP: ${calendar.map((e) => e.startDate)}");
   }
 
   @override
@@ -58,8 +56,6 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
           DateTime endOfRes = DateTime.parse(calendar[index].endDate!
                   .toIso8601String())
               .toLocal();
-/* print("START OF RES: ${startOfRes}");
-print("END OF RES: ${endOfRes}"); */
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: 26.w,

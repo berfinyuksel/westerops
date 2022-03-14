@@ -34,7 +34,6 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
   TabController? _controller;
   void notificationToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
-    print("TOKEN REG : $token");
   }
 
   @override
@@ -68,7 +67,6 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
           context.read<NotificationsCounterCubit>().increment();
         }
 
-        print("STATE RESPONSE : ${state.response}");
 
         return Center(child: buildBody(context));
       } else {

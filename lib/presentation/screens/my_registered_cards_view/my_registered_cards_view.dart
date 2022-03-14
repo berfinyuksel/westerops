@@ -112,26 +112,6 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
         ? ListView.builder(
             itemCount: cards.length,
             itemBuilder: (context, index) {
-              // SharedPrefs.setNewCardNumber(
-              //     "${cards[index].binNumber}${cards[index].lastFourDigits}");
-
-              print(
-                  "CARDS LIST : ${cards[index].binNumber}${cards[index].lastFourDigits}");
-              cardsList.add(
-                  "${cards[index].binNumber}${cards[index].lastFourDigits}");
-              print("CARDS INDEX LIST : ${cardsList.length}");
-              SharedPrefs.setRegisterCards(cardsList);
-              print("CARDS SHARED LIST : ${SharedPrefs.getCardsList}");
-
-              // for (var i = 0; i < cards.length; i++) {
-              //   List<String> cardsNumberList = [];
-              //   cardsNumberList.add(
-              //       "${cards[index].binNumber}${cards[index].lastFourDigits}");
-              //   SharedPrefs.setRegisterCards(cardsNumberList);
-              //   print("CARDS NumberList : ${cardsNumberList.length}");
-              // }
-              // print(
-              //     "CARD BIN NUMBER: ${cards[index].binNumber}${cards[index].lastFourDigits}");
               return Dismissible(
                 direction: DismissDirection.endToStart,
                 key: UniqueKey(),

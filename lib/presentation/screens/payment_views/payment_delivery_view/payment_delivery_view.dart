@@ -182,7 +182,6 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                 itemCount: list.length,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  print(list[index].endDate);
                   return DeliveryCustomButton(
                     width: context.dynamicWidht(0.4),
                     title:

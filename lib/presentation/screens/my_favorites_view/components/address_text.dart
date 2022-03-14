@@ -75,7 +75,6 @@ class _AddressTextState extends State<AddressText> {
                     if (stateOfAddress.response.isEmpty) {
                       Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
                     } else {
-                      print("state address not empty");
                       Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
                     }
                   }

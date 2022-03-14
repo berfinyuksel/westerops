@@ -357,10 +357,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           for (var j = 0; j < widget.restaurant!.categories!.length; j++) {
             if (categoryList[i].id == widget.restaurant!.categories![j].id) {
               relatedCategories.add(categoryList[i]);
-              print("CATEGORY LIST ID : ${categoryList[i].id}");
-              print("CATEGORY LIST NAME : ${categoryList[i].name}");
-              print("CATEGORY WIDGET STORE NAME : ${widget.restaurant!.categories![j].name}");
-              print("CATEGORY WIDGET STORE ID : ${widget.restaurant!.categories![j].id}");
             }
           }
         }
@@ -368,9 +364,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         for (var i = 0; i < relatedCategories.length; i++) {
           nameList.add(relatedCategories[i].name!);
         }
-        print(relatedCategories.map((e) => e.name));
         String categoryNames = nameList.join(', ');
-        print(categoryList.map((e) => e.name));
         return GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
@@ -672,7 +666,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                               borderColor: AppColors.greenColor,
                               onPressed: () async {
                                 context.read<SwipeRouteButton>().swipeRouteButton(true);
-                                print(menuItem);
                                 await pressedBuyButton(state, index, context, counterState, menuItem);
                               },
                             );
@@ -809,10 +802,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                     context.read<SumOldPriceOrderCubit>().clearOldPrice();
                     SharedPrefs.setSumPrice(0);
                     SharedPrefs.setOldSumPrice(0);
-
-                    print(SharedPrefs.getSumPrice);
-                    print(SharedPrefs.getOldSumPrice);
-
                     menuList!.clear();
                     SharedPrefs.setCounter(0);
                     SharedPrefs.setMenuList([]);

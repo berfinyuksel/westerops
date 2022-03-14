@@ -178,9 +178,6 @@ class _MyInformationViewState extends State<MyInformationView> {
                 String datetime1 =
                     DateFormat("dd/MM/yyyy").format(_selectedDate!);
                 birthController.text = datetime1;
-                // print("AAAA: ${birthController.text}");
-
-                // print(SharedPrefs.getUserBirth);
               });
             });
           }

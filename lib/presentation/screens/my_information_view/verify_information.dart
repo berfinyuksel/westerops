@@ -41,8 +41,6 @@ class _VerifyInformationState extends State<VerifyInformation> {
     await _auth.verifyPhoneNumber(
         phoneNumber: SharedPrefs.getUserPhone,
         verificationCompleted: (phoneAuthCredential) async {
-          // print(
-          //     "SMS CODE : ${phoneAuthCredential.smsCode}");
           setState(() {
             showLoading = false;
           });
@@ -66,9 +64,7 @@ class _VerifyInformationState extends State<VerifyInformation> {
 
   @override
   void initState() {
-    print(SharedPrefs.getUserPhone);
     userPhoneNumber = SharedPrefs.getUserPhone;
-    print(userPhoneNumber);
     sendCode(phoneAuthCredential);
     super.initState();
   }
@@ -204,7 +200,6 @@ class _VerifyInformationState extends State<VerifyInformation> {
     lastTwoDigitList.add(phoneNumberList[phoneLength - 2]);
     lastTwoDigitList.add(phoneNumberList[phoneLength - 1]);
     String lastTwoDigits = lastTwoDigitList.join("");
-    print(lastTwoDigits);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: Column(
@@ -243,8 +238,6 @@ class _VerifyInformationState extends State<VerifyInformation> {
         textColor: Colors.white,
         onPressed: () async {
           if (verificationId!.isNotEmpty && userPhoneNumber!.isNotEmpty) {
-            print(verificationId!);
-            print(userPhoneNumber!);
             final AuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationId!,
               smsCode: codeController1.text +

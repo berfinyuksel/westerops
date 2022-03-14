@@ -48,17 +48,12 @@ class _CustomHorizontalListCategoryState
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             sumOfRadius += (radius * 2) + context.dynamicWidht(0.04);
-            /*   print(sumOfRadius -
-                context.dynamicWidht(1) -
-                context.dynamicWidht(0.04) +
-                26); */
+
             if (index + 1 == results.length) {
               context.read<CategoryPaddingCubit>().setPadding(sumOfRadius -
                   context.dynamicWidht(1) -
                   context.dynamicWidht(0.04));
             }
-            // print(context.dynamicWidht(0.04));
-          //  print("CATEGORY PHOTO: ${results[index].photo}");
             return GestureDetector(
               onTap: () {
                 Navigator.of(context).pushNamed(

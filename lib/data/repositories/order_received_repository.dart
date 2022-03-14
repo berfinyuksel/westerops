@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
+import 'package:flutter/material.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
@@ -99,7 +100,7 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
       Uri.parse("${UrlConstant.EN_URL}order/"),
       headers: {'Content-Type': 'application/json', 'Authorization': 'JWT ${SharedPrefs.getToken}'},
     );
-    log("GET Order STATUS ${response.statusCode}");
+    debugPrint("GET Order STATUS ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
       List<IyzcoOrderCreate> orderReceivedList =

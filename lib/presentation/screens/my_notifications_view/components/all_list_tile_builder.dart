@@ -25,14 +25,12 @@ class AllListTileBuilder extends StatefulWidget {
 class _AllListTileBuilderState extends State<AllListTileBuilder> {
   void notificationToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
-    print("TOKEN REG : $token");
   }
 
   @override
   void initState() {
     super.initState();
     notificationToken();
-    print(SharedPrefs.getToken);
     // SharedPrefs.setCounterNotifications(counterState! + 1);
     context.read<GetNotificationCubit>().getNotification();
   }
@@ -62,8 +60,6 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
           context.read<NotificationsCounterCubit>().decrement();
         }
         SharedPrefs.setCounterNotifications(notifications.length);
-        print("STATE RESPONSE : ${state.response}");
-
         return Center(child: listViewBuilder(context, notifications, state));
       } else {
         final error = state as GenericError;
@@ -81,7 +77,6 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       shrinkWrap: true,
       itemCount: notifications.length,
       itemBuilder: (context, index) {
-        print(notifications[index].isDeleted);
         return notifications[index].isDeleted == false
             ? Container(
                 height: 101,

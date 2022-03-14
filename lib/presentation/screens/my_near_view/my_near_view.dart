@@ -84,13 +84,11 @@ class _MyNearViewState extends State<MyNearView> {
         var build = await deviceInfoPlugin.androidInfo;
 
         identifier = build.androidId;
-        print(identifier); //UUID for Android
       } else if (Platform.isIOS) {
         var data = await deviceInfoPlugin.iosInfo;
         identifier = data.identifierForVendor; //UUID for iOS
       }
     } on PlatformException {
-      print('Failed to get platform version');
     }
     return [identifier!];
   }
@@ -370,8 +368,6 @@ class _MyNearViewState extends State<MyNearView> {
 
   ListView buildListViewRestaurantInfo(
       List<SearchStore> getrestaurants, List<double> distances) {
-    // print("Search Store: ${getrestaurants.length}");
-    // print("Distance: ${distances.length}");
     return ListView.builder(
         itemCount: getrestaurants.length,
         itemBuilder: (context, index) {
@@ -559,8 +555,6 @@ class _MyNearViewState extends State<MyNearView> {
     setState(() {
       double mylatitude = LocationService.latitude;
       double mylongitude = LocationService.longitude;
-      print("latitude $mylatitude");
-      print("longitude $mylongitude");
 
       controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(

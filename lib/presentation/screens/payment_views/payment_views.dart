@@ -213,8 +213,6 @@ class _PaymentViewsState extends State<PaymentViews>
   GestureDetector buildGetIt(BuildContext context, PaymentState state) {
     return GestureDetector(
       onTap: () {
-        print(state.isOnline);
-        print(state.isGetIt);
         setState(() {
           if (tabController!.index == 2) {
             context.read<PaymentCubit>().setIsOnline(true);
@@ -600,16 +598,10 @@ class _PaymentViewsState extends State<PaymentViews>
                 log(SharedPrefs.getThreeDBool.toString());
                 if (SharedPrefs.getBoolForRegisteredCard) {
                   buildPaymentForRegisteredCard(context);
-                  print("IF");
                 } else {
                   if (SharedPrefs.getThreeDBool) {
-                    print("ELSE IN IF");
-
-                    // with threeD
                     buildWith3DPayment(context);
                   } else {
-                    print("ELSE");
-
                     buildWithout3DPayment(context);
                   }
                 }

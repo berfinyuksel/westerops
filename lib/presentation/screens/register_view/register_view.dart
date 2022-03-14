@@ -222,14 +222,11 @@ class _RegisterViewState extends State<RegisterView> {
                   String lastName = nameController.text;
                   firstName.split(" ");
                   lastName.split(" ");
-                  print("FIRST NAME: ${firstName.split(" ").first}");
-                  print("LAST NAME: ${lastName.split(" ").last}");
                   if (phoneController.text.isEmpty ||
                       firstName.isEmpty ||
                       lastName.isEmpty ||
                       emailController.text.isEmpty ||
                       passwordController.text.isEmpty) {
-                    print("Text fieldlar boş bırakılırsa bu koşula gir");
                     showDialog(
                       context: context,
                       builder: (_) => CustomErrorPopup(
@@ -246,7 +243,6 @@ class _RegisterViewState extends State<RegisterView> {
                   } else if (!uppercaseControl ||
                       !phoneControl ||
                       !numberControl) {
-                    print("Şifre koşulları sağlanmadığında bu koşula gir");
                     showDialog(
                       context: context,
                       builder: (_) => CustomErrorPopup(
@@ -267,7 +263,6 @@ class _RegisterViewState extends State<RegisterView> {
                         passwordController.text.isNotEmpty &&
                         lastName.isNotEmpty &&
                         firstName.isNotEmpty) {
-                      print("Her şey doğru girildiğinde bu koşula gir");
                       SharedPrefs.setUserName(firstName.split(" ").first);
                       SharedPrefs.setUserLastName(lastName.split(" ").last);
                       SharedPrefs.setUserPhone(phoneTR);

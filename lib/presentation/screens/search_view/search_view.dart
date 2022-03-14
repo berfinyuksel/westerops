@@ -271,7 +271,6 @@ class _SearchViewState extends State<SearchView> {
           List<String> meals = [];
 
           if (filteredNames[index].storeMeals == null) {
-            print("buradayımm");
             return Text("Aradığınız isimde bir yemek bulunmamaktadır.");
           } else if (filteredNames[index].storeMeals != null) {
             for (var i = 0; i < filteredNames[index].storeMeals!.length; i++) {

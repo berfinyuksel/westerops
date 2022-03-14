@@ -56,10 +56,10 @@ class _OrderReceivingViewWithout3DState
                 Builder(builder: (context) {
                   final state = context.watch<OrderReceivedCubit>().state;
                   if (state is GenericInitial) {
-                    print("initial");
+                    
                     return Container();
                   } else if (state is GenericLoading) {
-                    print("loading");
+                    
                     return Center(
                         child: CircularProgressIndicator(
                       color: AppColors.greenColor,
