@@ -48,7 +48,6 @@ class _LoginViewState extends State<LoginView> {
   String _errorServiceDescription = "Bilinmeyen bir\nsunucu hatası lütfen\n tekrar deneyiniz. ";
   void notificationToken() async {
     token = await FirebaseMessaging.instance.getToken();
-    print("TOKEN REG : $token");
   }
 
   @override
@@ -179,7 +178,6 @@ class _LoginViewState extends State<LoginView> {
                   if (SharedPrefs.getIsLogined) {
                     if (Platform.isAndroid) {
                       context.read<NotificationCubit>().postNotification(token!, "android");
-                      print("Platform.isAndroid" + token!);
                     } else if (Platform.isIOS) {
                       context.read<NotificationCubit>().postNotification(token!, "ios");
                       // iOS-specific code
@@ -248,7 +246,6 @@ class _LoginViewState extends State<LoginView> {
         } else if (state is GenericLoading) {
           return Container();
         } else if (state is GenericCompleted) {
-          print(state.response);
           return AlertDialog(
             contentPadding: EdgeInsets.zero,
             content: Container(
@@ -307,7 +304,6 @@ class _LoginViewState extends State<LoginView> {
         GestureDetector(
           onTap: () async {
             await AuthService().loginWithGmail();
-            print("LOGIN GOOGLE STATUS CUBİT : ${sl<LoginStatusCubit>().state}");
 
             if (sl<LoginStatusCubit>().state == 403) {
               showDialog(
@@ -338,7 +334,6 @@ class _LoginViewState extends State<LoginView> {
         GestureDetector(
           onTap: () async {
             await FacebookSignInController().login();
-            print("LOGIN FACEBOOK STATUS CUBİT : ${sl<LoginStatusCubit>().state}");
             if (sl<LoginStatusCubit>().state == 403) {
               showDialog(
                   context: context,

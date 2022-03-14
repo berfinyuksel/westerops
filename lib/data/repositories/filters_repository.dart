@@ -63,8 +63,6 @@ class SampleFiltersRepository implements FiltersRepository {
     final response = await http.get(
       Uri.parse("${UrlConstant.EN_URL}store/searchstore/?cat=$category"),
     );
-    print(response.statusCode);
-    print(response.request);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters

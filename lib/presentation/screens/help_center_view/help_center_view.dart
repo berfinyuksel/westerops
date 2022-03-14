@@ -21,7 +21,6 @@ class _HelpCenterViewState extends State<HelpCenterView> {
     if (await canLaunch("mailto:$email")) {
       await launch("mailto:$email");
     } else {
-      print('Could not launch');
     }
   }
 

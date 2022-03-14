@@ -26,15 +26,8 @@ class SampleOrderRepository implements OrderRepository {
         },
         body: json);
 
-    print("DELETE BASKET ${response.statusCode}");
-
     if (response.statusCode == 200) {
-      // var jsonResults = jsonBody['boxes'];
-      // print(jsonResults);
       List<BoxOrder> boxes = [];
-      // for (int i = 0; i < jsonResults.length; i++) {
-      //   boxes.add(BoxOrder.fromJson(jsonResults[i]));
-      // }
       return boxes;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
@@ -48,12 +41,9 @@ class SampleOrderRepository implements OrderRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print("GET BASKET STATUS ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       List<BoxOrder> boxes = [];
-      print(jsonBody);
-
       if (jsonBody.isEmpty) {
         return boxes;
       } else if ('Y' == jsonBody[0] ||
@@ -81,11 +71,9 @@ class SampleOrderRepository implements OrderRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print("CLEAR BASKET STATUS ${response.statusCode}");
-    print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-      print(jsonBody); //utf8.decode for turkish characters
+     //utf8.decode for turkish characters
       List<BoxOrder> boxes = [];
       return boxes;
     }

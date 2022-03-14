@@ -23,9 +23,8 @@ class FacebookSignInController with ChangeNotifier {
         fields: "email, name",
       );
       userData = requestData;
-      print(userData);
       final AccessToken accessToken = result.accessToken!;
-      print(accessToken.token.toString());
+
       SharedPrefs.setUserEmail(userData!["email"]);
       SharedPrefs.setUserName(userData!["name"]);
    
@@ -36,12 +35,10 @@ class FacebookSignInController with ChangeNotifier {
             'Content-Type': 'application/json; charset=UTF-8',
           },
           body: json);
-      print(response.body);
-      print(response.statusCode);
+
       sl<LoginStatusCubit>().loginStatus(response.statusCode);
       if (response.statusCode == 200) {
         final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-        print(jsonBody);
         var authtokenList = AuthToken.fromJson(jsonBody);
         SharedPrefs.setToken(jsonBody['token']);
 

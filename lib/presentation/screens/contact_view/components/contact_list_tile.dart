@@ -24,7 +24,6 @@ class _ContactListTileState extends State<ContactListTile> {
     if (await canLaunch("mailto:$email")) {
       await launch("mailto:$email");
     } else {
-      print('Could not launch');
     }
   }
 

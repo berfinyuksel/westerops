@@ -41,7 +41,7 @@ class SampleUserAuthenticationRepository
       },
     );
 
-    print("REGISTER USER STATUS CODE : ${response.statusCode}");
+    
     if (response.statusCode == 201) {
       SharedPrefs.setUserPhone(phone);
       return loginUser(phone, password);
@@ -66,8 +66,7 @@ class SampleUserAuthenticationRepository
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print(SharedPrefs.getUserPassword);
-    print("USER UPDATE STATUS CODE : ${response.statusCode}");
+
 
     if (response.statusCode == 200) {
       SharedPrefs.setUserEmail(email);
@@ -97,10 +96,6 @@ class SampleUserAuthenticationRepository
         //'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    //print("RESET PASSWORD STATUS: ${json}");
-    print("RESET PASSWORD STATUS: ${response.statusCode}");
-    print("RESET PASSWORD STATUS: ${response.request}");
-    print("RESET PASSWORD STATUS: ${response.toString()}");
     if (response.statusCode == 200) {
       SharedPrefs.setUserPassword(newPassword);
 
@@ -121,7 +116,7 @@ class SampleUserAuthenticationRepository
       },
     );
 
-    print(response.statusCode);
+
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       var jsonResults = jsonBody['user'];
@@ -139,7 +134,6 @@ class SampleUserAuthenticationRepository
       SharedPrefs.setUserLastName(user.lastName!);
       SharedPrefs.setUserPhone(phone);
       SharedPrefs.login();
-      print("User ID: ${SharedPrefs.getUserId}");
 
       List<User> users = [];
       users.add(user);
@@ -161,7 +155,6 @@ class SampleUserAuthenticationRepository
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print(response.statusCode);
     if (response.statusCode == 200) {
       //  SharedPrefs.setUserAddress(jsonResults['address']);
       // SharedPrefs.setUserBirth(jsonResults['birthday'] == null
@@ -172,7 +165,7 @@ class SampleUserAuthenticationRepository
       // SharedPrefs.setUserLastName(user.lastName!);
       // SharedPrefs.setUserPhone(phone);
       // SharedPrefs.login();
-      print("User ID: ${SharedPrefs.getUserId}");
+
 
       List<String> users = [];
       return users;
@@ -193,7 +186,7 @@ class SampleUserAuthenticationRepository
         'Authorization': 'JWT ${SharedPrefs.getToken}',
       },
     );
-    print(response.statusCode);
+
     if (response.statusCode == 200) {
       // SharedPrefs.setUserPassword(password);
 
@@ -203,32 +196,3 @@ class SampleUserAuthenticationRepository
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 }
-
-
-/**  @override
-  Future<List<String>> updateUser(String firstName, String lastName,
-      String email, String phone, String address, String birthday) async {
-    String json = '{"password":"$firstName"}';
-    final response = await http.patch(
-      Uri.parse("$urlUpdate${SharedPrefs.getUserId}/"),
-      body: json,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'JWT ${SharedPrefs.getToken}'
-      },
-    );
-    print(response.statusCode);
-
-    if (response.statusCode == 200) {
-      SharedPrefs.setUserEmail(email);
-      SharedPrefs.setUserName(firstName);
-      SharedPrefs.setUserLastName(lastName);
-      SharedPrefs.setUserPhone(phone);
-      SharedPrefs.setUserAddress(address);
-      //SharedPrefs.setUserBirth(birthday);
-      List<String> result = [];
-      return result;
-    }
-    throw NetworkError(response.statusCode.toString(), response.body);
-  }
- */

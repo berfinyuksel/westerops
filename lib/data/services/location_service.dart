@@ -13,7 +13,7 @@ class LocationService {
       latitude = position.latitude;
       longitude = position.longitude;
     } catch (e) {
-      print(e);
+  
     }
   }
 

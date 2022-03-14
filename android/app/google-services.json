@@ -14,27 +14,27 @@
       },
       "oauth_client": [
         {
-          "client_id": "163234070864-db2l5qrnuca08rnk5vh6ie7c59mhk301.apps.googleusercontent.com",
+          "client_id": "163234070864-epp5uho4634bmp4dcq0teco1vtndrrvb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.westerops.dongu_mobile",
-            "certificate_hash": "6bae6910eed459aa16be644bde83ee387bd642e8"
+            "certificate_hash": "fc837f5318c21c0dc6ce5c8ead6754dbd4df56e6"
           }
         },
         {
-          "client_id": "163234070864-ekod8hdrufa41q3kvtiehcrk7j11kfsm.apps.googleusercontent.com",
+          "client_id": "163234070864-esdjfn5fvd5sksr6ku33vmdgf6bq3b7n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.westerops.dongu_mobile",
-            "certificate_hash": "7d02ff1bf060698efb806cfec85ac367aa6bfd78"
+            "certificate_hash": "69a059c1e81a19b6a4304ba78f9a55b8e5380d7f"
           }
         },
         {
-          "client_id": "163234070864-j620226btjn2il59mrovtnuvqklcc9lk.apps.googleusercontent.com",
+          "client_id": "163234070864-glaj8h361t446k79chbpldvf5nt45avv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.westerops.dongu_mobile",
-            "certificate_hash": "5409f01fb80eaa820b9fea2b97e31026afeae70d"
+            "certificate_hash": "845679b136a3f2a4ca1a24d7b98165cc3e550871"
           }
         },
         {

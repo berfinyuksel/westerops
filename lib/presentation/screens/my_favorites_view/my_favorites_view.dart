@@ -79,8 +79,6 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> favourites = [];
-        //List<double> distances = [];
-        print(state.response[0].address);
         for (int i = 0; i < state.response.length; i++) {
           favourites.add(state.response[i]);
         }

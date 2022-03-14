@@ -65,21 +65,12 @@ class _FilterViewState extends State<FilterView> {
                       setState(() {
                         for (int i = 0; i < 17; i++) {
                           state.checkList![i] = false;
-                          print("checkboxlar temizlendi");
                         isClean = !isClean;
                         }
-                        print(isClean);
                       });
                     },
                   );
                 })
-                // Positioned(
-                //   child: CleanAndSaveButtons(),
-                //   bottom: 0,
-                //   top: context.dynamicHeight(0.7),
-                //   left: 0,
-                //   right: 0,
-                // )
               ],
             ),
           ),

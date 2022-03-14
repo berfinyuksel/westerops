@@ -22,8 +22,6 @@ class SampleGetNotificationRepository implements GetNotificationRepository {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print("Notification StatusCode " + response.statusCode.toString());
-    print("Notification Body GET " + response.body);
 
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));

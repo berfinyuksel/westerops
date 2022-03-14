@@ -52,7 +52,6 @@ class CategoriesView extends StatelessWidget {
             }
           }
         }
-        print(restaurants.length);
         return buildCustomScaffold(context, categorizedRestaurants);
       } else {
         final error = state as GenericError;

@@ -41,18 +41,14 @@ class _ChangePasswordVerifyState extends State<ChangePasswordVerify> {
     await _auth.verifyPhoneNumber(
         phoneNumber: SharedPrefs.getUserPhone,
         verificationCompleted: (phoneAuthCredential) async {
-          // print(
-          //     "SMS CODE : ${phoneAuthCredential.smsCode}");
           setState(() {
             showLoading = false;
           });
-          //signInWithPhoneAuthCredential(phoneAuthCredential);
         },
         verificationFailed: (verificationFailed) async {
           setState(() {
             showLoading = false;
           });
-          // ignore: deprecated_member_use
         },
         codeSent: (verificationId, resendingToken) async {
           setState(() {
@@ -64,22 +60,10 @@ class _ChangePasswordVerifyState extends State<ChangePasswordVerify> {
         codeAutoRetrievalTimeout: (verificationId) async {});
   }
 
-  // String? userName;
-  // String? userLastName;
-  // String? userPhone;
-  // String? userEmail;
-  // String? userPassword;
   @override
   void initState() {
-    print(SharedPrefs.getUserPhone);
     userPhoneNumber = SharedPrefs.getUserPhone;
-    print(userPhoneNumber);
     sendCode(phoneAuthCredential);
-    // userName = SharedPrefs.getUserName;
-    // userLastName = SharedPrefs.getUserLastName;
-    // userPhone = SharedPrefs.getUserPhone;
-    // userEmail = SharedPrefs.getUserEmail;
-    // userPassword = SharedPrefs.getUserPassword;
     super.initState();
   }
 
@@ -213,7 +197,6 @@ class _ChangePasswordVerifyState extends State<ChangePasswordVerify> {
     lastTwoDigitList.add(phoneNumberList[phoneLength - 2]);
     lastTwoDigitList.add(phoneNumberList[phoneLength - 1]);
     String lastTwoDigits = lastTwoDigitList.join("");
-    print(lastTwoDigits);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
       child: Column(
@@ -268,8 +251,6 @@ class _ChangePasswordVerifyState extends State<ChangePasswordVerify> {
           //   );
           // }
           if (verificationId!.isNotEmpty && userPhoneNumber!.isNotEmpty) {
-            print(verificationId!);
-            print(userPhoneNumber!);
             final AuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationId!,
               smsCode: codeController1.text +
@@ -336,18 +317,14 @@ class _ChangePasswordVerifyState extends State<ChangePasswordVerify> {
         await _auth.verifyPhoneNumber(
             phoneNumber: userPhoneNumber ?? SharedPrefs.getUserPhone,
             verificationCompleted: (phoneAuthCredential) async {
-              // print(
-              //     "SMS CODE : ${phoneAuthCredential.smsCode}");
               setState(() {
                 showLoading = false;
               });
-              //signInWithPhoneAuthCredential(phoneAuthCredential);
             },
             verificationFailed: (verificationFailed) async {
               setState(() {
                 showLoading = false;
               });
-              // ignore: deprecated_member_use
             },
             codeSent: (verificationId, resendingToken) async {
               setState(() {

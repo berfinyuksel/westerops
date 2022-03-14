@@ -16,7 +16,6 @@ class UpdatePermissonRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print("Update Email Permission status ${response.statusCode}");
 
     switch (response.statusCode) {
       case 200:
@@ -39,7 +38,7 @@ class UpdatePermissonRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print("Update Phone Permission status ${response.statusCode}");
+    
 
     switch (response.statusCode) {
       case 200:

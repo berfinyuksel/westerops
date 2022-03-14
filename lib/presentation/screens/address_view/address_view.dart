@@ -79,7 +79,7 @@ class _AddressViewState extends State<AddressView> {
               ? ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-                    // print(index);
+
                     return Dismissible(
                       direction: DismissDirection.endToStart,
                       key: UniqueKey(),

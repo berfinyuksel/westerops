@@ -124,7 +124,6 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
                         context, RouteConstant.CUSTOM_SCAFFOLD),
                   ));
         }
-        // print(selectedIndex.toString());
       },
     );
   }

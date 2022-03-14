@@ -16,7 +16,6 @@ class SumOldPriceOrderCubit extends Cubit<int> {
   }
 
   void clearOldPrice() {
-    print('sum old price activated');
 
     emit(0);
   }

@@ -22,16 +22,12 @@ class SampleSendRequestRepository implements SendRequestRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print(SharedPrefs.getIpV4);
-    print(conversationId.toString());
-    print("Send Request Status: ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-      print(jsonBody); //utf8.decode for turkish characters
+    //utf8.decode for turkish characters
       List<OrderReceived> orderReceivedList = [];
       OrderReceived orderItem = OrderReceived.fromJson(jsonBody);
       orderReceivedList.add(orderItem);
-      //print(boxLists[].text_name);
       return orderReceivedList;
     }
     throw NetworkError(response.statusCode.toString(), response.body);

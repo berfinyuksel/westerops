@@ -28,7 +28,6 @@ class _AddressTextState extends State<AddressText> {
   @override
   void initState() {
     super.initState();
-    print('hello' + SharedPrefs.getIsLogined.toString());
     context.read<AddressCubit>().getActiveAddress();
   }
 
@@ -70,12 +69,10 @@ class _AddressTextState extends State<AddressText> {
               )
             : GestureDetector(
                 onTap: () {
-                  print("tapped");
                   if (LocationService.latitude != 0 && !SharedPrefs.getIsLogined) {
                     Navigator.of(context).pushNamed(RouteConstant.LOGIN_VIEW);
                   } else {
                     if (stateOfAddress.response.isEmpty) {
-                      print("state address empty");
                       Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
                     } else {
                       print("state address not empty");

@@ -124,7 +124,6 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
               context
                   .read<FiltersManagerCubit>()
                   .getPackageCategory(checkValue);
-              print(checkValue);
               if (checkValue == "22") {
                 state.checkList![8] = !state.checkList![8];
               } else if (checkValue == "22") {

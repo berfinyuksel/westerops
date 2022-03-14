@@ -246,18 +246,15 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               newPasswordController.text.isNotEmpty) {
             if (passwordController.text == newPasswordAgainController.text ||
                 passwordController.text == newPasswordController.text) {
-              print("BBB");
               Navigator.popAndPushNamed(
                   context, RouteConstant.CHANGE_PASSWORD_VERIFY);
             } else if (passwordController.text !=
                     newPasswordAgainController.text &&
                 passwordController.text != newPasswordController.text &&
                 newPasswordController.text == newPasswordAgainController.text) {
-              print("AAA");
              Navigator.popAndPushNamed(
                   context, RouteConstant.CHANGE_PASSWORD_VERIFY);
             } else {
-              print("CCC");
               showDialog(
                   context: context,
                   builder: (_) => CustomAlertDialogResetPassword(
@@ -268,7 +265,6 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       ));
             }
           } else {
-            print("CCC");
             showDialog(
                 context: context,
                 builder: (_) => CustomAlertDialogResetPassword(

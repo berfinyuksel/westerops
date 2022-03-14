@@ -29,7 +29,7 @@ class IyzicoCreateOrderWith3DRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}',
       },
     );
-    print("get create order with 3d status ${response.statusCode}");
+
     log(response.body);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(

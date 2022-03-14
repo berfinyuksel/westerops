@@ -49,16 +49,11 @@ class _CleanAndSaveButtonsState extends State<CleanAndSaveButtons> {
               if (SharedPrefs.getIsLogined == false) {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => NotFilteredView()));
-                print(" IF");
               } else if (context.read<CleanButton>().state == true) {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => NotFilteredView()));
-                print("ELSE IF");
-
               } else {
                 if (context.read<FilterFavorites>().state == false) {
-                  print(
-                      "FILTER FAVORITES STATE1: ${context.read<FilterFavorites>().state}");
                   Navigator.push(
                       context,
                       MaterialPageRoute(

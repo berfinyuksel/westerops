@@ -43,7 +43,6 @@ class NearMeRestaurantListViewWidget extends StatelessWidget {
                 arguments: ScreenArgumentsRestaurantDetail(
                   restaurant: restaurants[index],
                 ));
-            print("RESTAURANT INDEX NAME ${restaurants[index].name}");
           },
           child: Builder(builder: (context) {
             String? packettNumber() {

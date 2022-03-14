@@ -26,12 +26,10 @@ class SampleSearchStoreRepository implements SearchStoreRepository {
         List<SearchStore> searchStoreLists = List<SearchStore>.from(
             jsonBody[0].map((model) => SearchStore.fromJson(model)));
         searchStores = searchStoreLists;
-        // print("IF ${searchStores.first.city}");
         return searchStoreLists;
       }
       throw NetworkError(response.statusCode.toString(), response.body);
     } else {
-      // print("ELSE ${searchStores.first.city}");
       return searchStores;
     }
   }
@@ -41,8 +39,6 @@ class SampleSearchStoreRepository implements SearchStoreRepository {
     final response = await http.get(
       Uri.parse("${UrlConstant.EN_URL}store/searchstore/?keyword=$query"),
     );
-    print(response.statusCode);
-    print(response.body);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
 

@@ -48,8 +48,6 @@ class SampleStoreCourierHoursRepository implements StoreCourierHoursRepository {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: json);
-
-    print("Courier Hours response code ${response.statusCode}");
     if (response.statusCode == 200) {
       List<StoreCourierHours> storeCourierHoursList = [];
 

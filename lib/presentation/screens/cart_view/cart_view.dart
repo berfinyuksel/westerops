@@ -83,14 +83,10 @@ class _CartViewState extends State<CartView> {
         totalPayPrice();
         if (itemList.length == 0) {
           return Builder(builder: (context) {
-            print('askndaksdkas');
+
             context.read<SumOldPriceOrderCubit>().clearOldPrice();
             context.read<SumPriceOrderCubit>().clearPrice();
-            SharedPrefs.setSumPrice(0);
-            print(SharedPrefs.getSumPrice);
             SharedPrefs.setOldSumPrice(0);
-            print(SharedPrefs.getOldSumPrice);
-
             return EmptyCartView();
           });
         } else if (SharedPrefs.getIsLogined == false) {
