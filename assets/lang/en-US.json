@@ -493,6 +493,7 @@
     "premission_location": {
         "text1": "Enable location services",
         "text2": "To search for the nearby delicious foods, we  want to know your cuurent location.",
+        "text3": "To search for the nearby delicious foods, we  want to know your cuurent location.",
         "button1": "Enable",
         "button2": "Late For Now"
     },
