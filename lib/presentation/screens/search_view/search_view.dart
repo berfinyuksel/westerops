@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_type_check
+
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
@@ -47,10 +49,7 @@ class _SearchViewState extends State<SearchView> {
 
   bool visible = true;
   bool isClean = false;
-  @override
-  void initState() {
-    super.initState();
-  }
+
 
   Builder buildBuilder() {
     return Builder(builder: (context) {
@@ -75,15 +74,7 @@ class _SearchViewState extends State<SearchView> {
         filteredNames = names;
 
         return Center(
-          child: filteredNames.length == 0
-              ? Visibility(
-                  visible: !visible,
-                  child: LocaleText(
-                    text: LocaleKeys.search_search_bar_empty_result.locale,
-                    style: AppTextStyles.bodyTextStyle,
-                  ),
-                )
-              : searchListViewBuilder(state, searchList, restaurant),
+          child: searchListViewBuilder(state, searchList, restaurant),
         );
       } else {
         final error = state as GenericError;
@@ -126,20 +117,16 @@ class _SearchViewState extends State<SearchView> {
           //         .copyWith(color: AppColors.cursorColor),
           //   ),
           // ),
-          Visibility(visible: visible, child: Spacer(flex: 2)),
+          //Visibility(visible: visible, child: Spacer(flex: 2)),
           SingleChildScrollView(child: buildBuilder()),
-          isClean
-              ? Spacer(flex: 20)
-              : Spacer(
+          Spacer(
                   flex: 50,
                 ),
           Visibility(visible: visible, child: popularSearchText(context)),
           Visibility(visible: visible, child: dividerSecond(context)),
           Spacer(flex: 2),
           Visibility(visible: visible, child: horizontalListTrend(context)),
-          isClean
-              ? Spacer(flex: 20)
-              : Spacer(
+           Spacer(
                   flex: 10,
                 ),
           Visibility(visible: visible, child: categoriesText(context)),
@@ -279,16 +266,11 @@ class _SearchViewState extends State<SearchView> {
       List<SearchStore> searchList, List<SearchStore> restaurant) {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: searchList.isEmpty ||
-                controller!.text.isEmpty ||
-                filteredNames.isEmpty
-            ? 0
-            : searchList.length,
+        itemCount: searchList.length,
         itemBuilder: (context, index) {
           List<String> meals = [];
 
           if (filteredNames[index].storeMeals == null) {
-            print("buradayımm");
             return Text("Aradığınız isimde bir yemek bulunmamaktadır.");
           } else if (filteredNames[index].storeMeals != null) {
             for (var i = 0; i < filteredNames[index].storeMeals!.length; i++) {
@@ -297,7 +279,7 @@ class _SearchViewState extends State<SearchView> {
             mealNames = meals.join(', ');
           }
 
-          return GestureDetector(
+          return isClean ? SizedBox():GestureDetector(
             onTap: (){
                 Navigator.pushNamed(
                 context,
@@ -313,7 +295,7 @@ class _SearchViewState extends State<SearchView> {
                 // vertical: context.dynamicHeight(0.00006)
               ),
               decoration: BoxDecoration(color: Colors.white),
-              child: ListTile(
+              child : ListTile(
                 trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
                 onTap: () {
                   Navigator.pushNamed(
@@ -427,10 +409,10 @@ class _SearchViewState extends State<SearchView> {
 
   emptySearchHistory() {
     if (filteredNames.length == 0) {
-      return Text(
+      return isClean ?Text(
         LocaleKeys.search_search_history_clean.locale,
         style: AppTextStyles.bodyTextStyle,
-      );
+      ) :SizedBox();
     } else {
       return Container();
     }

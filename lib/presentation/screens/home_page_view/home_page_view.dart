@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_type_check
+
 import 'dart:async';
 
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
@@ -62,7 +64,6 @@ class _HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
-    print("USER TOKEN ${SharedPrefs.getToken}");
     return MultiBlocProvider(
         providers: [
           BlocProvider<HomePageCubit>(
@@ -174,34 +175,6 @@ class _HomePageViewState extends State<HomePageView> {
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
     });
-    /*    return Builder(builder: (context) {
-      final GenericState stateSearch = context.watch<SearchCubit>().state;
-
-      if (stateSearch is GenericInitial) {
-        return Container(color: Colors.white);
-      } else if (stateSearch is GenericLoading) {
-        return Container(color: Colors.transparent, child: Center(child: CustomCircularProgressIndicator()));
-      } else if (stateSearch is GenericCompleted) {
-        List<SearchStore> searchList = [];
-        List<SearchStore> restaurant = [];
-        for (int i = 0; i < stateSearch.response.length; i++) {
-          searchList.add(stateSearch.response[i]);
-          if (stateSearch is GenericCompleted) {
-            restaurant.add(stateSearch.response[i]);
-          }
-        }
-        names = searchList;
-        filteredNames = names;
-
-        return Center(
-            child: filteredNames.length == 0
-                ? emptySearchHistory()
-                : searchListViewBuilder(stateSearch, searchList, restaurant, restaurants));
-      } else {
-        final error = stateSearch as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    }); */
   }
 
   GestureDetector buildBody(BuildContext context, List<SearchStore> restaurants,
@@ -619,7 +592,7 @@ class _HomePageViewState extends State<HomePageView> {
           onTap: () {
             setState(() {
               if (visible) {
-                print("hello");
+             
                 visible = !visible;
               }
             });

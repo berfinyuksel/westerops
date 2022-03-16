@@ -493,6 +493,7 @@
     "premission_location": {
         "text1": "Konum servislerini aç",
         "text2": "Yakınındaki Döngü işletmelerinin sunduğu lezzetleri görebilmen için mevcut konumunu bilmeye ihtiyacımız var.",
+        "text3": "Yakınındaki Döngü işletmelerinin sunduğu lezzetleri görebilmen ve adresini kayıt etmek için mevcut konumunu bilmeye ihtiyacımız var.",
         "button1": "Etkinleştir",
         "button2": "Şimdilik Geç"
     },

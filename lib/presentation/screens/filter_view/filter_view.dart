@@ -1,5 +1,4 @@
 import 'package:dongu_mobile/logic/cubits/filters_cubit/clean_button_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/filters_cubit/favorites_filter_cubit.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,24 +61,16 @@ class _FilterViewState extends State<FilterView> {
                   return CleanAndSaveButtons(
                     onPressed: () {
                       context.read<CleanButton>().cleanButton(isClean);
-                      context.read<FilterFavorites>().filterFavorites(isClean);
+                     // context.read<FilterFavorites>().filterFavorites(isClean);
                       setState(() {
                         for (int i = 0; i < 17; i++) {
                           state.checkList![i] = false;
-                          print("checkboxlar temizlendi");
-                          isClean = !isClean;
+                        isClean = !isClean;
                         }
                       });
                     },
                   );
                 })
-                // Positioned(
-                //   child: CleanAndSaveButtons(),
-                //   bottom: 0,
-                //   top: context.dynamicHeight(0.7),
-                //   left: 0,
-                //   right: 0,
-                // )
               ],
             ),
           ),

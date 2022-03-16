@@ -3,6 +3,7 @@ import 'dart:convert';
 //import 'package:dongu_mobile/data/model/search.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/utils/network_error.dart';
+import 'package:flutter/material.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,8 +22,8 @@ class SampleFiltersRepository implements FiltersRepository {
     final response = await http.get(
       Uri.parse("${UrlConstant.EN_URL}store/searchstore/?minp=$minPrice&?maxp=$maxPrice"),
     );
-    print(response.statusCode);
-    print(response.request);
+    debugPrint(response.statusCode.toString());
+    debugPrint(response.request.toString());
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
@@ -42,8 +43,8 @@ class SampleFiltersRepository implements FiltersRepository {
       Uri.parse(
           "${UrlConstant.EN_URL}store/searchstore/?ca=$ca"),
     );
-    print(response.statusCode);
-    print(response.request);
+    debugPrint(response.statusCode.toString());
+    debugPrint(response.request.toString());
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
@@ -62,8 +63,6 @@ class SampleFiltersRepository implements FiltersRepository {
     final response = await http.get(
       Uri.parse("${UrlConstant.EN_URL}store/searchstore/?cat=$category"),
     );
-    print(response.statusCode);
-    print(response.request);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters

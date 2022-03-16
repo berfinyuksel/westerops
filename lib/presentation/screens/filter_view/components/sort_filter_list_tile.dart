@@ -50,8 +50,6 @@ class _SortFilterListState extends State<SortFilterList> {
                   context.read<FilterFavorites>().filterFavorites(isShowFavorite);
 
                     isShowFavorite = !isShowFavorite;
-                    print(
-                        "FILTER FAVORITES STATE: ${context.read<FilterFavorites>().state}");
                     state.checkList![1] = !state.checkList![1];
                   });
                 }),

@@ -84,8 +84,6 @@ class _CustomSliderBarAndTextFieldState
         });
       }
     }
-
-    print("One text field: ${startController.text}");
   }
 
   _setEndValue() {
@@ -132,8 +130,6 @@ class _CustomSliderBarAndTextFieldState
         });
       }
     }
-
-    print("Second text field: ${endController.text}");
   }
 
   @override

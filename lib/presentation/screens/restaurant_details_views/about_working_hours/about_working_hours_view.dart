@@ -18,10 +18,13 @@ class AboutWorkingHourView extends StatefulWidget {
 }
 
 class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
+  List<Calendar> calendar = [];
   @override
   void initState() {
     super.initState();
     context.read<TimeIntervalCubit>().getTimeInterval(widget.restaurant!.id!);
+    calendar = widget.restaurant!.calendar!;
+    calendar.sort((a, b) => a.startDate!.compareTo(b.startDate!));
   }
 
   @override
@@ -44,18 +47,15 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
   ListView aboutWorkingHoursListViewBuilder() {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: widget.restaurant!.calendar!.length,
+        itemCount: calendar.length,
         itemBuilder: (context, index) {
-          DateTime startOfRes = DateTime.parse(widget
-                  .restaurant!.calendar![index].startDate!
+          DateTime startOfRes = DateTime.parse(calendar[index].startDate!
                   .toIso8601String())
               .toLocal();
 
-          DateTime endOfRes = DateTime.parse(widget
-                  .restaurant!.calendar![index].endDate!
+          DateTime endOfRes = DateTime.parse(calendar[index].endDate!
                   .toIso8601String())
               .toLocal();
-
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: 26.w,
@@ -97,6 +97,8 @@ class _AboutWorkingHourViewState extends State<AboutWorkingHourView> {
     int monthOfDate = dateData.month;
     int dayOfTheDate = dateData.day;
     String stringMonthOfTheDate = buildStringOfMonth(monthOfDate);
+
+
     return '$dayOfTheDate $stringMonthOfTheDate $yearOfDate';
   }
 

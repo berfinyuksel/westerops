@@ -1,15 +1,11 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
-import '../forgot_password_view/components/popup_reset_password.dart';
-import '../register_view/components/password_rules.dart';
-import '../../../utils/constants/route_constant.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../utils/constants/image_constant.dart';
+import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
 import '../../../utils/locale_keys.g.dart';
@@ -17,8 +13,9 @@ import '../../../utils/theme/app_colors/app_colors.dart';
 import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
+import '../forgot_password_view/components/popup_reset_password.dart';
 import '../register_view/components/clipped_password_rules.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../register_view/components/password_rules.dart';
 
 class ChangePasswordView extends StatefulWidget {
   @override
@@ -249,18 +246,15 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               newPasswordController.text.isNotEmpty) {
             if (passwordController.text == newPasswordAgainController.text ||
                 passwordController.text == newPasswordController.text) {
-              print("BBB");
               Navigator.popAndPushNamed(
                   context, RouteConstant.CHANGE_PASSWORD_VERIFY);
             } else if (passwordController.text !=
                     newPasswordAgainController.text &&
                 passwordController.text != newPasswordController.text &&
                 newPasswordController.text == newPasswordAgainController.text) {
-              print("AAA");
              Navigator.popAndPushNamed(
                   context, RouteConstant.CHANGE_PASSWORD_VERIFY);
             } else {
-              print("CCC");
               showDialog(
                   context: context,
                   builder: (_) => CustomAlertDialogResetPassword(
@@ -271,7 +265,6 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       ));
             }
           } else {
-            print("CCC");
             showDialog(
                 context: context,
                 builder: (_) => CustomAlertDialogResetPassword(

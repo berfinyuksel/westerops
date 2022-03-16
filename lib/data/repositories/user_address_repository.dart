@@ -24,7 +24,7 @@ class SampleUserAdressRepository implements UserAdressRepository {
     );
 
     if (response.statusCode == 200) {
-      print(response);
+ 
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
 
       List<Result> rest = List<Result>.from(
@@ -33,7 +33,7 @@ class SampleUserAdressRepository implements UserAdressRepository {
       return rest;
     }
 
-    print(response.statusCode);
+   
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 }

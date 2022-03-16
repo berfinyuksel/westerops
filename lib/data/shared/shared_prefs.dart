@@ -15,7 +15,7 @@ class SharedPrefs {
   }
 
   static Future<void> logoutControl() async {
-    _prefs.setBool('logoutControl', false);
+    _prefs.setBool('login', false);
   }
 
 

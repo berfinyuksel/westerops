@@ -69,17 +69,12 @@ class _AddressTextState extends State<AddressText> {
               )
             : GestureDetector(
                 onTap: () {
-                  print("tapped");
-                  if (LocationService.latitude != 0 &&
-                      !SharedPrefs.getIsLogined) {
+                  if (LocationService.latitude != 0 && !SharedPrefs.getIsLogined) {
                     Navigator.of(context).pushNamed(RouteConstant.LOGIN_VIEW);
                   } else {
                     if (stateOfAddress.response.isEmpty) {
-                      print("state address empty");
-                      Navigator.of(context)
-                          .pushNamed(RouteConstant.ADDRESS_VIEW);
+                      Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
                     } else {
-                      print("state address not empty");
                       Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
                     }
                   }
@@ -96,17 +91,15 @@ class _AddressTextState extends State<AddressText> {
                       padding: const EdgeInsets.only(bottom: 6.0),
                       child: Container(
                         child: LocaleText(
-                          text: LocationService.latitude != 0 &&
-                                  !SharedPrefs.getIsLogined
+                          text: !SharedPrefs.getIsLogined
                               ? LocaleKeys.login_text_login2
                               : stateOfAddress.response.isEmpty
                                   ? LocaleKeys.address_no_address
-                                  : LocaleKeys
-                                      .my_favorites_permission_for_location,
+                                  : LocaleKeys.my_favorites_permission_for_location,
                           style: GoogleFonts.montserrat(
                             color: AppColors.yellowColor,
                             fontWeight: FontWeight.w500,
-                            fontSize: 15.sp,
+                            fontSize: 13.sp,
                             decoration: TextDecoration.underline,
                             decorationThickness: 2,
                             height: 3.0.h,

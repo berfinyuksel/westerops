@@ -5,7 +5,6 @@ import 'package:device_info/device_info.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,13 +36,13 @@ class HomePageCubit extends Cubit<HomePageState> {
         var build = await deviceInfoPlugin.androidInfo;
 
         identifier = build.androidId;
-        print(identifier); //UUID for Android
+
       } else if (Platform.isIOS) {
         var data = await deviceInfoPlugin.iosInfo;
         identifier = data.identifierForVendor; //UUID for iOS
       }
     } on PlatformException {
-      print('Failed to get platform version');
+
     }
     return [identifier!];
   }

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
@@ -24,7 +26,7 @@ class AvgReviewRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-    print("avg review added status ${response.statusCode}");
+    debugPrint("avg review added status ${response.statusCode}");
 
     switch (response.statusCode) {
       case 200:
@@ -47,7 +49,7 @@ class AvgReviewRepository {
       },
     );
 
-    print("avg review get status ${response.statusCode}");
+    debugPrint("avg review get status ${response.statusCode}");
     switch (response.statusCode) {
       case 200:
         return StatusCode.success;

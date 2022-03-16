@@ -42,19 +42,19 @@ class _PaymentInquiryStarterState extends State<PaymentInquiryStarter> {
     if (boolForProgress) {
       _timer?.cancel();
     }
-    print("text widget builded");
+    
     context
         .read<SendRequestCubit>()
         .sendRequest(conversationId: widget.conversationId!);
     return Builder(builder: (context) {
       final state = context.watch<SendRequestCubit>().state;
-      print("builder activated");
+      
 
       if (state is GenericInitial) {
-        print("initial");
+        
         return Container();
       } else if (state is GenericLoading) {
-        print("loading");
+       
         return Center(
           child: Column(
             children: [
@@ -73,12 +73,12 @@ class _PaymentInquiryStarterState extends State<PaymentInquiryStarter> {
       } else if (state is GenericCompleted) {
         _timer!.cancel();
 
-        print("completed");
+      
         List<OrderReceived> orderInfo = [];
 
         if (state.response.isNotEmpty) {
           boolForProgress = true;
-          print("orderinfo is not empty");
+       
           for (int i = 0; i < state.response.length; i++) {
             orderInfo.add(state.response[i]);
           }
@@ -90,7 +90,7 @@ class _PaymentInquiryStarterState extends State<PaymentInquiryStarter> {
         } else {
           boolForProgress = true;
 
-          print("no change status");
+     
           return LocaleText(
             text: LocaleKeys.order_received_headline1,
             style: AppTextStyles.headlineStyle,

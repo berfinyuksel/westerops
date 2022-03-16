@@ -4,7 +4,6 @@ import 'package:dongu_mobile/logic/cubits/login_status_cubit/login_status_cubit.
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../utils/constants/url_constant.dart';
 import '../model/auth_token.dart';
@@ -24,9 +23,8 @@ class FacebookSignInController with ChangeNotifier {
         fields: "email, name",
       );
       userData = requestData;
-      print(userData);
       final AccessToken accessToken = result.accessToken!;
-      print(accessToken.token.toString());
+
       SharedPrefs.setUserEmail(userData!["email"]);
       SharedPrefs.setUserName(userData!["name"]);
    
@@ -37,12 +35,10 @@ class FacebookSignInController with ChangeNotifier {
             'Content-Type': 'application/json; charset=UTF-8',
           },
           body: json);
-      print(response.body);
-      print(response.statusCode);
+
       sl<LoginStatusCubit>().loginStatus(response.statusCode);
       if (response.statusCode == 200) {
         final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-        print(jsonBody);
         var authtokenList = AuthToken.fromJson(jsonBody);
         SharedPrefs.setToken(jsonBody['token']);
 

@@ -45,18 +45,15 @@ class _CleanAndSaveButtonsState extends State<CleanAndSaveButtons> {
             color: AppColors.greenColor,
             borderColor: AppColors.greenColor,
             onPressed: () {
-              
               SharedPrefs.getSortByDistance;
               if (SharedPrefs.getIsLogined == false) {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => NotFilteredView()));
-              } else if (context.read<CleanButton>().state == false) {
+              } else if (context.read<CleanButton>().state == true) {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => NotFilteredView()));
               } else {
                 if (context.read<FilterFavorites>().state == false) {
-                  print(
-                      "FILTER FAVORITES STATE1: ${context.read<FilterFavorites>().state}");
                   Navigator.push(
                       context,
                       MaterialPageRoute(

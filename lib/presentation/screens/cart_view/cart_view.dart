@@ -83,14 +83,10 @@ class _CartViewState extends State<CartView> {
         totalPayPrice();
         if (itemList.length == 0) {
           return Builder(builder: (context) {
-            print('askndaksdkas');
+
             context.read<SumOldPriceOrderCubit>().clearOldPrice();
             context.read<SumPriceOrderCubit>().clearPrice();
-            SharedPrefs.setSumPrice(0);
-            print(SharedPrefs.getSumPrice);
             SharedPrefs.setOldSumPrice(0);
-            print(SharedPrefs.getOldSumPrice);
-
             return EmptyCartView();
           });
         } else if (SharedPrefs.getIsLogined == false) {
@@ -232,7 +228,7 @@ class _CartViewState extends State<CartView> {
                 height: 10.h,
               ),
               Builder(builder: (context) {
-                final state = context.watch<SumPriceOrderCubit>().state;
+          
 
                 return PastOrderDetailPaymentListTile(
                   oldPrice: true,
@@ -244,7 +240,7 @@ class _CartViewState extends State<CartView> {
                 );
               }),
               Builder(builder: (context) {
-                final state = context.watch<SumPriceOrderCubit>().state;
+             
 
                 return PastOrderDetailTotalPaymentListTile(
                   title: LocaleKeys.past_order_detail_payment_4,

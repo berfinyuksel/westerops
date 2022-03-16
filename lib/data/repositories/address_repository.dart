@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dongu_mobile/utils/network_error.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../utils/constants/url_constant.dart';
@@ -145,7 +146,6 @@ class SampleAdressRepository implements AdressRepository {
 
       return addressValuesList;
     }
-    print(response.statusCode);
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 
@@ -190,8 +190,8 @@ class SampleAdressRepository implements AdressRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}',
       },
     );
-    print(response.statusCode);
-    print(response.body);
+    debugPrint(response.statusCode.toString());
+    debugPrint(response.body);
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 }

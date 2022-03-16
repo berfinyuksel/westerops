@@ -19,12 +19,11 @@ class ContactListTile extends StatefulWidget {
 }
 
 class _ContactListTileState extends State<ContactListTile> {
-  String email = "dongu@support.com";
+  String email = "destek@dongu.com";
   void customLaunch() async {
     if (await canLaunch("mailto:$email")) {
       await launch("mailto:$email");
     } else {
-      print('Could not launch');
     }
   }
 

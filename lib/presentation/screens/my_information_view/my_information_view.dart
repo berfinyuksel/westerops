@@ -1,6 +1,5 @@
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +36,7 @@ class _MyInformationViewState extends State<MyInformationView> {
   DateTime? _selectedDate;
   bool isReadOnly = true;
   bool isVisibilty = false;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+
   bool showLoading = false;
   MobileVerificationState currentState =
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
@@ -104,8 +103,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                 SizedBox(height: 32.h),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                        context, RouteConstant.DELETE_ACCOUNT_VIEW);
+                  Navigator.pushNamedAndRemoveUntil(context, RouteConstant.DELETE_ACCOUNT_VIEW, ModalRoute.withName('/deleteAccount'));
                   },
                   child: LocaleText(
                     text: LocaleKeys.inform_delete_account,
@@ -179,9 +177,6 @@ class _MyInformationViewState extends State<MyInformationView> {
                 String datetime1 =
                     DateFormat("dd/MM/yyyy").format(_selectedDate!);
                 birthController.text = datetime1;
-                // print("AAAA: ${birthController.text}");
-
-                // print(SharedPrefs.getUserBirth);
               });
             });
           }

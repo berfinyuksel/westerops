@@ -75,6 +75,7 @@ class NearMeRestaurantListViewWidget extends StatelessWidget {
                   }
                 }
               }
+              return null;
             }
 
             return RestaurantInfoCard(

@@ -445,6 +445,7 @@ abstract class  LocaleKeys {
   static const premission_notification = 'premission_notification';
   static const premission_location_text1 = 'premission_location.text1';
   static const premission_location_text2 = 'premission_location.text2';
+  static const premission_location_text3 = 'premission_location.text3';
   static const premission_location_button1 = 'premission_location.button1';
   static const premission_location_button2 = 'premission_location.button2';
   static const premission_location = 'premission_location';

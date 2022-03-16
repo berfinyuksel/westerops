@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/data/model/results_notification.dart';
+import 'package:flutter/material.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:dongu_mobile/utils/network_error.dart';
@@ -22,8 +23,8 @@ class SampleBulkUpdateNotificationRepository implements BulkUpdateNotificationRe
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print("Notification BLUK UPDATE StatusCode " + response.statusCode.toString());
-    print("Notification Body BLUK UPDATE " + response.body);
+    debugPrint("Notification BLUK UPDATE StatusCode " + response.statusCode.toString());
+    debugPrint("Notification Body BLUK UPDATE " + response.body);
 
     if (response.statusCode == 200) {
       //final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));

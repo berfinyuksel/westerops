@@ -45,8 +45,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
     await _auth.verifyPhoneNumber(
         phoneNumber: SharedPrefs.getUserPhone,
         verificationCompleted: (phoneAuthCredential) async {
-          // print(
-          //     "SMS CODE : ${phoneAuthCredential.smsCode}");
+
           setState(() {
             showLoading = false;
           });
@@ -75,9 +74,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
   // String? userPassword;
   @override
   void initState() {
-    print(SharedPrefs.getUserPhone);
     userPhoneNumber = SharedPrefs.getUserPhone;
-    print(userPhoneNumber);
     sendCode(phoneAuthCredential);
     // userName = SharedPrefs.getUserName;
     // userLastName = SharedPrefs.getUserLastName;
@@ -207,7 +204,6 @@ class _RegisterVerifyState extends State<RegisterVerify> {
     lastTwoDigitList.add(phoneNumberList[phoneLength - 2]);
     lastTwoDigitList.add(phoneNumberList[phoneLength - 1]);
     String lastTwoDigits = lastTwoDigitList.join("");
-    print(lastTwoDigits);
     return Container(
       child: Column(
         children: [
@@ -265,8 +261,6 @@ class _RegisterVerifyState extends State<RegisterVerify> {
           //   );
           // }
           if (verificationId!.isNotEmpty && userPhoneNumber!.isNotEmpty) {
-            print(verificationId!);
-            print(userPhoneNumber!);
             final AuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationId!,
               smsCode: codeController1.text +

@@ -51,8 +51,6 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
           context.read<NotificationsCounterCubit>().decrement();
         }
 
-        print("STATE RESPONSE : ${state.response}");
-
         return Center(child: listViewBuilder(context, notifications, state));
       } else {
         final error = state as GenericError;

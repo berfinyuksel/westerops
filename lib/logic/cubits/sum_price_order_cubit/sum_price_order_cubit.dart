@@ -16,7 +16,6 @@ class SumPriceOrderCubit extends Cubit<int> {
   }
 
   void clearPrice() {
-    print('sum price activated');
     emit(0);
   }
 }

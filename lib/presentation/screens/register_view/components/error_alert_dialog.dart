@@ -1,7 +1,9 @@
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
+import 'package:dongu_mobile/utils/constants/route_constant.dart';
 
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,7 +64,9 @@ class ErrorAlertDialog extends StatelessWidget {
                         style: GoogleFonts.montserrat(
                           color: AppColors.orangeColor,
                           fontWeight: FontWeight.w500,
+                      
                         ),
+                        recognizer: TapGestureRecognizer()..onTap = () => Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
                       ),
                       TextSpan(
                         text: ' ',
@@ -83,6 +87,7 @@ class ErrorAlertDialog extends StatelessWidget {
                           color: AppColors.orangeColor,
                           fontWeight: FontWeight.w500,
                         ),
+                         recognizer: TapGestureRecognizer()..onTap = () => Navigator.pushNamed(context, RouteConstant.FORGOT_PASSWORD_VIEW)
                       ),
                     ],
                   ),

@@ -43,13 +43,11 @@ class _LoginViewState extends State<LoginView> {
   String dropdownValue = "TR";
   String? token;
   String _errorTitle = "'Üzgünüz\ngiriş yapamadınız.'";
-  String _errorDescription = 
-      "Lütfen daha önce aynı mail\n adresiniz\n ile giriş yapmadığınızdan\n emin olun.";
+  String _errorDescription = "Lütfen daha önce aynı mail\n adresiniz\n ile giriş yapmadığınızdan\n emin olun.";
   String _errorServiceTitle = "Sunucu\nhatası giriş yapamadınız";
   String _errorServiceDescription = "Bilinmeyen bir\nsunucu hatası lütfen\n tekrar deneyiniz. ";
   void notificationToken() async {
     token = await FirebaseMessaging.instance.getToken();
-    print("TOKEN REG : $token");
   }
 
   @override
@@ -152,7 +150,9 @@ class _LoginViewState extends State<LoginView> {
                   padding: EdgeInsets.symmetric(
                     horizontal: 28.w,
                   ),
-                  child: buildTextFormField(LocaleKeys.register_password.locale, passwordController, (val) {}),
+                  child: buildTextFormField(LocaleKeys.register_password.locale, passwordController, (val) {
+                    return null;
+                  }),
                 ),
               ),
               SizedBox(height: 26.h),
@@ -178,14 +178,13 @@ class _LoginViewState extends State<LoginView> {
                   if (SharedPrefs.getIsLogined) {
                     if (Platform.isAndroid) {
                       context.read<NotificationCubit>().postNotification(token!, "android");
-                      print("Platform.isAndroid" + token!);
                     } else if (Platform.isIOS) {
                       context.read<NotificationCubit>().postNotification(token!, "ios");
                       // iOS-specific code
                     }
                   }
                   if (SharedPrefs.getIsLogined) {
-                    Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+                    Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
                   }
                 },
               ),
@@ -247,7 +246,6 @@ class _LoginViewState extends State<LoginView> {
         } else if (state is GenericLoading) {
           return Container();
         } else if (state is GenericCompleted) {
-          print(state.response);
           return AlertDialog(
             contentPadding: EdgeInsets.zero,
             content: Container(
@@ -301,93 +299,88 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget buildSocialAuths(BuildContext context) {
-    return Column(
-      children: [
-         Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () async{
-             await AuthService().loginWithGmail();
-              print("LOGIN GOOGLE STATUS CUBİT : ${sl<LoginStatusCubit>().state}");
+    return Column(children: [
+      Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+        GestureDetector(
+          onTap: () async {
+            await AuthService().loginWithGmail();
 
             if (sl<LoginStatusCubit>().state == 403) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SocailAuthErrorPopup(
-                        title: _errorTitle,
-                        description: _errorDescription,
-                      );
-                    });
-              } else if (sl<LoginStatusCubit>().state != 200) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SocailAuthErrorPopup(
-                        title: _errorServiceTitle,
-                        description: _errorServiceDescription,
-                      );
-                    });
-              } else {
-                Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
-              }
-            },
-            child: SignWithSocialAuth(
-              image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
-            ),
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SocailAuthErrorPopup(
+                      title: _errorTitle,
+                      description: _errorDescription,
+                    );
+                  });
+            } else if (sl<LoginStatusCubit>().state != 200) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SocailAuthErrorPopup(
+                      title: _errorServiceTitle,
+                      description: _errorServiceDescription,
+                    );
+                  });
+            } else {
+                   Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+
+            }
+          },
+          child: SignWithSocialAuth(
+            image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
           ),
-          GestureDetector(
-            onTap: () async {
-              await FacebookSignInController().login();
-              print("LOGIN FACEBOOK STATUS CUBİT : ${sl<LoginStatusCubit>().state}");
-              if (sl<LoginStatusCubit>().state == 403) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SocailAuthErrorPopup(
-                        title: _errorTitle,
-                        description: _errorDescription,
-                      );
-                    });
-              } else if (sl<LoginStatusCubit>().state != 200) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SocailAuthErrorPopup(
-                        title: _errorServiceTitle,
-                        description: _errorServiceDescription,
-                      );
-                    });
-              } else {
-                Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
-              }
-            },
-            child: SignWithSocialAuth(
-              image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
-            ),
+        ),
+        GestureDetector(
+          onTap: () async {
+            await FacebookSignInController().login();
+            if (sl<LoginStatusCubit>().state == 403) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SocailAuthErrorPopup(
+                      title: _errorTitle,
+                      description: _errorDescription,
+                    );
+                  });
+            } else if (sl<LoginStatusCubit>().state != 200) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SocailAuthErrorPopup(
+                      title: _errorServiceTitle,
+                      description: _errorServiceDescription,
+                    );
+                  });
+            } else {
+                    Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+
+            }
+          },
+          child: SignWithSocialAuth(
+            image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
           ),
-        ]),
-        SizedBox(height: 10.h),
-        Visibility(
-          visible: Platform.isIOS,
+        ),
+      ]),
+      SizedBox(height: 10.h),
+      Visibility(
+          visible: !Platform.isAndroid,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 110.h),
-            child: GestureDetector(
-              onTap: () async {
-                await AppleSignInController().login();
-                Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
-              },
-              child: SignWithSocialAuth(
-                isApple: true,
-                image: ImageConstant.REGISTER_LOGIN_APPLE_ICON,))))
-             
+              padding: EdgeInsets.symmetric(horizontal: 110.h),
+              child: GestureDetector(
+                  onTap: () async {
+                    await AppleSignInController().login();
+                          Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+
+                  },
+                  child: SignWithSocialAuth(
+                    isApple: true,
+                    image: ImageConstant.REGISTER_LOGIN_APPLE_ICON,
+                  ))))
     ]);
-      
-    
-        
-              
   }
+
   Container get buildBackground {
     return Container(
       height: context.dynamicHeight(1),

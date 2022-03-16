@@ -1,15 +1,11 @@
-import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:dongu_mobile/data/model/search_store.dart';
-import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
-import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
-import 'package:dongu_mobile/presentation/screens/my_favorites_view/components/address_text.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
@@ -21,18 +17,11 @@ import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:dongu_mobile/utils/theme/app_text_styles/app_text_styles.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../utils/extensions/context_extension.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-
 
 import '../../../../utils/extensions/string_extension.dart';
 
@@ -56,7 +45,6 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
     super.initState();
     context.read<AllFavoriteCubit>().getFavorite();
     context.read<SearchStoreCubit>().getSearchStore();
-    sl<SampleSearchStoreRepository>().searchStores;
   }
 
   @override
@@ -78,8 +66,6 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
             child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> favourites = [];
-        //List<double> distances = [];
-        print(state.response[0].address);
         for (int i = 0; i < state.response.length; i++) {
           favourites.add(state.response[i]);
         }
@@ -221,6 +207,7 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
                   }
                 }
               }
+              return null;
             }
 
             return GestureDetector(

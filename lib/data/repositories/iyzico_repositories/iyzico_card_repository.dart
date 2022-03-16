@@ -22,8 +22,6 @@ class IyzicoCardRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}',
       },
     );
-    print("ADD Card status ${response.statusCode}");
-    print(response.body);
     switch (response.statusCode) {
       case 200:
         return StatusCode.success;
@@ -46,7 +44,7 @@ class IyzicoCardRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}',
       },
     );
-    print("Delete Card status ${response.statusCode}");
+
 
     switch (response.statusCode) {
       case 200:
@@ -66,7 +64,7 @@ class IyzicoCardRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}',
       },
     );
-    print("get Card status ${response.statusCode}");
+
     log(response.body);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(

@@ -18,10 +18,9 @@ class AppleSignInController with ChangeNotifier {
         AppleIDAuthorizationScopes.fullName,
       ],
     );
-    print(credential.authorizationCode);
+    debugPrint(credential.authorizationCode);
     if (credential.authorizationCode.isNotEmpty) {
       userData = credential;
-      print(userData);
       final String accessToken = credential.authorizationCode;
 
       String json = '{"auth_token":"$accessToken"}';
@@ -30,11 +29,10 @@ class AppleSignInController with ChangeNotifier {
             'Content-Type': 'application/json; charset=UTF-8',
           },
           body: json);
-      print(response.body);
-      print(response.statusCode);
+      debugPrint(response.body);
       if (response.statusCode == 200) {
         final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-        print(jsonBody);
+        debugPrint(jsonBody);
         var authtokenList = AuthToken.fromJson(jsonBody);
         SharedPrefs.setToken(jsonBody['token']);
 

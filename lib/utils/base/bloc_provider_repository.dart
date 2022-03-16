@@ -9,12 +9,9 @@ import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_card_r
 import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_creat_order_with_3d.dart';
 import 'package:dongu_mobile/data/repositories/iyzico_repositories/iyzico_send_request_repository.dart';
 import 'package:dongu_mobile/data/repositories/notification_repository.dart';
-import 'package:dongu_mobile/data/repositories/order_received_repository.dart';
 import 'package:dongu_mobile/data/repositories/order_repository.dart';
 import 'package:dongu_mobile/data/repositories/put_notification_repository.dart';
 import 'package:dongu_mobile/data/repositories/search_location_repository.dart';
-import 'package:dongu_mobile/data/repositories/search_repository.dart';
-import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
 import 'package:dongu_mobile/data/repositories/store_boxes_repository.dart';
 import 'package:dongu_mobile/data/repositories/store_courier_hours_repository.dart';
 import 'package:dongu_mobile/data/repositories/time_interval_repository.dart';
@@ -63,7 +60,6 @@ import 'package:dongu_mobile/logic/cubits/time_interval_cubit/time_interval_cubi
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 import '../../logic/cubits/login_status_cubit/login_status_cubit.dart';
 

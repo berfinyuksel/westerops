@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,7 +53,8 @@ class _LocationViewState extends State<LocationView> {
                     padding: EdgeInsets.symmetric(
                       horizontal: 28.w,
                     ),
-                    child: descriptionText()),
+                    child: 
+                    descriptionText()),
               ),
               Spacer(
                 flex: 4,
@@ -97,7 +100,7 @@ class _LocationViewState extends State<LocationView> {
 
   AutoSizeText descriptionText() {
     return AutoSizeText(
-      LocaleKeys.premission_location_text2.locale,
+     Platform.isAndroid ? LocaleKeys.premission_location_text3.locale :  LocaleKeys.premission_location_text2.locale,
       style: AppTextStyles.bodyBoldTextStyle.copyWith(height: 2.5.h),
       maxLines: 3,
       textAlign: TextAlign.center,

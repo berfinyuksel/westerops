@@ -49,11 +49,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   void signInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCredential) async {
     String phoneTR = '+90' + phoneController.text;
-    print("SMS CODE : ${phoneAuthCredential.smsCode}");
-    print("VERIFICATIOIN ID : ${verificationId.toString()}");
     context.read<UserAuthCubit>().resetPassword(
         verificationId!, codeController.text, passwordController.text, phoneTR);
-    print(phoneTR);
 
     setState(() {
       showLoading = true;
@@ -102,18 +99,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 onPressed: () => Navigator.pop(context),
               ));
     }
-    // try {
-    //   // print(authCredential.user!.providerData);
-    //   // print("SMS CODE : ${phoneAuthCredential.smsCode}");
-    //   setState(() {
-    //     showLoading = false;
-    //   });
-    // } on FirebaseAuthException catch (e) {
-    //   print(e);
-    //   setState(() {
-    //     showLoading = false;
-    //   });
-    // }
   }
 
   @override
@@ -189,9 +174,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                   verificationId: verificationId.toString(),
                                   smsCode: codeController.text);
                           signInWithPhoneAuthCredential(phoneAuthCredential);
-
-                          print(verificationId);
-
                           if (verificationId == null ||
                               phoneAuthCredential.smsCode == null) {
                             showDialog(
@@ -229,18 +211,14 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                   dropdownValue == 'TR' ? phoneTR : phoneEN,
                               verificationCompleted:
                                   (phoneAuthCredential) async {
-                                // print(
-                                //     "SMS CODE : ${phoneAuthCredential.smsCode}");
                                 setState(() {
                                   showLoading = false;
                                 });
-                                //signInWithPhoneAuthCredential(phoneAuthCredential);
                               },
                               verificationFailed: (verificationFailed) async {
                                 setState(() {
                                   showLoading = false;
                                 });
-                                // ignore: deprecated_member_use
                               },
                               codeSent: (verificationId, resendingToken) async {
                                 setState(() {
@@ -256,9 +234,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         setState(() {
                           isCodeSent = true;
                           showLoading = true;
-
-                          /*FirebaseAuth.instance.sendPasswordResetEmail(
-                              email: phoneController.text);*/
                         });
                       },
                       width: double.infinity,

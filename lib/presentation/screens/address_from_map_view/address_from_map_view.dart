@@ -298,7 +298,6 @@ class _AddressFromMapViewState extends State<AddressFromMapView> {
         textColor: Colors.white,
         onPressed: () async {
           await getLocationDetails();
-          print(placemark.map((e) => e));
           String address = Platform.isAndroid
               ? "${placemark[1].street}, ${placemark[1].thoroughfare}, ${placemark[1].subThoroughfare}, ${placemark[1].postalCode} ${placemark[1].subAdministrativeArea}, ${placemark[1].administrativeArea}"
               : "${placemark[0].name}, ${placemark[0].subLocality}, ${placemark[0].locality}, ${placemark[0].administrativeArea} ${placemark[0].postalCode}, ${placemark[0].country}";

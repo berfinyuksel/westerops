@@ -57,8 +57,7 @@ class RestaurantInfoCard extends StatefulWidget {
 class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
   @override
   void initState() {
-    super.initState();
-  }
+    super.initState();  }
 
   @override
   Widget build(BuildContext context) {

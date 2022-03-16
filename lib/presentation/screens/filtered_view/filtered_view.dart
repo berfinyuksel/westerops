@@ -94,7 +94,6 @@ class _FilteredViewState extends State<FilteredView> {
 
                     String now = DateTime.now().toIso8601String();
                     List<String> currentDate = now.split("T").toList();
-                    print(currentDate[0]);
                     List<String> startDate = restaurants[index]
                         .calendar![i]
                         .startDate!
@@ -113,6 +112,7 @@ class _FilteredViewState extends State<FilteredView> {
                     }
                   }
                 }
+                return null;
               }
 
               return GestureDetector(

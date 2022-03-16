@@ -1,19 +1,19 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/iyzico_order_create_with_3d_cubit/iyzico_order_create_with_3d_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewForThreeD extends StatefulWidget {
   const WebViewForThreeD({
@@ -50,8 +50,7 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
               .decode(base64.decode(state.response.first.threeDsHtmlContent));
           log(htmlData);
           String conversationId = state.response.first.conversationId;
-          print("ahmettttt");
-          print(conversationId);
+  
           SharedPrefs.setConversationId(conversationId);
 
           void loadLocalHtml() async {
@@ -109,7 +108,6 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
         final error = state as GenericError;
         final String errorMessage = error.message;
 
-        print(errorMessage);
         return CustomAlertDialogResetPassword(
           description: buildErrorMessage(errorMessage),
           /* "${errorMessage == emptyBasketMessage ? "Sepetinde ürün bulunmamaktadır" : error.message}\n Hata Kodu: ${error.statusCode}", */
