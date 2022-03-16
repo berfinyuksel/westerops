@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 
 class RegisterVerify extends StatefulWidget {
   const RegisterVerify({Key? key}) : super(key: key);
@@ -33,19 +34,19 @@ class _RegisterVerifyState extends State<RegisterVerify> {
   PhoneAuthCredential? phoneAuthCredential;
   MobileVerificationState currentState =
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
-  TextEditingController codeController1 = TextEditingController();
-  TextEditingController codeController2 = TextEditingController();
-  TextEditingController codeController3 = TextEditingController();
-  TextEditingController codeController4 = TextEditingController();
-  TextEditingController codeController5 = TextEditingController();
-  TextEditingController codeController6 = TextEditingController();
+  // TextEditingController codeController1 = TextEditingController();
+  // TextEditingController codeController2 = TextEditingController();
+  // TextEditingController codeController3 = TextEditingController();
+  // TextEditingController codeController4 = TextEditingController();
+  // TextEditingController codeController5 = TextEditingController();
+  // TextEditingController codeController6 = TextEditingController();
+  TextEditingController codeController = TextEditingController();
   String? verificationId;
   String? userPhoneNumber;
   void sendCode(phoneAuthCredential) async {
     await _auth.verifyPhoneNumber(
         phoneNumber: SharedPrefs.getUserPhone,
         verificationCompleted: (phoneAuthCredential) async {
-
           setState(() {
             showLoading = false;
           });
@@ -105,7 +106,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
           Spacer(flex: 5),
           buildText(context),
           Spacer(flex: 4),
-          Padding(
+          /* Padding(
             padding: EdgeInsets.symmetric(horizontal: 28.w),
             child: Container(
               child: Row(
@@ -134,8 +135,28 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                 ],
               ),
             ),
+          ), */
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 26.w),
+            child: Pinput(
+              controller: codeController,
+              length: 6,
+              onCompleted: (pin) => print(pin),
+              defaultPinTheme: PinTheme(
+                width: 56,
+                height: 50,
+                textStyle: TextStyle(
+                    fontSize: 20,
+                    color: AppColors.textColor,
+                    fontWeight: FontWeight.w600),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.greenColor),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
           ),
-          Spacer(flex: 2),
+          Spacer(flex: 3),
           Center(child: buildButton(context)),
           Spacer(flex: 3),
           Center(child: buildBottomTextAndIcon(context)),
@@ -145,7 +166,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
     );
   }
 
-  textFieldOtp(
+  /*  textFieldOtp(
       {required bool first,
       required bool last,
       required TextEditingController otpController}) {
@@ -194,7 +215,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
         ),
       ),
     );
-  }
+  } */
 
   Container buildText(BuildContext context) {
     String? phoneNumber = userPhoneNumber!;
@@ -244,6 +265,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () async {
+          print("Code controller: $codeController");
           // if (verificationId == null) {
           //     showDialog(
           //     context: context,
@@ -263,12 +285,13 @@ class _RegisterVerifyState extends State<RegisterVerify> {
           if (verificationId!.isNotEmpty && userPhoneNumber!.isNotEmpty) {
             final AuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationId!,
-              smsCode: codeController1.text +
-                  codeController2.text +
-                  codeController3.text +
-                  codeController4.text +
-                  codeController5.text +
-                  codeController6.text,
+              smsCode: codeController.text,
+              // smsCode: codeController1.text +
+              //     codeController2.text +
+              //     codeController3.text +
+              //     codeController4.text +
+              //     codeController5.text +
+              //     codeController6.text,
             );
             try {
               await FirebaseAuth.instance.signInWithCredential(credential);
@@ -279,17 +302,6 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                   SharedPrefs.getUserPhone,
                   SharedPrefs.getUserPassword);
               _showMyDialog();
-              // showDialog(
-              //     context: context,
-              //     builder: (_) => CustomAlertDialogResetPassword(
-              //           description:
-              //               "Başarılı bir şekilde Döngü'ye üye oldunuz.",
-              //           onPressed: () => Navigator.popAndPushNamed(
-              //               context, RouteConstant.CUSTOM_SCAFFOLD),
-              //         ));
-              //                     SharedPrefs.setUserPhone(phoneController.text);
-              // SharedPrefs.setUserEmail(mailController.text);
-
             } on FirebaseAuthException catch (e) {
               if (e.code == 'invalid-verification-code') {
                 showDialog(
@@ -384,7 +396,8 @@ class _RegisterVerifyState extends State<RegisterVerify> {
       builder: (BuildContext context) {
         final GenericState state = context.watch<UserAuthCubit>().state;
         if (state is GenericInitial) {
-          return Center(child: Container(child: CustomCircularProgressIndicator()));
+          return Center(
+              child: Container(child: CustomCircularProgressIndicator()));
         } else if (state is GenericLoading) {
           return Center(
               child: Container(child: CustomCircularProgressIndicator()));
