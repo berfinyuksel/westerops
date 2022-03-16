@@ -34,12 +34,6 @@ class _RegisterVerifyState extends State<RegisterVerify> {
   PhoneAuthCredential? phoneAuthCredential;
   MobileVerificationState currentState =
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
-  // TextEditingController codeController1 = TextEditingController();
-  // TextEditingController codeController2 = TextEditingController();
-  // TextEditingController codeController3 = TextEditingController();
-  // TextEditingController codeController4 = TextEditingController();
-  // TextEditingController codeController5 = TextEditingController();
-  // TextEditingController codeController6 = TextEditingController();
   TextEditingController codeController = TextEditingController();
   String? verificationId;
   String? userPhoneNumber;
@@ -106,36 +100,6 @@ class _RegisterVerifyState extends State<RegisterVerify> {
           Spacer(flex: 5),
           buildText(context),
           Spacer(flex: 4),
-          /* Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w),
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  textFieldOtp(
-                      first: true, last: false, otpController: codeController1),
-                  textFieldOtp(
-                      first: false,
-                      last: false,
-                      otpController: codeController2),
-                  textFieldOtp(
-                      first: false,
-                      last: false,
-                      otpController: codeController3),
-                  textFieldOtp(
-                      first: false,
-                      last: false,
-                      otpController: codeController4),
-                  textFieldOtp(
-                      first: false,
-                      last: false,
-                      otpController: codeController5),
-                  textFieldOtp(
-                      first: false, last: true, otpController: codeController6),
-                ],
-              ),
-            ),
-          ), */
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 26.w),
             child: Pinput(
@@ -165,57 +129,6 @@ class _RegisterVerifyState extends State<RegisterVerify> {
       ),
     );
   }
-
-  /*  textFieldOtp(
-      {required bool first,
-      required bool last,
-      required TextEditingController otpController}) {
-    return Container(
-      height: 70.h,
-      width: 55.w,
-      child: AspectRatio(
-        aspectRatio: 0.5,
-        child: TextField(
-          controller: otpController,
-          autofocus: true,
-          onChanged: (value) {
-            if (value.length == 1 && last == false) {
-              FocusScope.of(context).nextFocus();
-            }
-            if (value.length == 0 && first == false) {
-              FocusScope.of(context).previousFocus();
-            }
-          },
-          showCursor: false,
-          readOnly: false,
-          textAlign: TextAlign.center,
-          keyboardType: TextInputType.number,
-          maxLength: 1,
-          decoration: InputDecoration(
-            counter: Offstage(),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                width: 2.w,
-                color: Colors.black12,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                width: 2.w,
-                color: AppColors.greenColor,
-              ),
-            ),
-          ),
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24.sp,
-          ),
-        ),
-      ),
-    );
-  } */
 
   Container buildText(BuildContext context) {
     String? phoneNumber = userPhoneNumber!;
@@ -286,12 +199,6 @@ class _RegisterVerifyState extends State<RegisterVerify> {
             final AuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationId!,
               smsCode: codeController.text,
-              // smsCode: codeController1.text +
-              //     codeController2.text +
-              //     codeController3.text +
-              //     codeController4.text +
-              //     codeController5.text +
-              //     codeController6.text,
             );
             try {
               await FirebaseAuth.instance.signInWithCredential(credential);
