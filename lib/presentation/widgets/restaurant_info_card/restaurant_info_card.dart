@@ -1,6 +1,12 @@
+import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../data/services/locator.dart';
+import '../../../logic/cubits/box_cubit/box_state.dart';
+import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -27,13 +33,13 @@ class RestaurantInfoCard extends StatefulWidget {
   final Color? getItPackageBGColor;
   final Color? courierPackageIconColor;
   final Color? courierPackageBGColor;
-  final int? restaurantId;
+  final int restaurantId;
   final double? width;
 
   const RestaurantInfoCard({
     Key? key,
     this.packetNumber,
-    this.restaurantId,
+    required this.restaurantId,
     this.restaurantName,
     this.grade,
     this.location,
@@ -57,61 +63,67 @@ class RestaurantInfoCard extends StatefulWidget {
 class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
   @override
   void initState() {
-    super.initState();  }
+    // sl<BoxCubit>().getBoxes(widget.restaurantId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widget.width,
-      height: context.dynamicHeight(0.29),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFFE2E4EE).withOpacity(0.75),
-            offset: Offset(0, 3.0),
-            blurRadius: 12.0,
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
-            child: Image.network(
-              widget.backgroundImage!,
-              alignment: Alignment.topCenter,
-              fit: BoxFit.fill,
-              width: context.dynamicWidht(0.64),
-              height: context.height > 800
-                  ? context.dynamicHeight(0.16)
-                  : context.dynamicHeight(0.14),
+    return BlocProvider(
+      create: (context) => sl<BoxCubit>()..getBoxes(widget.restaurantId),
+      child: Container(
+        width: widget.width,
+        height: context.dynamicHeight(0.29),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFFE2E4EE).withOpacity(0.75),
+              offset: Offset(0, 3.0),
+              blurRadius: 12.0,
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: context.dynamicHeight(0.011),
-                horizontal: context.dynamicWidht(0.023)),
-            child: Column(
-              children: [
-                buildFirstRow(context, widget.packetNumber!),
-                Spacer(flex: 9),
-                buildSecondRow(
-                    widget.restaurantName!, widget.restaurantIcon!, context),
-                Spacer(flex: 1),
-                buildThirdRow(
-                    widget.grade!, widget.location!, widget.distance!),
-                Divider(
-                  thickness: 2,
-                  color: AppColors.borderAndDividerColor,
-                ),
-                buildForthRow(context, widget.availableTime!)
-              ],
+          ],
+        ),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0)),
+              child: Image.network(
+                widget.backgroundImage!,
+                alignment: Alignment.topCenter,
+                fit: BoxFit.fill,
+                width: context.dynamicWidht(0.64),
+                height: context.height > 800
+                    ? context.dynamicHeight(0.16)
+                    : context.dynamicHeight(0.14),
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: context.dynamicHeight(0.011),
+                  horizontal: context.dynamicWidht(0.023)),
+              child: Column(
+                children: [
+                  buildFirstRow(context, widget.packetNumber!),
+                  Spacer(flex: 9),
+                  buildSecondRow(
+                      widget.restaurantName!, widget.restaurantIcon!, context),
+                  Spacer(flex: 1),
+                  buildThirdRow(
+                      widget.grade!, widget.location!, widget.distance!),
+                  Divider(
+                    thickness: 2,
+                    color: AppColors.borderAndDividerColor,
+                  ),
+                  buildForthRow(context, widget.availableTime!)
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -187,10 +199,22 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PacketNumber(
-          text: packetNumber,
-          width: context.dynamicWidht(0.185),
-          height: context.dynamicHeight(0.035),
+        BlocBuilder<BoxCubit, BoxState>(
+          builder: (context, state) {
+            if (state is BoxLoading) {
+              return CustomCircularProgressIndicator();
+            } else if (state is BoxCompleted) {
+              return PacketNumber(
+                text: state.packages.length != 0
+                    ? "${state.packages.length.toString()} paket"
+                    : "tükendi",
+                width: context.dynamicWidht(0.185),
+                height: context.dynamicHeight(0.035),
+              );
+            } else {
+              return SizedBox();
+            }
+          },
         ),
         Spacer(),
         PackageDelivery(

@@ -14,8 +14,10 @@ import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart'
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/utils/base/bloc_provider_repository.dart';
 import 'package:dongu_mobile/utils/base/svg_image_repository.dart';
+import '../../logic/cubits/box_cubit/box_cubit.dart';
 import '../../logic/cubits/search_cubit/search_cubit.dart';
 import '../repositories/basket_repository.dart';
+import '../repositories/box_repository.dart';
 import '../repositories/favourite_repository.dart';
 import '../repositories/search_repository.dart';
 import '../repositories/update_order_repository.dart';
@@ -44,6 +46,7 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => SampleFavoriteRepository());
   getIt.registerLazySingleton(() => SampleFiltersRepository());
   getIt.registerLazySingleton(() => SampleAdressRepository());
+  getIt.registerFactory(() => SampleBoxRepository());
   //Cubits
 
   getIt.registerLazySingleton(() => OrderReceivedCubit(sl()));
@@ -54,5 +57,5 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => AllFavoriteCubit(sl()));
   getIt.registerLazySingleton(() => FavoriteStatusCubit());
   getIt.registerLazySingleton(() => AddressCubit(sl()));
-  
+  getIt.registerFactory(() => BoxCubit(sl()));
 }
