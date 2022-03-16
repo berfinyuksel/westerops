@@ -24,7 +24,7 @@ class NotificationService {
     channelDescription: "Channel Description",
     importance: Importance.max,
     priority: Priority.high,
-    icon: "assets/images/dongu_app_launcher.jpg",
+    icon: "launcher_icon",
   );
 
   IOSNotificationDetails iOSPlatformChannelSpecifics = IOSNotificationDetails(
@@ -52,7 +52,7 @@ class NotificationService {
         iOS: iOSPlatformChannelSpecifics);
     tz.initializeTimeZones();
     final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings("@mipmap/ic_launcher");
+        AndroidInitializationSettings("launcher_icon");
 
     final IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(
@@ -112,7 +112,7 @@ class NotificationService {
 
   void init() async {
     final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings("@mipmap/ic_launcher");
+        AndroidInitializationSettings("launcher_icon");
 
     final IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(
