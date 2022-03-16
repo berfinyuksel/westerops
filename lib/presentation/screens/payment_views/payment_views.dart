@@ -590,23 +590,27 @@ class _PaymentViewsState extends State<PaymentViews>
             borderColor: checkboxAgreementValue && checkboxInfoValue
                 ? AppColors.greenColor
                 : AppColors.disabledButtonColor,
-            onPressed: () {
-              if (checkboxAgreementValue && checkboxInfoValue) {
-                log("BoolForRegisteredCard");
-                log(SharedPrefs.getBoolForRegisteredCard.toString());
-                log("ThreeDBool");
-                log(SharedPrefs.getThreeDBool.toString());
-                if (SharedPrefs.getBoolForRegisteredCard) {
-                  buildPaymentForRegisteredCard(context);
-                } else {
-                  if (SharedPrefs.getThreeDBool) {
-                    buildWith3DPayment(context);
-                  } else {
-                    buildWithout3DPayment(context);
+            onPressed: SharedPrefs.getBoolPaymentCardControl
+                ? () {
+                    if (checkboxAgreementValue && checkboxInfoValue) {
+                      log("BoolForRegisteredCard");
+                      log(SharedPrefs.getBoolForRegisteredCard.toString());
+                      log("ThreeDBool");
+                      log(SharedPrefs.getThreeDBool.toString());
+                      if (SharedPrefs.getBoolForRegisteredCard) {
+                        buildPaymentForRegisteredCard(context);
+                        print("IF");
+                      } else {
+                        print("ELSE");
+                        if (SharedPrefs.getThreeDBool) {
+                          buildWith3DPayment(context);
+                        } else {
+                          buildWithout3DPayment(context);
+                        }
+                      }
+                    }
                   }
-                }
-              }
-            },
+                : null,
           );
         }),
       ],
@@ -653,6 +657,7 @@ class _PaymentViewsState extends State<PaymentViews>
           cvc: SharedPrefs.getCVC,
           ip: SharedPrefs.getIpV4,
         );
+        
     context
         .read<StoreCourierCubit>()
         .updateCourierHours(SharedPrefs.getCourierHourId);

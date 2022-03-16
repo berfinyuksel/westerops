@@ -25,6 +25,7 @@ class HomePageCubit extends Cubit<HomePageState> {
     SharedPrefs.onboardingShown(true);
     sl<OrderReceivedCubit>().getPastOrder();
     buildSharedPrefNoData();
+    SharedPrefs.setBoolPaymentCardControl(false);
     emit(HomePageCompleted());
   }
 
