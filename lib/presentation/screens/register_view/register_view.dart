@@ -69,8 +69,8 @@ class _RegisterViewState extends State<RegisterView> {
               child: buildBackground,
             ),
             Positioned(
-              top: 57.h,
-              left: 0,
+              top: 28.h,
+              left: 5.w,
               child: IconButton(
                 icon: SvgPicture.asset(ImageConstant.BACK_ICON,
                     color: Colors.white),
@@ -161,10 +161,11 @@ class _RegisterViewState extends State<RegisterView> {
               flex: 5,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 28.w),
-                child: buildTextFormField(LocaleKeys.register_full_name.locale,
-                    nameController, (value) {
-                      return null;
-                    }),
+                child: buildTextFormField(
+                    LocaleKeys.register_full_name.locale, nameController,
+                    (value) {
+                  return null;
+                }),
               ),
             ),
             SizedBox(height: 20.h),
@@ -204,14 +205,11 @@ class _RegisterViewState extends State<RegisterView> {
               ),
             ), */
             CustomButton(
-                width: context.dynamicWidht(0.4),
+                width: 176.w,
                 title: LocaleKeys.register_text_register,
                 textColor: Colors.white,
-                color:  AppColors.greenColor
-                    ,
-                borderColor: checkboxValue
-                    ? AppColors.greenColor
-                    : AppColors.disabledButtonColor,
+                color: AppColors.greenColor,
+                borderColor: AppColors.greenColor,
                 onPressed: () {
                   bool numberControl =
                       passwordController.text.contains(RegExp(r'[0-9]'));

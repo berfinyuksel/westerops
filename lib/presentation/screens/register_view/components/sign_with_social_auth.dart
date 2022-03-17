@@ -20,7 +20,7 @@ class SignWithSocialAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.04),
+      height: 40.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
         color: Colors.white,
@@ -30,12 +30,16 @@ class SignWithSocialAuth extends StatelessWidget {
         children: [
           SvgPicture.asset(
             image!,
+            height: 39.h,
           ),
+          SizedBox(width: 5.w),
           LocaleText(
-            text: isApple! ? LocaleKeys.register_social_auth_apple : LocaleKeys.register_social_auth,
+            text: isApple!
+                ? LocaleKeys.register_social_auth_apple
+                : LocaleKeys.register_social_auth,
             style: AppTextStyles.bodyTextStyle.copyWith(fontSize: 10),
           ),
-          SizedBox(width: 10.w)
+          SizedBox(width: 10.w),
         ],
       ),
     );
