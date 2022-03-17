@@ -81,7 +81,9 @@
             "character": "8 karakter"
         },
         "social_auth": "Devam et",
-        "social_auth_apple": "Apple ile devam et"
+        "social_auth_apple": "Apple ile devam et",
+        "social_auth_facebook": "Facebook ile devam et",
+        "social_auth_google": "Google ile devam et"
     },
     "login": {
         "error_alert_dialog_text1": "Yeni iseniz",
