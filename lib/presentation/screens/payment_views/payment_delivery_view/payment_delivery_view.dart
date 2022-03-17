@@ -182,10 +182,11 @@ class _PaymentDeliveryViewState extends State<PaymentDeliveryView> {
                 itemCount: list.length,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
+               //   print(list[index].endDate);
                   return DeliveryCustomButton(
                     width: context.dynamicWidht(0.4),
                     title:
-                        "${list[index].startDate!.format("H:i")} - ${list[index].endDate!.format("H:i")}",
+                        "${list[index].startDate!.toLocal().format("H:i")} - ${list[index].endDate!.toLocal().format("H:i")}",
                     color: list[index].isAvailable == true
                         ? selectedIndex == index
                             ? AppColors.greenColor.withOpacity(0.4)

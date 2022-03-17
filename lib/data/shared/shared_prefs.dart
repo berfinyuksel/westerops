@@ -215,6 +215,10 @@ class SharedPrefs {
     _prefs.setBool('boolForRegisteredCard', boolForRegisteredCard);
   }
 
+  static Future<void> setBoolPaymentCardControl(
+      bool boolPaymentCardControl) async {
+    _prefs.setBool('boolPaymentCardControl', boolPaymentCardControl);
+  }
   static Future<void> setCardToken(String cardToken) async {
     _prefs.setString('cardToken', cardToken);
   }
@@ -344,6 +348,8 @@ class SharedPrefs {
   static String get getIpV4 => _prefs.getString('ipv4') ?? "";
   static bool get getBoolForRegisteredCard =>
       _prefs.getBool('boolForRegisteredCard') ?? false;
+        static bool get getBoolPaymentCardControl =>
+      _prefs.getBool('boolPaymentCardControl') ?? false;
   static String get getCardToken => _prefs.getString('cardToken') ?? "";
   static int get getActiveAddressId => _prefs.getInt('activeAddressId') ?? 0;
   static bool get getCardRegisterBool =>

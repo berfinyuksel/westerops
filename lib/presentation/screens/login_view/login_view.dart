@@ -198,7 +198,7 @@ class _LoginViewState extends State<LoginView> {
                     }
                   }
                   if (SharedPrefs.getIsLogined) {
-                    Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+                    Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
                   }
                 },
               ),
@@ -342,7 +342,8 @@ class _LoginViewState extends State<LoginView> {
                     );
                   });
             } else {
-              Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+                   Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+
             }
           },
           child: SignWithSocialAuth(
@@ -371,7 +372,8 @@ class _LoginViewState extends State<LoginView> {
                     );
                   });
             } else {
-              Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+                    Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+
             }
           },
           child: SignWithSocialAuth(
@@ -387,8 +389,8 @@ class _LoginViewState extends State<LoginView> {
               child: GestureDetector(
                   onTap: () async {
                     await AppleSignInController().login();
-                    Navigator.of(context)
-                        .pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+                          Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+
                   },
                   child: SignWithSocialAuth(
                     isApple: true,

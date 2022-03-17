@@ -103,8 +103,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                 SizedBox(height: 32.h),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                        context, RouteConstant.DELETE_ACCOUNT_VIEW);
+                  Navigator.pushNamedAndRemoveUntil(context, RouteConstant.DELETE_ACCOUNT_VIEW, ModalRoute.withName('/deleteAccount'));
                   },
                   child: LocaleText(
                     text: LocaleKeys.inform_delete_account,

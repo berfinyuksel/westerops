@@ -56,10 +56,8 @@ class _OrderReceivingViewWithRegisteredCardState
                 Builder(builder: (context) {
                   final state = context.watch<OrderReceivedCubit>().state;
                   if (state is GenericInitial) {
-                    
                     return Container();
                   } else if (state is GenericLoading) {
-                    
                     return Center(
                         child: CircularProgressIndicator(
                       color: AppColors.greenColor,
@@ -69,6 +67,7 @@ class _OrderReceivingViewWithRegisteredCardState
                     for (int i = 0; i < state.response.length; i++) {
                       orderInfo.add(state.response[i]);
                     }
+                    print("BURDAYIZ ${state.response.first.refCode.toString()}");
                     return PaymentInquiryStarter(
                         conversationId:
                             state.response.first.refCode.toString());
