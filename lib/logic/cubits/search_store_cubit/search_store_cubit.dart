@@ -5,6 +5,7 @@ import '../generic_state/generic_state.dart';
 
 class SearchStoreCubit extends Cubit<GenericState> {
   final SampleSearchStoreRepository _searchStoreRepository;
+  String? categoryName;
   SearchStoreCubit(this._searchStoreRepository) : super(GenericInitial());
 
   Future<void> getSearchStore() async {
@@ -26,5 +27,9 @@ class SearchStoreCubit extends Cubit<GenericState> {
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));
     }
+  }
+
+  void changeCategoryName(String category) {
+    categoryName = category;
   }
 }
