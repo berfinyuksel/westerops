@@ -17,13 +17,10 @@ class UpdatePermissonRepository {
 
     switch (response.statusCode) {
       case 200:
-        print('hello canim ${StatusCode.success}');
         return StatusCode.success;
       case 401:
-        print('hello canim ${StatusCode.unauthecticated}');
         return StatusCode.unauthecticated;
       default:
-        print('hello canim ${StatusCode.error}');
         return StatusCode.error;
     }
   }
