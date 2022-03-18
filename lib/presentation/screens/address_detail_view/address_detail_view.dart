@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/address_detail_view/tckn_validation/tckn_validation.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -139,7 +140,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                           addressController.text.isNotEmpty &&
                           phoneNumberController.text.isNotEmpty &&
                           tcController.text.isNotEmpty &&
-                          descriptionController.text.isNotEmpty) {
+                          descriptionController.text.isNotEmpty && isTckimlikno(int.parse(tcController.text))) {
                         context.read<AddressCubit>().addAddress(
                             addressNameController.text,
                             adressType,
