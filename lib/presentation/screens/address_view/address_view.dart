@@ -39,6 +39,7 @@ class _AddressViewState extends State<AddressView> {
   Widget build(BuildContext context) {
     context.read<UserAddressCubit>().getUserAddress();
     return CustomScaffold(
+      isNavBar: true,
       title: LocaleKeys.address_title,
       body: Padding(
         padding: EdgeInsets.only(
@@ -79,7 +80,6 @@ class _AddressViewState extends State<AddressView> {
               ? ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-
                     return Dismissible(
                       direction: DismissDirection.endToStart,
                       key: UniqueKey(),
@@ -89,7 +89,7 @@ class _AddressViewState extends State<AddressView> {
                           width: 12.w,
                           child: GestureDetector(
                             onTap: () {
-                        /*       Navigator.pushNamed(
+                              /*       Navigator.pushNamed(
                                   context, RouteConstant.ADDRESS_UPDATE_VIEW,
                                   arguments:
                                       ScreenArguments(list: list[index])); */
@@ -106,8 +106,7 @@ class _AddressViewState extends State<AddressView> {
                         ),
                         onTap: () {
                           setState(() {
-                            changeAddressActivation(
-                                list[index].id!, index, list.length);
+                            changeAddressActivation(list[index].id!, index, list.length);
                           });
                         },
                         title: list[index].name,
@@ -119,13 +118,11 @@ class _AddressViewState extends State<AddressView> {
                       background: Container(
                         color: AppColors.redColor,
                         child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 40.h, horizontal: 25.w),
+                          padding: EdgeInsets.symmetric(vertical: 40.h, horizontal: 25.w),
                           child: LocaleText(
                             text: LocaleKeys.my_notifications_delete_text_text,
-                            style: AppTextStyles.bodyTextStyle.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            style:
+                                AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                             alignment: TextAlign.end,
                           ),
                         ),
@@ -134,22 +131,17 @@ class _AddressViewState extends State<AddressView> {
                         return showDialog(
                           context: context,
                           builder: (_) => CustomAlertDialog(
-                              textMessage:
-                                  LocaleKeys.address_delete_alert_dialog_text,
+                              textMessage: LocaleKeys.address_delete_alert_dialog_text,
                               buttonOneTitle: LocaleKeys.payment_payment_cancel,
-                              buttonTwoTittle:
-                                  LocaleKeys.address_address_approval,
+                              buttonTwoTittle: LocaleKeys.address_address_approval,
                               imagePath: ImageConstant.SURPRISE_PACK_ALERT,
                               onPressedOne: () {
                                 Navigator.of(context).pop();
                               },
                               onPressedTwo: () {
                                 setState(() {
-                                  context
-                                      .read<AddressCubit>()
-                                      .deleteAddress(list[index].id);
-                                  Navigator.of(context)
-                                      .pushNamed(RouteConstant.ADDRESS_VIEW);
+                                  context.read<AddressCubit>().deleteAddress(list[index].id);
+                                  Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
                                   // Navigator.of(context).pop();
                                 });
                               }),
@@ -188,8 +180,7 @@ class _AddressViewState extends State<AddressView> {
   }
 
   changeAddressActivation(int id, int index, int length) async {
-    StatusCode statusCode =
-        await sl<ChangeActiveAddressRepository>().changeActiveAddress(id);
+    StatusCode statusCode = await sl<ChangeActiveAddressRepository>().changeActiveAddress(id);
 
     for (var i = 0; i < length; i++) {
       boolList.add(0);
