@@ -14,7 +14,7 @@ import 'components/about_app_list_tile.dart';
 class AboutAppView extends StatelessWidget {
   openUrl() {
     String url = 'https://www.dongu.com/';
-    launch(url, enableJavaScript: true, forceSafariVC: true);
+    launch(url, enableJavaScript: true);
   }
 
   @override
