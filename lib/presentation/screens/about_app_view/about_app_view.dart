@@ -14,12 +14,13 @@ import 'components/about_app_list_tile.dart';
 class AboutAppView extends StatelessWidget {
   openUrl() {
     String url = 'https://www.dongu.com/';
-    launch(url);
+    launch(url, enableJavaScript: true, forceSafariVC: true);
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      isNavBar: true,
       title: LocaleKeys.about_app_title,
       body: buildBody(context),
     );

@@ -38,13 +38,13 @@ class _MyInformationViewState extends State<MyInformationView> {
   bool isVisibilty = false;
 
   bool showLoading = false;
-  MobileVerificationState currentState =
-      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  MobileVerificationState currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
   String? verificationId;
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: LocaleKeys.inform_title,
+      isNavBar: true,
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -72,26 +72,11 @@ class _MyInformationViewState extends State<MyInformationView> {
                   color: Colors.white,
                   child: Column(
                     children: [
-                      buildTextFormField(
-                          context,
-                          LocaleKeys.inform_list_tile_name.locale,
-                          nameController),
-                      buildTextFormField(
-                          context,
-                          LocaleKeys.inform_list_tile_surname.locale,
-                          surnameController),
-                      buildTextFormFieldBirthDate(
-                          context,
-                          LocaleKeys.inform_list_tile_birth.locale,
-                          birthController),
-                      buildTextFormField(
-                          context,
-                          LocaleKeys.inform_list_tile_mail.locale,
-                          mailController),
-                      buildTextFormField(
-                          context,
-                          LocaleKeys.inform_list_tile_phone.locale,
-                          phoneController),
+                      buildTextFormField(context, LocaleKeys.inform_list_tile_name.locale, nameController),
+                      buildTextFormField(context, LocaleKeys.inform_list_tile_surname.locale, surnameController),
+                      buildTextFormFieldBirthDate(context, LocaleKeys.inform_list_tile_birth.locale, birthController),
+                      buildTextFormField(context, LocaleKeys.inform_list_tile_mail.locale, mailController),
+                      buildTextFormField(context, LocaleKeys.inform_list_tile_phone.locale, phoneController),
                     ],
                   ),
                 ),
@@ -103,7 +88,8 @@ class _MyInformationViewState extends State<MyInformationView> {
                 SizedBox(height: 32.h),
                 GestureDetector(
                   onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(context, RouteConstant.DELETE_ACCOUNT_VIEW, ModalRoute.withName('/deleteAccount'));
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, RouteConstant.DELETE_ACCOUNT_VIEW, ModalRoute.withName('/deleteAccount'));
                   },
                   child: LocaleText(
                     text: LocaleKeys.inform_delete_account,
@@ -113,8 +99,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                 SizedBox(height: 32.h),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                        context, RouteConstant.FREEZE_ACCOUNT_VIEW);
+                    Navigator.pushNamed(context, RouteConstant.FREEZE_ACCOUNT_VIEW);
                   },
                   child: LocaleText(
                     text: LocaleKeys.freeze_account_title,
@@ -130,8 +115,7 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
-  Container buildTextFormFieldBirthDate(BuildContext context, String labelText,
-      TextEditingController controller) {
+  Container buildTextFormFieldBirthDate(BuildContext context, String labelText, TextEditingController controller) {
     return Container(
       height: 56.h,
       color: Colors.white,
@@ -155,8 +139,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                   data: Theme.of(context).copyWith(
                     colorScheme: ColorScheme.light(
                       primary: AppColors.greenColor, // header background color
-                      onPrimary:
-                          AppColors.borderAndDividerColor, // header text color
+                      onPrimary: AppColors.borderAndDividerColor, // header text color
                       onSurface: AppColors.cursorColor, // body text color
                     ),
                     textButtonTheme: TextButtonThemeData(
@@ -174,8 +157,7 @@ class _MyInformationViewState extends State<MyInformationView> {
               }
               setState(() {
                 _selectedDate = pickedDate;
-                String datetime1 =
-                    DateFormat("dd/MM/yyyy").format(_selectedDate!);
+                String datetime1 = DateFormat("dd/MM/yyyy").format(_selectedDate!);
                 birthController.text = datetime1;
               });
             });
@@ -195,8 +177,7 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
-  Container buildTextFormField(BuildContext context, String labelText,
-      TextEditingController controller) {
+  Container buildTextFormField(BuildContext context, String labelText, TextEditingController controller) {
     return Container(
       height: 56.h,
       color: Colors.white,
@@ -316,10 +297,8 @@ class _MyInformationViewState extends State<MyInformationView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
-          if (phoneController.text != SharedPrefs.getUserPhone ||
-              mailController.text != SharedPrefs.getUserEmail) {
-            Navigator.popAndPushNamed(
-                context, RouteConstant.VERIFY_INFORMATION);
+          if (phoneController.text != SharedPrefs.getUserPhone || mailController.text != SharedPrefs.getUserEmail) {
+            Navigator.popAndPushNamed(context, RouteConstant.VERIFY_INFORMATION);
             SharedPrefs.setUserPhone(phoneController.text);
             SharedPrefs.setUserEmail(mailController.text);
           } else if (birthController.text != SharedPrefs.getUserBirth ||
@@ -342,8 +321,7 @@ class _MyInformationViewState extends State<MyInformationView> {
               context: context,
               builder: (_) => CustomAlertDialogResetPassword(
                 description: "Bilgileriniz güncellenmiştir.",
-                onPressed: () => Navigator.popAndPushNamed(
-                    context, RouteConstant.MY_INFORMATION_VIEW),
+                onPressed: () => Navigator.popAndPushNamed(context, RouteConstant.MY_INFORMATION_VIEW),
               ),
             );
           } else {

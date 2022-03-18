@@ -67,7 +67,7 @@ class _HomePageViewState extends State<HomePageView> {
     return MultiBlocProvider(
         providers: [
           BlocProvider.value(value: sl<HomePageCubit>()..init(controller!)),
-          BlocProvider.value(value: sl<OrderReceivedCubit>()..getPastOrder()),
+          BlocProvider.value(value: sl<OrderReceivedCubit>()),
           BlocProvider.value(value: sl<SearchCubit>()..getSearches(controller!.text)),
         ],
         child: BlocBuilder<HomePageCubit, HomePageState>(

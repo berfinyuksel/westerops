@@ -13,6 +13,7 @@ class ContactView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      isNavBar: true,
       title: LocaleKeys.contact_view_title,
       body: buildBody(context),
     );
