@@ -29,10 +29,8 @@ class AppleSignInController with ChangeNotifier {
             'Content-Type': 'application/json; charset=UTF-8',
           },
           body: json);
-      debugPrint(response.body);
       if (response.statusCode == 200) {
         final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
-        debugPrint(jsonBody);
         var authtokenList = AuthToken.fromJson(jsonBody);
         SharedPrefs.setToken(jsonBody['token']);
 
