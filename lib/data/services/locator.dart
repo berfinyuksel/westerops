@@ -54,5 +54,4 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => AllFavoriteCubit(sl()));
   getIt.registerLazySingleton(() => FavoriteStatusCubit());
   getIt.registerLazySingleton(() => AddressCubit(sl()));
-  
 }
