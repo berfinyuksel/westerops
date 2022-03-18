@@ -153,8 +153,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                             tcController.text,
                             LocationService.latitude,
                             LocationService.longitude);
-                        Navigator.of(context)
-                            .pushNamed(RouteConstant.ADDRESS_VIEW);
+                            Navigator.pushNamedAndRemoveUntil(context, RouteConstant.ADDRESS_VIEW, ModalRoute.withName('/address'));
                       } else {
                         showDialog(
                           context: context,
