@@ -2,6 +2,7 @@ import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
@@ -40,9 +41,8 @@ class CustomHorizontalListTrend extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            print(categoryLocaleKeys[index]);
-            sl<SearchStoreCubit>().getSearches(categoryLocaleKeys[index]);
-            sl<SearchStoreCubit>().changeCategoryName(categoryLocaleKeys[index]);
+            sl<SearchStoreCubit>().getSearches(categoryLocaleKeys[index].locale);
+            sl<SearchStoreCubit>().changeCategoryName(categoryLocaleKeys[index].locale);
           },
           child: Container(
             alignment: Alignment.center,
