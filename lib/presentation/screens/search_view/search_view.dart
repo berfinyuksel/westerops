@@ -95,10 +95,10 @@ class _SearchViewState extends State<SearchView> {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Column(
+      child: ListView(
         children: [
-          Spacer(
-            flex: 3,
+          SizedBox(
+            height: 3,
           ),
           searchBar(context),
           // Spacer(
@@ -107,7 +107,7 @@ class _SearchViewState extends State<SearchView> {
           Visibility(
               visible: visible, child: searchHistoryAndCleanTexts(context)),
           Visibility(visible: visible, child: dividerOne(context)),
-          Spacer(flex: 2),
+          SizedBox(height: 2),
           Container(child: emptySearchHistory()),
           // Visibility(
           //   visible: visible,
@@ -119,21 +119,21 @@ class _SearchViewState extends State<SearchView> {
           // ),
           //Visibility(visible: visible, child: Spacer(flex: 2)),
           SingleChildScrollView(child: buildBuilder()),
-          Spacer(
-                  flex: 50,
-                ),
+          SizedBox(
+            height: 50,
+          ),
           Visibility(visible: visible, child: popularSearchText(context)),
           Visibility(visible: visible, child: dividerSecond(context)),
-          Spacer(flex: 2),
+          SizedBox(height: 2),
           Visibility(visible: visible, child: horizontalListTrend(context)),
-           Spacer(
-                  flex: 10,
-                ),
+          SizedBox(
+            height: 10,
+          ),
           Visibility(visible: visible, child: categoriesText(context)),
           Visibility(visible: visible, child: dividerThird(context)),
           //  Spacer(flex: 1),
           Visibility(visible: visible, child: horizontalListCategory(context)),
-          Spacer(flex: 10),
+          SizedBox(height: 10),
         ],
       ),
     );
@@ -193,7 +193,7 @@ class _SearchViewState extends State<SearchView> {
   Padding categoriesText(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        right: context.dynamicWidht(0.65),
+        left: context.dynamicWidht(0.06),
       ),
       child: LocaleText(
         text: LocaleKeys.search_text4,
@@ -253,7 +253,8 @@ class _SearchViewState extends State<SearchView> {
   Padding popularSearchText(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        right: context.dynamicWidht(0.51),
+        left: context.dynamicWidht(0.06),
+        
       ),
       child: LocaleText(
         text: LocaleKeys.search_text3,
