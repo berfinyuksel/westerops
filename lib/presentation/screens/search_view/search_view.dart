@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_type_check
 
 import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
@@ -50,37 +51,39 @@ class _SearchViewState extends State<SearchView> {
   bool visible = true;
   bool isClean = false;
 
+  BlocProvider buildBuilder() {
+    return BlocProvider(
+        create: (context) => sl<SearchStoreCubit>(),
+        child: BlocBuilder<SearchStoreCubit, GenericState>(
+          builder: (context, state) {
+            if (state is GenericInitial) {
+              return Container();
+            } else if (state is GenericLoading) {
+              return Center(child: CustomCircularProgressIndicator());
+            } else if (state is GenericCompleted) {
+              List<SearchStore> searchList = [];
 
-  Builder buildBuilder() {
-    return Builder(builder: (context) {
-      final GenericState state = context.watch<SearchStoreCubit>().state;
+              List<SearchStore> restaurant = [];
 
-      if (state is GenericInitial) {
-        return Container();
-      } else if (state is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
-      } else if (state is GenericCompleted) {
-        List<SearchStore> searchList = [];
+              for (int i = 0; i < state.response.length; i++) {
+                searchList.add(state.response[i]);
+                if (state is GenericCompleted) {
+                  restaurant.add(state.response[i]);
+                }
+              }
+              names = searchList;
+              filteredNames = names;
 
-        List<SearchStore> restaurant = [];
-
-        for (int i = 0; i < state.response.length; i++) {
-          searchList.add(state.response[i]);
-          if (state is GenericCompleted) {
-            restaurant.add(state.response[i]);
-          }
-        }
-        names = searchList;
-        filteredNames = names;
-
-        return Center(
-          child: searchListViewBuilder(state, searchList, restaurant),
-        );
-      } else {
-        final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    });
+              return Center(
+                child: searchListViewBuilder(state, searchList, restaurant),
+              );
+            } else {
+              final error = state as GenericError;
+              return Center(
+                  child: Text("${error.message}\n${error.statusCode}"));
+            }
+          },
+        ));
   }
 
   @override
@@ -280,46 +283,49 @@ class _SearchViewState extends State<SearchView> {
             mealNames = meals.join(', ');
           }
 
-          return isClean ? SizedBox():GestureDetector(
-            onTap: (){
-                Navigator.pushNamed(
-                context,
-                RouteConstant.RESTAURANT_DETAIL,
-                arguments: ScreenArgumentsRestaurantDetail(
-                  restaurant: restaurant[index],
-                ),
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.dynamicWidht(0.06),
-                // vertical: context.dynamicHeight(0.00006)
-              ),
-              decoration: BoxDecoration(color: Colors.white),
-              child : ListTile(
-                trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    RouteConstant.RESTAURANT_DETAIL,
-                    arguments: ScreenArgumentsRestaurantDetail(
-                      restaurant: restaurant[index],
+          return isClean
+              ? SizedBox()
+              : GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteConstant.RESTAURANT_DETAIL,
+                      arguments: ScreenArgumentsRestaurantDetail(
+                        restaurant: restaurant[index],
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.dynamicWidht(0.06),
+                      // vertical: context.dynamicHeight(0.00006)
                     ),
-                  );
-                },
-                title: Text(searchList.isEmpty ||
-                        filteredNames.isEmpty ||
-                        "${filteredNames[index].name}".isEmpty
-                    ? ""
-                    : "${filteredNames[index].name}"),
-                subtitle: Text(searchList.isEmpty ||
-                        filteredNames.isEmpty ||
-                        mealNames.isEmpty
-                    ? ""
-                    : mealNames),
-              ),
-            ),
-          );
+                    decoration: BoxDecoration(color: Colors.white),
+                    child: ListTile(
+                      trailing:
+                          SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          RouteConstant.RESTAURANT_DETAIL,
+                          arguments: ScreenArgumentsRestaurantDetail(
+                            restaurant: restaurant[index],
+                          ),
+                        );
+                      },
+                      title: Text(searchList.isEmpty ||
+                              filteredNames.isEmpty ||
+                              "${filteredNames[index].name}".isEmpty
+                          ? ""
+                          : "${filteredNames[index].name}"),
+                      subtitle: Text(searchList.isEmpty ||
+                              filteredNames.isEmpty ||
+                              mealNames.isEmpty
+                          ? ""
+                          : mealNames),
+                    ),
+                  ),
+                );
         });
   }
 
@@ -410,10 +416,12 @@ class _SearchViewState extends State<SearchView> {
 
   emptySearchHistory() {
     if (filteredNames.length == 0) {
-      return isClean ?Text(
-        LocaleKeys.search_search_history_clean.locale,
-        style: AppTextStyles.bodyTextStyle,
-      ) :SizedBox();
+      return isClean
+          ? Text(
+              LocaleKeys.search_search_history_clean.locale,
+              style: AppTextStyles.bodyTextStyle,
+            )
+          : SizedBox();
     } else {
       return Container();
     }
