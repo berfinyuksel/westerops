@@ -23,8 +23,6 @@ class SearchStoreCubit extends Cubit<GenericState> {
       
       emit(GenericLoading());
       final response = await _searchStoreRepository.getSearches(query.toLowerCase());
-      print(response.length);
-      print(query);
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));
