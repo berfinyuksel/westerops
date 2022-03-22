@@ -80,7 +80,7 @@ class OpportunityRestaurantListViewWidget extends StatelessWidget {
             }
             return RestaurantInfoCard(
               width: widthOfOpportunity,
-              restaurantId: restaurants[index].id,
+              restaurantId: restaurants[index].id!,
               courierPackageBGColor:
                   restaurants[index].packageSettings!.deliveryType == "2" ||
                           restaurants[index].packageSettings!.deliveryType ==
