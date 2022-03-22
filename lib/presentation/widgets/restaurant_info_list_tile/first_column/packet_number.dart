@@ -25,7 +25,7 @@ class PacketNumber extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: text == LocaleKeys.home_page_soldout_icon.locale
-              ? AppColors.yellowColor
+              ? AppColors.disabledButtonColor
               : AppColors.orangeColor),
       child: Text(
         text!,
