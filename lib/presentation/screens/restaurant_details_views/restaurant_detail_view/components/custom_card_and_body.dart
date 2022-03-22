@@ -342,15 +342,15 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
     return Builder(builder: (context) {
       final stateOfCategories = context.watch<CategoryNameCubit>().state;
 
-      if (stateOfCategories is GenericInitial) {
+      if (stateOfCategories is CategoryNameInital) {
         return Container();
-      } else if (stateOfCategories is GenericLoading) {
+      } else if (stateOfCategories is CategoryNameLoading) {
         return Center(child: CustomCircularProgressIndicator());
-      } else if (stateOfCategories is GenericCompleted) {
+      } else if (stateOfCategories is CategoryNameCompleted) {
         List<Result> categoryList = [];
         List<Result> relatedCategories = [];
-        for (var i = 0; i < stateOfCategories.response.length; i++) {
-          categoryList.add(stateOfCategories.response[i]);
+        for (var i = 0; i < stateOfCategories.response!.length; i++) {
+         categoryList.add(stateOfCategories.response![i]);
         }
 
         for (var i = 0; i < categoryList.length; i++) {
