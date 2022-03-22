@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/model/category_name.dart';
 import '../../../../data/services/locator.dart';
 import '../../../../logic/cubits/category_name_cubit/category_name_cubit.dart';
-import '../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../../utils/constants/route_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../categories_view/screen_arguments_categories/screen_arguments_categories.dart';
@@ -16,12 +15,10 @@ class CustomHorizontalListCategory extends StatefulWidget {
   const CustomHorizontalListCategory({Key? key}) : super(key: key);
 
   @override
-  State<CustomHorizontalListCategory> createState() =>
-      _CustomHorizontalListCategoryState();
+  State<CustomHorizontalListCategory> createState() => _CustomHorizontalListCategoryState();
 }
 
-class _CustomHorizontalListCategoryState
-    extends State<CustomHorizontalListCategory> {
+class _CustomHorizontalListCategoryState extends State<CustomHorizontalListCategory> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -34,7 +31,7 @@ class _CustomHorizontalListCategoryState
             return Center(child: CustomCircularProgressIndicator());
           } else if (state is CategoryNameCompleted) {
             List<Result> results = [];
-          
+
             for (int i = 0; i < state.response!.length; i++) {
               results.add(state.response![i]);
             }
@@ -48,19 +45,17 @@ class _CustomHorizontalListCategoryState
                 sumOfRadius += (radius * 2) + context.dynamicWidht(0.04);
 
                 if (index + 1 == results.length) {
-                  context.read<CategoryPaddingCubit>().setPadding(sumOfRadius -
-                      context.dynamicWidht(1) -
-                      context.dynamicWidht(0.04));
+                  context
+                      .read<CategoryPaddingCubit>()
+                      .setPadding(sumOfRadius - context.dynamicWidht(1) - context.dynamicWidht(0.04));
                 }
                 return GestureDetector(
                   onTap: () {
-                    sl<CategoryNameCubit>()
-                        .getCategoriesQuery(results[index].id.toString());
+                    sl<CategoryNameCubit>().getCategoriesQuery(results[index].id.toString());
                     print(results[index].id!);
                     Navigator.of(context).pushNamed(
                       RouteConstant.CATEGORIES_VIEW,
-                      arguments:
-                          ScreenArgumentsCategories(categories: results[index]),
+                      arguments: ScreenArgumentsCategories(categories: results[index]),
                     );
                   },
                   child: CategoryItem(
@@ -75,7 +70,6 @@ class _CustomHorizontalListCategoryState
               ),
             );
           } else {
-            
             return Center(child: Text("ERROR"));
           }
         },

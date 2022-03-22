@@ -171,7 +171,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   padding: EdgeInsets.only(top: 10.h),
                   child: restaurantStarIconRating(),
                 ),
-                Spacer(flex: 1),
+                //   Spacer(flex: 1),
               ],
             ),
           ),
@@ -559,6 +559,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
     BoxCompleted state,
     List<Box> surpriseBoxes,
   ) {
+    List<SearchStore> chosenRestaurat = [];
+    for (var i = 0; i < sl<SearchStoreCubit>().searchStores.length; i++) {
+      if (sl<SearchStoreCubit>().searchStores[i].id == state.packages[index].store) {
+        chosenRestaurat.add(sl<SearchStoreCubit>().searchStores[i]);
+        priceOfMenu = chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice;
+        oldPriceOfMenu = chosenRestaurat[0].packageSettings!.minOrderPrice;
+      }
+    }
     List<String> meals = [];
     if (surpriseBoxes[index].meals!.isNotEmpty) {
       for (var i = 0; i < surpriseBoxes[index].meals!.length; i++) {
@@ -591,95 +599,71 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 style: AppTextStyles.subTitleStyle,
               ),
               SizedBox(height: 20.h),
-              Builder(builder: (context) {
-                final GenericState stateOfSearchStore = context.watch<SearchStoreCubit>().state;
-
-                if (stateOfSearchStore is GenericInitial) {
-                  return Container();
-                } else if (stateOfSearchStore is GenericLoading) {
-                  return Center(child: SizedBox(height: 0, width: 0));
-                } else if (stateOfSearchStore is GenericCompleted) {
-                  List<SearchStore> chosenRestaurat = [];
-                  for (var i = 0; i < stateOfSearchStore.response.length; i++) {
-                    if (stateOfSearchStore.response[i].id == state.packages[index].store) {
-                      chosenRestaurat.add(stateOfSearchStore.response[i]);
-                      priceOfMenu = chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice;
-                      oldPriceOfMenu = chosenRestaurat[0].packageSettings!.minOrderPrice;
-                    }
-                  }
-
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        width: 69.w,
-                        height: 36.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4.0),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 5.w),
-                          child: Text(
-                            chosenRestaurat[0].packageSettings!.minOrderPrice.toString() + " TL",
-                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                                decoration: TextDecoration.lineThrough,
-                                color: AppColors.unSelectedpackageDeliveryColor),
-                          ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: 69.w,
+                    height: 36.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 5.w),
+                      child: Text(
+                        chosenRestaurat[0].packageSettings!.minOrderPrice.toString() + " TL",
+                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                            decoration: TextDecoration.lineThrough, color: AppColors.unSelectedpackageDeliveryColor),
+                      ),
+                    ),
+                  ),
+                  Spacer(flex: 1),
+                  Container(
+                    alignment: Alignment.center,
+                    width: 69.w,
+                    height: 36.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: AppColors.scaffoldBackgroundColor,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 5.w),
+                      child: Text(
+                        chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice.toString() + " TL",
+                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                          color: AppColors.greenColor,
                         ),
                       ),
-                      Spacer(flex: 1),
-                      Container(
-                        alignment: Alignment.center,
-                        width: 69.w,
-                        height: 36.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4.0),
-                          color: AppColors.scaffoldBackgroundColor,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 5.w),
-                          child: Text(
-                            chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice.toString() + " TL",
-                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                              color: AppColors.greenColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Spacer(flex: 4),
-                      Builder(
-                        builder: (context) {
-                          SharedPrefs.setSumPrice(context.watch<SumPriceOrderCubit>().state);
-                          SharedPrefs.setOldSumPrice(context.watch<SumOldPriceOrderCubit>().state);
-                          int? menuItem = state.packages[index].id;
-                          final counterState = context.watch<BasketCounterCubit>().state;
-                          return Builder(builder: (context) {
-                            return CustomButton(
-                              title: menuList!.contains(menuItem.toString())
-                                  ? LocaleKeys.restaurant_detail_button_text2
-                                  : LocaleKeys.restaurant_detail_button_text,
-                              color:
-                                  menuList!.contains(menuItem.toString()) ? Colors.transparent : AppColors.greenColor,
-                              textColor: menuList!.contains(menuItem.toString()) ? AppColors.greenColor : Colors.white,
-                              width: 110.w,
-                              borderColor: AppColors.greenColor,
-                              onPressed: () async {
-                                context.read<SwipeRouteButton>().swipeRouteButton(true);
-                                await pressedBuyButton(state, index, context, counterState, menuItem!);
-                              },
-                            );
-                          });
-                        },
-                      ),
-                    ],
-                  );
-                } else {
-                  final error = stateOfSearchStore as GenericError;
-                  return Center(child: Text("${error.message}\n${error.statusCode}"));
-                }
-              }),
+                    ),
+                  ),
+                  Spacer(flex: 4),
+                  Builder(
+                    builder: (context) {
+                      SharedPrefs.setSumPrice(context.watch<SumPriceOrderCubit>().state);
+                      SharedPrefs.setOldSumPrice(context.watch<SumOldPriceOrderCubit>().state);
+                      int? menuItem = state.packages[index].id;
+                      final counterState = context.watch<BasketCounterCubit>().state;
+                      return Builder(builder: (context) {
+                        return CustomButton(
+                          title: menuList!.contains(menuItem.toString())
+                              ? LocaleKeys.restaurant_detail_button_text2
+                              : LocaleKeys.restaurant_detail_button_text,
+                          color: menuList!.contains(menuItem.toString()) ? Colors.transparent : AppColors.greenColor,
+                          textColor: menuList!.contains(menuItem.toString()) ? AppColors.greenColor : Colors.white,
+                          width: 110.w,
+                          borderColor: AppColors.greenColor,
+                          onPressed: () async {
+                            context.read<SwipeRouteButton>().swipeRouteButton(true);
+                            await pressedBuyButton(state, index, context, counterState, menuItem!);
+                          },
+                        );
+                      });
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         ),
@@ -731,9 +715,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
             ),
             child: Column(
               children: [
-                Spacer(
-                  flex: 8,
-                ),
+                Spacer(flex: 8),
                 SvgPicture.asset(
                   ImageConstant.SURPRISE_PACK,
                   height: context.dynamicHeight(0.134),
@@ -744,9 +726,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   style: AppTextStyles.bodyBoldTextStyle,
                   alignment: TextAlign.center,
                 ),
-                Spacer(
-                  flex: 35,
-                ),
+                Spacer(flex: 35),
                 CustomButton(
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -758,9 +738,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   borderColor: AppColors.greenColor,
                   title: LocaleKeys.restaurant_detail_alert_dialog_text_2,
                 ),
-                Spacer(
-                  flex: 20,
-                ),
+                Spacer(flex: 20),
               ],
             ),
           ),
