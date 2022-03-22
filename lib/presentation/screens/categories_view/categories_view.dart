@@ -33,8 +33,8 @@ class CategoriesView extends StatelessWidget {
   }
 
   Widget builBody() {
-    return BlocProvider(
-      create: (context) => sl<CategoryNameCubit>()..init(),
+    return BlocProvider.value(
+      value: sl<CategoryNameCubit>()..init(),
       child: BlocBuilder<CategoryNameCubit, CategoryNameState>(
         builder: (context, state) {
               
