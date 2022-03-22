@@ -6,6 +6,7 @@ import 'package:dongu_mobile/presentation/screens/login_view/components/error_di
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -43,9 +44,11 @@ class _LoginViewState extends State<LoginView> {
   String dropdownValue = "TR";
   String? token;
   String _errorTitle = "'Üzgünüz\ngiriş yapamadınız.'";
-  String _errorDescription = "Lütfen daha önce aynı mail\n adresiniz\n ile giriş yapmadığınızdan\n emin olun.";
+  String _errorDescription =
+      "Lütfen daha önce aynı mail\n adresiniz\n ile giriş yapmadığınızdan\n emin olun.";
   String _errorServiceTitle = "Sunucu\nhatası giriş yapamadınız";
-  String _errorServiceDescription = "Bilinmeyen bir\nsunucu hatası lütfen\n tekrar deneyiniz. ";
+  String _errorServiceDescription =
+      "Bilinmeyen bir\nsunucu hatası lütfen\n tekrar deneyiniz. ";
   void notificationToken() async {
     token = await FirebaseMessaging.instance.getToken();
   }
@@ -81,7 +84,8 @@ class _LoginViewState extends State<LoginView> {
                   color: Colors.white,
                   size: 25.w,
                 ),
-                onPressed: () => Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
+                onPressed: () =>
+                    Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
               ),
             ),
             Positioned(
@@ -186,21 +190,29 @@ class _LoginViewState extends State<LoginView> {
         bool lengthControl = passwordController.text.length > 7;
         bool phoneControl = phoneTR.length >= 13;
         //String phoneEN = '+1' + phoneController.text;
-        if (lengthControl || phoneControl || passwordController.text.isEmpty || passwordController.text.isEmpty) {
+        if (lengthControl ||
+            phoneControl ||
+            passwordController.text.isEmpty ||
+            passwordController.text.isEmpty) {
           _showMyDialog();
         }
-        await context.read<UserAuthCubit>().loginUser(phoneTR, passwordController.text);
+        await context
+            .read<UserAuthCubit>()
+            .loginUser(phoneTR, passwordController.text);
         _showMyDialog();
         if (SharedPrefs.getIsLogined) {
           if (Platform.isAndroid) {
-            context.read<NotificationCubit>().postNotification(token!, "android");
+            context
+                .read<NotificationCubit>()
+                .postNotification(token!, "android");
           } else if (Platform.isIOS) {
             context.read<NotificationCubit>().postNotification(token!, "ios");
             // iOS-specific code
           }
         }
         if (SharedPrefs.getIsLogined) {
-          Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+          Navigator.pushNamedAndRemoveUntil(context,
+              RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
         }
       },
     );
@@ -212,7 +224,9 @@ class _LoginViewState extends State<LoginView> {
         horizontal: 28.w,
       ),
       height: 52.h,
-      child: buildTextFormField(LocaleKeys.register_password.locale, passwordController, (val) {
+      child: buildTextFormField(
+          false, LocaleKeys.register_password.locale, passwordController,
+          (val) {
         return null;
       }),
     );
@@ -228,8 +242,12 @@ class _LoginViewState extends State<LoginView> {
           buildDropDown(context),
           SizedBox(width: 5.w),
           Expanded(
-            child: buildTextFormField(LocaleKeys.register_phone.locale, phoneController,
-                (val) => !isNumeric(phoneController.text) ? "Invalid Phone" : null),
+            child: buildTextFormField(
+                true,
+                LocaleKeys.register_phone.locale,
+                phoneController,
+                (val) =>
+                    !isNumeric(phoneController.text) ? "Invalid Phone" : null),
           ),
         ],
       ),
@@ -266,7 +284,8 @@ class _LoginViewState extends State<LoginView> {
           return AlertDialog(
             contentPadding: EdgeInsets.zero,
             content: Container(
-              padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
               width: context.dynamicWidht(0.87),
               height: context.dynamicHeight(0.29),
               decoration: BoxDecoration(
@@ -293,7 +312,8 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   CustomButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+                      Navigator.pushNamed(
+                          context, RouteConstant.CUSTOM_SCAFFOLD);
                     },
                     width: 35.w,
                     color: AppColors.greenColor,
@@ -322,7 +342,10 @@ class _LoginViewState extends State<LoginView> {
           child: GestureDetector(
               onTap: () async {
                 await AppleSignInController().login();
-                Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteConstant.CUSTOM_SCAFFOLD,
+                    ModalRoute.withName('/scaf'));
               },
               child: SignWithSocialAuth(
                 text: LocaleKeys.register_social_auth_apple,
@@ -352,7 +375,8 @@ class _LoginViewState extends State<LoginView> {
                   );
                 });
           } else {
-            Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+            Navigator.pushNamedAndRemoveUntil(context,
+                RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
           }
         },
         child: SignWithSocialAuth(
@@ -383,7 +407,8 @@ class _LoginViewState extends State<LoginView> {
                   );
                 });
           } else {
-            Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+            Navigator.pushNamedAndRemoveUntil(context,
+                RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
           }
         },
         child: SignWithSocialAuth(
@@ -425,18 +450,21 @@ class _LoginViewState extends State<LoginView> {
           child: const Icon(Icons.keyboard_arrow_down),
         ),
         iconSize: 15,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         onChanged: (String? newValue) {
           setState(() {
             dropdownValue = newValue!;
           });
         },
-        items: <String>['TR', 'EN'].map<DropdownMenuItem<String>>((String value) {
+        items:
+            <String>['TR', 'EN'].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: AutoSizeText(
               value,
-              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+              style: AppTextStyles.bodyTextStyle
+                  .copyWith(fontWeight: FontWeight.w600),
               maxLines: 1,
             ),
           );
@@ -445,11 +473,14 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget buildTextFormField(String labelText, TextEditingController controller, String? Function(String?)? validator) {
+  Widget buildTextFormField(bool isCharacterLimited, labelText,
+      TextEditingController controller, String? Function(String?)? validator) {
     String phoneTR = '+90';
     String phoneEN = '+1';
     return TextFormField(
-      keyboardType: controller == phoneController ? TextInputType.number : TextInputType.visiblePassword,
+      keyboardType: controller == phoneController
+          ? TextInputType.number
+          : TextInputType.visiblePassword,
       //  focusNode: FocusScope.of(context).focusedChild!.children.first,
       validator: validator,
       cursorColor: AppColors.cursorColor,
@@ -457,14 +488,17 @@ class _LoginViewState extends State<LoginView> {
       controller: controller,
       obscureText: enableObscure && controller == passwordController,
       decoration: InputDecoration(
-        prefixStyle: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        prefixStyle:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         prefixText: controller == phoneController
             ? dropdownValue == 'TR'
                 ? phoneTR
                 : phoneEN
             : "",
         suffixIconConstraints: controller == passwordController
-            ? BoxConstraints.tightFor(width: context.dynamicWidht(0.09), height: context.dynamicWidht(0.06))
+            ? BoxConstraints.tightFor(
+                width: context.dynamicWidht(0.09),
+                height: context.dynamicWidht(0.06))
             : null,
         suffixIcon: controller == passwordController
             ? Padding(
@@ -490,11 +524,13 @@ class _LoginViewState extends State<LoginView> {
         labelText: labelText,
         labelStyle: AppTextStyles.bodyTextStyle,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         border: OutlineInputBorder(
@@ -502,6 +538,11 @@ class _LoginViewState extends State<LoginView> {
           borderRadius: BorderRadius.circular(4.0),
         ),
       ),
+      inputFormatters: [
+        isCharacterLimited
+            ? LengthLimitingTextInputFormatter(10)
+            : LengthLimitingTextInputFormatter(null)
+      ],
     );
   }
 }
