@@ -24,6 +24,7 @@ class CustomScaffold extends StatefulWidget {
   Widget? body;
   bool? isDrawer;
   bool? isNavBar;
+  bool resizeToAvoidBottomInset;
 
   CustomScaffold({
     Key? key,
@@ -31,6 +32,7 @@ class CustomScaffold extends StatefulWidget {
     this.body,
     this.isNavBar,
     this.isDrawer,
+    this.resizeToAvoidBottomInset = false,
   }) : super(key: key);
   @override
   _CustomScaffoldState createState() => _CustomScaffoldState();
@@ -68,7 +70,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
       appBar: widget.isDrawer == null
           ? widget.title == null
               ? _titles.elementAt(_selectedIndex) == null
