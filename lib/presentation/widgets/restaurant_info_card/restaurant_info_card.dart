@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../utils/constants/image_constant.dart';
@@ -84,9 +85,9 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
               widget.backgroundImage!,
               alignment: Alignment.topCenter,
               fit: BoxFit.fill,
-              width: context.dynamicWidht(0.64),
+              width: 275.w,
               height: context.height > 800
-                  ? context.dynamicHeight(0.16)
+                  ? 151.h
                   : context.dynamicHeight(0.14),
             ),
           ),
@@ -197,8 +198,8 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
           image: ImageConstant.RESTAURANT_PACKAGE_ICON,
           color: widget.getItPackageIconColor,
           backgroundColor: widget.getItPackageBGColor,
-          width: context.dynamicWidht(0.1),
-          height: context.dynamicHeight(0.03),
+          width: 43.w,
+          height: 30.h,
         ),
         Container(
           margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
@@ -206,8 +207,8 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
             image: ImageConstant.COMMONS_CARRIER_ICON,
             color: widget.courierPackageIconColor,
             backgroundColor: widget.courierPackageBGColor,
-            width: context.dynamicWidht(0.1),
-            height: context.dynamicHeight(0.03),
+            width: 43.w,
+            height: 30.h,
           ),
         ),
       ],
