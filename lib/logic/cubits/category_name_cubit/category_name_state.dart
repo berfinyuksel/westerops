@@ -14,14 +14,10 @@ class CategoryNameCompleted extends CategoryNameState {
   });
 }
 
-class FilterCategoriesLoading extends CategoryNameState {}
+class CategoryNameError extends CategoryNameState {
+  final String errorMessage;
 
-class FilterCategoriesCompleted extends CategoryNameState {
- final List<SearchStore>? response;
-  FilterCategoriesCompleted({
-    this.response,
-  });
+  CategoryNameError(this.errorMessage);
 }
-
 
 

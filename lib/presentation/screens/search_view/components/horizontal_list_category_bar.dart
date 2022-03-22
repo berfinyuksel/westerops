@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/category_filter_cubit/category_filter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _CustomHorizontalListCategoryState extends State<CustomHorizontalListCateg
                 }
                 return GestureDetector(
                   onTap: () {
-                    sl<CategoryNameCubit>().getCategoriesQuery(results[index].id.toString());
+                   
                     print(results[index].id!);
                     Navigator.of(context).pushNamed(
                       RouteConstant.CATEGORIES_VIEW,

@@ -1,5 +1,4 @@
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
-import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -194,7 +193,7 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
         BlocBuilder<BoxCubit, BoxState>(
           builder: (context, state) {
             if (state is BoxLoading) {
-              return CustomCircularProgressIndicator();
+              return SizedBox();
             } else if (state is BoxCompleted) {
               return PacketNumber(
                 text: state.packages.length != 0 ? "${state.packages.length.toString()} paket" : "tükendi",
