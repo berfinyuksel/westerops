@@ -185,7 +185,7 @@ class _HomePageViewState extends State<HomePageView> {
           buildDivider(),
           SizedBox(height: 10.h),
           buildListViewOpportunities(context, restaurants),
-          SizedBox(height: 10.h),
+          SizedBox(height: 24.h),
         ],
       ),
     );

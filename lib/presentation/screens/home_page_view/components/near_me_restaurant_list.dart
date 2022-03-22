@@ -114,7 +114,7 @@ class NearMeRestaurantListViewWidget extends StatelessWidget {
                   packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
               restaurantName: restaurants[index].name,
               grade: restaurants[index].avgReview!.toStringAsFixed(1),
-              location: restaurants[index].city,
+              location: restaurants[index].province,
               distance: Haversine.distance(
                       restaurants[index].latitude!,
                       restaurants[index].longitude,
