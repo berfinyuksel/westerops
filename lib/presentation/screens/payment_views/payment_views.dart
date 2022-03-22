@@ -213,8 +213,6 @@ class _PaymentViewsState extends State<PaymentViews>
   GestureDetector buildGetIt(BuildContext context, PaymentState state) {
     return GestureDetector(
       onTap: () {
-        print(state.isOnline);
-        print(state.isGetIt);
         setState(() {
           if (tabController!.index == 2) {
             context.read<PaymentCubit>().setIsOnline(true);
@@ -592,29 +590,27 @@ class _PaymentViewsState extends State<PaymentViews>
             borderColor: checkboxAgreementValue && checkboxInfoValue
                 ? AppColors.greenColor
                 : AppColors.disabledButtonColor,
-            onPressed: () {
-              if (checkboxAgreementValue && checkboxInfoValue) {
-                log("BoolForRegisteredCard");
-                log(SharedPrefs.getBoolForRegisteredCard.toString());
-                log("ThreeDBool");
-                log(SharedPrefs.getThreeDBool.toString());
-                if (SharedPrefs.getBoolForRegisteredCard) {
-                  buildPaymentForRegisteredCard(context);
-                  print("IF");
-                } else {
-                  if (SharedPrefs.getThreeDBool) {
-                    print("ELSE IN IF");
-
-                    // with threeD
-                    buildWith3DPayment(context);
-                  } else {
-                    print("ELSE");
-
-                    buildWithout3DPayment(context);
+            onPressed: SharedPrefs.getBoolPaymentCardControl
+                ? () {
+                    if (checkboxAgreementValue && checkboxInfoValue) {
+                      log("BoolForRegisteredCard");
+                      log(SharedPrefs.getBoolForRegisteredCard.toString());
+                      log("ThreeDBool");
+                      log(SharedPrefs.getThreeDBool.toString());
+                      if (SharedPrefs.getBoolForRegisteredCard) {
+                        buildPaymentForRegisteredCard(context);
+                        print("IF");
+                      } else {
+                        print("ELSE");
+                        if (SharedPrefs.getThreeDBool) {
+                          buildWith3DPayment(context);
+                        } else {
+                          buildWithout3DPayment(context);
+                        }
+                      }
+                    }
                   }
-                }
-              }
-            },
+                : null,
           );
         }),
       ],
@@ -661,6 +657,7 @@ class _PaymentViewsState extends State<PaymentViews>
           cvc: SharedPrefs.getCVC,
           ip: SharedPrefs.getIpV4,
         );
+        
     context
         .read<StoreCourierCubit>()
         .updateCourierHours(SharedPrefs.getCourierHourId);

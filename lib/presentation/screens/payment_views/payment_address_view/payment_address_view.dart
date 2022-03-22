@@ -84,7 +84,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
               List<SearchStore> restaurants = [];
               List<SearchStore> deliveredRestaurant = [];
               int? restaurantId = SharedPrefs.getDeliveredRestaurantAddressId;
-              print(state.response);
+              
               for (int i = 0; i < state.response.length; i++) {
                 restaurants.add(state.response[i]);
               }
@@ -94,7 +94,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                   deliveredRestaurant.add(restaurants[i]);
                 }
               }
-              print(deliveredRestaurant);
+             
               return Center(
                 child: buildBody(context, deliveredRestaurant),
               );
@@ -105,34 +105,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             }
           },
         ));
-    /*   final GenericState state = context.watch<SearchStoreCubit>().state;
-
-    if (state is GenericInitial) {
-      return Container();
-    } else if (state is GenericLoading) {
-      return Center(child: CustomCircularProgressIndicator());
-    } else if (state is GenericCompleted) {
-      List<SearchStore> restaurants = [];
-      List<SearchStore> deliveredRestaurant = [];
-      int? restaurantId = SharedPrefs.getDeliveredRestaurantAddressId;
-      print(state.response);
-      for (int i = 0; i < state.response.length; i++) {
-        restaurants.add(state.response[i]);
-      }
-
-      for (var i = 0; i < restaurants.length; i++) {
-        if (restaurants[i].id == restaurantId) {
-          deliveredRestaurant.add(restaurants[i]);
-        }
-      }
-      print(deliveredRestaurant);
-      return Center(
-        child: buildBody(context, deliveredRestaurant),
-      );
-    } else {
-      final error = state as GenericError;
-      return Center(child: Text("${error.message}\n${error.statusCode}"));
-    } */
   }
 
   Widget buildBody(
@@ -267,7 +239,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
         return Center(child: CustomCircularProgressIndicator());
       } else {
         final error = state as GenericError;
-        print(error.message);
         if (error.statusCode == 204.toString()) {
           return Column(
             children: [
@@ -278,8 +249,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             ],
           );
         }
-        print(error.statusCode);
-
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
     });

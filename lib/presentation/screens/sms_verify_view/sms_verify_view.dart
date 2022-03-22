@@ -31,10 +31,7 @@ class _SmsVerifyState extends State<SmsVerify> {
   String? userPhoneNumber;
   @override
   void initState() {
-    print(SharedPrefs.getUserPhone);
     userPhoneNumber = SharedPrefs.getUserPhone;
-    print(userPhoneNumber);
-
     super.initState();
   }
 
@@ -140,7 +137,7 @@ class _SmsVerifyState extends State<SmsVerify> {
     lastTwoDigitList.add(phoneNumberList[phoneLength - 2]);
     lastTwoDigitList.add(phoneNumberList[phoneLength - 1]);
     String lastTwoDigits = lastTwoDigitList.join("");
-    print(lastTwoDigits);
+  
     return Container(
       child: Column(
         children: [
@@ -206,8 +203,7 @@ class _SmsVerifyState extends State<SmsVerify> {
         await _auth.verifyPhoneNumber(
             phoneNumber: userPhoneNumber ?? SharedPrefs.getUserPhone,
             verificationCompleted: (phoneAuthCredential) async {
-              // print(
-              //     "SMS CODE : ${phoneAuthCredential.smsCode}");
+
               setState(() {
                 showLoading = false;
               });

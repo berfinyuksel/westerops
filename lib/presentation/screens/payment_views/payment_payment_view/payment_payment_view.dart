@@ -185,11 +185,14 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
               return Center(child: CircularProgressIndicator());
             } else if (state is GenericCompleted) {
               List<IyzcoRegisteredCard> cards = [];
-
+            
               for (int i = 0; i < state.response.length; i++) {
                 cards.add(state.response[i]);
               }
               log(cards.length.toString());
+          if (cards.isNotEmpty) {
+            SharedPrefs.setBoolPaymentCardControl(true);
+          }
               return Column(
                 children: [
                   cards.isEmpty
@@ -491,8 +494,6 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
 
   buildCards(List<CardDetail>? cards) {
     SharedPrefs.setBoolForRegisteredCard(true);
-    print(SharedPrefs.getBoolForRegisteredCard);
-
     return cards!.isNotEmpty
         ? ListView.builder(
             shrinkWrap: true,
@@ -500,8 +501,6 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
             itemBuilder: (context, index) {
               if (selectedIndex == 0) {
                 SharedPrefs.setCardToken(cards.first.cardToken.toString());
-                print(
-                    "LISTVIEW BUILDER CARD TOKEN${cards.first.cardToken.toString()}");
               }
 
               return buildCardListTile(
@@ -559,6 +558,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           ? SvgPicture.asset(ImageConstant.REGISTER_LOGIN_PASSWORD_TICK)
           : null,
       onTap: () {
+        SharedPrefs.setBoolPaymentCardControl(true);
         setState(() {
           selectedIndex = index;
           cardTokenGlobal = cardToken;
@@ -584,6 +584,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
         borderColor: AppColors.greenColor,
         textColor: AppColors.greenColor,
         onPressed: () {
+          //   SharedPrefs.setBoolPaymentCardControl(true);
           setState(() {
             if (!payWithAnotherCard) {
               payWithAnotherCard = true;
@@ -621,6 +622,13 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
             setState(() {
               threeDSecure = value!;
               SharedPrefs.setThreeDBool(threeDSecure);
+              if (cardController.text.isNotEmpty &&
+                  cvvController.text.isNotEmpty &&
+                  nameController.text.isNotEmpty) {
+                SharedPrefs.setBoolPaymentCardControl(true);
+              }
+              print(SharedPrefs.getBoolPaymentCardControl);
+              print(nameController.text);
             });
           },
         ),

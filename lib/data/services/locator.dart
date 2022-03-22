@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/model/category_name.dart';
 import 'package:dongu_mobile/data/repositories/address_repository.dart';
 import 'package:dongu_mobile/data/repositories/avg_review_repository.dart';
 import 'package:dongu_mobile/data/repositories/filters_repository.dart';

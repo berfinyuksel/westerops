@@ -1,14 +1,15 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:dongu_mobile/data/repositories/update_permission_for_com_repository.dart';
 
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/presentation/widgets/scaffold/custom_scaffold.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:geolocator/geolocator.dart';
-import 'package:notification_permissions/notification_permissions.dart';
 import 'components/contact_confirmation_list_tile.dart';
 import 'components/general_settings_body_title.dart';
-import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 import '../../../utils/locale_keys.g.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -21,7 +22,7 @@ class GeneralSettingsView extends StatefulWidget {
   _GeneralSettingsViewState createState() => _GeneralSettingsViewState();
 }
 
-class _GeneralSettingsViewState extends State<GeneralSettingsView> {
+class _GeneralSettingsViewState extends State<GeneralSettingsView> with WidgetsBindingObserver {
   Future<String>? permissionStatusFuture;
   var permGranted = "granted";
   var permDenied = "denied";
@@ -32,36 +33,43 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   bool isSwitchedPhoneCall = SharedPrefs.getPermissionForPhone;
   bool isSwitchedNotification = false;
   bool isSwitchedLocation = false;
+  bool _nofiticationState = false;
+  AppLifecycleState? _appLifecycleState;
   LocationPermission? permission;
   @override
   void initState() {
+    WidgetsBinding.instance!.addObserver(this);
     super.initState();
-    checkLocationPermission();
-    permissionStatusFuture = getCheckNotificationPermStatus();
   }
 
-  Future<String> getCheckNotificationPermStatus() {
-    return NotificationPermissions.getNotificationPermissionStatus()
-        .then((status) {
-      switch (status) {
-        case PermissionStatus.denied:
-          isSwitchedNotification = false;
-          return permDenied;
-        case PermissionStatus.granted:
-          isSwitchedNotification = true;
-          return permGranted;
-        case PermissionStatus.provisional:
-          return permProvisional;
-        default:
-          return '';
-      }
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    await setNotificationState();
+    await checkLocationPermission();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    _appLifecycleState = state;
+    print(_appLifecycleState);
+    if (_appLifecycleState == AppLifecycleState.resumed) {
+      await setNotificationState();
+      await checkLocationPermission();
+    }
+  }
+
+  Future<void> setNotificationState() async {
+    var messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission();
+    setState(() {
+      _nofiticationState = settings.authorizationStatus == AuthorizationStatus.authorized;
     });
   }
 
   checkLocationPermission() async {
     permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
+    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
       setState(() {
         isSwitchedLocation = false;
       });
@@ -75,6 +83,7 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      isNavBar: true,
       title: LocaleKeys.general_settings_title,
       body: buildBody(context),
     );
@@ -93,8 +102,10 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
           ),
           Spacer(flex: 1),
           ContactConfirmationListTile(),
-          buildListTileSms(context),
+          //  buildListTileSms(context),
+          Spacer(flex: 2),
           buildListTileEmail(context),
+          Spacer(flex: 1),
           buildListTilePhoneCall(context),
           Spacer(flex: 4),
           GeneralSettingsBodyTitle(
@@ -159,8 +170,7 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
                 isSwitchedEmail = value;
               });
               SharedPrefs.setPermissionForEmail(isSwitchedEmail);
-              sl<UpdatePermissonRepository>()
-                  .updateEmailPermission(isSwitchedEmail);
+              sl<UpdatePermissonRepository>().updateEmailPermission(isSwitchedEmail);
             },
             trackColor: Colors.white,
             activeColor: AppColors.greenColor),
@@ -190,8 +200,7 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
                 isSwitchedPhoneCall = !isSwitchedPhoneCall;
                 isSwitchedPhoneCall = value;
               });
-              sl<UpdatePermissonRepository>()
-                  .updatePhoneCallPermission(isSwitchedPhoneCall);
+              sl<UpdatePermissonRepository>().updatePhoneCallPermission(isSwitchedPhoneCall);
               SharedPrefs.setPermissionForPhone(isSwitchedPhoneCall);
             },
             trackColor: Colors.white,
@@ -203,7 +212,7 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
       ),
       subtitle: LocaleText(
         text: LocaleKeys.general_settings_phone_call_subtitle,
-        style: AppTextStyles.subTitleStyle,
+        style: AppTextStyles.subTitleStyle.copyWith(height: 1.5),
       ),
     );
   }
@@ -219,18 +228,9 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
         alignment: Alignment.centerRight,
         scale: 0.8,
         child: CupertinoSwitch(
-            value: isSwitchedNotification,
+            value: _nofiticationState,
             onChanged: (value) {
-              setState(() {
-                isSwitchedNotification = value;
-                NotificationPermissions.requestNotificationPermissions(
-                        iosSettings: const NotificationSettingsIos(
-                            sound: true, badge: true, alert: true))
-                    .then((_) {
-                  // when finished, check the permission status
-                  permissionStatusFuture = getCheckNotificationPermStatus();
-                });
-              });
+              AppSettings.openNotificationSettings();
             },
             trackColor: Colors.white,
             activeColor: AppColors.greenColor),

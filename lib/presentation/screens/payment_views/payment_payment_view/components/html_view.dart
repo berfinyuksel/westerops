@@ -50,8 +50,7 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
               .decode(base64.decode(state.response.first.threeDsHtmlContent));
           log(htmlData);
           String conversationId = state.response.first.conversationId;
-          print("ahmettttt");
-          print(conversationId);
+  
           SharedPrefs.setConversationId(conversationId);
 
           void loadLocalHtml() async {
@@ -109,7 +108,6 @@ class _WebViewForThreeDState extends State<WebViewForThreeD> {
         final error = state as GenericError;
         final String errorMessage = error.message;
 
-        print(errorMessage);
         return CustomAlertDialogResetPassword(
           description: buildErrorMessage(errorMessage),
           /* "${errorMessage == emptyBasketMessage ? "Sepetinde ürün bulunmamaktadır" : error.message}\n Hata Kodu: ${error.statusCode}", */

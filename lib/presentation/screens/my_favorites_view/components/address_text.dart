@@ -75,7 +75,6 @@ class _AddressTextState extends State<AddressText> {
                     if (stateOfAddress.response.isEmpty) {
                       Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
                     } else {
-                      print("state address not empty");
                       Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
                     }
                   }
@@ -165,7 +164,34 @@ class _AddressTextState extends State<AddressText> {
             ),
           );
         }
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
+        return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
+            },
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  ImageConstant.COMMONS_ALLOW_LOCATION_ICON,
+                  width: 16,
+                  height: 16,
+                ),
+                SizedBox(width: 10),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6.0),
+                  child: LocaleText(
+                    text: LocaleKeys.my_favorites_permission_for_location,
+                    style: GoogleFonts.montserrat(
+                      color: AppColors.yellowColor,
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.underline,
+                      decorationThickness: 2,
+                      height: 2.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
       }
     });
   }

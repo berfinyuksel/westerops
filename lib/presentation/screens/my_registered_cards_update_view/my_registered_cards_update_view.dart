@@ -269,12 +269,6 @@ class _MyRegisteredCardsUpdateViewState
                           default:
                         }
                       }
-
-                      print(
-                          "CARD NUMBER CONTROL lastFourDigits: $lastFourDigits");
-                      print("CARD NUMBER CONTROL binNumber: $binNumber");
-                      print(
-                          "CARD NUMBER CONTROL CACHE: ${SharedPrefs.getNewCardNumber}");
                     },
                   ),
                   Spacer(

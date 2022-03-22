@@ -86,7 +86,6 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
       starDegreeQuality = widget.orderInfo!.review!.first.qualityPoint ?? 3;
       starDegreeTaste = widget.orderInfo!.review!.first.mealPoint ?? 3;
     }
-    // print(widget.orderInfo!.refCode);
     return ListView(
       children: [
         SizedBox(

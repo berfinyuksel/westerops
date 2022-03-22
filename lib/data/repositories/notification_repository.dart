@@ -24,8 +24,6 @@ class SampleNotificationRepository implements NotificationRepository {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print("Notification StatusCode " + response.statusCode.toString());
-    print("Notification Body " + response.body);
 
     if (response.statusCode == 201) {
       List<MyNotification> boxess = [];

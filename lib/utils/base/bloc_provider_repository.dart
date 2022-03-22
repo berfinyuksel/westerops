@@ -101,7 +101,7 @@ class BlocProviderRepository {
     BlocProvider<OrderCubit>(create: (context) => OrderCubit(SampleOrderRepository())),
     BlocProvider<FavoriteCubit>(create: (context) => FavoriteCubit(SampleFavoriteRepository())),
     BlocProvider<AllFavoriteCubit>(create: (context) => sl<AllFavoriteCubit>()),
-    BlocProvider<CategoryNameCubit>(create: (context) => CategoryNameCubit(SampleCategoryNameRepository())),
+    BlocProvider<CategoryNameCubit>(create: (context) => sl<CategoryNameCubit>()),
     BlocProvider<AddressCubit>(create: (context) => AddressCubit(SampleAdressRepository())),
     BlocProvider<UserAddressCubit>(create: (context) => UserAddressCubit(SampleUserAdressRepository())),
     BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),

@@ -16,6 +16,7 @@ class _AgreementKvkkViewState extends State<AgreementKvkkView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      isNavBar: true,
       title: "Kullanıcı Sözleşmesi ve KVKK",
       body: Padding(
         padding: EdgeInsets.only(
@@ -31,58 +32,11 @@ class _AgreementKvkkViewState extends State<AgreementKvkkView> {
               style: AppTextStyles.headlineStyle.copyWith(fontSize: 20.sp),
               alignment: TextAlign.center,
             ),
-            Spacer(flex: 5),
+            SizedBox(height: 50.h),
             AgreementScrollBarListView(),
-            Spacer(flex: 5),
-            /* Row(
-              children: [
-                buildCheckBox(context),
-                Spacer(flex: 1),
-                AcceptAgreementText(
-                  underlinedText:
-                      LocaleKeys.agreement_kvkk_underlined_text.locale,
-                  text: LocaleKeys.agreement_kvkk_text.locale,
-                ),
-                Spacer(flex: 5),
-              ],
-            ),
-            Spacer(flex: 63),
-            CustomButton(
-              width: context.dynamicWidht(0.86),
-              title: LocaleKeys.agreement_kvkk_confirmation_button,
-              color: AppColors.greenColor,
-              borderColor: AppColors.greenColor,
-              textColor: Colors.white,
-            ), */
           ],
         ),
       ),
     );
   }
-
-  /*  Container buildCheckBox(BuildContext context) {
-    return Container(
-      height: context.dynamicWidht(0.05),
-      width: context.dynamicWidht(0.05),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        border: Border.all(
-          color: Color(0xFFD1D0D0),
-        ),
-      ),
-      child: Theme(
-        data: ThemeData(unselectedWidgetColor: Colors.transparent),
-        child: Checkbox(
-          checkColor: Colors.greenAccent,
-          activeColor: Colors.transparent,
-          value: checkboxValue,
-          onChanged: (value) {
-            setState(() {
-              checkboxValue = value!;
-            });
-          },
-        ),
-      ),
-    );
-  } */
 }

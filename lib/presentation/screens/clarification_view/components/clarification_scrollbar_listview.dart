@@ -13,7 +13,7 @@ class ClarificationScrollBarListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 620.h,
+      height: 650.h,
       child: RawScrollbar(
         thumbColor: AppColors.greenColor,
         thickness: 10,
@@ -27,8 +27,7 @@ class ClarificationScrollBarListView extends StatelessWidget {
               ),
               child: Text(
                 "A. Veri Sorumlusu ve Temsilcisi",
-                style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                style: AppTextStyles.bodyBoldTextStyle.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
                 // alignment: TextAlign.center,
                 maxLines: 1,
               ),
@@ -54,8 +53,7 @@ class ClarificationScrollBarListView extends StatelessWidget {
               ),
               child: Text(
                 "B. Hangi Kişisel Verilerin İşleneceği",
-                style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                style: AppTextStyles.bodyBoldTextStyle.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
                 // alignment: TextAlign.center,
                 maxLines: 1,
               ),
@@ -77,8 +75,7 @@ class ClarificationScrollBarListView extends StatelessWidget {
             ),
             Text(
               "C. Kişisel Verilerin Hangi Amaçla İşleneceği",
-              style: AppTextStyles.bodyBoldTextStyle
-                  .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+              style: AppTextStyles.bodyBoldTextStyle.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
               // alignment: TextAlign.center,
               // maxLines: 1,
             ),
@@ -103,8 +100,7 @@ class ClarificationScrollBarListView extends StatelessWidget {
               ),
               child: Text(
                 "D. İşlenen Kişisel Verilerin Kimlere ve Hangi Amaçla Aktarılabileceği",
-                style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                style: AppTextStyles.bodyBoldTextStyle.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
                 // alignment: TextAlign.center,
                 // maxLines: 1,
               ),
@@ -130,8 +126,7 @@ class ClarificationScrollBarListView extends StatelessWidget {
               ),
               child: Text(
                 "E. Kişisel Veri Toplamanın Yöntemi ve Hukuki Sebebi",
-                style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                style: AppTextStyles.bodyBoldTextStyle.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
                 // alignment: TextAlign.center,
                 // maxLines: 1,
               ),
@@ -157,8 +152,7 @@ class ClarificationScrollBarListView extends StatelessWidget {
               ),
               child: Text(
                 "F. Kişisel Veri Sahibinin Kanun’un 11. Maddesinde Sayılan Hakları",
-                style: AppTextStyles.bodyBoldTextStyle
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                style: AppTextStyles.bodyBoldTextStyle.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
                 // alignment: TextAlign.center,
                 // maxLines: 1,
               ),
