@@ -41,7 +41,8 @@ class _RegisterViewState extends State<RegisterView> {
   TextEditingController passwordController = TextEditingController();
 
   bool showLoading = false;
-  MobileVerificationState currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  MobileVerificationState currentState =
+      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
   String? verificationId;
 
   bool enableObscure = true;
@@ -74,7 +75,8 @@ class _RegisterViewState extends State<RegisterView> {
               top: 28.h,
               left: 5.w,
               child: IconButton(
-                icon: SvgPicture.asset(ImageConstant.BACK_ICON, width: 20.w, height: 20.w, color: Colors.white),
+                icon: SvgPicture.asset(ImageConstant.BACK_ICON,
+                    width: 20.w, height: 20.w, color: Colors.white),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
@@ -90,7 +92,8 @@ class _RegisterViewState extends State<RegisterView> {
               child: Visibility(
                   visible: isRulesVisible,
                   child: ClippedPasswordRules(
-                    child: PasswordRules(passwordController: passwordController),
+                    child:
+                        PasswordRules(passwordController: passwordController),
                   )),
             ),
           ],
@@ -156,8 +159,10 @@ class _RegisterViewState extends State<RegisterView> {
         color: AppColors.greenColor,
         borderColor: AppColors.greenColor,
         onPressed: () {
-          bool numberControl = passwordController.text.contains(RegExp(r'[0-9]'));
-          bool uppercaseControl = passwordController.text.contains(RegExp(r'[A-Z]'));
+          bool numberControl =
+              passwordController.text.contains(RegExp(r'[0-9]'));
+          bool uppercaseControl =
+              passwordController.text.contains(RegExp(r'[A-Z]'));
           bool phoneControl = phoneTR.length >= 13;
           String firstName = nameController.text;
           String lastName = nameController.text;
@@ -184,7 +189,8 @@ class _RegisterViewState extends State<RegisterView> {
             showDialog(
               context: context,
               builder: (_) => CustomErrorPopup(
-                textMessage: "Eksik veya hatalı doldurdunuz. \nLütfen tekrar deneyiniz",
+                textMessage:
+                    "Eksik veya hatalı doldurdunuz. \nLütfen tekrar deneyiniz",
                 buttonOneTitle: "Tamam",
                 buttonTwoTittle: LocaleKeys.address_address_approval,
                 imagePath: ImageConstant.COMMONS_WARNING_ICON,
@@ -205,7 +211,8 @@ class _RegisterViewState extends State<RegisterView> {
               SharedPrefs.setUserPhone(phoneTR);
               SharedPrefs.setUserEmail(emailController.text);
               SharedPrefs.setUserPassword(passwordController.text);
-              Navigator.popAndPushNamed(context, RouteConstant.REGISTER_VERIFY_VIEW);
+              Navigator.popAndPushNamed(
+                  context, RouteConstant.REGISTER_VERIFY_VIEW);
             } else {
               ErrorAlertDialog(onTap: () {});
             }
@@ -225,7 +232,10 @@ class _RegisterViewState extends State<RegisterView> {
     return Container(
       height: 52.h,
       padding: EdgeInsets.symmetric(horizontal: 28.w),
-      child: buildTextFormField(LocaleKeys.register_email.locale, emailController,
+      child: buildTextFormField(
+          false,
+          LocaleKeys.register_email.locale,
+          emailController,
           (val) => isEmail(emailController.text) ? "Invalid Email" : null),
     );
   }
@@ -234,7 +244,8 @@ class _RegisterViewState extends State<RegisterView> {
     return Container(
       height: 52.h,
       padding: EdgeInsets.symmetric(horizontal: 28.w),
-      child: buildTextFormField(LocaleKeys.register_full_name.locale, nameController, (value) {
+      child: buildTextFormField(
+          false, LocaleKeys.register_full_name.locale, nameController, (value) {
         return null;
       }),
     );
@@ -250,8 +261,12 @@ class _RegisterViewState extends State<RegisterView> {
           buildDropDown(context),
           SizedBox(width: 5.w),
           Expanded(
-            child: buildTextFormField(LocaleKeys.register_phone.locale, phoneController,
-                (val) => !isNumeric(phoneController.text) ? "Invalid Phone" : null),
+            child: buildTextFormField(
+                true,
+                LocaleKeys.register_phone.locale,
+                phoneController,
+                (val) =>
+                    !isNumeric(phoneController.text) ? "Invalid Phone" : null),
           ),
         ],
       ),
@@ -310,7 +325,9 @@ class _RegisterViewState extends State<RegisterView> {
                 onTap: () async {
                   await AppleSignInController().login();
                   Navigator.pushNamedAndRemoveUntil(
-                      context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+                      context,
+                      RouteConstant.CUSTOM_SCAFFOLD,
+                      ModalRoute.withName('/scaf'));
                 },
                 child: SignWithSocialAuth(
                   text: LocaleKeys.register_social_auth_apple,
@@ -374,18 +391,21 @@ class _RegisterViewState extends State<RegisterView> {
           child: const Icon(Icons.keyboard_arrow_down),
         ),
         iconSize: 15,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         onChanged: (String? newValue) {
           setState(() {
             dropdownValue = newValue!;
           });
         },
-        items: <String>['TR', 'EN'].map<DropdownMenuItem<String>>((String value) {
+        items:
+            <String>['TR', 'EN'].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: AutoSizeText(
               value,
-              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+              style: AppTextStyles.bodyTextStyle
+                  .copyWith(fontWeight: FontWeight.w600),
               maxLines: 1,
             ),
           );
@@ -410,7 +430,8 @@ class _RegisterViewState extends State<RegisterView> {
       controller: passwordController,
       obscureText: enableObscure,
       decoration: InputDecoration(
-        suffixIconConstraints: BoxConstraints.tightFor(width: 35.w, height: 35.h),
+        suffixIconConstraints:
+            BoxConstraints.tightFor(width: 35.w, height: 35.h),
         suffixIcon: Padding(
           padding: EdgeInsets.only(right: 15.w),
           child: GestureDetector(
@@ -435,13 +456,16 @@ class _RegisterViewState extends State<RegisterView> {
           "",
         ),
         labelStyle: AppTextStyles.bodyTextStyle,
-        prefixStyle: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        prefixStyle:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         border: OutlineInputBorder(
@@ -452,8 +476,8 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  TextFormField buildTextFormField(
-      String labelText, TextEditingController controller, String? Function(String?)? validator) {
+  TextFormField buildTextFormField(bool isCharacterLimited, String labelText,
+      TextEditingController controller, String? Function(String?)? validator) {
     String phoneTR = '+90';
     String phoneEN = '+1';
 
@@ -467,6 +491,9 @@ class _RegisterViewState extends State<RegisterView> {
       },
       validator: validator,
       inputFormatters: [
+        isCharacterLimited
+            ? LengthLimitingTextInputFormatter(10)
+            : LengthLimitingTextInputFormatter(null),
         //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         controller == phoneController
             ? FilteringTextInputFormatter.digitsOnly
@@ -481,13 +508,16 @@ class _RegisterViewState extends State<RegisterView> {
                 : phoneEN
             : null,
         labelStyle: AppTextStyles.bodyTextStyle,
-        prefixStyle: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        prefixStyle:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         border: OutlineInputBorder(
