@@ -609,6 +609,7 @@ abstract class  LocaleKeys {
   static const my_notifications_tab_bar_title_title2 = 'my_notifications.tab_bar_title.title2';
   static const my_notifications_tab_bar_title_title3 = 'my_notifications.tab_bar_title.title3';
   static const my_notifications_tab_bar_title_sign_in_to_monitor = 'my_notifications.tab_bar_title.sign_in_to_monitor';
+  static const my_notifications_tab_bar_title_empty_text = 'my_notifications.tab_bar_title.empty_text';
   static const my_notifications_tab_bar_title = 'my_notifications.tab_bar_title';
   static const my_notifications_delete_text_text = 'my_notifications.delete_text.text';
   static const my_notifications_delete_text = 'my_notifications.delete_text';

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../utils/extensions/string_extension.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
@@ -27,7 +28,7 @@ class SpecialForMeListTileBuilder extends StatefulWidget {
 class _SpecialForMeListTileBuilderState
     extends State<SpecialForMeListTileBuilder> {
   var value = <String>["", "", "", ""];
- String notificationEmpty = "Herhangi bir bildiriminiz bulunmamaktadır.";
+
   @override
   Widget build(BuildContext context) {
     return buildBuilder();
@@ -60,7 +61,7 @@ class _SpecialForMeListTileBuilderState
 
         return Center(child: notifications.isNotEmpty
                 ? listViewBuilder(context, notifications, state)
-                : Text(notificationEmpty));
+                : Text(LocaleKeys.my_notifications_tab_bar_title_empty_text.locale));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));

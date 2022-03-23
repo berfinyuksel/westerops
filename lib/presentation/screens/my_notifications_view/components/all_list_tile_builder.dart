@@ -14,6 +14,7 @@ import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/text/locale_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../utils/extensions/string_extension.dart';
 
 class AllListTileBuilder extends StatefulWidget {
   AllListTileBuilder({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
     String? token = await FirebaseMessaging.instance.getToken();
   }
 
-  String notificationEmpty = "Herhangi bir bildiriminiz bulunmamaktadır.";
+
   @override
   void initState() {
     super.initState();
@@ -69,7 +70,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
         return Center(
             child: notifications.isNotEmpty
                 ? listViewBuilder(context, notifications, state)
-                : Text(notificationEmpty));
+                : Text(LocaleKeys.my_notifications_tab_bar_title_empty_text.locale));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
