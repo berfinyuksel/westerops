@@ -677,7 +677,8 @@
             "title1": "Siparişlerim",
             "title2": "Tümü",
             "title3": "Bana Özel",
-            "sign_in_to_monitor": "Bildirimlerinizi görüntülemek için giriş yapınız."
+            "sign_in_to_monitor": "Bildirimlerinizi görüntülemek için giriş yapınız.",
+            "empty_text": "Herhangi bir bildiriminiz bulunmamaktadır."
         },
         "delete_text": {
             "text": "Sil"

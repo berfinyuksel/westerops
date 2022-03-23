@@ -14,6 +14,7 @@ import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/text/locale_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../utils/extensions/string_extension.dart';
 
 class AllListTileBuilder extends StatefulWidget {
   AllListTileBuilder({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
   void notificationToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
   }
+
 
   @override
   void initState() {
@@ -46,13 +48,18 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       final GenericState state = context.watch<GetNotificationCubit>().state;
 
       if (state is GenericInitial) {
+        print("GENERIC INITIAL");
+
         return Container();
       } else if (state is GenericLoading) {
+        print("GENERIC LOADING");
         return Padding(
           padding: EdgeInsets.symmetric(vertical: 30.h),
           child: Center(child: CustomCircularProgressIndicator()),
         );
       } else if (state is GenericCompleted) {
+        print("GENERIC COMPLETED");
+
         List<Result> notifications = [];
 
         for (int i = 0; i < state.response.length; i++) {
@@ -60,7 +67,10 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
           context.read<NotificationsCounterCubit>().decrement();
         }
         SharedPrefs.setCounterNotifications(notifications.length);
-        return Center(child: listViewBuilder(context, notifications, state));
+        return Center(
+            child: notifications.isNotEmpty
+                ? listViewBuilder(context, notifications, state)
+                : Text(LocaleKeys.my_notifications_tab_bar_title_empty_text.locale));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
