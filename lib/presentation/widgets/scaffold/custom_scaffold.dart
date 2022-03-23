@@ -24,14 +24,15 @@ class CustomScaffold extends StatefulWidget {
   Widget? body;
   bool? isDrawer;
   bool? isNavBar;
-
-  CustomScaffold({
-    Key? key,
-    this.title,
-    this.body,
-    this.isNavBar,
-    this.isDrawer,
-  }) : super(key: key);
+  Future<bool> Function()? isPopScope;
+  CustomScaffold(
+      {Key? key,
+      this.title,
+      this.body,
+      this.isNavBar,
+      this.isDrawer,
+      this.isPopScope})
+      : super(key: key);
   @override
   _CustomScaffoldState createState() => _CustomScaffoldState();
 }
@@ -66,35 +67,40 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      appBar: widget.isDrawer == null
-          ? widget.title == null
-              ? _titles.elementAt(_selectedIndex) == null
-                  ? null
-                  : buildAppBarWithTitleList()
-              : buildAppBarWithInputTitle()
-          : widget.isDrawer!
-              ? buildAppBarForDrawer()
-              : widget.title == null
-                  ? _titles.elementAt(_selectedIndex) == null
-                      ? null
-                      : buildAppBarWithTitleList()
-                  : buildAppBarWithInputTitle(),
-      endDrawer: widget.isDrawer == null
-          ? CustomDrawer()
-          : widget.isDrawer!
-              ? null
-              : CustomDrawer(),
-      bottomNavigationBar: widget.isNavBar != null
-          ? null
-          : ClipRRect(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(18.0),
-              ),
-              child: buildBottomNavigationBar()),
-      body: widget.body == null ? _widgetOptions.elementAt(_selectedIndex) : widget.body,
+    return WillPopScope(
+      onWillPop: widget.isPopScope,
+      child: Scaffold(
+        key: scaffoldKey,
+        resizeToAvoidBottomInset: false,
+        appBar: widget.isDrawer == null
+            ? widget.title == null
+                ? _titles.elementAt(_selectedIndex) == null
+                    ? null
+                    : buildAppBarWithTitleList()
+                : buildAppBarWithInputTitle()
+            : widget.isDrawer!
+                ? buildAppBarForDrawer()
+                : widget.title == null
+                    ? _titles.elementAt(_selectedIndex) == null
+                        ? null
+                        : buildAppBarWithTitleList()
+                    : buildAppBarWithInputTitle(),
+        endDrawer: widget.isDrawer == null
+            ? CustomDrawer()
+            : widget.isDrawer!
+                ? null
+                : CustomDrawer(),
+        bottomNavigationBar: widget.isNavBar != null
+            ? null
+            : ClipRRect(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(18.0),
+                ),
+                child: buildBottomNavigationBar()),
+        body: widget.body == null
+            ? _widgetOptions.elementAt(_selectedIndex)
+            : widget.body,
+      ),
     );
   }
 
@@ -155,7 +161,10 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         ),
       ],
       iconTheme: IconThemeData(color: AppColors.greenColor),
-      title: _selectedIndex == 1 || _selectedIndex == 2 || _selectedIndex == 3 || _selectedIndex == 4
+      title: _selectedIndex == 1 ||
+              _selectedIndex == 2 ||
+              _selectedIndex == 3 ||
+              _selectedIndex == 4
           ? LocaleText(
               text: _titles.elementAt(_selectedIndex)!,
               style: AppTextStyles.appBarTitleStyle,
@@ -202,18 +211,24 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 ImageConstant.NAVBAR_NOTIFACATIONS,
               ),
               Builder(builder: (context) {
-                final counterNotificaitonState = context.watch<NotificationsCounterCubit>().state;
+                final counterNotificaitonState =
+                    context.watch<NotificationsCounterCubit>().state;
 
                 return Visibility(
-                  visible: counterNotificaitonState > 0 && SharedPrefs.getIsLogined,
+                  visible:
+                      counterNotificaitonState > 0 && SharedPrefs.getIsLogined,
                   child: Container(
                     height: 14,
                     width: 14,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.yellowColor),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.yellowColor),
                     child: Text(
                       counterNotificaitonState.toString(),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 10.7),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
                     ),
                   ),
                 );
@@ -241,10 +256,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                     height: 14,
                     width: 14,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.orangeColor),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.orangeColor),
                     child: Text(
                       counterState.toString(),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 10.7),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
                     ),
                   ),
                 );
@@ -266,10 +285,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                     height: 14,
                     width: 14,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.orangeColor),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.orangeColor),
                     child: Text(
                       counterState.toString(),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 10.7),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
                     ),
                   ),
                 );
