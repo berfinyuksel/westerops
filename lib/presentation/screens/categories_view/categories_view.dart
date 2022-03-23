@@ -1,5 +1,4 @@
-import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
-import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:dongu_mobile/logic/cubits/category_filter_cubit/category_filter_cubit.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,8 +7,7 @@ import '../../../data/model/category_name.dart';
 import '../../../data/model/search_store.dart';
 import '../../../data/services/location_service.dart';
 import '../../../data/services/locator.dart';
-import '../../../logic/cubits/generic_state/generic_state.dart';
-import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
+import '../../widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import '../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
@@ -29,35 +27,19 @@ class CategoriesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return builBody();
+    return builBody(context);
   }
 
-  Widget builBody() {
-    return BlocProvider.value(
-      value: sl<CategoryNameCubit>()..init(),
-      child: BlocBuilder<CategoryNameCubit, CategoryNameState>(
-        builder: (context, state) {
-              
-            
-    
-       return    buildCustomScaffold(context, sl<CategoryNameCubit>().filterCategories);
-          
-        },
-      ),
-    );
+  Widget builBody(BuildContext context) {
+    return BlocProvider(create:(context) =>  sl<CategoryFilterCubit>()..getCategoriesQuery(category!.id.toString()), child: buildCustomScaffold(context));
   }
 
-  CustomScaffold buildCustomScaffold(
-      BuildContext context, List<SearchStore> categorizedRestaurants) {
+
+  CustomScaffold buildCustomScaffold(BuildContext context) {
     return CustomScaffold(
       title: LocaleKeys.home_page_categories,
       body: Padding(
-        padding: EdgeInsets.only(
-          left: 30.w,
-          right: 30.w,
-          top: 20.h,
-          bottom: 20.h,
-        ),
+        padding: EdgeInsets.all(20.w),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +52,16 @@ class CategoriesView extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              buildRestaurantList(categorizedRestaurants),
+              BlocBuilder<CategoryFilterCubit, CategoryFilterState>(
+                builder: (context, state) {
+                  if (state is FilterCategoriesLoading) {
+                    return Center(child: CustomCircularProgressIndicator());
+                  } else if (state is FilterCategoriesCompleted) {
+                    return buildRestaurantList(state.response!);
+                  }
+                  return SizedBox();
+                },
+              ),
             ],
           ),
         ),
@@ -99,37 +90,22 @@ class CategoriesView extends StatelessWidget {
                       ));
                 },
                 child: RestaurantInfoListTile(
-                  deliveryType: int.parse(categorizedRestaurants[index]
-                          .packageSettings!
-                          .deliveryType ??
-                      '3'),
-                  packetNumber: categorizedRestaurants[index]
-                              .calendar!
-                              .first
-                              .boxCount ==
-                          0
+                  deliveryType: int.parse(categorizedRestaurants[index].packageSettings!.deliveryType ?? '3'),
+                  packetNumber: categorizedRestaurants[index].calendar!.first.boxCount == 0
                       ? LocaleKeys.home_page_soldout_icon
                       : "${categorizedRestaurants[index].calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
-                  minDiscountedOrderPrice: categorizedRestaurants[index]
-                      .packageSettings!
-                      .minDiscountedOrderPrice,
-                  minOrderPrice: categorizedRestaurants[index]
-                      .packageSettings!
-                      .minOrderPrice,
+                  minDiscountedOrderPrice: categorizedRestaurants[index].packageSettings!.minDiscountedOrderPrice,
+                  minOrderPrice: categorizedRestaurants[index].packageSettings!.minOrderPrice,
                   onPressed: () {
-                    Navigator.pushNamed(
-                        context, RouteConstant.RESTAURANT_DETAIL,
+                    Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
                         arguments: ScreenArgumentsRestaurantDetail(
                           restaurant: categorizedRestaurants[index],
                         ));
                   },
                   icon: categorizedRestaurants[index].photo,
                   restaurantName: categorizedRestaurants[index].name,
-                  distance: Haversine.distance(
-                          categorizedRestaurants[index].latitude!,
-                          categorizedRestaurants[index].longitude,
-                          LocationService.latitude,
-                          LocationService.longitude)
+                  distance: Haversine.distance(categorizedRestaurants[index].latitude!,
+                          categorizedRestaurants[index].longitude, LocationService.latitude, LocationService.longitude)
                       .toStringAsFixed(2),
                   availableTime:
                       '${categorizedRestaurants[index].packageSettings!.deliveryTimeStart} - ${categorizedRestaurants[index].packageSettings!.deliveryTimeEnd}',

@@ -173,7 +173,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   padding: EdgeInsets.only(top: 10.h),
                   child: restaurantStarIconRating(),
                 ),
-                Spacer(flex: 1),
+                //   Spacer(flex: 1),
               ],
             ),
           ),
@@ -567,6 +567,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     BoxCompleted state,
     List<Box> surpriseBoxes,
   ) {
+    List<SearchStore> chosenRestaurat = [];
+    for (var i = 0; i < sl<SearchStoreCubit>().searchStores.length; i++) {
+      if (sl<SearchStoreCubit>().searchStores[i].id == state.packages[index].store) {
+        chosenRestaurat.add(sl<SearchStoreCubit>().searchStores[i]);
+        priceOfMenu = chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice;
+        oldPriceOfMenu = chosenRestaurat[0].packageSettings!.minOrderPrice;
+      }
+    }
     List<String> meals = [];
     if (surpriseBoxes[index].meals!.isNotEmpty) {
       for (var i = 0; i < surpriseBoxes[index].meals!.length; i++) {
@@ -767,9 +775,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ),
             child: Column(
               children: [
-                Spacer(
-                  flex: 8,
-                ),
+                Spacer(flex: 8),
                 SvgPicture.asset(
                   ImageConstant.SURPRISE_PACK,
                   height: context.dynamicHeight(0.134),
@@ -780,9 +786,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   style: AppTextStyles.bodyBoldTextStyle,
                   alignment: TextAlign.center,
                 ),
-                Spacer(
-                  flex: 35,
-                ),
+                Spacer(flex: 35),
                 CustomButton(
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -794,9 +798,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   borderColor: AppColors.greenColor,
                   title: LocaleKeys.restaurant_detail_alert_dialog_text_2,
                 ),
-                Spacer(
-                  flex: 20,
-                ),
+                Spacer(flex: 20),
               ],
             ),
           ),

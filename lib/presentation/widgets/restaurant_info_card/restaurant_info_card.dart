@@ -1,5 +1,4 @@
 import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
-import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../data/services/locator.dart';
 import '../../../logic/cubits/box_cubit/box_state.dart';
-import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -89,32 +87,25 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8.0),
-                  topRight: Radius.circular(8.0)),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
               child: Image.network(
                 widget.backgroundImage!,
                 alignment: Alignment.topCenter,
                 fit: BoxFit.fill,
                 width: context.dynamicWidht(0.64),
-                height: context.height > 800
-                    ? context.dynamicHeight(0.16)
-                    : context.dynamicHeight(0.14),
+                height: context.height > 800 ? context.dynamicHeight(0.16) : context.dynamicHeight(0.14),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: context.dynamicHeight(0.011),
-                  horizontal: context.dynamicWidht(0.023)),
+              padding:
+                  EdgeInsets.symmetric(vertical: context.dynamicHeight(0.011), horizontal: context.dynamicWidht(0.023)),
               child: Column(
                 children: [
                   buildFirstRow(context, widget.packetNumber!),
                   Spacer(flex: 9),
-                  buildSecondRow(
-                      widget.restaurantName!, widget.restaurantIcon!, context),
+                  buildSecondRow(widget.restaurantName!, widget.restaurantIcon!, context),
                   Spacer(flex: 1),
-                  buildThirdRow(
-                      widget.grade!, widget.location!, widget.distance!),
+                  buildThirdRow(widget.grade!, widget.location!, widget.distance!),
                   Divider(
                     thickness: 2,
                     color: AppColors.borderAndDividerColor,
@@ -171,8 +162,7 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
     );
   }
 
-  Row buildSecondRow(
-      String restaurantName, String restaurantIcon, BuildContext context) {
+  Row buildSecondRow(String restaurantName, String restaurantIcon, BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -203,12 +193,10 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
         BlocBuilder<BoxCubit, BoxState>(
           builder: (context, state) {
             if (state is BoxLoading) {
-              return CustomCircularProgressIndicator();
+              return SizedBox();
             } else if (state is BoxCompleted) {
               return PacketNumber(
-                text: state.packages.length != 0
-                    ? "${state.packages.length.toString()} paket"
-                    : "tükendi",
+                text: state.packages.length != 0 ? "${state.packages.length.toString()} paket" : "tükendi",
                 width: context.dynamicWidht(0.185),
                 height: context.dynamicHeight(0.035),
               );
