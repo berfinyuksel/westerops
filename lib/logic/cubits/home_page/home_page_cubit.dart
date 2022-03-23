@@ -26,7 +26,7 @@ class HomePageCubit extends Cubit<HomePageState> {
     LocationService.getCurrentLocation();
     getDeviceIdentifier();
     SharedPrefs.onboardingShown(true);
-    //sl<OrderReceivedCubit>().getPastOrder();
+    sl<OrderReceivedCubit>().getPastOrder();
     buildSharedPrefNoData();
     SharedPrefs.setBoolPaymentCardControl(false);
     addControllerListener(controller);
