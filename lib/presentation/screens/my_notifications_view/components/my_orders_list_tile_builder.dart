@@ -25,7 +25,7 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
   Widget build(BuildContext context) {
     return buildBuilder();
   }
-
+ String notificationEmpty = "Herhangi bir bildiriminiz bulunmamaktadır.";
   @override
   void initState() {
     super.initState();
@@ -51,7 +51,9 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
           context.read<NotificationsCounterCubit>().decrement();
         }
 
-        return Center(child: listViewBuilder(context, notifications, state));
+        return Center(child: notifications.isNotEmpty
+                ? listViewBuilder(context, notifications, state)
+                : Text(notificationEmpty));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));

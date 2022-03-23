@@ -27,7 +27,7 @@ class SpecialForMeListTileBuilder extends StatefulWidget {
 class _SpecialForMeListTileBuilderState
     extends State<SpecialForMeListTileBuilder> {
   var value = <String>["", "", "", ""];
-
+ String notificationEmpty = "Herhangi bir bildiriminiz bulunmamaktadır.";
   @override
   Widget build(BuildContext context) {
     return buildBuilder();
@@ -58,7 +58,9 @@ class _SpecialForMeListTileBuilderState
           context.read<NotificationsCounterCubit>().decrement();
         }
 
-        return Center(child: listViewBuilder(context, notifications, state));
+        return Center(child: notifications.isNotEmpty
+                ? listViewBuilder(context, notifications, state)
+                : Text(notificationEmpty));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));

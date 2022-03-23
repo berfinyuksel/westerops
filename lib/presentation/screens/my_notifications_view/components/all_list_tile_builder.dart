@@ -27,6 +27,7 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
     String? token = await FirebaseMessaging.instance.getToken();
   }
 
+  String notificationEmpty = "Herhangi bir bildiriminiz bulunmamaktadır.";
   @override
   void initState() {
     super.initState();
@@ -46,13 +47,18 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
       final GenericState state = context.watch<GetNotificationCubit>().state;
 
       if (state is GenericInitial) {
+        print("GENERIC INITIAL");
+
         return Container();
       } else if (state is GenericLoading) {
+        print("GENERIC LOADING");
         return Padding(
           padding: EdgeInsets.symmetric(vertical: 30.h),
           child: Center(child: CustomCircularProgressIndicator()),
         );
       } else if (state is GenericCompleted) {
+        print("GENERIC COMPLETED");
+
         List<Result> notifications = [];
 
         for (int i = 0; i < state.response.length; i++) {
@@ -60,7 +66,10 @@ class _AllListTileBuilderState extends State<AllListTileBuilder> {
           context.read<NotificationsCounterCubit>().decrement();
         }
         SharedPrefs.setCounterNotifications(notifications.length);
-        return Center(child: listViewBuilder(context, notifications, state));
+        return Center(
+            child: notifications.isNotEmpty
+                ? listViewBuilder(context, notifications, state)
+                : Text(notificationEmpty));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
