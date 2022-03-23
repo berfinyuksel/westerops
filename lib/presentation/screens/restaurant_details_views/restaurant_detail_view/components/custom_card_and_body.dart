@@ -43,13 +43,15 @@ import 'custom_circular_progress.dart';
 class CustomCardAndBody extends StatefulWidget {
   final SearchStore? restaurant;
   final Box? boxes;
-  const CustomCardAndBody({Key? key, this.restaurant, this.boxes}) : super(key: key);
+  const CustomCardAndBody({Key? key, this.restaurant, this.boxes})
+      : super(key: key);
 
   @override
   _CustomCardAndBodyState createState() => _CustomCardAndBodyState();
 }
 
-class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTickerProviderStateMixin {
+class _CustomCardAndBodyState extends State<CustomCardAndBody>
+    with SingleTickerProviderStateMixin {
   List<Box> definedBoxes = [];
   bool isFavorite = false;
   int favouriteId = 0;
@@ -210,9 +212,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
 
   Container customBody(BuildContext context, BoxCompleted state) {
     return Container(
-      height:
-          _controller!.index == 0 ? context.dynamicHeight(state.packages.length * .2 + .25) : context.dynamicHeight(.7),
-      child: TabBarView(controller: _controller, children: [tabPackages(context, state), tabDetail(context)]),
+      height: _controller!.index == 0
+          ? context.dynamicHeight(state.packages.length * .2 + .25)
+          : context.dynamicHeight(.7),
+      child: TabBarView(
+          controller: _controller,
+          children: [tabPackages(context, state), tabDetail(context)]),
     );
   }
 
@@ -265,10 +270,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         ),
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(RouteConstant.ABOUT_WORKING_HOUR_VIEW,
-                arguments: ScreenArgumentsRestaurantDetail(
-                  restaurant: widget.restaurant!,
-                ));
+            Navigator.of(context)
+                .pushNamed(RouteConstant.ABOUT_WORKING_HOUR_VIEW,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      restaurant: widget.restaurant!,
+                    ));
           },
           child: Container(
             color: AppColors.appBarColor,
@@ -369,7 +375,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         return GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
-                arguments: ScreenArgumentsCategories(categoriesList: relatedCategories));
+                arguments: ScreenArgumentsCategories(
+                    categoriesList: relatedCategories));
           },
           child: Container(
             color: AppColors.appBarColor,
@@ -516,7 +523,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
   }
 
 //parametrs changes
-  Container buildDefinedBox(BuildContext context, int index, List<Box> definedBoxes, GenericCompleted state) {
+  Container buildDefinedBox(BuildContext context, int index,
+      List<Box> definedBoxes, GenericCompleted state) {
     return Container(
         //alignment: Alignment(-0.8, 0.0),
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
@@ -599,71 +607,122 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 style: AppTextStyles.subTitleStyle,
               ),
               SizedBox(height: 20.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    width: 69.w,
-                    height: 36.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.0),
-                      color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 5.w),
-                      child: Text(
-                        chosenRestaurat[0].packageSettings!.minOrderPrice.toString() + " TL",
-                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                            decoration: TextDecoration.lineThrough, color: AppColors.unSelectedpackageDeliveryColor),
-                      ),
-                    ),
-                  ),
-                  Spacer(flex: 1),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 69.w,
-                    height: 36.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.0),
-                      color: AppColors.scaffoldBackgroundColor,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 5.w),
-                      child: Text(
-                        chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice.toString() + " TL",
-                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                          color: AppColors.greenColor,
+              Builder(builder: (context) {
+                final GenericState stateOfSearchStore =
+                    context.watch<SearchStoreCubit>().state;
+                if (stateOfSearchStore is GenericInitial) {
+                  print("GENERIC INITIAL ");
+                  return Container();
+                } else if (stateOfSearchStore is GenericLoading) {
+                  print("GENERIC LOADING ");
+                  return Center(child: SizedBox(height: 0, width: 0));
+                } else if (stateOfSearchStore is GenericCompleted) {
+                  print("GENERIC COMPLETED ");
+
+                  List<SearchStore> chosenRestaurat = [];
+                  for (var i = 0; i < stateOfSearchStore.response.length; i++) {
+                    if (stateOfSearchStore.response[i].id ==
+                        state.packages[index].store) {
+                      chosenRestaurat.add(stateOfSearchStore.response[i]);
+                      priceOfMenu = chosenRestaurat[0]
+                          .packageSettings!
+                          .minDiscountedOrderPrice;
+                      oldPriceOfMenu =
+                          chosenRestaurat[0].packageSettings!.minOrderPrice;
+                    }
+                  }
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        width: 69.w,
+                        height: 36.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 5.w),
+                          child: Text(
+                            chosenRestaurat[0]
+                                    .packageSettings!
+                                    .minOrderPrice
+                                    .toString() +
+                                " TL",
+                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                                decoration: TextDecoration.lineThrough,
+                                color:
+                                    AppColors.unSelectedpackageDeliveryColor),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Spacer(flex: 4),
-                  Builder(
-                    builder: (context) {
-                      SharedPrefs.setSumPrice(context.watch<SumPriceOrderCubit>().state);
-                      SharedPrefs.setOldSumPrice(context.watch<SumOldPriceOrderCubit>().state);
-                      int? menuItem = state.packages[index].id;
-                      final counterState = context.watch<BasketCounterCubit>().state;
-                      return Builder(builder: (context) {
-                        return CustomButton(
-                          title: menuList!.contains(menuItem.toString())
-                              ? LocaleKeys.restaurant_detail_button_text2
-                              : LocaleKeys.restaurant_detail_button_text,
-                          color: menuList!.contains(menuItem.toString()) ? Colors.transparent : AppColors.greenColor,
-                          textColor: menuList!.contains(menuItem.toString()) ? AppColors.greenColor : Colors.white,
-                          width: 110.w,
-                          borderColor: AppColors.greenColor,
-                          onPressed: () async {
-                            context.read<SwipeRouteButton>().swipeRouteButton(true);
-                            await pressedBuyButton(state, index, context, counterState, menuItem!);
-                          },
-                        );
-                      });
-                    },
-                  ),
-                ],
-              )
+                      Spacer(flex: 1),
+                      Container(
+                        alignment: Alignment.center,
+                        width: 69.w,
+                        height: 36.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.0),
+                          color: AppColors.scaffoldBackgroundColor,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 5.w),
+                          child: Text(
+                            chosenRestaurat[0]
+                                    .packageSettings!
+                                    .minDiscountedOrderPrice
+                                    .toString() +
+                                " TL",
+                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                              color: AppColors.greenColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Spacer(flex: 4),
+                      Builder(
+                        builder: (context) {
+                          SharedPrefs.setSumPrice(
+                              context.watch<SumPriceOrderCubit>().state);
+                          SharedPrefs.setOldSumPrice(
+                              context.watch<SumOldPriceOrderCubit>().state);
+                          int? menuItem = state.packages[index].id;
+                          final counterState =
+                              context.watch<BasketCounterCubit>().state;
+                          return Builder(builder: (context) {
+                            return CustomButton(
+                              title: menuList!.contains(menuItem.toString())
+                                  ? LocaleKeys.restaurant_detail_button_text2
+                                  : LocaleKeys.restaurant_detail_button_text,
+                              color: menuList!.contains(menuItem.toString())
+                                  ? Colors.transparent
+                                  : AppColors.greenColor,
+                              textColor: menuList!.contains(menuItem.toString())
+                                  ? AppColors.greenColor
+                                  : Colors.white,
+                              width: 110.w,
+                              borderColor: AppColors.greenColor,
+                              onPressed: () async {
+                                context
+                                    .read<SwipeRouteButton>()
+                                    .swipeRouteButton(true);
+                                await pressedBuyButton(state, index, context,
+                                    counterState, menuItem!);
+                              },
+                            );
+                          });
+                        },
+                      ),
+                    ],
+                  );
+                } else {
+                  final error = stateOfSearchStore as GenericError;
+                  return Center(
+                      child: Text("${error.message}\n${error.statusCode}"));
+                }
+              }),
             ],
           ),
         ),
@@ -706,7 +765,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         builder: (_) => AlertDialog(
           contentPadding: EdgeInsets.zero,
           content: Container(
-            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
             width: context.dynamicWidht(0.87),
             height: context.dynamicHeight(0.29),
             decoration: BoxDecoration(
@@ -750,7 +810,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         case StatusCode.success:
           if (!menuList!.contains(menuItem.toString())) {
             context.read<SumPriceOrderCubit>().incrementPrice(priceOfMenu!);
-            context.read<SumOldPriceOrderCubit>().incrementOldPrice(oldPriceOfMenu!);
+            context
+                .read<SumOldPriceOrderCubit>()
+                .incrementOldPrice(oldPriceOfMenu!);
 
             context.read<BasketCounterCubit>().increment();
             SharedPrefs.setCounter(counterState + 1);
@@ -758,9 +820,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
             SharedPrefs.setMenuList(menuList!);
           } else {
             context.read<SumPriceOrderCubit>().decrementPrice(priceOfMenu!);
-            context.read<SumOldPriceOrderCubit>().decrementOldPrice(priceOfMenu!);
+            context
+                .read<SumOldPriceOrderCubit>()
+                .decrementOldPrice(priceOfMenu!);
 
-            context.read<OrderCubit>().deleteBasket("${state.packages[index].id}");
+            context
+                .read<OrderCubit>()
+                .deleteBasket("${state.packages[index].id}");
             context.read<BasketCounterCubit>().decrement();
             SharedPrefs.setCounter(counterState - 1);
             menuList!.remove(state.packages[index].id.toString());
@@ -789,9 +855,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                     Navigator.pop(context);
                   },
                   imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                  textMessage: LocaleKeys.restaurant_detail_diffrent_restaurant_show_dialog_text_1,
-                  buttonOneTitle: LocaleKeys.restaurant_detail_diffrent_restaurant_show_dialog_button1,
-                  buttonTwoTittle: LocaleKeys.restaurant_detail_diffrent_restaurant_show_dialog_button2));
+                  textMessage: LocaleKeys
+                      .restaurant_detail_diffrent_restaurant_show_dialog_text_1,
+                  buttonOneTitle: LocaleKeys
+                      .restaurant_detail_diffrent_restaurant_show_dialog_button1,
+                  buttonTwoTittle: LocaleKeys
+                      .restaurant_detail_diffrent_restaurant_show_dialog_button2));
       }
     }
   }
@@ -803,7 +872,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
             showInfo = false;
           });
         },
-        labelPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
+        labelPadding:
+            EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
         indicator: UnderlineTabIndicator(
             borderSide: BorderSide(width: 3, color: AppColors.orangeColor),
             insets: EdgeInsets.symmetric(
@@ -839,9 +909,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
       int mealPoint = widget.restaurant!.review![i].qualityPoint!;
       mealPoints.add(mealPoint);
     }
-    int totalMealPoints = mealPoints.fold(0, (previousValue, element) => previousValue + element);
+    int totalMealPoints =
+        mealPoints.fold(0, (previousValue, element) => previousValue + element);
 
-    String? avgMealPoint = (totalMealPoints / widget.restaurant!.review!.length).toStringAsFixed(1);
+    String? avgMealPoint = (totalMealPoints / widget.restaurant!.review!.length)
+        .toStringAsFixed(1);
     return Row(
       children: [
         LocaleText(
@@ -867,9 +939,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
       int qualityPoint = widget.restaurant!.review![i].qualityPoint!;
       qualityPoints.add(qualityPoint);
     }
-    int totalQualityPoints = qualityPoints.fold(0, (previousValue, element) => previousValue + element);
+    int totalQualityPoints = qualityPoints.fold(
+        0, (previousValue, element) => previousValue + element);
 
-    String avgQualityPoint = (totalQualityPoints / widget.restaurant!.review!.length).toStringAsFixed(1);
+    String avgQualityPoint =
+        (totalQualityPoints / widget.restaurant!.review!.length)
+            .toStringAsFixed(1);
     return Row(
       children: [
         LocaleText(
@@ -882,7 +957,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         CustomCircularProgress(
           valueColor: AppColors.pinkColor,
           ratingText: qualityPoints.isNotEmpty ? avgQualityPoint : '0.0',
-          value: qualityPoints.isNotEmpty ? double.parse(avgQualityPoint) / 5 : 0.0,
+          value: qualityPoints.isNotEmpty
+              ? double.parse(avgQualityPoint) / 5
+              : 0.0,
         ),
       ],
     );
@@ -894,9 +971,12 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
       int servicePoint = widget.restaurant!.review![i].servicePoint!;
       servicePoints.add(servicePoint);
     }
-    int totalServicePoints = servicePoints.fold(0, (previousValue, element) => previousValue + element);
+    int totalServicePoints = servicePoints.fold(
+        0, (previousValue, element) => previousValue + element);
 
-    String avgServicePoint = (totalServicePoints / widget.restaurant!.review!.length).toStringAsFixed(1);
+    String avgServicePoint =
+        (totalServicePoints / widget.restaurant!.review!.length)
+            .toStringAsFixed(1);
     return Row(
       children: [
         LocaleText(
@@ -907,7 +987,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           width: 10.w,
         ),
         CustomCircularProgress(
-          value: servicePoints.isNotEmpty ? double.parse(avgServicePoint) / 5 : 0.0,
+          value: servicePoints.isNotEmpty
+              ? double.parse(avgServicePoint) / 5
+              : 0.0,
           valueColor: AppColors.greenColor,
           ratingText: servicePoints.isNotEmpty ? avgServicePoint : '0.0',
         ),
@@ -925,9 +1007,11 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         color: AppColors.scaffoldBackgroundColor,
       ),
       child: Text(
-        widget.restaurant!.packageSettings!.minDiscountedOrderPrice.toString() + " TL",
+        widget.restaurant!.packageSettings!.minDiscountedOrderPrice.toString() +
+            " TL",
         textAlign: TextAlign.center,
-        style: AppTextStyles.bodyBoldTextStyle.copyWith(fontWeight: FontWeight.w700, color: AppColors.greenColor),
+        style: AppTextStyles.bodyBoldTextStyle
+            .copyWith(fontWeight: FontWeight.w700, color: AppColors.greenColor),
       ),
     );
   }
@@ -935,8 +1019,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
   Text oldPriceText() {
     return Text(
       widget.restaurant!.packageSettings!.minOrderPrice.toString() + " TL",
-      style: AppTextStyles.bodyBoldTextStyle
-          .copyWith(decoration: TextDecoration.lineThrough, color: AppColors.unSelectedpackageDeliveryColor),
+      style: AppTextStyles.bodyBoldTextStyle.copyWith(
+          decoration: TextDecoration.lineThrough,
+          color: AppColors.unSelectedpackageDeliveryColor),
     );
   }
 
@@ -953,7 +1038,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               ),
               child: Text(
                 "${state.packages.length} ${LocaleKeys.restaurant_detail_packet_container_package.locale}",
-                style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
+                style: AppTextStyles.bodyBoldTextStyle
+                    .copyWith(color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             )
@@ -967,7 +1053,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               ),
               child: Text(
                 LocaleKeys.restaurant_detail_packet_container_sold_out.locale,
-                style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
+                style: AppTextStyles.bodyBoldTextStyle
+                    .copyWith(color: Colors.white),
               ),
             );
     } else
@@ -992,7 +1079,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           Text(
             "${widget.restaurant!.packageSettings!.deliveryTimeStart!}-${widget.restaurant!.packageSettings!.deliveryTimeEnd}",
             textAlign: TextAlign.center,
-            style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.yellowColor),
+            style: AppTextStyles.bodyBoldTextStyle
+                .copyWith(color: AppColors.yellowColor),
           ),
         ],
       ),
@@ -1024,7 +1112,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           width: 180.w,
           child: Text(
             widget.restaurant!.name!,
-            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w600),
+            style: AppTextStyles.appBarTitleStyle
+                .copyWith(fontWeight: FontWeight.w600),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -1058,7 +1147,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         ));
   }
 
-  Container packageCourierAndFavoriteContainer(BuildContext context, BoxState state) {
+  Container packageCourierAndFavoriteContainer(
+      BuildContext context, BoxState state) {
     context.read<AllFavoriteCubit>().getFavorite();
 
     return Container(
@@ -1075,8 +1165,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 height: 36.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: widget.restaurant!.packageSettings!.deliveryType == "1" ||
-                          widget.restaurant!.packageSettings!.deliveryType == "3"
+                  color: widget.restaurant!.packageSettings!.deliveryType ==
+                              "1" ||
+                          widget.restaurant!.packageSettings!.deliveryType ==
+                              "3"
                       ? AppColors.greenColor
                       : Colors.white,
                 ),
@@ -1084,8 +1176,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   padding: EdgeInsets.all(context.dynamicHeight(0.004)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_PACKAGE_ICON,
-                    color: widget.restaurant!.packageSettings!.deliveryType == "1" ||
-                            widget.restaurant!.packageSettings!.deliveryType == "3"
+                    color: widget.restaurant!.packageSettings!.deliveryType ==
+                                "1" ||
+                            widget.restaurant!.packageSettings!.deliveryType ==
+                                "3"
                         ? Colors.white
                         : AppColors.unSelectedpackageDeliveryColor,
                   ),
@@ -1099,8 +1193,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 height: 36.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: widget.restaurant!.packageSettings!.deliveryType == "2" ||
-                          widget.restaurant!.packageSettings!.deliveryType == "3"
+                  color: widget.restaurant!.packageSettings!.deliveryType ==
+                              "2" ||
+                          widget.restaurant!.packageSettings!.deliveryType ==
+                              "3"
                       ? AppColors.greenColor
                       : Colors.white,
                 ),
@@ -1108,8 +1204,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   padding: EdgeInsets.all(context.dynamicHeight(0.006)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_COURIER_ICON,
-                    color: widget.restaurant!.packageSettings!.deliveryType == "2" ||
-                            widget.restaurant!.packageSettings!.deliveryType == "3"
+                    color: widget.restaurant!.packageSettings!.deliveryType ==
+                                "2" ||
+                            widget.restaurant!.packageSettings!.deliveryType ==
+                                "3"
                         ? Colors.white
                         : AppColors.unSelectedpackageDeliveryColor,
                   ),
@@ -1118,7 +1216,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
             ],
           ),
           Builder(builder: (context) {
-            final GenericState stateOfFavorites = context.watch<AllFavoriteCubit>().state;
+            final GenericState stateOfFavorites =
+                context.watch<AllFavoriteCubit>().state;
 
             if (stateOfFavorites is GenericInitial) {
               return Container();
@@ -1126,7 +1225,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               return Row(
                 children: [
                   LocaleText(
-                    text: !isFavorite ? LocaleKeys.restaurant_detail_text3 : LocaleKeys.restaurant_detail_text4,
+                    text: !isFavorite
+                        ? LocaleKeys.restaurant_detail_text3
+                        : LocaleKeys.restaurant_detail_text4,
                     style: AppTextStyles.bodyTextStyle,
                   ),
                   SizedBox(
@@ -1134,7 +1235,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   ),
                   SvgPicture.asset(
                     ImageConstant.RESTAURANT_FAVORITE_ICON,
-                    color: isFavorite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                    color: isFavorite
+                        ? AppColors.orangeColor
+                        : AppColors.unSelectedpackageDeliveryColor,
                   ),
                 ],
               );
@@ -1149,7 +1252,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               return Row(
                 children: [
                   LocaleText(
-                    text: !isFavorite ? LocaleKeys.restaurant_detail_text3 : LocaleKeys.restaurant_detail_text4,
+                    text: !isFavorite
+                        ? LocaleKeys.restaurant_detail_text3
+                        : LocaleKeys.restaurant_detail_text4,
                     style: AppTextStyles.bodyTextStyle,
                   ),
                   SizedBox(
@@ -1158,21 +1263,26 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                   GestureDetector(
                     onTap: () {
                       if (SharedPrefs.getIsLogined) {
-                        context.read<FavoriteCubit>().toggleIsFavorite(context, widget.restaurant!);
+                        context
+                            .read<FavoriteCubit>()
+                            .toggleIsFavorite(context, widget.restaurant!);
                       } else {
                         Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
                       }
                     },
                     child: SvgPicture.asset(
                       ImageConstant.RESTAURANT_FAVORITE_ICON,
-                      color: isFavorite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                      color: isFavorite
+                          ? AppColors.orangeColor
+                          : AppColors.unSelectedpackageDeliveryColor,
                     ),
                   ),
                 ],
               );
             } else {
               final error = stateOfFavorites as GenericError;
-              return Center(child: Text("${error.message}\n${error.statusCode}"));
+              return Center(
+                  child: Text("${error.message}\n${error.statusCode}"));
             }
           })
         ],

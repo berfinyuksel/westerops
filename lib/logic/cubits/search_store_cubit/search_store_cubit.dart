@@ -20,7 +20,6 @@ class SearchStoreCubit extends Cubit<GenericState> {
 
   Future<void> getSearches(String query) async {
     try {
-      
       emit(GenericLoading());
       final response = await _searchStoreRepository.getSearches(query.toLowerCase());
       emit(GenericCompleted(response));

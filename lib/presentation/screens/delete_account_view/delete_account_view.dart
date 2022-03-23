@@ -35,6 +35,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
       body: buildBody(context),
     );
   }
+  
 
   Padding buildBody(BuildContext context) {
     return Padding(
@@ -111,7 +112,8 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
               builder: (_) => CustomAlertDialogResetPassword(
                     description:
                         LocaleKeys.delete_account_popup_text_successful.locale,
-                    onPressed: () => Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf')),
+                    onPressed: () => Navigator.of(context)
+    .pushNamedAndRemoveUntil(RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false),
                   ));
         } else {
           showDialog(
@@ -119,7 +121,8 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
               builder: (_) => CustomAlertDialogResetPassword(
                     description:
                         LocaleKeys.delete_account_popup_text_fail.locale,
-                    onPressed: () =>Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf')),
+                    onPressed: () =>Navigator.of(context)
+    .pushNamedAndRemoveUntil(RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false),
                   ));
         }
       },
