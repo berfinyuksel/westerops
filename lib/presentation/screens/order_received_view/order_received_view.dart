@@ -73,7 +73,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   }
 
   void onClickedNotification(String? payload) {
-    Navigator.of(context).pushNamed(RouteConstant.NOTIFICATION_VIEW);
+    Navigator.of(context).pushNamed(RouteConstant.SURPRISE_PACK_VIEW);
   }
 
   @override
