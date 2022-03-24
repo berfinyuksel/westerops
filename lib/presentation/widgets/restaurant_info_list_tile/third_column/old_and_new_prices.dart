@@ -27,22 +27,20 @@ class OldAndNewPrices extends StatelessWidget {
       children: [
         Text(
           '$minOrderPrice TL',
-          style: textStyle!.copyWith(
-              color: Color(0xFFBCBCBC), decoration: TextDecoration.lineThrough),
+          style: textStyle!.copyWith(color: Color(0xFFBCBCBC), decoration: TextDecoration.lineThrough),
         ),
         Container(
-          alignment: Alignment.center,
           margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
-          width: width,
-          height: height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4.0),
             color: AppColors.scaffoldBackgroundColor,
           ),
-          child: Text(
-            '$minDiscountedOrderPrice TL',
-            style: AppTextStyles.bodyBoldTextStyle
-                .copyWith(color: AppColors.greenColor),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: height! * 0.1, horizontal: width! * 0.1),
+            child: Text(
+              '$minDiscountedOrderPrice TL',
+              style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.greenColor),
+            ),
           ),
         ),
       ],

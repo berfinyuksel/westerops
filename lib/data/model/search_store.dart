@@ -83,7 +83,7 @@ class SearchStore {
             List<Review>.from(json["review"].map((x) => Review.fromJson(x))),
         favoritedBy: List<StoreOwner>.from(
             json["favorited_by"].map((x) => StoreOwner.fromJson(x))),
-        packageSettings: PackageSettings.fromJson(json["package_settings"]),
+        packageSettings:json["package_settings"] == null ? null : PackageSettings.fromJson(json["package_settings"]),
         storeMeals: List<StoreMeal>.from(
             json["store_meals"].map((x) => StoreMeal.fromJson(x))),
         categories: List<Category>.from(

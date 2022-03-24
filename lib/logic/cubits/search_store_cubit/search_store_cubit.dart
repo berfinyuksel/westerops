@@ -9,6 +9,7 @@ class SearchStoreCubit extends Cubit<GenericState> {
   String? categoryName;
   SearchStoreCubit(this._searchStoreRepository) : super(GenericInitial());
   List<SearchStore> searchStores = [];
+  List<String> popularSearchesList = [];
   Future<void> getSearchStore() async {
     try {
       final response = await _searchStoreRepository.getSearchStores();
@@ -22,13 +23,19 @@ class SearchStoreCubit extends Cubit<GenericState> {
     try {
       emit(GenericLoading());
       final response = await _searchStoreRepository.getSearches(query.toLowerCase());
+      print('get searches response is: ' + response.length.toString());
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));
     }
   }
 
-  void changeCategoryName(String category) {
-    categoryName = category;
+  void getPopulerSearchesList() {
+    popularSearchesList.clear();
+    searchStores.forEach((store) {
+      store.storeMeals!.forEach((meal) {
+        popularSearchesList.add(meal.name!);
+      });
+    });
   }
 }
