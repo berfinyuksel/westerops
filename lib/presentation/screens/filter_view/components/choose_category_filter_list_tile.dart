@@ -51,19 +51,19 @@ class _ChooseCategoryFilterListState extends State<ChooseCategoryFilterList> {
                   Builder(builder: (context) {
                     final stateOfCategories =
                         context.watch<CategoryNameCubit>().state;
-                    if (stateOfCategories is GenericInitial) {
+                    if (stateOfCategories is CategoryNameInital) {
                       return Container(color: Colors.white);
-                    } else if (stateOfCategories is GenericLoading) {
+                    } else if (stateOfCategories is CategoryNameLoading) {
                       return Container(
                           color: Colors.white,
                           child:
                               Center(child: CustomCircularProgressIndicator()));
-                    } else if (stateOfCategories is GenericCompleted) {
+                    } else if (stateOfCategories is CategoryNameCompleted) {
                       List<Result> categoryInfo = [];
                       for (int i = 0;
-                          i < stateOfCategories.response.length;
+                          i < stateOfCategories.response!.length;
                           i++) {
-                        categoryInfo.add(stateOfCategories.response[i]);
+                        categoryInfo.add(stateOfCategories.response![i]);
                       }
                       return ListView.builder(
                           shrinkWrap: true,

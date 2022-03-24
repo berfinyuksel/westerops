@@ -20,7 +20,7 @@ class ContactConfirmationListTile extends StatelessWidget {
       tileColor: Colors.white,
       title: LocaleText(
         text: LocaleKeys.general_settings_contact_confirmation,
-        style: AppTextStyles.subTitleStyle,
+        style: AppTextStyles.subTitleStyle.copyWith(height: 1.5),
       ),
     );
   }

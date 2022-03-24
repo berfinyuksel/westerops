@@ -30,6 +30,7 @@ class _PastOrderViewState extends State<PastOrderView> {
   Widget build(BuildContext context) {
     context.read<OrderReceivedCubit>().getPastOrder();
     return CustomScaffold(
+        isNavBar: true,
         title: LocaleKeys.past_order_title,
         body: Builder(builder: (context) {
           final GenericState state = context.watch<OrderReceivedCubit>().state;

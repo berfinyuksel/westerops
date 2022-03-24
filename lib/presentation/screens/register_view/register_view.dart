@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:validators/validators.dart';
 
+import '../../../data/services/apple_login_controller.dart';
 import '../../../data/services/auth_service.dart';
 import '../../../data/services/facebook_login_controller.dart';
 import '../../../utils/constants/image_constant.dart';
@@ -69,11 +72,11 @@ class _RegisterViewState extends State<RegisterView> {
               child: buildBackground,
             ),
             Positioned(
-              top: 57.h,
-              left: 0,
+              top: 28.h,
+              left: 5.w,
               child: IconButton(
                 icon: SvgPicture.asset(ImageConstant.BACK_ICON,
-                    color: Colors.white),
+                    width: 20.w, height: 20.w, color: Colors.white),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
@@ -99,193 +102,190 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Padding buildCardBody(BuildContext context) {
+  Widget buildCardBody(BuildContext context) {
     String phoneTR = '+90' + phoneController.text;
     //String phoneEN = '+1' + phoneController.text;
 
-    return Padding(
+    return Container(
       padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom * 0.65),
-      child: Container(
-        padding: EdgeInsets.only(
-          bottom: 20.h,
+        bottom: 20.h,
+      ),
+      height: 630.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(18.0),
         ),
-        height: 630.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(18.0),
-          ),
-          color: Colors.white,
-        ),
-        child: Column(
-          children: [
-            SizedBox(height: 21.h),
-            LocaleText(
-              text: LocaleKeys.register_text_register,
-              maxLines: 1,
-              style: AppTextStyles.appBarTitleStyle,
-            ),
-            SizedBox(height: 19.5.h),
-            Divider(
-              height: 0,
-              thickness: 4,
-              color: AppColors.borderAndDividerColor,
-            ),
-            SizedBox(height: 20.5.h),
-            Expanded(
-              flex: 5,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 28.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    buildDropDown(context),
-                    Container(
-                      height: 56.h,
-                      width: 245.w,
-                      child: buildTextFormField(
-                          LocaleKeys.register_phone.locale,
-                          phoneController,
-                          (val) => !isNumeric(phoneController.text)
-                              ? "Invalid Phone"
-                              : null),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Spacer(
-              flex: 2,
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 28.w),
-                child: buildTextFormField(LocaleKeys.register_full_name.locale,
-                    nameController, (value) {
-                      return null;
-                    }),
-              ),
-            ),
-            SizedBox(height: 20.h),
-            Expanded(
-              flex: 5,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 28.w),
-                child: buildTextFormField(
-                    LocaleKeys.register_email.locale,
-                    emailController,
-                    (val) =>
-                        isEmail(emailController.text) ? "Invalid Email" : null),
-              ),
-            ),
-            SizedBox(height: 20.h),
-            Expanded(
-              flex: 5,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 28.w),
-                child: buildTextFormFieldPassword(
-                    LocaleKeys.register_password.locale),
-              ),
-            ),
-            SizedBox(height: 20.h),
-            /* Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: 21.h),
+          buildHeader(),
+          SizedBox(height: 19.5.h),
+          buildDivider(),
+          SizedBox(height: 20.5.h),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  buildCheckBox(context),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  ConsentText(),
+                  buildPhoneField(context),
+                  SizedBox(height: 20.h),
+                  buildNameField(),
+                  SizedBox(height: 20.h),
+                  buildEmailField(),
+                  SizedBox(height: 20.h),
+                  buildPasswordField(),
+                  SizedBox(height: 20.h),
+                  buildRegisterButton(phoneTR, context),
+                  SizedBox(height: 20.h),
+                  ContractText(),
+                  SizedBox(height: 20.h),
+                  buildSocialAuths(context),
+                  SizedBox(height: 27.h),
                 ],
               ),
-            ), */
-            CustomButton(
-                width: context.dynamicWidht(0.4),
-                title: LocaleKeys.register_text_register,
-                textColor: Colors.white,
-                color:  AppColors.greenColor
-                    ,
-                borderColor: checkboxValue
-                    ? AppColors.greenColor
-                    : AppColors.disabledButtonColor,
-                onPressed: () {
-                  bool numberControl =
-                      passwordController.text.contains(RegExp(r'[0-9]'));
-                  bool uppercaseControl =
-                      passwordController.text.contains(RegExp(r'[A-Z]'));
-                  bool phoneControl = phoneTR.length >= 13;
-                  String firstName = nameController.text;
-                  String lastName = nameController.text;
-                  firstName.split(" ");
-                  lastName.split(" ");
-                  if (phoneController.text.isEmpty ||
-                      firstName.isEmpty ||
-                      lastName.isEmpty ||
-                      emailController.text.isEmpty ||
-                      passwordController.text.isEmpty) {
-                    showDialog(
-                      context: context,
-                      builder: (_) => CustomErrorPopup(
-                        textMessage:
-                            LocaleKeys.register_fail_pop_up_text_title.locale,
-                        buttonOneTitle: LocaleKeys.payment_payment_cancel,
-                        buttonTwoTittle: LocaleKeys.address_address_approval,
-                        imagePath: ImageConstant.COMMONS_WARNING_ICON,
-                        onPressedOne: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    );
-                  } else if (!uppercaseControl ||
-                      !phoneControl ||
-                      !numberControl) {
-                    showDialog(
-                      context: context,
-                      builder: (_) => CustomErrorPopup(
-                        textMessage:
-                            "Eksik veya hatalı doldurdunuz. \nLütfen tekrar deneyiniz",
-                        buttonOneTitle: "Tamam",
-                        buttonTwoTittle: LocaleKeys.address_address_approval,
-                        imagePath: ImageConstant.COMMONS_WARNING_ICON,
-                        onPressedOne: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    );
-                  } else {
-                    //String phoneEN = '+1' + phoneController.text;
-                    if (nameController.text.isNotEmpty &&
-                        phoneController.text.isNotEmpty &&
-                        passwordController.text.isNotEmpty &&
-                        lastName.isNotEmpty &&
-                        firstName.isNotEmpty) {
-                      SharedPrefs.setUserName(firstName.split(" ").first);
-                      SharedPrefs.setUserLastName(lastName.split(" ").last);
-                      SharedPrefs.setUserPhone(phoneTR);
-                      SharedPrefs.setUserEmail(emailController.text);
-                      SharedPrefs.setUserPassword(passwordController.text);
-                      Navigator.popAndPushNamed(
-                          context, RouteConstant.REGISTER_VERIFY_VIEW);
-                    } else {
-                      ErrorAlertDialog(onTap: () {});
-                    }
-                  }
-                }),
-            SizedBox(height: 20.h),
-            ContractText(),
-            SizedBox(height: 20.h),
-            Expanded(
-              flex: 4,
-              child: buildSocialAuths(context),
             ),
-            SizedBox(height: 27.h),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+
+  CustomButton buildRegisterButton(String phoneTR, BuildContext context) {
+    return CustomButton(
+        width: 176.w,
+        title: LocaleKeys.register_text_register,
+        textColor: Colors.white,
+        color: AppColors.greenColor,
+        borderColor: AppColors.greenColor,
+        onPressed: () {
+          bool numberControl =
+              passwordController.text.contains(RegExp(r'[0-9]'));
+          bool uppercaseControl =
+              passwordController.text.contains(RegExp(r'[A-Z]'));
+          bool phoneControl = phoneTR.length >= 13;
+          String firstName = nameController.text;
+          String lastName = nameController.text;
+          firstName.split(" ");
+          lastName.split(" ");
+          if (phoneController.text.isEmpty ||
+              firstName.isEmpty ||
+              lastName.isEmpty ||
+              emailController.text.isEmpty ||
+              passwordController.text.isEmpty) {
+            showDialog(
+              context: context,
+              builder: (_) => CustomErrorPopup(
+                textMessage: LocaleKeys.register_fail_pop_up_text_title.locale,
+                buttonOneTitle: LocaleKeys.payment_payment_cancel,
+                buttonTwoTittle: LocaleKeys.address_address_approval,
+                imagePath: ImageConstant.COMMONS_WARNING_ICON,
+                onPressedOne: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            );
+          } else if (!uppercaseControl || !phoneControl || !numberControl) {
+            showDialog(
+              context: context,
+              builder: (_) => CustomErrorPopup(
+                textMessage:
+                    "Eksik veya hatalı doldurdunuz. \nLütfen tekrar deneyiniz",
+                buttonOneTitle: "Tamam",
+                buttonTwoTittle: LocaleKeys.address_address_approval,
+                imagePath: ImageConstant.COMMONS_WARNING_ICON,
+                onPressedOne: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            );
+          } else {
+            //String phoneEN = '+1' + phoneController.text;
+            if (nameController.text.isNotEmpty &&
+                phoneController.text.isNotEmpty &&
+                passwordController.text.isNotEmpty &&
+                lastName.isNotEmpty &&
+                firstName.isNotEmpty) {
+              SharedPrefs.setUserName(firstName.split(" ").first);
+              SharedPrefs.setUserLastName(lastName.split(" ").last);
+              SharedPrefs.setUserPhone(phoneTR);
+              SharedPrefs.setUserEmail(emailController.text);
+              SharedPrefs.setUserPassword(passwordController.text);
+              Navigator.popAndPushNamed(
+                  context, RouteConstant.REGISTER_VERIFY_VIEW);
+            } else {
+              ErrorAlertDialog(onTap: () {});
+            }
+          }
+        });
+  }
+
+  Container buildPasswordField() {
+    return Container(
+      height: 52.h,
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
+      child: buildTextFormFieldPassword(LocaleKeys.register_password.locale),
+    );
+  }
+
+  Container buildEmailField() {
+    return Container(
+      height: 52.h,
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
+      child: buildTextFormField(
+          false,
+          LocaleKeys.register_email.locale,
+          emailController,
+          (val) => isEmail(emailController.text) ? "Invalid Email" : null),
+    );
+  }
+
+  Container buildNameField() {
+    return Container(
+      height: 52.h,
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
+      child: buildTextFormField(
+          false, LocaleKeys.register_full_name.locale, nameController, (value) {
+        return null;
+      }),
+    );
+  }
+
+  Container buildPhoneField(BuildContext context) {
+    return Container(
+      height: 52.h,
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          buildDropDown(context),
+          SizedBox(width: 5.w),
+          Expanded(
+            child: buildTextFormField(
+                true,
+                LocaleKeys.register_phone.locale,
+                phoneController,
+                (val) =>
+                    !isNumeric(phoneController.text) ? "Invalid Phone" : null),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Divider buildDivider() {
+    return Divider(
+      height: 0,
+      thickness: 4,
+      color: AppColors.borderAndDividerColor,
+    );
+  }
+
+  LocaleText buildHeader() {
+    return LocaleText(
+      text: LocaleKeys.register_text_register,
+      maxLines: 1,
+      style: AppTextStyles.appBarTitleStyle,
     );
   }
 
@@ -315,38 +315,53 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Padding buildSocialAuths(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 45.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              AuthService().loginWithGmail();
-              Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
-            },
-            child: SignWithSocialAuth(
-              image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
-            ),
+  Widget buildSocialAuths(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Visibility(
+            visible: !Platform.isAndroid,
+            child: GestureDetector(
+                onTap: () async {
+                  await AppleSignInController().login();
+                  Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      RouteConstant.CUSTOM_SCAFFOLD,
+                      ModalRoute.withName('/scaf'));
+                },
+                child: SignWithSocialAuth(
+                  text: LocaleKeys.register_social_auth_apple,
+                  image: ImageConstant.REGISTER_LOGIN_APPLE_ICON,
+                ))),
+        SizedBox(height: 12.h),
+        GestureDetector(
+          onTap: () {
+            AuthService().loginWithGmail();
+            Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+          },
+          child: SignWithSocialAuth(
+            text: LocaleKeys.register_social_auth_google,
+            image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
           ),
-          GestureDetector(
-            onTap: () {
-              FacebookSignInController().login();
-              Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
-            },
-            child: SignWithSocialAuth(
-              image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
-            ),
+        ),
+        SizedBox(height: 12.h),
+        GestureDetector(
+          onTap: () {
+            FacebookSignInController().login();
+            Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+          },
+          child: SignWithSocialAuth(
+            text: LocaleKeys.register_social_auth_facebook,
+            image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Container get buildBackground {
     return Container(
-      height: context.dynamicHeight(1.15),
+      height: context.dynamicHeight(1),
       width: context.dynamicWidht(1),
       decoration: BoxDecoration(),
       child: SvgPicture.asset(
@@ -461,7 +476,7 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  TextFormField buildTextFormField(String labelText,
+  TextFormField buildTextFormField(bool isCharacterLimited, String labelText,
       TextEditingController controller, String? Function(String?)? validator) {
     String phoneTR = '+90';
     String phoneEN = '+1';
@@ -476,6 +491,9 @@ class _RegisterViewState extends State<RegisterView> {
       },
       validator: validator,
       inputFormatters: [
+        isCharacterLimited
+            ? LengthLimitingTextInputFormatter(10)
+            : LengthLimitingTextInputFormatter(null),
         //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
         controller == phoneController
             ? FilteringTextInputFormatter.digitsOnly

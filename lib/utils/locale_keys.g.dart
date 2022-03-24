@@ -70,6 +70,8 @@ abstract class  LocaleKeys {
   static const register_password_rules = 'register.password_rules';
   static const register_social_auth = 'register.social_auth';
   static const register_social_auth_apple = 'register.social_auth_apple';
+  static const register_social_auth_facebook = 'register.social_auth_facebook';
+  static const register_social_auth_google = 'register.social_auth_google';
   static const register = 'register';
   static const login_error_alert_dialog_text1 = 'login.error_alert_dialog_text1';
   static const login_error_alert_dialog_text2 = 'login.error_alert_dialog_text2';
@@ -607,6 +609,7 @@ abstract class  LocaleKeys {
   static const my_notifications_tab_bar_title_title2 = 'my_notifications.tab_bar_title.title2';
   static const my_notifications_tab_bar_title_title3 = 'my_notifications.tab_bar_title.title3';
   static const my_notifications_tab_bar_title_sign_in_to_monitor = 'my_notifications.tab_bar_title.sign_in_to_monitor';
+  static const my_notifications_tab_bar_title_empty_text = 'my_notifications.tab_bar_title.empty_text';
   static const my_notifications_tab_bar_title = 'my_notifications.tab_bar_title';
   static const my_notifications_delete_text_text = 'my_notifications.delete_text.text';
   static const my_notifications_delete_text = 'my_notifications.delete_text';

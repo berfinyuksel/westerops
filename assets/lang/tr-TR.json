@@ -81,7 +81,9 @@
             "character": "8 karakter"
         },
         "social_auth": "Devam et",
-        "social_auth_apple": "Apple ile devam et"
+        "social_auth_apple": "Apple ile devam et",
+        "social_auth_facebook": "Facebook ile devam et",
+        "social_auth_google": "Google ile devam et"
     },
     "login": {
         "error_alert_dialog_text1": "Yeni iseniz",
@@ -95,7 +97,7 @@
         "phone": "Cep Telefonu",
         "password": "Şifre",
         "forgot_pass": "Şifremi Unuttum",
-        "dont_have_account": "Hesabın yok mu? ",
+        "dont_have_account": "Hesabın yok mu?  ",
         "sign_up": "Üye Ol"
     },
     "forgot_password": {
@@ -675,7 +677,8 @@
             "title1": "Siparişlerim",
             "title2": "Tümü",
             "title3": "Bana Özel",
-            "sign_in_to_monitor": "Bildirimlerinizi görüntülemek için giriş yapınız."
+            "sign_in_to_monitor": "Bildirimlerinizi görüntülemek için giriş yapınız.",
+            "empty_text": "Herhangi bir bildiriminiz bulunmamaktadır."
         },
         "delete_text": {
             "text": "Sil"

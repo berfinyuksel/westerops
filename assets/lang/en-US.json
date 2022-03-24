@@ -672,10 +672,11 @@
     },
     "my_notifications": {
         "tab_bar_title": {
-            "title1": "My Orders",
-            "title2": "All",
-            "title3": "Special to Me",
-            "sign_in_to_monitor": "Please login to view your notifications."
+            "title1": "Siparişlerim",
+            "title2": "Tümü",
+            "title3": "Bana Özel",
+            "sign_in_to_monitor": "Bildirimlerinizi görüntülemek için giriş yapınız.",
+            "empty_text": "Herhangi bir bildiriminiz bulunmamaktadır."
         },
         "delete_text": {
             "text": "Delete"

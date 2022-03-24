@@ -14,7 +14,7 @@ class SampleCategoryNameRepository implements CategoryNameRepository {
     final response = await http.get(
       Uri.parse("https://dongu.api.westerops.com/en/box/category-name/"),
     );
-
+  
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(
           utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters

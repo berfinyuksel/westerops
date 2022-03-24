@@ -6,6 +6,7 @@ import 'package:dongu_mobile/presentation/screens/login_view/components/error_di
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -43,9 +44,11 @@ class _LoginViewState extends State<LoginView> {
   String dropdownValue = "TR";
   String? token;
   String _errorTitle = "'Üzgünüz\ngiriş yapamadınız.'";
-  String _errorDescription = "Lütfen daha önce aynı mail\n adresiniz\n ile giriş yapmadığınızdan\n emin olun.";
+  String _errorDescription =
+      "Lütfen daha önce aynı mail\n adresiniz\n ile giriş yapmadığınızdan\n emin olun.";
   String _errorServiceTitle = "Sunucu\nhatası giriş yapamadınız";
-  String _errorServiceDescription = "Bilinmeyen bir\nsunucu hatası lütfen\n tekrar deneyiniz. ";
+  String _errorServiceDescription =
+      "Bilinmeyen bir\nsunucu hatası lütfen\n tekrar deneyiniz. ";
   void notificationToken() async {
     token = await FirebaseMessaging.instance.getToken();
   }
@@ -76,8 +79,13 @@ class _LoginViewState extends State<LoginView> {
               top: 28.h,
               left: 5.w,
               child: IconButton(
-                icon: Icon(Icons.close, color: Colors.white),
-                onPressed: () => Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
+                icon: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                  size: 25.w,
+                ),
+                onPressed: () =>
+                    Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
               ),
             ),
             Positioned(
@@ -92,146 +100,173 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  SingleChildScrollView buildCardBody(BuildContext context) {
-    return SingleChildScrollView(
-      reverse: true,
-      child: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Container(
-          padding: EdgeInsets.only(
-            bottom: 20.h,
-          ),
-          height: 503.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(18.0.h),
-            ),
-            color: Colors.white,
-          ),
-          child: Column(
-            children: [
-              SizedBox(height: 21.h),
-              LocaleText(
-                text: LocaleKeys.login_text_login,
-                maxLines: 1,
-                style: AppTextStyles.appBarTitleStyle,
-              ),
-              SizedBox(height: 19.5.h),
-              Divider(
-                thickness: 4,
-                height: 0,
-                color: AppColors.borderAndDividerColor,
-              ),
-              SizedBox(height: 20.5.h),
-              Expanded(
-                flex: 4,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 28.w,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      buildDropDown(context),
-                      Container(
-                        height: 56.h,
-                        width: 245.w,
-                        child: buildTextFormField(LocaleKeys.register_phone.locale, phoneController,
-                            (val) => !isNumeric(phoneController.text) ? "Invalid Phone" : null),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 20.h),
-              Expanded(
-                flex: 4,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 28.w,
-                  ),
-                  child: buildTextFormField(LocaleKeys.register_password.locale, passwordController, (val) {
-                    return null;
-                  }),
-                ),
-              ),
-              SizedBox(height: 26.h),
-              CustomButton(
-                width: 176.w,
-                title: LocaleKeys.login_text_login,
-                textColor: Colors.white,
-                color: AppColors.greenColor,
-                borderColor: AppColors.greenColor,
-                onPressed: () async {
-                  String phoneTR = '+90' + phoneController.text;
-                  bool lengthControl = passwordController.text.length > 7;
-                  bool phoneControl = phoneTR.length >= 13;
-                  //String phoneEN = '+1' + phoneController.text;
-                  if (lengthControl ||
-                      phoneControl ||
-                      passwordController.text.isEmpty ||
-                      passwordController.text.isEmpty) {
-                    _showMyDialog();
-                  }
-                  await context.read<UserAuthCubit>().loginUser(phoneTR, passwordController.text);
-                  _showMyDialog();
-                  if (SharedPrefs.getIsLogined) {
-                    if (Platform.isAndroid) {
-                      context.read<NotificationCubit>().postNotification(token!, "android");
-                    } else if (Platform.isIOS) {
-                      context.read<NotificationCubit>().postNotification(token!, "ios");
-                      // iOS-specific code
-                    }
-                  }
-                  if (SharedPrefs.getIsLogined) {
-                    Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
-                  }
-                },
-              ),
-              SizedBox(height: 16.h),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, RouteConstant.FORGOT_PASSWORD_VIEW);
-                },
-                child: LocaleText(
-                  text: LocaleKeys.login_forgot_pass,
-                  style: AppTextStyles.bodyTextStyle,
-                  maxLines: 1,
-                ),
-              ),
-              SizedBox(height: 32.h),
-              buildSocialAuths(context),
-              SizedBox(height: 20.h),
-              AutoSizeText.rich(
-                TextSpan(
-                  style: AppTextStyles.bodyTextStyle,
-                  children: [
-                    TextSpan(
-                      text: LocaleKeys.login_dont_have_account.locale,
-                      style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.pushNamed(context, RouteConstant.REGISTER_VIEW);
-                        },
-                      text: LocaleKeys.login_sign_up.locale,
-                      style: GoogleFonts.montserrat(
-                        color: AppColors.greenColor,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 20.h),
-            ],
-          ),
+  Widget buildCardBody(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+        bottom: 20.h,
+      ),
+      height: 630.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(18.0.h),
+        ),
+        color: Colors.white,
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 21.h),
+            buildHeader(),
+            SizedBox(height: 19.5.h),
+            buildDivider(),
+            SizedBox(height: 20.5.h),
+            buildPhoneField(context),
+            SizedBox(height: 20.h),
+            buildPasswordField(),
+            SizedBox(height: 26.h),
+            buildLoginButton(context),
+            SizedBox(height: 26.h),
+            buildForgotPassword(context),
+            SizedBox(height: 36.h),
+            buildSocialAuths(context),
+            SizedBox(height: 36.h),
+            buildRegisterTextButton(context),
+          ],
         ),
       ),
+    );
+  }
+
+  AutoSizeText buildRegisterTextButton(BuildContext context) {
+    return AutoSizeText.rich(
+      TextSpan(
+        style: AppTextStyles.bodyTextStyle,
+        children: [
+          TextSpan(
+            text: LocaleKeys.login_dont_have_account.locale,
+            style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+          TextSpan(
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                Navigator.pushNamed(context, RouteConstant.REGISTER_VIEW);
+              },
+            text: LocaleKeys.login_sign_up.locale,
+            style: GoogleFonts.montserrat(
+              color: AppColors.greenColor,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  GestureDetector buildForgotPassword(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, RouteConstant.FORGOT_PASSWORD_VIEW);
+      },
+      child: LocaleText(
+        text: LocaleKeys.login_forgot_pass,
+        style: AppTextStyles.bodyTextStyle,
+        maxLines: 1,
+      ),
+    );
+  }
+
+  CustomButton buildLoginButton(BuildContext context) {
+    return CustomButton(
+      width: 176.w,
+      title: LocaleKeys.login_text_login,
+      textColor: Colors.white,
+      color: AppColors.greenColor,
+      borderColor: AppColors.greenColor,
+      onPressed: () async {
+        String phoneTR = '+90' + phoneController.text;
+        bool lengthControl = passwordController.text.length > 7;
+        bool phoneControl = phoneTR.length >= 13;
+        //String phoneEN = '+1' + phoneController.text;
+        if (lengthControl ||
+            phoneControl ||
+            passwordController.text.isEmpty ||
+            passwordController.text.isEmpty) {
+          _showMyDialog();
+        }
+        await context
+            .read<UserAuthCubit>()
+            .loginUser(phoneTR, passwordController.text);
+        _showMyDialog();
+        if (SharedPrefs.getIsLogined) {
+          if (Platform.isAndroid) {
+            context
+                .read<NotificationCubit>()
+                .postNotification(token!, "android");
+          } else if (Platform.isIOS) {
+            context.read<NotificationCubit>().postNotification(token!, "ios");
+            // iOS-specific code
+          }
+        }
+        if (SharedPrefs.getIsLogined) {
+          Navigator.pushNamedAndRemoveUntil(context,
+              RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+        }
+      },
+    );
+  }
+
+  Container buildPasswordField() {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 28.w,
+      ),
+      height: 52.h,
+      child: buildTextFormField(
+          false, LocaleKeys.register_password.locale, passwordController,
+          (val) {
+        return null;
+      }),
+    );
+  }
+
+  Container buildPhoneField(BuildContext context) {
+    return Container(
+      height: 52.h,
+      padding: EdgeInsets.symmetric(horizontal: 28.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          buildDropDown(context),
+          SizedBox(width: 5.w),
+          Expanded(
+            child: buildTextFormField(
+                true,
+                LocaleKeys.register_phone.locale,
+                phoneController,
+                (val) =>
+                    !isNumeric(phoneController.text) ? "Invalid Phone" : null),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Divider buildDivider() {
+    return Divider(
+      thickness: 4,
+      height: 0,
+      color: AppColors.borderAndDividerColor,
+    );
+  }
+
+  LocaleText buildHeader() {
+    return LocaleText(
+      text: LocaleKeys.login_text_login,
+      maxLines: 1,
+      style: AppTextStyles.appBarTitleStyle,
     );
   }
 
@@ -249,7 +284,8 @@ class _LoginViewState extends State<LoginView> {
           return AlertDialog(
             contentPadding: EdgeInsets.zero,
             content: Container(
-              padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
               width: context.dynamicWidht(0.87),
               height: context.dynamicHeight(0.29),
               decoration: BoxDecoration(
@@ -276,9 +312,10 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   CustomButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+                      Navigator.pushNamed(
+                          context, RouteConstant.CUSTOM_SCAFFOLD);
                     },
-                    width: 35.w,
+                    width: 110.w,
                     color: AppColors.greenColor,
                     textColor: Colors.white,
                     borderColor: AppColors.greenColor,
@@ -300,84 +337,85 @@ class _LoginViewState extends State<LoginView> {
 
   Widget buildSocialAuths(BuildContext context) {
     return Column(children: [
-      Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        GestureDetector(
-          onTap: () async {
-            await AuthService().loginWithGmail();
-
-            if (sl<LoginStatusCubit>().state == 403) {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SocailAuthErrorPopup(
-                      title: _errorTitle,
-                      description: _errorDescription,
-                    );
-                  });
-            } else if (sl<LoginStatusCubit>().state != 200) {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SocailAuthErrorPopup(
-                      title: _errorServiceTitle,
-                      description: _errorServiceDescription,
-                    );
-                  });
-            } else {
-                   Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
-
-            }
-          },
-          child: SignWithSocialAuth(
-            image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
-          ),
-        ),
-        GestureDetector(
-          onTap: () async {
-            await FacebookSignInController().login();
-            if (sl<LoginStatusCubit>().state == 403) {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SocailAuthErrorPopup(
-                      title: _errorTitle,
-                      description: _errorDescription,
-                    );
-                  });
-            } else if (sl<LoginStatusCubit>().state != 200) {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SocailAuthErrorPopup(
-                      title: _errorServiceTitle,
-                      description: _errorServiceDescription,
-                    );
-                  });
-            } else {
-                    Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
-
-            }
-          },
-          child: SignWithSocialAuth(
-            image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
-          ),
-        ),
-      ]),
-      SizedBox(height: 10.h),
       Visibility(
           visible: !Platform.isAndroid,
-          child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 110.h),
-              child: GestureDetector(
-                  onTap: () async {
-                    await AppleSignInController().login();
-                          Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+          child: GestureDetector(
+              onTap: () async {
+                await AppleSignInController().login();
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteConstant.CUSTOM_SCAFFOLD,
+                    ModalRoute.withName('/scaf'));
+              },
+              child: SignWithSocialAuth(
+                text: LocaleKeys.register_social_auth_apple,
+                image: ImageConstant.REGISTER_LOGIN_APPLE_ICON,
+              ))),
+      SizedBox(height: 12.h),
+      GestureDetector(
+        onTap: () async {
+          await AuthService().loginWithGmail();
 
-                  },
-                  child: SignWithSocialAuth(
-                    isApple: true,
-                    image: ImageConstant.REGISTER_LOGIN_APPLE_ICON,
-                  ))))
+          if (sl<LoginStatusCubit>().state == 403) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SocailAuthErrorPopup(
+                    title: _errorTitle,
+                    description: _errorDescription,
+                  );
+                });
+          } else if (sl<LoginStatusCubit>().state != 200) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SocailAuthErrorPopup(
+                    title: _errorServiceTitle,
+                    description: _errorServiceDescription,
+                  );
+                });
+          } else {
+            Navigator.pushNamedAndRemoveUntil(context,
+                RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+          }
+        },
+        child: SignWithSocialAuth(
+          text: LocaleKeys.register_social_auth_google,
+          image: ImageConstant.REGISTER_LOGIN_GOOGLE_ICON,
+        ),
+      ),
+      SizedBox(height: 12.h),
+      GestureDetector(
+        onTap: () async {
+          await FacebookSignInController().login();
+          if (sl<LoginStatusCubit>().state == 403) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SocailAuthErrorPopup(
+                    title: _errorTitle,
+                    description: _errorDescription,
+                  );
+                });
+          } else if (sl<LoginStatusCubit>().state != 200) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SocailAuthErrorPopup(
+                    title: _errorServiceTitle,
+                    description: _errorServiceDescription,
+                  );
+                });
+          } else {
+            Navigator.pushNamedAndRemoveUntil(context,
+                RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+          }
+        },
+        child: SignWithSocialAuth(
+          text: LocaleKeys.register_social_auth_facebook,
+          image: ImageConstant.REGISTER_LOGIN_FACEBOOK_ICON,
+        ),
+      ),
     ]);
   }
 
@@ -387,7 +425,7 @@ class _LoginViewState extends State<LoginView> {
       width: context.dynamicWidht(1),
       decoration: BoxDecoration(),
       child: SvgPicture.asset(
-        ImageConstant.LOGIN_BACKGROUND,
+        ImageConstant.REGISTER_BACKGROUND,
         fit: BoxFit.cover,
       ),
     );
@@ -395,7 +433,6 @@ class _LoginViewState extends State<LoginView> {
 
   Container buildDropDown(BuildContext context) {
     return Container(
-      height: 56.h,
       width: 81.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -413,18 +450,21 @@ class _LoginViewState extends State<LoginView> {
           child: const Icon(Icons.keyboard_arrow_down),
         ),
         iconSize: 15,
-        style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        style:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         onChanged: (String? newValue) {
           setState(() {
             dropdownValue = newValue!;
           });
         },
-        items: <String>['TR', 'EN'].map<DropdownMenuItem<String>>((String value) {
+        items:
+            <String>['TR', 'EN'].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: AutoSizeText(
               value,
-              style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+              style: AppTextStyles.bodyTextStyle
+                  .copyWith(fontWeight: FontWeight.w600),
               maxLines: 1,
             ),
           );
@@ -433,12 +473,14 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  TextFormField buildTextFormField(
-      String labelText, TextEditingController controller, String? Function(String?)? validator) {
+  Widget buildTextFormField(bool isCharacterLimited, labelText,
+      TextEditingController controller, String? Function(String?)? validator) {
     String phoneTR = '+90';
     String phoneEN = '+1';
     return TextFormField(
-      keyboardType: controller == phoneController ? TextInputType.number : TextInputType.visiblePassword,
+      keyboardType: controller == phoneController
+          ? TextInputType.number
+          : TextInputType.visiblePassword,
       //  focusNode: FocusScope.of(context).focusedChild!.children.first,
       validator: validator,
       cursorColor: AppColors.cursorColor,
@@ -446,14 +488,17 @@ class _LoginViewState extends State<LoginView> {
       controller: controller,
       obscureText: enableObscure && controller == passwordController,
       decoration: InputDecoration(
-        prefixStyle: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+        prefixStyle:
+            AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         prefixText: controller == phoneController
             ? dropdownValue == 'TR'
                 ? phoneTR
                 : phoneEN
             : "",
         suffixIconConstraints: controller == passwordController
-            ? BoxConstraints.tightFor(width: context.dynamicWidht(0.09), height: context.dynamicWidht(0.06))
+            ? BoxConstraints.tightFor(
+                width: context.dynamicWidht(0.09),
+                height: context.dynamicWidht(0.06))
             : null,
         suffixIcon: controller == passwordController
             ? Padding(
@@ -479,11 +524,13 @@ class _LoginViewState extends State<LoginView> {
         labelText: labelText,
         labelStyle: AppTextStyles.bodyTextStyle,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 2),
+          borderSide:
+              BorderSide(color: AppColors.borderAndDividerColor, width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
         border: OutlineInputBorder(
@@ -491,6 +538,11 @@ class _LoginViewState extends State<LoginView> {
           borderRadius: BorderRadius.circular(4.0),
         ),
       ),
+      inputFormatters: [
+        isCharacterLimited
+            ? LengthLimitingTextInputFormatter(10)
+            : LengthLimitingTextInputFormatter(null)
+      ],
     );
   }
 }

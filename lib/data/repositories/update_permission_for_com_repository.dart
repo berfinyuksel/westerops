@@ -6,15 +6,13 @@ enum StatusCode { success, error, unauthecticated }
 
 class UpdatePermissonRepository {
   Future<StatusCode> updateEmailPermission(bool updateBool) async {
+
     String json = '{"allow_email": $updateBool}';
 
     final response = await http.patch(
       Uri.parse("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
       body: json,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'JWT ${SharedPrefs.getToken}'
-      },
+      headers: {'Content-Type': 'application/json', 'Authorization': 'JWT ${SharedPrefs.getToken}'},
     );
 
     switch (response.statusCode) {
@@ -33,12 +31,8 @@ class UpdatePermissonRepository {
     final response = await http.patch(
       Uri.parse("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
       body: json,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'JWT ${SharedPrefs.getToken}'
-      },
+      headers: {'Content-Type': 'application/json', 'Authorization': 'JWT ${SharedPrefs.getToken}'},
     );
-    
 
     switch (response.statusCode) {
       case 200:

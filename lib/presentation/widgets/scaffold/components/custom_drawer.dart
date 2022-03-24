@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 import '../../../../data/services/auth_service.dart';
 import '../../../../data/services/facebook_login_controller.dart';
@@ -24,7 +25,8 @@ import 'drawer_list_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({
+  final InAppReview inAppReview = InAppReview.instance;
+  CustomDrawer({
     Key? key,
   }) : super(
           key: key,
@@ -37,6 +39,7 @@ class CustomDrawer extends StatelessWidget {
       child: Drawer(
         child: CustomScaffold(
           isDrawer: true,
+          isNavBar: true,
           title: LocaleKeys.custom_drawer_title,
           body: ListView(
             padding: EdgeInsets.only(bottom: 40.h),
@@ -46,9 +49,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(left: 28.w),
-                child: SharedPrefs.getIsLogined
-                    ? buildLoginedProfile(context)
-                    : buildAuthButtons(context),
+                child: SharedPrefs.getIsLogined ? buildLoginedProfile(context) : buildAuthButtons(context),
               ),
               SizedBox(
                 height: 30.h,
@@ -58,16 +59,14 @@ class CustomDrawer extends StatelessWidget {
                   onTap: () {
                     SharedPrefs.getIsLogined == false
                         ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                        : Navigator.pushNamed(
-                            context, RouteConstant.MY_INFORMATION_VIEW);
+                        : Navigator.pushNamed(context, RouteConstant.MY_INFORMATION_VIEW);
                   }),
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_past_orders,
                 onTap: () {
                   SharedPrefs.getIsLogined == false
                       ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                      : Navigator.pushNamed(
-                          context, RouteConstant.PAST_ORDER_VIEW);
+                      : Navigator.pushNamed(context, RouteConstant.PAST_ORDER_VIEW);
                 },
               ),
               DrawerListTile(
@@ -75,8 +74,7 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () {
                   SharedPrefs.getIsLogined == false
                       ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                      : Navigator.pushNamed(
-                          context, RouteConstant.ADDRESS_VIEW);
+                      : Navigator.pushNamed(context, RouteConstant.ADDRESS_VIEW);
                 },
               ),
               DrawerListTile(
@@ -84,8 +82,7 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () {
                   SharedPrefs.getIsLogined == false
                       ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                      : Navigator.pushNamed(
-                          context, RouteConstant.MY_REGISTERED_CARD_VIEW);
+                      : Navigator.pushNamed(context, RouteConstant.MY_REGISTERED_CARD_VIEW);
                 },
               ),
               SizedBox(
@@ -100,8 +97,7 @@ class CustomDrawer extends StatelessWidget {
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_general_settings,
                 onTap: () {
-                  Navigator.pushNamed(
-                      context, RouteConstant.GENERAL_SETTINGS_VIEW);
+                  Navigator.pushNamed(context, RouteConstant.GENERAL_SETTINGS_VIEW);
                 },
               ),
               // DrawerListTile(
@@ -115,12 +111,16 @@ class CustomDrawer extends StatelessWidget {
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_change_location,
                 onTap: () {
-                  Navigator.pushNamed(
-                      context, RouteConstant.CHANGE_LOCATION_VIEW);
+                  Navigator.pushNamed(context, RouteConstant.CHANGE_LOCATION_VIEW);
                 },
               ),
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_rate_app,
+                onTap: () async {
+                  if (await inAppReview.isAvailable()) {
+                    inAppReview.requestReview();
+                  }
+                },
               ),
               SizedBox(
                 height: 40.h,
@@ -146,9 +146,7 @@ class CustomDrawer extends StatelessWidget {
               SizedBox(
                 height: 40.h,
               ),
-              Visibility(
-                  visible: SharedPrefs.getIsLogined,
-                  child: buildLogoutButton(context)),
+              Visibility(visible: SharedPrefs.getIsLogined, child: buildLogoutButton(context)),
             ],
           ),
         ),
@@ -184,8 +182,7 @@ class CustomDrawer extends StatelessWidget {
           // FacebookSignInController().logOut();
           // AuthService().logOutFromGmail();
           SharedPrefs.clearCache();
-          Navigator.pushReplacementNamed(
-              context, RouteConstant.CUSTOM_SCAFFOLD);
+          Navigator.pushReplacementNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
           //Navigator.pop(context);
         },
       ),

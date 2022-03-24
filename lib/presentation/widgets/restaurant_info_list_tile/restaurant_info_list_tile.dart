@@ -47,36 +47,30 @@ class RestaurantInfoListTile extends StatefulWidget {
 class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: Colors.white, border: widget.border),
-      padding: EdgeInsets.fromLTRB(
-        26.w,
-        20.h,
-        0.w,
-        20.h,
-      ),
-      height: 124.h,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          buildFirstColumn(context, widget.packetNumber!, widget.icon!),
-          Spacer(flex: 1),
-          buildSecondColumn(context, widget.restaurantName!),
-          // Spacer(flex: 4),
-          buildThirdColumn(context, widget.distance!, widget.availableTime!),
-          Spacer(flex: 1),
-          GestureDetector(
-              onTap: widget.onPressed,
-              child: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON)),
-          Spacer(),
-        ],
+    return Card(
+      child: Container(
+        decoration: BoxDecoration(color: Colors.white, border: widget.border),
+        padding: EdgeInsets.all(10.w),
+        height: 124.h,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            buildFirstColumn(context, widget.packetNumber!, widget.icon!),
+            Spacer(),
+            buildSecondColumn(context, widget.restaurantName!),
+            // Spacer(flex: 4),
+            buildThirdColumn(context, widget.distance!, widget.availableTime!),
+            Spacer(),
+            GestureDetector(onTap: widget.onPressed, child: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON)),
+            Spacer(),
+          ],
+        ),
       ),
     );
   }
 
-  Column buildThirdColumn(
-      BuildContext context, String distance, String availableTime) {
+  Column buildThirdColumn(BuildContext context, String distance, String availableTime) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -161,8 +155,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
     );
   }
 
-  Column buildFirstColumn(
-      BuildContext context, String packetNumber, String icon) {
+  Column buildFirstColumn(BuildContext context, String packetNumber, String icon) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
