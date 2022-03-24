@@ -16,8 +16,6 @@ class BoxCubit extends Cubit<BoxState> {
       emit(BoxLoading());
       final response = await _boxRepository.getBoxes(id);
       packetNumber = response;
-      print("PACKET NUMBER: $packetNumber");
-      print("PACKET NUMBER LENGTH: ${packetNumber.length}");
       emit(BoxCompleted(packetNumber));
     } on NetworkError catch (e) {
       debugPrint(e.toString());

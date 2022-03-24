@@ -38,7 +38,6 @@ class _CustomHorizontalListCategoryState extends State<CustomHorizontalListCateg
             }
             int radius = 38;
             double sumOfRadius = 0;
-            print("RESULTS ${state.response!.length}");
             return ListView.separated(
               itemCount: results.length,
               scrollDirection: Axis.horizontal,

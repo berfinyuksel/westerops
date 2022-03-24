@@ -1,4 +1,5 @@
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../data/services/locator.dart';
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -35,7 +37,6 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
       body: buildBody(context),
     );
   }
-  
 
   Padding buildBody(BuildContext context) {
     return Padding(
@@ -106,6 +107,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
             .read<UserAuthCubit>()
             .deleteAccountUser(selectedIndex.toString());
         SharedPrefs.clearCache();
+        sl<BasketCounterCubit>().decrement();
         if (selectedIndex >= 0 || textController.text.isNotEmpty) {
           showDialog(
               context: context,
@@ -113,7 +115,8 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
                     description:
                         LocaleKeys.delete_account_popup_text_successful.locale,
                     onPressed: () => Navigator.of(context)
-    .pushNamedAndRemoveUntil(RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false),
+                        .pushNamedAndRemoveUntil(RouteConstant.CUSTOM_SCAFFOLD,
+                            (Route<dynamic> route) => false),
                   ));
         } else {
           showDialog(
@@ -121,8 +124,9 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
               builder: (_) => CustomAlertDialogResetPassword(
                     description:
                         LocaleKeys.delete_account_popup_text_fail.locale,
-                    onPressed: () =>Navigator.of(context)
-    .pushNamedAndRemoveUntil(RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false),
+                    onPressed: () => Navigator.of(context)
+                        .pushNamedAndRemoveUntil(RouteConstant.CUSTOM_SCAFFOLD,
+                            (Route<dynamic> route) => false),
                   ));
         }
       },
