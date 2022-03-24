@@ -13,13 +13,13 @@ import '../../../../../data/model/box.dart';
 import '../../../../../data/model/category_name.dart';
 import '../../../../../data/model/search_store.dart';
 import '../../../../../data/repositories/basket_repository.dart';
-import '../../../../../data/repositories/category_name_repository.dart';
 import '../../../../../data/services/locator.dart';
 import '../../../../../data/shared/shared_prefs.dart';
 import '../../../../../logic/cubits/address_cubit/address_cubit.dart';
 import '../../../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import '../../../../../logic/cubits/box_cubit/box_cubit.dart';
 import '../../../../../logic/cubits/box_cubit/box_state.dart';
+import '../../../../../logic/cubits/category_name_cubit/category_name_cubit.dart';
 import '../../../../../logic/cubits/favourite_cubit/favourite_cubit.dart';
 import '../../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../../../logic/cubits/order_cubit/order_cubit.dart';
@@ -60,40 +60,18 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
 
   List<String>? favouritedRestaurants = SharedPrefs.getFavorites;
   String mealNames = '';
-  String categoryNames = '';
-  List<Result> relatedCategories = [];
 
   TabController? _controller;
   @override
   void initState() {
     super.initState();
-    // print('custom card and body restaurant is: ' + widget.restaurant!.categories!.first.name.toString());
     _controller = TabController(length: 2, vsync: this);
     definedBoxes.clear();
     context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
     context.read<SearchStoreCubit>().getSearchStore();
     context.read<AllFavoriteCubit>().getFavorite();
     context.read<AddressCubit>().getActiveAddress();
-    getResultCategories();
-  }
-
-  void getResultCategories() {
-    final resultCategories = sl<SampleCategoryNameRepository>().categoryNames;
-    for (var i = 0; i < resultCategories.length; i++) {
-      for (var j = 0; j < widget.restaurant!.categories!.length; j++) {
-        if (resultCategories[i].id == widget.restaurant!.categories![j].name) {
-          print('restaurant id' + widget.restaurant!.categories![j].name.toString());
-          relatedCategories.add(resultCategories[i]);
-        }
-      }
-    }
-    print("result categories: " + resultCategories.length.toString());
-    print("related categories: " + relatedCategories.length.toString());
-    List<String> nameList = [];
-    for (var i = 0; i < relatedCategories.length; i++) {
-      nameList.add(relatedCategories[i].name!);
-    }
-    categoryNames = nameList.join(', ');
+    // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
   }
 
   @override
@@ -361,34 +339,65 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
     );
   }
 
-  Widget buildCategoriesSection(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
-            arguments: ScreenArgumentsCategories(categoriesList: relatedCategories));
-      },
-      child: Container(
-        color: AppColors.appBarColor,
-        width: double.infinity,
-        height: 100.h,
-        padding: EdgeInsets.symmetric(horizontal: 28.w),
-        child: ListTile(
-          contentPadding: EdgeInsets.only(bottom: 7.h),
-          title: LocaleText(
-            text: LocaleKeys.restaurant_detail_detail_tab_title6,
-            style: AppTextStyles.subTitleStyle,
+  Builder buildCategoriesSection(BuildContext context) {
+    return Builder(builder: (context) {
+      final stateOfCategories = context.watch<CategoryNameCubit>().state;
+
+      if (stateOfCategories is CategoryNameInital) {
+        return Container();
+      } else if (stateOfCategories is CategoryNameLoading) {
+        return Center(child: CustomCircularProgressIndicator());
+      } else if (stateOfCategories is CategoryNameCompleted) {
+        List<Result> categoryList = [];
+        List<Result> relatedCategories = [];
+        for (var i = 0; i < stateOfCategories.response!.length; i++) {
+          categoryList.add(stateOfCategories.response![i]);
+        }
+
+        for (var i = 0; i < categoryList.length; i++) {
+          for (var j = 0; j < widget.restaurant!.categories!.length; j++) {
+            if (categoryList[i].id == widget.restaurant!.categories![j].id) {
+              relatedCategories.add(categoryList[i]);
+            }
+          }
+        }
+        List<String> nameList = [];
+        for (var i = 0; i < relatedCategories.length; i++) {
+          nameList.add(relatedCategories[i].name!);
+        }
+        String categoryNames = nameList.join(', ');
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
+                arguments: ScreenArgumentsCategories(categoriesList: relatedCategories));
+          },
+          child: Container(
+            color: AppColors.appBarColor,
+            width: double.infinity,
+            height: 100.h,
+            padding: EdgeInsets.symmetric(horizontal: 28.w),
+            child: ListTile(
+              contentPadding: EdgeInsets.only(bottom: 7.h),
+              title: LocaleText(
+                text: LocaleKeys.restaurant_detail_detail_tab_title6,
+                style: AppTextStyles.subTitleStyle,
+              ),
+              subtitle: Text(
+                categoryNames,
+                style: AppTextStyles.myInformationBodyTextStyle,
+              ),
+              trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+            ),
           ),
-          subtitle: Text(
-            categoryNames,
-            style: AppTextStyles.myInformationBodyTextStyle,
-          ),
-          trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-        ),
-      ),
-    );
+        );
+      } else {
+        final error = stateOfCategories as GenericError;
+        return Center(child: Text("${error.message}\n${error.statusCode}"));
+      }
+    });
   }
 
-  Widget tabPackages(BuildContext context, BoxCompleted state) {
+  Column tabPackages(BuildContext context, BoxCompleted state) {
     List<Box> boxLists = [];
     for (var i = 0; i < state.packages.length; i++) {
       boxLists.add(state.packages[i]);
@@ -403,83 +412,83 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
       }
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 20.h,
-          ),
-          Column(
-            children: [
-              SizedBox(height: 20.h),
-              Padding(
-                padding: EdgeInsets.only(left: 28.w),
-                child: Column(
-                  children: [
-                    restaurantInfoIconAndSubTitle(context),
-                    Divider(
-                      thickness: 5,
-                      color: AppColors.borderAndDividerColor,
-                    )
-                  ],
-                ),
+    return Column(
+      children: [
+        SizedBox(
+          height: 20.h,
+        ),
+        Column(
+          children: [
+            SizedBox(height: 20.h),
+            Padding(
+              padding: EdgeInsets.only(left: 28.w),
+              child: Column(
+                children: [
+                  restaurantInfoIconAndSubTitle(context),
+                  Divider(
+                    thickness: 5,
+                    color: AppColors.borderAndDividerColor,
+                  )
+                ],
               ),
+            ),
+          ],
+        ),
+        SizedBox(height: 20.h),
+        Visibility(
+            visible: surpriseBoxes.isEmpty,
+            child: Center(
+              child: LocaleText(
+                text: LocaleKeys.restaurant_detail_detail_tab_sub_title8,
+              ),
+            )),
+        ListView.builder(
+          itemCount: surpriseBoxes.length,
+          itemBuilder: (context, index) {
+            return buildBox(context, index, state, surpriseBoxes);
+          },
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+        ),
+        SizedBox(
+          height: 40.h,
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 28.w),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  LocaleText(
+                    text: LocaleKeys.restaurant_detail_sub_title2,
+                    style: AppTextStyles.bodyTitleStyle,
+                  ),
+                ],
+              ),
+              Divider(
+                thickness: 5,
+                color: AppColors.borderAndDividerColor,
+              )
             ],
           ),
-          SizedBox(height: 20.h),
-          Visibility(
-              visible: surpriseBoxes.isEmpty,
-              child: Center(
-                child: LocaleText(
-                  text: LocaleKeys.restaurant_detail_detail_tab_sub_title8,
-                ),
-              )),
-          ListView.builder(
-            itemCount: surpriseBoxes.length,
-            itemBuilder: (context, index) {
-              return buildBox(context, index, state, surpriseBoxes);
-            },
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-          ),
-          SizedBox(
-            height: 40.h,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 28.w),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    LocaleText(
-                      text: LocaleKeys.restaurant_detail_sub_title2,
-                      style: AppTextStyles.bodyTitleStyle,
-                    ),
-                  ],
-                ),
-                Divider(
-                  thickness: 5,
-                  color: AppColors.borderAndDividerColor,
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 20.h),
-          definedBoxess.isEmpty
-              ? LocaleText(
-                  text: LocaleKeys.restaurant_detail_detail_tab_sub_title9,
-                )
-              : ListView.builder(
-                  itemCount: definedBoxess.length,
-                  itemBuilder: (context, index) {
-                    return buildBox(context, index, state, definedBoxess);
-                  },
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                ),
-          SizedBox(height: 20.h),
-        ],
-      ),
+        ),
+        SizedBox(height: 20.h),
+        Visibility(
+            visible: definedBoxess.isEmpty,
+            child: Center(
+              child: LocaleText(
+                text: LocaleKeys.restaurant_detail_detail_tab_sub_title9,
+              ),
+            )),
+        ListView.builder(
+          itemCount: definedBoxess.length,
+          itemBuilder: (context, index) {
+            return buildBox(context, index, state, definedBoxess);
+          },
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+        ),
+      ],
     );
   }
 
@@ -590,98 +599,71 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
                 style: AppTextStyles.subTitleStyle,
               ),
               SizedBox(height: 20.h),
-              Builder(builder: (context) {
-                final GenericState stateOfSearchStore = context.watch<SearchStoreCubit>().state;
-                if (stateOfSearchStore is GenericInitial) {
-                  print("GENERIC INITIAL ");
-                  return Container();
-                } else if (stateOfSearchStore is GenericLoading) {
-                  print("GENERIC LOADING ");
-                  return Center(child: SizedBox(height: 0, width: 0));
-                } else if (stateOfSearchStore is GenericCompleted) {
-                  print("GENERIC COMPLETED ");
-
-                  List<SearchStore> chosenRestaurat = [];
-                  for (var i = 0; i < stateOfSearchStore.response.length; i++) {
-                    if (stateOfSearchStore.response[i].id == state.packages[index].store) {
-                      chosenRestaurat.add(stateOfSearchStore.response[i]);
-                      priceOfMenu = chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice;
-                      oldPriceOfMenu = chosenRestaurat[0].packageSettings!.minOrderPrice;
-                    }
-                  }
-
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        width: 69.w,
-                        height: 36.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4.0),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 5.w),
-                          child: Text(
-                            chosenRestaurat[0].packageSettings!.minOrderPrice.toString() + " TL",
-                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                                decoration: TextDecoration.lineThrough,
-                                color: AppColors.unSelectedpackageDeliveryColor),
-                          ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: 69.w,
+                    height: 36.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 5.w),
+                      child: Text(
+                        chosenRestaurat[0].packageSettings!.minOrderPrice.toString() + " TL",
+                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                            decoration: TextDecoration.lineThrough, color: AppColors.unSelectedpackageDeliveryColor),
+                      ),
+                    ),
+                  ),
+                  Spacer(flex: 1),
+                  Container(
+                    alignment: Alignment.center,
+                    width: 69.w,
+                    height: 36.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: AppColors.scaffoldBackgroundColor,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 5.w),
+                      child: Text(
+                        chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice.toString() + " TL",
+                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                          color: AppColors.greenColor,
                         ),
                       ),
-                      Spacer(flex: 1),
-                      Container(
-                        alignment: Alignment.center,
-                        width: 69.w,
-                        height: 36.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4.0),
-                          color: AppColors.scaffoldBackgroundColor,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 5.w),
-                          child: Text(
-                            chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice.toString() + " TL",
-                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                              color: AppColors.greenColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Spacer(flex: 4),
-                      Builder(
-                        builder: (context) {
-                          SharedPrefs.setSumPrice(context.watch<SumPriceOrderCubit>().state);
-                          SharedPrefs.setOldSumPrice(context.watch<SumOldPriceOrderCubit>().state);
-                          int? menuItem = state.packages[index].id;
-                          final counterState = context.watch<BasketCounterCubit>().state;
-                          return Builder(builder: (context) {
-                            return CustomButton(
-                              title: menuList!.contains(menuItem.toString())
-                                  ? LocaleKeys.restaurant_detail_button_text2
-                                  : LocaleKeys.restaurant_detail_button_text,
-                              color:
-                                  menuList!.contains(menuItem.toString()) ? Colors.transparent : AppColors.greenColor,
-                              textColor: menuList!.contains(menuItem.toString()) ? AppColors.greenColor : Colors.white,
-                              width: 110.w,
-                              borderColor: AppColors.greenColor,
-                              onPressed: () async {
-                                context.read<SwipeRouteButton>().swipeRouteButton(true);
-                                await pressedBuyButton(state, index, context, counterState, menuItem!);
-                              },
-                            );
-                          });
-                        },
-                      ),
-                    ],
-                  );
-                } else {
-                  final error = stateOfSearchStore as GenericError;
-                  return Center(child: Text("${error.message}\n${error.statusCode}"));
-                }
-              }),
+                    ),
+                  ),
+                  Spacer(flex: 4),
+                  Builder(
+                    builder: (context) {
+                      SharedPrefs.setSumPrice(context.watch<SumPriceOrderCubit>().state);
+                      SharedPrefs.setOldSumPrice(context.watch<SumOldPriceOrderCubit>().state);
+                      int? menuItem = state.packages[index].id;
+                      final counterState = context.watch<BasketCounterCubit>().state;
+                      return Builder(builder: (context) {
+                        return CustomButton(
+                          title: menuList!.contains(menuItem.toString())
+                              ? LocaleKeys.restaurant_detail_button_text2
+                              : LocaleKeys.restaurant_detail_button_text,
+                          color: menuList!.contains(menuItem.toString()) ? Colors.transparent : AppColors.greenColor,
+                          textColor: menuList!.contains(menuItem.toString()) ? AppColors.greenColor : Colors.white,
+                          width: 110.w,
+                          borderColor: AppColors.greenColor,
+                          onPressed: () async {
+                            context.read<SwipeRouteButton>().swipeRouteButton(true);
+                            await pressedBuyButton(state, index, context, counterState, menuItem!);
+                          },
+                        );
+                      });
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         ),
