@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/presentation/screens/address_detail_view/tckn_validation/tckn_validation.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -139,44 +140,68 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                       ],
                     ),
                   ),
-                ),
-              ),
-              CustomButton(
-                width: double.infinity,
-                title: LocaleKeys.address_save,
-                color: AppColors.greenColor,
-                borderColor: AppColors.greenColor,
-                textColor: Colors.white,
-                onPressed: () {
-                  setState(() {});
-                  counter++;
-                  if (addressNameController.text.isNotEmpty &&
-                      descriptionController.text.isNotEmpty &&
-                      addressController.text.isNotEmpty &&
-                      phoneNumberController.text.isNotEmpty &&
-                      tcController.text.isNotEmpty &&
-                      descriptionController.text.isNotEmpty) {
-                    context.read<AddressCubit>().addAddress(
-                        addressNameController.text,
-                        adressType,
-                        addressController.text,
-                        descriptionController.text,
-                        "Türkiye",
-                        "Istanbul",
-                        districtController.text,
-                        phoneNumberController.text,
-                        tcController.text,
-                        LocationService.latitude,
-                        LocationService.longitude);
-                    Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
-                  } else {
-                    showDialog(
-                      context: context,
-                      builder: (_) => CustomAlertDialogResetPassword(
-                          description: LocaleKeys.address_pop_up_text.locale, onPressed: () => Navigator.of(context).pop()),
-                    );
-                  }
-                },
+                  addressController.text.isEmpty && counter > 0
+                      ? buildValidatorText(addressController)
+                      : SizedBox(),
+                  Spacer(flex: 10),
+                  buildTextFormField(
+                    LocaleKeys.address_address_description.locale,
+                    descriptionController,
+                  ),
+                  descriptionController.text.isEmpty && counter > 0
+                      ? buildValidatorText(descriptionController)
+                      : SizedBox(),
+                  Spacer(flex: 10),
+                  buildTextFormField(
+                    LocaleKeys.address_phone_number.locale,
+                    phoneNumberController,
+                  ),
+                  phoneNumberController.text.isEmpty && counter > 0
+                      ? buildValidatorText(phoneNumberController)
+                      : SizedBox(),
+                  Spacer(
+                    flex: 33,
+                  ),
+                  CustomButton(
+                    width: double.infinity,
+                    title: LocaleKeys.address_save,
+                    color: AppColors.greenColor,
+                    borderColor: AppColors.greenColor,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      setState(() {});
+                      counter++;
+                      if (addressNameController.text.isNotEmpty &&
+                          descriptionController.text.isNotEmpty &&
+                          addressController.text.isNotEmpty &&
+                          phoneNumberController.text.isNotEmpty &&
+                          tcController.text.isNotEmpty &&
+                          descriptionController.text.isNotEmpty && isTckimlikno(int.parse(tcController.text))) {
+                        context.read<AddressCubit>().addAddress(
+                            addressNameController.text,
+                            adressType,
+                            addressController.text,
+                            descriptionController.text,
+                            "Türkiye",
+                            "Istanbul",
+                            districtController.text,
+                            phoneNumberController.text,
+                            tcController.text,
+                            LocationService.latitude,
+                            LocationService.longitude);
+                            Navigator.pushNamedAndRemoveUntil(context, RouteConstant.ADDRESS_VIEW, ModalRoute.withName('/address'));
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (_) => CustomAlertDialogResetPassword(
+                              description:
+                                  LocaleKeys.address_pop_up_text.locale,
+                              onPressed: () => Navigator.of(context).pop()),
+                        );
+                      }
+                    },
+                  ),
+                ],
               ),
             ],
           ),
