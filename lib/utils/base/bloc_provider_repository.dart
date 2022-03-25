@@ -1,7 +1,6 @@
 import 'package:dongu_mobile/data/repositories/address_repository.dart';
 import 'package:dongu_mobile/data/repositories/box_repository.dart';
 import 'package:dongu_mobile/data/repositories/bulk_update_notifications_repository.dart';
-import 'package:dongu_mobile/data/repositories/category_name_repository.dart';
 import 'package:dongu_mobile/data/repositories/favourite_repository.dart';
 import 'package:dongu_mobile/data/repositories/filters_repository.dart';
 import 'package:dongu_mobile/data/repositories/get_notification_repository.dart';
@@ -26,7 +25,6 @@ import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.
 import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favorite_status_cubit/favorite_status_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/clean_button_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/favorites_filter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/filters_cubit.dart';
@@ -100,7 +98,6 @@ class BlocProviderRepository {
     BlocProvider<UserAuthCubit>(create: (context) => UserAuthCubit(SampleUserAuthenticationRepository())),
     BlocProvider<OrderCubit>(create: (context) => OrderCubit(SampleOrderRepository())),
     BlocProvider<FavoriteCubit>(create: (context) => FavoriteCubit(SampleFavoriteRepository())),
-    BlocProvider<AllFavoriteCubit>(create: (context) => sl<AllFavoriteCubit>()),
     BlocProvider<CategoryNameCubit>(create: (context) => sl<CategoryNameCubit>()),
     BlocProvider<AddressCubit>(create: (context) => AddressCubit(SampleAdressRepository())),
     BlocProvider<UserAddressCubit>(create: (context) => UserAddressCubit(SampleUserAdressRepository())),

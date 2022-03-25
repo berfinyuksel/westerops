@@ -4,7 +4,6 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favorite_status_cubit/favorite_status_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
@@ -70,7 +69,7 @@ class SplashCubit extends Cubit<SplashCubitState> {
   }
 
   checksIsLogin() async {
-    await sl<AllFavoriteCubit>().getFavorite();
+    await sl<FavoriteCubit>().getFavorite();
     if (sl<FavoriteStatusCubit>().state == 401) {
       SharedPrefs.logoutControl();
     } else if (sl<FavoriteStatusCubit>().state == 200) {

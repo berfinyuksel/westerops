@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
@@ -23,6 +22,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../logic/cubits/favourite_cubit/favourite_cubit.dart';
 import '../../../../utils/extensions/string_extension.dart';
 
 class FilterFavoritesView extends StatefulWidget {
@@ -43,13 +43,13 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
   @override
   void initState() {
     super.initState();
-    context.read<AllFavoriteCubit>().getFavorite();
+    context.read<FavoriteCubit>().getFavorite();
     context.read<SearchStoreCubit>().getSearchStore();
   }
 
   @override
   Widget build(BuildContext context) {
-    context.read<AllFavoriteCubit>().getFavorite();
+    context.read<FavoriteCubit>().getFavorite();
     return buildBuilder();
   }
 
@@ -74,7 +74,9 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
             onTap: () {
               FocusScope.of(context).unfocus();
             },
-            child: Center(child: buildBody(context, favourites, state)));
+            child: Center(
+             // child: buildBody(context, favourites, state)
+              ));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -82,89 +84,89 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
     });
   }
 
-  Builder buildBody(
-      BuildContext context, List<SearchStore> favourites, GenericState state) {
-    return Builder(builder: (context) {
-      final GenericState stateOfFavorites =
-          context.watch<AllFavoriteCubit>().state;
+  // Builder buildBody(
+  //     BuildContext context, List<SearchStore> favourites, GenericState state) {
+  //   return Builder(builder: (context) {
+  //     final GenericState stateOfFavorites ;
+  //         context.watch<FavoriteCubit>().state;
 
-      if (stateOfFavorites is GenericInitial) {
-        return Container(color: Colors.white);
-      } else if (stateOfFavorites is GenericLoading) {
-        return Container(
-            color: Colors.white,
-            child: Center(child: CustomCircularProgressIndicator()));
-      } else if (stateOfFavorites is GenericCompleted) {
-        List<SearchStore> favouriteRestaurant = [];
-        for (var i = 0; i < favourites.length; i++) {
-          for (var j = 0; j < stateOfFavorites.response.length; j++) {
-            if (favourites[i].id == stateOfFavorites.response[j].id) {
-              favouriteRestaurant.add(favourites[i]);
-            }
-          }
-        }
-        mapsMarkers = favouriteRestaurant;
+  //     if (stateOfFavorites is GenericInitial) {
+  //       return Container(color: Colors.white);
+  //     } else if (stateOfFavorites is GenericLoading) {
+  //       return Container(
+  //           color: Colors.white,
+  //           child: Center(child: CustomCircularProgressIndicator()));
+  //     } else if (stateOfFavorites is GenericCompleted) {
+  //       List<SearchStore> favouriteRestaurant = [];
+  //       for (var i = 0; i < favourites.length; i++) {
+  //         for (var j = 0; j < stateOfFavorites.response.length; j++) {
+  //           if (favourites[i].id == stateOfFavorites.response[j].id) {
+  //             favouriteRestaurant.add(favourites[i]);
+  //           }
+  //         }
+  //       }
+  //       mapsMarkers = favouriteRestaurant;
 
-        List<String> favoriteListForShared = [];
-        for (var i = 0; i < favouriteRestaurant.length; i++) {
-          favoriteListForShared.add(favouriteRestaurant[i].id.toString());
-        }
+  //       List<String> favoriteListForShared = [];
+  //       for (var i = 0; i < favouriteRestaurant.length; i++) {
+  //         favoriteListForShared.add(favouriteRestaurant[i].id.toString());
+  //       }
 
-        SharedPrefs.setFavoriteIdList(favoriteListForShared);
-        return CustomScaffold(
-          title: LocaleKeys.filters_done_title.locale,
-          isDrawer: false,
+  //       SharedPrefs.setFavoriteIdList(favoriteListForShared);
+  //       return CustomScaffold(
+  //         title: LocaleKeys.filters_done_title.locale,
+  //         isDrawer: false,
         
-          body: Column(
-            children: [
+  //         body: Column(
+  //           children: [
               
-              Visibility(
-                  visible: !isShowOnMap,
-                  child: !SharedPrefs.getIsLogined
-                      ? Padding(
-                          padding: EdgeInsets.all(24.h),
-                          child: LocaleText(
-                            alignment: ui.TextAlign.center,
-                            text: LocaleKeys.my_favorites_sign_in_to_monitor,
-                            style: AppTextStyles.bodyTextStyle
-                                .copyWith(color: AppColors.cursorColor),
-                          ),
-                        )
-                      : Expanded(
-                          child: favouriteRestaurant.isNotEmpty
-                              ? buildListViewRestaurantInfo(favouriteRestaurant)
-                              : Center(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: 40.h,
-                                      ),
-                                      SvgPicture.asset(
-                                          ImageConstant.SURPRISE_PACK_ALERT),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      LocaleText(
-                                        alignment: TextAlign.center,
-                                        text:
-                                            LocaleKeys.my_favorites_no_favorites,
-                                        style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ))),
-            ],
-          ),
-        );
-      } else {
-        final error = stateOfFavorites as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    });
-  }
+  //             Visibility(
+  //                 visible: !isShowOnMap,
+  //                 child: !SharedPrefs.getIsLogined
+  //                     ? Padding(
+  //                         padding: EdgeInsets.all(24.h),
+  //                         child: LocaleText(
+  //                           alignment: ui.TextAlign.center,
+  //                           text: LocaleKeys.my_favorites_sign_in_to_monitor,
+  //                           style: AppTextStyles.bodyTextStyle
+  //                               .copyWith(color: AppColors.cursorColor),
+  //                         ),
+  //                       )
+  //                     : Expanded(
+  //                         child: favouriteRestaurant.isNotEmpty
+  //                             ? buildListViewRestaurantInfo(favouriteRestaurant)
+  //                             : Center(
+  //                                 child: Column(
+  //                                   crossAxisAlignment: CrossAxisAlignment.center,
+  //                                   children: [
+  //                                     SizedBox(
+  //                                       height: 40.h,
+  //                                     ),
+  //                                     SvgPicture.asset(
+  //                                         ImageConstant.SURPRISE_PACK_ALERT),
+  //                                     SizedBox(
+  //                                       height: 20.h,
+  //                                     ),
+  //                                     LocaleText(
+  //                                       alignment: TextAlign.center,
+  //                                       text:
+  //                                           LocaleKeys.my_favorites_no_favorites,
+  //                                       style: GoogleFonts.montserrat(
+  //                                         fontWeight: FontWeight.w300,
+  //                                       ),
+  //                                     ),
+  //                                   ],
+  //                                 ),
+  //                               ))),
+  //           ],
+  //         ),
+  //       );
+  //     } else {
+  //       final error = stateOfFavorites as GenericError;
+  //       return Center(child: Text("${error.message}\n${error.statusCode}"));
+  //     }
+  //   });
+  // }
 
 
 
