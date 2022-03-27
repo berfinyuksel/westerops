@@ -49,41 +49,60 @@ class CustomDrawer extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(left: 28.w),
-                child: SharedPrefs.getIsLogined ? buildLoginedProfile(context) : buildAuthButtons(context),
+                child: SharedPrefs.getIsLogined
+                    ? buildLoginedProfile(context)
+                    : buildAuthButtons(context),
               ),
               SizedBox(
                 height: 30.h,
               ),
-              DrawerListTile(
-                  title: LocaleKeys.custom_drawer_body_list_tile_inform,
+              Visibility(
+                visible: SharedPrefs.getIsLogined == false ? false : true,
+                child: DrawerListTile(
+                    title: LocaleKeys.custom_drawer_body_list_tile_inform,
+                    onTap: () {
+                      SharedPrefs.getIsLogined == false
+                          ? Navigator.pushNamed(
+                              context, RouteConstant.LOGIN_VIEW)
+                          : Navigator.pushNamed(
+                              context, RouteConstant.MY_INFORMATION_VIEW);
+                    }),
+              ),
+              Visibility(
+                visible: SharedPrefs.getIsLogined == false ? false : true,
+                child: DrawerListTile(
+                  title: LocaleKeys.custom_drawer_body_list_tile_past_orders,
                   onTap: () {
                     SharedPrefs.getIsLogined == false
                         ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                        : Navigator.pushNamed(context, RouteConstant.MY_INFORMATION_VIEW);
-                  }),
-              DrawerListTile(
-                title: LocaleKeys.custom_drawer_body_list_tile_past_orders,
-                onTap: () {
-                  SharedPrefs.getIsLogined == false
-                      ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                      : Navigator.pushNamed(context, RouteConstant.PAST_ORDER_VIEW);
-                },
+                        : Navigator.pushNamed(
+                            context, RouteConstant.PAST_ORDER_VIEW);
+                  },
+                ),
               ),
-              DrawerListTile(
-                title: LocaleKeys.custom_drawer_body_list_tile_adresses,
-                onTap: () {
-                  SharedPrefs.getIsLogined == false
-                      ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                      : Navigator.pushNamed(context, RouteConstant.ADDRESS_VIEW);
-                },
+              Visibility(
+                visible: SharedPrefs.getIsLogined == false ? false : true,
+                child: DrawerListTile(
+                  title: LocaleKeys.custom_drawer_body_list_tile_adresses,
+                  onTap: () {
+                    SharedPrefs.getIsLogined == false
+                        ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
+                        : Navigator.pushNamed(
+                            context, RouteConstant.ADDRESS_VIEW);
+                  },
+                ),
               ),
-              DrawerListTile(
-                title: LocaleKeys.custom_drawer_body_list_tile_cards,
-                onTap: () {
-                  SharedPrefs.getIsLogined == false
-                      ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                      : Navigator.pushNamed(context, RouteConstant.MY_REGISTERED_CARD_VIEW);
-                },
+              Visibility(
+                visible: SharedPrefs.getIsLogined == false ? false : true,
+                child: DrawerListTile(
+                  title: LocaleKeys.custom_drawer_body_list_tile_cards,
+                  onTap: () {
+                    SharedPrefs.getIsLogined == false
+                        ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
+                        : Navigator.pushNamed(
+                            context, RouteConstant.MY_REGISTERED_CARD_VIEW);
+                  },
+                ),
               ),
               SizedBox(
                 height: 40.h,
@@ -97,7 +116,8 @@ class CustomDrawer extends StatelessWidget {
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_general_settings,
                 onTap: () {
-                  Navigator.pushNamed(context, RouteConstant.GENERAL_SETTINGS_VIEW);
+                  Navigator.pushNamed(
+                      context, RouteConstant.GENERAL_SETTINGS_VIEW);
                 },
               ),
               // DrawerListTile(
@@ -111,7 +131,8 @@ class CustomDrawer extends StatelessWidget {
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_change_location,
                 onTap: () {
-                  Navigator.pushNamed(context, RouteConstant.CHANGE_LOCATION_VIEW);
+                  Navigator.pushNamed(
+                      context, RouteConstant.CHANGE_LOCATION_VIEW);
                 },
               ),
               DrawerListTile(
@@ -146,7 +167,9 @@ class CustomDrawer extends StatelessWidget {
               SizedBox(
                 height: 40.h,
               ),
-              Visibility(visible: SharedPrefs.getIsLogined, child: buildLogoutButton(context)),
+              Visibility(
+                  visible: SharedPrefs.getIsLogined,
+                  child: buildLogoutButton(context)),
             ],
           ),
         ),
@@ -182,7 +205,8 @@ class CustomDrawer extends StatelessWidget {
           // FacebookSignInController().logOut();
           // AuthService().logOutFromGmail();
           SharedPrefs.clearCache();
-          Navigator.pushReplacementNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+          Navigator.pushReplacementNamed(
+              context, RouteConstant.CUSTOM_SCAFFOLD);
           //Navigator.pop(context);
         },
       ),
