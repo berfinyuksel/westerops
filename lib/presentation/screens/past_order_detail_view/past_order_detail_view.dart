@@ -172,7 +172,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
                 title: widget.orderInfo!.boxes![index].textName ?? '',
                 price:
                     (widget.orderInfo!.cost! / widget.orderInfo!.boxes!.length),
-                withDecimal: false,
+                withDecimal: true,
                 subTitle: widget.orderInfo!.boxes!.isEmpty ||
                         widget.orderInfo!.boxes![index].meals!.isEmpty
                     ? ""
@@ -192,7 +192,7 @@ class _PastOrderDetailViewState extends State<PastOrderDetailView> {
           title: LocaleKeys.past_order_detail_payment_1,
           price: widget.orderInfo!.cost!.toDouble(),
           lineTrough: false,
-          withDecimal: false,
+          withDecimal: true,
         ),
         PastOrderDetailTotalPaymentListTile(
           title: LocaleKeys.past_order_detail_payment_4,

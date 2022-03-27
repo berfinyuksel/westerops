@@ -31,7 +31,7 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
       ),
       trailing: Container(
         alignment: Alignment.centerRight,
-        width: 130.w,
+        width: 170.w,
         height: 40.h,
         child: Row(
           children: [
@@ -48,7 +48,7 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
             SizedBox(width: 10.w),
             Container(
               alignment: Alignment.center,
-              width: 60.w,
+              width: 80.w,
               height: 40.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4.0),

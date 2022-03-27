@@ -22,7 +22,7 @@ class PastOrderDetailTotalPaymentListTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: 26.w,
-        right: 26.w,
+        right: 32.w,
       ),
       trailing: Container(
         alignment: Alignment.center,

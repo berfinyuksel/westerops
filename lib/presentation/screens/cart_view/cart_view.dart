@@ -83,7 +83,6 @@ class _CartViewState extends State<CartView> {
         totalPayPrice();
         if (itemList.length == 0) {
           return Builder(builder: (context) {
-
             context.read<SumOldPriceOrderCubit>().clearOldPrice();
             context.read<SumPriceOrderCubit>().clearPrice();
             SharedPrefs.setOldSumPrice(0);
@@ -212,7 +211,7 @@ class _CartViewState extends State<CartView> {
                               .packageSetting!
                               .minDiscountedOrderPrice!
                               .toDouble(),
-                          withDecimal: false,
+                          withDecimal: true,
                           subTitle: "",
                         ),
                       );
@@ -228,20 +227,16 @@ class _CartViewState extends State<CartView> {
                 height: 10.h,
               ),
               Builder(builder: (context) {
-          
-
                 return PastOrderDetailPaymentListTile(
                   oldPrice: true,
                   oldPriceValue: totalBasketPrice(),
                   title: LocaleKeys.past_order_detail_payment_1,
                   price: totalPayPrice(),
                   lineTrough: false,
-                  withDecimal: false,
+                  withDecimal: true,
                 );
               }),
               Builder(builder: (context) {
-             
-
                 return PastOrderDetailTotalPaymentListTile(
                   title: LocaleKeys.past_order_detail_payment_4,
                   price: totalPayPrice(),
