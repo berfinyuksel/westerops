@@ -1,3 +1,5 @@
+import 'package:dongu_mobile/presentation/screens/surprise_pack_view/components/custom_alert_dialog.dart';
+import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
@@ -35,7 +37,7 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
       ),
       trailing: Container(
         alignment: Alignment.center,
-        width: context.dynamicWidht(0.3),
+        width: context.dynamicWidht(0.38),
         height: context.dynamicHeight(0.04),
         child: Row(
           children: [
@@ -62,6 +64,12 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
                     .copyWith(color: AppColors.greenColor),
               ),
             ),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.delete,
+                  color: AppColors.redColor,
+                ))
           ],
         ),
       ),
@@ -76,4 +84,32 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
       ),
     );
   }
+
+  //Future deleteBasketItem(context) {
+  //  return showDialog(
+  //    context: context,
+  //    builder: (_) => CustomAlertDialog(
+  //        textMessage: LocaleKeys.cart_box_delete_alert_dialog,
+  //        buttonOneTitle: LocaleKeys.payment_payment_cancel,
+  //        buttonTwoTittle: LocaleKeys.address_address_approval,
+  //        imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+  //        onPressedOne: () {
+  //          Navigator.of(context).pop();
+  //        },
+  //        onPressedTwo: () {
+  //          context.read<SumOldPriceOrderCubit>().decrementOldPrice(
+  //              itemList[index].packageSetting!.minOrderPrice!);
+  //          context.read<SumPriceOrderCubit>().decrementPrice(
+  //              itemList[index].packageSetting!.minDiscountedOrderPrice!);
+//
+  //          context.read<OrderCubit>().deleteBasket("${itemList[index].id}");
+  //          context.read<BasketCounterCubit>().decrement();
+  //          SharedPrefs.setCounter(counterState - 1);
+  //          menuList.remove(itemList[index].id.toString());
+  //          SharedPrefs.setMenuList(menuList);
+  //          itemList.remove(itemList[index]);
+  //          Navigator.of(context).pop();
+  //        }),
+  //  );
+  //}
 }
