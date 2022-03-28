@@ -47,11 +47,11 @@ class SplashCubit extends Cubit<SplashCubitState> {
   }
 
   basketCounter(BuildContext context) {
-    context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
+    context.read<BasketCounterCubit>().setCounter(0);
   }
 
   notificationsCounter(BuildContext context) {
-    context.read<NotificationsCounterCubit>().setCounter(SharedPrefs.getCounter);
+    context.read<NotificationsCounterCubit>().setCounter(0);
   }
 
   addFavorite(BuildContext context) {

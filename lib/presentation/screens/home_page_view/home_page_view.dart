@@ -74,7 +74,8 @@ class _HomePageViewState extends State<HomePageView> {
         child: BlocBuilder<HomePageCubit, HomePageState>(
           builder: (context, state) {
             if (state is HomePageLoading) {
-              return Center(child: CircularProgressIndicator());
+              print("HOME PAGE LOADING");
+              return Center(child: CustomCircularProgressIndicator());
             } else {
               return !visible
                   ? searchListView(context, sl<SearchStoreCubit>().searchStores)
