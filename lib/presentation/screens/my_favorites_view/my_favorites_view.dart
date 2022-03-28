@@ -1,15 +1,9 @@
 import 'dart:async';
 import 'dart:ui' as ui;
+
 import 'package:dongu_mobile/logic/cubits/my_favorites_page/cubit/my_favorites_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/my_favorites_view/components/search_bar.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../data/model/search_store.dart';
-import '../../../data/shared/shared_prefs.dart';
-import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
-import '../../../utils/constants/route_constant.dart';
-import '../../../utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +14,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../data/model/search_store.dart';
 import '../../../data/services/location_service.dart';
+import '../../../data/shared/shared_prefs.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -32,7 +27,6 @@ import '../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
 import '../../widgets/text/locale_text.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'components/address_text.dart';
-import '../../../utils/extensions/string_extension.dart';
 import 'components/map_bottom_info_.dart';
 import 'components/no_favorites.dart';
 

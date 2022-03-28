@@ -13,8 +13,10 @@ import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 
 class VerifyInformation extends StatefulWidget {
   const VerifyInformation({Key? key}) : super(key: key);
@@ -31,12 +33,7 @@ class _VerifyInformationState extends State<VerifyInformation> {
   PhoneAuthCredential? phoneAuthCredential;
   String? verificationId;
   String? userPhoneNumber;
-  TextEditingController codeController1 = TextEditingController();
-  TextEditingController codeController2 = TextEditingController();
-  TextEditingController codeController3 = TextEditingController();
-  TextEditingController codeController4 = TextEditingController();
-  TextEditingController codeController5 = TextEditingController();
-  TextEditingController codeController6 = TextEditingController();
+  TextEditingController codeController = TextEditingController();
   void sendCode(phoneAuthCredential) async {
     await _auth.verifyPhoneNumber(
         phoneNumber: SharedPrefs.getUserPhone,
@@ -96,97 +93,32 @@ class _VerifyInformationState extends State<VerifyInformation> {
             Spacer(flex: 10),
             buildText(context),
             Spacer(flex: 4),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(22.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    textFieldOtp(
-                        first: true,
-                        last: false,
-                        otpController: codeController1),
-                    textFieldOtp(
-                        first: false,
-                        last: false,
-                        otpController: codeController2),
-                    textFieldOtp(
-                        first: false,
-                        last: false,
-                        otpController: codeController3),
-                    textFieldOtp(
-                        first: false,
-                        last: false,
-                        otpController: codeController4),
-                    textFieldOtp(
-                        first: false,
-                        last: false,
-                        otpController: codeController5),
-                    textFieldOtp(
-                        first: false,
-                        last: true,
-                        otpController: codeController6),
-                  ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 26.w),
+              child: Pinput(
+                controller: codeController,
+                length: 6,
+                onCompleted: (pin) => print(pin),
+                defaultPinTheme: PinTheme(
+                  width: 56,
+                  height: 50,
+                  textStyle: TextStyle(
+                      fontSize: 20,
+                      color: AppColors.textColor,
+                      fontWeight: FontWeight.w600),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.greenColor),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
             ),
-            Spacer(flex: 2),
+            Spacer(flex: 3),
             buildButton(context),
             Spacer(flex: 5),
             buildBottomTextAndIcon(context),
             Spacer(flex: 100),
           ],
-        ),
-      ),
-    );
-  }
-
-  textFieldOtp(
-      {required bool first,
-      required bool last,
-      required TextEditingController otpController}) {
-    return Container(
-      height: 55,
-      width: 55,
-      child: AspectRatio(
-        aspectRatio: 0.5,
-        child: TextField(
-          controller: otpController,
-          autofocus: true,
-          onChanged: (value) {
-            if (value.length == 1 && last == false) {
-              FocusScope.of(context).nextFocus();
-            }
-            if (value.length == 0 && first == false) {
-              FocusScope.of(context).previousFocus();
-            }
-          },
-          showCursor: false,
-          readOnly: false,
-          textAlign: TextAlign.center,
-          keyboardType: TextInputType.number,
-          maxLength: 1,
-          decoration: InputDecoration(
-            counter: Offstage(),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                width: 2,
-                color: Colors.black12,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                width: 2,
-                color: AppColors.greenColor,
-              ),
-            ),
-          ),
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
         ),
       ),
     );
@@ -240,12 +172,7 @@ class _VerifyInformationState extends State<VerifyInformation> {
           if (verificationId!.isNotEmpty && userPhoneNumber!.isNotEmpty) {
             final AuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationId!,
-              smsCode: codeController1.text +
-                  codeController2.text +
-                  codeController3.text +
-                  codeController4.text +
-                  codeController5.text +
-                  codeController6.text,
+              smsCode: codeController.text,
             );
             try {
               await FirebaseAuth.instance.signInWithCredential(credential);

@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../data/model/category_name.dart';
 import '../../../data/model/search_store.dart';
 import '../../../data/services/location_service.dart';
+import '../../../data/services/locator.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
@@ -31,33 +33,18 @@ class CategoriesView extends StatelessWidget {
   }
 
   Widget builBody() {
-    return Builder(builder: (context) {
-      final GenericState state = context.watch<SearchStoreCubit>().state;
-
-      if (state is GenericInitial) {
-        return Container(color: Colors.white);
-      } else if (state is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
-      } else if (state is GenericCompleted) {
-        List<SearchStore> restaurants = [];
-        List<SearchStore> categorizedRestaurants = [];
-
-        for (int i = 0; i < state.response.length; i++) {
-          restaurants.add(state.response[i]);
-        }
-        for (var i = 0; i < restaurants.length; i++) {
-          for (var j = 0; j < restaurants[i].categories!.length; j++) {
-            if (restaurants[i].categories![j].id == category!.id) {
-              categorizedRestaurants.add(restaurants[i]);
-            }
-          }
-        }
-        return buildCustomScaffold(context, categorizedRestaurants);
-      } else {
-        final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    });
+    return BlocProvider.value(
+      value: sl<CategoryNameCubit>()..init(),
+      child: BlocBuilder<CategoryNameCubit, CategoryNameState>(
+        builder: (context, state) {
+              
+            
+    
+       return    buildCustomScaffold(context, sl<CategoryNameCubit>().filterCategories);
+          
+        },
+      ),
+    );
   }
 
   CustomScaffold buildCustomScaffold(
