@@ -97,6 +97,7 @@ class _MyNearViewState extends State<MyNearView> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: LocaleKeys.my_near_title,
+      isNavBar: false,
       body: buildBuilder(),
     );
   }
@@ -229,7 +230,6 @@ class _MyNearViewState extends State<MyNearView> {
       } else if (getrestaurants[j].calendar != null) {
         for (int i = 0; i < getrestaurants[j].calendar!.length; i++) {
           var boxcount = getrestaurants[j].calendar![i].boxCount;
-
           String now = DateTime.now().toIso8601String();
           List<String> currentDate = now.split("T").toList();
           //print(currentDate[0]);

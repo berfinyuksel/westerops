@@ -26,7 +26,10 @@ class _CleanAndSaveButtonsState extends State<CleanAndSaveButtons> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          left: context.dynamicWidht(0.06), right: context.dynamicWidht(0.06)),
+        top: 16,
+        left: context.dynamicWidht(0.06), 
+        right: context.dynamicWidht(0.06),
+      ),
       child: Row(
         children: [
           CustomButton(

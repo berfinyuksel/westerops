@@ -127,11 +127,11 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
         Row(
           children: [
             Visibility(
-              visible: deliveryTypeForCourier,
+              visible: deliveryTypeForGetIt,
               child: PackageDelivery(
                 width: 40.w,
                 height: 30.h,
-                image: ImageConstant.COMMONS_CARRIER_ICON,
+                image: ImageConstant.RESTAURANT_PACKAGE_ICON,
                 color: Colors.white,
                 backgroundColor: AppColors.greenColor,
               ),
@@ -140,11 +140,11 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
               width: 4.w,
             ),
             Visibility(
-              visible: deliveryTypeForGetIt,
+              visible: deliveryTypeForCourier,
               child: PackageDelivery(
                 width: 40.w,
                 height: 30.h,
-                image: ImageConstant.RESTAURANT_PACKAGE_ICON,
+                image: ImageConstant.COMMONS_CARRIER_ICON,
                 color: Colors.white,
                 backgroundColor: AppColors.greenColor,
               ),
