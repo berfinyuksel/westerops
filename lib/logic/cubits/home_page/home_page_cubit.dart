@@ -5,10 +5,11 @@ import 'package:device_info/device_info.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
-import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../order_cubit/order_received_cubit.dart';
 
 part 'home_page_state.dart';
 

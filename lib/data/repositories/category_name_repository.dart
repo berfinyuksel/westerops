@@ -9,18 +9,17 @@ abstract class CategoryNameRepository {
 }
 
 class SampleCategoryNameRepository implements CategoryNameRepository {
+  List<Result> categoryNames = [];
   @override
   Future<List<Result>> getCategories() async {
     final response = await http.get(
       Uri.parse("https://dongu.api.westerops.com/en/box/category-name/"),
     );
-  
-    if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(
-          utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
 
-      List<Result> categoryNames = List<Result>.from(
-          jsonBody['results'].map((model) => Result.fromJson(model)));
+    if (response.statusCode == 200) {
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
+
+      categoryNames = List<Result>.from(jsonBody['results'].map((model) => Result.fromJson(model)));
 
       return categoryNames;
     }

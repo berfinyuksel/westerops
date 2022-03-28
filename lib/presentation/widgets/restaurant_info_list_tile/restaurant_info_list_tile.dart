@@ -79,7 +79,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
         ),
         Spacer(flex: 1),
         AvailableTime(
-          width: 97.w,
+          width: 120.w,
           height: 24.h,
           time: availableTime,
         ),

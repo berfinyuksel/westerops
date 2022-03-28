@@ -1,35 +1,34 @@
 import 'package:dongu_mobile/data/services/locator.dart';
-import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
-import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
-import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/text/locale_text.dart';
 
-class CustomHorizontalListTrend extends StatelessWidget {
+class CustomHorizontalListTrend extends StatefulWidget {
   CustomHorizontalListTrend({Key? key}) : super(key: key);
 
-  List<String> categoryLocaleKeys = [
-    LocaleKeys.search_kind1,
-    LocaleKeys.search_kind2,
-    LocaleKeys.search_kind3,
-    LocaleKeys.search_kind4,
-    LocaleKeys.search_kind5,
-    LocaleKeys.search_kind6,
-    LocaleKeys.search_kind7,
-    LocaleKeys.search_kind8,
-    LocaleKeys.search_kind9,
-    LocaleKeys.search_kind10,
-  ];
+  @override
+  State<CustomHorizontalListTrend> createState() => _CustomHorizontalListTrendState();
+}
+
+class _CustomHorizontalListTrendState extends State<CustomHorizontalListTrend> {
+   List<String> popularSearchesList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sl<SearchStoreCubit>().getPopulerSearchesList();
+    popularSearchesList = sl<SearchStoreCubit>().popularSearchesList;
+  }
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: categoryLocaleKeys.length,
+        itemCount: popularSearchesList.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: ((context, index) {
           return trendSearchContainer(context, index);
@@ -41,8 +40,8 @@ class CustomHorizontalListTrend extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            sl<SearchStoreCubit>().getSearches(categoryLocaleKeys[index].locale);
-            sl<SearchStoreCubit>().changeCategoryName(categoryLocaleKeys[index].locale);
+            sl<SearchStoreCubit>().getSearches(popularSearchesList[index].locale);
+
           },
           child: Container(
             alignment: Alignment.center,
@@ -60,7 +59,7 @@ class CustomHorizontalListTrend extends StatelessWidget {
                 width: context.dynamicWidht(0.23),
                 height: context.dynamicHeight(0.02),
                 child: LocaleText(
-                    text: categoryLocaleKeys[index],
+                    text: popularSearchesList[index],
                     style: AppTextStyles.bodyTextStyle,
                     alignment: TextAlign.center)),
           ),
