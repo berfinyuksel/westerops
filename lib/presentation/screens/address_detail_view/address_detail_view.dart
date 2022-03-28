@@ -144,7 +144,6 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                 borderColor: AppColors.greenColor,
                 textColor: Colors.white,
                 onPressed: () {
-                  setState(() {});
                   counter++;
                   if (addressNameController.text.isNotEmpty &&
                       descriptionController.text.isNotEmpty &&
@@ -165,7 +164,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                         tcController.text,
                         LocationService.latitude,
                         LocationService.longitude);
-                    Navigator.pushNamedAndRemoveUntil(context, RouteConstant.ADDRESS_VIEW, ModalRoute.withName('/address'));
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+          RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false);
                   } else {
                     showDialog(
                       context: context,
