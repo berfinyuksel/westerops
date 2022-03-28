@@ -65,102 +65,115 @@ class _AddressViewState extends State<AddressView> {
       padding: EdgeInsets.only(
         top: 10.h,
       ),
-      child: Builder(builder: (context) {
-        final GenericState state = context.watch<UserAddressCubit>().state;
-        if (state is GenericInitial) {
-          return Text(LocaleKeys.address_preparing);
-        } else if (state is GenericLoading) {
-          return Center(child: CustomCircularProgressIndicator());
-        } else if (state is GenericCompleted) {
-          List<Result> list = [];
-          for (var i = 0; i < state.response.length; i++) {
-            list.add(state.response[i]);
-          }
-          return list.length != 0
-              ? ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder: (context, index) {
-                    return Dismissible(
-                      direction: DismissDirection.endToStart,
-                      key: UniqueKey(),
-                      child: AddressListTile(
-                        trailing: Container(
-                          height: double.infinity,
-                          width: 12.w,
-                          child: GestureDetector(
+      child: BlocBuilder<UserAddressCubit, GenericState>(
+        builder: (context, state) {
+            if (state is GenericInitial) {
+              return Text(LocaleKeys.address_preparing);
+            } else if (state is GenericLoading) {
+              return Center(child: CustomCircularProgressIndicator());
+            } else if (state is GenericCompleted) {
+              List<Result> list = [];
+              for (var i = 0; i < state.response.length; i++) {
+                list.add(state.response[i]);
+              }
+              return list.length != 0
+                  ? ListView.builder(
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                          direction: DismissDirection.endToStart,
+                          key: UniqueKey(),
+                          child: AddressListTile(
+                            trailing: Container(
+                              height: double.infinity,
+                              width: 12.w,
+                              child: GestureDetector(
+                                onTap: () {
+                                  /*       Navigator.pushNamed(
+                                        context, RouteConstant.ADDRESS_UPDATE_VIEW,
+                                        arguments:
+                                            ScreenArguments(list: list[index])); */
+                                },
+                                child: boolList.length != 0
+                                    ? boolList[index] == 1
+                                        ? SvgPicture.asset(
+                                            ImageConstant.COMMONS_CHECK_ICON,
+                                            fit: BoxFit.fitWidth,
+                                          )
+                                        : SizedBox()
+                                    : SizedBox(),
+                              ),
+                            ),
                             onTap: () {
-                              /*       Navigator.pushNamed(
-                                  context, RouteConstant.ADDRESS_UPDATE_VIEW,
-                                  arguments:
-                                      ScreenArguments(list: list[index])); */
+                              setState(() {
+                                changeAddressActivation(
+                                    list[index].id!, index, list.length);
+                              });
                             },
-                            child: boolList.length != 0
-                                ? boolList[index] == 1
-                                    ? SvgPicture.asset(
-                                        ImageConstant.COMMONS_CHECK_ICON,
-                                        fit: BoxFit.fitWidth,
-                                      )
-                                    : SizedBox()
-                                : SizedBox(),
+                            title: list[index].name,
+                            subtitleBold: "${list[index].province}",
+                            address: "\n${list[index].address}",
+                            phoneNumber: "\n${list[index].phoneNumber}",
+                            description: "\n${list[index].description}",
                           ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            changeAddressActivation(list[index].id!, index, list.length);
-                          });
-                        },
-                        title: list[index].name,
-                        subtitleBold: "${list[index].province}",
-                        address: "\n${list[index].address}",
-                        phoneNumber: "\n${list[index].phoneNumber}",
-                        description: "\n${list[index].description}",
-                      ),
-                      background: Container(
-                        color: AppColors.redColor,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 40.h, horizontal: 25.w),
-                          child: LocaleText(
-                            text: LocaleKeys.my_notifications_delete_text_text,
-                            style:
-                                AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                            alignment: TextAlign.end,
+                          background: Container(
+                            color: AppColors.redColor,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 40.h, horizontal: 25.w),
+                              child: LocaleText(
+                                text: LocaleKeys
+                                    .my_notifications_delete_text_text,
+                                style: AppTextStyles.bodyTextStyle.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                alignment: TextAlign.end,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      confirmDismiss: (DismissDirection direction) {
-                        return showDialog(
-                          context: context,
-                          builder: (_) => CustomAlertDialog(
-                              textMessage: LocaleKeys.address_delete_alert_dialog_text,
-                              buttonOneTitle: LocaleKeys.payment_payment_cancel,
-                              buttonTwoTittle: LocaleKeys.address_address_approval,
-                              imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                              onPressedOne: () {
-                                Navigator.of(context).pop();
-                              },
-                              onPressedTwo: () {
-                                setState(() {
-                                  context.read<AddressCubit>().deleteAddress(list[index].id);
-                                  Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
-                                  // Navigator.of(context).pop();
-                                });
-                              }),
+                          confirmDismiss: (DismissDirection direction) {
+                            return showDialog(
+                              context: context,
+                              builder: (_) => CustomAlertDialog(
+                                  textMessage: LocaleKeys
+                                      .address_delete_alert_dialog_text,
+                                  buttonOneTitle:
+                                      LocaleKeys.payment_payment_cancel,
+                                  buttonTwoTittle:
+                                      LocaleKeys.address_address_approval,
+                                  imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                                  onPressedOne: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  onPressedTwo: () {
+                                    setState(() {
+                                      context
+                                          .read<AddressCubit>()
+                                          .deleteAddress(list[index].id);
+                                      Navigator.of(context).pushNamedAndRemoveUntil(
+          RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false);
+                                      // Navigator.of(context).pop();
+                                    });
+                                  }),
+                            );
+                          },
                         );
-                      },
+                      })
+                  : Container(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20.w, top: 10.h),
+                        child: LocaleText(
+                          text: LocaleKeys.address_no_address,
+                          style: AppTextStyles.bodyTextStyle,
+                        ),
+                      ),
                     );
-                  })
-              : Container(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 20.w, top: 10.h),
-                    child: LocaleText(
-                      text: LocaleKeys.address_no_address,
-                      style: AppTextStyles.bodyTextStyle,
-                    ),
-                  ),
-                );
-        } else
-          return Container(color: Colors.white);
-      }),
+            } else{
+              return Container(color: Colors.white);
+
+            }
+        },
+      ),
     );
   }
 
@@ -180,7 +193,8 @@ class _AddressViewState extends State<AddressView> {
   }
 
   changeAddressActivation(int id, int index, int length) async {
-    StatusCode statusCode = await sl<ChangeActiveAddressRepository>().changeActiveAddress(id);
+    StatusCode statusCode =
+        await sl<ChangeActiveAddressRepository>().changeActiveAddress(id);
 
     for (var i = 0; i < length; i++) {
       boolList.add(0);

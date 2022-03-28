@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 import '../model/user_address.dart';
 import '../shared/shared_prefs.dart';
 import 'package:http/http.dart' as http;
@@ -22,9 +24,8 @@ class SampleUserAdressRepository implements UserAdressRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-
+    debugPrint("GET USER ADDRESS : ${response.statusCode}");
     if (response.statusCode == 200) {
- 
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
 
       List<Result> rest = List<Result>.from(
@@ -33,8 +34,6 @@ class SampleUserAdressRepository implements UserAdressRepository {
       return rest;
     }
 
-   
     throw NetworkError(response.statusCode.toString(), response.body);
   }
 }
-
