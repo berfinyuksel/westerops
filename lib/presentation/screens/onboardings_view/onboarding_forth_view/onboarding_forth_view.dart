@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
@@ -15,50 +16,48 @@ class OnboardingForthView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: OnboardingBackgroundImage(
-              image: ImageConstant.ONBOARDING_FORTH_BACKGROUND,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Positioned(
+              // bottom: 0,
+              // top: 230,
+              child: SvgPicture.asset(
+                ImageConstant.ONBOARD_SECOND_BOTTOM_BACKGROUND,
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-          Positioned(
-            bottom: context.dynamicHeight(0.08),
-            left: 0,
-            right: 0,
-            child: buildBottomText(context),
-          )
-        ],
-      ),
-    );
-  }
-
-  Container buildBottomText(BuildContext context) {
-    return Container(
-      height: 327.h,
-      child: Column(
-        children: [
-          Spacer(flex: 13),
-          Expanded(
-            flex: 15,
-            child: OnboardingHeadlineText(
-              headlineText: LocaleKeys.onboardings_forth_text_headline,
-              maxLines: 3,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 26.w),
+              child: Column(
+                children: [
+                  SizedBox(height: 50.h),
+                  SvgPicture.asset(
+                    ImageConstant.DONGU_LOGO,
+                    fit: BoxFit.fitHeight,
+                    height: 70.h,
+                  ),
+                  SvgPicture.asset(
+                    ImageConstant.ONBOARD_FORTH_IMAGE,
+                    fit: BoxFit.fitHeight,
+                    height: 330.h,
+                  ),
+                  SizedBox(height: 150.h),
+                  OnboardingHeadlineText(
+                    headlineText: LocaleKeys.onboardings_forth_text_headline,
+                    maxLines: 3,
+                  ),
+                  SizedBox(height: 10.h),
+                  OnboardingText(
+                    text: LocaleKeys.onboardings_forth_text_forth,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Spacer(flex: 2),
-          Expanded(
-            flex: 13,
-            child: OnboardingText(
-              text: LocaleKeys.onboardings_forth_text_forth,
-            ),
-          ),
-          Spacer(flex: 6),
-        ],
+          ],
+        ),
       ),
     );
   }

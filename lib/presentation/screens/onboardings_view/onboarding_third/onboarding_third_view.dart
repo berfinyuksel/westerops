@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/constants/image_constant.dart';
-import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
-import '../components/onboarding_background_image.dart';
 import '../components/onboarding_headline_text.dart';
 import '../components/onboarding_text.dart';
 
@@ -15,50 +14,48 @@ class OnboardingThirdView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: OnboardingBackgroundImage(
-              image: ImageConstant.ONBOARDING_THIRD_BACKGROUND,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Positioned(
+              // bottom: 0,
+              // top: 230,
+              child: SvgPicture.asset(
+                ImageConstant.ONBOARD_THIRD_BOTTOM_BACKGROUND,
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-          Positioned(
-            bottom: context.dynamicHeight(0.08),
-            left: 0,
-            right: 0,
-            child: buildBottomText(context),
-          )
-        ],
-      ),
-    );
-  }
-
-  Container buildBottomText(BuildContext context) {
-    return Container(
-      height: 324.h,
-      child: Column(
-        children: [
-          Spacer(flex: 13),
-          Expanded(
-            flex: 11,
-            child: OnboardingHeadlineText(
-              headlineText: LocaleKeys.onboardings_third_text_headline,
-              maxLines: 3,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 26.w),
+              child: Column(
+                children: [
+                  SizedBox(height: 50.h),
+                  SvgPicture.asset(
+                    ImageConstant.DONGU_LOGO,
+                    fit: BoxFit.fitHeight,
+                    height: 70.h,
+                  ),
+                  SvgPicture.asset(
+                    ImageConstant.ONBOARD_THIRD_IMAGE,
+                    fit: BoxFit.fitHeight,
+                    height: 330.h,
+                  ),
+                  SizedBox(height: 150.h),
+                  OnboardingHeadlineText(
+                    headlineText: LocaleKeys.onboardings_third_text_headline,
+                    maxLines: 3,
+                  ),
+                  SizedBox(height: 10.h),
+                  OnboardingText(
+                    text: LocaleKeys.onboardings_third_text_third,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Spacer(flex: 2),
-          Expanded(
-            flex: 7,
-            child: OnboardingText(
-              text: LocaleKeys.onboardings_third_text_third,
-            ),
-          ),
-          Spacer(flex: 6),
-        ],
+          ],
+        ),
       ),
     );
   }

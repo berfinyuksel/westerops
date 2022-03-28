@@ -181,4 +181,16 @@ class ImageConstant {
       "assets/images/favorites/my_favorites_image.svg";
   static const MY_NOTIFICATIONS_IMAGE =
       "assets/images/notifications/my_notifications_image.svg";
+  static const ONBOARD_THIRD_BOTTOM_BACKGROUND =
+      "assets/images/onboardings/onboarding_third/background_bottom.svg";
+  static const ONBOARD_SECOND_BOTTOM_BACKGROUND =
+      "assets/images/onboardings/onboarding_second/background_bottom_2.svg";
+  static const ONBOARD_THIRD_IMAGE =
+      "assets/images/onboardings/onboarding_third/onboarding_third_image.svg";
+  static const ONBOARD_FIRST_IMAGE =
+      "assets/images/onboardings/onboarding_first/onboarding_first_image.svg";
+  static const ONBOARD_SECOND_IMAGE =
+      "assets/images/onboardings/onboarding_second/onboarding_second_image.svg";
+  static const ONBOARD_FORTH_IMAGE =
+      "assets/images/onboardings/onboarding_forth/onboarding_forth_image.svg";
 }
