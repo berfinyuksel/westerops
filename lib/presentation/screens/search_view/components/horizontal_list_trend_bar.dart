@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import '../../../widgets/text/locale_text.dart';
 
 class CustomHorizontalListTrend extends StatefulWidget {
   CustomHorizontalListTrend({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class CustomHorizontalListTrend extends StatefulWidget {
 }
 
 class _CustomHorizontalListTrendState extends State<CustomHorizontalListTrend> {
-   List<String> popularSearchesList = [];
+  List<String> popularSearchesList = [];
 
   @override
   void initState() {
@@ -25,6 +25,7 @@ class _CustomHorizontalListTrendState extends State<CustomHorizontalListTrend> {
     sl<SearchStoreCubit>().getPopulerSearchesList();
     popularSearchesList = sl<SearchStoreCubit>().popularSearchesList;
   }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -41,7 +42,6 @@ class _CustomHorizontalListTrendState extends State<CustomHorizontalListTrend> {
         GestureDetector(
           onTap: () {
             sl<SearchStoreCubit>().getSearches(popularSearchesList[index].locale);
-
           },
           child: Container(
             alignment: Alignment.center,
@@ -58,10 +58,8 @@ class _CustomHorizontalListTrendState extends State<CustomHorizontalListTrend> {
             child: SizedBox(
                 width: context.dynamicWidht(0.23),
                 height: context.dynamicHeight(0.02),
-                child: LocaleText(
-                    text: popularSearchesList[index],
-                    style: AppTextStyles.bodyTextStyle,
-                    alignment: TextAlign.center)),
+                child: AutoSizeText(popularSearchesList[index],
+                    style: AppTextStyles.bodyTextStyle, textAlign: TextAlign.center)),
           ),
         ),
         SizedBox(

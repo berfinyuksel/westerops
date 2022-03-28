@@ -39,7 +39,6 @@ class SearchView extends StatefulWidget {
 class _SearchViewState extends State<SearchView> {
   TextEditingController? controller = TextEditingController();
 
-  List<SearchStore> names = [];
   List<SearchStore> filteredNames = []; // names filtered by search text
 
   String query = '';
@@ -50,41 +49,25 @@ class _SearchViewState extends State<SearchView> {
   bool scroolTrendRight = false;
 
   bool visible = true;
-  bool isClean = false;
 
-  BlocProvider buildBuilder() {
-    return BlocProvider(
-        create: (context) => sl<SearchStoreCubit>(),
-        child: BlocBuilder<SearchStoreCubit, GenericState>(
-          builder: (context, state) {
-            if (state is GenericInitial) {
-              return Container();
-            } else if (state is GenericLoading) {
-              return Center(child: CustomCircularProgressIndicator());
-            } else if (state is GenericCompleted) {
-              List<SearchStore> searchList = [];
-
-              List<SearchStore> restaurant = [];
-
-              for (int i = 0; i < state.response.length; i++) {
-                searchList.add(state.response[i]);
-                if (state is GenericCompleted) {
-                  restaurant.add(state.response[i]);
-                }
-              }
-              names = searchList;
-              filteredNames = names;
-
-              return Center(
-                child: searchListViewBuilder(state, searchList, restaurant),
-              );
-            } else {
-              final error = state as GenericError;
-              return Center(
-                  child: Text("${error.message}\n${error.statusCode}"));
-            }
-          },
-        ));
+  Widget buildBuilder() {
+    return BlocBuilder<SearchStoreCubit, GenericState>(
+      builder: (context, state) {
+        if (state is GenericInitial) {
+          return Container();
+        } else if (state is GenericLoading) {
+          return Center(child: CustomCircularProgressIndicator());
+        } else if (state is GenericCompleted) {
+          filteredNames = state.response as List<SearchStore>;
+          return Center(
+            child: searchListViewBuilder(),
+          );
+        } else {
+          final error = state as GenericError;
+          return Center(child: Text("${error.message}\n${error.statusCode}"));
+        }
+      },
+    );
   }
 
   @override
@@ -92,53 +75,55 @@ class _SearchViewState extends State<SearchView> {
     return buildBody(context);
   }
 
-  GestureDetector buildBody(
+  Widget buildBody(
     BuildContext context,
   ) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: ListView(
-        children: [
-          SizedBox(
-            height: 3.h,
-          ),
-          searchBar(context),
-          // Spacer(
-          //   flex: 3,
-          // ),
-          Visibility(
-              visible: visible, child: searchHistoryAndCleanTexts(context)),
-          Visibility(visible: visible, child: dividerOne(context)),
-          SizedBox(height: 10.h),
-          Container(alignment: Alignment.center, child: emptySearchHistory()),
-          // Visibility(
-          //   visible: visible,
-          //   child: LocaleText(
-          //     text: LocaleKeys.search_search_history_clean,
-          //     style: AppTextStyles.bodyTextStyle
-          //         .copyWith(color: AppColors.cursorColor),
-          //   ),
-          // ),
-          //Visibility(visible: visible, child: Spacer(flex: 2)),
-          SingleChildScrollView(child: buildBuilder()),
-          SizedBox(
-            height: 20.h,
-          ),
-          Visibility(visible: visible, child: popularSearchText(context)),
-          Visibility(visible: visible, child: dividerSecond(context)),
-          SizedBox(height: 5.h),
-          Visibility(visible: visible, child: horizontalListTrend(context)),
-          SizedBox(
-            height: 50.h,
-          ),
-          Visibility(visible: visible, child: categoriesText(context)),
-          Visibility(visible: visible, child: dividerThird(context)),
-          //  Spacer(flex: 1),
-          Visibility(visible: visible, child: horizontalListCategory(context)),
-          SizedBox(height: 10.h),
-        ],
+    return BlocProvider.value(
+      value: sl<SearchStoreCubit>(),
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: ListView(
+          children: [
+            SizedBox(
+              height: 3.h,
+            ),
+            searchBar(context),
+            // Spacer(
+            //   flex: 3,
+            // ),
+            Visibility(visible: visible, child: searchHistoryAndCleanTexts(context)),
+            Visibility(visible: visible, child: dividerOne(context)),
+            SizedBox(height: 10.h),
+            Container(alignment: Alignment.center, child: emptySearchHistory()),
+            // Visibility(
+            //   visible: visible,
+            //   child: LocaleText(
+            //     text: LocaleKeys.search_search_history_clean,
+            //     style: AppTextStyles.bodyTextStyle
+            //         .copyWith(color: AppColors.cursorColor),
+            //   ),
+            // ),
+            //Visibility(visible: visible, child: Spacer(flex: 2)),
+            SingleChildScrollView(child: buildBuilder()),
+            SizedBox(
+              height: 20.h,
+            ),
+            Visibility(visible: visible, child: popularSearchText(context)),
+            Visibility(visible: visible, child: dividerSecond(context)),
+            SizedBox(height: 5.h),
+            Visibility(visible: visible, child: horizontalListTrend(context)),
+            SizedBox(
+              height: 50.h,
+            ),
+            Visibility(visible: visible, child: categoriesText(context)),
+            Visibility(visible: visible, child: dividerThird(context)),
+            //  Spacer(flex: 1),
+            Visibility(visible: visible, child: horizontalListCategory(context)),
+            SizedBox(height: 10.h),
+          ],
+        ),
       ),
     );
   }
@@ -266,11 +251,10 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
-  ListView searchListViewBuilder(GenericState state,
-      List<SearchStore> searchList, List<SearchStore> restaurant) {
+  ListView searchListViewBuilder() {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: searchList.length,
+        itemCount: filteredNames.length,
         itemBuilder: (context, index) {
           List<String> meals = [];
 
@@ -283,49 +267,40 @@ class _SearchViewState extends State<SearchView> {
             mealNames = meals.join(', ');
           }
 
-          return isClean
-              ? SizedBox()
-              : GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      RouteConstant.RESTAURANT_DETAIL,
-                      arguments: ScreenArgumentsRestaurantDetail(
-                        restaurant: restaurant[index],
-                      ),
-                    );
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: context.dynamicWidht(0.06),
-                      // vertical: context.dynamicHeight(0.00006)
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                RouteConstant.RESTAURANT_DETAIL,
+                arguments: ScreenArgumentsRestaurantDetail(
+                  restaurant: filteredNames[index],
+                ),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: context.dynamicWidht(0.06),
+                // vertical: context.dynamicHeight(0.00006)
+              ),
+              decoration: BoxDecoration(color: Colors.white),
+              child: ListTile(
+                trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteConstant.RESTAURANT_DETAIL,
+                    arguments: ScreenArgumentsRestaurantDetail(
+                      restaurant: filteredNames[index],
                     ),
-                    decoration: BoxDecoration(color: Colors.white),
-                    child: ListTile(
-                      trailing:
-                          SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          RouteConstant.RESTAURANT_DETAIL,
-                          arguments: ScreenArgumentsRestaurantDetail(
-                            restaurant: restaurant[index],
-                          ),
-                        );
-                      },
-                      title: Text(searchList.isEmpty ||
-                              filteredNames.isEmpty ||
-                              "${filteredNames[index].name}".isEmpty
-                          ? ""
-                          : "${filteredNames[index].name}"),
-                      subtitle: Text(searchList.isEmpty ||
-                              filteredNames.isEmpty ||
-                              mealNames.isEmpty
-                          ? ""
-                          : mealNames),
-                    ),
-                  ),
-                );
+                  );
+                },
+                title: Text(filteredNames.isEmpty || "${filteredNames[index].name}".isEmpty
+                    ? ""
+                    : "${filteredNames[index].name}"),
+                subtitle: Text(filteredNames.isEmpty || mealNames.isEmpty ? "" : mealNames),
+              ),
+            ),
+          );
         });
   }
 
@@ -350,9 +325,7 @@ class _SearchViewState extends State<SearchView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           LocaleText(
-            text: SharedPrefs.getIsLogined
-                ? LocaleKeys.search_text1
-                : LocaleKeys.search_text3,
+            text: SharedPrefs.getIsLogined ? LocaleKeys.search_text1 : LocaleKeys.search_text3,
             style: AppTextStyles.bodyTitleStyle,
           ),
           Spacer(),
@@ -360,16 +333,14 @@ class _SearchViewState extends State<SearchView> {
             onTap: () {
               setState(() {
                 filteredNames.clear();
-                filteredNames.remove(names.length);
-                names.remove(filteredNames.length);
-                names.clear();
-                isClean = !isClean;
+                controller!.clear();
+                context.read<SearchStoreCubit>().clearSearchQuery();
+                print(filteredNames.length);
               });
             },
             child: LocaleText(
               text: LocaleKeys.search_text2,
-              style: AppTextStyles.bodyTitleStyle
-                  .copyWith(color: AppColors.orangeColor, fontSize: 12),
+              style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12),
             ),
           ),
         ],
@@ -384,15 +355,16 @@ class _SearchViewState extends State<SearchView> {
           vertical: context.dynamicHeight(0.03),
         ),
         child: CustomSearchBar(
-          containerPadding:
-              visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.68),
+          containerPadding: visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.68),
           onTap: () {
             setState(() {
               visible = !visible;
             });
           },
           onChanged: (value) {
-            context.read<SearchStoreCubit>().getSearches(controller!.text);
+            if (controller!.text.length > 2) {
+              context.read<SearchStoreCubit>().getSearches(controller!.text);
+            }
           },
           controller: controller,
           hintText: LocaleKeys.search_text5.locale,
@@ -400,28 +372,25 @@ class _SearchViewState extends State<SearchView> {
               ? null
               : TextButton(
                   onPressed: () {
-                    FocusScope.of(context).unfocus();
                     setState(() {
+                      controller!.clear();
                       FocusScope.of(context).unfocus();
                       visible = !visible;
                     });
                   },
                   child: Text(
                     LocaleKeys.search_cancel_button.locale,
-                    style: AppTextStyles.bodyTitleStyle
-                        .copyWith(color: AppColors.orangeColor, fontSize: 12),
+                    style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12),
                   )),
         ));
   }
 
   emptySearchHistory() {
     if (filteredNames.length == 0) {
-      return isClean
-          ? Text(
-              LocaleKeys.search_search_history_clean.locale,
-              style: AppTextStyles.bodyTextStyle,
-            )
-          : SizedBox();
+      return Text(
+        LocaleKeys.search_search_history_clean.locale,
+        style: AppTextStyles.bodyTextStyle,
+      );
     } else {
       return SizedBox();
     }
