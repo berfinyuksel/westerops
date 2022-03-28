@@ -513,6 +513,7 @@ abstract class  LocaleKeys {
   static const search_kind10 = 'search.kind10';
   static const search_cancel_button = 'search.cancel_button';
   static const search_search_history_clean = 'search.search_history_clean';
+  static const search_search_history_empty = 'search.search_history_empty';
   static const search_search_bar_empty_result = 'search.search_bar_empty_result';
   static const search = 'search';
   static const restaurant_detail_app_bar_title = 'restaurant_detail.app_bar_title';

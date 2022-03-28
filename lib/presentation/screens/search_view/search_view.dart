@@ -10,6 +10,7 @@ import 'package:dongu_mobile/utils/constants/image_constant.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 //import '../../../data/model/search.dart';
@@ -101,7 +102,7 @@ class _SearchViewState extends State<SearchView> {
       child: ListView(
         children: [
           SizedBox(
-            height: 3,
+            height: 3.h,
           ),
           searchBar(context),
           // Spacer(
@@ -110,8 +111,8 @@ class _SearchViewState extends State<SearchView> {
           Visibility(
               visible: visible, child: searchHistoryAndCleanTexts(context)),
           Visibility(visible: visible, child: dividerOne(context)),
-          SizedBox(height: 2),
-          Container(child: emptySearchHistory()),
+          SizedBox(height: 10.h),
+          Container(alignment: Alignment.center, child: emptySearchHistory()),
           // Visibility(
           //   visible: visible,
           //   child: LocaleText(
@@ -123,20 +124,20 @@ class _SearchViewState extends State<SearchView> {
           //Visibility(visible: visible, child: Spacer(flex: 2)),
           SingleChildScrollView(child: buildBuilder()),
           SizedBox(
-            height: 50,
+            height: 20.h,
           ),
           Visibility(visible: visible, child: popularSearchText(context)),
           Visibility(visible: visible, child: dividerSecond(context)),
-          SizedBox(height: 2),
+          SizedBox(height: 5.h),
           Visibility(visible: visible, child: horizontalListTrend(context)),
           SizedBox(
-            height: 10,
+            height: 50.h,
           ),
           Visibility(visible: visible, child: categoriesText(context)),
           Visibility(visible: visible, child: dividerThird(context)),
           //  Spacer(flex: 1),
           Visibility(visible: visible, child: horizontalListCategory(context)),
-          SizedBox(height: 10),
+          SizedBox(height: 10.h),
         ],
       ),
     );
@@ -257,7 +258,6 @@ class _SearchViewState extends State<SearchView> {
     return Padding(
       padding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
-        
       ),
       child: LocaleText(
         text: LocaleKeys.search_text3,
@@ -423,7 +423,7 @@ class _SearchViewState extends State<SearchView> {
             )
           : SizedBox();
     } else {
-      return Container();
+      return SizedBox();
     }
   }
   // return Container(
