@@ -107,7 +107,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
             .read<UserAuthCubit>()
             .deleteAccountUser(selectedIndex.toString());
         SharedPrefs.clearCache();
-        sl<BasketCounterCubit>().decrement();
+        context.read<BasketCounterCubit>().setCounter(0);
         if (selectedIndex >= 0 || textController.text.isNotEmpty) {
           showDialog(
               context: context,

@@ -69,6 +69,10 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             create: (BuildContext context) =>
                 sl<SearchStoreCubit>()..getSearchStore(),
           ),
+           BlocProvider<SearchStoreCubit>(
+            create: (BuildContext context) =>
+                sl<SearchStoreCubit>()..getSearchStoreAddress(),
+          ),
           BlocProvider<AddressCubit>(
             create: (BuildContext context) =>
                 sl<AddressCubit>()..getActiveAddress(),
@@ -78,6 +82,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
           builder: (context, state) {
             if (state is GenericInitial) {
               print("GENERIC INITIAL ADDRESS");
+              
               return Container();
             } else if (state is GenericLoading) {
               print("GENERIC LOADING ADDRESS");

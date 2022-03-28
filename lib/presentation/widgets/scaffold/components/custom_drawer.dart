@@ -166,7 +166,7 @@ class CustomDrawer extends StatelessWidget {
         onPressed: () {
           context.read<OrderBarCubit>().stateOfBar(false);
           context.read<OrderCubit>().clearBasket();
-
+          
           SharedPrefs.setSumPrice(0);
           context.read<SumPriceOrderCubit>().clearPrice();
           SharedPrefs.setOldSumPrice(0);
