@@ -37,15 +37,26 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   TextEditingController addressNameController = TextEditingController();
   TextEditingController districtController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  // TextEditingController daireNoController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  FocusNode tcFocusNode = FocusNode();
+  FocusNode addressNameFocusNode = FocusNode();
+  FocusNode districtFocusNode = FocusNode();
+  FocusNode addressFocusNode = FocusNode();
+  FocusNode descriptionFocusNode = FocusNode();
+  FocusNode phoneNumberFocusNode = FocusNode();
+  bool nextFocusTc = false;
   int counter = 0;
   @override
   void initState() {
     super.initState();
     districtController.text = widget.district;
     addressController.text = widget.address;
+    tcController.addListener(() {
+      if (phoneNumberController.text.length == 10) {
+        phoneNumberFocusNode.unfocus();
+      }
+    });
   }
 
   @override
@@ -55,6 +66,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
         FocusScope.of(context).unfocus();
       },
       child: CustomScaffold(
+        resizeToAvoidBottomInset: true,
         title: widget.title,
         body: Padding(
           padding: EdgeInsets.only(
@@ -63,111 +75,107 @@ class _AddressDetailViewState extends State<AddressDetailView> {
             top: 20.h,
             bottom: 30.h,
           ),
-          child: SingleChildScrollView(
-            child: Container(
-              height: 660.h,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    LocaleKeys.address_addresss.locale,
-                    style: AppTextStyles.bodyTitleStyle,
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Container(
+                    height: 660.h,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          LocaleKeys.address_addresss.locale,
+                          style: AppTextStyles.bodyTitleStyle,
+                        ),
+                        Spacer(flex: 5),
+                        // buildDropDown(context, adressType),
+                        // Spacer(flex: 10),
+                        buildTextFormField(
+                          "VKN/TCKN",
+                          tcController,
+                          tcFocusNode,
+                        ),
+                        tcController.text.isEmpty && counter > 0 ? buildValidatorText(tcController) : SizedBox(),
+                        Spacer(flex: 10),
+                        buildTextFormField(
+                          LocaleKeys.address_address_name.locale,
+                          addressNameController,
+                          addressNameFocusNode,
+                        ),
+                        addressNameController.text.isEmpty && counter > 0 ? buildValidatorText(addressNameController) : SizedBox(),
+                        Spacer(flex: 10),
+                        buildTextFormField(
+                          LocaleKeys.address_district.locale,
+                          districtController,
+                          districtFocusNode,
+                        ),
+                        districtController.text.isEmpty && counter > 0 ? buildValidatorText(districtController) : SizedBox(),
+                        Spacer(flex: 10),
+                        buildTextFormField(
+                          LocaleKeys.address_addresss.locale,
+                          addressController,
+                          addressFocusNode,
+                        ),
+                        addressController.text.isEmpty && counter > 0 ? buildValidatorText(addressController) : SizedBox(),
+                        Spacer(flex: 10),
+                        buildTextFormField(
+                          LocaleKeys.address_address_description.locale,
+                          descriptionController,
+                          descriptionFocusNode,
+                        ),
+                        descriptionController.text.isEmpty && counter > 0 ? buildValidatorText(descriptionController) : SizedBox(),
+                        Spacer(flex: 10),
+                        buildTextFormField(
+                          LocaleKeys.address_phone_number.locale,
+                          phoneNumberController,
+                          phoneNumberFocusNode,
+                        ),
+                        phoneNumberController.text.isEmpty && counter > 0 ? buildValidatorText(phoneNumberController) : SizedBox(),
+                      ],
+                    ),
                   ),
-                  Spacer(flex: 5),
-                  // buildDropDown(context, adressType),
-                  // Spacer(flex: 10),
-                  buildTextFormField(
-                    "VKN/TCKN",
-                    tcController,
-                  ),
-                  tcController.text.isEmpty && counter > 0
-                      ? buildValidatorText(tcController)
-                      : SizedBox(),
-                  Spacer(flex: 10),
-                  buildTextFormField(
-                    LocaleKeys.address_address_name.locale,
-                    addressNameController,
-                  ),
-                  addressNameController.text.isEmpty && counter > 0
-                      ? buildValidatorText(addressNameController)
-                      : SizedBox(),
-                  Spacer(flex: 10),
-                  buildTextFormField(
-                    LocaleKeys.address_district.locale,
-                    districtController,
-                  ),
-                  districtController.text.isEmpty && counter > 0
-                      ? buildValidatorText(districtController)
-                      : SizedBox(),
-                  Spacer(flex: 10),
-                  buildTextFormField(
-                    LocaleKeys.address_addresss.locale,
-                    addressController,
-                  ),
-                  addressController.text.isEmpty && counter > 0
-                      ? buildValidatorText(addressController)
-                      : SizedBox(),
-                  Spacer(flex: 10),
-                  buildTextFormField(
-                    LocaleKeys.address_address_description.locale,
-                    descriptionController,
-                  ),
-                  descriptionController.text.isEmpty && counter > 0
-                      ? buildValidatorText(descriptionController)
-                      : SizedBox(),
-                  Spacer(flex: 10),
-                  buildTextFormField(
-                    LocaleKeys.address_phone_number.locale,
-                    phoneNumberController,
-                  ),
-                  phoneNumberController.text.isEmpty && counter > 0
-                      ? buildValidatorText(phoneNumberController)
-                      : SizedBox(),
-                  Spacer(
-                    flex: 33,
-                  ),
-                  CustomButton(
-                    width: double.infinity,
-                    title: LocaleKeys.address_save,
-                    color: AppColors.greenColor,
-                    borderColor: AppColors.greenColor,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      counter++;
-                      if (addressNameController.text.isNotEmpty &&
-                          descriptionController.text.isNotEmpty &&
-                          addressController.text.isNotEmpty &&
-                          phoneNumberController.text.isNotEmpty &&
-                          tcController.text.isNotEmpty &&
-                          descriptionController.text.isNotEmpty && isTckimlikno(int.parse(tcController.text))) {
-                        context.read<AddressCubit>().addAddress(
-                            addressNameController.text,
-                            adressType,
-                            addressController.text,
-                            descriptionController.text,
-                            "Türkiye",
-                            "Istanbul",
-                            districtController.text,
-                            phoneNumberController.text,
-                            tcController.text,
-                            LocationService.latitude,
-                            LocationService.longitude);
-                               Navigator.of(context).pushNamedAndRemoveUntil(
-          RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false);
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (_) => CustomAlertDialogResetPassword(
-                              description:
-                                  LocaleKeys.address_pop_up_text.locale,
-                              onPressed: () => Navigator.of(context).pop()),
-                        );
-                      }
-                    },
-                  ),
-                ],
+                ),
               ),
-            ),
+              CustomButton(
+                width: double.infinity,
+                title: LocaleKeys.address_save,
+                color: AppColors.greenColor,
+                borderColor: AppColors.greenColor,
+                textColor: Colors.white,
+                onPressed: () {
+                  counter++;
+                  if (addressNameController.text.isNotEmpty &&
+                      descriptionController.text.isNotEmpty &&
+                      addressController.text.isNotEmpty &&
+                      phoneNumberController.text.isNotEmpty &&
+                      tcController.text.isNotEmpty &&
+                      descriptionController.text.isNotEmpty &&
+                      isTckimlikno(int.parse(tcController.text))) {
+                    context.read<AddressCubit>().addAddress(
+                        addressNameController.text,
+                        adressType,
+                        addressController.text,
+                        descriptionController.text,
+                        "Türkiye",
+                        "Istanbul",
+                        districtController.text,
+                        phoneNumberController.text,
+                        tcController.text,
+                        LocationService.latitude,
+                        LocationService.longitude);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+          RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false);
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (_) => CustomAlertDialogResetPassword(
+                          description: LocaleKeys.address_pop_up_text.locale, onPressed: () => Navigator.of(context).pop()),
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -179,8 +187,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
       padding: const EdgeInsets.only(left: 8.0),
       child: LocaleText(
         text: _errorText(textController)!,
-        style: AppTextStyles.bodyTextStyle
-            .copyWith(color: Colors.red, fontSize: 12),
+        style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.red, fontSize: 12),
       ),
     );
   }
@@ -259,32 +266,34 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   Container buildTextFormField(
     String labelText,
     TextEditingController controller,
+    FocusNode focusNode,
   ) {
     return Container(
-      height:
-          controller == descriptionController || controller == addressController
-              ? 100.h
-              : 56.h,
+      height: controller == descriptionController || controller == addressController ? 100.h : 56.h,
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.borderAndDividerColor, width: 2),
         borderRadius: BorderRadius.circular(4.0),
         color: Colors.white,
       ),
       child: TextFormField(
+        focusNode: focusNode,
         onChanged: (value) {
+          if (tcController.text.length == 11 && tcFocusNode.hasFocus) {
+            tcFocusNode.nextFocus();
+          }
+          if (phoneNumberController.text.length == 10 && phoneNumberFocusNode.hasFocus) {
+            phoneNumberFocusNode.unfocus();
+          }
           setState(() {});
         },
         inputFormatters: [
           controller == tcController
               ? LengthLimitingTextInputFormatter(11)
               : controller == phoneNumberController
-                  ? LengthLimitingTextInputFormatter(11)
+                  ? LengthLimitingTextInputFormatter(10)
                   : LengthLimitingTextInputFormatter(99),
         ],
-        maxLines: controller == descriptionController ||
-                controller == addressController
-            ? context.dynamicHeight(0.11).toInt()
-            : null,
+        maxLines: controller == descriptionController || controller == addressController ? context.dynamicHeight(0.11).toInt() : null,
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
         /* inputFormatters: [
@@ -292,10 +301,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
               ? FilteringTextInputFormatter.digitsOnly
               : FilteringTextInputFormatter.singleLineFormatter,
         ], */
-        keyboardType:
-            controller == phoneNumberController || controller == tcController
-                ? TextInputType.number
-                : TextInputType.text,
+        keyboardType: controller == phoneNumberController || controller == tcController ? TextInputType.number : TextInputType.text,
         controller: controller,
         decoration: InputDecoration(
           // isDense: true,
@@ -309,16 +315,11 @@ class _AddressDetailViewState extends State<AddressDetailView> {
           // focusedBorder: InputBorder.none,
           // border: InputBorder.none,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: controller.text.isEmpty && counter > 0
-                    ? Colors.red
-                    : AppColors.borderAndDividerColor,
-                width: 1),
+            borderSide: BorderSide(color: controller.text.isEmpty && counter > 0 ? Colors.red : AppColors.borderAndDividerColor, width: 1),
             borderRadius: BorderRadius.circular(4.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppColors.borderAndDividerColor, width: 1),
+            borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 1),
             borderRadius: BorderRadius.circular(4.0),
           ),
           border: OutlineInputBorder(
