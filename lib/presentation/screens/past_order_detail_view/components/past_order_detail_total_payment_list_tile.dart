@@ -22,12 +22,12 @@ class PastOrderDetailTotalPaymentListTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: 26.w,
-        right: 32.w,
+        right: 26.w,
       ),
       trailing: Container(
         alignment: Alignment.center,
-        width: 80.w,
-        height: 40.h,
+        width: 90.w,
+        height: 30.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
           color: AppColors.scaffoldBackgroundColor,
