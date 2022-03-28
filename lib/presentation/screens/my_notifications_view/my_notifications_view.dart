@@ -3,6 +3,7 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/notificaiton_cubit/get_notification_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/my_notifications_view/empty_my_notifications_view.dart';
 
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
@@ -48,7 +49,11 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
 
   @override
   Widget build(BuildContext context) {
-    return buildBody(context);
+    if (SharedPrefs.getIsLogined == false) {
+      return EmptyMyNotificationsView();
+    } else {
+      return buildBody(context);
+    }
   }
 
   Builder buildBuilder() {
@@ -67,7 +72,6 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
           context.read<NotificationsCounterCubit>().increment();
         }
 
-
         return Center(child: buildBody(context));
       } else {
         final error = state as GenericError;
@@ -82,28 +86,12 @@ class _MyNotificationsViewState extends State<MyNotificationsView>
         tabBarPadding(context),
         Expanded(
           child: TabBarView(controller: _controller, children: [
-            !SharedPrefs.getIsLogined
-                ? showTextWhenUnauthorized(context)
-                : MyOrdersListTileBuilder(),
-            !SharedPrefs.getIsLogined
-                ? showTextWhenUnauthorized(context)
-                : AllListTileBuilder(),
-            !SharedPrefs.getIsLogined
-                ? showTextWhenUnauthorized(context)
-                : SpecialForMeListTileBuilder(),
+            MyOrdersListTileBuilder(),
+            AllListTileBuilder(),
+            SpecialForMeListTileBuilder(),
           ]),
         ),
       ],
-    );
-  }
-
-  Center showTextWhenUnauthorized(BuildContext context) {
-    return Center(
-      child: LocaleText(
-        text: LocaleKeys.my_notifications_tab_bar_title_sign_in_to_monitor,
-        style:
-            AppTextStyles.bodyTextStyle.copyWith(color: AppColors.cursorColor),
-      ),
     );
   }
 
