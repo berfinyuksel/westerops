@@ -24,8 +24,6 @@ import 'drawer_body_title.dart';
 import 'drawer_list_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-
 class CustomDrawer extends StatelessWidget {
   final InAppReview inAppReview = InAppReview.instance;
   CustomDrawer({
@@ -33,7 +31,8 @@ class CustomDrawer extends StatelessWidget {
   }) : super(
           key: key,
         );
-bool isLoginVisibilty = SharedPrefs.getIsLogined == false ? false : true;
+
+  bool userIsLogin = SharedPrefs.getIsLogined;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,7 +50,7 @@ bool isLoginVisibilty = SharedPrefs.getIsLogined == false ? false : true;
               ),
               Padding(
                 padding: EdgeInsets.only(left: 28.w),
-                child: SharedPrefs.getIsLogined
+                child: userIsLogin
                     ? buildLoginedProfile(context)
                     : buildAuthButtons(context),
               ),
@@ -59,11 +58,11 @@ bool isLoginVisibilty = SharedPrefs.getIsLogined == false ? false : true;
                 height: 30.h,
               ),
               Visibility(
-                visible: isLoginVisibilty,
+                visible: userIsLogin,
                 child: DrawerListTile(
                     title: LocaleKeys.custom_drawer_body_list_tile_inform,
                     onTap: () {
-                      SharedPrefs.getIsLogined == false
+                      userIsLogin == false
                           ? Navigator.pushNamed(
                               context, RouteConstant.LOGIN_VIEW)
                           : Navigator.pushNamed(
@@ -71,11 +70,11 @@ bool isLoginVisibilty = SharedPrefs.getIsLogined == false ? false : true;
                     }),
               ),
               Visibility(
-                visible: isLoginVisibilty,
+                visible: userIsLogin,
                 child: DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_past_orders,
                   onTap: () {
-                    SharedPrefs.getIsLogined == false
+                    userIsLogin == false
                         ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
                         : Navigator.pushNamed(
                             context, RouteConstant.PAST_ORDER_VIEW);
@@ -83,11 +82,11 @@ bool isLoginVisibilty = SharedPrefs.getIsLogined == false ? false : true;
                 ),
               ),
               Visibility(
-                visible: isLoginVisibilty,
+                visible: userIsLogin,
                 child: DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_adresses,
                   onTap: () {
-                    SharedPrefs.getIsLogined == false
+                    userIsLogin == false
                         ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
                         : Navigator.pushNamed(
                             context, RouteConstant.ADDRESS_VIEW);
@@ -95,11 +94,11 @@ bool isLoginVisibilty = SharedPrefs.getIsLogined == false ? false : true;
                 ),
               ),
               Visibility(
-                visible: isLoginVisibilty,
+                visible: userIsLogin,
                 child: DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_cards,
                   onTap: () {
-                    SharedPrefs.getIsLogined == false
+                    userIsLogin == false
                         ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
                         : Navigator.pushNamed(
                             context, RouteConstant.MY_REGISTERED_CARD_VIEW);
@@ -170,7 +169,7 @@ bool isLoginVisibilty = SharedPrefs.getIsLogined == false ? false : true;
                 height: 40.h,
               ),
               Visibility(
-                  visible: SharedPrefs.getIsLogined,
+                  visible: userIsLogin,
                   child: buildLogoutButton(context)),
             ],
           ),
@@ -200,7 +199,7 @@ bool isLoginVisibilty = SharedPrefs.getIsLogined == false ? false : true;
           SharedPrefs.setCounter(0);
           SharedPrefs.setMenuList([]);
           context.read<BasketCounterCubit>().setCounter(0);
-          if (SharedPrefs.getIsLogined == false) {
+          if (userIsLogin == false) {
             FacebookSignInController().logOut();
             AuthService().logOutFromGmail();
           }
