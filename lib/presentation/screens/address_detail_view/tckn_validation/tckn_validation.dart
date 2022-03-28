@@ -1,7 +1,7 @@
 bool isTckimlikno(int kimlikno) {
   String kimlik = kimlikno.toString();
 
-  if (kimlik.length != 11 || (kimlik[0]) == 0) {
+  if (kimlik.length != 11 || (kimlik[0]) == '0') {
     return false;
   } else {
     num tek = int.parse(kimlik[0]) +
