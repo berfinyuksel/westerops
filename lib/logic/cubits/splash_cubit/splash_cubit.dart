@@ -39,18 +39,19 @@ class SplashCubit extends Cubit<SplashCubitState> {
     // Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
     if (SharedPrefs.getIsLogined) {
       //SharedPrefs.clearCache();
-      Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+      Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
     } else {
-      Navigator.of(context).pushNamed(RouteConstant.ONBOARDINGS_VIEW);
+      Navigator.pushNamedAndRemoveUntil(context, RouteConstant.ONBOARDINGS_VIEW, ModalRoute.withName('/onBoardings'));
+    //  Navigator.of(context).pushNamed(RouteConstant.ONBOARDINGS_VIEW);
     }
   }
 
   basketCounter(BuildContext context) {
-    context.read<BasketCounterCubit>().setCounter(SharedPrefs.getCounter);
+    context.read<BasketCounterCubit>().setCounter(0);
   }
 
   notificationsCounter(BuildContext context) {
-    context.read<NotificationsCounterCubit>().setCounter(SharedPrefs.getCounter);
+    context.read<NotificationsCounterCubit>().setCounter(0);
   }
 
   addFavorite(BuildContext context) {

@@ -96,7 +96,10 @@
             "letter": "1 capital letter",
             "character": "8 characters"
         },
-        "social_auth": "Go on"
+        "social_auth": "Go on",
+        "social_auth_apple": "Continue with Apple",
+        "social_auth_facebook": "Continue with Facebook",
+        "social_auth_google": "Continue with Google"
     },
     "forgot_password": {
         "phone": "Phone",
@@ -338,7 +341,8 @@
         "edit": "Change",
         "body_title": "My Favorites",
         "show_map": "Show on Map",
-        "show_list": "Show as List"
+        "show_list": "Show as List",
+        "empty_favorites": "Upps!\nPlease login to view favourites."
     },
     "cart": {
         "box_delete_alert_dialog": "Are you sure you want to delete the product in your cart?",
@@ -568,6 +572,7 @@
         "kind10": "Coffee",
         "cancel_button": "Cancel",
         "search_history_clean": "You have no search history",
+        "search_history_empty": "You have no search history",
         "search_bar_empty_result": "There is no product you are looking for"
     },
     "restaurant_detail": {
@@ -671,11 +676,13 @@
         "text4": "If your business has defined recommendations on how to  use and store your food, we can  share them in the space below."
     },
     "my_notifications": {
+        "empty_my_notifications": "Upps!\nPlease login to view notifications.",
         "tab_bar_title": {
-            "title1": "My Orders",
-            "title2": "All",
-            "title3": "Special to Me",
-            "sign_in_to_monitor": "Please login to view your notifications."
+            "title1": "Siparişlerim",
+            "title2": "Tümü",
+            "title3": "Bana Özel",
+            "sign_in_to_monitor": "Bildirimlerinizi görüntülemek için giriş yapınız.",
+            "empty_text": "Herhangi bir bildiriminiz bulunmamaktadır."
         },
         "delete_text": {
             "text": "Delete"

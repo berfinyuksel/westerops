@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 
 class RegisterVerify extends StatefulWidget {
   const RegisterVerify({Key? key}) : super(key: key);
@@ -33,20 +34,13 @@ class _RegisterVerifyState extends State<RegisterVerify> {
   PhoneAuthCredential? phoneAuthCredential;
   MobileVerificationState currentState =
       MobileVerificationState.SHOW_MOBILE_FORM_STATE;
-  TextEditingController codeController1 = TextEditingController();
-  TextEditingController codeController2 = TextEditingController();
-  TextEditingController codeController3 = TextEditingController();
-  TextEditingController codeController4 = TextEditingController();
-  TextEditingController codeController5 = TextEditingController();
-  TextEditingController codeController6 = TextEditingController();
+  TextEditingController codeController = TextEditingController();
   String? verificationId;
   String? userPhoneNumber;
   void sendCode(phoneAuthCredential) async {
     await _auth.verifyPhoneNumber(
         phoneNumber: SharedPrefs.getUserPhone,
         verificationCompleted: (phoneAuthCredential) async {
-          // print(
-          //     "SMS CODE : ${phoneAuthCredential.smsCode}");
           setState(() {
             showLoading = false;
           });
@@ -75,9 +69,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
   // String? userPassword;
   @override
   void initState() {
-    print(SharedPrefs.getUserPhone);
     userPhoneNumber = SharedPrefs.getUserPhone;
-    print(userPhoneNumber);
     sendCode(phoneAuthCredential);
     // userName = SharedPrefs.getUserName;
     // userLastName = SharedPrefs.getUserLastName;
@@ -109,92 +101,31 @@ class _RegisterVerifyState extends State<RegisterVerify> {
           buildText(context),
           Spacer(flex: 4),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w),
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  textFieldOtp(
-                      first: true, last: false, otpController: codeController1),
-                  textFieldOtp(
-                      first: false,
-                      last: false,
-                      otpController: codeController2),
-                  textFieldOtp(
-                      first: false,
-                      last: false,
-                      otpController: codeController3),
-                  textFieldOtp(
-                      first: false,
-                      last: false,
-                      otpController: codeController4),
-                  textFieldOtp(
-                      first: false,
-                      last: false,
-                      otpController: codeController5),
-                  textFieldOtp(
-                      first: false, last: true, otpController: codeController6),
-                ],
+            padding: EdgeInsets.symmetric(horizontal: 26.w),
+            child: Pinput(
+              controller: codeController,
+              length: 6,
+              onCompleted: (pin) => print(pin),
+              defaultPinTheme: PinTheme(
+                width: 56,
+                height: 50,
+                textStyle: TextStyle(
+                    fontSize: 20,
+                    color: AppColors.textColor,
+                    fontWeight: FontWeight.w600),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.greenColor),
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
           ),
-          Spacer(flex: 2),
+          Spacer(flex: 3),
           Center(child: buildButton(context)),
           Spacer(flex: 3),
           Center(child: buildBottomTextAndIcon(context)),
           Spacer(flex: 40),
         ],
-      ),
-    );
-  }
-
-  textFieldOtp(
-      {required bool first,
-      required bool last,
-      required TextEditingController otpController}) {
-    return Container(
-      height: 70.h,
-      width: 55.w,
-      child: AspectRatio(
-        aspectRatio: 0.5,
-        child: TextField(
-          controller: otpController,
-          autofocus: true,
-          onChanged: (value) {
-            if (value.length == 1 && last == false) {
-              FocusScope.of(context).nextFocus();
-            }
-            if (value.length == 0 && first == false) {
-              FocusScope.of(context).previousFocus();
-            }
-          },
-          showCursor: false,
-          readOnly: false,
-          textAlign: TextAlign.center,
-          keyboardType: TextInputType.number,
-          maxLength: 1,
-          decoration: InputDecoration(
-            counter: Offstage(),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                width: 2.w,
-                color: Colors.black12,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                width: 2.w,
-                color: AppColors.greenColor,
-              ),
-            ),
-          ),
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24.sp,
-          ),
-        ),
       ),
     );
   }
@@ -207,7 +138,6 @@ class _RegisterVerifyState extends State<RegisterVerify> {
     lastTwoDigitList.add(phoneNumberList[phoneLength - 2]);
     lastTwoDigitList.add(phoneNumberList[phoneLength - 1]);
     String lastTwoDigits = lastTwoDigitList.join("");
-    print(lastTwoDigits);
     return Container(
       child: Column(
         children: [
@@ -248,6 +178,7 @@ class _RegisterVerifyState extends State<RegisterVerify> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () async {
+          print("Code controller: $codeController");
           // if (verificationId == null) {
           //     showDialog(
           //     context: context,
@@ -265,16 +196,9 @@ class _RegisterVerifyState extends State<RegisterVerify> {
           //   );
           // }
           if (verificationId!.isNotEmpty && userPhoneNumber!.isNotEmpty) {
-            print(verificationId!);
-            print(userPhoneNumber!);
             final AuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationId!,
-              smsCode: codeController1.text +
-                  codeController2.text +
-                  codeController3.text +
-                  codeController4.text +
-                  codeController5.text +
-                  codeController6.text,
+              smsCode: codeController.text,
             );
             try {
               await FirebaseAuth.instance.signInWithCredential(credential);
@@ -285,17 +209,6 @@ class _RegisterVerifyState extends State<RegisterVerify> {
                   SharedPrefs.getUserPhone,
                   SharedPrefs.getUserPassword);
               _showMyDialog();
-              // showDialog(
-              //     context: context,
-              //     builder: (_) => CustomAlertDialogResetPassword(
-              //           description:
-              //               "Başarılı bir şekilde Döngü'ye üye oldunuz.",
-              //           onPressed: () => Navigator.popAndPushNamed(
-              //               context, RouteConstant.CUSTOM_SCAFFOLD),
-              //         ));
-              //                     SharedPrefs.setUserPhone(phoneController.text);
-              // SharedPrefs.setUserEmail(mailController.text);
-
             } on FirebaseAuthException catch (e) {
               if (e.code == 'invalid-verification-code') {
                 showDialog(
@@ -390,7 +303,8 @@ class _RegisterVerifyState extends State<RegisterVerify> {
       builder: (BuildContext context) {
         final GenericState state = context.watch<UserAuthCubit>().state;
         if (state is GenericInitial) {
-          return Center(child: Container(child: CustomCircularProgressIndicator()));
+          return Center(
+              child: Container(child: CustomCircularProgressIndicator()));
         } else if (state is GenericLoading) {
           return Center(
               child: Container(child: CustomCircularProgressIndicator()));

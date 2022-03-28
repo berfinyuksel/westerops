@@ -68,6 +68,7 @@ class SampleAdressRepository implements AdressRepository {
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
+    debugPrint("ADD USER ADDRESS : ${response.statusCode}");
 
     if (response.statusCode == 200) {
       SharedPrefs.setAddressName(name);

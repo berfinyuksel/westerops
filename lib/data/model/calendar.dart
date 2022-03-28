@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'calendar.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: true, explicitToJson: true)
 class Calendar {
   int? id;
   String? startDate;

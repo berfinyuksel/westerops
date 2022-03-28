@@ -69,6 +69,10 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             create: (BuildContext context) =>
                 sl<SearchStoreCubit>()..getSearchStore(),
           ),
+           BlocProvider<SearchStoreCubit>(
+            create: (BuildContext context) =>
+                sl<SearchStoreCubit>()..getSearchStoreAddress(),
+          ),
           BlocProvider<AddressCubit>(
             create: (BuildContext context) =>
                 sl<AddressCubit>()..getActiveAddress(),
@@ -77,14 +81,19 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
         child: BlocBuilder<SearchStoreCubit, GenericState>(
           builder: (context, state) {
             if (state is GenericInitial) {
+              print("GENERIC INITIAL ADDRESS");
+              
               return Container();
             } else if (state is GenericLoading) {
+              print("GENERIC LOADING ADDRESS");
               return Center(child: CustomCircularProgressIndicator());
             } else if (state is GenericCompleted) {
+              print("GENERIC COMPLETED ADDRESS");
+
               List<SearchStore> restaurants = [];
               List<SearchStore> deliveredRestaurant = [];
               int? restaurantId = SharedPrefs.getDeliveredRestaurantAddressId;
-              print(state.response);
+
               for (int i = 0; i < state.response.length; i++) {
                 restaurants.add(state.response[i]);
               }
@@ -94,7 +103,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                   deliveredRestaurant.add(restaurants[i]);
                 }
               }
-              print(deliveredRestaurant);
+
               return Center(
                 child: buildBody(context, deliveredRestaurant),
               );
@@ -105,40 +114,13 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             }
           },
         ));
-    /*   final GenericState state = context.watch<SearchStoreCubit>().state;
-
-    if (state is GenericInitial) {
-      return Container();
-    } else if (state is GenericLoading) {
-      return Center(child: CustomCircularProgressIndicator());
-    } else if (state is GenericCompleted) {
-      List<SearchStore> restaurants = [];
-      List<SearchStore> deliveredRestaurant = [];
-      int? restaurantId = SharedPrefs.getDeliveredRestaurantAddressId;
-      print(state.response);
-      for (int i = 0; i < state.response.length; i++) {
-        restaurants.add(state.response[i]);
-      }
-
-      for (var i = 0; i < restaurants.length; i++) {
-        if (restaurants[i].id == restaurantId) {
-          deliveredRestaurant.add(restaurants[i]);
-        }
-      }
-      print(deliveredRestaurant);
-      return Center(
-        child: buildBody(context, deliveredRestaurant),
-      );
-    } else {
-      final error = state as GenericError;
-      return Center(child: Text("${error.message}\n${error.statusCode}"));
-    } */
   }
 
   Widget buildBody(
       BuildContext context, List<SearchStore> deliveredRestaurant) {
     return BlocBuilder<AddressCubit, GenericState>(builder: (context, state) {
       if (state is GenericCompleted) {
+
         if (deliveredRestaurant.isEmpty) {
           return LocaleText(
             text: LocaleKeys.payment_address_restaurant_address,
@@ -184,7 +166,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                                 alignment: Alignment(0.81, 0.88),
                                 children: [
                                   GoogleMap(
-                                  //  myLocationEnabled: true,
+                                    //  myLocationEnabled: true,
                                     myLocationButtonEnabled: false,
                                     initialCameraPosition: CameraPosition(
                                       target: LatLng(41.0082, 28.9784),
@@ -264,10 +246,10 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
       } else if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
+
         return Center(child: CustomCircularProgressIndicator());
       } else {
         final error = state as GenericError;
-        print(error.message);
         if (error.statusCode == 204.toString()) {
           return Column(
             children: [
@@ -278,8 +260,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             ],
           );
         }
-        print(error.statusCode);
-
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
     });
@@ -397,8 +377,9 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
 
   Widget buildBottomInfo(
       BuildContext context, List<SearchStore> deliveredRestaurant) {
-    return BlocBuilder<SearchStoreCubit, GenericState>(builder: ((context, state) {
-          if (state is GenericInitial) {
+    return BlocBuilder<SearchStoreCubit, GenericState>(
+        builder: ((context, state) {
+      if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
         return Center(child: CircularProgressIndicator());

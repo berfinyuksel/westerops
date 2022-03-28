@@ -56,7 +56,6 @@ class _CustomContainerPackageDeliveryState
                 buildMotorCourierDeliveryContainer(context, true, () {
                   setState(() {
                     state.checkList![5] = !state.checkList![5];
-                    state.checkList![4] = false;
                   });
                 }),
                 Spacer(flex: 5),
@@ -151,10 +150,8 @@ class _CustomContainerPackageDeliveryState
             setState(() {
               if (checkState == false) {
                 state.checkList![4] = !state.checkList![4];
-                state.checkList![5] = false;
               } else {
                 state.checkList![5] = !state.checkList![5];
-                state.checkList![4] = false;
               }
             });
           },

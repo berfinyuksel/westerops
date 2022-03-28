@@ -9,6 +9,7 @@ abstract class CategoryNameRepository {
 }
 
 class SampleCategoryNameRepository implements CategoryNameRepository {
+  List<Result> categoryNames = [];
   @override
   Future<List<Result>> getCategories() async {
     final response = await http.get(
@@ -16,11 +17,9 @@ class SampleCategoryNameRepository implements CategoryNameRepository {
     );
 
     if (response.statusCode == 200) {
-      final jsonBody = jsonDecode(
-          utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes)); //utf8.decode for turkish characters
 
-      List<Result> categoryNames = List<Result>.from(
-          jsonBody['results'].map((model) => Result.fromJson(model)));
+      categoryNames = List<Result>.from(jsonBody['results'].map((model) => Result.fromJson(model)));
 
       return categoryNames;
     }

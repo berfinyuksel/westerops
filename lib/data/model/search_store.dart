@@ -83,7 +83,7 @@ class SearchStore {
             List<Review>.from(json["review"].map((x) => Review.fromJson(x))),
         favoritedBy: List<StoreOwner>.from(
             json["favorited_by"].map((x) => StoreOwner.fromJson(x))),
-        packageSettings: PackageSettings.fromJson(json["package_settings"]),
+        packageSettings:json["package_settings"] == null ? null : PackageSettings.fromJson(json["package_settings"]),
         storeMeals: List<StoreMeal>.from(
             json["store_meals"].map((x) => StoreMeal.fromJson(x))),
         categories: List<Category>.from(
@@ -107,7 +107,7 @@ class SearchStore {
         status: json["status"],
         cancelCount: json["cancel_count"],
         createdAt: DateTime.parse(json["created_at"]),
-        avgReview: json["avg_review"].toDouble(),
+        avgReview: json["avg_review"] == null ? null : json["avg_review"].toDouble(),
         latitude: json["latitude"].toDouble(),
         longitude: json["longitude"].toDouble(),
       );

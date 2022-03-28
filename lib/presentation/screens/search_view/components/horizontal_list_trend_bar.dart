@@ -1,131 +1,69 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/data/services/locator.dart';
+import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
+import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
-import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
-import '../../../widgets/text/locale_text.dart';
 
-class CustomHorizontalListTrend extends StatelessWidget {
-  const CustomHorizontalListTrend({Key? key}) : super(key: key);
+class CustomHorizontalListTrend extends StatefulWidget {
+  CustomHorizontalListTrend({Key? key}) : super(key: key);
+
+  @override
+  State<CustomHorizontalListTrend> createState() => _CustomHorizontalListTrendState();
+}
+
+class _CustomHorizontalListTrendState extends State<CustomHorizontalListTrend> {
+  List<String> popularSearchesList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sl<SearchStoreCubit>().getPopulerSearchesList();
+    popularSearchesList = sl<SearchStoreCubit>().popularSearchesList;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.horizontal,
+    return ListView.builder(
+        itemCount: popularSearchesList.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: ((context, index) {
+          return trendSearchContainer(context, index);
+        }));
+  }
+
+  Column trendSearchContainer(BuildContext context, int index) {
+    return Column(
       children: [
-        Container(
-          alignment: Alignment.center,
-          width: context.dynamicWidht(0.22),
-          height: context.dynamicHeight(0.03),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.0),
-            color: Colors.white,
-            border: Border.all(
-              width: 2.0,
-              color: AppColors.borderAndDividerColor,
+        GestureDetector(
+          onTap: () {
+            sl<SearchStoreCubit>().getSearches(popularSearchesList[index].locale);
+          },
+          child: Container(
+            alignment: Alignment.center,
+            width: context.dynamicWidht(0.25),
+            height: context.dynamicHeight(0.04),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4.0),
+              color: Colors.white,
+              border: Border.all(
+                width: 2.0,
+                color: AppColors.borderAndDividerColor,
+              ),
             ),
+            child: SizedBox(
+                width: context.dynamicWidht(0.23),
+                height: context.dynamicHeight(0.02),
+                child: AutoSizeText(popularSearchesList[index],
+                    style: AppTextStyles.bodyTextStyle, textAlign: TextAlign.center)),
           ),
-          child: SizedBox(
-              width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.02),
-              child: LocaleText(
-                text: LocaleKeys.search_kind1,
-                alignment: TextAlign.center,
-                style: AppTextStyles.bodyTextStyle,
-              )),
         ),
         SizedBox(
           width: context.dynamicWidht(0.028),
-        ),
-        Container(
-          alignment: Alignment.center,
-          width: context.dynamicWidht(0.22),
-          height: context.dynamicHeight(0.03),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.0),
-            color: Colors.white,
-            border: Border.all(
-              width: 2.0,
-              color: AppColors.borderAndDividerColor,
-            ),
-          ),
-          child: SizedBox(
-              width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.02),
-              child: LocaleText(
-                  text: LocaleKeys.search_kind2,
-                  style: AppTextStyles.bodyTextStyle,
-                  alignment: TextAlign.center)),
-        ),
-        SizedBox(
-          width: context.dynamicWidht(0.028),
-        ),
-        Container(
-          alignment: Alignment.center,
-          width: context.dynamicWidht(0.22),
-          height: context.dynamicHeight(0.03),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.0),
-            color: Colors.white,
-            border: Border.all(
-              width: 2.0,
-              color: AppColors.borderAndDividerColor,
-            ),
-          ),
-          child: SizedBox(
-              width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.02),
-              child: LocaleText(
-                  text: LocaleKeys.search_kind3,
-                  style: AppTextStyles.bodyTextStyle,
-                  alignment: TextAlign.center)),
-        ),
-        SizedBox(
-          width: context.dynamicWidht(0.028),
-        ),
-        Container(
-          alignment: Alignment.center,
-          width: context.dynamicWidht(0.22),
-          height: context.dynamicHeight(0.03),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.0),
-            color: Colors.white,
-            border: Border.all(
-              width: 2.0,
-              color: AppColors.borderAndDividerColor,
-            ),
-          ),
-          child: SizedBox(
-              width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.02),
-              child: LocaleText(
-                  text: LocaleKeys.search_kind1,
-                  style: AppTextStyles.bodyTextStyle,
-                  alignment: TextAlign.center)),
-        ),
-        SizedBox(
-          width: context.dynamicWidht(0.028),
-        ),
-        Container(
-          alignment: Alignment.center,
-          width: context.dynamicWidht(0.22),
-          height: context.dynamicHeight(0.03),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.0),
-            color: Colors.white,
-            border: Border.all(
-              width: 2.0,
-              color: AppColors.borderAndDividerColor,
-            ),
-          ),
-          child: SizedBox(
-              width: context.dynamicWidht(0.19),
-              height: context.dynamicHeight(0.02),
-              child: LocaleText(
-                  text: LocaleKeys.search_kind5,
-                  style: AppTextStyles.bodyTextStyle,
-                  alignment: TextAlign.center)),
         ),
       ],
     );

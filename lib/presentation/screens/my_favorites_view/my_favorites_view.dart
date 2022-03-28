@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
-import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
+import 'package:dongu_mobile/logic/cubits/my_favorites_page/cubit/my_favorites_cubit.dart';
+import 'package:dongu_mobile/presentation/screens/my_favorites_view/components/search_bar.dart';
+import 'package:dongu_mobile/presentation/screens/my_favorites_view/empty_my_favorites_view.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,8 +16,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../data/model/search_store.dart';
 import '../../../data/services/location_service.dart';
 import '../../../data/shared/shared_prefs.dart';
-import '../../../logic/cubits/generic_state/generic_state.dart';
-import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -28,6 +28,8 @@ import '../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
 import '../../widgets/text/locale_text.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'components/address_text.dart';
+import 'components/map_bottom_info_.dart';
+import 'components/no_favorites.dart';
 
 class MyFavoritesView extends StatefulWidget {
   @override
@@ -38,204 +40,119 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   late BitmapDescriptor markerIcon;
   late BitmapDescriptor restaurantMarkerIcon;
   late BitmapDescriptor restaurantSoldoutMarkerIcon;
-
   final MarkerId markerId = MarkerId("my_location");
   final MarkerId restaurantMarkerId = MarkerId("rest_1");
-
   late Completer<GoogleMapController> _mapController;
-  //Completer<GoogleMapController> _mapController = Completer();
   Map<MarkerId, Marker> markers = Map<MarkerId, Marker>();
   double latitude = 0;
   double longitude = 0;
-
-  bool isShowOnMap = false;
-  bool isShowBottomInfo = false;
   List<SearchStore> mapsMarkers = [];
 
-  int selectedIndex = 0;
-  @override
-  void initState() {
-    super.initState();
-    context.read<AllFavoriteCubit>().getFavorite();
-    context.read<SearchStoreCubit>().getSearchStore();
-  }
-  
   @override
   Widget build(BuildContext context) {
-    context.read<AllFavoriteCubit>().getFavorite();
-    return buildBuilder();
-  }
-
-  Builder buildBuilder() {
-    return Builder(builder: (context) {
-      final GenericState state = context.watch<SearchStoreCubit>().state;
-      //final FiltersState filterState = context.watch<FiltersCubit>().state;
-
-      if (state is GenericInitial) {
-        return Container(color: Colors.white);
-      } else if (state is GenericLoading) {
-        return Container(
-            color: Colors.white,
-            child: Center(child: CustomCircularProgressIndicator()));
-      } else if (state is GenericCompleted) {
-        List<SearchStore> favourites = [];
-        for (int i = 0; i < state.response.length; i++) {
-          favourites.add(state.response[i]);
-        }
-
-        return GestureDetector(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            child: Center(child: buildBody(context, favourites, state)));
-      } else {
-        final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    });
-  }
-
-  Builder buildBody(
-      BuildContext context, List<SearchStore> favourites, GenericState state) {
-    return Builder(builder: (context) {
-      final GenericState stateOfFavorites =
-          context.watch<AllFavoriteCubit>().state;
-
-      if (stateOfFavorites is GenericInitial) {
-        return Container(color: Colors.white);
-      } else if (stateOfFavorites is GenericLoading) {
-        return Container(
-            color: Colors.white,
-            child: Center(child: CustomCircularProgressIndicator()));
-      } else if (stateOfFavorites is GenericCompleted) {
-        List<SearchStore> favouriteRestaurant = [];
-        for (var i = 0; i < favourites.length; i++) {
-          for (var j = 0; j < stateOfFavorites.response.length; j++) {
-            if (favourites[i].id == stateOfFavorites.response[j].id) {
-              favouriteRestaurant.add(favourites[i]);
+    if (SharedPrefs.getIsLogined == false) {
+      return EmptyMyFavoritesView();
+    } else {
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider<MyFavoritesCubit>(
+            create: (BuildContext context) => MyFavoritesCubit()..init(),
+          ),
+        ],
+        child: BlocBuilder<MyFavoritesCubit, MyFavoritesState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return Center(child: CustomCircularProgressIndicator());
             }
-          }
-        }
-        mapsMarkers = favouriteRestaurant;
+            return buildBody(context, state);
+          },
+        ),
+      );
+    }
+  }
 
-        List<String> favoriteListForShared = [];
-        for (var i = 0; i < favouriteRestaurant.length; i++) {
-          favoriteListForShared.add(favouriteRestaurant[i].id.toString());
-        }
-
-        SharedPrefs.setFavoriteIdList(favoriteListForShared);
-        return Column(
+  Widget buildBody(BuildContext context, MyFavoritesState state) {
+    mapsMarkers = state.favoritedRestaurants ?? [];
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Center(
+        child: Column(
           children: [
-            buildTitlesAndSearchBar(context, favouriteRestaurant),
-            Visibility(
-              visible: isShowOnMap,
-              child: Expanded(
-                child: Container(
-                  height: context.dynamicHeight(0.54),
-                  width: double.infinity,
-                  child: Stack(
-                    children: [
-                      Stack(
-                        alignment: Alignment(0.81, 0.88),
-                        children: [
-                          GoogleMap(
-                            myLocationButtonEnabled: false,
-                            initialCameraPosition: CameraPosition(
-                              target: LatLng(41.0082, 28.9784),
-                              zoom: 10.0,
-                            ),
-                            onMapCreated: (GoogleMapController controller) {
-                              _mapController.complete(controller);
-                            },
-                            mapType: MapType.normal,
-                            markers: Set<Marker>.of(markers.values),
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              final GoogleMapController controller =
-                                  await _mapController.future;
-                              setState(() {
-                                latitude = LocationService.latitude;
-                                longitude = LocationService.longitude;
+            buildTitlesAndSearchBar(context, state.favoritedRestaurants ?? []),
+            state.isShowOnMap
+                ? buildMapBody(context, state)
+                : buildListBody(state),
+          ],
+        ),
+      ),
+    );
+  }
 
-                                controller.animateCamera(
-                                    CameraUpdate.newCameraPosition(
-                                  CameraPosition(
-                                    target: LatLng(latitude, longitude),
-                                    zoom: 17.0,
-                                  ),
-                                ));
-                              });
-                            },
-                            child: SvgPicture.asset(
-                                ImageConstant.COMMONS_MY_LOCATION_BUTTON),
-                          ),
-                          Visibility(
-                              visible: isShowBottomInfo,
-                              child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isShowBottomInfo = false;
-                                    });
-                                  },
-                                  child: Container(
-                                      color: Colors.black.withOpacity(0.2)))),
-                        ],
-                      ),
-                      Visibility(
-                        visible: isShowBottomInfo,
-                        child: buildBottomInfo(context, favouriteRestaurant),
-                      ),
-                    ],
+  Expanded buildMapBody(BuildContext context, MyFavoritesState state) {
+    return Expanded(
+      child: Container(
+        height: context.dynamicHeight(0.54),
+        width: double.infinity,
+        child: Stack(
+          children: [
+            Stack(
+              alignment: Alignment(0.81, 0.88),
+              children: [
+                GoogleMap(
+                  myLocationButtonEnabled: false,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(41.0082, 28.9784),
+                    zoom: 10.0,
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    _mapController.complete(controller);
+                  },
+                  mapType: MapType.normal,
+                  markers: Set<Marker>.of(markers.values),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    showLocationOnMap();
+                  },
+                  child: SvgPicture.asset(
+                      ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                ),
+                Visibility(
+                  visible: state.isShowBottomInfo,
+                  child: GestureDetector(
+                    onTap: () {
+                      context.read<MyFavoritesCubit>().hideBottomInfo();
+                    },
+                    child: Container(
+                      color: Colors.black.withOpacity(0.2),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
             Visibility(
-                visible: !isShowOnMap,
-                child: !SharedPrefs.getIsLogined
-                    ? Padding(
-                        padding: EdgeInsets.all(24.h),
-                        child: LocaleText(
-                          alignment: ui.TextAlign.center,
-                          text: LocaleKeys.my_favorites_sign_in_to_monitor,
-                          style: AppTextStyles.bodyTextStyle
-                              .copyWith(color: AppColors.cursorColor),
-                        ),
-                      )
-                    : Expanded(
-                        child: favouriteRestaurant.isNotEmpty
-                            ? buildListViewRestaurantInfo(favouriteRestaurant)
-                            : Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 40.h,
-                                    ),
-                                    SvgPicture.asset(
-                                        ImageConstant.SURPRISE_PACK_ALERT),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    LocaleText(
-                                      alignment: TextAlign.center,
-                                      text:
-                                          LocaleKeys.my_favorites_no_favorites,
-                                      style: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ))),
+              visible: state.isShowBottomInfo,
+              child: MapBottomInfo(
+                state: state,
+              ),
+            ),
           ],
-        );
-      } else {
-        final error = stateOfFavorites as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
+        ),
+      ),
+    );
+  }
+
+  Widget buildListBody(MyFavoritesState state) {
+    if (state.favoritedRestaurants == null) {
+      return CustomCircularProgressIndicator();
+    } else {
+      if (state.favoritedRestaurants!.isNotEmpty) {
+        return buildListViewRestaurantInfo(state.favoritedRestaurants ?? []);
       }
-    });
+      return NoFavorites();
+    }
   }
 
   Padding buildTitlesAndSearchBar(
@@ -250,10 +167,15 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildRowTitleLeftRight(context, LocaleKeys.my_favorites_location,
-              LocaleKeys.my_favorites_edit, favouriteRestaurant, () {
-            Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
-          }),
+          buildRowTitleLeftRight(
+            context,
+            LocaleKeys.my_favorites_location,
+            LocaleKeys.my_favorites_edit,
+            favouriteRestaurant,
+            () {
+              Navigator.pushNamed(context, RouteConstant.ADDRESS_FROM_MAP_VIEW);
+            },
+          ),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -262,7 +184,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           SizedBox(height: 30.h),
           Row(
             children: [
-              buildSearchBar(context),
+              SearchBar(),
               SizedBox(width: 16.w),
               GestureDetector(
                   onTap: () {
@@ -272,19 +194,27 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             ],
           ),
           SizedBox(height: 40.h),
-          buildRowTitleLeftRight(
-              context,
-              LocaleKeys.my_favorites_body_title,
-              isShowOnMap
-                  ? LocaleKeys.my_near_show_list
-                  : LocaleKeys.my_favorites_show_map,
-              favouriteRestaurant, () {
-            setState(() {
-              isShowOnMap = !isShowOnMap;
-              _mapController = Completer<GoogleMapController>();
-              setCustomMarker(favouriteRestaurant);
-            });
-          }),
+          BlocBuilder<MyFavoritesCubit, MyFavoritesState>(
+            builder: (context, state) {
+              return buildRowTitleLeftRight(
+                context,
+                LocaleKeys.my_favorites_body_title,
+                state.isShowOnMap
+                    ? LocaleKeys.my_near_show_list
+                    : LocaleKeys.my_favorites_show_map,
+                favouriteRestaurant,
+                () {
+                  context.read<MyFavoritesCubit>().toogleShowOnMap();
+                  if (state.isShowOnMap)
+                    context.read<MyFavoritesCubit>().init();
+                  setState(() {
+                    _mapController = Completer<GoogleMapController>();
+                    setCustomMarker(favouriteRestaurant);
+                  });
+                },
+              );
+            },
+          ),
           Divider(
             thickness: 4,
             color: AppColors.borderAndDividerColor,
@@ -297,83 +227,93 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   Widget buildListViewRestaurantInfo(
     List<SearchStore> favouriteRestaurant,
   ) {
-    return ListView.builder(
-        itemCount: favouriteRestaurant.length,
-        itemBuilder: (context, index) {
-          return Container(child: Builder(builder: (context) {
-            String? packettNumber() {
-              if (favouriteRestaurant[index].calendar == null) {
-                return LocaleKeys.home_page_soldout_icon.locale;
-              } else if (favouriteRestaurant[index].calendar != null) {
-                for (int i = 0;
-                    i < favouriteRestaurant[index].calendar!.length;
-                    i++) {
-                  var boxcount =
-                      favouriteRestaurant[index].calendar![i].boxCount;
+    return Expanded(
+      child: ListView.builder(
+          itemCount: favouriteRestaurant.length,
+          itemBuilder: (context, index) {
+            return Container(child: Builder(builder: (context) {
+              String? packettNumber() {
+                if (favouriteRestaurant[index].calendar == null) {
+                  return LocaleKeys.home_page_soldout_icon.locale;
+                } else if (favouriteRestaurant[index].calendar != null) {
+                  for (int i = 0;
+                      i < favouriteRestaurant[index].calendar!.length;
+                      i++) {
+                    var boxcount =
+                        favouriteRestaurant[index].calendar![i].boxCount;
 
-                  String now = DateTime.now().toIso8601String();
-                  List<String> currentDate = now.split("T").toList();
-                  List<String> startDate = favouriteRestaurant[index]
-                      .calendar![i]
-                      .startDate!
-                      .toString()
-                      .split("T")
-                      .toList();
+                    String now = DateTime.now().toIso8601String();
+                    List<String> currentDate = now.split("T").toList();
+                    List<String> startDate = favouriteRestaurant[index]
+                        .calendar![i]
+                        .startDate!
+                        .toString()
+                        .split("T")
+                        .toList();
 
-                  if (currentDate[0] == startDate[0]) {
-                    if (favouriteRestaurant[index].calendar![i].boxCount != 0) {
-                      return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-                    } else if (favouriteRestaurant[index]
-                                .calendar![i]
-                                .boxCount ==
-                            null ||
-                        favouriteRestaurant[index].calendar![i].boxCount == 0) {
-                      return LocaleKeys.home_page_soldout_icon.locale;
+                    if (currentDate[0] == startDate[0]) {
+                      if (favouriteRestaurant[index].calendar![i].boxCount !=
+                          0) {
+                        return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
+                      } else if (favouriteRestaurant[index]
+                                  .calendar![i]
+                                  .boxCount ==
+                              null ||
+                          favouriteRestaurant[index].calendar![i].boxCount ==
+                              0) {
+                        return LocaleKeys.home_page_soldout_icon.locale;
+                      }
                     }
                   }
                 }
               }
-              return null;
-            }
 
-            return GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteConstant.RESTAURANT_DETAIL,
                     arguments: ScreenArgumentsRestaurantDetail(
                       restaurant: favouriteRestaurant[index],
-                    ));
-              },
-              child: RestaurantInfoListTile(
-                deliveryType: int.parse(
-                    favouriteRestaurant[index].packageSettings!.deliveryType ??
-                        '3'),
-                minDiscountedOrderPrice: favouriteRestaurant[index]
-                    .packageSettings!
-                    .minDiscountedOrderPrice,
-                minOrderPrice:
-                    favouriteRestaurant[index].packageSettings!.minOrderPrice,
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                    ),
+                  );
+                },
+                child: RestaurantInfoListTile(
+                  deliveryType: int.parse(favouriteRestaurant[index]
+                          .packageSettings!
+                          .deliveryType ??
+                      '3'),
+                  minDiscountedOrderPrice: favouriteRestaurant[index]
+                      .packageSettings!
+                      .minDiscountedOrderPrice,
+                  minOrderPrice:
+                      favouriteRestaurant[index].packageSettings!.minOrderPrice,
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteConstant.RESTAURANT_DETAIL,
                       arguments: ScreenArgumentsRestaurantDetail(
                         restaurant: favouriteRestaurant[index],
-                      ));
-                },
-                icon: favouriteRestaurant[index].photo,
-                restaurantName: favouriteRestaurant[index].name,
-                distance: Haversine.distance(
-                        favouriteRestaurant[index].latitude!,
-                        favouriteRestaurant[index].longitude,
-                        LocationService.latitude,
-                        LocationService.longitude)
-                    .toStringAsFixed(2),
-                packetNumber:
-                    packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
-                availableTime:
-                    '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
-              ),
-            );
-          }));
-        });
+                      ),
+                    );
+                  },
+                  icon: favouriteRestaurant[index].photo,
+                  restaurantName: favouriteRestaurant[index].name,
+                  distance: Haversine.distance(
+                          favouriteRestaurant[index].latitude!,
+                          favouriteRestaurant[index].longitude,
+                          LocationService.latitude,
+                          LocationService.longitude)
+                      .toStringAsFixed(2),
+                  packetNumber: packettNumber() ??
+                      LocaleKeys.home_page_soldout_icon.locale,
+                  availableTime:
+                      '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
+                ),
+              );
+            }));
+          }),
+    );
   }
 
   Row buildRowTitleLeftRight(BuildContext context, String titleLeft,
@@ -401,54 +341,6 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     );
   }
 
-  Expanded buildSearchBar(BuildContext context) {
-    return Expanded(
-      child: Container(
-        width: 308.w,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.horizontal(
-            right: Radius.circular(25.0),
-            left: Radius.circular(4.0),
-          ),
-          color: Colors.white,
-        ),
-        child: TextFormField(
-          cursorColor: AppColors.cursorColor,
-          style: AppTextStyles.bodyTextStyle,
-          inputFormatters: [
-            //FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-            FilteringTextInputFormatter.singleLineFormatter,
-          ],
-          decoration: InputDecoration(
-              suffixIcon: SvgPicture.asset(
-                ImageConstant.COMMONS_SEARCH_ICON,
-              ),
-              border: buildOutlineInputBorder(),
-              focusedBorder: buildOutlineInputBorder(),
-              enabledBorder: buildOutlineInputBorder(),
-              errorBorder: buildOutlineInputBorder(),
-              disabledBorder: buildOutlineInputBorder(),
-              contentPadding:
-                  EdgeInsets.only(left: context.dynamicWidht(0.046)),
-              hintText: LocaleKeys.my_near_hint_text.locale),
-        ),
-      ),
-    );
-  }
-
-  OutlineInputBorder buildOutlineInputBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.horizontal(
-        right: Radius.circular(25.0),
-        left: Radius.circular(4.0),
-      ),
-      borderSide: BorderSide(
-        width: 2.0,
-        color: AppColors.borderAndDividerColor,
-      ),
-    );
-  }
-
   void setCustomMarker(List<SearchStore> favouriteRestaurant) async {
     markerIcon =
         await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
@@ -457,64 +349,6 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
         ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
     getLocation(favouriteRestaurant);
-  }
-
-  Positioned buildBottomInfo(
-      BuildContext context, List<SearchStore> favourites) {
-    return Positioned(
-      right: 0,
-      left: 0,
-      bottom: 0,
-      child: favourites.isNotEmpty
-          ? GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                    arguments: ScreenArgumentsRestaurantDetail(
-                      restaurant: favourites[selectedIndex],
-                    ));
-              },
-              child: Container(
-                width: double.infinity,
-                height: 124.h,
-                padding: EdgeInsets.symmetric(vertical: 28.w),
-                color: Colors.white,
-                child: RestaurantInfoListTile(
-                  minDiscountedOrderPrice: favourites[selectedIndex]
-                      .packageSettings!
-                      .minDiscountedOrderPrice,
-                  minOrderPrice:
-                      favourites[selectedIndex].packageSettings!.minOrderPrice,
-                  packetNumber: favourites[selectedIndex]
-                              .calendar!
-                              .first
-                              .boxCount ==
-                          0
-                      ? LocaleKeys.home_page_soldout_icon
-                      : "${favourites[selectedIndex].calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
-                  deliveryType: int.parse(
-                      favourites[selectedIndex].packageSettings!.deliveryType!),
-                  restaurantName: favourites[selectedIndex].name,
-                  distance: Haversine.distance(
-                          favourites[selectedIndex].latitude!,
-                          favourites[selectedIndex].longitude!,
-                          LocationService.latitude,
-                          LocationService.longitude)
-                      .toStringAsFixed(2),
-                  availableTime:
-                      '${favourites[selectedIndex].packageSettings!.deliveryTimeStart} - ${favourites[selectedIndex].packageSettings!.deliveryTimeEnd}',
-                  onPressed: () {
-                    Navigator.pushNamed(
-                        context, RouteConstant.RESTAURANT_DETAIL,
-                        arguments: ScreenArgumentsRestaurantDetail(
-                          restaurant: favourites[selectedIndex],
-                        ));
-                  },
-                  icon: favourites[selectedIndex].photo,
-                ),
-              ),
-            )
-          : SizedBox(height: 0, width: 0),
-    );
   }
 
   Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
@@ -558,9 +392,7 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
       ));
       final Marker marker = Marker(
         onTap: () {
-          setState(() {
-            isShowBottomInfo = false;
-          });
+          context.read<MyFavoritesCubit>().hideBottomInfo();
         },
         infoWindow:
             InfoWindow(title: LocaleKeys.general_settings_my_location.locale),
@@ -583,10 +415,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         }
         Marker restMarker = Marker(
           onTap: () {
-            setState(() {
-              isShowBottomInfo = !isShowBottomInfo;
-              selectedIndex = i;
-            });
+            context.read<MyFavoritesCubit>().toggleBottomInfo();
+            context.read<MyFavoritesCubit>().setSelectedIndex(i);
           },
           infoWindow: InfoWindow(title: mapsMarkers[i].name),
           icon: dailyBoxCount != 0
@@ -597,6 +427,21 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         );
         markers[MarkerId("rest_$i")] = restMarker;
       }
+    });
+  }
+
+  showLocationOnMap() async {
+    final GoogleMapController controller = await _mapController.future;
+    setState(() {
+      latitude = LocationService.latitude;
+      longitude = LocationService.longitude;
+
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(latitude, longitude),
+          zoom: 17.0,
+        ),
+      ));
     });
   }
 }

@@ -34,6 +34,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      isNavBar: true,
       title: LocaleKeys.change_location_title,
       body: Column(
         children: [
@@ -49,8 +50,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
                 padding: EdgeInsets.only(left: 32.w, top: 15.h, right: 29.w),
                 child: Text(
                   LocaleKeys.change_location_no_serve_text.locale,
-                  style: AppTextStyles.subTitleBoldStyle
-                      .copyWith(fontSize: 15.sp, color: AppColors.textColor),
+                  style: AppTextStyles.subTitleBoldStyle.copyWith(fontSize: 15.sp, color: AppColors.textColor),
                 )),
           ),
           Spacer(),
@@ -65,8 +65,7 @@ class _ChangeLocationViewState extends State<ChangeLocationView> {
       List tempIndexList = [];
 
       for (int i = 0; i < cities.length; i++) {
-        if (cities[i].toLowerCase().contains(searchedText.toLowerCase()) ||
-            citiesIndexes[i].contains(searchedText)) {
+        if (cities[i].toLowerCase().contains(searchedText.toLowerCase()) || citiesIndexes[i].contains(searchedText)) {
           tempList.add(cities[i]);
           tempIndexList.add("${i < 9 ? 0 : ""}${i + 1}");
         }

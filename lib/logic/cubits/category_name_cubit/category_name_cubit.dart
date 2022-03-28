@@ -1,20 +1,29 @@
 import 'package:dongu_mobile/utils/network_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/model/category_name.dart';
 import '../../../data/repositories/category_name_repository.dart';
-import '../generic_state/generic_state.dart';
 
-class CategoryNameCubit extends Cubit<GenericState> {
-  final CategoryNameRepository _categoryNameRepository;
-  CategoryNameCubit(this._categoryNameRepository) : super(GenericInitial());
+part 'category_name_state.dart';
+
+class CategoryNameCubit extends Cubit<CategoryNameState> {
+  final SampleCategoryNameRepository _categoryNameRepository;
+  CategoryNameCubit(this._categoryNameRepository) : super(CategoryNameInital());
+  List<Result> resultCategories = [];
+  init() async {
+    await getCategories();
+  }
 
   Future<void> getCategories() async {
     try {
-      emit(GenericLoading());
+      emit(CategoryNameLoading());
+
       final response = await _categoryNameRepository.getCategories();
-      emit(GenericCompleted(response));
-    } on NetworkError catch (e) {
-      emit(GenericError(e.message, e.statusCode));
+      resultCategories = response;
+      print(response.length);
+      emit(CategoryNameCompleted(response: response));
+    } on NetworkError catch (e){
+       emit(CategoryNameError(e.message + e.statusCode));
     }
   }
 }

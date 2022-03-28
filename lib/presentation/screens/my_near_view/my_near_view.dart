@@ -84,13 +84,11 @@ class _MyNearViewState extends State<MyNearView> {
         var build = await deviceInfoPlugin.androidInfo;
 
         identifier = build.androidId;
-        print(identifier); //UUID for Android
       } else if (Platform.isIOS) {
         var data = await deviceInfoPlugin.iosInfo;
         identifier = data.identifierForVendor; //UUID for iOS
       }
     } on PlatformException {
-      print('Failed to get platform version');
     }
     return [identifier!];
   }
@@ -99,6 +97,7 @@ class _MyNearViewState extends State<MyNearView> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: LocaleKeys.my_near_title,
+      isNavBar: false,
       body: buildBuilder(),
     );
   }
@@ -231,7 +230,6 @@ class _MyNearViewState extends State<MyNearView> {
       } else if (getrestaurants[j].calendar != null) {
         for (int i = 0; i < getrestaurants[j].calendar!.length; i++) {
           var boxcount = getrestaurants[j].calendar![i].boxCount;
-
           String now = DateTime.now().toIso8601String();
           List<String> currentDate = now.split("T").toList();
           //print(currentDate[0]);
@@ -370,8 +368,6 @@ class _MyNearViewState extends State<MyNearView> {
 
   ListView buildListViewRestaurantInfo(
       List<SearchStore> getrestaurants, List<double> distances) {
-    // print("Search Store: ${getrestaurants.length}");
-    // print("Distance: ${distances.length}");
     return ListView.builder(
         itemCount: getrestaurants.length,
         itemBuilder: (context, index) {
@@ -559,8 +555,6 @@ class _MyNearViewState extends State<MyNearView> {
     setState(() {
       double mylatitude = LocationService.latitude;
       double mylongitude = LocationService.longitude;
-      print("latitude $mylatitude");
-      print("longitude $mylongitude");
 
       controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(

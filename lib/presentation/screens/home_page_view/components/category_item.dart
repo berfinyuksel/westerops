@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/extensions/context_extension.dart';
@@ -24,7 +25,7 @@ class CategoryItem extends StatelessWidget {
         CircleAvatar(
             radius: 38,
             backgroundColor: Color(color!),
-            child: SvgPicture.network(imagePath!)),
+            child: SvgPicture.network(imagePath!, width: 30.w,height: 30.h,)),
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),

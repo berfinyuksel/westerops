@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 import '../../../../data/services/auth_service.dart';
 import '../../../../data/services/facebook_login_controller.dart';
@@ -24,12 +25,14 @@ import 'drawer_list_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({
+  final InAppReview inAppReview = InAppReview.instance;
+  CustomDrawer({
     Key? key,
   }) : super(
           key: key,
         );
 
+  bool userIsLogin = SharedPrefs.getIsLogined;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,6 +40,7 @@ class CustomDrawer extends StatelessWidget {
       child: Drawer(
         child: CustomScaffold(
           isDrawer: true,
+          isNavBar: true,
           title: LocaleKeys.custom_drawer_title,
           body: ListView(
             padding: EdgeInsets.only(bottom: 40.h),
@@ -46,47 +50,60 @@ class CustomDrawer extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(left: 28.w),
-                child: SharedPrefs.getIsLogined
+                child: userIsLogin
                     ? buildLoginedProfile(context)
                     : buildAuthButtons(context),
               ),
               SizedBox(
                 height: 30.h,
               ),
-              DrawerListTile(
-                  title: LocaleKeys.custom_drawer_body_list_tile_inform,
+              Visibility(
+                visible: userIsLogin,
+                child: DrawerListTile(
+                    title: LocaleKeys.custom_drawer_body_list_tile_inform,
+                    onTap: () {
+                      userIsLogin == false
+                          ? Navigator.pushNamed(
+                              context, RouteConstant.LOGIN_VIEW)
+                          : Navigator.pushNamed(
+                              context, RouteConstant.MY_INFORMATION_VIEW);
+                    }),
+              ),
+              Visibility(
+                visible: userIsLogin,
+                child: DrawerListTile(
+                  title: LocaleKeys.custom_drawer_body_list_tile_past_orders,
                   onTap: () {
-                    SharedPrefs.getIsLogined == false
+                    userIsLogin == false
                         ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
                         : Navigator.pushNamed(
-                            context, RouteConstant.MY_INFORMATION_VIEW);
-                  }),
-              DrawerListTile(
-                title: LocaleKeys.custom_drawer_body_list_tile_past_orders,
-                onTap: () {
-                  SharedPrefs.getIsLogined == false
-                      ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                      : Navigator.pushNamed(
-                          context, RouteConstant.PAST_ORDER_VIEW);
-                },
+                            context, RouteConstant.PAST_ORDER_VIEW);
+                  },
+                ),
               ),
-              DrawerListTile(
-                title: LocaleKeys.custom_drawer_body_list_tile_adresses,
-                onTap: () {
-                  SharedPrefs.getIsLogined == false
-                      ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                      : Navigator.pushNamed(
-                          context, RouteConstant.ADDRESS_VIEW);
-                },
+              Visibility(
+                visible: userIsLogin,
+                child: DrawerListTile(
+                  title: LocaleKeys.custom_drawer_body_list_tile_adresses,
+                  onTap: () {
+                    userIsLogin == false
+                        ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
+                        : Navigator.pushNamed(
+                            context, RouteConstant.ADDRESS_VIEW);
+                  },
+                ),
               ),
-              DrawerListTile(
-                title: LocaleKeys.custom_drawer_body_list_tile_cards,
-                onTap: () {
-                  SharedPrefs.getIsLogined == false
-                      ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
-                      : Navigator.pushNamed(
-                          context, RouteConstant.MY_REGISTERED_CARD_VIEW);
-                },
+              Visibility(
+                visible: userIsLogin,
+                child: DrawerListTile(
+                  title: LocaleKeys.custom_drawer_body_list_tile_cards,
+                  onTap: () {
+                    userIsLogin == false
+                        ? Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW)
+                        : Navigator.pushNamed(
+                            context, RouteConstant.MY_REGISTERED_CARD_VIEW);
+                  },
+                ),
               ),
               SizedBox(
                 height: 40.h,
@@ -121,6 +138,11 @@ class CustomDrawer extends StatelessWidget {
               ),
               DrawerListTile(
                 title: LocaleKeys.custom_drawer_body_list_tile_rate_app,
+                onTap: () async {
+                  if (await inAppReview.isAvailable()) {
+                    inAppReview.requestReview();
+                  }
+                },
               ),
               SizedBox(
                 height: 40.h,
@@ -147,7 +169,7 @@ class CustomDrawer extends StatelessWidget {
                 height: 40.h,
               ),
               Visibility(
-                  visible: SharedPrefs.getIsLogined,
+                  visible: userIsLogin,
                   child: buildLogoutButton(context)),
             ],
           ),
@@ -168,7 +190,7 @@ class CustomDrawer extends StatelessWidget {
         onPressed: () {
           context.read<OrderBarCubit>().stateOfBar(false);
           context.read<OrderCubit>().clearBasket();
-
+          
           SharedPrefs.setSumPrice(0);
           context.read<SumPriceOrderCubit>().clearPrice();
           SharedPrefs.setOldSumPrice(0);
@@ -177,7 +199,7 @@ class CustomDrawer extends StatelessWidget {
           SharedPrefs.setCounter(0);
           SharedPrefs.setMenuList([]);
           context.read<BasketCounterCubit>().setCounter(0);
-          if (SharedPrefs.getIsLogined == false) {
+          if (userIsLogin == false) {
             FacebookSignInController().logOut();
             AuthService().logOutFromGmail();
           }

@@ -89,10 +89,15 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       final GenericState state = context.watch<SendRequestCubit>().state;
 
       if (state is GenericInitial) {
+        print("ORDER INITIAL");
         return Container();
       } else if (state is GenericLoading) {
+        print("ORDER LOADING");
+
         return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
+        print("ORDER COMPLETED");
+
         OrderReceived? orderInfo;
 
         for (var i = 0; i < state.response.length; i++) {

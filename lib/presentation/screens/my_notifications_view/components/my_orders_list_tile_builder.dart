@@ -11,6 +11,8 @@ import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/text/locale_text.dart';
+import '../../../../utils/extensions/string_extension.dart';
+
 
 class MyOrdersListTileBuilder extends StatefulWidget {
   MyOrdersListTileBuilder({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
   Widget build(BuildContext context) {
     return buildBuilder();
   }
-
+ String notificationEmpty = "Herhangi bir bildiriminiz bulunmamaktadır.";
   @override
   void initState() {
     super.initState();
@@ -51,9 +53,9 @@ class _MyOrdersListTileBuilderState extends State<MyOrdersListTileBuilder> {
           context.read<NotificationsCounterCubit>().decrement();
         }
 
-        print("STATE RESPONSE : ${state.response}");
-
-        return Center(child: listViewBuilder(context, notifications, state));
+        return Center(child: notifications.isNotEmpty
+                ? listViewBuilder(context, notifications, state)
+                : Text(LocaleKeys.my_notifications_tab_bar_title_empty_text.locale));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));

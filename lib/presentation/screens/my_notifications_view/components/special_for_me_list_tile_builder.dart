@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../utils/extensions/string_extension.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
@@ -58,9 +59,9 @@ class _SpecialForMeListTileBuilderState
           context.read<NotificationsCounterCubit>().decrement();
         }
 
-        print("STATE RESPONSE : ${state.response}");
-
-        return Center(child: listViewBuilder(context, notifications, state));
+        return Center(child: notifications.isNotEmpty
+                ? listViewBuilder(context, notifications, state)
+                : Text(LocaleKeys.my_notifications_tab_bar_title_empty_text.locale));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));

@@ -78,10 +78,9 @@ class OpportunityRestaurantListViewWidget extends StatelessWidget {
               }
               return null;
             }
-
             return RestaurantInfoCard(
               width: widthOfOpportunity,
-              restaurantId: restaurants[index].id,
+              restaurantId: restaurants[index].id!,
               courierPackageBGColor:
                   restaurants[index].packageSettings!.deliveryType == "2" ||
                           restaurants[index].packageSettings!.deliveryType ==
@@ -115,7 +114,7 @@ class OpportunityRestaurantListViewWidget extends StatelessWidget {
                   packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
               restaurantName: restaurants[index].name,
               grade: restaurants[index].avgReview!.toStringAsFixed(1),
-              location: restaurants[index].city,
+              location: restaurants[index].province,
               distance: Haversine.distance(
                       restaurants[index].latitude!,
                       restaurants[index].longitude,

@@ -66,53 +66,26 @@ class _HomePageViewState extends State<HomePageView> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider<HomePageCubit>(
-            create: (BuildContext context) => sl<HomePageCubit>()..init(),
-          ),
-          BlocProvider<SearchStoreCubit>(
-            create: (BuildContext context) =>
-                sl<SearchStoreCubit>()..getSearchStore(),
-          ),
-          BlocProvider<OrderReceivedCubit>(
-            create: (BuildContext context) =>
-                sl<OrderReceivedCubit>()..getPastOrder(),
-          ),
-          BlocProvider<SearchCubit>(
-            create: (BuildContext context) =>
-                sl<SearchCubit>()..getSearches(controller!.text),
-          ),
+          BlocProvider.value(value: sl<HomePageCubit>()..init(controller!)),
+          BlocProvider.value(value: sl<OrderReceivedCubit>()),
+          BlocProvider.value(
+              value: sl<SearchCubit>()..getSearches(controller!.text)),
         ],
         child: BlocBuilder<HomePageCubit, HomePageState>(
           builder: (context, state) {
             if (state is HomePageLoading) {
-              return Center(child: CircularProgressIndicator());
+              print("HOME PAGE LOADING");
+              return Center(child: CustomCircularProgressIndicator());
             } else {
-              return BlocBuilder<SearchStoreCubit, GenericState>(
-                builder: (context, state) {
-                  if (state is GenericInitial) {
-                    return Container(color: Colors.white);
-                  } else if (state is GenericLoading) {
-                    return Container(
-                        color: Colors.white,
-                        child:
-                            Center(child: CustomCircularProgressIndicator()));
-                  } else if (state is GenericCompleted) {
-                    List<SearchStore> restaurants = [];
-
-                    for (int i = 0; i < state.response.length; i++) {
-                      restaurants.add(state.response[i]);
-                    }
-
-                    return !visible
-                        ? searchListView(context, restaurants)
-                        : Center(child: buildBody(context, restaurants, state));
-                  } else {
-                    final error = state as GenericError;
-                    return Center(
-                        child: Text("${error.message}\n${error.statusCode}"));
-                  }
-                },
-              );
+              return !visible
+                  ? searchListView(context, sl<SearchStoreCubit>().searchStores)
+                  : WillPopScope(
+                      onWillPop: () async {
+                        return false;
+                      },
+                      child: Center(
+                          child: buildBody(
+                              context, sl<SearchStoreCubit>().searchStores)));
             }
           },
         ));
@@ -134,9 +107,24 @@ class _HomePageViewState extends State<HomePageView> {
                       },
                       child:
                           SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
-                  : searchCancelTextButton(context),
+                  : controller!.text.length == 0
+                      ? SizedBox()
+                      : searchCancelTextButton(context),
             ],
           ),
+        ),
+        Visibility(
+          visible: !context.read<HomePageCubit>().isCancelVisible,
+          child: TextButton(
+              onPressed: () {
+                setState(() {
+                  visible = !visible;
+                });
+              },
+              child: Text(
+                "Geri Dön",
+                style: AppTextStyles.bodyTextStyle,
+              )),
         ),
         SizedBox(height: 20.h),
         buildBuilderSearch(context, restaurants),
@@ -168,8 +156,7 @@ class _HomePageViewState extends State<HomePageView> {
         return Center(
             child: filteredNames.length == 0
                 ? emptySearchHistory()
-                : searchListViewBuilder(
-                    state, searchList, restaurant, restaurants));
+                : searchListViewBuilder(state, searchList, restaurant));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -177,8 +164,8 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  GestureDetector buildBody(BuildContext context, List<SearchStore> restaurants,
-      GenericCompleted state) {
+  GestureDetector buildBody(
+      BuildContext context, List<SearchStore> restaurants) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -204,7 +191,7 @@ class _HomePageViewState extends State<HomePageView> {
               LocaleKeys.home_page_see_all),
           buildDivider(),
           SizedBox(height: 22.h),
-          buildListViewNearMe(context, restaurants, state),
+          buildListViewNearMe(context, restaurants),
           SizedBox(height: 40.h),
           buildCategoriesText(),
           buildDivider(),
@@ -215,7 +202,7 @@ class _HomePageViewState extends State<HomePageView> {
           buildDivider(),
           SizedBox(height: 10.h),
           buildListViewOpportunities(context, restaurants),
-          SizedBox(height: 10.h),
+          SizedBox(height: 24.h),
         ],
       ),
     );
@@ -282,18 +269,31 @@ class _HomePageViewState extends State<HomePageView> {
   Padding buildSearchBarAndFilterIcon(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 26.w),
-      child: Row(
-        children: [
-          buildSearchBar(context),
-          SizedBox(width: 16.w),
-          visible
-              ? GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
-                  },
-                  child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
-              : searchCancelTextButton(context),
-        ],
+      child: BlocBuilder<HomePageCubit, HomePageState>(
+        builder: (context, state) {
+          if (state is HomePageCancelState) {}
+          return Column(
+            children: [
+              Row(
+                children: [
+                  buildSearchBar(context),
+                  SizedBox(width: 16.w),
+                  visible
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouteConstant.FILTER_VIEW);
+                          },
+                          child: SvgPicture.asset(
+                              ImageConstant.COMMONS_FILTER_ICON))
+                      : context.read<HomePageCubit>().isCancelVisible
+                          ? searchCancelTextButton(context)
+                          : SizedBox(),
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -409,8 +409,8 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  Padding buildListViewNearMe(BuildContext context,
-      List<SearchStore> restaurants, GenericCompleted state) {
+  Padding buildListViewNearMe(
+      BuildContext context, List<SearchStore> restaurants) {
     return Padding(
       padding: scroolNearMeLeft == true
           ? EdgeInsets.only(
@@ -568,6 +568,7 @@ class _HomePageViewState extends State<HomePageView> {
           color: Colors.white,
         ),
         child: TextFormField(
+          autofocus: !visible,
           cursorColor: AppColors.cursorColor,
           style: AppTextStyles.bodyTextStyle,
           decoration: InputDecoration(
@@ -592,7 +593,6 @@ class _HomePageViewState extends State<HomePageView> {
           onTap: () {
             setState(() {
               if (visible) {
-             
                 visible = !visible;
               }
             });
@@ -691,7 +691,6 @@ class _HomePageViewState extends State<HomePageView> {
   ListView searchListViewBuilder(
     GenericState stateSearch,
     List<SearchStore> searchList,
-    List<SearchStore> restaurant,
     List<SearchStore> restaurants,
   ) {
     return ListView.builder(
@@ -747,10 +746,12 @@ class _HomePageViewState extends State<HomePageView> {
   TextButton searchCancelTextButton(BuildContext context) {
     return TextButton(
         onPressed: () {
-          FocusScope.of(context).unfocus();
           setState(() {
-            FocusScope.of(context).unfocus();
             visible = !visible;
+            Future.delayed(Duration(milliseconds: 100), () {
+              FocusScope.of(context).unfocus();
+            });
+            controller!.clear();
           });
         },
         child: Text(

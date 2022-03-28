@@ -191,7 +191,8 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
     boolForProgress = true;
     _timer?.cancel();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      Navigator.of(context).pushNamed(RouteConstant.ORDER_RECEIVED_VIEW);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          RouteConstant.ORDER_RECEIVED_VIEW, (Route<dynamic> route) => false);
     });
   }
 
