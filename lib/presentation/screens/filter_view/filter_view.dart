@@ -28,51 +28,51 @@ class _FilterViewState extends State<FilterView> {
         title: LocaleKeys.filters_title,
         isNavBar: true,
         body: Padding(
-          padding: EdgeInsets.only(top: 20.h),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: 700.h,
-                  child: ListView(
-                    children: [
-                      SortFilterList(),
-                      Divider(
-                        height: 0.1.h,
-                      ),
-                      PackagePriceFilterList(),
-                      Divider(
-                        height: 0.1.h,
-                      ),
-                      PackageDeliveryFilterList(),
-                      Divider(
-                        height: 0.1.h,
-                      ),
-                      ChooseCategoryFilterList(),
-                      // SizedBox(
-                      //   height: context.dynamicHeight(0.34),
-                      // ),
-                    ],
-                  ),
+          padding: EdgeInsets.only(
+            top: 20.h,
+            bottom: 40.h,
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  children: [
+                    SortFilterList(),
+                    Divider(
+                      height: 0.1.h,
+                    ),
+                    PackagePriceFilterList(),
+                    Divider(
+                      height: 0.1.h,
+                    ),
+                    PackageDeliveryFilterList(),
+                    Divider(
+                      height: 0.1.h,
+                    ),
+                    ChooseCategoryFilterList(),
+                    // SizedBox(
+                    //   height: context.dynamicHeight(0.34),
+                    // ),
+                  ],
                 ),
-                Builder(builder: (context) {
-                  final FiltersState state =
-                      context.watch<FiltersCubit>().state;
-                  return CleanAndSaveButtons(
-                    onPressed: () {
-                      context.read<CleanButton>().cleanButton(isClean);
-                     // context.read<FilterFavorites>().filterFavorites(isClean);
-                      setState(() {
-                        for (int i = 0; i < 17; i++) {
-                          state.checkList![i] = false;
-                        isClean = !isClean;
-                        }
-                      });
-                    },
-                  );
-                })
-              ],
-            ),
+              ),
+              Builder(builder: (context) {
+                final FiltersState state =
+                    context.watch<FiltersCubit>().state;
+                return CleanAndSaveButtons(
+                  onPressed: () {
+                    context.read<CleanButton>().cleanButton(isClean);
+                   // context.read<FilterFavorites>().filterFavorites(isClean);
+                    setState(() {
+                      for (int i = 0; i < 17; i++) {
+                        state.checkList![i] = false;
+                      isClean = !isClean;
+                      }
+                    });
+                  },
+                );
+              })
+            ],
           ),
         ));
   }
