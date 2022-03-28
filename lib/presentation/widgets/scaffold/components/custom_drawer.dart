@@ -24,6 +24,8 @@ import 'drawer_body_title.dart';
 import 'drawer_list_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
+
 class CustomDrawer extends StatelessWidget {
   final InAppReview inAppReview = InAppReview.instance;
   CustomDrawer({
@@ -31,7 +33,7 @@ class CustomDrawer extends StatelessWidget {
   }) : super(
           key: key,
         );
-
+bool isLoginVisibilty = SharedPrefs.getIsLogined == false ? false : true;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,7 +59,7 @@ class CustomDrawer extends StatelessWidget {
                 height: 30.h,
               ),
               Visibility(
-                visible: SharedPrefs.getIsLogined == false ? false : true,
+                visible: isLoginVisibilty,
                 child: DrawerListTile(
                     title: LocaleKeys.custom_drawer_body_list_tile_inform,
                     onTap: () {
@@ -69,7 +71,7 @@ class CustomDrawer extends StatelessWidget {
                     }),
               ),
               Visibility(
-                visible: SharedPrefs.getIsLogined == false ? false : true,
+                visible: isLoginVisibilty,
                 child: DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_past_orders,
                   onTap: () {
@@ -81,7 +83,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
               Visibility(
-                visible: SharedPrefs.getIsLogined == false ? false : true,
+                visible: isLoginVisibilty,
                 child: DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_adresses,
                   onTap: () {
@@ -93,7 +95,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
               Visibility(
-                visible: SharedPrefs.getIsLogined == false ? false : true,
+                visible: isLoginVisibilty,
                 child: DrawerListTile(
                   title: LocaleKeys.custom_drawer_body_list_tile_cards,
                   onTap: () {
