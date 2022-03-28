@@ -32,41 +32,42 @@ class EmptyCartView extends StatelessWidget {
     );
   }
 
-  Container buildBackground(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: [
-          SvgPicture.asset(
-            ImageConstant.ORDER_RECEIVING_BACKGROUND,
-            fit: BoxFit.fitWidth,
-            width: double.infinity,
-          ),
-          Center(
-            child: Column(
-              children: [
-                Spacer(flex: 3),
-                LocaleText(
-                  text: LocaleKeys.cart_empty_cart,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 18.0.sp,
-                    color: AppColors.textColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  alignment: TextAlign.center,
+  Stack buildBackground(BuildContext context) {
+    return Stack(
+      children: [
+        SvgPicture.asset(
+          ImageConstant.ORDER_RECEIVING_BACKGROUND,
+          fit: BoxFit.fitWidth,
+          width: double.infinity,
+        ),
+        Center(
+          child: Column(
+            children: [
+              Spacer(flex: 3),
+              LocaleText(
+                text: LocaleKeys.cart_empty_cart,
+                style: GoogleFonts.montserrat(
+                  fontSize: 18.0.sp,
+                  color: AppColors.textColor,
+                  fontWeight: FontWeight.w600,
                 ),
-                SvgPicture.asset(
+                alignment: TextAlign.center,
+              ),
+              Expanded(
+                flex: 30,
+                child: SvgPicture.asset(
                   ImageConstant.ORDER_DELIVERED_ICON,
                   fit: BoxFit.fitHeight,
                 ),
-                Spacer(flex: 3),
-                buildOrangeText(context),
-                Spacer(flex: 2),
-                buildButton(context),
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+              Spacer(flex: 3),
+              buildOrangeText(context),
+              Spacer(flex: 2),
+              buildButton(context),
+            ],
+          ),
+        )
+      ],
     );
   }
 

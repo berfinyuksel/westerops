@@ -177,4 +177,8 @@ class ImageConstant {
       "assets/images/freeze_account/freeze_account_love.svg";
   static const SMS_OTP_VERIFY_RESEND_CODE_ICON =
       "assets/images/sms_otp_verify/resend_code_icon.svg";
+  static const MY_FAVORITES_IMAGE =
+      "assets/images/favorites/my_favorites_image.svg";
+  static const MY_NOTIFICATIONS_IMAGE =
+      "assets/images/notifications/my_notifications_image.svg";
 }

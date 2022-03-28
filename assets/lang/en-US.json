@@ -96,7 +96,10 @@
             "letter": "1 capital letter",
             "character": "8 characters"
         },
-        "social_auth": "Go on"
+        "social_auth": "Go on",
+        "social_auth_apple": "Continue with Apple",
+        "social_auth_facebook": "Continue with Facebook",
+        "social_auth_google": "Continue with Google"
     },
     "forgot_password": {
         "phone": "Phone",
@@ -338,7 +341,8 @@
         "edit": "Change",
         "body_title": "My Favorites",
         "show_map": "Show on Map",
-        "show_list": "Show as List"
+        "show_list": "Show as List",
+        "empty_favorites": "Upps!\nPlease login to view favourites."
     },
     "cart": {
         "box_delete_alert_dialog": "Are you sure you want to delete the product in your cart?",
@@ -671,6 +675,7 @@
         "text4": "If your business has defined recommendations on how to  use and store your food, we can  share them in the space below."
     },
     "my_notifications": {
+        "empty_my_notifications": "Upps!\nPlease login to view notifications.",
         "tab_bar_title": {
             "title1": "Siparişlerim",
             "title2": "Tümü",

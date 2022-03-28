@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:dongu_mobile/logic/cubits/my_favorites_page/cubit/my_favorites_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/my_favorites_view/components/search_bar.dart';
+import 'package:dongu_mobile/presentation/screens/my_favorites_view/empty_my_favorites_view.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,21 +50,25 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<MyFavoritesCubit>(
-          create: (BuildContext context) => MyFavoritesCubit()..init(),
+    if (SharedPrefs.getIsLogined == false) {
+      return EmptyMyFavoritesView();
+    } else {
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider<MyFavoritesCubit>(
+            create: (BuildContext context) => MyFavoritesCubit()..init(),
+          ),
+        ],
+        child: BlocBuilder<MyFavoritesCubit, MyFavoritesState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return Center(child: CustomCircularProgressIndicator());
+            }
+            return buildBody(context, state);
+          },
         ),
-      ],
-      child: BlocBuilder<MyFavoritesCubit, MyFavoritesState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return Center(child: CustomCircularProgressIndicator());
-          }
-          return buildBody(context, state);
-        },
-      ),
-    );
+      );
+    }
   }
 
   Widget buildBody(BuildContext context, MyFavoritesState state) {
@@ -76,7 +81,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         child: Column(
           children: [
             buildTitlesAndSearchBar(context, state.favoritedRestaurants ?? []),
-            state.isShowOnMap ? buildMapBody(context, state) : buildListBody(state),
+            state.isShowOnMap
+                ? buildMapBody(context, state)
+                : buildListBody(state),
           ],
         ),
       ),
@@ -109,7 +116,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                   onTap: () {
                     showLocationOnMap();
                   },
-                  child: SvgPicture.asset(ImageConstant.COMMONS_MY_LOCATION_BUTTON),
+                  child: SvgPicture.asset(
+                      ImageConstant.COMMONS_MY_LOCATION_BUTTON),
                 ),
                 Visibility(
                   visible: state.isShowBottomInfo,
@@ -137,28 +145,18 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   }
 
   Widget buildListBody(MyFavoritesState state) {
-    if (!SharedPrefs.getIsLogined) {
-      return Padding(
-        padding: EdgeInsets.all(24.h),
-        child: LocaleText(
-          alignment: ui.TextAlign.center,
-          text: LocaleKeys.my_favorites_sign_in_to_monitor,
-          style: AppTextStyles.bodyTextStyle.copyWith(color: AppColors.cursorColor),
-        ),
-      );
+    if (state.favoritedRestaurants == null) {
+      return CustomCircularProgressIndicator();
     } else {
-      if (state.favoritedRestaurants == null) {
-        return CustomCircularProgressIndicator();
-      } else {
-        if (state.favoritedRestaurants!.isNotEmpty) {
-          return buildListViewRestaurantInfo(state.favoritedRestaurants ?? []);
-        }
-        return NoFavorites();
+      if (state.favoritedRestaurants!.isNotEmpty) {
+        return buildListViewRestaurantInfo(state.favoritedRestaurants ?? []);
       }
+      return NoFavorites();
     }
   }
 
-  Padding buildTitlesAndSearchBar(BuildContext context, List<SearchStore> favouriteRestaurant) {
+  Padding buildTitlesAndSearchBar(
+      BuildContext context, List<SearchStore> favouriteRestaurant) {
     return Padding(
       padding: EdgeInsets.only(
         left: 28.w,
@@ -201,11 +199,14 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
               return buildRowTitleLeftRight(
                 context,
                 LocaleKeys.my_favorites_body_title,
-                state.isShowOnMap ? LocaleKeys.my_near_show_list : LocaleKeys.my_favorites_show_map,
+                state.isShowOnMap
+                    ? LocaleKeys.my_near_show_list
+                    : LocaleKeys.my_favorites_show_map,
                 favouriteRestaurant,
                 () {
                   context.read<MyFavoritesCubit>().toogleShowOnMap();
-                  if (state.isShowOnMap) context.read<MyFavoritesCubit>().init();
+                  if (state.isShowOnMap)
+                    context.read<MyFavoritesCubit>().init();
                   setState(() {
                     _mapController = Completer<GoogleMapController>();
                     setCustomMarker(favouriteRestaurant);
@@ -235,17 +236,31 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                 if (favouriteRestaurant[index].calendar == null) {
                   return LocaleKeys.home_page_soldout_icon.locale;
                 } else if (favouriteRestaurant[index].calendar != null) {
-                  for (int i = 0; i < favouriteRestaurant[index].calendar!.length; i++) {
-                    var boxcount = favouriteRestaurant[index].calendar![i].boxCount;
+                  for (int i = 0;
+                      i < favouriteRestaurant[index].calendar!.length;
+                      i++) {
+                    var boxcount =
+                        favouriteRestaurant[index].calendar![i].boxCount;
 
                     String now = DateTime.now().toIso8601String();
                     List<String> currentDate = now.split("T").toList();
-                    List<String> startDate = favouriteRestaurant[index].calendar![i].startDate!.toString().split("T").toList();
+                    List<String> startDate = favouriteRestaurant[index]
+                        .calendar![i]
+                        .startDate!
+                        .toString()
+                        .split("T")
+                        .toList();
 
                     if (currentDate[0] == startDate[0]) {
-                      if (favouriteRestaurant[index].calendar![i].boxCount != 0) {
+                      if (favouriteRestaurant[index].calendar![i].boxCount !=
+                          0) {
                         return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-                      } else if (favouriteRestaurant[index].calendar![i].boxCount == null || favouriteRestaurant[index].calendar![i].boxCount == 0) {
+                      } else if (favouriteRestaurant[index]
+                                  .calendar![i]
+                                  .boxCount ==
+                              null ||
+                          favouriteRestaurant[index].calendar![i].boxCount ==
+                              0) {
                         return LocaleKeys.home_page_soldout_icon.locale;
                       }
                     }
@@ -264,9 +279,15 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                   );
                 },
                 child: RestaurantInfoListTile(
-                  deliveryType: int.parse(favouriteRestaurant[index].packageSettings!.deliveryType ?? '3'),
-                  minDiscountedOrderPrice: favouriteRestaurant[index].packageSettings!.minDiscountedOrderPrice,
-                  minOrderPrice: favouriteRestaurant[index].packageSettings!.minOrderPrice,
+                  deliveryType: int.parse(favouriteRestaurant[index]
+                          .packageSettings!
+                          .deliveryType ??
+                      '3'),
+                  minDiscountedOrderPrice: favouriteRestaurant[index]
+                      .packageSettings!
+                      .minDiscountedOrderPrice,
+                  minOrderPrice:
+                      favouriteRestaurant[index].packageSettings!.minOrderPrice,
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
@@ -278,10 +299,14 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                   },
                   icon: favouriteRestaurant[index].photo,
                   restaurantName: favouriteRestaurant[index].name,
-                  distance: Haversine.distance(favouriteRestaurant[index].latitude!, favouriteRestaurant[index].longitude, LocationService.latitude,
+                  distance: Haversine.distance(
+                          favouriteRestaurant[index].latitude!,
+                          favouriteRestaurant[index].longitude,
+                          LocationService.latitude,
                           LocationService.longitude)
                       .toStringAsFixed(2),
-                  packetNumber: packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
+                  packetNumber: packettNumber() ??
+                      LocaleKeys.home_page_soldout_icon.locale,
                   availableTime:
                       '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
                 ),
@@ -291,7 +316,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
     );
   }
 
-  Row buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleRight, favouriteRestaurant, VoidCallback onPressed) {
+  Row buildRowTitleLeftRight(BuildContext context, String titleLeft,
+      String titleRight, favouriteRestaurant, VoidCallback onPressed) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -316,22 +342,28 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
   }
 
   void setCustomMarker(List<SearchStore> favouriteRestaurant) async {
-    markerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
-    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_MARKER);
-    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
+    markerIcon =
+        await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
+    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_MARKER);
+    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
+        ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
     getLocation(favouriteRestaurant);
   }
 
-  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(String assetName) async {
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
+      String assetName) async {
     // Read SVG file as String
-    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
+    String svgString =
+        await DefaultAssetBundle.of(context).loadString(assetName);
     // Create DrawableRoot from SVG String
     DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
 
     // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
     MediaQueryData queryData = MediaQuery.of(context);
     double devicePixelRatio = queryData.devicePixelRatio;
-    double width = 64 * devicePixelRatio; // where 32 is your SVG's original width
+    double width =
+        64 * devicePixelRatio; // where 32 is your SVG's original width
     double height = 64 * devicePixelRatio; // same thing
 
     // Convert to ui.Picture
@@ -362,7 +394,8 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         onTap: () {
           context.read<MyFavoritesCubit>().hideBottomInfo();
         },
-        infoWindow: InfoWindow(title: LocaleKeys.general_settings_my_location.locale),
+        infoWindow:
+            InfoWindow(title: LocaleKeys.general_settings_my_location.locale),
         icon: markerIcon,
         markerId: markerId,
         position: LatLng(latitude, longitude),
@@ -373,7 +406,10 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
         int? dailyBoxCount;
 
         for (var j = 0; j < mapsMarkers[i].calendar!.length; j++) {
-          if (DateTime.parse(mapsMarkers[i].calendar![j].startDate!.toIso8601String()).day == DateTime.now().toLocal().day) {
+          if (DateTime.parse(
+                      mapsMarkers[i].calendar![j].startDate!.toIso8601String())
+                  .day ==
+              DateTime.now().toLocal().day) {
             dailyBoxCount = mapsMarkers[i].calendar![j].boxCount;
           }
         }
@@ -383,7 +419,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
             context.read<MyFavoritesCubit>().setSelectedIndex(i);
           },
           infoWindow: InfoWindow(title: mapsMarkers[i].name),
-          icon: dailyBoxCount != 0 ? restaurantMarkerIcon : restaurantSoldoutMarkerIcon,
+          icon: dailyBoxCount != 0
+              ? restaurantMarkerIcon
+              : restaurantSoldoutMarkerIcon,
           markerId: MarkerId("rest_$i"),
           position: LatLng(mapsMarkers[i].latitude!, mapsMarkers[i].longitude!),
         );
