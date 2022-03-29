@@ -29,14 +29,7 @@ class ImageConstant {
   static const DONGU_LOGO = "assets/images/commons/dongu_logo.svg";
   static const ONBOARDING_BACKGROUND =
       "assets/images/onboardings/onboarding/onboarding_background.svg";
-  static const ONBOARDING_FIRST_BACKGROUND =
-      "assets/images/onboardings/onboarding_first/onboarding_first_background.svg";
-  static const ONBOARDING_SECOND_BACKGROUND =
-      "assets/images/onboardings/onboarding_second/onboarding_second_background.svg";
-  static const ONBOARDING_THIRD_BACKGROUND =
-      "assets/images/onboardings/onboarding_third/onboarding_third_background.svg";
-  static const ONBOARDING_FORTH_BACKGROUND =
-      "assets/images/onboardings/onboarding_forth/onboarding_forth_background.svg";
+
   static const REGISTER_BACKGROUND =
       "assets/images/register_login/register_background.svg";
   static const LOGIN_BACKGROUND =
@@ -181,10 +174,6 @@ class ImageConstant {
       "assets/images/favorites/my_favorites_image.svg";
   static const MY_NOTIFICATIONS_IMAGE =
       "assets/images/notifications/my_notifications_image.svg";
-  static const ONBOARD_THIRD_BOTTOM_BACKGROUND =
-      "assets/images/onboardings/onboarding_third/background_bottom.svg";
-  static const ONBOARD_SECOND_BOTTOM_BACKGROUND =
-      "assets/images/onboardings/onboarding_second/background_bottom_2.svg";
   static const ONBOARD_THIRD_IMAGE =
       "assets/images/onboardings/onboarding_third/onboarding_third_image.svg";
   static const ONBOARD_FIRST_IMAGE =
@@ -193,4 +182,12 @@ class ImageConstant {
       "assets/images/onboardings/onboarding_second/onboarding_second_image.svg";
   static const ONBOARD_FORTH_IMAGE =
       "assets/images/onboardings/onboarding_forth/onboarding_forth_image.svg";
+      static const ONBOARD_FIRST_BOTTOM_BACKGROUND =
+      "assets/images/onboardings/onboarding_first/1.svg";
+  static const ONBOARD_SECOND_BOTTOM_BACKGROUND =
+      "assets/images/onboardings/onboarding_second/2.svg";
+      static const ONBOARD_THIRD_BOTTOM_BACKGROUND =
+      "assets/images/onboardings/onboarding_third/3.svg";
+  static const ONBOARD_FOURTH_BOTTOM_BACKGROUND =
+      "assets/images/onboardings/onboarding_forth/4.svg";
 }
