@@ -9,7 +9,6 @@ import 'package:dongu_mobile/data/repositories/update_permission_for_com_reposit
 import 'package:dongu_mobile/logic/cubits/address_cubit/address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/category_filter_cubit/category_filter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/favorite_status_cubit/favorite_status_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/home_page/home_page_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/login_status_cubit/login_status_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
@@ -59,7 +58,6 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => SearchCubit(sl()));
   getIt.registerLazySingleton(() => LoginStatusCubit());
   getIt.registerFactory(() => FavoriteCubit(sl()));
-  getIt.registerLazySingleton(() => FavoriteStatusCubit());
   getIt.registerLazySingleton(() => AddressCubit(sl()));
   getIt.registerFactory(() => CategoryNameCubit(sl()));
   getIt.registerFactory(() => CategoryFilterCubit(sl()));

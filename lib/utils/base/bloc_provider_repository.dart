@@ -23,7 +23,6 @@ import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_cancel_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/favorite_status_cubit/favorite_status_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/clean_button_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/filters_cubit/favorites_filter_cubit.dart';
@@ -105,7 +104,6 @@ class BlocProviderRepository {
     BlocProvider<FiltersCubit>(create: (context) => FiltersCubit()),
     BlocProvider<FiltersManagerCubit>(create: (context) => FiltersManagerCubit(SampleFiltersRepository())),
     BlocProvider<LoginStatusCubit>(create: (context) => sl<LoginStatusCubit>()),
-    BlocProvider<FavoriteStatusCubit>(create: (context) => sl<FavoriteStatusCubit>()),
 
   ];
 }

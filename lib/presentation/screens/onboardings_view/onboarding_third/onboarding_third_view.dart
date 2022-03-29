@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/locale_keys.g.dart';
+import '../components/background_onboarding_svg.dart';
 import '../components/onboarding_headline_text.dart';
 import '../components/onboarding_text.dart';
 
@@ -18,10 +19,7 @@ class OnboardingThirdView extends StatelessWidget {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          SvgPicture.asset(
-            ImageConstant.ONBOARD_THIRD_BOTTOM_BACKGROUND,
-            fit: BoxFit.cover,
-          ),
+          BackgroundOnboarding(image:  ImageConstant.ONBOARD_THIRD_BOTTOM_BACKGROUND),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 26.w),
             child: Column(
@@ -37,7 +35,7 @@ class OnboardingThirdView extends StatelessWidget {
                   fit: BoxFit.fitHeight,
                   height: 330.h,
                 ),
-                SizedBox(height: 160.h),
+                SizedBox(height: 130.h),
                 OnboardingHeadlineText(
                   headlineText: LocaleKeys.onboardings_third_text_headline,
                   maxLines: 3,
