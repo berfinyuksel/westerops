@@ -1,12 +1,15 @@
-import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/favourite_cubit/favorite_state.dart';
-import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
-import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/restaurant_detail_view/components/restaurant_info_tab.dart';
+import 'package:dongu_mobile/presentation/screens/restaurant_details_views/restaurant_detail_view/components/restaurant_info_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/favourite_cubit/favorite_state.dart';
+import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
+import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 
 import '../../../../../data/model/box.dart';
 import '../../../../../data/model/category_name.dart';
@@ -14,7 +17,6 @@ import '../../../../../data/model/search_store.dart';
 import '../../../../../data/repositories/basket_repository.dart';
 import '../../../../../data/services/locator.dart';
 import '../../../../../data/shared/shared_prefs.dart';
-import '../../../../../logic/cubits/address_cubit/address_cubit.dart';
 import '../../../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import '../../../../../logic/cubits/box_cubit/box_cubit.dart';
 import '../../../../../logic/cubits/box_cubit/box_state.dart';
@@ -33,12 +35,12 @@ import '../../../../../utils/locale_keys.g.dart';
 import '../../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../../widgets/button/custom_button.dart';
+import '../../../../widgets/tabBar/restaurant_details_tabbar.dart';
 import '../../../../widgets/text/locale_text.dart';
 import '../../../categories_view/screen_arguments_categories/screen_arguments_categories.dart';
 import '../../../register_view/components/clipped_password_rules.dart';
 import '../../../surprise_pack_view/components/custom_alert_dialog.dart';
 import '../../screen_arguments/screen_arguments.dart';
-import 'custom_circular_progress.dart';
 
 class CustomCardAndBody extends StatefulWidget {
   final SearchStore? restaurant;
@@ -65,10 +67,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
   @override
   void initState() {
     super.initState();
-    print('restoran id : ${widget.restaurant!.id}');
     _controller = TabController(length: 2, vsync: this);
     definedBoxes.clear();
-    context.read<AddressCubit>().getActiveAddress();
   }
 
   @override
@@ -84,61 +84,48 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
             create: (context) => sl<BoxCubit>()..getBoxes(widget.restaurant!.id!),
           ),
         ],
-        child: BlocBuilder<BoxCubit, BoxState>(
-          builder: (context, state) {
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  showInfo = false;
-                });
-              },
-              child: Stack(children: [
-                Column(
-                  children: [
-                    customCard(context, state),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    packageCourierAndFavoriteContainer(context, state),
-                    buildBuilder(),
-                  ],
-                ),
-                Positioned(
-                  left: MediaQuery.of(context).size.width * 0.39,
-                  top: MediaQuery.of(context).size.height * 0.27,
-                  child: Visibility(
-                      visible: showInfo,
-                      child: ClippedPasswordRules(
-                          child: SingleChildScrollView(
-                        child: Text(
-                          "Sürpriz Paketler ile alakalı bilgilendirme buraya gelecek",
-                          textAlign: TextAlign.justify,
-                        ),
-                      ))),
-                ),
-              ]),
-            );
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              showInfo = false;
+            });
           },
+          child: Stack(children: [
+            buildColumBodyView(context),
+            buildSurpriseBoxInfo(context),
+          ]),
         ));
   }
 
-  BlocBuilder buildBuilder() {
-    return BlocBuilder<BoxCubit, BoxState>(
-      builder: (context, state) {
-        if (state is GenericInitial) {
-          return Container();
-        } else if (state is BoxLoading) {
-          return Center(child: CustomCircularProgressIndicator());
-        } else if (state is BoxCompleted) {
-          return Center(child: customBody(context, state));
-        } else {
-          return SizedBox();
-        }
-      },
+  Column buildColumBodyView(BuildContext context) {
+    return Column(
+      children: [
+        customCard(context),
+        SizedBox(height: 20),
+        packageCourierAndFavoriteContainer(context),
+        customBody(context)
+      ],
     );
   }
 
-  Container customCard(BuildContext context, BoxState state) {
+  Positioned buildSurpriseBoxInfo(BuildContext context) {
+    return Positioned(
+      left: MediaQuery.of(context).size.width * 0.39,
+      top: MediaQuery.of(context).size.height * 0.27,
+      child: Visibility(
+          visible: showInfo,
+          child: ClippedPasswordRules(
+              child: SingleChildScrollView(
+            //TODO: Bu text locale icerinse alinacaktir
+            child: Text(
+              "Sürpriz Paketler restoranın sana özel lezzetlerini yakalamanı sağlar.",
+              textAlign: TextAlign.start,
+            ),
+          ))),
+    );
+  }
+
+  Container customCard(BuildContext context) {
     return Container(
       width: 372.w,
       height: 280.h,
@@ -149,75 +136,42 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
         ),
         color: Colors.white,
       ),
-      child: customCardTabView(context, state),
+      child: customCardTabView(context),
     );
   }
 
-  Column customCardTabView(BuildContext context, BoxState state) {
+  Column customCardTabView(BuildContext context) {
     return Column(
       children: [
-        tabBar(context),
-        Divider(
-          thickness: 2,
-          color: AppColors.borderAndDividerColor,
-        ),
-        Container(
-          child: Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Spacer(flex: 1),
-                restaurantLogoContainer(context),
-                Spacer(flex: 1),
-                restaurantTitleAndAddressColumn(),
-                Spacer(flex: 2),
-                Padding(
-                  padding: EdgeInsets.only(top: 10.h),
-                  child: restaurantStarIconRating(),
-                ),
-                //   Spacer(flex: 1),
-              ],
-            ),
-          ),
-        ),
-        Divider(
-          thickness: 2,
-          color: AppColors.borderAndDividerColor,
-        ),
-        Container(
-          child: Expanded(
-            child: TabBarView(controller: _controller, children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  clockContainer(context),
-                  packageContainer(context, state),
-                  oldPriceText(),
-                  newPriceText(context),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  serviceRatingRow(context),
-                  qualityRatingRow(context),
-                  foodRatingRow(context),
-                ],
-              ),
-            ]),
-          ),
-        ),
+        buildTabBar(),
+        Divider(thickness: 2, color: AppColors.borderAndDividerColor),
+        RestaurantInfoTile(restaurant: widget.restaurant),
+        Divider(thickness: 2, color: AppColors.borderAndDividerColor),
+        RestaurantInfoTab(controller: _controller!, restaurant: widget.restaurant!),
       ], //56
     );
   }
 
-  Container customBody(BuildContext context, BoxCompleted state) {
-    return Container(
-      height:
-          _controller!.index == 0 ? context.dynamicHeight(state.packages.length * .2 + .25) : context.dynamicHeight(.7),
-      child: TabBarView(controller: _controller, children: [tabPackages(context, state), tabDetail(context)]),
+  Widget customBody(BuildContext context) {
+    return BlocBuilder<BoxCubit, BoxState>(
+      builder: (context, state) {
+        if (state is GenericInitial) {
+          return Container();
+        } else if (state is BoxLoading) {
+          return Center(child: CustomCircularProgressIndicator());
+        } else if (state is BoxCompleted) {
+          return Center(
+            child: Container(
+              height: _controller!.index == 0
+                  ? context.dynamicHeight(state.packages.length * .2 + .25)
+                  : context.dynamicHeight(.7),
+              child: TabBarView(controller: _controller, children: [tabPackages(context, state), tabDetail(context)]),
+            ),
+          );
+        } else {
+          return SizedBox();
+        }
+      },
     );
   }
 
@@ -339,7 +293,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
             ),
           ),
         ),
-        //  buildCategoriesSection(context),
+        //buildCategoriesSection(context),
       ],
     );
   }
@@ -347,7 +301,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
   Builder buildCategoriesSection(BuildContext context) {
     return Builder(builder: (context) {
       final stateOfCategories = context.watch<CategoryNameCubit>().state;
-
       if (stateOfCategories is CategoryNameInital) {
         return Container();
       } else if (stateOfCategories is CategoryNameLoading) {
@@ -601,8 +554,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               SizedBox(
                 height: 5.h,
               ),
-              LocaleText(
-                text: surpriseBoxes[index].defined == false ? "" : mealNames,
+              AutoSizeText(
+                surpriseBoxes[index].defined == false ? "" : mealNames,
                 style: AppTextStyles.subTitleStyle,
               ),
               SizedBox(height: 20.h),
@@ -803,269 +756,18 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
     }
   }
 
-  TabBar tabBar(BuildContext context) {
-    return TabBar(
-        onTap: (context) {
-          setState(() {
-            showInfo = false;
-          });
-        },
-        labelPadding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.1)),
-        indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(width: 3, color: AppColors.orangeColor),
-            insets: EdgeInsets.symmetric(
-              horizontal: context.dynamicWidht(0.11),
-            )), // top değeri değişecek
-        indicatorPadding: EdgeInsets.only(bottom: context.dynamicHeight(0.01)),
-        labelColor: AppColors.orangeColor,
-        labelStyle: AppTextStyles.bodyTitleStyle,
-        unselectedLabelColor: AppColors.textColor,
-        unselectedLabelStyle: GoogleFonts.montserrat(
-          decoration: TextDecoration.none,
-          fontSize: 18.0.sp,
-          color: AppColors.textColor,
-          fontWeight: FontWeight.w300,
-          height: 2.5.h,
-        ),
-        indicatorColor: AppColors.orangeColor,
-        controller: _controller,
-        isScrollable: true,
-        tabs: [
-          Tab(
-            text: LocaleKeys.restaurant_detail_text1.locale,
-          ),
-          Tab(
-            text: LocaleKeys.restaurant_detail_text2.locale,
-          ),
-        ]);
-  }
-
-  Row foodRatingRow(BuildContext context) {
-    List<int> mealPoints = [];
-    for (var i = 0; i < widget.restaurant!.review!.length; i++) {
-      int mealPoint = widget.restaurant!.review![i].qualityPoint!;
-      mealPoints.add(mealPoint);
-    }
-    int totalMealPoints = mealPoints.fold(0, (previousValue, element) => previousValue + element);
-
-    String? avgMealPoint = (totalMealPoints / widget.restaurant!.review!.length).toStringAsFixed(1);
-    return Row(
-      children: [
-        LocaleText(
-          text: LocaleKeys.restaurant_detail_item3,
-          style: AppTextStyles.subTitleStyle,
-        ),
-        SizedBox(
-          width: 10.w,
-        ),
-        CustomCircularProgress(
-          valueColor: AppColors.cursorColor,
-          ratingText: mealPoints.isNotEmpty ? avgMealPoint : '0.0',
-          value: mealPoints.isNotEmpty ? double.parse(avgMealPoint) / 5.0 : 0.0,
-        )
-        /*SvgPicture.asset(ImageConstant.RESTAURANT_FOOD_RATING_ICON),*/
-      ],
+  Widget buildTabBar() {
+    return RestaurantDetailsTabBar(
+      controller: _controller!,
+      onTap: (value) {
+        setState(() {
+          showInfo = false;
+        });
+      },
     );
   }
 
-  Row qualityRatingRow(BuildContext context) {
-    List<int> qualityPoints = [];
-    for (var i = 0; i < widget.restaurant!.review!.length; i++) {
-      int qualityPoint = widget.restaurant!.review![i].qualityPoint!;
-      qualityPoints.add(qualityPoint);
-    }
-    int totalQualityPoints = qualityPoints.fold(0, (previousValue, element) => previousValue + element);
-
-    String avgQualityPoint = (totalQualityPoints / widget.restaurant!.review!.length).toStringAsFixed(1);
-    return Row(
-      children: [
-        LocaleText(
-          text: LocaleKeys.restaurant_detail_item2,
-          style: AppTextStyles.subTitleStyle,
-        ),
-        SizedBox(
-          width: 10.w,
-        ),
-        CustomCircularProgress(
-          valueColor: AppColors.pinkColor,
-          ratingText: qualityPoints.isNotEmpty ? avgQualityPoint : '0.0',
-          value: qualityPoints.isNotEmpty ? double.parse(avgQualityPoint) / 5 : 0.0,
-        ),
-      ],
-    );
-  }
-
-  Row serviceRatingRow(BuildContext context) {
-    List<int> servicePoints = [];
-    for (var i = 0; i < widget.restaurant!.review!.length; i++) {
-      int servicePoint = widget.restaurant!.review![i].servicePoint!;
-      servicePoints.add(servicePoint);
-    }
-    int totalServicePoints = servicePoints.fold(0, (previousValue, element) => previousValue + element);
-
-    String avgServicePoint = (totalServicePoints / widget.restaurant!.review!.length).toStringAsFixed(1);
-    return Row(
-      children: [
-        LocaleText(
-          text: LocaleKeys.restaurant_detail_item1,
-          style: AppTextStyles.subTitleStyle,
-        ),
-        SizedBox(
-          width: 10.w,
-        ),
-        CustomCircularProgress(
-          value: servicePoints.isNotEmpty ? double.parse(avgServicePoint) / 5 : 0.0,
-          valueColor: AppColors.greenColor,
-          ratingText: servicePoints.isNotEmpty ? avgServicePoint : '0.0',
-        ),
-      ],
-    );
-  }
-
-  Container newPriceText(BuildContext context) {
-    return Container(
-      alignment: Alignment(0.0, -0.11),
-      width: context.dynamicWidht(0.16),
-      height: context.dynamicHeight(0.04),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: AppColors.scaffoldBackgroundColor,
-      ),
-      child: Text(
-        widget.restaurant!.packageSettings!.minDiscountedOrderPrice.toString() + " TL",
-        textAlign: TextAlign.center,
-        style: AppTextStyles.bodyBoldTextStyle.copyWith(fontWeight: FontWeight.w700, color: AppColors.greenColor),
-      ),
-    );
-  }
-
-  Text oldPriceText() {
-    return Text(
-      widget.restaurant!.packageSettings!.minOrderPrice.toString() + " TL",
-      style: AppTextStyles.bodyBoldTextStyle
-          .copyWith(decoration: TextDecoration.lineThrough, color: AppColors.unSelectedpackageDeliveryColor),
-    );
-  }
-
-  Container packageContainer(BuildContext context, BoxState state) {
-    if (state is BoxCompleted) {
-      return state.packages.length != 0
-          ? Container(
-              alignment: Alignment(0.0, -0.11),
-              width: 85.w,
-              height: 36.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                color: AppColors.orangeColor,
-              ),
-              child: Text(
-                "${state.packages.length} ${LocaleKeys.restaurant_detail_packet_container_package.locale}",
-                style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-            )
-          : Container(
-              alignment: Alignment(0.0, -0.11),
-              width: 85.w,
-              height: 36.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                color: AppColors.yellowColor,
-              ),
-              child: Text(
-                LocaleKeys.restaurant_detail_packet_container_sold_out.locale,
-                style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
-              ),
-            );
-    } else
-      return Container(
-        width: 0,
-        height: 0,
-      );
-  }
-
-  Container clockContainer(BuildContext context) {
-    return Container(
-      width: 125.w,
-      height: 36.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: AppColors.scaffoldBackgroundColor,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SvgPicture.asset(ImageConstant.COMMONS_TIME_ICON),
-          Text(
-            "${widget.restaurant!.packageSettings!.deliveryTimeStart!}-${widget.restaurant!.packageSettings!.deliveryTimeEnd}",
-            textAlign: TextAlign.center,
-            style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.yellowColor),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Row restaurantStarIconRating() {
-    return Row(
-      //backend
-      children: [
-        Container(
-          child: SvgPicture.asset(ImageConstant.RESTAURANT_STAR_ICON),
-        ),
-        SizedBox(width: 10.w),
-        Text(
-          widget.restaurant!.avgReview!.toStringAsFixed(1),
-          style: AppTextStyles.bodyTextStyle,
-        )
-      ],
-    );
-  }
-
-  Column restaurantTitleAndAddressColumn() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 180.w,
-          child: Text(
-            widget.restaurant!.name!,
-            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w600),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        Text(
-          widget.restaurant!.address!,
-          style: AppTextStyles.subTitleStyle,
-        ),
-        // LocaleText(text: widget.restaurant!.address, style: AppTextStyles.subTitleStyle),
-      ],
-    );
-  }
-
-  Container restaurantLogoContainer(BuildContext context) {
-    return Container(
-        width: context.dynamicWidht(0.22),
-        height: context.dynamicHeight(0.2),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.0),
-          color: Colors.white,
-          border: Border.all(
-            width: 2.0.w,
-            color: AppColors.borderAndDividerColor,
-          ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: context.dynamicHeight(0.0053),
-            horizontal: context.dynamicHeight(0.0056),
-          ),
-          child: Image.network(widget.restaurant!.photo!),
-        ));
-  }
-
-  Container packageCourierAndFavoriteContainer(BuildContext context, BoxState state) {
+  Container packageCourierAndFavoriteContainer(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 65.h,
