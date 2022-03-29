@@ -12,7 +12,7 @@ class SvgImageRepository {
     );
     precachePicture(
       ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
-          'assets/images/onboardings/onboarding_forth/onboarding_forth_background.svg'),
+          'assets/images/onboardings/onboarding_forth/4.svg'),
       null,
     );
     precachePicture(
