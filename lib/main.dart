@@ -9,7 +9,6 @@ import 'data/services/locator.dart';
 import 'data/shared/shared_prefs.dart';
 import 'utils/constants/locale_constant.dart';
 
-
 Future<void> main() async {
   await buildInit();
   runApp(

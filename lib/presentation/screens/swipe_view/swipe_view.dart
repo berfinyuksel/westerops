@@ -60,7 +60,7 @@ class _SwipeViewState extends State<SwipeView> {
                 title: widget.orderInfo!.boxes![index].textName,
                 price:
                     (widget.orderInfo!.cost! / widget.orderInfo!.boxes!.length),
-                withDecimal: false,
+                withDecimal: true,
                 subTitle: widget.orderInfo!.boxes![index].meals!.isEmpty
                     ? ""
                     : mealNames,

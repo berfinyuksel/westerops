@@ -211,7 +211,7 @@ class _CartViewState extends State<CartView> {
                               .packageSetting!
                               .minDiscountedOrderPrice!
                               .toDouble(),
-                          withDecimal: false,
+                          withDecimal: true,
                           subTitle: "",
                         ),
                       );
@@ -233,7 +233,7 @@ class _CartViewState extends State<CartView> {
                   title: LocaleKeys.past_order_detail_payment_1,
                   price: totalPayPrice(),
                   lineTrough: false,
-                  withDecimal: false,
+                  withDecimal: true,
                 );
               }),
               Builder(builder: (context) {

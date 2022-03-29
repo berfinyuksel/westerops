@@ -33,12 +33,12 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.only(
         left: context.dynamicWidht(0.06),
-        right: context.dynamicWidht(0.06),
+        right: context.dynamicWidht(0.04),
       ),
       trailing: Container(
         alignment: Alignment.center,
-        width: context.dynamicWidht(0.38),
-        height: context.dynamicHeight(0.04),
+        width: context.dynamicWidht(0.4),
+        height: context.dynamicHeight(0.03),
         child: Row(
           children: [
             oldPrice != null
@@ -52,7 +52,7 @@ class PastOrderDetailBasketListTile extends StatelessWidget {
             SizedBox(width: context.dynamicWidht(0.02)),
             Container(
               alignment: Alignment.center,
-              width: context.dynamicWidht(0.15),
+              width: context.dynamicWidht(0.2),
               height: context.dynamicHeight(0.04),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4.0),
