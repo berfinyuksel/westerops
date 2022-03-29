@@ -1,6 +1,5 @@
 import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/favourite_cubit/get_all_favourite.dart';
-import 'package:dongu_mobile/logic/cubits/swipe_route_cubit.dart/swipe_route_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/favourite_cubit/favorite_state.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +24,7 @@ import '../../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../../../logic/cubits/order_cubit/order_cubit.dart';
 import '../../../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../../../../../logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
+import '../../../../../logic/cubits/swipe_route_cubit.dart/swipe_route_cubit.dart';
 import '../../../../../utils/constants/image_constant.dart';
 import '../../../../../utils/constants/route_constant.dart';
 import '../../../../../utils/extensions/context_extension.dart';
@@ -65,56 +65,61 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
   @override
   void initState() {
     super.initState();
+    print('restoran id : ${widget.restaurant!.id}');
     _controller = TabController(length: 2, vsync: this);
     definedBoxes.clear();
-    context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
-    context.read<SearchStoreCubit>().getSearchStore();
-    context.read<AllFavoriteCubit>().getFavorite();
     context.read<AddressCubit>().getActiveAddress();
-    // definedBoxes = context.read<BoxCubit>().getBoxes(widget.restaurant!.id!);
   }
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    return BlocBuilder<BoxCubit, BoxState>(
-      builder: (context, state) {
-        isFavorite = context.watch<FavoriteCubit>().isFavorite;
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              showInfo = false;
-            });
-          },
-          child: Stack(children: [
-            Column(
-              children: [
-                customCard(context, state),
-                SizedBox(
-                  height: 20,
-                ),
-                packageCourierAndFavoriteContainer(context, state),
-                buildBuilder(),
-              ],
-            ),
-            Positioned(
-              left: MediaQuery.of(context).size.width * 0.39,
-              top: MediaQuery.of(context).size.height * 0.27,
-              child: Visibility(
-                  visible: showInfo,
-                  child: ClippedPasswordRules(
-                      child: SingleChildScrollView(
-                    child: Text(
-                      "Sürpriz Paketler ile alakalı bilgilendirme buraya gelecek",
-                      textAlign: TextAlign.justify,
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => sl<FavoriteCubit>()..init(widget.restaurant!.id!),
+          ),
+          BlocProvider(
+            create: (context) => sl<BoxCubit>()..getBoxes(widget.restaurant!.id!),
+          ),
+        ],
+        child: BlocBuilder<BoxCubit, BoxState>(
+          builder: (context, state) {
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  showInfo = false;
+                });
+              },
+              child: Stack(children: [
+                Column(
+                  children: [
+                    customCard(context, state),
+                    SizedBox(
+                      height: 20,
                     ),
-                  ))),
-            ),
-          ]),
-        );
-      },
-    );
+                    packageCourierAndFavoriteContainer(context, state),
+                    buildBuilder(),
+                  ],
+                ),
+                Positioned(
+                  left: MediaQuery.of(context).size.width * 0.39,
+                  top: MediaQuery.of(context).size.height * 0.27,
+                  child: Visibility(
+                      visible: showInfo,
+                      child: ClippedPasswordRules(
+                          child: SingleChildScrollView(
+                        child: Text(
+                          "Sürpriz Paketler ile alakalı bilgilendirme buraya gelecek",
+                          textAlign: TextAlign.justify,
+                        ),
+                      ))),
+                ),
+              ]),
+            );
+          },
+        ));
   }
 
   BlocBuilder buildBuilder() {
@@ -334,7 +339,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
             ),
           ),
         ),
-        buildCategoriesSection(context),
+        //  buildCategoriesSection(context),
       ],
     );
   }
@@ -397,7 +402,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
     });
   }
 
-  Column tabPackages(BuildContext context, BoxCompleted state) {
+  Widget tabPackages(BuildContext context, BoxCompleted state) {
     List<Box> boxLists = [];
     for (var i = 0; i < state.packages.length; i++) {
       boxLists.add(state.packages[i]);
@@ -412,83 +417,85 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
       }
     }
 
-    return Column(
-      children: [
-        SizedBox(
-          height: 20.h,
-        ),
-        Column(
-          children: [
-            SizedBox(height: 20.h),
-            Padding(
-              padding: EdgeInsets.only(left: 28.w),
-              child: Column(
-                children: [
-                  restaurantInfoIconAndSubTitle(context),
-                  Divider(
-                    thickness: 5,
-                    color: AppColors.borderAndDividerColor,
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 20.h),
-        Visibility(
-            visible: surpriseBoxes.isEmpty,
-            child: Center(
-              child: LocaleText(
-                text: LocaleKeys.restaurant_detail_detail_tab_sub_title8,
-              ),
-            )),
-        ListView.builder(
-          itemCount: surpriseBoxes.length,
-          itemBuilder: (context, index) {
-            return buildBox(context, index, state, surpriseBoxes);
-          },
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-        ),
-        SizedBox(
-          height: 40.h,
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 28.w),
-          child: Column(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          Column(
             children: [
-              Row(
-                children: [
-                  LocaleText(
-                    text: LocaleKeys.restaurant_detail_sub_title2,
-                    style: AppTextStyles.bodyTitleStyle,
-                  ),
-                ],
+              SizedBox(height: 20.h),
+              Padding(
+                padding: EdgeInsets.only(left: 28.w),
+                child: Column(
+                  children: [
+                    restaurantInfoIconAndSubTitle(context),
+                    Divider(
+                      thickness: 5,
+                      color: AppColors.borderAndDividerColor,
+                    )
+                  ],
+                ),
               ),
-              Divider(
-                thickness: 5,
-                color: AppColors.borderAndDividerColor,
-              )
             ],
           ),
-        ),
-        SizedBox(height: 20.h),
-        Visibility(
-            visible: definedBoxess.isEmpty,
-            child: Center(
-              child: LocaleText(
-                text: LocaleKeys.restaurant_detail_detail_tab_sub_title9,
-              ),
-            )),
-        ListView.builder(
-          itemCount: definedBoxess.length,
-          itemBuilder: (context, index) {
-            return buildBox(context, index, state, definedBoxess);
-          },
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-        ),
-      ],
+          SizedBox(height: 20.h),
+          Visibility(
+              visible: surpriseBoxes.isEmpty,
+              child: Center(
+                child: LocaleText(
+                  text: LocaleKeys.restaurant_detail_detail_tab_sub_title8,
+                ),
+              )),
+          ListView.builder(
+            itemCount: surpriseBoxes.length,
+            itemBuilder: (context, index) {
+              return buildBox(context, index, state, surpriseBoxes);
+            },
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+          ),
+          SizedBox(
+            height: 40.h,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 28.w),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    LocaleText(
+                      text: LocaleKeys.restaurant_detail_sub_title2,
+                      style: AppTextStyles.bodyTitleStyle,
+                    ),
+                  ],
+                ),
+                Divider(
+                  thickness: 5,
+                  color: AppColors.borderAndDividerColor,
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 20.h),
+          Visibility(
+              visible: definedBoxess.isEmpty,
+              child: Center(
+                child: LocaleText(
+                  text: LocaleKeys.restaurant_detail_detail_tab_sub_title9,
+                ),
+              )),
+          ListView.builder(
+            itemCount: definedBoxess.length,
+            itemBuilder: (context, index) {
+              return buildBox(context, index, state, definedBoxess);
+            },
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+          ),
+        ],
+      ),
     );
   }
 
@@ -1059,8 +1066,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
   }
 
   Container packageCourierAndFavoriteContainer(BuildContext context, BoxState state) {
-    context.read<AllFavoriteCubit>().getFavorite();
-
     return Container(
       width: double.infinity,
       height: 65.h,
@@ -1117,64 +1122,44 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
               ),
             ],
           ),
-          Builder(builder: (context) {
-            final GenericState stateOfFavorites = context.watch<AllFavoriteCubit>().state;
-
-            if (stateOfFavorites is GenericInitial) {
-              return Container();
-            } else if (stateOfFavorites is GenericLoading) {
-              return Row(
-                children: [
-                  LocaleText(
-                    text: !isFavorite ? LocaleKeys.restaurant_detail_text3 : LocaleKeys.restaurant_detail_text4,
-                    style: AppTextStyles.bodyTextStyle,
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  SvgPicture.asset(
-                    ImageConstant.RESTAURANT_FAVORITE_ICON,
-                    color: isFavorite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
-                  ),
-                ],
-              );
-            } else if (stateOfFavorites is GenericCompleted) {
-              for (var i = 0; i < stateOfFavorites.response.length; i++) {
-                if (stateOfFavorites.response[i].id == widget.restaurant!.id) {
-                  isFavorite = true;
-                } else if (stateOfFavorites.response[i].id == null) {
-                  isFavorite = false;
-                }
-              }
-              return Row(
-                children: [
-                  LocaleText(
-                    text: !isFavorite ? LocaleKeys.restaurant_detail_text3 : LocaleKeys.restaurant_detail_text4,
-                    style: AppTextStyles.bodyTextStyle,
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      if (SharedPrefs.getIsLogined) {
-                        context.read<FavoriteCubit>().toggleIsFavorite(context, widget.restaurant!);
-                      } else {
-                        Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
-                      }
-                    },
-                    child: SvgPicture.asset(
-                      ImageConstant.RESTAURANT_FAVORITE_ICON,
-                      color: isFavorite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+          BlocBuilder<FavoriteCubit, FavoriteState>(
+            builder: (context, state) {
+              if (state is FavoriteLoading) {
+                return SizedBox();
+              } else if (state is FavoriteError) {
+                return Center(child: Text("${state.message}\n${state.statusCode}"));
+              } else if (state is IsFavoriteChange) {
+                print('ui icindeki state favorite: ' + state.isFavorite.toString());
+                return Row(
+                  children: [
+                    LocaleText(
+                      text: state.isFavorite ? LocaleKeys.restaurant_detail_text4 : LocaleKeys.restaurant_detail_text3,
+                      style: AppTextStyles.bodyTextStyle,
                     ),
-                  ),
-                ],
-              );
-            } else {
-              final error = stateOfFavorites as GenericError;
-              return Center(child: Text("${error.message}\n${error.statusCode}"));
-            }
-          })
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        if (SharedPrefs.getIsLogined) {
+                          context.read<FavoriteCubit>().toggleIsFavorite(context, widget.restaurant!);
+                        } else {
+                          Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
+                        }
+                      },
+                      child: SvgPicture.asset(
+                        ImageConstant.RESTAURANT_FAVORITE_ICON,
+                        color: state.isFavorite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                print('state else icine dustu');
+                return SizedBox();
+              }
+            },
+          )
         ],
       ),
     );
