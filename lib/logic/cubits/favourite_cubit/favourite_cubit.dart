@@ -67,7 +67,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       emit(FavoriteLoading());
       final response = await _favoriteRepository.getFavorites();
       favoriteRestaurants = response;
-      print("get favorites results: ${response.first.id}");
+     // print("get favorites results: ${response.first.id}");
       emit(FavoriteCompleted(response));
     } on NetworkError catch (e) {
       emit(FavoriteError(e.message, e.statusCode));
