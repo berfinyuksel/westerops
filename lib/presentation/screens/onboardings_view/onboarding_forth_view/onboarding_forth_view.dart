@@ -39,12 +39,13 @@ class OnboardingForthView extends StatelessWidget {
                     fit: BoxFit.fitHeight,
                     height: 70.h,
                   ),
+                  SizedBox(height: 40.h),
                   SvgPicture.asset(
                     ImageConstant.ONBOARD_FORTH_IMAGE,
-                    fit: BoxFit.fitHeight,
-                    height: 330.h,
+                    // fit: BoxFit.fitHeight,
+                    height: 230.h,
                   ),
-                  SizedBox(height: 150.h),
+                  SizedBox(height: 210.h),
                   OnboardingHeadlineText(
                     headlineText: LocaleKeys.onboardings_forth_text_headline,
                     maxLines: 3,

@@ -17,25 +17,27 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: OnboardingBackgroundImage(
-              image: ImageConstant.ONBOARDING_BACKGROUND,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: OnboardingBackgroundImage(
+                image: ImageConstant.ONBOARDING_BACKGROUND,
+              ),
             ),
-          ),
-          buildText(context),
-          Positioned(
-            bottom: context.dynamicHeight(0.08),
-            left: 0,
-            right: 0,
-            child: buildBottomText(context),
-          )
-        ],
+            buildText(context),
+            Positioned(
+              bottom: context.dynamicHeight(0.08),
+              left: 0,
+              right: 0,
+              child: buildBottomText(context),
+            )
+          ],
+        ),
       ),
     );
   }
