@@ -22,6 +22,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../data/services/locator.dart';
+import '../../../../logic/cubits/favourite_cubit/favorite_state.dart';
 import '../../../../logic/cubits/favourite_cubit/favourite_cubit.dart';
 import '../../../../utils/extensions/string_extension.dart';
 
@@ -31,7 +33,6 @@ class FilterFavoritesView extends StatefulWidget {
 }
 
 class _FilterFavoritesViewState extends State<FilterFavoritesView> {
-
   double latitude = 0;
   double longitude = 0;
 
@@ -40,135 +41,108 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
   List<SearchStore> mapsMarkers = [];
 
   int selectedIndex = 0;
-  @override
-  void initState() {
-    super.initState();
-    context.read<FavoriteCubit>().getFavorite();
-    context.read<SearchStoreCubit>().getSearchStore();
-  }
 
   @override
   Widget build(BuildContext context) {
-    context.read<FavoriteCubit>().getFavorite();
-    return buildBuilder();
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<SearchStoreCubit>(
+            create: (BuildContext context) =>
+                sl<SearchStoreCubit>()..getSearchStore(),
+          ),
+          BlocProvider<FavoriteCubit>(
+            create: (BuildContext context) =>
+                sl<FavoriteCubit>()..getFavorite(),
+          ),
+        ],
+        child: buildBody(context, sl<SearchStoreCubit>().searchStores,
+            sl<SearchStoreCubit>().state));
   }
 
-  Builder buildBuilder() {
-    return Builder(builder: (context) {
-      final GenericState state = context.watch<SearchStoreCubit>().state;
-      //final FiltersState filterState = context.watch<FiltersCubit>().state;
 
-      if (state is GenericInitial) {
-        return Container(color: Colors.white);
-      } else if (state is GenericLoading) {
-        return Container(
-            color: Colors.white,
-            child: Center(child: CustomCircularProgressIndicator()));
-      } else if (state is GenericCompleted) {
-        List<SearchStore> favourites = [];
-        for (int i = 0; i < state.response.length; i++) {
-          favourites.add(state.response[i]);
+  BlocBuilder buildBody(
+      BuildContext context, List<SearchStore> favourites, GenericState state) {
+    return BlocBuilder<FavoriteCubit, FavoriteState>(
+      builder: (context, state) {
+        if (state is FavoriteInitial) {
+          return Container(color: Colors.white);
+        } else if (state is FavoriteLoading) {
+
+          return Container(
+              color: Colors.white,
+              child: Center(child: CustomCircularProgressIndicator()));
+        } else if (state is FavoriteCompleted) {
+          List<SearchStore> favouriteRestaurant = [];
+          for (var i = 0; i < favourites.length; i++) {
+            for (var j = 0; j < state.response.length; j++) {
+              if (favourites[i].id == state.response[j].id) {
+                favouriteRestaurant.add(favourites[i]);
+              }
+            }
+          }
+          mapsMarkers = favouriteRestaurant;
+
+          List<String> favoriteListForShared = [];
+          for (var i = 0; i < favouriteRestaurant.length; i++) {
+            favoriteListForShared.add(favouriteRestaurant[i].id.toString());
+          }
+
+          SharedPrefs.setFavoriteIdList(favoriteListForShared);
+          return CustomScaffold(
+            title: LocaleKeys.filters_done_title.locale,
+            isDrawer: false,
+            body: Column(
+              children: [
+                Visibility(
+                    visible: !isShowOnMap,
+                    child: !SharedPrefs.getIsLogined
+                        ? Padding(
+                            padding: EdgeInsets.all(24.h),
+                            child: LocaleText(
+                              alignment: ui.TextAlign.center,
+                              text: LocaleKeys.my_favorites_sign_in_to_monitor,
+                              style: AppTextStyles.bodyTextStyle
+                                  .copyWith(color: AppColors.cursorColor),
+                            ),
+                          )
+                        : Expanded(
+                            child: favouriteRestaurant.isNotEmpty
+                                ? buildListViewRestaurantInfo(
+                                    favouriteRestaurant)
+                                : Center(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 40.h,
+                                        ),
+                                        SvgPicture.asset(
+                                            ImageConstant.SURPRISE_PACK_ALERT),
+                                        SizedBox(
+                                          height: 20.h,
+                                        ),
+                                        LocaleText(
+                                          alignment: TextAlign.center,
+                                          text: LocaleKeys
+                                              .my_favorites_no_favorites,
+                                          style: GoogleFonts.montserrat(
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ))),
+              ],
+            ),
+          );
+        } else {
+          final error = state as FavoriteError;
+          return Center(child: Text("${error.message}\n${error.statusCode}"));
         }
-
-        return GestureDetector(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            child: Center(
-             // child: buildBody(context, favourites, state)
-              ));
-      } else {
-        final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    });
+      },
+    );
   }
-
-  // Builder buildBody(
-  //     BuildContext context, List<SearchStore> favourites, GenericState state) {
-  //   return Builder(builder: (context) {
-  //     final GenericState stateOfFavorites ;
-  //         context.watch<FavoriteCubit>().state;
-
-  //     if (stateOfFavorites is GenericInitial) {
-  //       return Container(color: Colors.white);
-  //     } else if (stateOfFavorites is GenericLoading) {
-  //       return Container(
-  //           color: Colors.white,
-  //           child: Center(child: CustomCircularProgressIndicator()));
-  //     } else if (stateOfFavorites is GenericCompleted) {
-  //       List<SearchStore> favouriteRestaurant = [];
-  //       for (var i = 0; i < favourites.length; i++) {
-  //         for (var j = 0; j < stateOfFavorites.response.length; j++) {
-  //           if (favourites[i].id == stateOfFavorites.response[j].id) {
-  //             favouriteRestaurant.add(favourites[i]);
-  //           }
-  //         }
-  //       }
-  //       mapsMarkers = favouriteRestaurant;
-
-  //       List<String> favoriteListForShared = [];
-  //       for (var i = 0; i < favouriteRestaurant.length; i++) {
-  //         favoriteListForShared.add(favouriteRestaurant[i].id.toString());
-  //       }
-
-  //       SharedPrefs.setFavoriteIdList(favoriteListForShared);
-  //       return CustomScaffold(
-  //         title: LocaleKeys.filters_done_title.locale,
-  //         isDrawer: false,
-        
-  //         body: Column(
-  //           children: [
-              
-  //             Visibility(
-  //                 visible: !isShowOnMap,
-  //                 child: !SharedPrefs.getIsLogined
-  //                     ? Padding(
-  //                         padding: EdgeInsets.all(24.h),
-  //                         child: LocaleText(
-  //                           alignment: ui.TextAlign.center,
-  //                           text: LocaleKeys.my_favorites_sign_in_to_monitor,
-  //                           style: AppTextStyles.bodyTextStyle
-  //                               .copyWith(color: AppColors.cursorColor),
-  //                         ),
-  //                       )
-  //                     : Expanded(
-  //                         child: favouriteRestaurant.isNotEmpty
-  //                             ? buildListViewRestaurantInfo(favouriteRestaurant)
-  //                             : Center(
-  //                                 child: Column(
-  //                                   crossAxisAlignment: CrossAxisAlignment.center,
-  //                                   children: [
-  //                                     SizedBox(
-  //                                       height: 40.h,
-  //                                     ),
-  //                                     SvgPicture.asset(
-  //                                         ImageConstant.SURPRISE_PACK_ALERT),
-  //                                     SizedBox(
-  //                                       height: 20.h,
-  //                                     ),
-  //                                     LocaleText(
-  //                                       alignment: TextAlign.center,
-  //                                       text:
-  //                                           LocaleKeys.my_favorites_no_favorites,
-  //                                       style: GoogleFonts.montserrat(
-  //                                         fontWeight: FontWeight.w300,
-  //                                       ),
-  //                                     ),
-  //                                   ],
-  //                                 ),
-  //                               ))),
-  //           ],
-  //         ),
-  //       );
-  //     } else {
-  //       final error = stateOfFavorites as GenericError;
-  //       return Center(child: Text("${error.message}\n${error.statusCode}"));
-  //     }
-  //   });
-  // }
-
-
 
   Widget buildListViewRestaurantInfo(
     List<SearchStore> favouriteRestaurant,
@@ -251,7 +225,6 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
           }));
         });
   }
-
 
   OutlineInputBorder buildOutlineInputBorder() {
     return OutlineInputBorder(
