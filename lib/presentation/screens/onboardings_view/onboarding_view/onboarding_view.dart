@@ -10,6 +10,7 @@ import '../../../../utils/extensions/string_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
+import '../components/background_onboarding_svg.dart';
 import '../components/onboarding_background_image.dart';
 import '../components/onboarding_headline_text.dart';
 import '../components/onboarding_text.dart';
@@ -19,35 +20,36 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: Stack(
         alignment: Alignment.bottomCenter,
-
         children: [
-
-          SvgPicture.asset(
-        ImageConstant.ONBOARDING_BACKGROUND,
-        fit: BoxFit.cover,
-      ),
-         
-          Column(
-            children: [
-                SizedBox(height: 100.h),
-
-                SvgPicture.asset(
-                  ImageConstant.DONGU_LOGO,
-                  fit: BoxFit.cover,
-                  height: 135.h,
+          BackgroundOnboarding(image:  ImageConstant.ONBOARDING_BACKGROUND),
+        
+           Padding(
+            padding: EdgeInsets.symmetric(vertical: 70.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    SvgPicture.asset(
+                      ImageConstant.DONGU_LOGO,
+                      fit: BoxFit.cover,
+                      height: 135.h,
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    buildText(context),
+                  ],
                 ),
-                SizedBox(height: 75.h),
-              
-              buildText(context),
-                SizedBox(height: 100.h),
+                //   SizedBox(height:MediaQuery.of(context).size.height * 0.10),
+                buildBottomText(context),
+              ],
+            ),
+          ), 
+         
 
-              buildBottomText(context),
-              
-            ],
-          )
         ],
       ),
     );

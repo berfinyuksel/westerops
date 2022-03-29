@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
+import '../components/background_onboarding_svg.dart';
 import '../components/onboarding_background_image.dart';
 import '../components/onboarding_headline_text.dart';
 import '../components/onboarding_text.dart';
@@ -17,10 +18,7 @@ class OnboardingFirstView extends StatelessWidget {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          SvgPicture.asset(
-            ImageConstant.ONBOARD_FIRST_BOTTOM_BACKGROUND,
-            fit: BoxFit.cover,
-          ),
+           BackgroundOnboarding(image:  ImageConstant.ONBOARD_FIRST_BOTTOM_BACKGROUND),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Column(
@@ -36,7 +34,7 @@ class OnboardingFirstView extends StatelessWidget {
                   fit: BoxFit.fitHeight,
                   height: 330.h,
                 ),
-                SizedBox(height: 160.h),
+                SizedBox(height: 130.h),
                 OnboardingHeadlineText(
                   headlineText: LocaleKeys.onboardings_first_text_headline,
                 ),

@@ -80,7 +80,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
-                    height: 660.h,
+                    height: 500.h,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -91,13 +91,6 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                         Spacer(flex: 5),
                         // buildDropDown(context, adressType),
                         // Spacer(flex: 10),
-                        buildTextFormField(
-                          "VKN/TCKN",
-                          tcController,
-                          tcFocusNode,
-                        ),
-                        tcController.text.isEmpty && counter > 0 ? buildValidatorText(tcController) : SizedBox(),
-                        Spacer(flex: 10),
                         buildTextFormField(
                           LocaleKeys.address_address_name.locale,
                           addressNameController,
@@ -149,9 +142,9 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                       descriptionController.text.isNotEmpty &&
                       addressController.text.isNotEmpty &&
                       phoneNumberController.text.isNotEmpty &&
-                      tcController.text.isNotEmpty &&
-                      descriptionController.text.isNotEmpty &&
-                      isTckimlikno(int.parse(tcController.text))) {
+  
+                      descriptionController.text.isNotEmpty 
+                     ) {
                     context.read<AddressCubit>().addAddress(
                         addressNameController.text,
                         adressType,
@@ -203,66 +196,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
     return null;
   }
 
-  // Container buildDropDown(BuildContext context, int dropdownValue) {
-  //   return Container(
-  //     height: context.dynamicHeight(0.06),
-  //     width: double.infinity,
-  //     padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.05)),
-  //     decoration: BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius: BorderRadius.circular(4.0),
-  //       border: Border.all(
-  //         color: AppColors.borderAndDividerColor,
-  //         width: 2,
-  //       ),
-  //     ),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Padding(
-  //           padding: EdgeInsets.only(
-  //             top: context.dynamicHeight(0.01),
-  //           ),
-  //           child: LocaleText(
-  //             text: LocaleKeys.address_address_type,
-  //             style: AppTextStyles.subTitleStyle,
-  //           ),
-  //         ),
-  //         Expanded(
-  //           child: DropdownButton<int>(
-  //             isExpanded: true,
-  //             underline: Text(""),
-  //             value: dropdownValue,
-  //             icon: Padding(
-  //               padding: EdgeInsets.only(left: 100),
-  //               child: const Icon(Icons.keyboard_arrow_down),
-  //             ),
-  //             iconSize: 17,
-  //             style: AppTextStyles.myInformationBodyTextStyle,
-  //             onChanged: (int? newValue) {
-  //               setState(() {
-  //                 dropdownValue = newValue!;
-  //               });
-  //             },
-  //             items: <int>[1, 2].map<DropdownMenuItem<int>>((int value) {
-  //               return DropdownMenuItem<int>(
-  //                 value: value,
-  //                 child: AutoSizeText(
-  //                   value == 1
-  //                       ? LocaleKeys.address_addresss.locale
-  //                       : LocaleKeys.address_billing_address.locale,
-  //                   style: AppTextStyles.myInformationBodyTextStyle,
-  //                   maxLines: 1,
-  //                 ),
-  //               );
-  //             }).toList(),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
+ 
   Container buildTextFormField(
     String labelText,
     TextEditingController controller,
@@ -333,7 +267,6 @@ class _AddressDetailViewState extends State<AddressDetailView> {
 
   @override
   void dispose() {
-    tcController.dispose();
     addressNameController.dispose();
     districtController.dispose();
     addressController.dispose();

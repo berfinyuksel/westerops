@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/locale_keys.g.dart';
+import '../components/background_onboarding_svg.dart';
 import '../components/onboarding_headline_text.dart';
 import '../components/onboarding_text.dart';
 
@@ -18,10 +19,7 @@ class OnboardingSecondView extends StatelessWidget {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          SvgPicture.asset(
-            ImageConstant.ONBOARD_SECOND_BOTTOM_BACKGROUND,
-            fit: BoxFit.cover,
-          ),
+            BackgroundOnboarding(image:  ImageConstant.ONBOARD_SECOND_BOTTOM_BACKGROUND),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: Column(

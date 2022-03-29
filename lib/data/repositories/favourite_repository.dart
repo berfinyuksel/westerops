@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:dongu_mobile/logic/cubits/favorite_status_cubit/favorite_status_cubit.dart';
 import 'package:flutter/material.dart';
 
 import '../model/favourite.dart';
@@ -19,6 +17,7 @@ abstract class FavoriteRepository {
 }
 
 class SampleFavoriteRepository implements FavoriteRepository {
+  int? getFovarites;
   @override
   Future<List<Favourite>> addFavorite(int? id) async {
     final response = await http.put(
@@ -86,8 +85,9 @@ class SampleFavoriteRepository implements FavoriteRepository {
         'Content-Type': 'application/json',
       },
     );
+    getFovarites = response.statusCode;
+    
     debugPrint("Get Favorite StatusCode" + response.statusCode.toString());
-    sl<FavoriteStatusCubit>().loginStatus(response.statusCode);
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
 
