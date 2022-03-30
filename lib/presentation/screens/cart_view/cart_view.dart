@@ -160,47 +160,14 @@ class _CartViewState extends State<CartView> {
                           ),
                         ),
                         confirmDismiss: (DismissDirection direction) {
-                          return showDialog(
-                            context: context,
-                            builder: (_) => CustomAlertDialog(
-                                textMessage:
-                                    LocaleKeys.cart_box_delete_alert_dialog,
-                                buttonOneTitle:
-                                    LocaleKeys.payment_payment_cancel,
-                                buttonTwoTittle:
-                                    LocaleKeys.address_address_approval,
-                                imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                                onPressedOne: () {
-                                  Navigator.of(context).pop();
-                                },
-                                onPressedTwo: () {
-                                  context
-                                      .read<SumOldPriceOrderCubit>()
-                                      .decrementOldPrice(itemList[index]
-                                          .packageSetting!
-                                          .minOrderPrice!);
-                                  context
-                                      .read<SumPriceOrderCubit>()
-                                      .decrementPrice(itemList[index]
-                                          .packageSetting!
-                                          .minDiscountedOrderPrice!);
-
-                                  context
-                                      .read<OrderCubit>()
-                                      .deleteBasket("${itemList[index].id}");
-                                  context
-                                      .read<BasketCounterCubit>()
-                                      .decrement();
-                                  SharedPrefs.setCounter(counterState - 1);
-                                  menuList
-                                      .remove(itemList[index].id.toString());
-                                  SharedPrefs.setMenuList(menuList);
-                                  itemList.remove(itemList[index]);
-                                  Navigator.of(context).pop();
-                                }),
-                          );
+                          return DeleteItemShowDialog(
+                              context, itemList, index, counterState);
                         },
                         child: PastOrderDetailBasketListTile(
+                          onPressed: () {
+                            DeleteItemShowDialog(
+                                context, itemList, index, counterState);
+                          },
                           oldPrice: itemList[index]
                               .packageSetting!
                               .minOrderPrice!
@@ -256,6 +223,35 @@ class _CartViewState extends State<CartView> {
         Spacer(),
         buildButton(context, itemList),
       ],
+    );
+  }
+
+  Future<bool?> DeleteItemShowDialog(BuildContext context,
+      List<BoxOrder> itemList, int index, int counterState) {
+    return showDialog(
+      context: context,
+      builder: (_) => CustomAlertDialog(
+          textMessage: LocaleKeys.cart_box_delete_alert_dialog,
+          buttonOneTitle: LocaleKeys.payment_payment_cancel,
+          buttonTwoTittle: LocaleKeys.address_address_approval,
+          imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+          onPressedOne: () {
+            Navigator.of(context).pop();
+          },
+          onPressedTwo: () {
+            context.read<SumOldPriceOrderCubit>().decrementOldPrice(
+                itemList[index].packageSetting!.minOrderPrice!);
+            context.read<SumPriceOrderCubit>().decrementPrice(
+                itemList[index].packageSetting!.minDiscountedOrderPrice!);
+
+            context.read<OrderCubit>().deleteBasket("${itemList[index].id}");
+            context.read<BasketCounterCubit>().decrement();
+            SharedPrefs.setCounter(counterState - 1);
+            menuList.remove(itemList[index].id.toString());
+            SharedPrefs.setMenuList(menuList);
+            itemList.remove(itemList[index]);
+            Navigator.of(context).pop();
+          }),
     );
   }
 
