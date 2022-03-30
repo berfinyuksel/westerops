@@ -239,8 +239,8 @@ class _LoginViewState extends State<LoginView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          buildDropDown(context),
-          SizedBox(width: 5.w),
+          // buildDropDown(context),
+          // SizedBox(width: 5.w),
           Expanded(
             child: buildTextFormField(
                 true,
@@ -430,7 +430,7 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
-
+/* 
   Container buildDropDown(BuildContext context) {
     return Container(
       width: 81.w,
@@ -471,7 +471,7 @@ class _LoginViewState extends State<LoginView> {
         }).toList(),
       ),
     );
-  }
+  } */
 
   Widget buildTextFormField(bool isCharacterLimited, labelText,
       TextEditingController controller, String? Function(String?)? validator) {
