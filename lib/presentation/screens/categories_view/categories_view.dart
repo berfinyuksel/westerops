@@ -31,9 +31,11 @@ class CategoriesView extends StatelessWidget {
   }
 
   Widget builBody(BuildContext context) {
-    return BlocProvider(create:(context) =>  sl<CategoryFilterCubit>()..getCategoriesQuery(category!.id.toString()), child: buildCustomScaffold(context));
+    return BlocProvider(
+        create: (context) => sl<CategoryFilterCubit>()
+          ..getCategoriesQuery(category!.id.toString()),
+        child: buildCustomScaffold(context));
   }
-
 
   CustomScaffold buildCustomScaffold(BuildContext context) {
     return CustomScaffold(
@@ -90,25 +92,34 @@ class CategoriesView extends StatelessWidget {
                       ));
                 },
                 child: RestaurantInfoListTile(
-                  deliveryType: int.parse(categorizedRestaurants[index].packageSettings!.deliveryType ?? '3'),
-                  packetNumber: categorizedRestaurants[index].calendar!.first.boxCount == 0
-                      ? LocaleKeys.home_page_soldout_icon
-                      : "${categorizedRestaurants[index].calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
-                  minDiscountedOrderPrice: categorizedRestaurants[index].packageSettings!.minDiscountedOrderPrice,
-                  minOrderPrice: categorizedRestaurants[index].packageSettings!.minOrderPrice,
+                  deliveryType: int.parse(categorizedRestaurants[index]
+                          .packageSettings!
+                          .deliveryType ??
+                      '3'),
+                  minDiscountedOrderPrice: categorizedRestaurants[index]
+                      .packageSettings!
+                      .minDiscountedOrderPrice,
+                  minOrderPrice: categorizedRestaurants[index]
+                      .packageSettings!
+                      .minOrderPrice,
                   onPressed: () {
-                    Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                    Navigator.pushNamed(
+                        context, RouteConstant.RESTAURANT_DETAIL,
                         arguments: ScreenArgumentsRestaurantDetail(
                           restaurant: categorizedRestaurants[index],
                         ));
                   },
                   icon: categorizedRestaurants[index].photo,
                   restaurantName: categorizedRestaurants[index].name,
-                  distance: Haversine.distance(categorizedRestaurants[index].latitude!,
-                          categorizedRestaurants[index].longitude, LocationService.latitude, LocationService.longitude)
+                  distance: Haversine.distance(
+                          categorizedRestaurants[index].latitude!,
+                          categorizedRestaurants[index].longitude,
+                          LocationService.latitude,
+                          LocationService.longitude)
                       .toStringAsFixed(2),
                   availableTime:
                       '${categorizedRestaurants[index].packageSettings!.deliveryTimeStart} - ${categorizedRestaurants[index].packageSettings!.deliveryTimeEnd}',
+                  restaurantId: categorizedRestaurants[index].id!,
                 ),
               );
             })

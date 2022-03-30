@@ -570,10 +570,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                     .first.packageSettings!.minDiscountedOrderPrice,
                 minOrderPrice:
                     chosenRestaurant.first.packageSettings!.minOrderPrice,
-                packetNumber: chosenRestaurant.first.calendar!.first.boxCount ==
-                        0
-                    ? LocaleKeys.home_page_soldout_icon
-                    : "${chosenRestaurant.first.calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
                 deliveryType: int.parse(orderInfo.deliveryType!),
                 restaurantName: orderInfo.boxes!.first.store!.name,
                 distance: Haversine.distance(
@@ -591,6 +587,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                       ));
                 },
                 icon: orderInfo.boxes!.first.store!.photo,
+                restaurantId: chosenRestaurant.first.id!,
               ),
             ));
       } else {

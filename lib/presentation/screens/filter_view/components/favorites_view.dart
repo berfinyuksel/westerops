@@ -59,7 +59,6 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
             sl<SearchStoreCubit>().state));
   }
 
-
   BlocBuilder buildBody(
       BuildContext context, List<SearchStore> favourites, GenericState state) {
     return BlocBuilder<FavoriteCubit, FavoriteState>(
@@ -67,7 +66,6 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
         if (state is FavoriteInitial) {
           return Container(color: Colors.white);
         } else if (state is FavoriteLoading) {
-
           return Container(
               color: Colors.white,
               child: Center(child: CustomCircularProgressIndicator()));
@@ -151,41 +149,6 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
         itemCount: favouriteRestaurant.length,
         itemBuilder: (context, index) {
           return Container(child: Builder(builder: (context) {
-            String? packettNumber() {
-              if (favouriteRestaurant[index].calendar == null) {
-                return LocaleKeys.home_page_soldout_icon.locale;
-              } else if (favouriteRestaurant[index].calendar != null) {
-                for (int i = 0;
-                    i < favouriteRestaurant[index].calendar!.length;
-                    i++) {
-                  var boxcount =
-                      favouriteRestaurant[index].calendar![i].boxCount;
-
-                  String now = DateTime.now().toIso8601String();
-                  List<String> currentDate = now.split("T").toList();
-                  List<String> startDate = favouriteRestaurant[index]
-                      .calendar![i]
-                      .startDate!
-                      .toString()
-                      .split("T")
-                      .toList();
-
-                  if (currentDate[0] == startDate[0]) {
-                    if (favouriteRestaurant[index].calendar![i].boxCount != 0) {
-                      return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-                    } else if (favouriteRestaurant[index]
-                                .calendar![i]
-                                .boxCount ==
-                            null ||
-                        favouriteRestaurant[index].calendar![i].boxCount == 0) {
-                      return LocaleKeys.home_page_soldout_icon.locale;
-                    }
-                  }
-                }
-              }
-              return null;
-            }
-
             return GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
@@ -216,10 +179,9 @@ class _FilterFavoritesViewState extends State<FilterFavoritesView> {
                         LocationService.latitude,
                         LocationService.longitude)
                     .toStringAsFixed(2),
-                packetNumber:
-                    packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
                 availableTime:
                     '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
+                restaurantId: favouriteRestaurant[index].id!,
               ),
             );
           }));

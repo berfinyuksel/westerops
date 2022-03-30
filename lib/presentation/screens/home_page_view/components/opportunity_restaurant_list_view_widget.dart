@@ -46,38 +46,6 @@ class OpportunityRestaurantListViewWidget extends StatelessWidget {
                 ));
           },
           child: Builder(builder: (context) {
-            String? packettNumber() {
-              if (restaurants[index].calendar == null) {
-                //calendar dizisi boş ise tükendi yazdırsın
-                return LocaleKeys.home_page_soldout_icon.locale;
-              } else if (restaurants[index].calendar != null) {
-                //calendar dizisi boş değilse aşağıdaki kodlar çalışsın
-                for (int i = 0; i < restaurants[index].calendar!.length; i++) {
-                  var boxcount = restaurants[index].calendar![i].boxCount;
-
-                  String now = DateTime.now().toIso8601String();
-                  List<String> currentDate = now.split("T").toList();
-
-                  List<String> startDate = restaurants[index]
-                      .calendar![i]
-                      .startDate!
-                      .toString()
-                      .split("T")
-                      .toList();
-
-                  if (currentDate[0] == startDate[0]) {
-                    if (restaurants[index].calendar![i].boxCount != 0) {
-                      return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-                    } else if (restaurants[index].calendar![i].boxCount ==
-                            null ||
-                        restaurants[index].calendar![i].boxCount == 0) {
-                      return LocaleKeys.home_page_soldout_icon.locale;
-                    }
-                  }
-                }
-              }
-              return null;
-            }
             return RestaurantInfoCard(
               width: widthOfOpportunity,
               restaurantId: restaurants[index].id!,
@@ -110,8 +78,6 @@ class OpportunityRestaurantListViewWidget extends StatelessWidget {
               minOrderPrice: restaurants[index].packageSettings?.minOrderPrice,
               restaurantIcon: restaurants[index].photo,
               backgroundImage: restaurants[index].background,
-              packetNumber:
-                  packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
               restaurantName: restaurants[index].name,
               grade: restaurants[index].avgReview!.toStringAsFixed(1),
               location: restaurants[index].province,
