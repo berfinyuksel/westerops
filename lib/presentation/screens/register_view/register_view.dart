@@ -258,8 +258,8 @@ class _RegisterViewState extends State<RegisterView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          buildDropDown(context),
-          SizedBox(width: 5.w),
+          // buildDropDown(context),
+          // SizedBox(width: 5.w),
           Expanded(
             child: buildTextFormField(
                 true,
@@ -371,7 +371,7 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Container buildDropDown(BuildContext context) {
+  /*  Container buildDropDown(BuildContext context) {
     return Container(
       height: 56.h,
       width: 81.w,
@@ -412,7 +412,7 @@ class _RegisterViewState extends State<RegisterView> {
         }).toList(),
       ),
     );
-  }
+  } */
 
   TextFormField buildTextFormFieldPassword(String labelText) {
     return TextFormField(
