@@ -1,7 +1,11 @@
+import 'package:dongu_mobile/logic/cubits/box_cubit/box_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../data/services/locator.dart';
+import '../../../logic/cubits/box_cubit/box_state.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -16,7 +20,7 @@ import 'third_column/old_and_new_prices.dart';
 
 class RestaurantInfoListTile extends StatefulWidget {
   final VoidCallback? onPressed;
-  final String? packetNumber;
+
   final String? restaurantName;
   final String? distance;
   final String? availableTime;
@@ -25,10 +29,10 @@ class RestaurantInfoListTile extends StatefulWidget {
   final int? minOrderPrice;
   final int? minDiscountedOrderPrice;
   final int? deliveryType;
+  final int restaurantId;
 
   const RestaurantInfoListTile({
     Key? key,
-    @required this.packetNumber,
     @required this.restaurantName,
     @required this.distance,
     @required this.availableTime,
@@ -38,6 +42,7 @@ class RestaurantInfoListTile extends StatefulWidget {
     @required this.deliveryType,
     this.border,
     this.icon,
+    required this.restaurantId,
   }) : super(key: key);
 
   @override
@@ -47,30 +52,37 @@ class RestaurantInfoListTile extends StatefulWidget {
 class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        decoration: BoxDecoration(color: Colors.white, border: widget.border),
-        padding: EdgeInsets.all(10.w),
-        height: 124.h,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            buildFirstColumn(context, widget.packetNumber!, widget.icon!),
-            Spacer(),
-            buildSecondColumn(context, widget.restaurantName!),
-            // Spacer(flex: 4),
-            buildThirdColumn(context, widget.distance!, widget.availableTime!),
-            Spacer(),
-            GestureDetector(onTap: widget.onPressed, child: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON)),
-            Spacer(),
-          ],
+    return BlocProvider(
+      create: (context) => sl<BoxCubit>()..getBoxes(widget.restaurantId),
+      child: Card(
+        child: Container(
+          decoration: BoxDecoration(color: Colors.white, border: widget.border),
+          padding: EdgeInsets.all(10.w),
+          height: 124.h,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              buildFirstColumn(context, widget.icon!),
+              Spacer(),
+              buildSecondColumn(context, widget.restaurantName!),
+              // Spacer(flex: 4),
+              buildThirdColumn(
+                  context, widget.distance!, widget.availableTime!),
+              Spacer(),
+              GestureDetector(
+                  onTap: widget.onPressed,
+                  child: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON)),
+              Spacer(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Column buildThirdColumn(BuildContext context, String distance, String availableTime) {
+  Column buildThirdColumn(
+      BuildContext context, String distance, String availableTime) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -155,7 +167,7 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
     );
   }
 
-  Column buildFirstColumn(BuildContext context, String packetNumber, String icon) {
+  Column buildFirstColumn(BuildContext context, String icon) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -163,10 +175,22 @@ class _RestaurantInfoListTileState extends State<RestaurantInfoListTile> {
           icon: icon, // null
         ),
         Spacer(flex: 1),
-        PacketNumber(
-          text: packetNumber,
-          width: 75.w,
-          height: 28.h,
+        BlocBuilder<BoxCubit, BoxState>(
+          builder: (context, state) {
+            if (state is BoxLoading) {
+              return SizedBox();
+            } else if (state is BoxCompleted) {
+              return PacketNumber(
+                text: state.packages.length != 0
+                    ? "${state.packages.length.toString()} paket"
+                    : "tükendi",
+                width: 75.w,
+                height: 28.h,
+              );
+            } else {
+              return SizedBox();
+            }
+          },
         ),
       ],
     );

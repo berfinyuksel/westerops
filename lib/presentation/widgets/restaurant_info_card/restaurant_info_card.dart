@@ -18,7 +18,6 @@ import '../restaurant_info_list_tile/third_column/meters.dart';
 import '../restaurant_info_list_tile/third_column/old_and_new_prices.dart';
 
 class RestaurantInfoCard extends StatefulWidget {
-  final String? packetNumber;
   final String? restaurantName;
   final String? grade;
   final String? location;
@@ -37,7 +36,6 @@ class RestaurantInfoCard extends StatefulWidget {
 
   const RestaurantInfoCard({
     Key? key,
-    this.packetNumber,
     required this.restaurantId,
     this.restaurantName,
     this.grade,
@@ -87,25 +85,32 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0)),
               child: Image.network(
                 widget.backgroundImage!,
                 alignment: Alignment.topCenter,
                 fit: BoxFit.fill,
                 width: context.dynamicWidht(0.64),
-                height: context.height > 800 ? context.dynamicHeight(0.16) : context.dynamicHeight(0.14),
+                height: context.height > 800
+                    ? context.dynamicHeight(0.16)
+                    : context.dynamicHeight(0.14),
               ),
             ),
             Padding(
-              padding:
-                  EdgeInsets.symmetric(vertical: context.dynamicHeight(0.011), horizontal: context.dynamicWidht(0.023)),
+              padding: EdgeInsets.symmetric(
+                  vertical: context.dynamicHeight(0.011),
+                  horizontal: context.dynamicWidht(0.023)),
               child: Column(
                 children: [
-                  buildFirstRow(context, widget.packetNumber!),
+                  buildFirstRow(context),
                   Spacer(flex: 9),
-                  buildSecondRow(widget.restaurantName!, widget.restaurantIcon!, context),
+                  buildSecondRow(
+                      widget.restaurantName!, widget.restaurantIcon!, context),
                   Spacer(flex: 1),
-                  buildThirdRow(widget.grade!, widget.location!, widget.distance!),
+                  buildThirdRow(
+                      widget.grade!, widget.location!, widget.distance!),
                   Divider(
                     thickness: 2,
                     color: AppColors.borderAndDividerColor,
@@ -162,7 +167,8 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
     );
   }
 
-  Row buildSecondRow(String restaurantName, String restaurantIcon, BuildContext context) {
+  Row buildSecondRow(
+      String restaurantName, String restaurantIcon, BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -186,7 +192,7 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
     );
   }
 
-  Row buildFirstRow(BuildContext context, String packetNumber) {
+  Row buildFirstRow(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -196,7 +202,9 @@ class _RestaurantInfoCardState extends State<RestaurantInfoCard> {
               return SizedBox();
             } else if (state is BoxCompleted) {
               return PacketNumber(
-                text: state.packages.length != 0 ? "${state.packages.length.toString()} paket" : "tükendi",
+                text: state.packages.length != 0
+                    ? "${state.packages.length.toString()} paket"
+                    : "tükendi",
                 width: context.dynamicWidht(0.185),
                 height: context.dynamicHeight(0.035),
               );

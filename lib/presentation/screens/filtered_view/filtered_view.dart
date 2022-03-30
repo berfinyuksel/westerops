@@ -83,38 +83,6 @@ class _FilteredViewState extends State<FilteredView> {
         ? ListView.builder(
             itemCount: restaurants.length,
             itemBuilder: (context, index) {
-              String? packettNumber() {
-                if (restaurants[index].calendar == null) {
-                  return LocaleKeys.home_page_soldout_icon.locale;
-                } else if (restaurants[index].calendar != null) {
-                  for (int i = 0;
-                      i < restaurants[index].calendar!.length;
-                      i++) {
-                    var boxcount = restaurants[index].calendar![i].boxCount;
-
-                    String now = DateTime.now().toIso8601String();
-                    List<String> currentDate = now.split("T").toList();
-                    List<String> startDate = restaurants[index]
-                        .calendar![i]
-                        .startDate!
-                        .toString()
-                        .split("T")
-                        .toList();
-
-                    if (currentDate[0] == startDate[0]) {
-                      if (restaurants[index].calendar![i].boxCount != 0) {
-                        return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-                      } else if (restaurants[index].calendar![i].boxCount ==
-                              null ||
-                          restaurants[index].calendar![i].boxCount == 0) {
-                        return LocaleKeys.home_page_soldout_icon;
-                      }
-                    }
-                  }
-                }
-                return null;
-              }
-
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
@@ -132,8 +100,6 @@ class _FilteredViewState extends State<FilteredView> {
                           LocationService.latitude,
                           LocationService.longitude)
                       .toString(),
-                  packetNumber: packettNumber() ??
-                      LocaleKeys.home_page_soldout_icon.locale,
                   availableTime:
                       '${restaurants[index].packageSettings?.deliveryTimeStart}-${restaurants[index].packageSettings?.deliveryTimeEnd}',
                   border: Border.all(
@@ -151,6 +117,7 @@ class _FilteredViewState extends State<FilteredView> {
                         arguments: ScreenArgumentsRestaurantDetail(
                             restaurant: restaurants[index]));
                   },
+                  restaurantId: restaurants[index].id!,
                 ),
               );
             })

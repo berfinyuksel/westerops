@@ -69,7 +69,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             create: (BuildContext context) =>
                 sl<SearchStoreCubit>()..getSearchStore(),
           ),
-           BlocProvider<SearchStoreCubit>(
+          BlocProvider<SearchStoreCubit>(
             create: (BuildContext context) =>
                 sl<SearchStoreCubit>()..getSearchStoreAddress(),
           ),
@@ -82,7 +82,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
           builder: (context, state) {
             if (state is GenericInitial) {
               print("GENERIC INITIAL ADDRESS");
-              
+
               return Container();
             } else if (state is GenericLoading) {
               print("GENERIC LOADING ADDRESS");
@@ -120,7 +120,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
       BuildContext context, List<SearchStore> deliveredRestaurant) {
     return BlocBuilder<AddressCubit, GenericState>(builder: (context, state) {
       if (state is GenericCompleted) {
-
         if (deliveredRestaurant.isEmpty) {
           return LocaleText(
             text: LocaleKeys.payment_address_restaurant_address,
@@ -246,7 +245,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
       } else if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
-
         return Center(child: CustomCircularProgressIndicator());
       } else {
         final error = state as GenericError;
@@ -398,11 +396,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                     .first.packageSettings!.minDiscountedOrderPrice,
                 minOrderPrice:
                     deliveredRestaurant.first.packageSettings!.minOrderPrice,
-                packetNumber: deliveredRestaurant
-                            .first.calendar!.first.boxCount ==
-                        0
-                    ? LocaleKeys.home_page_soldout_icon
-                    : "${deliveredRestaurant.first.calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
                 deliveryType: int.parse(
                     deliveredRestaurant.first.packageSettings!.deliveryType!),
                 restaurantName: deliveredRestaurant.first.name,
@@ -421,6 +414,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
                       ));
                 },
                 icon: deliveredRestaurant.first.photo,
+                restaurantId: deliveredRestaurant.first.id!,
               ),
             ));
       } else {
@@ -428,58 +422,6 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
     }));
-    /* Builder(builder: (context) {
-      final GenericState state = context.watch<SearchStoreCubit>().state;
-
-      if (state is GenericInitial) {
-        return Container();
-      } else if (state is GenericLoading) {
-        return Center(child: CircularProgressIndicator());
-      } else if (state is GenericCompleted) {
-        return Positioned(
-            right: 0,
-            left: 0,
-            bottom: 0,
-            child: Container(
-              width: double.infinity,
-              height: 176.h,
-              padding: EdgeInsets.symmetric(vertical: 20.h),
-              color: Colors.white,
-              child: RestaurantInfoListTile(
-                minDiscountedOrderPrice: deliveredRestaurant
-                    .first.packageSettings!.minDiscountedOrderPrice,
-                minOrderPrice:
-                    deliveredRestaurant.first.packageSettings!.minOrderPrice,
-                packetNumber: deliveredRestaurant
-                            .first.calendar!.first.boxCount ==
-                        0
-                    ? LocaleKeys.home_page_soldout_icon
-                    : "${deliveredRestaurant.first.calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
-                deliveryType: int.parse(
-                    deliveredRestaurant.first.packageSettings!.deliveryType!),
-                restaurantName: deliveredRestaurant.first.name,
-                distance: Haversine.distance(
-                        deliveredRestaurant.first.latitude!,
-                        deliveredRestaurant.first.longitude!,
-                        LocationService.latitude,
-                        LocationService.longitude)
-                    .toStringAsFixed(2),
-                availableTime:
-                    '${deliveredRestaurant[0].packageSettings!.deliveryTimeStart} - ${deliveredRestaurant[0].packageSettings!.deliveryTimeEnd}',
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
-                      arguments: ScreenArgumentsRestaurantDetail(
-                        restaurant: deliveredRestaurant.first,
-                      ));
-                },
-                icon: deliveredRestaurant.first.photo,
-              ),
-            ));
-      } else {
-        final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    }); */
   }
 
   void setCustomMarker(List<SearchStore> deliveredRestaurant) async {

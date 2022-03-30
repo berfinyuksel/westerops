@@ -30,7 +30,8 @@ class MapBottomInfo extends StatelessWidget {
                   context,
                   RouteConstant.RESTAURANT_DETAIL,
                   arguments: ScreenArgumentsRestaurantDetail(
-                    restaurant: state.favoritedRestaurants![state.selectedIndex],
+                    restaurant:
+                        state.favoritedRestaurants![state.selectedIndex],
                   ),
                 );
               },
@@ -40,25 +41,41 @@ class MapBottomInfo extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 28.w),
                 color: Colors.white,
                 child: RestaurantInfoListTile(
-                  minDiscountedOrderPrice: state.favoritedRestaurants![state.selectedIndex].packageSettings!.minDiscountedOrderPrice,
-                  minOrderPrice: state.favoritedRestaurants![state.selectedIndex].packageSettings!.minOrderPrice,
-                  packetNumber: state.favoritedRestaurants![state.selectedIndex].calendar!.first.boxCount == 0
-                      ? LocaleKeys.home_page_soldout_icon
-                      : "${state.favoritedRestaurants![state.selectedIndex].calendar!.first.boxCount} ${LocaleKeys.home_page_packet_number.locale}",
-                  deliveryType: int.parse(state.favoritedRestaurants![state.selectedIndex].packageSettings!.deliveryType!),
-                  restaurantName: state.favoritedRestaurants![state.selectedIndex].name,
-                  distance: Haversine.distance(state.favoritedRestaurants![state.selectedIndex].latitude!,
-                          state.favoritedRestaurants![state.selectedIndex].longitude!, LocationService.latitude, LocationService.longitude)
+                  minDiscountedOrderPrice: state
+                      .favoritedRestaurants![state.selectedIndex]
+                      .packageSettings!
+                      .minDiscountedOrderPrice,
+                  minOrderPrice: state
+                      .favoritedRestaurants![state.selectedIndex]
+                      .packageSettings!
+                      .minOrderPrice,
+                  deliveryType: int.parse(state
+                      .favoritedRestaurants![state.selectedIndex]
+                      .packageSettings!
+                      .deliveryType!),
+                  restaurantName:
+                      state.favoritedRestaurants![state.selectedIndex].name,
+                  distance: Haversine.distance(
+                          state.favoritedRestaurants![state.selectedIndex]
+                              .latitude!,
+                          state.favoritedRestaurants![state.selectedIndex]
+                              .longitude!,
+                          LocationService.latitude,
+                          LocationService.longitude)
                       .toStringAsFixed(2),
                   availableTime:
                       '${state.favoritedRestaurants![state.selectedIndex].packageSettings!.deliveryTimeStart} - ${state.favoritedRestaurants![state.selectedIndex].packageSettings!.deliveryTimeEnd}',
                   onPressed: () {
-                    Navigator.pushNamed(context, RouteConstant.RESTAURANT_DETAIL,
+                    Navigator.pushNamed(
+                        context, RouteConstant.RESTAURANT_DETAIL,
                         arguments: ScreenArgumentsRestaurantDetail(
-                          restaurant: state.favoritedRestaurants![state.selectedIndex],
+                          restaurant:
+                              state.favoritedRestaurants![state.selectedIndex],
                         ));
                   },
                   icon: state.favoritedRestaurants![state.selectedIndex].photo,
+                  restaurantId:
+                      state.favoritedRestaurants![state.selectedIndex].id!,
                 ),
               ),
             )

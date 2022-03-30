@@ -88,8 +88,7 @@ class _MyNearViewState extends State<MyNearView> {
         var data = await deviceInfoPlugin.iosInfo;
         identifier = data.identifierForVendor; //UUID for iOS
       }
-    } on PlatformException {
-    }
+    } on PlatformException {}
     return [identifier!];
   }
 
@@ -223,46 +222,8 @@ class _MyNearViewState extends State<MyNearView> {
     );
   }
 
-  String? packettNumber(List<SearchStore> getrestaurants) {
-    for (int j = 0; j < getrestaurants.length; j++) {
-      if (getrestaurants[j].calendar == null) {
-        return LocaleKeys.home_page_soldout_icon.locale;
-      } else if (getrestaurants[j].calendar != null) {
-        for (int i = 0; i < getrestaurants[j].calendar!.length; i++) {
-          var boxcount = getrestaurants[j].calendar![i].boxCount;
-          String now = DateTime.now().toIso8601String();
-          List<String> currentDate = now.split("T").toList();
-          //print(currentDate[0]);
-          List<String> startDate = getrestaurants[j]
-              .calendar![i]
-              .startDate!
-              .toString()
-              .split("T")
-              .toList();
-          if (currentDate[0] == startDate[0]) {
-            if (getrestaurants[j].calendar![i].boxCount != 0) {
-              return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-            } else if (getrestaurants[j].calendar![i].boxCount == null ||
-                getrestaurants[j].calendar![i].boxCount == 0) {
-              return LocaleKeys.home_page_soldout_icon.locale;
-            }
-          }
-        }
-      }
-    }
-    return null;
-  }
-
   Positioned buildBottomInfo(BuildContext context,
       List<SearchStore> getrestaurants, List<double> distances) {
-    // String startTime =
-    //     restaurants[restaurantIndexOnMap].calendar![0].startDate!.split("T")[1];
-    // String endTime =
-    //     restaurants[restaurantIndexOnMap].calendar![0].endDate!.split("T")[1];
-
-    // startTime = "${startTime.split(":")[0]}:${startTime.split(":")[1]}";
-    // endTime = "${endTime.split(":")[0]}:${endTime.split(":")[1]}";
-
     return Positioned(
         right: 0,
         left: 0,
@@ -282,8 +243,6 @@ class _MyNearViewState extends State<MyNearView> {
                     LocationService.latitude,
                     LocationService.longitude)
                 .toString(),
-            packetNumber: packettNumber(getrestaurants) ??
-                LocaleKeys.home_page_soldout_icon.locale,
             availableTime:
                 '${getrestaurants[restaurantIndexOnMap].packageSettings?.deliveryTimeStart}-${getrestaurants[restaurantIndexOnMap].packageSettings?.deliveryTimeEnd}',
             minDiscountedOrderPrice: getrestaurants[restaurantIndexOnMap]
@@ -301,6 +260,7 @@ class _MyNearViewState extends State<MyNearView> {
                 ),
               );
             },
+            restaurantId: getrestaurants[restaurantIndexOnMap].id!,
           ),
         ));
   }
@@ -373,38 +333,6 @@ class _MyNearViewState extends State<MyNearView> {
         itemBuilder: (context, index) {
           return Container(
             child: Builder(builder: (context) {
-              String? packettNumber() {
-                if (getrestaurants[index].calendar == null) {
-                  return LocaleKeys.home_page_soldout_icon.locale;
-                } else if (getrestaurants[index].calendar != null) {
-                  for (int i = 0;
-                      i < getrestaurants[index].calendar!.length;
-                      i++) {
-                    var boxcount = getrestaurants[index].calendar![i].boxCount;
-
-                    String now = DateTime.now().toIso8601String();
-                    List<String> currentDate = now.split("T").toList();
-                    List<String> startDate = getrestaurants[index]
-                        .calendar![i]
-                        .startDate!
-                        .toString()
-                        .split("T")
-                        .toList();
-
-                    if (currentDate[0] == startDate[0]) {
-                      if (getrestaurants[index].calendar![i].boxCount != 0) {
-                        return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-                      } else if (getrestaurants[index].calendar![i].boxCount ==
-                              null ||
-                          getrestaurants[index].calendar![i].boxCount == 0) {
-                        return LocaleKeys.home_page_soldout_icon.locale;
-                      }
-                    }
-                  }
-                }
-                return null;
-              }
-
               return RestaurantInfoListTile(
                 deliveryType: 3,
                 minDiscountedOrderPrice: getrestaurants[index]
@@ -433,10 +361,9 @@ class _MyNearViewState extends State<MyNearView> {
                         LocationService.latitude,
                         LocationService.longitude)
                     .toString(),
-                packetNumber:
-                    packettNumber() ?? LocaleKeys.home_page_soldout_icon.locale,
                 availableTime:
                     '${getrestaurants[index].packageSettings!.deliveryTimeStart} - ${getrestaurants[index].packageSettings!.deliveryTimeEnd}',
+                restaurantId: getrestaurants[index].id!,
               );
             }),
           );

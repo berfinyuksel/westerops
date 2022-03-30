@@ -232,42 +232,6 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
           itemCount: favouriteRestaurant.length,
           itemBuilder: (context, index) {
             return Container(child: Builder(builder: (context) {
-              String? packettNumber() {
-                if (favouriteRestaurant[index].calendar == null) {
-                  return LocaleKeys.home_page_soldout_icon.locale;
-                } else if (favouriteRestaurant[index].calendar != null) {
-                  for (int i = 0;
-                      i < favouriteRestaurant[index].calendar!.length;
-                      i++) {
-                    var boxcount =
-                        favouriteRestaurant[index].calendar![i].boxCount;
-
-                    String now = DateTime.now().toIso8601String();
-                    List<String> currentDate = now.split("T").toList();
-                    List<String> startDate = favouriteRestaurant[index]
-                        .calendar![i]
-                        .startDate!
-                        .toString()
-                        .split("T")
-                        .toList();
-
-                    if (currentDate[0] == startDate[0]) {
-                      if (favouriteRestaurant[index].calendar![i].boxCount !=
-                          0) {
-                        return "${boxcount.toString()} ${LocaleKeys.home_page_packet_number.locale}";
-                      } else if (favouriteRestaurant[index]
-                                  .calendar![i]
-                                  .boxCount ==
-                              null ||
-                          favouriteRestaurant[index].calendar![i].boxCount ==
-                              0) {
-                        return LocaleKeys.home_page_soldout_icon.locale;
-                      }
-                    }
-                  }
-                }
-              }
-
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
@@ -305,10 +269,9 @@ class _MyFavoritesViewState extends State<MyFavoritesView> {
                           LocationService.latitude,
                           LocationService.longitude)
                       .toStringAsFixed(2),
-                  packetNumber: packettNumber() ??
-                      LocaleKeys.home_page_soldout_icon.locale,
                   availableTime:
                       '${favouriteRestaurant[index].packageSettings!.deliveryTimeStart} - ${favouriteRestaurant[index].packageSettings!.deliveryTimeEnd}',
+                  restaurantId: favouriteRestaurant[index].id!,
                 ),
               );
             }));
