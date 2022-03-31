@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,7 +17,7 @@ class HelpCenterView extends StatefulWidget {
 }
 
 class _HelpCenterViewState extends State<HelpCenterView> {
-  String email = "destek@dongu.com";
+  String email = UrlConstant.DONGU_MAIL;
   void customLaunch() async {
     if (await canLaunch("mailto:$email")) {
       await launch("mailto:$email");
@@ -44,10 +45,10 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_1, LocaleKeys.help_center_list_tile_subtitle_1),
-        buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_2, LocaleKeys.help_center_list_tile_subtitle_2),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_1,
+            LocaleKeys.help_center_list_tile_subtitle_1),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_2,
+            LocaleKeys.help_center_list_tile_subtitle_2),
         // buildExpansionTile(
         //     context, LocaleKeys.help_center_list_tile_title_3, ""),
         SizedBox(
@@ -59,18 +60,18 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
-        buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_4, LocaleKeys.help_center_list_tile_subtitle_4),
-        buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_5, LocaleKeys.help_center_list_tile_subtitle_5),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_4,
+            LocaleKeys.help_center_list_tile_subtitle_4),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_5,
+            LocaleKeys.help_center_list_tile_subtitle_5),
         // buildExpansionTile(
         //     context, LocaleKeys.help_center_list_tile_title_6, ""),
-        buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_7, LocaleKeys.help_center_list_tile_subtitle_7),
-        buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_8, LocaleKeys.help_center_list_tile_subtitle_8),
-        buildExpansionTile(
-            context, LocaleKeys.help_center_list_tile_title_9, LocaleKeys.help_center_list_tile_subtitle_9),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_7,
+            LocaleKeys.help_center_list_tile_subtitle_7),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_8,
+            LocaleKeys.help_center_list_tile_subtitle_8),
+        buildExpansionTile(context, LocaleKeys.help_center_list_tile_title_9,
+            LocaleKeys.help_center_list_tile_subtitle_9),
         buildExpansionTile(
           context,
           LocaleKeys.help_center_list_tile_title_10,
@@ -123,7 +124,7 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         style: AppTextStyles.subTitleStyle,
       ), */
       trailing: Text(
-        "destek@dongu.com",
+        UrlConstant.DONGU_MAIL,
         style: AppTextStyles.subTitleStyle,
       ),
       tileColor: Colors.white,
@@ -138,7 +139,8 @@ class _HelpCenterViewState extends State<HelpCenterView> {
     );
   }
 
-  Theme buildExpansionTile(BuildContext context, String title, String expandedText) {
+  Theme buildExpansionTile(
+      BuildContext context, String title, String expandedText) {
     return Theme(
       data: ThemeData(dividerColor: Colors.transparent),
       child: custom.ExpansionTile(
@@ -148,7 +150,8 @@ class _HelpCenterViewState extends State<HelpCenterView> {
         ),
         backgroundColor: Colors.white,
         collapsedBackgroundColor: Colors.white,
-        title: LocaleText(text: title, style: AppTextStyles.myInformationBodyTextStyle),
+        title: LocaleText(
+            text: title, style: AppTextStyles.myInformationBodyTextStyle),
         childrenPadding: EdgeInsets.only(
           left: 28.w,
           right: 28.w,

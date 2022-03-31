@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/utils/constants/url_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,12 +20,11 @@ class ContactListTile extends StatefulWidget {
 }
 
 class _ContactListTileState extends State<ContactListTile> {
-  String email = "destek@dongu.com";
+  String email = UrlConstant.DONGU_MAIL;
   void customLaunch() async {
     if (await canLaunch("mailto:$email")) {
       await launch("mailto:$email");
-    } else {
-    }
+    } else {}
   }
 
   @override
