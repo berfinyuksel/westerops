@@ -15,6 +15,7 @@ class SearchStoreCubit extends Cubit<GenericState> {
     try {
       final response = await _searchStoreRepository.getSearchStores();
       searchStores = response;
+      emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));
     }
@@ -33,7 +34,8 @@ class SearchStoreCubit extends Cubit<GenericState> {
   Future<void> getSearches(String query) async {
     try {
       emit(GenericLoading());
-      var response = await _searchStoreRepository.getSearches(query.toLowerCase());
+      var response =
+          await _searchStoreRepository.getSearches(query.toLowerCase());
       if (response.length == 0) {
         emit(GenericCompleted(searchQueryResults));
         return;
@@ -51,7 +53,8 @@ class SearchStoreCubit extends Cubit<GenericState> {
           }
           searchQueryResults.addAll(response);
           resultsToDelete.forEach((result) {
-            searchQueryResults.remove(searchQueryResults.firstWhere((element) => element.id == result));
+            searchQueryResults.remove(searchQueryResults
+                .firstWhere((element) => element.id == result));
           });
           resultsToDelete.clear();
         }

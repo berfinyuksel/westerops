@@ -16,6 +16,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../data/model/box.dart';
 import '../../../data/model/search_store.dart';
 import '../../../data/services/location_service.dart';
+import '../../../data/services/locator.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
@@ -94,16 +95,19 @@ class _MyNearViewState extends State<MyNearView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: LocaleKeys.my_near_title,
-      isNavBar: false,
-      body: buildBuilder(),
+    return BlocProvider(
+      create: (context) => sl<SearchStoreCubit>()..getSearchStore(),
+      child: CustomScaffold(
+        title: LocaleKeys.my_near_title,
+        isNavBar: false,
+        body: buildBuilder(),
+      ),
     );
   }
 
-  Builder buildBuilder() {
-    return Builder(builder: (context) {
-      final GenericState state = context.watch<SearchStoreCubit>().state;
+  BlocBuilder buildBuilder() {
+    return BlocBuilder<SearchStoreCubit, GenericState>(
+        builder: (context, state) {
       if (state is GenericInitial) {
         LocationService.getCurrentLocation();
 
@@ -111,26 +115,13 @@ class _MyNearViewState extends State<MyNearView> {
       } else if (state is GenericLoading) {
         return Center(child: CustomCircularProgressIndicator());
       } else if (state is GenericCompleted) {
-        //List<double> getDistance = [];
         List<SearchStore> getrestaurants = [];
 
         for (int i = 0; i < state.response.length; i++) {
           getrestaurants.add(state.response[i]);
         }
-
         mapsMarkers = getrestaurants;
-
         return buildBody(context, getrestaurants, distances);
-        // for (int i = 0; i < state.response[0].results.length; i++) {
-        //   if (SharedPrefs.getUserAddress == state.response[0].results[i].city) {
-        //     restaurants.add(state.response[0].results[i]);
-        //     distances.add(Haversine.distance(
-        //         LocationService.latitude!,
-        //         LocationService.longitude!,
-        //         state.response[0].results[i].latitude,
-        //         state.response[0].results[i].longitude));
-        //   }
-        // }
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
