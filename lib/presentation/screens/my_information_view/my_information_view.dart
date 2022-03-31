@@ -36,9 +36,11 @@ class _MyInformationViewState extends State<MyInformationView> {
   DateTime? _selectedDate;
   bool isReadOnly = true;
   bool isVisibilty = false;
+  String phoneTR = '+90';
 
   bool showLoading = false;
-  MobileVerificationState currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  MobileVerificationState currentState =
+      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
   String? verificationId;
   @override
   Widget build(BuildContext context) {
@@ -72,11 +74,26 @@ class _MyInformationViewState extends State<MyInformationView> {
                   color: Colors.white,
                   child: Column(
                     children: [
-                      buildTextFormField(context, LocaleKeys.inform_list_tile_name.locale, nameController),
-                      buildTextFormField(context, LocaleKeys.inform_list_tile_surname.locale, surnameController),
-                      buildTextFormFieldBirthDate(context, LocaleKeys.inform_list_tile_birth.locale, birthController),
-                      buildTextFormField(context, LocaleKeys.inform_list_tile_mail.locale, mailController),
-                      buildTextFormField(context, LocaleKeys.inform_list_tile_phone.locale, phoneController),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_name.locale,
+                          nameController),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_surname.locale,
+                          surnameController),
+                      buildTextFormFieldBirthDate(
+                          context,
+                          LocaleKeys.inform_list_tile_birth.locale,
+                          birthController),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_mail.locale,
+                          mailController),
+                      buildTextFormField(
+                          context,
+                          LocaleKeys.inform_list_tile_phone.locale,
+                          phoneController),
                     ],
                   ),
                 ),
@@ -89,7 +106,9 @@ class _MyInformationViewState extends State<MyInformationView> {
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamedAndRemoveUntil(
-                        context, RouteConstant.DELETE_ACCOUNT_VIEW, ModalRoute.withName('/deleteAccount'));
+                        context,
+                        RouteConstant.DELETE_ACCOUNT_VIEW,
+                        ModalRoute.withName('/deleteAccount'));
                   },
                   child: LocaleText(
                     text: LocaleKeys.inform_delete_account,
@@ -99,7 +118,8 @@ class _MyInformationViewState extends State<MyInformationView> {
                 SizedBox(height: 32.h),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, RouteConstant.FREEZE_ACCOUNT_VIEW);
+                    Navigator.pushNamed(
+                        context, RouteConstant.FREEZE_ACCOUNT_VIEW);
                   },
                   child: LocaleText(
                     text: LocaleKeys.freeze_account_title,
@@ -115,7 +135,8 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
-  Container buildTextFormFieldBirthDate(BuildContext context, String labelText, TextEditingController controller) {
+  Container buildTextFormFieldBirthDate(BuildContext context, String labelText,
+      TextEditingController controller) {
     return Container(
       height: 56.h,
       color: Colors.white,
@@ -139,7 +160,8 @@ class _MyInformationViewState extends State<MyInformationView> {
                   data: Theme.of(context).copyWith(
                     colorScheme: ColorScheme.light(
                       primary: AppColors.greenColor, // header background color
-                      onPrimary: AppColors.borderAndDividerColor, // header text color
+                      onPrimary:
+                          AppColors.borderAndDividerColor, // header text color
                       onSurface: AppColors.cursorColor, // body text color
                     ),
                     textButtonTheme: TextButtonThemeData(
@@ -157,7 +179,8 @@ class _MyInformationViewState extends State<MyInformationView> {
               }
               setState(() {
                 _selectedDate = pickedDate;
-                String datetime1 = DateFormat("dd/MM/yyyy").format(_selectedDate!);
+                String datetime1 =
+                    DateFormat("dd/MM/yyyy").format(_selectedDate!);
                 birthController.text = datetime1;
               });
             });
@@ -177,7 +200,8 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
-  Container buildTextFormField(BuildContext context, String labelText, TextEditingController controller) {
+  Container buildTextFormField(BuildContext context, String labelText,
+      TextEditingController controller) {
     return Container(
       height: 56.h,
       color: Colors.white,
@@ -194,6 +218,7 @@ class _MyInformationViewState extends State<MyInformationView> {
         ],
         controller: controller,
         decoration: InputDecoration(
+          prefixText: controller == phoneController ? phoneTR : null,
           contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
           labelText: labelText,
           hintStyle: AppTextStyles.myInformationBodyTextStyle,
@@ -213,7 +238,10 @@ class _MyInformationViewState extends State<MyInformationView> {
     surnameController.text = SharedPrefs.getUserLastName;
     mailController.text = SharedPrefs.getUserEmail;
     birthController.text = SharedPrefs.getUserBirth;
-    phoneController.text = SharedPrefs.getUserPhone;
+    phoneController.text = isReadOnly
+        ? SharedPrefs.getUserPhone.substring(3)
+        : SharedPrefs.getUserPhone;
+    print(phoneController.text);
   }
 
   OutlineInputBorder buildOutlineInputBorder() {
@@ -297,10 +325,14 @@ class _MyInformationViewState extends State<MyInformationView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () {
-          if (phoneController.text != SharedPrefs.getUserPhone || mailController.text != SharedPrefs.getUserEmail) {
-            Navigator.popAndPushNamed(context, RouteConstant.VERIFY_INFORMATION);
-            SharedPrefs.setUserPhone(phoneController.text);
+          if (phoneController.text != SharedPrefs.getUserPhone ||
+              mailController.text != SharedPrefs.getUserEmail) {
+            String phoneNumber = phoneTR + phoneController.text;
+            Navigator.popAndPushNamed(
+                context, RouteConstant.VERIFY_INFORMATION);
+            SharedPrefs.setUserPhone(phoneNumber);
             SharedPrefs.setUserEmail(mailController.text);
+            print(phoneNumber);
           } else if (birthController.text != SharedPrefs.getUserBirth ||
               nameController.text != SharedPrefs.getUserName ||
               surnameController.text != SharedPrefs.getUserLastName) {
@@ -312,7 +344,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                   SharedPrefs.getUserName,
                   SharedPrefs.getUserLastName,
                   mailController.text,
-                  phoneController.text,
+                  phoneTR + phoneController.text,
                   SharedPrefs.getUserAddress,
                   SharedPrefs.getUserBirth,
                   // birthController.text,
@@ -321,7 +353,8 @@ class _MyInformationViewState extends State<MyInformationView> {
               context: context,
               builder: (_) => CustomAlertDialogResetPassword(
                 description: "Bilgileriniz güncellenmiştir.",
-                onPressed: () => Navigator.popAndPushNamed(context, RouteConstant.MY_INFORMATION_VIEW),
+                onPressed: () => Navigator.popAndPushNamed(
+                    context, RouteConstant.MY_INFORMATION_VIEW),
               ),
             );
           } else {
