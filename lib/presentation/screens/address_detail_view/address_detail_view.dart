@@ -189,9 +189,9 @@ class _AddressDetailViewState extends State<AddressDetailView> {
     final text = _controller.value.text;
 
     if (_controller == tcController && tcController.value.text.length <= 11) {
-      return 'Enter at least 11 character';
+      return 'En az 11 karakter giriniz';
     } else if (text.isEmpty) {
-      return 'Can\'t be empty';
+      return 'Bu alan boş bırakılamaz';
     }
     return null;
   }
