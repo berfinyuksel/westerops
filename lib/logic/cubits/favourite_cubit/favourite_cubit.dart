@@ -67,7 +67,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       emit(FavoriteLoading());
       final response = await _favoriteRepository.getFavorites();
       favoriteRestaurants = response;
-     // print("get favorites results: ${response.first.id}");
+      // print("get favorites results: ${response.first.id}");
       emit(FavoriteCompleted(response));
     } on NetworkError catch (e) {
       emit(FavoriteError(e.message, e.statusCode));
@@ -75,9 +75,20 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   }
 
   void setFavorite(int restaurantID) {
-    favoriteRestaurants.forEach((restoran) {
-      restoran.id == restaurantID ? isFavorite = true : isFavorite = false;
-    });
+    favoriteRestaurants.where((restoran) {
+      print("favorite restaurant id: ${restoran.id}");
+      print("search store restaurant id: $restaurantID");
+
+      return restoran.id == restaurantID;
+    }).isNotEmpty
+        ? isFavorite = true
+        : isFavorite = false;
+    /* favoriteRestaurants.forEach((restoran) {
+      print("fav id: $restoran.id");
+
+      print(" search store rest id: $restaurantID");
+       restoran.id == restaurantID ? isFavorite = true : isFavorite = false;
+    }); */
     emit(IsFavoriteChange(isFavorite));
     print("isfavorite is :" + isFavorite.toString());
   }
