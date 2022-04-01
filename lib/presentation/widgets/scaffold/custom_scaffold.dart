@@ -1,4 +1,10 @@
+import 'package:dongu_mobile/logic/cubits/generic_state/generic_state.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/scaffold_cubit/basket_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/scaffold_cubit/scaffold_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/splash_cubit/splash_cubit.dart';
+import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import '../../screens/my_notifications_view/my_notifications_view.dart';
@@ -69,6 +75,12 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    return MultiBlocProvider(
+        providers: [BlocProvider.value(value: sl<ScaffoldCubit>()..init())],
+        child: buildScaffold());
+  }
+
+  WillPopScope buildScaffold() {
     return WillPopScope(
       onWillPop: widget.isPopScope,
       child: Scaffold(
@@ -99,7 +111,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                   top: Radius.circular(18.0),
                 ),
                 child: buildBottomNavigationBar()),
-        body: widget.body == null ? _widgetOptions.elementAt(_selectedIndex) : widget.body,
+        body: widget.body == null
+            ? _widgetOptions.elementAt(_selectedIndex)
+            : widget.body,
       ),
     );
   }
@@ -161,7 +175,10 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         ),
       ],
       iconTheme: IconThemeData(color: AppColors.greenColor),
-      title: _selectedIndex == 1 || _selectedIndex == 2 || _selectedIndex == 3 || _selectedIndex == 4
+      title: _selectedIndex == 1 ||
+              _selectedIndex == 2 ||
+              _selectedIndex == 3 ||
+              _selectedIndex == 4
           ? LocaleText(
               text: _titles.elementAt(_selectedIndex)!,
               style: AppTextStyles.appBarTitleStyle,
@@ -208,18 +225,24 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 ImageConstant.NAVBAR_NOTIFACATIONS,
               ),
               Builder(builder: (context) {
-                final counterNotificaitonState = context.watch<NotificationsCounterCubit>().state;
+                final counterNotificaitonState =
+                    context.watch<NotificationsCounterCubit>().state;
 
                 return Visibility(
-                  visible: counterNotificaitonState > 0 && SharedPrefs.getIsLogined,
+                  visible:
+                      counterNotificaitonState > 0 && SharedPrefs.getIsLogined,
                   child: Container(
                     height: 14,
                     width: 14,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.yellowColor),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.yellowColor),
                     child: Text(
                       counterNotificaitonState.toString(),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 10.7),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
                     ),
                   ),
                 );
@@ -238,23 +261,30 @@ class _CustomScaffoldState extends State<CustomScaffold> {
               SvgPicture.asset(
                 ImageConstant.NAVBAR_BASKET,
               ),
-              Builder(builder: (context) {
-                final counterState = context.watch<BasketCounterCubit>().state;
-
-                return Visibility(
-                  visible: counterState > 0 && SharedPrefs.getIsLogined,
-                  child: Container(
-                    height: 14,
-                    width: 14,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.orangeColor),
-                    child: Text(
-                      counterState.toString(),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 10.7),
+              BlocBuilder<OrderCubit, GenericState>(
+                builder: (context, state) {
+                  print("ITEM LIST ${sl<OrderCubit>().itemList.length}");
+                  return Visibility(
+                    visible: sl<ScaffoldBasketCounterCubit>().state > 0 &&
+                        SharedPrefs.getIsLogined,
+                    child: Container(
+                      height: 14,
+                      width: 14,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: AppColors.orangeColor),
+                      child: Text(
+                        sl<ScaffoldBasketCounterCubit>().state.toString(),
+                        //counterState.toString(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10.7),
+                      ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                },
+              ),
             ],
           ),
           activeIcon: Stack(
@@ -272,10 +302,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                     height: 14,
                     width: 14,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.orangeColor),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.orangeColor),
                     child: Text(
                       counterState.toString(),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 10.7),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
                     ),
                   ),
                 );

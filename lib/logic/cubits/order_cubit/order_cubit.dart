@@ -1,11 +1,13 @@
 import 'package:dongu_mobile/data/model/box_order.dart';
+import 'package:dongu_mobile/logic/cubits/scaffold_cubit/basket_counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dongu_mobile/utils/network_error.dart';
 import '../../../data/repositories/order_repository.dart';
+import '../../../data/services/locator.dart';
 import '../generic_state/generic_state.dart';
 
 class OrderCubit extends Cubit<GenericState> {
-  final OrderRepository _orderRepository;
+  final SampleOrderRepository _orderRepository;
   OrderCubit(this._orderRepository) : super(GenericInitial());
 
   List<BoxOrder> itemList = [];
@@ -31,6 +33,7 @@ class OrderCubit extends Cubit<GenericState> {
         itemList.add(response[i]);
       }
       _totalPayPrice();
+      sl<ScaffoldBasketCounterCubit>().setCounter(itemList.length);
       emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));

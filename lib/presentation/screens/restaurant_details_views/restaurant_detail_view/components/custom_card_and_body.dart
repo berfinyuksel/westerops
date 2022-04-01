@@ -24,6 +24,7 @@ import '../../../../../logic/cubits/category_name_cubit/category_name_cubit.dart
 import '../../../../../logic/cubits/favourite_cubit/favourite_cubit.dart';
 import '../../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../../../logic/cubits/order_cubit/order_cubit.dart';
+import '../../../../../logic/cubits/scaffold_cubit/basket_counter_cubit.dart';
 import '../../../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../../../../../logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import '../../../../../logic/cubits/swipe_route_cubit.dart/swipe_route_cubit.dart';
@@ -628,7 +629,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                           context.watch<SumOldPriceOrderCubit>().state);
                       int? menuItem = state.packages[index].id;
                       final counterState =
-                          context.watch<BasketCounterCubit>().state;
+                          context.watch<ScaffoldBasketCounterCubit>().state;
                       return Builder(builder: (context) {
                         return CustomButton(
                           title: menuList!.contains(menuItem.toString())
@@ -746,7 +747,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 .read<SumOldPriceOrderCubit>()
                 .incrementOldPrice(oldPriceOfMenu!);
 
-            context.read<BasketCounterCubit>().increment();
+            context.read<ScaffoldBasketCounterCubit>().increment();
             SharedPrefs.setCounter(counterState + 1);
             menuList!.add(menuItem.toString());
             SharedPrefs.setMenuList(menuList!);
@@ -759,7 +760,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             context
                 .read<OrderCubit>()
                 .deleteBasket("${state.packages[index].id}");
-            context.read<BasketCounterCubit>().decrement();
+            context.read<ScaffoldBasketCounterCubit>().decrement();
             SharedPrefs.setCounter(counterState - 1);
             menuList!.remove(state.packages[index].id.toString());
             SharedPrefs.setMenuList(menuList!);

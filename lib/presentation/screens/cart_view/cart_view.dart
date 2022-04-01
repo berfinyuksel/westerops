@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/scaffold_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../data/model/box_order.dart';
 import '../../../data/model/search_store.dart';
+import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
@@ -144,7 +146,9 @@ class _CartViewState extends State<CartView> {
                           .read<StoreCourierCubit>()
                           .getCourierHours(itemList[index].store!.id!);
                       final counterState =
-                          context.watch<BasketCounterCubit>().state;
+                          context.watch<ScaffoldBasketCounterCubit>().state;
+                      sl<ScaffoldBasketCounterCubit>()
+                          .setCounter(counterState);
                       return Dismissible(
                         direction: DismissDirection.endToStart,
                         key: UniqueKey(),
@@ -161,11 +165,13 @@ class _CartViewState extends State<CartView> {
                           ),
                         ),
                         confirmDismiss: (DismissDirection direction) {
-                          return deleteItemShowDialogBuild(context, itemList, index, counterState);
+                          return deleteItemShowDialogBuild(
+                              context, itemList, index, counterState);
                         },
                         child: PastOrderDetailBasketListTile(
                           onPressed: () {
-                         deleteItemShowDialogBuild(context, itemList, index, counterState);
+                            deleteItemShowDialogBuild(
+                                context, itemList, index, counterState);
                           },
                           oldPrice: itemList[index]
                               .packageSetting!
@@ -225,24 +231,24 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  Future<bool?> deleteItemShowDialogBuild(BuildContext context, List<BoxOrder> itemList, int index, int counterState) {
-    return deleteItemShowDialog(
-                            context, (){
-                               context.read<SumOldPriceOrderCubit>().decrementOldPrice(
-              itemList[index].packageSetting!.minOrderPrice!);
-          context.read<SumPriceOrderCubit>().decrementPrice(
-              itemList[index].packageSetting!.minDiscountedOrderPrice!);
+  Future<bool?> deleteItemShowDialogBuild(BuildContext context,
+      List<BoxOrder> itemList, int index, int counterState) {
+    return deleteItemShowDialog(context, () {
+      context
+          .read<SumOldPriceOrderCubit>()
+          .decrementOldPrice(itemList[index].packageSetting!.minOrderPrice!);
+      context.read<SumPriceOrderCubit>().decrementPrice(
+          itemList[index].packageSetting!.minDiscountedOrderPrice!);
 
-          context.read<OrderCubit>().deleteBasket("${itemList[index].id}");
-          context.read<BasketCounterCubit>().decrement();
-          SharedPrefs.setCounter(counterState - 1);
-          menuList.remove(itemList[index].id.toString());
-          SharedPrefs.setMenuList(menuList);
-          itemList.remove(itemList[index]);
-          Navigator.of(context).pop();
-                            });
+      context.read<OrderCubit>().deleteBasket("${itemList[index].id}");
+      context.read<BasketCounterCubit>().decrement();
+      SharedPrefs.setCounter(counterState - 1);
+      menuList.remove(itemList[index].id.toString());
+      SharedPrefs.setMenuList(menuList);
+      itemList.remove(itemList[index]);
+      Navigator.of(context).pop();
+    });
   }
-
 
   Padding buildButton(BuildContext context, List<BoxOrder> itemList) {
     return Padding(

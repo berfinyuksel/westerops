@@ -5,6 +5,7 @@ import 'package:device_info/device_info.dart';
 import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +29,7 @@ class HomePageCubit extends Cubit<HomePageState> {
     getDeviceIdentifier();
     SharedPrefs.onboardingShown(true);
     sl<OrderReceivedCubit>().getPastOrder();
+    sl<OrderCubit>().getBasket();
     buildSharedPrefNoData();
     SharedPrefs.setBoolPaymentCardControl(false);
     addControllerListener(controller);

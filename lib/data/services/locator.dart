@@ -11,7 +11,10 @@ import 'package:dongu_mobile/logic/cubits/category_filter_cubit/category_filter_
 import 'package:dongu_mobile/logic/cubits/category_name_cubit/category_name_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/home_page/home_page_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/login_status_cubit/login_status_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/scaffold_cubit/basket_counter_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/scaffold_cubit/scaffold_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/utils/base/bloc_provider_repository.dart';
 import 'package:dongu_mobile/utils/base/svg_image_repository.dart';
@@ -21,6 +24,7 @@ import '../../logic/cubits/search_cubit/search_cubit.dart';
 import '../repositories/basket_repository.dart';
 import '../repositories/box_repository.dart';
 import '../repositories/favourite_repository.dart';
+import '../repositories/order_repository.dart';
 import '../repositories/search_repository.dart';
 import '../repositories/update_order_repository.dart';
 import '../repositories/change_active_address_repository.dart';
@@ -50,6 +54,8 @@ setUpLocator() async {
   getIt.registerLazySingleton(() => SampleAdressRepository());
   getIt.registerLazySingleton(() => SampleCategoryNameRepository());
   getIt.registerFactory(() => SampleBoxRepository());
+  getIt.registerLazySingleton(() => SampleOrderRepository());
+
   //Cubits
 
   getIt.registerLazySingleton(() => OrderReceivedCubit(sl()));
@@ -62,4 +68,8 @@ setUpLocator() async {
   getIt.registerFactory(() => CategoryNameCubit(sl()));
   getIt.registerFactory(() => CategoryFilterCubit(sl()));
   getIt.registerFactory(() => BoxCubit(sl()));
+  getIt.registerLazySingleton(() => ScaffoldCubit());
+  getIt.registerLazySingleton(() => OrderCubit(sl()));
+  getIt.registerLazySingleton(() => ScaffoldBasketCounterCubit());
+
 }
