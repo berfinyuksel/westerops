@@ -827,7 +827,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                               "1" ||
                           widget.restaurant!.packageSettings!.deliveryType ==
                               "3"
-                      ? Colors.grey[600]
+                      ? AppColors.yellowColor
                       : Colors.white,
                 ),
                 child: Padding(
@@ -855,7 +855,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                               "2" ||
                           widget.restaurant!.packageSettings!.deliveryType ==
                               "3"
-                      ? Colors.grey[600]
+                      ? AppColors.yellowColor
                       : Colors.white,
                 ),
                 child: Padding(

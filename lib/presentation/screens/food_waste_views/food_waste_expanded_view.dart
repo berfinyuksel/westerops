@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -82,9 +84,44 @@ class FoodWasteExpandedView extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            SvgPicture.asset(
-              ImageConstant.FOOD_WASTE_EXPANDED_IMAGE_3,
-              height: 145.h,
+            Center(
+              child: Stack(children: [
+                SvgPicture.asset(
+                  ImageConstant.FOOD_WASTE_EXPANDED_IMAGE_3,
+                  height: 145.h,
+                ),
+                Positioned(
+                  left: 15,
+                  right: 15,
+                  top: 40,
+                  child: Center(
+                    child: AutoSizeText.rich(
+                      TextSpan(children: [
+                        TextSpan(
+                          text: "%33'ü\n",
+                          style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                              fontSize: 35.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black),
+                        ),
+                        TextSpan(
+                          text: "\t\t\t\t\t\t\tİsraf",
+                          style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(color: Colors.black),
+                            fontSize: 17,
+                            fontWeight: FontWeight.w300,
+                            fontStyle: FontStyle.normal,
+                          ),
+                        ),
+                      ]),
+                    ),
+                  ),
+                  // child: Text(
+                  // "%33'ü\n İsraf",
+                  // style: TextStyle(fontSize: 25),
+                  // ),
+                ),
+              ]),
             ),
             SizedBox(
               height: 10.h,
