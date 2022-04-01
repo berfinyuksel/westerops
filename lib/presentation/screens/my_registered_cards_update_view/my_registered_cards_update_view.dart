@@ -354,6 +354,7 @@ class _MyRegisteredCardsUpdateViewState
               ? FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))
               : FilteringTextInputFormatter.singleLineFormatter,
         ],
+        keyboardType: TextInputType.number,
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
         controller: controller,

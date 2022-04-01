@@ -185,14 +185,14 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
               return Center(child: CircularProgressIndicator());
             } else if (state is GenericCompleted) {
               List<IyzcoRegisteredCard> cards = [];
-            
+
               for (int i = 0; i < state.response.length; i++) {
                 cards.add(state.response[i]);
               }
               log(cards.length.toString());
-          if (cards.isNotEmpty) {
-            SharedPrefs.setBoolPaymentCardControl(true);
-          }
+              if (cards.isNotEmpty) {
+                SharedPrefs.setBoolPaymentCardControl(true);
+              }
               return Column(
                 children: [
                   cards.isEmpty
@@ -453,9 +453,9 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       width: 142.w,
       color: Colors.white,
       child: TextFormField(
+        keyboardType: TextInputType.number,
         inputFormatters: [
-          //  FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-          FilteringTextInputFormatter.singleLineFormatter,
+          LengthLimitingTextInputFormatter(3),
         ],
         cursorColor: AppColors.cursorColor,
         style:
