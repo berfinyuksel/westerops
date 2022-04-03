@@ -49,6 +49,7 @@ class _SearchViewState extends State<SearchView> {
   bool scroolTrendRight = false;
 
   bool visible = true;
+  bool isCleanTextController = false;
 
   Widget buildBuilder() {
     return BlocBuilder<SearchStoreCubit, GenericState>(
@@ -58,6 +59,7 @@ class _SearchViewState extends State<SearchView> {
         } else if (state is GenericLoading) {
           return Center(child: CustomCircularProgressIndicator());
         } else if (state is GenericCompleted) {
+          isCleanTextController = !isCleanTextController;
           filteredNames = state.response as List<SearchStore>;
           return Center(
             child: searchListViewBuilder(),
@@ -93,7 +95,8 @@ class _SearchViewState extends State<SearchView> {
             // Spacer(
             //   flex: 3,
             // ),
-            Visibility(visible: visible, child: searchHistoryAndCleanTexts(context)),
+            Visibility(
+                visible: visible, child: searchHistoryAndCleanTexts(context)),
             Visibility(visible: visible, child: dividerOne(context)),
             SizedBox(height: 10.h),
             Container(alignment: Alignment.center, child: emptySearchHistory()),
@@ -120,7 +123,8 @@ class _SearchViewState extends State<SearchView> {
             Visibility(visible: visible, child: categoriesText(context)),
             Visibility(visible: visible, child: dividerThird(context)),
             //  Spacer(flex: 1),
-            Visibility(visible: visible, child: horizontalListCategory(context)),
+            Visibility(
+                visible: visible, child: horizontalListCategory(context)),
             SizedBox(height: 10.h),
           ],
         ),
@@ -294,10 +298,13 @@ class _SearchViewState extends State<SearchView> {
                     ),
                   );
                 },
-                title: Text(filteredNames.isEmpty || "${filteredNames[index].name}".isEmpty
+                title: Text(filteredNames.isEmpty ||
+                        "${filteredNames[index].name}".isEmpty
                     ? ""
                     : "${filteredNames[index].name}"),
-                subtitle: Text(filteredNames.isEmpty || mealNames.isEmpty ? "" : mealNames),
+                subtitle: Text(filteredNames.isEmpty || mealNames.isEmpty
+                    ? ""
+                    : mealNames),
               ),
             ),
           );
@@ -325,7 +332,9 @@ class _SearchViewState extends State<SearchView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           LocaleText(
-            text: SharedPrefs.getIsLogined ? LocaleKeys.search_text1 : LocaleKeys.search_text3,
+            text: SharedPrefs.getIsLogined
+                ? LocaleKeys.search_text1
+                : LocaleKeys.search_text3,
             style: AppTextStyles.bodyTitleStyle,
           ),
           Spacer(),
@@ -340,7 +349,8 @@ class _SearchViewState extends State<SearchView> {
             },
             child: LocaleText(
               text: LocaleKeys.search_text2,
-              style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12),
+              style: AppTextStyles.bodyTitleStyle
+                  .copyWith(color: AppColors.orangeColor, fontSize: 12),
             ),
           ),
         ],
@@ -355,7 +365,8 @@ class _SearchViewState extends State<SearchView> {
           vertical: context.dynamicHeight(0.03),
         ),
         child: CustomSearchBar(
-          containerPadding: visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.68),
+          containerPadding:
+              visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.68),
           onTap: () {
             setState(() {
               visible = !visible;
@@ -380,41 +391,22 @@ class _SearchViewState extends State<SearchView> {
                   },
                   child: Text(
                     LocaleKeys.search_cancel_button.locale,
-                    style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12),
+                    style: AppTextStyles.bodyTitleStyle
+                        .copyWith(color: AppColors.orangeColor, fontSize: 12),
                   )),
         ));
   }
 
   emptySearchHistory() {
-    if (filteredNames.length == 0) {
-      return Text(
-        LocaleKeys.search_search_history_clean.locale,
-        style: AppTextStyles.bodyTextStyle,
-      );
+     if (filteredNames.length == 0 && isCleanTextController==true) {
+      return visible
+          ? Text(
+              LocaleKeys.search_search_history_clean.locale,
+              style: AppTextStyles.bodyTextStyle,
+            )
+          : SizedBox();
     } else {
       return SizedBox();
     }
   }
-  // return Container(
-  //   height: context.dynamicHeight(0.05),
-  //   width: double.infinity,
-  //   child: Padding(
-  //     padding: const EdgeInsets.only(left: 25),
-  //     child: LocaleText(
-  //         text: LocaleKeys.search_search_history_clean,
-  //         style: AppTextStyles.bodyTextStyle
-  //             .copyWith(color: AppColors.cursorColor)),
-  //   ),
-  // );
-
-  // Widget buildSearch(GenericState state, List<Search> searchList) => ListTile(
-  //       // leading: Image.network(
-  //       //   searches.urlImage,
-  //       //   fit: BoxFit.cover,
-  //       //   width: 50,
-  //       //   height: 50,
-  //       // ),
-  //       title: Text("${filteredNames[index].name}"),
-  //       subtitle: Text("${filteredNames[index].storeMeals![index].name}"),
-  //     );
 }

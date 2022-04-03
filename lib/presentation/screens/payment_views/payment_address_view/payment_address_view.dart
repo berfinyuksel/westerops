@@ -73,10 +73,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             create: (BuildContext context) =>
                 sl<SearchStoreCubit>()..getSearchStoreAddress(),
           ),
-          BlocProvider<AddressCubit>(
-            create: (BuildContext context) =>
-                sl<AddressCubit>()..getActiveAddress(),
-          )
+          BlocProvider.value(value: sl<AddressCubit>()..getActiveAddress()),
         ],
         child: BlocBuilder<SearchStoreCubit, GenericState>(
           builder: (context, state) {
@@ -124,7 +121,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
           return LocaleText(
             text: LocaleKeys.payment_address_restaurant_address,
           );
-        } else
+        } else {
           return Container(
             height: 530.h,
             child: ListView(
@@ -242,6 +239,7 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
               ],
             ),
           );
+        }
       } else if (state is GenericInitial) {
         return Container();
       } else if (state is GenericLoading) {
@@ -303,7 +301,9 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
           GestureDetector(
             onTap: () {
               if (titleRight == LocaleKeys.payment_address_change) {
-                Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
+                //   Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
+                Navigator.of(context)
+                    .pushReplacementNamed(RouteConstant.ADDRESS_VIEW);
               } else {
                 setState(() {
                   isShowOnMap = !isShowOnMap;
