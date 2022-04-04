@@ -45,7 +45,7 @@ class PastOrderDetailPaymentListTile extends StatelessWidget {
                     );
                   })
                 : Spacer(),
-            SizedBox(width: 10.w),
+            SizedBox(width: 7.w),
             Container(
               alignment: Alignment.center,
               width: 90.w,
