@@ -572,8 +572,13 @@ class _HomePageViewState extends State<HomePageView> {
           cursorColor: AppColors.cursorColor,
           style: AppTextStyles.bodyTextStyle,
           decoration: InputDecoration(
-              suffixIcon: SvgPicture.asset(
-                ImageConstant.COMMONS_SEARCH_ICON,
+              suffixIcon: GestureDetector(
+                onTap: (){
+                   context.read<SearchStoreCubit>().getSearches(controller!.text);
+                },
+                child: SvgPicture.asset(
+                  ImageConstant.COMMONS_SEARCH_ICON,
+                ),
               ),
               border: buildOutlineInputBorder(),
               focusedBorder: buildOutlineInputBorder(),
