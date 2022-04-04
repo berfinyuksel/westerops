@@ -47,6 +47,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   FocusNode phoneNumberFocusNode = FocusNode();
   bool nextFocusTc = false;
   int counter = 0;
+
   @override
   void initState() {
     super.initState();
@@ -96,35 +97,45 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                           addressNameController,
                           addressNameFocusNode,
                         ),
-                        addressNameController.text.isEmpty && counter > 0 ? buildValidatorText(addressNameController) : SizedBox(),
+                        addressNameController.text.isEmpty && counter > 0
+                            ? buildValidatorText(addressNameController)
+                            : SizedBox(),
                         Spacer(flex: 10),
                         buildTextFormField(
                           LocaleKeys.address_district.locale,
                           districtController,
                           districtFocusNode,
                         ),
-                        districtController.text.isEmpty && counter > 0 ? buildValidatorText(districtController) : SizedBox(),
+                        districtController.text.isEmpty && counter > 0
+                            ? buildValidatorText(districtController)
+                            : SizedBox(),
                         Spacer(flex: 10),
                         buildTextFormField(
                           LocaleKeys.address_addresss.locale,
                           addressController,
                           addressFocusNode,
                         ),
-                        addressController.text.isEmpty && counter > 0 ? buildValidatorText(addressController) : SizedBox(),
+                        addressController.text.isEmpty && counter > 0
+                            ? buildValidatorText(addressController)
+                            : SizedBox(),
                         Spacer(flex: 10),
                         buildTextFormField(
                           LocaleKeys.address_address_description.locale,
                           descriptionController,
                           descriptionFocusNode,
                         ),
-                        descriptionController.text.isEmpty && counter > 0 ? buildValidatorText(descriptionController) : SizedBox(),
+                        descriptionController.text.isEmpty && counter > 0
+                            ? buildValidatorText(descriptionController)
+                            : SizedBox(),
                         Spacer(flex: 10),
                         buildTextFormField(
                           LocaleKeys.address_phone_number.locale,
                           phoneNumberController,
                           phoneNumberFocusNode,
                         ),
-                        phoneNumberController.text.isEmpty && counter > 0 ? buildValidatorText(phoneNumberController) : SizedBox(),
+                        phoneNumberController.text.isEmpty && counter > 0
+                            ? buildValidatorText(phoneNumberController)
+                            : SizedBox(),
                       ],
                     ),
                   ),
@@ -142,9 +153,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                       descriptionController.text.isNotEmpty &&
                       addressController.text.isNotEmpty &&
                       phoneNumberController.text.isNotEmpty &&
-  
-                      descriptionController.text.isNotEmpty 
-                     ) {
+                      phoneNumberController.value.text.length == 10 &&
+                      descriptionController.text.isNotEmpty) {
                     context.read<AddressCubit>().addAddress(
                         addressNameController.text,
                         adressType,
@@ -157,13 +167,15 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                         tcController.text,
                         LocationService.latitude,
                         LocationService.longitude);
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-          RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        RouteConstant.CUSTOM_SCAFFOLD,
+                        (Route<dynamic> route) => false);
                   } else {
                     showDialog(
                       context: context,
                       builder: (_) => CustomAlertDialogResetPassword(
-                          description: LocaleKeys.address_pop_up_text.locale, onPressed: () => Navigator.of(context).pop()),
+                          description: LocaleKeys.address_pop_up_text.locale,
+                          onPressed: () => Navigator.of(context).pop()),
                     );
                   }
                 },
@@ -180,7 +192,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
       padding: const EdgeInsets.only(left: 8.0),
       child: LocaleText(
         text: _errorText(textController)!,
-        style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.red, fontSize: 12),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(color: Colors.red, fontSize: 12),
       ),
     );
   }
@@ -196,14 +209,16 @@ class _AddressDetailViewState extends State<AddressDetailView> {
     return null;
   }
 
- 
   Container buildTextFormField(
     String labelText,
     TextEditingController controller,
     FocusNode focusNode,
   ) {
     return Container(
-      height: controller == descriptionController || controller == addressController ? 100.h : 56.h,
+      height:
+          controller == descriptionController || controller == addressController
+              ? 100.h
+              : 56.h,
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.borderAndDividerColor, width: 2),
         borderRadius: BorderRadius.circular(4.0),
@@ -215,7 +230,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
           if (tcController.text.length == 11 && tcFocusNode.hasFocus) {
             tcFocusNode.nextFocus();
           }
-          if (phoneNumberController.text.length == 10 && phoneNumberFocusNode.hasFocus) {
+          if (phoneNumberController.text.length == 10 &&
+              phoneNumberFocusNode.hasFocus) {
             phoneNumberFocusNode.unfocus();
           }
           setState(() {});
@@ -227,7 +243,10 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                   ? LengthLimitingTextInputFormatter(10)
                   : LengthLimitingTextInputFormatter(99),
         ],
-        maxLines: controller == descriptionController || controller == addressController ? context.dynamicHeight(0.11).toInt() : null,
+        maxLines: controller == descriptionController ||
+                controller == addressController
+            ? context.dynamicHeight(0.11).toInt()
+            : null,
         cursorColor: AppColors.cursorColor,
         style: AppTextStyles.myInformationBodyTextStyle,
         /* inputFormatters: [
@@ -235,7 +254,10 @@ class _AddressDetailViewState extends State<AddressDetailView> {
               ? FilteringTextInputFormatter.digitsOnly
               : FilteringTextInputFormatter.singleLineFormatter,
         ], */
-        keyboardType: controller == phoneNumberController || controller == tcController ? TextInputType.number : TextInputType.text,
+        keyboardType:
+            controller == phoneNumberController || controller == tcController
+                ? TextInputType.number
+                : TextInputType.text,
         controller: controller,
         decoration: InputDecoration(
           // isDense: true,
@@ -249,11 +271,16 @@ class _AddressDetailViewState extends State<AddressDetailView> {
           // focusedBorder: InputBorder.none,
           // border: InputBorder.none,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: controller.text.isEmpty && counter > 0 ? Colors.red : AppColors.borderAndDividerColor, width: 1),
+            borderSide: BorderSide(
+                color: controller.text.isEmpty && counter > 0
+                    ? Colors.red
+                    : AppColors.borderAndDividerColor,
+                width: 1),
             borderRadius: BorderRadius.circular(4.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 1),
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 1),
             borderRadius: BorderRadius.circular(4.0),
           ),
           border: OutlineInputBorder(
