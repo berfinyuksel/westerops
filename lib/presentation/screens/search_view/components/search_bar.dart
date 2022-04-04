@@ -17,6 +17,7 @@ class CustomSearchBar extends StatelessWidget {
   final Function(String)? onChanged;
   final Widget? textButton;
   final double? containerPadding;
+  final void Function()? onTapIcon;
   const CustomSearchBar(
       {Key? key,
       this.hintText,
@@ -25,7 +26,7 @@ class CustomSearchBar extends StatelessWidget {
       this.onTap,
       this.onChanged,
       this.textButton,
-      this.containerPadding})
+      this.containerPadding, this.onTapIcon,})
       : super(key: key);
 
   @override
@@ -56,8 +57,11 @@ class CustomSearchBar extends StatelessWidget {
             decoration: InputDecoration(
                 prefixIcon: Padding(
                   padding: EdgeInsets.only(right: context.dynamicWidht(0.04)),
-                  child: SvgPicture.asset(
-                    ImageConstant.COMMONS_SEARCH_ICON,
+                  child: GestureDetector(
+                    onTap: onTapIcon,
+                    child: SvgPicture.asset(
+                      ImageConstant.COMMONS_SEARCH_ICON,
+                    ),
                   ),
                 ),
                 border: buildOutlineInputBorder(),

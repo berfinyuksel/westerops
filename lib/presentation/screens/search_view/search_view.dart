@@ -365,11 +365,14 @@ class _SearchViewState extends State<SearchView> {
           vertical: context.dynamicHeight(0.03),
         ),
         child: CustomSearchBar(
+          onTapIcon: (){
+            context.read<SearchStoreCubit>().getSearches(controller!.text);
+          },
           containerPadding:
               visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.68),
           onTap: () {
             setState(() {
-              visible = !visible;
+              visible = !visible; 
             });
           },
           onChanged: (value) {
