@@ -211,6 +211,8 @@ class _MyRegisteredCardsUpdateViewState
                           .substring(cardNumberController.text.length - 4);
                       var binNumber = cardNumberController.text.substring(0, 6);
                       var cardNumberControl = binNumber + lastFourDigits;
+                      print(SharedPrefs.getCardsList);
+                      print(cardNumberControl);
                       if (SharedPrefs.getCardsList
                               .contains(cardNumberControl) ==
                           true) {
