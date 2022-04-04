@@ -9,6 +9,7 @@ import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../data/shared/shared_prefs.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/locale_keys.g.dart';
@@ -75,7 +76,9 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
             // print("CARDS LAST : ${cards.last.cardDetails!.last.binNumber}");
           }
 
-          return cards.isEmpty ? buildNoCardWidget() : buildRegisteredCards(cards.first.cardDetails!);
+          return cards.isEmpty
+              ? buildNoCardWidget()
+              : buildRegisteredCards(cards.first.cardDetails!);
         } else {
           final error = state as GenericError;
           if (error.statusCode == "502") {
@@ -106,10 +109,26 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
   }
 
   Widget buildRegisteredCards(List<CardDetail> cards) {
+              List<String> cardNumberList = [];
+              for (int i = 0; i < cards.length; i++) {
+                cardNumberList.add(cards[i].binNumber! + cards[i].lastFourDigits!);
+       
+               
+                // print("CARDS FIRST : ${cards.first.cardDetails!.first.binNumber}");
+                // print("CARDS LAST : ${cards.last.cardDetails!.last.binNumber}");
+
+              }
+              print(cardNumberList);
+              SharedPrefs.setRegisterCards(cardNumberList);
     return cards.isNotEmpty
         ? ListView.builder(
             itemCount: cards.length,
             itemBuilder: (context, index) {
+       
+              print(cardNumberList);
+              SharedPrefs.setRegisterCards(cardNumberList);
+              print(SharedPrefs.getCardsList);
+              print("card number list :${cardNumberList.length}");
               return Dismissible(
                 direction: DismissDirection.endToStart,
                 key: UniqueKey(),
@@ -129,7 +148,8 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                     padding: EdgeInsets.fromLTRB(25.w, 35.h, 25.w, 25.h),
                     child: LocaleText(
                       text: LocaleKeys.my_notifications_delete_text_text,
-                      style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                      style: AppTextStyles.bodyTextStyle.copyWith(
+                          color: Colors.white, fontWeight: FontWeight.bold),
                       alignment: TextAlign.end,
                     ),
                   ),
@@ -138,7 +158,8 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                   return showDialog(
                     context: context,
                     builder: (_) => CustomAlertDialog(
-                        textMessage: LocaleKeys.registered_cards_delete_alert_dialog_text,
+                        textMessage: LocaleKeys
+                            .registered_cards_delete_alert_dialog_text,
                         buttonOneTitle: LocaleKeys.payment_payment_cancel,
                         buttonTwoTittle: LocaleKeys.address_address_approval,
                         imagePath: ImageConstant.COMMONS_APP_BAR_LOGO,
@@ -152,31 +173,47 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
                           // cardsList.clear();
                           Navigator.of(context).pop();
                           StatusCode statusCode =
-                              await sl<IyzicoCardRepository>().deleteCard(cards[index].cardToken.toString());
+                              await sl<IyzicoCardRepository>().deleteCard(
+                                  cards[index].cardToken.toString());
                           switch (statusCode) {
                             case StatusCode.success:
                               showDialog(
                                   context: context,
-                                  builder: (_) => CustomAlertDialogResetPassword(
-                                        description: LocaleKeys.registered_cards_delete_alert_dialog.locale,
+                                  builder: (_) =>
+                                      CustomAlertDialogResetPassword(
+                                        description: LocaleKeys
+                                            .registered_cards_delete_alert_dialog
+                                            .locale,
                                         onPressed: () =>
-                                            Navigator.popAndPushNamed(context, RouteConstant.MY_REGISTERED_CARD_VIEW),
+                                            Navigator.popAndPushNamed(
+                                                context,
+                                                RouteConstant
+                                                    .MY_REGISTERED_CARD_VIEW),
                                       ));
                               break;
                             case StatusCode.error:
                               showDialog(
                                   context: context,
-                                  builder: (_) => CustomAlertDialogResetPassword(
-                                        description: LocaleKeys.registered_cards_error_alert_dialog.locale,
-                                        onPressed: () => Navigator.of(context).pop(),
+                                  builder: (_) =>
+                                      CustomAlertDialogResetPassword(
+                                        description: LocaleKeys
+                                            .registered_cards_error_alert_dialog
+                                            .locale,
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
                                       ));
                               break;
                             case StatusCode.unauthecticated:
                               showDialog(
                                   context: context,
-                                  builder: (_) => CustomAlertDialogResetPassword(
-                                        description: LocaleKeys.registered_cards_unauthorized_alert_dialog.locale,
-                                        onPressed: () => Navigator.popAndPushNamed(context, RouteConstant.LOGIN_VIEW),
+                                  builder: (_) =>
+                                      CustomAlertDialogResetPassword(
+                                        description: LocaleKeys
+                                            .registered_cards_unauthorized_alert_dialog
+                                            .locale,
+                                        onPressed: () =>
+                                            Navigator.popAndPushNamed(context,
+                                                RouteConstant.LOGIN_VIEW),
                                       ));
                               break;
                             default:
@@ -220,7 +257,8 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
         borderColor: AppColors.greenColor,
         textColor: Colors.white,
         onPressed: () async {
-          Navigator.pushNamed(context, RouteConstant.MY_REGISTERED_CARD_UPDATE_VIEW);
+          Navigator.pushNamed(
+              context, RouteConstant.MY_REGISTERED_CARD_UPDATE_VIEW);
         },
       ),
     );
