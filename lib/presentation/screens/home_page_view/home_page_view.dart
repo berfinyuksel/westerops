@@ -330,9 +330,9 @@ class _HomePageViewState extends State<HomePageView> {
             orderInfo.add(orderInfoTotal[i]);
           }
         }
-        print("GET CANCEL STATUS: ${sl<UpdateOrderRepository>().getCancelStatus}");
+        //print("GET CANCEL STATUS: ${sl<UpdateOrderRepository>().getCancelStatus}");
         return orderInfo.isNotEmpty &&
-                sl<UpdateOrderRepository>().getCancelStatus != 200 &&  sl<UpdateOrderRepository>().getCancelStatus != null 
+                SharedPrefs.getIsDeleteOrder ==false 
             ? GestureDetector(
                 onTap: () {
                   Navigator.of(context)
