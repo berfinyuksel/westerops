@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 enum StatusCode { success, error, unauthecticated }
 
 class UpdateOrderRepository {
+  int? getCancelStatus;
   Future<StatusCode> cancelOrder(int id, String description) async {
     String json =
         '{"description": "$description","ip":"${SharedPrefs.getIpV4}","reason":"$description"}';
@@ -18,7 +19,7 @@ class UpdateOrderRepository {
       },
     );
 
-
+    getCancelStatus = response.statusCode;
     switch (response.statusCode) {
       case 200:
         return StatusCode.success;

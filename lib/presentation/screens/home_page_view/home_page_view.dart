@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:dongu_mobile/data/model/iyzico_card_model/iyzico_order_model.dart';
 import 'package:dongu_mobile/data/model/search_store.dart';
+import 'package:dongu_mobile/data/repositories/update_order_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/home_page/home_page_cubit.dart';
@@ -329,7 +330,9 @@ class _HomePageViewState extends State<HomePageView> {
             orderInfo.add(orderInfoTotal[i]);
           }
         }
-        return orderInfo.isNotEmpty
+        print("GET CANCEL STATUS: ${sl<UpdateOrderRepository>().getCancelStatus}");
+        return orderInfo.isNotEmpty &&
+                sl<UpdateOrderRepository>().getCancelStatus != 200 &&  sl<UpdateOrderRepository>().getCancelStatus != null 
             ? GestureDetector(
                 onTap: () {
                   Navigator.of(context)
@@ -573,8 +576,10 @@ class _HomePageViewState extends State<HomePageView> {
           style: AppTextStyles.bodyTextStyle,
           decoration: InputDecoration(
               suffixIcon: GestureDetector(
-                onTap: (){
-                   context.read<SearchStoreCubit>().getSearches(controller!.text);
+                onTap: () {
+                  context
+                      .read<SearchStoreCubit>()
+                      .getSearches(controller!.text);
                 },
                 child: SvgPicture.asset(
                   ImageConstant.COMMONS_SEARCH_ICON,
