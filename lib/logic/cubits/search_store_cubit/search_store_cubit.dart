@@ -15,7 +15,7 @@ class SearchStoreCubit extends Cubit<GenericState> {
     try {
       final response = await _searchStoreRepository.getSearchStores();
       searchStores = response;
-      emit(GenericCompleted(response));
+      //emit(GenericCompleted(response));
     } on NetworkError catch (e) {
       emit(GenericError(e.message, e.statusCode));
     }
