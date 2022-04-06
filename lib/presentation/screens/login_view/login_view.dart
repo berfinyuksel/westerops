@@ -543,6 +543,7 @@ class _LoginViewState extends State<LoginView> {
             ? LengthLimitingTextInputFormatter(10)
             : LengthLimitingTextInputFormatter(null)
       ],
+      textInputAction: TextInputAction.next,
     );
   }
 }

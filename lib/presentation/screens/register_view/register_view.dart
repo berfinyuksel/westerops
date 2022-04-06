@@ -525,6 +525,7 @@ class _RegisterViewState extends State<RegisterView> {
           borderRadius: BorderRadius.circular(4.0),
         ),
       ),
+      textInputAction: TextInputAction.next,
     );
   }
 }
