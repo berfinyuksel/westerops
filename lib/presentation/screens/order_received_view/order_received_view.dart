@@ -267,8 +267,11 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                     LocaleKeys.order_received_button_2,
                     AppColors.greenColor,
                     Colors.white,
-                    () => Navigator.pushNamed(
-                        context, RouteConstant.CUSTOM_SCAFFOLD),
+                    () {
+                      Navigator.pushNamed(
+                          context, RouteConstant.CUSTOM_SCAFFOLD);
+                      SharedPrefs.setDeleteOrder(false);
+                    },
                   ),
                   SizedBox(
                     height: context.dynamicHeight(0.06),

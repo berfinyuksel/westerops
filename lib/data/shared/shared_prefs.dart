@@ -281,6 +281,10 @@ class SharedPrefs {
       static Future<void> setOldPassword(String oldPassword) async {
     _prefs.setString('oldPassword', oldPassword);
   }
+
+  static Future<void> setDeleteOrder(bool status) async {
+    _prefs.setBool('deleteOrder', status);
+  }
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
   static bool get getNotificationsIsRead =>
@@ -370,4 +374,6 @@ class SharedPrefs {
   static String get getNewCardNumber => _prefs.getString('newCardNumber') ?? "";
   static String get getNewPassword => _prefs.getString('newPassword') ?? "";
   static String get getOldPassword => _prefs.getString('oldPassword') ?? "";
+  static bool get getIsDeleteOrder => _prefs.getBool('deleteOrder') ?? false;
+
 }
