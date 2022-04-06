@@ -63,38 +63,42 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: buildBackground,
-            ),
-            Positioned(
-              top: 28.h,
-              left: 5.w,
-              child: IconButton(
-                icon: Icon(
-                  Icons.close,
-                  color: Colors.white,
-                  size: 25.w,
-                ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
+      body: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: buildBackground,
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 15.w,
-              right: 15.w,
-              child: buildCardBody(context),
-            ),
-          ],
+              Positioned(
+                top: 28.h,
+                left: 5.w,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 25.w,
+                  ),
+                  onPressed: () => Navigator.pushNamed(
+                      context, RouteConstant.CUSTOM_SCAFFOLD),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 15.w,
+                right: 15.w,
+                child: buildCardBody(context),
+              ),
+            ],
+          ),
         ),
       ),
     );

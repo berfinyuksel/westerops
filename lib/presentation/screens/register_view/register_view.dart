@@ -54,49 +54,53 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: GestureDetector(
-        onTap: () {
-          setState(() {
-            if (isRulesVisible) {
-              isRulesVisible = false;
-            }
-            FocusScope.of(context).unfocus();
-          });
-        },
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: buildBackground,
-            ),
-            Positioned(
-              top: 28.h,
-              left: 5.w,
-              child: IconButton(
-                icon: SvgPicture.asset(ImageConstant.BACK_ICON,
-                    width: 20.w, height: 20.w, color: Colors.white),
-                onPressed: () => Navigator.of(context).pop(),
+      body: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              if (isRulesVisible) {
+                isRulesVisible = false;
+              }
+              FocusScope.of(context).unfocus();
+            });
+          },
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: buildBackground,
               ),
-            ),
-            Positioned(
-              bottom: -10.h,
-              left: 15.w,
-              right: 15.w,
-              child: buildCardBody(context),
-            ),
-            Positioned(
-              top: context.dynamicHeight(0.53),
-              left: context.dynamicWidht(0.095),
-              child: Visibility(
-                  visible: isRulesVisible,
-                  child: ClippedPasswordRules(
-                    child:
-                        PasswordRules(passwordController: passwordController),
-                  )),
-            ),
-          ],
+              Positioned(
+                top: 28.h,
+                left: 5.w,
+                child: IconButton(
+                  icon: SvgPicture.asset(ImageConstant.BACK_ICON,
+                      width: 20.w, height: 20.w, color: Colors.white),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+              Positioned(
+                bottom: -10.h,
+                left: 15.w,
+                right: 15.w,
+                child: buildCardBody(context),
+              ),
+              Positioned(
+                top: context.dynamicHeight(0.53),
+                left: context.dynamicWidht(0.095),
+                child: Visibility(
+                    visible: isRulesVisible,
+                    child: ClippedPasswordRules(
+                      child:
+                          PasswordRules(passwordController: passwordController),
+                    )),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -123,11 +127,11 @@ class _RegisterViewState extends State<RegisterView> {
           buildHeader(),
           SizedBox(height: 19.5.h),
           buildDivider(),
-          SizedBox(height: 20.5.h),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  SizedBox(height: 20.h),
                   buildPhoneField(context),
                   SizedBox(height: 20.h),
                   buildNameField(),
@@ -490,6 +494,7 @@ class _RegisterViewState extends State<RegisterView> {
         });
       },
       validator: validator,
+      keyboardType: TextInputType.number,
       inputFormatters: [
         isCharacterLimited
             ? LengthLimitingTextInputFormatter(10)
