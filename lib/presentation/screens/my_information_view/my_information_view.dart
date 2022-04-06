@@ -238,7 +238,7 @@ class _MyInformationViewState extends State<MyInformationView> {
     surnameController.text = SharedPrefs.getUserLastName;
     mailController.text = SharedPrefs.getUserEmail;
     birthController.text = SharedPrefs.getUserBirth;
-    phoneController.text = isReadOnly
+    phoneController.text = isReadOnly && SharedPrefs.getUserPhone.isNotEmpty
         ? SharedPrefs.getUserPhone.substring(3)
         : SharedPrefs.getUserPhone;
     print(phoneController.text);
