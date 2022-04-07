@@ -207,6 +207,7 @@
     },
     "address": {
         "pop_up_text": "Lütfen istenilen bilgileri doğru bir şekilde giriniz",
+        "pop_up_phone": "Lütfen telefon numaranızı eksiksiz giriniz",
         "no_address": "Henüz kayıtlı adresiniz bulunmamaktadır.",
         "address_approval": "Eminim",
         "delete_alert_dialog_text": "Kayıtlı adresiniz silmek istediğinize emin misiniz?",
