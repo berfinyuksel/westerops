@@ -2,14 +2,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
   //TODO: 1 Sharedpref icine setSocialLogin bool set metodu yazilacak
-
   //TODO: 2 Sharedpref icine getSocialLogin bool get metodu yazilacak
   //TODO: 3 apple / facebook ve google socical login ve register isteginin 200 dondugu yerde setSocialLogin == true
 
   //TODO: 4 Register ve login sayfalarinda normal giris yap veya kaydol butonlarina basildiginda setSocialLogin == false
   //TODO: 5 Logout butonu basildiginda ve logout 200 oldugu istek icinde setSocialLogin == false
-
-  //TODO: 6 my_information_view sayfasinda getSocialLogin sayfa acilirken cagirilacak. eger true ise sifremi degistir paneli visibilitysi false
+  //TODO: 6 my_information_view sayfasinda getSocialLogin sayfa acilirken cagirilacak. eger true ise sifremi degistir paneli visibilitysi false\
+  //TODO:7 test icin 1-sosyal medya ile login ol  / sifremi degistir sekmesinin gorunmedigini teyit et 
+  //TODO:8 logout ol / normal kullanici bilgileri ile login ol / sifremi degistir sekmesinin gorundugunu teyit et
 
   static late SharedPreferences _prefs;
   static initialize() async {}
