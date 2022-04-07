@@ -14,6 +14,8 @@ import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../data/services/locator.dart';
+import '../../../logic/cubits/payment_cubit/error_message.cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -85,7 +87,6 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                     );
                   } else if (state is GenericCompleted) {
                     boolForProgress = true;
-
                     _timer!.cancel();
                     List<OrderReceived> orderInfo = [];
 
@@ -113,7 +114,8 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                     final error = state as GenericError;
                     if (error.statusCode == "500") {
                       boolForProgress = true;
-
+                      log(state.message);
+                print(state.message);
                       _timer!.cancel();
 
                       return Column(
@@ -121,6 +123,11 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                           LocaleText(
                             text: "Ödeme Alınamadı",
                             style: AppTextStyles.headlineStyle,
+                          ),
+                          SizedBox(height: context.dynamicHeight(0.02)),
+                          LocaleText(
+                            text:   sl<ErrorMessageCubit>().state,
+                            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.normal),
                           ),
                           SizedBox(height: context.dynamicHeight(0.05)),
                           CustomButton(
@@ -136,7 +143,41 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
                           ),
                         ],
                       );
-                    } else if (error.statusCode == "404") {
+                    } 
+                    else if (error.statusCode == "400"){
+                      boolForProgress = true;
+                      print(sl<ErrorMessageCubit>().state);
+
+                      _timer!.cancel();
+
+                      return Column(
+                        children: [
+                          LocaleText(
+                            text: "Ödeme Alınamadı",
+                            style: AppTextStyles.headlineStyle,
+                          ),
+                          SizedBox(height: context.dynamicHeight(0.02)),
+                          LocaleText(
+                            text: sl<ErrorMessageCubit>().state,
+                            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.normal),
+                          ),
+                          SizedBox(height: context.dynamicHeight(0.05)),
+                          CustomButton(
+                            title: "Ana Sayfa",
+                            color: AppColors.greenColor,
+                            textColor: AppColors.appBarColor,
+                            width: context.dynamicWidht(0.28),
+                            borderColor: AppColors.greenColor,
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
+                            },
+                          ),
+                        ],
+                      );
+                    }
+                      
+                    else if (error.statusCode == "404") {
                       return Column(
                         children: [
                           LocaleText(
@@ -191,7 +232,7 @@ class _OrderReceivingViewWith3DState extends State<OrderReceivingViewWith3D> {
     boolForProgress = true;
     _timer?.cancel();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-        Navigator.of(context).pushNamedAndRemoveUntil(
+      Navigator.of(context).pushNamedAndRemoveUntil(
           RouteConstant.ORDER_RECEIVED_VIEW, (Route<dynamic> route) => false);
     });
   }

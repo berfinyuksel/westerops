@@ -603,8 +603,11 @@ class _PaymentViewsState extends State<PaymentViews>
                       } else {
                         print("ELSE");
                         if (SharedPrefs.getThreeDBool) {
+                        print("606");
+
                           buildWith3DPayment(context);
                         } else {
+                        print("610");
                           buildWithout3DPayment(context);
                         }
                       }

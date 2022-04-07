@@ -43,6 +43,7 @@ import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart'
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
 import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
+import 'package:dongu_mobile/logic/cubits/payment_cubit/error_message.cubit.dart';
 import 'package:dongu_mobile/logic/cubits/payment_cubit/payment_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_location_cubit/search_location_cubit.dart';
@@ -104,6 +105,8 @@ class BlocProviderRepository {
     BlocProvider<FiltersCubit>(create: (context) => FiltersCubit()),
     BlocProvider<FiltersManagerCubit>(create: (context) => FiltersManagerCubit(SampleFiltersRepository())),
     BlocProvider<LoginStatusCubit>(create: (context) => sl<LoginStatusCubit>()),
+    BlocProvider<ErrorMessageCubit>(create: (context) => ErrorMessageCubit()),
+
 
   ];
 }
