@@ -160,7 +160,7 @@ class _RestaurantInfoTabState extends State<RestaurantInfoTab> {
                   height: 36.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    color: AppColors.yellowColor,
+                    color: AppColors.unSelectedpackageDeliveryColor,
                   ),
                   child: Text(
                     LocaleKeys.restaurant_detail_packet_container_sold_out.locale,

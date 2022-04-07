@@ -14,6 +14,7 @@ class CustomAlertDialog extends StatelessWidget {
   final String? imagePath;
   final VoidCallback? onPressedOne;
   final VoidCallback? onPressedTwo;
+  final bool showCloseButton;
 
   CustomAlertDialog({
     required this.textMessage,
@@ -22,41 +23,58 @@ class CustomAlertDialog extends StatelessWidget {
     required this.imagePath,
     required this.onPressedOne,
     required this.onPressedTwo,
+    this.showCloseButton = false,
   });
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
-      content: Container(
-        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
-        width: context.dynamicWidht(0.87),
-        height: context.dynamicHeight(0.30),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18.0),
-          color: Colors.white,
-        ),
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            Container(
-              // height: 90,
-              // width: 90,
-              height: context.dynamicHeight(0.1),
-              width: context.dynamicWidht(0.2),
-              child: SvgPicture.asset(
-                imagePath!,
+      content: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+            width: context.dynamicWidht(0.87),
+            height: context.dynamicHeight(0.30),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18.0),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: 10),
+                Container(
+                  // height: 90,
+                  // width: 90,
+                  height: context.dynamicHeight(0.1),
+                  width: context.dynamicWidht(0.2),
+                  child: SvgPicture.asset(
+                    imagePath!,
+                  ),
+                ),
+                SizedBox(height: 10),
+                LocaleText(
+                  text: textMessage,
+                  style: AppTextStyles.bodyBoldTextStyle,
+                  alignment: TextAlign.center,
+                ),
+                SizedBox(height: 10),
+                Expanded(child: buildButtons(context)),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: showCloseButton,
+            child: Positioned(
+              right: 0,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.close),
               ),
             ),
-            SizedBox(height: 10),
-            LocaleText(
-              text: textMessage,
-              style: AppTextStyles.bodyBoldTextStyle,
-              alignment: TextAlign.center,
-            ),
-            SizedBox(height: 10),
-            Expanded(child: buildButtons(context)),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
