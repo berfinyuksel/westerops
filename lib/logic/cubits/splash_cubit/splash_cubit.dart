@@ -13,6 +13,8 @@ import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/repositories/update_permission_for_com_repository.dart';
+
 part 'splash_cubit_state.dart';
 
 class SplashCubit extends Cubit<SplashCubitState> {
@@ -30,18 +32,23 @@ class SplashCubit extends Cubit<SplashCubitState> {
       await stateOfBar(context);
       await sumOldNewPrice(context);
       await navigateToScreens(context);
-    } catch (e) {
-    }
+//TODO User social login control continue - received object of wrong instance error
+      print("USER TOKEN ${SharedPrefs.getToken}");
+      print("USER ID ${SharedPrefs.getUserId}");
+      await sl<UpdatePermissonRepository>().userSocialControl();
+    } catch (e) {}
   }
 
   navigateToScreens(BuildContext context) {
     // Navigator.of(context).pushNamed(RouteConstant.CUSTOM_SCAFFOLD);
     if (SharedPrefs.getIsLogined) {
       //SharedPrefs.clearCache();
-      Navigator.pushNamedAndRemoveUntil(context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
+      Navigator.pushNamedAndRemoveUntil(
+          context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
     } else {
-      Navigator.pushNamedAndRemoveUntil(context, RouteConstant.ONBOARDINGS_VIEW, ModalRoute.withName('/onBoardings'));
-    //  Navigator.of(context).pushNamed(RouteConstant.ONBOARDINGS_VIEW);
+      Navigator.pushNamedAndRemoveUntil(context, RouteConstant.ONBOARDINGS_VIEW,
+          ModalRoute.withName('/onBoardings'));
+      //  Navigator.of(context).pushNamed(RouteConstant.ONBOARDINGS_VIEW);
     }
   }
 
@@ -55,7 +62,9 @@ class SplashCubit extends Cubit<SplashCubitState> {
 
   addFavorite(BuildContext context) {
     for (var i = 0; i < SharedPrefs.getFavorites.length; i++) {
-      context.read<FavoriteCubit>().addFavorite(int.parse(SharedPrefs.getFavorites[i]));
+      context
+          .read<FavoriteCubit>()
+          .addFavorite(int.parse(SharedPrefs.getFavorites[i]));
     }
   }
 
@@ -65,7 +74,9 @@ class SplashCubit extends Cubit<SplashCubitState> {
 
   sumOldNewPrice(BuildContext context) {
     context.read<SumPriceOrderCubit>().incrementPrice(SharedPrefs.getSumPrice);
-    context.read<SumOldPriceOrderCubit>().incrementOldPrice(SharedPrefs.getOldSumPrice);
+    context
+        .read<SumOldPriceOrderCubit>()
+        .incrementOldPrice(SharedPrefs.getOldSumPrice);
   }
 
   checksIsLogin() async {
