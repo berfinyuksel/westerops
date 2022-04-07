@@ -45,15 +45,13 @@ import '../../screen_arguments/screen_arguments.dart';
 class CustomCardAndBody extends StatefulWidget {
   final SearchStore? restaurant;
   final Box? boxes;
-  const CustomCardAndBody({Key? key, this.restaurant, this.boxes})
-      : super(key: key);
+  const CustomCardAndBody({Key? key, this.restaurant, this.boxes}) : super(key: key);
 
   @override
   _CustomCardAndBodyState createState() => _CustomCardAndBodyState();
 }
 
-class _CustomCardAndBodyState extends State<CustomCardAndBody>
-    with SingleTickerProviderStateMixin {
+class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTickerProviderStateMixin {
   List<Box> definedBoxes = [];
   bool isFavorite = false;
   int favouriteId = 0;
@@ -80,12 +78,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) =>
-                sl<FavoriteCubit>()..init(widget.restaurant!.id!),
+            create: (context) => sl<FavoriteCubit>()..init(widget.restaurant!.id!),
           ),
           BlocProvider(
-            create: (context) =>
-                sl<BoxCubit>()..getBoxes(widget.restaurant!.id!),
+            create: (context) => sl<BoxCubit>()..getBoxes(widget.restaurant!.id!),
+          ),
+          BlocProvider(
+            create: (context) => sl<CategoryNameCubit>()..init(),
           ),
         ],
         child: GestureDetector(
@@ -103,12 +102,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
 
   Column buildColumBodyView(BuildContext context) {
     return Column(
-      children: [
-        customCard(context),
-        SizedBox(height: 20),
-        packageCourierAndFavoriteContainer(context),
-        customBody(context)
-      ],
+      children: [customCard(context), SizedBox(height: 20), packageCourierAndFavoriteContainer(context), customBody(context)],
     );
   }
 
@@ -124,6 +118,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             child: Text(
               "Sürpriz Paketler restoranın sana özel lezzetlerini yakalamanı sağlar.",
               textAlign: TextAlign.start,
+              style: AppTextStyles.subTitleStyle,
             ),
           ))),
     );
@@ -151,8 +146,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         Divider(thickness: 2, color: AppColors.borderAndDividerColor),
         RestaurantInfoTile(restaurant: widget.restaurant),
         Divider(thickness: 2, color: AppColors.borderAndDividerColor),
-        RestaurantInfoTab(
-            controller: _controller!, restaurant: widget.restaurant!),
+        RestaurantInfoTab(controller: _controller!, restaurant: widget.restaurant!),
       ], //56
     );
   }
@@ -167,12 +161,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         } else if (state is BoxCompleted) {
           return Center(
             child: Container(
-              height: _controller!.index == 0
-                  ? context.dynamicHeight(state.packages.length * .2 + .25)
-                  : context.dynamicHeight(.7),
-              child: TabBarView(
-                  controller: _controller,
-                  children: [tabPackages(context, state), tabDetail(context)]),
+              height: _controller!.index == 0 ? context.dynamicHeight(state.packages.length * .2 + .25) : context.dynamicHeight(.7),
+              child: TabBarView(controller: _controller, children: [tabPackages(context, state), tabDetail(context)]),
             ),
           );
         } else {
@@ -220,7 +210,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             ),
             subtitle: LocaleText(
               text: widget.restaurant!.packageSettings!.deliveryType == "3"
-                  ? LocaleKeys.restaurant_detail_sub_title1
+                  ? LocaleKeys.restaurant_detail_detail_tab_sub_title1
                   : widget.restaurant!.packageSettings!.deliveryType == "1"
                       ? LocaleKeys.restaurant_detail_detail_tab_sub_title6
                       : LocaleKeys.restaurant_detail_detail_tab_sub_title7,
@@ -231,11 +221,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         ),
         GestureDetector(
           onTap: () {
-            Navigator.of(context)
-                .pushNamed(RouteConstant.ABOUT_WORKING_HOUR_VIEW,
-                    arguments: ScreenArgumentsRestaurantDetail(
-                      restaurant: widget.restaurant!,
-                    ));
+            Navigator.of(context).pushNamed(RouteConstant.ABOUT_WORKING_HOUR_VIEW,
+                arguments: ScreenArgumentsRestaurantDetail(
+                  restaurant: widget.restaurant!,
+                ));
           },
           child: Container(
             color: AppColors.appBarColor,
@@ -249,7 +238,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 style: AppTextStyles.subTitleStyle,
               ),
               subtitle: LocaleText(
-                text: LocaleKeys.restaurant_detail_detail_tab_sub_title2,
+                text: "${LocaleKeys.restaurant_detail_detail_tab_sub_title2.locale} ${widget.restaurant!.packageSettings!.deliveryTimeStart} - ${widget.restaurant!.packageSettings!.deliveryTimeEnd}",
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
@@ -294,35 +283,34 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 style: AppTextStyles.subTitleStyle,
               ),
               subtitle: Text(
-                "${LocaleKeys.swipe_restaurant_name.locale}: ${widget.restaurant!.name!}",
+                widget.restaurant!.name!,
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
               trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
             ),
           ),
         ),
-        //buildCategoriesSection(context),
+        buildCategoriesSection(context),
       ],
     );
   }
 
-  Builder buildCategoriesSection(BuildContext context) {
-    return Builder(builder: (context) {
-      final stateOfCategories = context.watch<CategoryNameCubit>().state;
-      if (stateOfCategories is CategoryNameInital) {
+  BlocBuilder buildCategoriesSection(BuildContext context) {
+    return BlocBuilder<CategoryNameCubit, CategoryNameState>(builder: (context, state) {
+      if (state is CategoryNameInital) {
         return Container();
-      } else if (stateOfCategories is CategoryNameLoading) {
+      } else if (state is CategoryNameLoading) {
         return Center(child: CustomCircularProgressIndicator());
-      } else if (stateOfCategories is CategoryNameCompleted) {
+      } else if (state is CategoryNameCompleted) {
         List<Result> categoryList = [];
         List<Result> relatedCategories = [];
-        for (var i = 0; i < stateOfCategories.response!.length; i++) {
-          categoryList.add(stateOfCategories.response![i]);
+        for (var i = 0; i < state.response!.length; i++) {
+          categoryList.add(state.response![i]);
         }
 
         for (var i = 0; i < categoryList.length; i++) {
           for (var j = 0; j < widget.restaurant!.categories!.length; j++) {
-            if (categoryList[i].id == widget.restaurant!.categories![j].id) {
+            if (categoryList[i].id == widget.restaurant!.categories![j].name) {
               relatedCategories.add(categoryList[i]);
             }
           }
@@ -334,9 +322,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         String categoryNames = nameList.join(', ');
         return GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
-                arguments: ScreenArgumentsCategories(
-                    categoriesList: relatedCategories));
+            Navigator.of(context)
+                .pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW, arguments: ScreenArgumentsCategories(categoriesList: relatedCategories));
           },
           child: Container(
             color: AppColors.appBarColor,
@@ -358,7 +345,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           ),
         );
       } else {
-        final error = stateOfCategories as GenericError;
+        final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
       }
     });
@@ -408,6 +395,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               child: Center(
                 child: LocaleText(
                   text: LocaleKeys.restaurant_detail_detail_tab_sub_title8,
+                  style: AppTextStyles.bodyTextStyle,
                 ),
               )),
           ListView.builder(
@@ -446,6 +434,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               child: Center(
                 child: LocaleText(
                   text: LocaleKeys.restaurant_detail_detail_tab_sub_title9,
+                  style: AppTextStyles.bodyTextStyle,
                 ),
               )),
           ListView.builder(
@@ -485,8 +474,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   }
 
 //parametrs changes
-  Container buildDefinedBox(BuildContext context, int index,
-      List<Box> definedBoxes, GenericCompleted state) {
+  Container buildDefinedBox(BuildContext context, int index, List<Box> definedBoxes, GenericCompleted state) {
     return Container(
         //alignment: Alignment(-0.8, 0.0),
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.06)),
@@ -531,11 +519,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
   ) {
     List<SearchStore> chosenRestaurat = [];
     for (var i = 0; i < sl<SearchStoreCubit>().searchStores.length; i++) {
-      if (sl<SearchStoreCubit>().searchStores[i].id ==
-          state.packages[index].store) {
+      if (sl<SearchStoreCubit>().searchStores[i].id == state.packages[index].store) {
         chosenRestaurat.add(sl<SearchStoreCubit>().searchStores[i]);
-        priceOfMenu =
-            chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice;
+        priceOfMenu = chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice;
         oldPriceOfMenu = chosenRestaurat[0].packageSettings!.minOrderPrice;
       }
     }
@@ -574,27 +560,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    alignment: Alignment.center,
-                    width: 69.w,
-                    height: 36.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.0),
-                      color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 5.w),
-                      child: Text(
-                        chosenRestaurat[0]
-                                .packageSettings!
-                                .minOrderPrice
-                                .toString() +
-                            " TL",
-                        style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            color: AppColors.unSelectedpackageDeliveryColor),
-                      ),
-                    ),
+                  Text(
+                    chosenRestaurat[0].packageSettings!.minOrderPrice.toString() + " TL",
+                    style: AppTextStyles.bodyBoldTextStyle
+                        .copyWith(decoration: TextDecoration.lineThrough, color: AppColors.unSelectedpackageDeliveryColor),
                   ),
                   Spacer(flex: 1),
                   Container(
@@ -608,11 +577,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     child: Padding(
                       padding: EdgeInsets.only(left: 5.w),
                       child: Text(
-                        chosenRestaurat[0]
-                                .packageSettings!
-                                .minDiscountedOrderPrice
-                                .toString() +
-                            " TL",
+                        chosenRestaurat[0].packageSettings!.minDiscountedOrderPrice.toString() + " TL",
                         style: AppTextStyles.bodyBoldTextStyle.copyWith(
                           color: AppColors.greenColor,
                         ),
@@ -622,32 +587,22 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   Spacer(flex: 4),
                   Builder(
                     builder: (context) {
-                      SharedPrefs.setSumPrice(
-                          context.watch<SumPriceOrderCubit>().state);
-                      SharedPrefs.setOldSumPrice(
-                          context.watch<SumOldPriceOrderCubit>().state);
+                      SharedPrefs.setSumPrice(context.watch<SumPriceOrderCubit>().state);
+                      SharedPrefs.setOldSumPrice(context.watch<SumOldPriceOrderCubit>().state);
                       int? menuItem = state.packages[index].id;
-                      final counterState =
-                          context.watch<BasketCounterCubit>().state;
+                      final counterState = context.watch<BasketCounterCubit>().state;
                       return Builder(builder: (context) {
                         return CustomButton(
                           title: menuList!.contains(menuItem.toString())
                               ? LocaleKeys.restaurant_detail_button_text2
                               : LocaleKeys.restaurant_detail_button_text,
-                          color: menuList!.contains(menuItem.toString())
-                              ? Colors.transparent
-                              : AppColors.greenColor,
-                          textColor: menuList!.contains(menuItem.toString())
-                              ? AppColors.greenColor
-                              : Colors.white,
+                          color: menuList!.contains(menuItem.toString()) ? Colors.transparent : AppColors.greenColor,
+                          textColor: menuList!.contains(menuItem.toString()) ? AppColors.greenColor : Colors.white,
                           width: 110.w,
                           borderColor: AppColors.greenColor,
                           onPressed: () async {
-                            context
-                                .read<SwipeRouteButton>()
-                                .swipeRouteButton(true);
-                            await pressedBuyButton(
-                                state, index, context, counterState, menuItem!);
+                            context.read<SwipeRouteButton>().swipeRouteButton(true);
+                            await pressedBuyButton(state, index, context, counterState, menuItem!);
                           },
                         );
                       });
@@ -683,7 +638,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             textMessage: LocaleKeys.restaurant_detail_show_dialog_text,
             buttonOneTitle: LocaleKeys.restaurant_detail_show_dialog_button1,
             buttonTwoTittle: LocaleKeys.restaurant_detail_show_dialog_button2,
-            imagePath: ImageConstant.SURPRISE_PACK,
+            imagePath: ImageConstant.DONGU_LOGO,
+            showCloseButton: true,
             onPressedOne: () {
               Navigator.of(context).pushNamed(RouteConstant.LOGIN_VIEW);
             },
@@ -697,8 +653,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         builder: (_) => AlertDialog(
           contentPadding: EdgeInsets.zero,
           content: Container(
-            padding:
-                EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
             width: context.dynamicWidht(0.87),
             height: context.dynamicHeight(0.29),
             decoration: BoxDecoration(
@@ -742,9 +697,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         case StatusCode.success:
           if (!menuList!.contains(menuItem.toString())) {
             context.read<SumPriceOrderCubit>().incrementPrice(priceOfMenu!);
-            context
-                .read<SumOldPriceOrderCubit>()
-                .incrementOldPrice(oldPriceOfMenu!);
+            context.read<SumOldPriceOrderCubit>().incrementOldPrice(oldPriceOfMenu!);
 
             context.read<BasketCounterCubit>().increment();
             SharedPrefs.setCounter(counterState + 1);
@@ -752,13 +705,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
             SharedPrefs.setMenuList(menuList!);
           } else {
             context.read<SumPriceOrderCubit>().decrementPrice(priceOfMenu!);
-            context
-                .read<SumOldPriceOrderCubit>()
-                .decrementOldPrice(priceOfMenu!);
+            context.read<SumOldPriceOrderCubit>().decrementOldPrice(priceOfMenu!);
 
-            context
-                .read<OrderCubit>()
-                .deleteBasket("${state.packages[index].id}");
+            context.read<OrderCubit>().deleteBasket("${state.packages[index].id}");
             context.read<BasketCounterCubit>().decrement();
             SharedPrefs.setCounter(counterState - 1);
             menuList!.remove(state.packages[index].id.toString());
@@ -787,12 +736,9 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     Navigator.pop(context);
                   },
                   imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                  textMessage: LocaleKeys
-                      .restaurant_detail_diffrent_restaurant_show_dialog_text_1,
-                  buttonOneTitle: LocaleKeys
-                      .restaurant_detail_diffrent_restaurant_show_dialog_button1,
-                  buttonTwoTittle: LocaleKeys
-                      .restaurant_detail_diffrent_restaurant_show_dialog_button2));
+                  textMessage: LocaleKeys.restaurant_detail_diffrent_restaurant_show_dialog_text_1,
+                  buttonOneTitle: LocaleKeys.restaurant_detail_diffrent_restaurant_show_dialog_button1,
+                  buttonTwoTittle: LocaleKeys.restaurant_detail_diffrent_restaurant_show_dialog_button2));
       }
     }
   }
@@ -823,10 +769,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 height: 36.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: widget.restaurant!.packageSettings!.deliveryType ==
-                              "1" ||
-                          widget.restaurant!.packageSettings!.deliveryType ==
-                              "3"
+                  color: widget.restaurant!.packageSettings!.deliveryType == "1" || widget.restaurant!.packageSettings!.deliveryType == "3"
                       ? AppColors.yellowColor
                       : Colors.white,
                 ),
@@ -834,10 +777,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   padding: EdgeInsets.all(context.dynamicHeight(0.004)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_PACKAGE_ICON,
-                    color: widget.restaurant!.packageSettings!.deliveryType ==
-                                "1" ||
-                            widget.restaurant!.packageSettings!.deliveryType ==
-                                "3"
+                    color: widget.restaurant!.packageSettings!.deliveryType == "1" || widget.restaurant!.packageSettings!.deliveryType == "3"
                         ? Colors.white
                         : AppColors.unSelectedpackageDeliveryColor,
                   ),
@@ -851,10 +791,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 height: 36.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: widget.restaurant!.packageSettings!.deliveryType ==
-                              "2" ||
-                          widget.restaurant!.packageSettings!.deliveryType ==
-                              "3"
+                  color: widget.restaurant!.packageSettings!.deliveryType == "2" || widget.restaurant!.packageSettings!.deliveryType == "3"
                       ? AppColors.yellowColor
                       : Colors.white,
                 ),
@@ -862,10 +799,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   padding: EdgeInsets.all(context.dynamicHeight(0.006)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_COURIER_ICON,
-                    color: widget.restaurant!.packageSettings!.deliveryType ==
-                                "2" ||
-                            widget.restaurant!.packageSettings!.deliveryType ==
-                                "3"
+                    color: widget.restaurant!.packageSettings!.deliveryType == "2" || widget.restaurant!.packageSettings!.deliveryType == "3"
                         ? Colors.white
                         : AppColors.unSelectedpackageDeliveryColor,
                   ),
@@ -878,17 +812,13 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
               if (state is FavoriteLoading) {
                 return SizedBox();
               } else if (state is FavoriteError) {
-                return Center(
-                    child: Text("${state.message}\n${state.statusCode}"));
+                return Center(child: Text("${state.message}\n${state.statusCode}"));
               } else if (state is IsFavoriteChange) {
-                print('ui icindeki state favorite: ' +
-                    state.isFavorite.toString());
+                print('ui icindeki state favorite: ' + state.isFavorite.toString());
                 return Row(
                   children: [
                     LocaleText(
-                      text: state.isFavorite
-                          ? LocaleKeys.restaurant_detail_text4
-                          : LocaleKeys.restaurant_detail_text3,
+                      text: state.isFavorite ? LocaleKeys.restaurant_detail_text4 : LocaleKeys.restaurant_detail_text3,
                       style: AppTextStyles.bodyTextStyle,
                     ),
                     SizedBox(
@@ -897,19 +827,14 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                     GestureDetector(
                       onTap: () {
                         if (SharedPrefs.getIsLogined) {
-                          context
-                              .read<FavoriteCubit>()
-                              .toggleIsFavorite(context, widget.restaurant!);
+                          context.read<FavoriteCubit>().toggleIsFavorite(context, widget.restaurant!);
                         } else {
-                          Navigator.pushNamed(
-                              context, RouteConstant.LOGIN_VIEW);
+                          Navigator.pushNamed(context, RouteConstant.LOGIN_VIEW);
                         }
                       },
                       child: SvgPicture.asset(
                         ImageConstant.RESTAURANT_FAVORITE_ICON,
-                        color: state.isFavorite
-                            ? AppColors.orangeColor
-                            : AppColors.unSelectedpackageDeliveryColor,
+                        color: state.isFavorite ? AppColors.orangeColor : AppColors.unSelectedpackageDeliveryColor,
                       ),
                     ),
                   ],
