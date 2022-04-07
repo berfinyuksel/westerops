@@ -215,6 +215,7 @@ class _RegisterViewState extends State<RegisterView> {
               SharedPrefs.setUserPhone(phoneTR);
               SharedPrefs.setUserEmail(emailController.text);
               SharedPrefs.setUserPassword(passwordController.text);
+              SharedPrefs.setSocialLogin(false);
               Navigator.popAndPushNamed(
                   context, RouteConstant.REGISTER_VERIFY_VIEW);
             } else {

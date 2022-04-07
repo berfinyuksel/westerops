@@ -24,19 +24,23 @@ class AppleSignInController with ChangeNotifier {
       final String accessToken = credential.authorizationCode;
 
       String json = '{"auth_token":"$accessToken"}';
-      final response = await http.post(Uri.parse("${UrlConstant.EN_URL}social_auth/apple/"),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: json);
+      final response =
+          await http.post(Uri.parse("${UrlConstant.EN_URL}social_auth/apple/"),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: json);
       if (response.statusCode == 200) {
+        SharedPrefs.setSocialLogin(true);
         final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
         var authtokenList = AuthToken.fromJson(jsonBody);
         SharedPrefs.setToken(jsonBody['token']);
 
         SharedPrefs.setUserId(jsonBody["user"]['id']);
         //  SharedPrefs.setUserAddress(jsonResults['address']);
-        SharedPrefs.setUserBirth(jsonBody["user"]['birthday'] == null ? "dd/mm/yyyy" : "${jsonBody['birthday']}");
+        SharedPrefs.setUserBirth(jsonBody["user"]['birthday'] == null
+            ? "dd/mm/yyyy"
+            : "${jsonBody['birthday']}");
         SharedPrefs.setUserEmail(jsonBody["user"]["email"]);
         SharedPrefs.setUserName(jsonBody["user"]["first_name"]);
         SharedPrefs.setUserLastName(jsonBody["user"]["last_name"]);

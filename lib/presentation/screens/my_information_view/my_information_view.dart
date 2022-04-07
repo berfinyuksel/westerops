@@ -37,6 +37,7 @@ class _MyInformationViewState extends State<MyInformationView> {
   bool isReadOnly = true;
   bool isVisibilty = false;
   String phoneTR = '+90';
+  late bool userSocialLogin;
 
   bool showLoading = false;
   MobileVerificationState currentState =
@@ -234,6 +235,7 @@ class _MyInformationViewState extends State<MyInformationView> {
   @override
   void initState() {
     super.initState();
+    userSocialLogin = SharedPrefs.getSocialLogin;
     nameController.text = SharedPrefs.getUserName;
     surnameController.text = SharedPrefs.getUserLastName;
     mailController.text = SharedPrefs.getUserEmail;
@@ -283,23 +285,26 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
-  ListTile buildChangePassword(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.only(
-        left: 28.w,
-        right: 29.w,
+  Widget buildChangePassword(BuildContext context) {
+    return Visibility(
+      visible: !userSocialLogin,
+      child: ListTile(
+        contentPadding: EdgeInsets.only(
+          left: 28.w,
+          right: 29.w,
+        ),
+        tileColor: Colors.white,
+        title: LocaleText(
+          text: LocaleKeys.inform_list_tile_change_password,
+          style: AppTextStyles.myInformationBodyTextStyle,
+        ),
+        trailing: SvgPicture.asset(
+          ImageConstant.COMMONS_FORWARD_ICON,
+        ),
+        onTap: () {
+          Navigator.pushNamed(context, RouteConstant.CHANGE_PASSWORD_VIEW);
+        },
       ),
-      tileColor: Colors.white,
-      title: LocaleText(
-        text: LocaleKeys.inform_list_tile_change_password,
-        style: AppTextStyles.myInformationBodyTextStyle,
-      ),
-      trailing: SvgPicture.asset(
-        ImageConstant.COMMONS_FORWARD_ICON,
-      ),
-      onTap: () {
-        Navigator.pushNamed(context, RouteConstant.CHANGE_PASSWORD_VIEW);
-      },
     );
   }
 

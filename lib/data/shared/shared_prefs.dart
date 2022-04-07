@@ -1,9 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
-  //TODO: 1 Sharedpref icine setSocialLogin bool set metodu yazilacak
-
-  //TODO: 2 Sharedpref icine getSocialLogin bool get metodu yazilacak
   //TODO: 3 apple / facebook ve google socical login ve register isteginin 200 dondugu yerde setSocialLogin == true
 
   //TODO: 4 Register ve login sayfalarinda normal giris yap veya kaydol butonlarina basildiginda setSocialLogin == false
@@ -12,7 +9,9 @@ class SharedPrefs {
   //TODO: 6 my_information_view sayfasinda getSocialLogin sayfa acilirken cagirilacak. eger true ise sifremi degistir paneli visibilitysi false
 
   static late SharedPreferences _prefs;
-  static initialize() async {}
+  static initialize() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
 
   static Future<void> onboardingShown(bool isSeen) async {
     _prefs.setBool('onboarding', isSeen);
@@ -21,6 +20,12 @@ class SharedPrefs {
   static Future<void> login() async {
     _prefs.setBool('login', true);
   }
+
+  static Future<void> setSocialLogin(bool value) async {
+    _prefs.setBool('socialLogin', value);
+  }
+
+  static bool get getSocialLogin => _prefs.getBool('socialLogin') ?? false;
 
   static Future<void> logoutControl() async {
     _prefs.setBool('login', false);
@@ -183,7 +188,8 @@ class SharedPrefs {
     _prefs.setInt('deliveryType', deliveryType);
   }
 
-  static Future<void> setTimeIntervalForGetIt(String timeIntervalForGetIt) async {
+  static Future<void> setTimeIntervalForGetIt(
+      String timeIntervalForGetIt) async {
     _prefs.setString('timeIntervalForGetIt', timeIntervalForGetIt);
   }
 
@@ -203,11 +209,13 @@ class SharedPrefs {
     _prefs.setInt('boxIdForDeliver', boxIdForDeliver);
   }
 
-  static Future<void> setPermissionForEmail(bool updatePermissionForEmail) async {
+  static Future<void> setPermissionForEmail(
+      bool updatePermissionForEmail) async {
     _prefs.setBool('updatePermissionForEmail', updatePermissionForEmail);
   }
 
-  static Future<void> setPermissionForPhone(bool updatePermissionForPhone) async {
+  static Future<void> setPermissionForPhone(
+      bool updatePermissionForPhone) async {
     _prefs.setBool('updatePermissionForPhone', updatePermissionForPhone);
   }
 
@@ -215,11 +223,13 @@ class SharedPrefs {
     _prefs.setString('ipv4', ipv4);
   }
 
-  static Future<void> setBoolForRegisteredCard(bool boolForRegisteredCard) async {
+  static Future<void> setBoolForRegisteredCard(
+      bool boolForRegisteredCard) async {
     _prefs.setBool('boolForRegisteredCard', boolForRegisteredCard);
   }
 
-  static Future<void> setBoolPaymentCardControl(bool boolPaymentCardControl) async {
+  static Future<void> setBoolPaymentCardControl(
+      bool boolPaymentCardControl) async {
     _prefs.setBool('boolPaymentCardControl', boolPaymentCardControl);
   }
 
@@ -294,7 +304,8 @@ class SharedPrefs {
 
   static bool get getIsLogined => _prefs.getBool('login') ?? false;
   static bool get getIsOnboardingShown => _prefs.getBool('onboarding') ?? false;
-  static bool get getNotificationsIsRead => _prefs.getBool('notificationsIsRead') ?? false;
+  static bool get getNotificationsIsRead =>
+      _prefs.getBool('notificationsIsRead') ?? false;
   static String get getToken => _prefs.getString('token') ?? "";
   static int get getUserId => _prefs.getInt('userId') ?? 0;
   static int get getOldSumPrice => _prefs.getInt('oldSumOfPrice') ?? 0;
@@ -302,32 +313,47 @@ class SharedPrefs {
   static String get getUserEmail => _prefs.getString('userEmail') ?? "";
   static String get getUserPhone => _prefs.getString('userPhone') ?? "";
   static String get getUserName => _prefs.getString('userName') ?? "";
-  static String get getUserBirth => _prefs.getString('userBirth') ?? "dd/mm/yyyy";
-  static String get getUserAddress => _prefs.getString('userAddress') ?? "İstanbul";
+  static String get getUserBirth =>
+      _prefs.getString('userBirth') ?? "dd/mm/yyyy";
+  static String get getUserAddress =>
+      _prefs.getString('userAddress') ?? "İstanbul";
   static String get getUserLastName => _prefs.getString('userLastName') ?? "";
   static String get getUserPassword => _prefs.getString('userPassword') ?? "";
   static int get getCounter => _prefs.getInt('counter') ?? 0;
-  static int get getNotificationCounter => _prefs.getInt('notificationCounter') ?? 0;
+  static int get getNotificationCounter =>
+      _prefs.getInt('notificationCounter') ?? 0;
   static int get getMenuId => _prefs.getInt('menuId') ?? 0;
   static List<String> get getMenuList => _prefs.getStringList('menuList') ?? [];
-  static List<String> get getCardsList => _prefs.getStringList('cardsList') ?? [];
+  static List<String> get getCardsList =>
+      _prefs.getStringList('cardsList') ?? [];
   static String get getAdressName => _prefs.getString('addressName') ?? "";
   static int get getAddressType => _prefs.getInt('addressType') ?? 0;
   static String get getAddress => _prefs.getString('address') ?? "";
-  static String get getAddressDescription => _prefs.getString('addressDescription') ?? "";
-  static String get getAddressCountry => _prefs.getString('addressCountry') ?? "";
+  static String get getAddressDescription =>
+      _prefs.getString('addressDescription') ?? "";
+  static String get getAddressCountry =>
+      _prefs.getString('addressCountry') ?? "";
   static String get getAddressCity => _prefs.getString('addressCity') ?? "";
-  static String get getAddressProvince => _prefs.getString('addressProvince') ?? "";
-  static String get getAddressTcknVkn => _prefs.getString('addressTcknVkn') ?? "";
-  static String get getAddressPhoneNumber => _prefs.getString('addressPhoneNumber') ?? "";
-  static double get getAddressLatitude => _prefs.getDouble('addressLatitude') ?? 0.0;
-  static double get getAddressLongitude => _prefs.getDouble('addressLongitude') ?? 0.0;
-  static int get getDeliveredRestaurantAddressId => _prefs.getInt('deliveredRestaurantId') ?? 0;
-  static List<String> get getFavorites => _prefs.getStringList('favorites') ?? [];
+  static String get getAddressProvince =>
+      _prefs.getString('addressProvince') ?? "";
+  static String get getAddressTcknVkn =>
+      _prefs.getString('addressTcknVkn') ?? "";
+  static String get getAddressPhoneNumber =>
+      _prefs.getString('addressPhoneNumber') ?? "";
+  static double get getAddressLatitude =>
+      _prefs.getDouble('addressLatitude') ?? 0.0;
+  static double get getAddressLongitude =>
+      _prefs.getDouble('addressLongitude') ?? 0.0;
+  static int get getDeliveredRestaurantAddressId =>
+      _prefs.getInt('deliveredRestaurantId') ?? 0;
+  static List<String> get getFavorites =>
+      _prefs.getStringList('favorites') ?? [];
   static int get getCourierHourId => _prefs.getInt('courierHourId') ?? 0;
   static int get getDeliveryType => _prefs.getInt('deliveryType') ?? 0;
-  static String get getTimeIntervalForGetIt => _prefs.getString('timeIntervalForGetIt') ?? "";
-  static String get getCountDownString => _prefs.getString('countDownString') ?? "";
+  static String get getTimeIntervalForGetIt =>
+      _prefs.getString('timeIntervalForGetIt') ?? "";
+  static String get getCountDownString =>
+      _prefs.getString('countDownString') ?? "";
   static bool get getOrderBar => _prefs.getBool('orderActive') ?? false;
   static bool get getSortByDistance => _prefs.getBool('sortByDistance') ?? true;
   static String get getMyFavorites => _prefs.getString('myFavorites') ?? "";
@@ -337,23 +363,31 @@ class SharedPrefs {
   static String get getMaxPrice => _prefs.getString('maxPrice') ?? "";
   static int get getOrderRefCode => _prefs.getInt('orderRefCode') ?? 0;
   static int get getBoxIdForDeliver => _prefs.getInt('boxIdForDeliver') ?? 0;
-  static bool get getPermissionForEmail => _prefs.getBool('updatePermissionForEmail') ?? true;
-  static bool get getPermissionForPhone => _prefs.getBool('updatePermissionForPhone') ?? true;
+  static bool get getPermissionForEmail =>
+      _prefs.getBool('updatePermissionForEmail') ?? true;
+  static bool get getPermissionForPhone =>
+      _prefs.getBool('updatePermissionForPhone') ?? true;
   static String get getIpV4 => _prefs.getString('ipv4') ?? "";
-  static bool get getBoolForRegisteredCard => _prefs.getBool('boolForRegisteredCard') ?? false;
-  static bool get getBoolPaymentCardControl => _prefs.getBool('boolPaymentCardControl') ?? false;
+  static bool get getBoolForRegisteredCard =>
+      _prefs.getBool('boolForRegisteredCard') ?? false;
+  static bool get getBoolPaymentCardControl =>
+      _prefs.getBool('boolPaymentCardControl') ?? false;
   static String get getCardToken => _prefs.getString('cardToken') ?? "";
   static int get getActiveAddressId => _prefs.getInt('activeAddressId') ?? 0;
-  static bool get getCardRegisterBool => _prefs.getBool('cardRegisterBool') ?? false;
+  static bool get getCardRegisterBool =>
+      _prefs.getBool('cardRegisterBool') ?? false;
   static bool get getThreeDBool => _prefs.getBool('threeDBool') ?? true;
   static String get getCardAlias => _prefs.getString('cardAlias') ?? "";
-  static String get getCardHolderName => _prefs.getString('cardHolderName') ?? "";
+  static String get getCardHolderName =>
+      _prefs.getString('cardHolderName') ?? "";
   static String get getCardNumber => _prefs.getString('cardNumber') ?? "";
   static String get getExpireMonth => _prefs.getString('expireMonth') ?? "";
   static String get getExpireYear => _prefs.getString('expireYear') ?? "";
   static String get getCVC => _prefs.getString('cvc') ?? "";
-  static String get getConversationId => _prefs.getString('conversationId') ?? "";
-  static String get getCourierHourText => _prefs.getString('courierHourText') ?? "";
+  static String get getConversationId =>
+      _prefs.getString('conversationId') ?? "";
+  static String get getCourierHourText =>
+      _prefs.getString('courierHourText') ?? "";
   static String get getRegisterPhone => _prefs.getString('registerPhone') ?? "";
   static String get getNewCardNumber => _prefs.getString('newCardNumber') ?? "";
   static String get getNewPassword => _prefs.getString('newPassword') ?? "";

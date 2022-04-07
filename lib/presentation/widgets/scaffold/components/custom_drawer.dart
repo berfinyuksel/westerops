@@ -33,6 +33,7 @@ class CustomDrawer extends StatelessWidget {
         );
 
   bool userIsLogin = SharedPrefs.getIsLogined;
+  bool userSocialLogin = SharedPrefs.getSocialLogin;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -169,8 +170,7 @@ class CustomDrawer extends StatelessWidget {
                 height: 40.h,
               ),
               Visibility(
-                  visible: userIsLogin,
-                  child: buildLogoutButton(context)),
+                  visible: userIsLogin, child: buildLogoutButton(context)),
             ],
           ),
         ),
@@ -190,7 +190,7 @@ class CustomDrawer extends StatelessWidget {
         onPressed: () {
           context.read<OrderBarCubit>().stateOfBar(false);
           context.read<OrderCubit>().clearBasket();
-          
+
           SharedPrefs.setSumPrice(0);
           context.read<SumPriceOrderCubit>().clearPrice();
           SharedPrefs.setOldSumPrice(0);
@@ -199,7 +199,8 @@ class CustomDrawer extends StatelessWidget {
           SharedPrefs.setCounter(0);
           SharedPrefs.setMenuList([]);
           context.read<BasketCounterCubit>().setCounter(0);
-          if (userIsLogin == false) {
+          if (userIsLogin == false && userSocialLogin == false) {
+            SharedPrefs.setSocialLogin(false);
             FacebookSignInController().logOut();
             AuthService().logOutFromGmail();
           }
