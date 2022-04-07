@@ -185,6 +185,7 @@ abstract class  LocaleKeys {
   static const past_order_detail_thanks = 'past_order_detail.thanks';
   static const past_order_detail = 'past_order_detail';
   static const address_pop_up_text = 'address.pop_up_text';
+  static const address_pop_up_phone = 'address.pop_up_phone';
   static const address_no_address = 'address.no_address';
   static const address_address_approval = 'address.address_approval';
   static const address_delete_alert_dialog_text = 'address.delete_alert_dialog_text';
