@@ -69,12 +69,16 @@ class _AddressTextState extends State<AddressText> {
               )
             : GestureDetector(
                 onTap: () {
-                  if (LocationService.latitude != 0 && !SharedPrefs.getIsLogined) {
+                  //LocationService.latitude != 0 && 
+                  if (!SharedPrefs.getIsLogined) {
                     Navigator.of(context).pushNamed(RouteConstant.LOGIN_VIEW);
-                  } else {
+                  } 
+                  else { 
+
                     if (stateOfAddress.response.isEmpty) {
                       Navigator.of(context).pushNamed(RouteConstant.ADDRESS_VIEW);
-                    } else {
+                    } 
+                    else {
                       Navigator.pushNamed(context, RouteConstant.LOCATION_VIEW);
                     }
                   }
