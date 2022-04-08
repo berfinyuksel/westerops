@@ -18,31 +18,31 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        title: LocaleKeys.restaurant_detail_app_bar_title,
+        //title: LocaleKeys.restaurant_detail_app_bar_title,
         body: ListView(
+      children: [
+        Stack(
+          alignment: AlignmentDirectional.topCenter,
           children: [
-            Stack(
-              alignment: AlignmentDirectional.topCenter,
+            Container(
+                color: Colors.white,
+                height: context.dynamicHeight(0.22),
+                width: context.dynamicWidht(1),
+                child: Image.network(widget.restaurant!.background!,
+                    fit: BoxFit.fitWidth)),
+            Column(
               children: [
-                Container(
-                    color: Colors.white,
-                    height: context.dynamicHeight(0.22),
-                    width: context.dynamicWidht(1),
-                    child: Image.network(widget.restaurant!.background!,
-                        fit: BoxFit.fitWidth)),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: context.dynamicHeight(0.143),
-                    ),
-                    //spacer8-9
-
-                    CustomCardAndBody(restaurant: widget.restaurant!),
-                  ],
+                SizedBox(
+                  height: context.dynamicHeight(0.143),
                 ),
+                //spacer8-9
+
+                CustomCardAndBody(restaurant: widget.restaurant!),
               ],
             ),
           ],
-        ));
+        ),
+      ],
+    ));
   }
 }
