@@ -10,7 +10,6 @@ import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/home_page/home_page_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/home_page_view/components/near_me_restaurant_list.dart';
@@ -43,15 +42,6 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
-  bool scroolNearMeLeft = true;
-  bool scroolNearMeRight = false;
-
-  bool scroolCategoriesLeft = true;
-  bool scroolCategoriesRight = false;
-
-  bool scroolOpportunitiesLeft = true;
-  bool scroolOpportunitiesRight = false;
-
   late Timer timer;
   int? durationFinal;
 
@@ -219,41 +209,10 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Padding buildCategories() {
-    return Padding(
-      padding: scroolCategoriesLeft == true
-          ? EdgeInsets.only(
-              left: 26.w,
-              right: 0.w,
-            )
-          : scroolCategoriesRight == true
-              ? EdgeInsets.only(
-                  left: 0.w,
-                  right: 26.w,
-                )
-              : EdgeInsets.only(),
-      child: Container(
-          height: 150.h,
-          child: Builder(builder: (context) {
-            final categoryPadding = context.watch<CategoryPaddingCubit>().state;
-            return NotificationListener<ScrollUpdateNotification>(
-                onNotification: (ScrollUpdateNotification notification) {
-                  setState(() {
-                    if (notification.metrics.pixels <= 0) {
-                      scroolCategoriesLeft = true;
-                    } else {
-                      scroolCategoriesLeft = false;
-                    }
-                    if (notification.metrics.pixels >= categoryPadding) {
-                      scroolCategoriesRight = true;
-                    } else {
-                      scroolCategoriesRight = false;
-                    }
-                  });
-                  return true;
-                },
-                child: CustomHorizontalListCategory());
-          })),
+  Container buildCategories() {
+    return Container(
+      height: 150.h,
+      child: CustomHorizontalListCategory(),
     );
   }
 
@@ -313,12 +272,17 @@ class _HomePageViewState extends State<HomePageView> {
     return BlocBuilder<OrderReceivedCubit, GenericState>(
         builder: (context, state) {
       if (state is GenericInitial) {
+        print("INITIAL STATUS BAR");
+
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
+        print("LOADING STATUS BAR");
+
         return Container(
             color: Colors.white,
             child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
+        print("COMPLETED STATUS BAR");
         List<IyzcoOrderCreate> orderInfoTotal = [];
         List<IyzcoOrderCreate> orderInfo = [];
 
@@ -331,8 +295,7 @@ class _HomePageViewState extends State<HomePageView> {
           }
         }
         //print("GET CANCEL STATUS: ${sl<UpdateOrderRepository>().getCancelStatus}");
-        return orderInfo.isNotEmpty &&
-                SharedPrefs.getIsDeleteOrder ==false 
+        return orderInfo.isNotEmpty && SharedPrefs.getIsDeleteOrder == false
             ? GestureDetector(
                 onTap: () {
                   Navigator.of(context)
@@ -412,88 +375,27 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  Padding buildListViewNearMe(
+  Container buildListViewNearMe(
       BuildContext context, List<SearchStore> restaurants) {
-    return Padding(
-      padding: scroolNearMeLeft == true
-          ? EdgeInsets.only(
-              left: 26.w,
-              right: 0.w,
-            )
-          : scroolNearMeRight == true
-              ? EdgeInsets.only(
-                  left: 0.w,
-                  right: 26.w,
-                )
-              : EdgeInsets.only(),
-      child: Container(
-        width: context.dynamicWidht(0.64),
-        height: 265.h,
-        child: NotificationListener<ScrollUpdateNotification>(
-          onNotification: (ScrollUpdateNotification notification) {
-            setState(() {});
-
-            if (notification.metrics.pixels <= 0) {
-              scroolNearMeLeft = true;
-            } else {
-              scroolNearMeLeft = false;
-            }
-            if (notification.metrics.pixels >= 0) {
-              scroolNearMeRight = true;
-            } else {
-              scroolNearMeRight = false;
-            }
-            return true;
-          },
-          child: NearMeRestaurantListViewWidget(
-              controller: sl<HomePageCubit>().nearMeScrollController,
-              restaurants: restaurants),
-        ),
-      ),
+    return Container(
+      width: context.dynamicWidht(0.64),
+      height: 265.h,
+      child: NearMeRestaurantListViewWidget(
+          controller: sl<HomePageCubit>().nearMeScrollController,
+          restaurants: restaurants),
     );
   }
 
-  Padding buildListViewOpportunities(
+  Container buildListViewOpportunities(
     BuildContext context,
     List<SearchStore> restaurants,
   ) {
-    return Padding(
-      padding: scroolOpportunitiesLeft == true
-          ? EdgeInsets.only(
-              left: 26.w,
-              right: 0.w,
-            )
-          : scroolOpportunitiesRight == true
-              ? EdgeInsets.only(
-                  left: 0.w,
-                  right: 26.w,
-                )
-              : EdgeInsets.only(),
-      child: Container(
-        width: context.dynamicWidht(0.64),
-        height: 265.h,
-        child: NotificationListener<ScrollUpdateNotification>(
-          onNotification: (ScrollUpdateNotification notification) {
-            setState(() {
-              if (notification.metrics.pixels <= 0) {
-                scroolOpportunitiesLeft = true;
-              } else {
-                scroolOpportunitiesLeft = false;
-              }
-              if (notification.metrics.pixels >= 0) {
-                scroolOpportunitiesRight = true;
-              } else {
-                scroolOpportunitiesRight = false;
-              }
-            });
-
-            return true;
-          },
-          child: OpportunityRestaurantListViewWidget(
-              restaurants: restaurants,
-              controller: sl<HomePageCubit>().opportunitiesScrollController),
-        ),
-      ),
+    return Container(
+      width: context.dynamicWidht(0.64),
+      height: 265.h,
+      child: OpportunityRestaurantListViewWidget(
+          restaurants: restaurants,
+          controller: sl<HomePageCubit>().opportunitiesScrollController),
     );
   }
 

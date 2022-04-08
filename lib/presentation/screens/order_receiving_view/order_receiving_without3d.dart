@@ -11,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../data/services/locator.dart';
+import '../../../logic/cubits/payment_cubit/error_message.cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/theme/app_colors/app_colors.dart';
@@ -80,6 +82,11 @@ class _OrderReceivingViewWithout3DState
                           LocaleText(
                             text: "Ödeme Alınamadı",
                             style: AppTextStyles.headlineStyle,
+                          ),
+                               SizedBox(height: context.dynamicHeight(0.02)),
+                          LocaleText(
+                            text: sl<ErrorMessageCubit>().state,
+                            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.normal),
                           ),
                           SizedBox(height: context.dynamicHeight(0.05)),
                           CustomButton(

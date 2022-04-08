@@ -1,17 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
-  //TODO: 3 apple / facebook ve google socical login ve register isteginin 200 dondugu yerde setSocialLogin == true
-
-  //TODO: 4 Register ve login sayfalarinda normal giris yap veya kaydol butonlarina basildiginda setSocialLogin == false
-  //TODO: 5 Logout butonu basildiginda ve logout 200 oldugu istek icinde setSocialLogin == false
-
-  //TODO: 6 my_information_view sayfasinda getSocialLogin sayfa acilirken cagirilacak. eger true ise sifremi degistir paneli visibilitysi false
 
   static late SharedPreferences _prefs;
-  static initialize() async {
+    static initialize() async {
     _prefs = await SharedPreferences.getInstance();
   }
+
 
   static Future<void> onboardingShown(bool isSeen) async {
     _prefs.setBool('onboarding', isSeen);

@@ -24,6 +24,7 @@ class CustomScaffold extends StatefulWidget {
   Widget? body;
   bool? isDrawer;
   bool? isNavBar;
+  bool showBackIcon;
   bool resizeToAvoidBottomInset;
   Future<bool> Function()? isPopScope;
   CustomScaffold(
@@ -31,6 +32,7 @@ class CustomScaffold extends StatefulWidget {
       this.title,
       this.body,
       this.isNavBar,
+      this.showBackIcon =false,
       this.resizeToAvoidBottomInset = false,
       this.isDrawer,
       this.isPopScope})
@@ -99,7 +101,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                   top: Radius.circular(18.0),
                 ),
                 child: buildBottomNavigationBar()),
-        body: widget.body == null ? _widgetOptions.elementAt(_selectedIndex) : widget.body,
+        body: widget.body == null
+            ? _widgetOptions.elementAt(_selectedIndex)
+            : widget.body,
       ),
     );
   }
@@ -109,7 +113,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       iconTheme: IconThemeData(color: AppColors.greenColor, size: 20.0),
       elevation: 0,
       bottomOpacity: 0,
-      leading: IconButton(
+      leading:IconButton(
         icon: SvgPicture.asset(ImageConstant.BACK_ICON),
         onPressed: () => Navigator.of(context).pop(),
       ),
@@ -147,6 +151,10 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     return AppBar(
       elevation: 0,
       bottomOpacity: 0,
+      leading: widget.showBackIcon ?IconButton(
+        icon: SvgPicture.asset(ImageConstant.BACK_ICON),
+        onPressed: () => Navigator.of(context).pop(),
+      ) : null,
       actions: [
         Padding(
           padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
@@ -161,12 +169,16 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         ),
       ],
       iconTheme: IconThemeData(color: AppColors.greenColor),
-      title: _selectedIndex == 1 || _selectedIndex == 2 || _selectedIndex == 3 || _selectedIndex == 4
+      title: _selectedIndex == 1 ||
+              _selectedIndex == 2 ||
+              _selectedIndex == 3 ||
+              _selectedIndex == 4
           ? LocaleText(
               text: _titles.elementAt(_selectedIndex)!,
               style: AppTextStyles.appBarTitleStyle,
             )
-          : SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
+          : 
+          SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
       // title: SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
       centerTitle: true,
     );
@@ -208,18 +220,24 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 ImageConstant.NAVBAR_NOTIFACATIONS,
               ),
               Builder(builder: (context) {
-                final counterNotificaitonState = context.watch<NotificationsCounterCubit>().state;
+                final counterNotificaitonState =
+                    context.watch<NotificationsCounterCubit>().state;
 
                 return Visibility(
-                  visible: counterNotificaitonState > 0 && SharedPrefs.getIsLogined,
+                  visible:
+                      counterNotificaitonState > 0 && SharedPrefs.getIsLogined,
                   child: Container(
                     height: 14,
                     width: 14,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.yellowColor),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.yellowColor),
                     child: Text(
                       counterNotificaitonState.toString(),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 10.7),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
                     ),
                   ),
                 );
@@ -247,10 +265,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                     height: 14,
                     width: 14,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.orangeColor),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.orangeColor),
                     child: Text(
                       counterState.toString(),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 10.7),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
                     ),
                   ),
                 );
@@ -272,10 +294,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                     height: 14,
                     width: 14,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.orangeColor),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.orangeColor),
                     child: Text(
                       counterState.toString(),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 10.7),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.7),
                     ),
                   ),
                 );

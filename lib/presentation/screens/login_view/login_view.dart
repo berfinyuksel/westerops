@@ -20,6 +20,7 @@ import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
+import '../../../logic/cubits/user_auth_cubit/user_email_control_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -193,6 +194,7 @@ class _LoginViewState extends State<LoginView> {
         String phoneTR = '+90' + phoneController.text;
         bool lengthControl = passwordController.text.length > 7;
         bool phoneControl = phoneTR.length >= 13;
+         await sl<UserEmailControlCubit>().setStateEmail("");
         //String phoneEN = '+1' + phoneController.text;
         if (lengthControl ||
             phoneControl ||

@@ -1,4 +1,3 @@
-import 'package:dongu_mobile/presentation/screens/address_detail_view/tckn_validation/tckn_validation.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
@@ -33,13 +32,11 @@ class AddressDetailView extends StatefulWidget {
 
 class _AddressDetailViewState extends State<AddressDetailView> {
   int adressType = 1;
-  TextEditingController tcController = TextEditingController();
   TextEditingController addressNameController = TextEditingController();
   TextEditingController districtController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  FocusNode tcFocusNode = FocusNode();
   FocusNode addressNameFocusNode = FocusNode();
   FocusNode districtFocusNode = FocusNode();
   FocusNode addressFocusNode = FocusNode();
@@ -53,11 +50,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
     super.initState();
     districtController.text = widget.district;
     addressController.text = widget.address;
-    tcController.addListener(() {
-      if (phoneNumberController.text.length == 10) {
-        phoneNumberFocusNode.unfocus();
-      }
-    });
+    phoneNumberController.text = '+90';
   }
 
   @override
@@ -153,7 +146,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                       descriptionController.text.isNotEmpty &&
                       addressController.text.isNotEmpty &&
                       phoneNumberController.text.isNotEmpty &&
-                      phoneNumberController.value.text.length == 10 &&
+                      phoneNumberController.value.text.length >= 11 &&
                       descriptionController.text.isNotEmpty) {
                     context.read<AddressCubit>().addAddress(
                         addressNameController.text,
@@ -161,20 +154,21 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                         addressController.text,
                         descriptionController.text,
                         "Türkiye",
-                        "Istanbul",
+                        "İstanbul", 
                         districtController.text,
                         phoneNumberController.text,
-                        tcController.text,
+                        '',
                         LocationService.latitude,
                         LocationService.longitude);
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        RouteConstant.CUSTOM_SCAFFOLD,
-                        (Route<dynamic> route) => false);
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil(RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false);
                   } else {
                     showDialog(
                       context: context,
                       builder: (_) => CustomAlertDialogResetPassword(
-                          description: LocaleKeys.address_pop_up_text.locale,
+                          description: phoneNumberController.text.length < 11
+                              ? LocaleKeys.address_pop_up_phone.locale
+                              : LocaleKeys.address_pop_up_text.locale,
                           onPressed: () => Navigator.of(context).pop()),
                     );
                   }
@@ -192,8 +186,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
       padding: const EdgeInsets.only(left: 8.0),
       child: LocaleText(
         text: _errorText(textController)!,
-        style: AppTextStyles.bodyTextStyle
-            .copyWith(color: Colors.red, fontSize: 12),
+        style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.red, fontSize: 12),
       ),
     );
   }
@@ -201,9 +194,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   String? _errorText(TextEditingController _controller) {
     final text = _controller.value.text;
 
-    if (_controller == tcController && tcController.value.text.length <= 11) {
-      return 'En az 11 karakter giriniz';
-    } else if (text.isEmpty) {
+    if (text.isEmpty) {
       return 'Bu alan boş bırakılamaz';
     }
     return null;
@@ -215,10 +206,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
     FocusNode focusNode,
   ) {
     return Container(
-      height:
-          controller == descriptionController || controller == addressController
-              ? 100.h
-              : 56.h,
+      height: controller == descriptionController || controller == addressController ? 100.h : 56.h,
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.borderAndDividerColor, width: 2),
         borderRadius: BorderRadius.circular(4.0),
@@ -227,24 +215,17 @@ class _AddressDetailViewState extends State<AddressDetailView> {
       child: TextFormField(
         focusNode: focusNode,
         onChanged: (value) {
-          if (tcController.text.length == 11 && tcFocusNode.hasFocus) {
-            tcFocusNode.nextFocus();
-          }
-          if (phoneNumberController.text.length == 10 &&
-              phoneNumberFocusNode.hasFocus) {
+          if (phoneNumberController.text.length == 13 && phoneNumberFocusNode.hasFocus) {
             phoneNumberFocusNode.unfocus();
           }
           setState(() {});
         },
         inputFormatters: [
-          controller == tcController
-              ? LengthLimitingTextInputFormatter(11)
-              : controller == phoneNumberController
-                  ? LengthLimitingTextInputFormatter(10)
-                  : LengthLimitingTextInputFormatter(99),
+          controller == phoneNumberController
+              ? LengthLimitingTextInputFormatter(13)
+              : LengthLimitingTextInputFormatter(99),
         ],
-        maxLines: controller == descriptionController ||
-                controller == addressController
+        maxLines: controller == descriptionController || controller == addressController
             ? context.dynamicHeight(0.11).toInt()
             : null,
         cursorColor: AppColors.cursorColor,
@@ -254,10 +235,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
               ? FilteringTextInputFormatter.digitsOnly
               : FilteringTextInputFormatter.singleLineFormatter,
         ], */
-        keyboardType:
-            controller == phoneNumberController || controller == tcController
-                ? TextInputType.number
-                : TextInputType.text,
+        keyboardType: controller == phoneNumberController ? TextInputType.number : TextInputType.text,
         controller: controller,
         decoration: InputDecoration(
           // isDense: true,
@@ -272,15 +250,11 @@ class _AddressDetailViewState extends State<AddressDetailView> {
           // border: InputBorder.none,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-                color: controller.text.isEmpty && counter > 0
-                    ? Colors.red
-                    : AppColors.borderAndDividerColor,
-                width: 1),
+                color: controller.text.isEmpty && counter > 0 ? Colors.red : AppColors.borderAndDividerColor, width: 1),
             borderRadius: BorderRadius.circular(4.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: AppColors.borderAndDividerColor, width: 1),
+            borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 1),
             borderRadius: BorderRadius.circular(4.0),
           ),
           border: OutlineInputBorder(
@@ -288,6 +262,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
             borderRadius: BorderRadius.circular(4.0),
           ),
         ),
+        textInputAction: TextInputAction.next,
       ),
     );
   }

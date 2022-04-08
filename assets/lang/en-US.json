@@ -208,6 +208,7 @@
     },
     "address": {
         "pop_up_text": "Please enter the requested information correctly",
+        "pop_up_phone": "Please enter the phone number information correctly",
         "no_address": "You do not have a registered address yet.",
         "address_approval": "Approve",
         "delete_alert_dialog_text": "Are you sure you want to delete your registered address?",
@@ -605,7 +606,7 @@
             "title6": "Food Categories",
             "sub_title1": "Take away Package - Motor Courier",
             "sub_title2": "Today: ",
-            "sub_title3": "Online Credit/Debit Card - Cash on Delivery",
+            "sub_title3": "Online Credit/Debit Card",
             "sub_title4": "Business Name Mini Burger",
             "sub_title5": "Main course, Vegan, Hamburger, Drink, Chicken...",
             "sub_title6": "Take away Package",

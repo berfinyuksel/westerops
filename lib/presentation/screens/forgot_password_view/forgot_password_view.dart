@@ -36,6 +36,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController codeController = TextEditingController();
+  FocusNode phoneNumberFocusNode = FocusNode();
   FirebaseAuth _auth = FirebaseAuth.instance;
   bool enableObscure = true;
   bool isCodeSent = false;
@@ -102,6 +103,16 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    phoneController.addListener(() {
+      if (phoneController.text.length == 10) {
+        phoneNumberFocusNode.unfocus();
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -124,50 +135,19 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        buildDropDown(context),
-                        Container(
-                          height: 56.h,
-                          width: 275.w,
-                          color: Colors.white,
-                          child: buildTextFormField(
-                              LocaleKeys.forgot_password_phone.locale,
-                              phoneController),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Visibility(
-                        visible: isCodeSent,
-                        child: Container(
-                            color: Colors.white,
-                            child: buildTextFormField(
-                                LocaleKeys
-                                    .forgot_password_activation_code.locale,
-                                codeController))),
+                    buildPhoneTextField(),
+                    SizedBox(height: 20.h),
+                    buildOtpTextField(),
                     Visibility(
                       visible: isCodeSent,
-                      child: SizedBox(
-                        height: 20.h,
-                      ),
+                      child: SizedBox(height: 20.h),
                     ),
-                    Visibility(
-                        visible: isCodeSent,
-                        child: Container(
-                            color: Colors.white,
-                            child: buildTextFormFieldPassword(LocaleKeys
-                                .forgot_password_new_password.locale))),
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    buildNewPasswordTextField(),
+                    SizedBox(height: 20.h),
                     CustomButton(
                       onPressed: () async {
                         String phoneTR = '+90' + phoneController.text;
-                        String phoneEN = '+1' + phoneController.text;
+                        // String phoneEN = '+1' + phoneController.text;
                         if (codeController.text.isNotEmpty) {
                           PhoneAuthCredential phoneAuthCredential =
                               PhoneAuthProvider.credential(
@@ -207,8 +187,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         }
                         if (isCodeSent == false) {
                           await _auth.verifyPhoneNumber(
-                              phoneNumber:
-                                  dropdownValue == 'TR' ? phoneTR : phoneEN,
+                              phoneNumber: dropdownValue == 'TR' ? phoneTR : "",
                               verificationCompleted:
                                   (phoneAuthCredential) async {
                                 setState(() {
@@ -240,20 +219,15 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       title: isCodeSent
                           ? LocaleKeys.forgot_password_reset_password
                           : LocaleKeys.forgot_password_send_code,
-                      color: codeController.text.isEmpty &&
-                              codeController.text.isEmpty &&
-                              passwordController.text.isEmpty
-                          ? AppColors.disabledButtonColor
-                          : AppColors.greenColor,
-                      borderColor: codeController.text.isEmpty &&
-                              passwordController.text.isEmpty
-                          ? AppColors.disabledButtonColor
-                          : AppColors.greenColor,
+                      color: phoneController.text.length == 10
+                          ? AppColors.greenColor
+                          : AppColors.disabledButtonColor,
+                      borderColor: phoneController.text.length == 10
+                          ? AppColors.greenColor
+                          : AppColors.disabledButtonColor,
                       textColor: Colors.white,
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    SizedBox(height: 20.h),
                     buildVisibilitySendAgainCode,
                   ],
                 ),
@@ -287,6 +261,42 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Visibility buildNewPasswordTextField() {
+    return Visibility(
+        visible: isCodeSent,
+        child: Container(
+            color: Colors.white,
+            child: buildTextFormFieldPassword(
+                LocaleKeys.forgot_password_new_password.locale)));
+  }
+
+  Visibility buildOtpTextField() {
+    return Visibility(
+        visible: isCodeSent,
+        child: Container(
+            color: Colors.white,
+            child: buildTextFormField(
+                LocaleKeys.forgot_password_activation_code.locale,
+                codeController)));
+  }
+
+  Container buildPhoneTextField() {
+    return Container(
+      color: Colors.white,
+      height: 56.h,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // buildDropDown(context),
+          Expanded(
+            child: buildTextFormField(
+                LocaleKeys.forgot_password_phone.locale, phoneController),
+          ),
+        ],
       ),
     );
   }
@@ -344,7 +354,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     );
   }
 
-  Container buildDropDown(BuildContext context) {
+  /* Container buildDropDown(BuildContext context) {
     return Container(
       height: 56.h,
       width: 81.w,
@@ -386,7 +396,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         }).toList(),
       ),
     );
-  }
+  } */
 
   TextFormField buildTextFormFieldPassword(String labelText) {
     return TextFormField(
@@ -454,7 +464,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   TextFormField buildTextFormField(
       String labelText, TextEditingController controller) {
     String phoneTR = '+90';
-    String phoneEN = '+1';
+    // String phoneEN = '+1';
     return TextFormField(
       cursorColor: AppColors.cursorColor,
       style: AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w600),
@@ -463,18 +473,24 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           isRulesVisible = false;
         });
       },
-      inputFormatters: [
-        // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
-        FilteringTextInputFormatter.singleLineFormatter,
-      ],
+      onChanged: (value) {
+        if (phoneController.text.length == 10 &&
+            phoneNumberFocusNode.hasFocus) {
+          phoneNumberFocusNode.unfocus();
+        }
+        setState(() {});
+      },
+      inputFormatters: [LengthLimitingTextInputFormatter(10)],
+      keyboardType: TextInputType.number,
       controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
-        prefixText: controller == phoneController
+        /* prefixText: controller == phoneController
             ? dropdownValue == 'TR'
                 ? phoneTR
                 : phoneEN
-            : null,
+            : null, */
+        prefixText: controller == phoneController ? phoneTR : null,
         labelStyle: AppTextStyles.bodyTextStyle,
         prefixStyle:
             AppTextStyles.bodyTextStyle.copyWith(fontWeight: FontWeight.w700),
