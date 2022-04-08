@@ -2,7 +2,6 @@
 
 import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
-import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
@@ -42,8 +41,6 @@ class _SearchViewState extends State<SearchView> {
   List<SearchStore> filteredNames = []; // names filtered by search text
 
   String query = '';
-  bool scroolCategoriesLeft = true;
-  bool scroolCategoriesRight = false;
   String mealNames = "";
   bool scroolTrendLeft = true;
   bool scroolTrendRight = false;
@@ -95,8 +92,7 @@ class _SearchViewState extends State<SearchView> {
             // Spacer(
             //   flex: 3,
             // ),
-            Visibility(
-                visible: visible, child: searchHistoryAndCleanTexts(context)),
+            Visibility(visible: visible, child: searchHistoryAndCleanTexts(context)),
             Visibility(visible: visible, child: dividerOne(context)),
             SizedBox(height: 10.h),
             Container(alignment: Alignment.center, child: emptySearchHistory()),
@@ -123,8 +119,7 @@ class _SearchViewState extends State<SearchView> {
             Visibility(visible: visible, child: categoriesText(context)),
             Visibility(visible: visible, child: dividerThird(context)),
             //  Spacer(flex: 1),
-            Visibility(
-                visible: visible, child: horizontalListCategory(context)),
+            Visibility(visible: visible, child: horizontalListCategory(context)),
             SizedBox(height: 10.h),
           ],
         ),
@@ -132,42 +127,10 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
-  Padding horizontalListCategory(BuildContext context) {
-    return Padding(
-      padding: scroolCategoriesLeft == true
-          ? EdgeInsets.only(
-              left: 26,
-              right: 0,
-            )
-          : scroolCategoriesRight == true
-              ? EdgeInsets.only(
-                  left: 0,
-                  right: 26,
-                )
-              : EdgeInsets.only(),
-      child: Container(
-          height: context.dynamicHeight(0.19),
-          child: Builder(builder: (context) {
-            final categoryPadding = context.watch<CategoryPaddingCubit>().state;
-            return NotificationListener<ScrollUpdateNotification>(
-                onNotification: (ScrollUpdateNotification notification) {
-                  setState(() {
-                    if (notification.metrics.pixels <= 0) {
-                      scroolCategoriesLeft = true;
-                    } else {
-                      scroolCategoriesLeft = false;
-                    }
-                    if (notification.metrics.pixels >= categoryPadding) {
-                      scroolCategoriesRight = true;
-                    } else {
-                      scroolCategoriesRight = false;
-                    }
-                  });
-
-                  return true;
-                },
-                child: CustomHorizontalListCategory());
-          })),
+  Container horizontalListCategory(BuildContext context) {
+    return Container(
+      height: context.dynamicHeight(0.19),
+      child: CustomHorizontalListCategory(),
     );
   }
 
@@ -298,13 +261,8 @@ class _SearchViewState extends State<SearchView> {
                     ),
                   );
                 },
-                title: Text(filteredNames.isEmpty ||
-                        "${filteredNames[index].name}".isEmpty
-                    ? ""
-                    : "${filteredNames[index].name}"),
-                subtitle: Text(filteredNames.isEmpty || mealNames.isEmpty
-                    ? ""
-                    : mealNames),
+                title: Text(filteredNames.isEmpty || "${filteredNames[index].name}".isEmpty ? "" : "${filteredNames[index].name}"),
+                subtitle: Text(filteredNames.isEmpty || mealNames.isEmpty ? "" : mealNames),
               ),
             ),
           );
@@ -332,9 +290,7 @@ class _SearchViewState extends State<SearchView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           LocaleText(
-            text: SharedPrefs.getIsLogined
-                ? LocaleKeys.search_text1
-                : LocaleKeys.search_text3,
+            text: SharedPrefs.getIsLogined ? LocaleKeys.search_text1 : LocaleKeys.search_text3,
             style: AppTextStyles.bodyTitleStyle,
           ),
           Spacer(),
@@ -349,8 +305,7 @@ class _SearchViewState extends State<SearchView> {
             },
             child: LocaleText(
               text: LocaleKeys.search_text2,
-              style: AppTextStyles.bodyTitleStyle
-                  .copyWith(color: AppColors.orangeColor, fontSize: 12),
+              style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12),
             ),
           ),
         ],
@@ -365,14 +320,13 @@ class _SearchViewState extends State<SearchView> {
           vertical: context.dynamicHeight(0.03),
         ),
         child: CustomSearchBar(
-          onTapIcon: (){
+          onTapIcon: () {
             context.read<SearchStoreCubit>().getSearches(controller!.text);
           },
-          containerPadding:
-              visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.68),
+          containerPadding: visible ? context.dynamicWidht(0.88) : context.dynamicWidht(0.68),
           onTap: () {
             setState(() {
-              visible = !visible; 
+              visible = !visible;
             });
           },
           onChanged: (value) {
@@ -394,14 +348,13 @@ class _SearchViewState extends State<SearchView> {
                   },
                   child: Text(
                     LocaleKeys.search_cancel_button.locale,
-                    style: AppTextStyles.bodyTitleStyle
-                        .copyWith(color: AppColors.orangeColor, fontSize: 12),
+                    style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12),
                   )),
         ));
   }
 
   emptySearchHistory() {
-     if (filteredNames.length == 0 && isCleanTextController==true) {
+    if (filteredNames.length == 0 && isCleanTextController == true) {
       return visible
           ? Text(
               LocaleKeys.search_search_history_clean.locale,
