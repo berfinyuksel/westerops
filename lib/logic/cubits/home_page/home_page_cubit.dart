@@ -33,6 +33,7 @@ class HomePageCubit extends Cubit<HomePageState> {
     buildSharedPrefNoData();
     SharedPrefs.setBoolPaymentCardControl(false);
     addControllerListener(controller);
+    print("IS DELETE ORDER ${SharedPrefs.getIsDeleteOrder}");
     emit(HomePageCompleted());
   }
 

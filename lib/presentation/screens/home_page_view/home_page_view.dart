@@ -59,7 +59,8 @@ class _HomePageViewState extends State<HomePageView> {
         providers: [
           BlocProvider.value(value: sl<HomePageCubit>()..init(controller!)),
           BlocProvider.value(value: sl<OrderReceivedCubit>()),
-          BlocProvider.value(value: sl<SearchCubit>()..getSearches(controller!.text)),
+          BlocProvider.value(
+              value: sl<SearchCubit>()..getSearches(controller!.text)),
         ],
         child: BlocBuilder<HomePageCubit, HomePageState>(
           builder: (context, state) {
@@ -73,7 +74,9 @@ class _HomePageViewState extends State<HomePageView> {
                       onWillPop: () async {
                         return false;
                       },
-                      child: Center(child: buildBody(context, sl<SearchStoreCubit>().searchStores)));
+                      child: Center(
+                          child: buildBody(
+                              context, sl<SearchStoreCubit>().searchStores)));
             }
           },
         ));
@@ -93,7 +96,8 @@ class _HomePageViewState extends State<HomePageView> {
                       onTap: () {
                         Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
                       },
-                      child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
+                      child:
+                          SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
                   : controller!.text.length == 0
                       ? SizedBox()
                       : searchCancelTextButton(context),
@@ -119,12 +123,15 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Widget buildBuilderSearch(BuildContext context, List<SearchStore> restaurants) {
+  Widget buildBuilderSearch(
+      BuildContext context, List<SearchStore> restaurants) {
     return BlocBuilder<SearchCubit, GenericState>(builder: (context, state) {
       if (state is GenericInitial) {
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Container(color: Colors.transparent, child: Center(child: CustomCircularProgressIndicator()));
+        return Container(
+            color: Colors.transparent,
+            child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
         List<SearchStore> searchList = [];
         List<SearchStore> restaurant = [];
@@ -137,7 +144,10 @@ class _HomePageViewState extends State<HomePageView> {
         names = searchList;
         filteredNames = names;
 
-        return Center(child: filteredNames.length == 0 ? emptySearchHistory() : searchListViewBuilder(state, searchList, restaurant));
+        return Center(
+            child: filteredNames.length == 0
+                ? emptySearchHistory()
+                : searchListViewBuilder(state, searchList, restaurant));
       } else {
         final error = state as GenericError;
         return Center(child: Text("${error.message}\n${error.statusCode}"));
@@ -145,16 +155,20 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  GestureDetector buildBody(BuildContext context, List<SearchStore> restaurants) {
+  GestureDetector buildBody(
+      BuildContext context, List<SearchStore> restaurants) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: ListView(
         children: [
-          Visibility(visible: context.watch<OrderBarCubit>().state, child: buildOrderStatusBar()),
+          Visibility(
+              visible: context.watch<OrderBarCubit>().state,
+              child: buildOrderStatusBar()),
           SizedBox(height: 20.h),
-          buildRowTitleLeftRightLocation(context, LocaleKeys.home_page_location, LocaleKeys.home_page_edit),
+          buildRowTitleLeftRightLocation(context, LocaleKeys.home_page_location,
+              LocaleKeys.home_page_edit),
           buildDivider(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 26.w),
@@ -164,7 +178,8 @@ class _HomePageViewState extends State<HomePageView> {
           buildSearchBarAndFilterIcon(context),
           SizedBox(height: 30.h),
           visible ? SizedBox() : buildBuilderSearch(context, restaurants),
-          buildRowTitleLeftRightNearMeAll(context, LocaleKeys.home_page_closer, LocaleKeys.home_page_see_all),
+          buildRowTitleLeftRightNearMeAll(context, LocaleKeys.home_page_closer,
+              LocaleKeys.home_page_see_all),
           buildDivider(),
           SizedBox(height: 22.h),
           buildListViewNearMe(context, restaurants),
@@ -226,9 +241,11 @@ class _HomePageViewState extends State<HomePageView> {
                   visible
                       ? GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, RouteConstant.FILTER_VIEW);
+                            Navigator.pushNamed(
+                                context, RouteConstant.FILTER_VIEW);
                           },
-                          child: SvgPicture.asset(ImageConstant.COMMONS_FILTER_ICON))
+                          child: SvgPicture.asset(
+                              ImageConstant.COMMONS_FILTER_ICON))
                       : context.read<HomePageCubit>().isCancelVisible
                           ? searchCancelTextButton(context)
                           : SizedBox(),
@@ -252,12 +269,20 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Widget buildOrderStatusBar() {
-    return BlocBuilder<OrderReceivedCubit, GenericState>(builder: (context, state) {
+    return BlocBuilder<OrderReceivedCubit, GenericState>(
+        builder: (context, state) {
       if (state is GenericInitial) {
+        print("INITIAL STATUS BAR");
+
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
-        return Container(color: Colors.white, child: Center(child: CustomCircularProgressIndicator()));
+        print("LOADING STATUS BAR");
+
+        return Container(
+            color: Colors.white,
+            child: Center(child: CustomCircularProgressIndicator()));
       } else if (state is GenericCompleted) {
+        print("COMPLETED STATUS BAR");
         List<IyzcoOrderCreate> orderInfoTotal = [];
         List<IyzcoOrderCreate> orderInfo = [];
 
@@ -273,10 +298,11 @@ class _HomePageViewState extends State<HomePageView> {
         return orderInfo.isNotEmpty && SharedPrefs.getIsDeleteOrder == false
             ? GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
-                      arguments: ScreenArgumentsRestaurantDetail(
-                        orderInfo: orderInfo.first,
-                      ));
+                  Navigator.of(context)
+                      .pushNamed(RouteConstant.PAST_ORDER_DETAIL_VIEW,
+                          arguments: ScreenArgumentsRestaurantDetail(
+                            orderInfo: orderInfo.first,
+                          ));
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -298,8 +324,12 @@ class _HomePageViewState extends State<HomePageView> {
                             style: AppTextStyles.subTitleBoldStyle,
                           ),
                           Text(
-                            orderInfo.first.boxes!.isNotEmpty ? orderInfo.first.boxes![0].store!.name.toString() : '',
-                            style: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white),
+                            orderInfo.first.boxes!.isNotEmpty
+                                ? orderInfo.first.boxes![0].store!.name
+                                    .toString()
+                                : '',
+                            style: AppTextStyles.bodyBoldTextStyle
+                                .copyWith(color: Colors.white),
                           ),
                         ],
                       ),
@@ -309,7 +339,8 @@ class _HomePageViewState extends State<HomePageView> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        margin: EdgeInsets.only(left: context.dynamicWidht(0.01)),
+                        margin:
+                            EdgeInsets.only(left: context.dynamicWidht(0.01)),
                         width: 69.w,
                         height: 36.h,
                         decoration: BoxDecoration(
@@ -318,7 +349,8 @@ class _HomePageViewState extends State<HomePageView> {
                         ),
                         child: Text(
                           '${orderInfo.first.cost} TL',
-                          style: AppTextStyles.bodyBoldTextStyle.copyWith(color: AppColors.greenColor),
+                          style: AppTextStyles.bodyBoldTextStyle
+                              .copyWith(color: AppColors.greenColor),
                         ),
                       ),
                       SvgPicture.asset(
@@ -343,11 +375,14 @@ class _HomePageViewState extends State<HomePageView> {
     });
   }
 
-  Container buildListViewNearMe(BuildContext context, List<SearchStore> restaurants) {
+  Container buildListViewNearMe(
+      BuildContext context, List<SearchStore> restaurants) {
     return Container(
       width: context.dynamicWidht(0.64),
       height: 265.h,
-      child: NearMeRestaurantListViewWidget(controller: sl<HomePageCubit>().nearMeScrollController, restaurants: restaurants),
+      child: NearMeRestaurantListViewWidget(
+          controller: sl<HomePageCubit>().nearMeScrollController,
+          restaurants: restaurants),
     );
   }
 
@@ -358,11 +393,14 @@ class _HomePageViewState extends State<HomePageView> {
     return Container(
       width: context.dynamicWidht(0.64),
       height: 265.h,
-      child: OpportunityRestaurantListViewWidget(restaurants: restaurants, controller: sl<HomePageCubit>().opportunitiesScrollController),
+      child: OpportunityRestaurantListViewWidget(
+          restaurants: restaurants,
+          controller: sl<HomePageCubit>().opportunitiesScrollController),
     );
   }
 
-  Padding buildRowTitleLeftRightLocation(BuildContext context, String titleLeft, String titleRight) {
+  Padding buildRowTitleLeftRightLocation(
+      BuildContext context, String titleLeft, String titleRight) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w),
       child: Row(
@@ -392,7 +430,8 @@ class _HomePageViewState extends State<HomePageView> {
     );
   }
 
-  Padding buildRowTitleLeftRightNearMeAll(BuildContext context, String titleLeft, String titleRight) {
+  Padding buildRowTitleLeftRightNearMeAll(
+      BuildContext context, String titleLeft, String titleRight) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 28.w),
       child: Row(
@@ -440,7 +479,9 @@ class _HomePageViewState extends State<HomePageView> {
           decoration: InputDecoration(
               suffixIcon: GestureDetector(
                 onTap: () {
-                  context.read<SearchStoreCubit>().getSearches(controller!.text);
+                  context
+                      .read<SearchStoreCubit>()
+                      .getSearches(controller!.text);
                 },
                 child: SvgPicture.asset(
                   ImageConstant.COMMONS_SEARCH_ICON,
@@ -451,7 +492,8 @@ class _HomePageViewState extends State<HomePageView> {
               enabledBorder: buildOutlineInputBorder(),
               errorBorder: buildOutlineInputBorder(),
               disabledBorder: buildOutlineInputBorder(),
-              contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.040)),
+              contentPadding:
+                  EdgeInsets.only(left: context.dynamicWidht(0.040)),
               hintText: LocaleKeys.my_near_hint_text.locale),
           inputFormatters: [
             //  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
@@ -481,7 +523,9 @@ class _HomePageViewState extends State<HomePageView> {
       child: Padding(
         padding: EdgeInsets.only(left: 30.w),
         child: LocaleText(
-            text: "Aradığınız isimde bir yemek bulunmamaktadır.", style: AppTextStyles.bodyTextStyle.copyWith(color: AppColors.cursorColor)),
+            text: "Aradığınız isimde bir yemek bulunmamaktadır.",
+            style: AppTextStyles.bodyTextStyle
+                .copyWith(color: AppColors.cursorColor)),
       ),
     );
   }
@@ -513,12 +557,20 @@ class _HomePageViewState extends State<HomePageView> {
   }
 
   Widget countdown(List<IyzcoOrderCreate> orderInfo) {
-    List<int> itemsOfCountDown = buildDurationForCountdown(DateTime.now(),
-        orderInfo.first.boxes!.isNotEmpty ? orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal() : orderInfo.first.buyingTime!.toLocal());
+    List<int> itemsOfCountDown = buildDurationForCountdown(
+        DateTime.now(),
+        orderInfo.first.boxes!.isNotEmpty
+            ? orderInfo.first.boxes!.first.saleDay!.endDate!.toLocal()
+            : orderInfo.first.buyingTime!.toLocal());
     int hour = itemsOfCountDown[0];
     int minute = itemsOfCountDown[1];
     int second = itemsOfCountDown[2];
-    return TimerCountDown(hour: hour, minute: minute, second: second, textStyle: AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white));
+    return TimerCountDown(
+        hour: hour,
+        minute: minute,
+        second: second,
+        textStyle:
+            AppTextStyles.bodyBoldTextStyle.copyWith(color: Colors.white));
   }
 
   List<int> buildDurationForCountdown(DateTime dateTime, DateTime local) {
@@ -532,7 +584,8 @@ class _HomePageViewState extends State<HomePageView> {
     int minuteOfitem = (durationFinal! - (hourOfitem * 60 * 60)) ~/ 60;
     results.add(minuteOfitem);
 
-    int secondOfitem = (durationFinal! - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
+    int secondOfitem =
+        (durationFinal! - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
     results.add(secondOfitem);
 
     return results;
@@ -542,7 +595,8 @@ class _HomePageViewState extends State<HomePageView> {
     int hourOfItem = dateTime.hour;
     int minuteOfitem = dateTime.minute;
     int secondsOfitem = dateTime.second;
-    int durationOfitems = ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
+    int durationOfitems =
+        ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
     return durationOfitems;
   }
 
@@ -553,7 +607,11 @@ class _HomePageViewState extends State<HomePageView> {
   ) {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: searchList.isEmpty || controller!.text.isEmpty || filteredNames.isEmpty ? 0 : searchList.length,
+        itemCount: searchList.isEmpty ||
+                controller!.text.isEmpty ||
+                filteredNames.isEmpty
+            ? 0
+            : searchList.length,
         itemBuilder: (context, index) {
           List<String> meals = [];
 
@@ -582,9 +640,16 @@ class _HomePageViewState extends State<HomePageView> {
                   ),
                 );
               },
-              title:
-                  Text(searchList.isEmpty || filteredNames.isEmpty || "${filteredNames[index].name}".isEmpty ? "" : "${filteredNames[index].name}"),
-              subtitle: Text(mealNames.isEmpty || searchList.isEmpty || filteredNames.isEmpty ? "" : mealNames),
+              title: Text(searchList.isEmpty ||
+                      filteredNames.isEmpty ||
+                      "${filteredNames[index].name}".isEmpty
+                  ? ""
+                  : "${filteredNames[index].name}"),
+              subtitle: Text(mealNames.isEmpty ||
+                      searchList.isEmpty ||
+                      filteredNames.isEmpty
+                  ? ""
+                  : mealNames),
             ),
           );
         });
@@ -603,7 +668,8 @@ class _HomePageViewState extends State<HomePageView> {
         },
         child: Text(
           LocaleKeys.search_cancel_button.locale,
-          style: AppTextStyles.bodyTitleStyle.copyWith(color: AppColors.orangeColor, fontSize: 12.sp),
+          style: AppTextStyles.bodyTitleStyle
+              .copyWith(color: AppColors.orangeColor, fontSize: 12.sp),
         ));
   }
 }

@@ -154,7 +154,7 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                         addressController.text,
                         descriptionController.text,
                         "Türkiye",
-                        "Istanbul",
+                        "İstanbul", 
                         districtController.text,
                         phoneNumberController.text,
                         '',
