@@ -21,12 +21,13 @@ class FoodWasteExpandedView extends StatelessWidget {
       title: LocaleKeys.food_waste_title,
       body: Container(
         padding: EdgeInsets.only(
-          top: 26.h,
+          top: 0.h,
           left: 45.w,
           right: 45.w,
         ),
         child: ListView(
           children: [
+            SizedBox(height: 26.h),
             LocaleText(
               text: LocaleKeys.food_waste_expanded_headline1,
               style: AppTextStyles.headlineStyle,
@@ -91,35 +92,33 @@ class FoodWasteExpandedView extends StatelessWidget {
                   height: 145.h,
                 ),
                 Positioned(
-                  left: 15,
-                  right: 15,
-                  top: 40,
+                  left: 0.w,
+                  right: 0.w,
+                  top: 40.h,
                   child: Center(
-                    child: AutoSizeText.rich(
-                      TextSpan(children: [
-                        TextSpan(
-                          text: "%33'ü\n",
-                          style: AppTextStyles.bodyBoldTextStyle.copyWith(
-                              fontSize: 35.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
-                        ),
-                        TextSpan(
-                          text: "\t\t\t\t\t\t\tİsraf",
-                          style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(color: Colors.black),
-                            fontSize: 17,
-                            fontWeight: FontWeight.w300,
-                            fontStyle: FontStyle.normal,
+                    child: Expanded(
+                      child: AutoSizeText.rich(
+                        TextSpan(children: [
+                          TextSpan(
+                            text: "%33'ü\n",
+                            style: AppTextStyles.bodyBoldTextStyle.copyWith(
+                                fontSize: 32.sp,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
                           ),
-                        ),
-                      ]),
+                          TextSpan(
+                            text: "\t\t\t\t\t\t\tİsraf",
+                            style: GoogleFonts.montserrat(
+                              textStyle: TextStyle(color: Colors.black),
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w300,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ]),
+                      ),
                     ),
                   ),
-                  // child: Text(
-                  // "%33'ü\n İsraf",
-                  // style: TextStyle(fontSize: 25),
-                  // ),
                 ),
               ]),
             ),
