@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_email_control_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
 import 'package:intl/intl.dart';
+import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/user_auth_cubit/user_auth_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
@@ -86,10 +88,13 @@ class _MyInformationViewState extends State<MyInformationView> {
                           context,
                           LocaleKeys.inform_list_tile_birth.locale,
                           birthController),
-                      buildTextFormField(
+                      buildEmailTextFormField(
                           context,
                           LocaleKeys.inform_list_tile_mail.locale,
-                          mailController),
+                          mailController,
+                      sl<UserEmailControlCubit>().state !=""
+                              ? true
+                              : false),
                       buildTextFormField(
                           context,
                           LocaleKeys.inform_list_tile_phone.locale,
@@ -231,9 +236,41 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
+  Container buildEmailTextFormField(BuildContext context, String labelText,
+      TextEditingController controller, bool enabled) {
+    return Container(
+      height: 56.h,
+      color: Colors.white,
+      child: TextFormField(
+        readOnly: enabled,
+        style: AppTextStyles.myInformationBodyTextStyle,
+        cursorColor: AppColors.cursorColor,
+        onTap: () {
+          setState(() {});
+        },
+        inputFormatters: [
+          // FilteringTextInputFormatter.deny(RegExp('[a-zA-Z0-9]'))
+          FilteringTextInputFormatter.singleLineFormatter,
+        ],
+        controller: controller,
+        decoration: InputDecoration(
+          prefixText: controller == phoneController ? phoneTR : null,
+          contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
+          labelText: labelText,
+          hintStyle: AppTextStyles.myInformationBodyTextStyle,
+          labelStyle: AppTextStyles.bodyTextStyle,
+          enabledBorder: buildOutlineInputBorder(),
+          focusedBorder: buildOutlineInputBorder(),
+          border: buildOutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
+    print("SOCAIAL EMAIL: ${sl<UserEmailControlCubit>().state}");
     nameController.text = SharedPrefs.getUserName;
     surnameController.text = SharedPrefs.getUserLastName;
     mailController.text = SharedPrefs.getUserEmail;

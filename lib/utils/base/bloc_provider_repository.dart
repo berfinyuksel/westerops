@@ -54,6 +54,7 @@ import 'package:dongu_mobile/logic/cubits/swipe_route_cubit.dart/swipe_route_cub
 import 'package:dongu_mobile/logic/cubits/time_interval_cubit/time_interval_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_email_control_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../logic/cubits/login_status_cubit/login_status_cubit.dart';
@@ -100,6 +101,7 @@ class BlocProviderRepository {
     BlocProvider<FiltersManagerCubit>(create: (context) => FiltersManagerCubit(SampleFiltersRepository())),
     BlocProvider<LoginStatusCubit>(create: (context) => sl<LoginStatusCubit>()),
     BlocProvider<ErrorMessageCubit>(create: (context) => ErrorMessageCubit()),
+    BlocProvider<UserEmailControlCubit>(create: (context) => UserEmailControlCubit()),
 
 
   ];
