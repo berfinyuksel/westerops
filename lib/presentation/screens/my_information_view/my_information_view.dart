@@ -92,9 +92,9 @@ class _MyInformationViewState extends State<MyInformationView> {
                           context,
                           LocaleKeys.inform_list_tile_mail.locale,
                           mailController,
-                          sl<UserEmailControlCubit>().state==""
-                              ? false
-                              : true),
+                      sl<UserEmailControlCubit>().state !=""
+                              ? true
+                              : false),
                       buildTextFormField(
                           context,
                           LocaleKeys.inform_list_tile_phone.locale,

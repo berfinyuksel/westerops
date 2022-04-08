@@ -76,9 +76,12 @@ class UpdatePermissonRepository {
       
       if (email.appleEmail != null) {
       sl<UserEmailControlCubit>().setStateEmail(email.appleEmail);
-      }else if(email.googleEmail != null){
+      }
+      else if(email.googleEmail != null)
+      {
       sl<UserEmailControlCubit>().setStateEmail(email.googleEmail);
-      }else if(email.facebookEmail != null ){
+      }else if(email.facebookEmail != null )
+      {
       sl<UserEmailControlCubit>().setStateEmail(email.facebookEmail);
       }
       print("GOOGLE EMAIL : ${email.googleEmail}");

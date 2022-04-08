@@ -23,7 +23,6 @@ class SplashCubit extends Cubit<SplashCubitState> {
   splashInit(BuildContext context) async {
     try {
       emit(SplashCubitLoading());
-      await sl<UpdatePermissonRepository>().userSocialControl();
       await sl<SvgImageRepository>().preCacheSvgPictures();
       await sl<SampleSearchStoreRepository>().getSearchStores();
       await checksIsLogin();
