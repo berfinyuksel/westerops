@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../data/model/user_address.dart';
 import '../../../data/services/location_service.dart';
 import '../../../logic/cubits/address_cubit/address_cubit.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -17,14 +18,16 @@ import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
 
 class AddressDetailView extends StatefulWidget {
-  final String title;
-  final String district;
-  final String address;
+  final String? title;
+  final String? district;
+  final Result? list;
+  final String? address;
   const AddressDetailView({
     Key? key,
-    required this.title,
-    required this.district,
-    required this.address,
+    this.title,
+    this.district,
+    this.address,
+    this.list,
   }) : super(key: key);
   @override
   _AddressDetailViewState createState() => _AddressDetailViewState();
@@ -48,9 +51,18 @@ class _AddressDetailViewState extends State<AddressDetailView> {
   @override
   void initState() {
     super.initState();
-    districtController.text = widget.district;
-    addressController.text = widget.address;
-    phoneNumberController.text = '+90';
+
+    if (widget.list != null) {
+      districtController.text = widget.list!.province ?? "";
+      phoneNumberController.text = "${widget.list!.phoneNumber ?? ""}";
+      addressController.text = widget.list!.address ?? "";
+      addressNameController.text = widget.list!.name ?? "";
+      descriptionController.text = widget.list!.description ?? "";
+    } else {
+      districtController.text = widget.district ?? "";
+      addressController.text = widget.address ?? "";
+      phoneNumberController.text = '+90';
+    }
   }
 
   @override
@@ -148,20 +160,38 @@ class _AddressDetailViewState extends State<AddressDetailView> {
                       phoneNumberController.text.isNotEmpty &&
                       phoneNumberController.value.text.length >= 11 &&
                       descriptionController.text.isNotEmpty) {
-                    context.read<AddressCubit>().addAddress(
-                        addressNameController.text,
-                        adressType,
-                        addressController.text,
-                        descriptionController.text,
-                        "Türkiye",
-                        "İstanbul", 
-                        districtController.text,
-                        phoneNumberController.text,
-                        '',
-                        LocationService.latitude,
-                        LocationService.longitude);
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil(RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false);
+                    if (widget.list != null) {
+                      context.read<AddressCubit>().updateAddress(
+                          widget.list!.id!,
+                          addressNameController.text,
+                          adressType,
+                          addressController.text,
+                          descriptionController.text,
+                          widget.list!.country!,
+                          districtController.text,
+                          widget.list!.province!,
+                          phoneNumberController.text,
+                          widget.list!.tcknVkn!,
+                          widget.list!.latitude!,
+                          widget.list!.longitude!);
+                    } else {
+                      context.read<AddressCubit>().addAddress(
+                          addressNameController.text,
+                          adressType,
+                          addressController.text,
+                          descriptionController.text,
+                          "Türkiye",
+                          "Istanbul",
+                          districtController.text,
+                          phoneNumberController.text,
+                          '',
+                          LocationService.latitude,
+                          LocationService.longitude);
+                    }
+
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        RouteConstant.CUSTOM_SCAFFOLD,
+                        (Route<dynamic> route) => false);
                   } else {
                     showDialog(
                       context: context,
@@ -186,7 +216,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
       padding: const EdgeInsets.only(left: 8.0),
       child: LocaleText(
         text: _errorText(textController)!,
-        style: AppTextStyles.bodyTextStyle.copyWith(color: Colors.red, fontSize: 12),
+        style: AppTextStyles.bodyTextStyle
+            .copyWith(color: Colors.red, fontSize: 12),
       ),
     );
   }
@@ -206,7 +237,10 @@ class _AddressDetailViewState extends State<AddressDetailView> {
     FocusNode focusNode,
   ) {
     return Container(
-      height: controller == descriptionController || controller == addressController ? 100.h : 56.h,
+      height:
+          controller == descriptionController || controller == addressController
+              ? 100.h
+              : 56.h,
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.borderAndDividerColor, width: 2),
         borderRadius: BorderRadius.circular(4.0),
@@ -215,7 +249,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
       child: TextFormField(
         focusNode: focusNode,
         onChanged: (value) {
-          if (phoneNumberController.text.length == 13 && phoneNumberFocusNode.hasFocus) {
+          if (phoneNumberController.text.length == 13 &&
+              phoneNumberFocusNode.hasFocus) {
             phoneNumberFocusNode.unfocus();
           }
           setState(() {});
@@ -225,7 +260,8 @@ class _AddressDetailViewState extends State<AddressDetailView> {
               ? LengthLimitingTextInputFormatter(13)
               : LengthLimitingTextInputFormatter(99),
         ],
-        maxLines: controller == descriptionController || controller == addressController
+        maxLines: controller == descriptionController ||
+                controller == addressController
             ? context.dynamicHeight(0.11).toInt()
             : null,
         cursorColor: AppColors.cursorColor,
@@ -235,7 +271,9 @@ class _AddressDetailViewState extends State<AddressDetailView> {
               ? FilteringTextInputFormatter.digitsOnly
               : FilteringTextInputFormatter.singleLineFormatter,
         ], */
-        keyboardType: controller == phoneNumberController ? TextInputType.number : TextInputType.text,
+        keyboardType: controller == phoneNumberController
+            ? TextInputType.number
+            : TextInputType.text,
         controller: controller,
         decoration: InputDecoration(
           // isDense: true,
@@ -250,11 +288,15 @@ class _AddressDetailViewState extends State<AddressDetailView> {
           // border: InputBorder.none,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-                color: controller.text.isEmpty && counter > 0 ? Colors.red : AppColors.borderAndDividerColor, width: 1),
+                color: controller.text.isEmpty && counter > 0
+                    ? Colors.red
+                    : AppColors.borderAndDividerColor,
+                width: 1),
             borderRadius: BorderRadius.circular(4.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.borderAndDividerColor, width: 1),
+            borderSide:
+                BorderSide(color: AppColors.borderAndDividerColor, width: 1),
             borderRadius: BorderRadius.circular(4.0),
           ),
           border: OutlineInputBorder(

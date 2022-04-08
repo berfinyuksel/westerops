@@ -13,6 +13,7 @@ class ImageConstant {
   static const COMMONS_TIME_ICON = "assets/images/commons/time_icon.svg";
   static const COMMONS_RESTAURANT_IMAGE =
       "assets/images/commons/restaurant_image.png";
+  static const ADDRESS_EDIT_ICON = "assets/images/address/edit_icon.svg";
   static const COMMONS_RESTAURANT_ICON =
       "assets/images/commons/restaurant_icon.png";
   static const COMMONS_APP_BAR_LOGO = "assets/images/commons/app_bar_logo.svg";
@@ -182,11 +183,11 @@ class ImageConstant {
       "assets/images/onboardings/onboarding_second/onboarding_second_image.svg";
   static const ONBOARD_FORTH_IMAGE =
       "assets/images/onboardings/onboarding_forth/onboarding_forth_image.svg";
-      static const ONBOARD_FIRST_BOTTOM_BACKGROUND =
+  static const ONBOARD_FIRST_BOTTOM_BACKGROUND =
       "assets/images/onboardings/onboarding_first/1.svg";
   static const ONBOARD_SECOND_BOTTOM_BACKGROUND =
       "assets/images/onboardings/onboarding_second/2.svg";
-      static const ONBOARD_THIRD_BOTTOM_BACKGROUND =
+  static const ONBOARD_THIRD_BOTTOM_BACKGROUND =
       "assets/images/onboardings/onboarding_third/3.svg";
   static const ONBOARD_FOURTH_BOTTOM_BACKGROUND =
       "assets/images/onboardings/onboarding_forth/4.svg";

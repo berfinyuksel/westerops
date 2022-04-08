@@ -79,9 +79,10 @@ class AppRouter {
 
         return MaterialPageRoute(
           builder: (_) => AddressDetailView(
-            title: args.title!,
-            address: args.description!,
-            district: args.district!,
+            title: args.title,
+            address: args.description,
+            district: args.district,
+            list: args.list,
           ),
         );
       case RouteConstant.ADDRESS_FROM_MAP_VIEW:
@@ -199,7 +200,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SmsVerify());
       case RouteConstant.REGISTER_VERIFY_VIEW:
         return MaterialPageRoute(builder: (_) => RegisterVerify());
-          case RouteConstant.CHANGE_PASSWORD_VERIFY:
+      case RouteConstant.CHANGE_PASSWORD_VERIFY:
         return MaterialPageRoute(builder: (_) => ChangePasswordVerify());
       case RouteConstant.VERIFY_INFORMATION:
         return MaterialPageRoute(builder: (_) => VerifyInformation());
