@@ -18,6 +18,7 @@ import '../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/scaffold/custom_scaffold.dart';
 import '../../widgets/text/locale_text.dart';
+import '../address_detail_view/string_arguments/string_arguments.dart';
 import '../surprise_pack_view/components/custom_alert_dialog.dart';
 import 'components/address_view_title.dart';
 import 'components/adress_list_tile.dart';
@@ -67,32 +68,56 @@ class _AddressViewState extends State<AddressView> {
       ),
       child: BlocBuilder<UserAddressCubit, GenericState>(
         builder: (context, state) {
-            if (state is GenericInitial) {
-              return Text(LocaleKeys.address_preparing);
-            } else if (state is GenericLoading) {
-              return Center(child: CustomCircularProgressIndicator());
-            } else if (state is GenericCompleted) {
-              List<Result> list = [];
-              for (var i = 0; i < state.response.length; i++) {
-                list.add(state.response[i]);
-              }
-              return list.length != 0
-                  ? ListView.builder(
-                      itemCount: list.length,
-                      itemBuilder: (context, index) {
-                        return Dismissible(
-                          direction: DismissDirection.endToStart,
-                          key: UniqueKey(),
-                          child: AddressListTile(
-                            trailing: Container(
+          if (state is GenericInitial) {
+            return Text(LocaleKeys.address_preparing);
+          } else if (state is GenericLoading) {
+            return Center(child: CustomCircularProgressIndicator());
+          } else if (state is GenericCompleted) {
+            List<Result> list = [];
+            for (var i = 0; i < state.response.length; i++) {
+              list.add(state.response[i]);
+            }
+            return list.length != 0
+                ? ListView.builder(
+                    itemCount: list.length,
+                    itemBuilder: (context, index) {
+                      return Dismissible(
+                        direction: DismissDirection.endToStart,
+                        key: UniqueKey(),
+                        child: AddressListTile(
+                          trailing:
+                              Row(mainAxisSize: MainAxisSize.min, children: [
+                            Container(
+                              height: double.infinity,
+                              width: 18.w,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context,
+                                      RouteConstant.ADDRESS_DETAIL_VIEW,
+                                      arguments: ScreenArguments(
+                                        title: "Adresi Düzenle",
+                                        // district: "selam",
+                                        // description: "sdfsd",
+                                        list: list[index],
+                                      ));
+                                },
+                                child: SvgPicture.asset(
+                                  ImageConstant.ADDRESS_EDIT_ICON,
+                                  fit: BoxFit.fitWidth,
+                                  color: AppColors.orangeColor,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 5.w),
+                            Container(
                               height: double.infinity,
                               width: 12.w,
                               child: GestureDetector(
                                 onTap: () {
                                   /*       Navigator.pushNamed(
-                                        context, RouteConstant.ADDRESS_UPDATE_VIEW,
-                                        arguments:
-                                            ScreenArguments(list: list[index])); */
+                                          context, RouteConstant.ADDRESS_UPDATE_VIEW,
+                                          arguments:
+                                              ScreenArguments(list: list[index])); */
                                 },
                                 child: boolList.length != 0
                                     ? boolList[index] == 1
@@ -104,74 +129,76 @@ class _AddressViewState extends State<AddressView> {
                                     : SizedBox(),
                               ),
                             ),
-                            onTap: () {
-                              setState(() {
-                                changeAddressActivation(
-                                    list[index].id!, index, list.length);
-                              });
-                            },
-                            title: list[index].name,
-                            subtitleBold: "${list[index].province}",
-                            address: "\n${list[index].address}",
-                            phoneNumber: "\n${list[index].phoneNumber}",
-                            description: "\n${list[index].description}",
-                          ),
-                          background: Container(
-                            color: AppColors.redColor,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 40.h, horizontal: 25.w),
-                              child: LocaleText(
-                                text: LocaleKeys
-                                    .my_notifications_delete_text_text,
-                                style: AppTextStyles.bodyTextStyle.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                                alignment: TextAlign.end,
-                              ),
+                          ]),
+                          onTap: () {
+                            setState(() {
+                              changeAddressActivation(
+                                  list[index].id!, index, list.length);
+                            });
+                          },
+                          title: list[index].name,
+                          subtitleBold: "${list[index].province}",
+                          address: "\n${list[index].address}",
+                          phoneNumber: "\n${list[index].phoneNumber}",
+                          description: "\n${list[index].description}",
+                        ),
+                        background: Container(
+                          color: AppColors.redColor,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 40.h, horizontal: 25.w),
+                            child: LocaleText(
+                              text:
+                                  LocaleKeys.my_notifications_delete_text_text,
+                              style: AppTextStyles.bodyTextStyle.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              alignment: TextAlign.end,
                             ),
                           ),
-                          confirmDismiss: (DismissDirection direction) {
-                            return showDialog(
-                              context: context,
-                              builder: (_) => CustomAlertDialog(
-                                  textMessage: LocaleKeys
-                                      .address_delete_alert_dialog_text,
-                                  buttonOneTitle:
-                                      LocaleKeys.payment_payment_cancel,
-                                  buttonTwoTittle:
-                                      LocaleKeys.address_address_approval,
-                                  imagePath: ImageConstant.SURPRISE_PACK_ALERT,
-                                  onPressedOne: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  onPressedTwo: () {
-                                    setState(() {
-                                      context
-                                          .read<AddressCubit>()
-                                          .deleteAddress(list[index].id);
-                                      Navigator.of(context).pushNamedAndRemoveUntil(
-          RouteConstant.CUSTOM_SCAFFOLD, (Route<dynamic> route) => false);
-                                      // Navigator.of(context).pop();
-                                    });
-                                  }),
-                            );
-                          },
-                        );
-                      })
-                  : Container(
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 20.w, top: 10.h),
-                        child: LocaleText(
-                          text: LocaleKeys.address_no_address,
-                          style: AppTextStyles.bodyTextStyle,
                         ),
+                        confirmDismiss: (DismissDirection direction) {
+                          return showDialog(
+                            context: context,
+                            builder: (_) => CustomAlertDialog(
+                                textMessage:
+                                    LocaleKeys.address_delete_alert_dialog_text,
+                                buttonOneTitle:
+                                    LocaleKeys.payment_payment_cancel,
+                                buttonTwoTittle:
+                                    LocaleKeys.address_address_approval,
+                                imagePath: ImageConstant.SURPRISE_PACK_ALERT,
+                                onPressedOne: () {
+                                  Navigator.of(context).pop();
+                                },
+                                onPressedTwo: () {
+                                  setState(() {
+                                    context
+                                        .read<AddressCubit>()
+                                        .deleteAddress(list[index].id);
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            RouteConstant.CUSTOM_SCAFFOLD,
+                                            (Route<dynamic> route) => false);
+                                    // Navigator.of(context).pop();
+                                  });
+                                }),
+                          );
+                        },
+                      );
+                    })
+                : Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20.w, top: 10.h),
+                      child: LocaleText(
+                        text: LocaleKeys.address_no_address,
+                        style: AppTextStyles.bodyTextStyle,
                       ),
-                    );
-            } else{
-              return Container(color: Colors.white);
-
-            }
+                    ),
+                  );
+          } else {
+            return Container(color: Colors.white);
+          }
         },
       ),
     );
