@@ -53,6 +53,7 @@ class AuthService {
       });
       sl<LoginStatusCubit>().loginStatus(response.statusCode);
       if (response.statusCode == 200) {
+        SharedPrefs.setSocialLogin(true);
         final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
         var authtokenList = AuthToken.fromJson(jsonBody);
         SharedPrefs.setToken(jsonBody['token']);

@@ -27,7 +27,7 @@ class FacebookSignInController with ChangeNotifier {
 
       SharedPrefs.setUserEmail(userData!["email"]);
       SharedPrefs.setUserName(userData!["name"]);
-   
+
       String json = '{"auth_token":"${accessToken.token.toString()}"}';
       final response = await http.post(
           Uri.parse("${UrlConstant.EN_URL}social_auth/facebook/"),
@@ -38,6 +38,7 @@ class FacebookSignInController with ChangeNotifier {
 
       sl<LoginStatusCubit>().loginStatus(response.statusCode);
       if (response.statusCode == 200) {
+        SharedPrefs.setSocialLogin(true);
         final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
         var authtokenList = AuthToken.fromJson(jsonBody);
         SharedPrefs.setToken(jsonBody['token']);

@@ -217,6 +217,7 @@ class _LoginViewState extends State<LoginView> {
           }
         }
         if (SharedPrefs.getIsLogined) {
+          SharedPrefs.setSocialLogin(false);
           Navigator.pushNamedAndRemoveUntil(context,
               RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
         }
@@ -413,6 +414,7 @@ class _LoginViewState extends State<LoginView> {
                   );
                 });
           } else {
+            SharedPrefs.setSocialLogin(false);
             Navigator.pushNamedAndRemoveUntil(context,
                 RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf'));
           }
