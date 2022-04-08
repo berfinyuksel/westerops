@@ -40,9 +40,6 @@ import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notificati
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/padding_values_cubit/near_me_padding_values.dart';
-import 'package:dongu_mobile/logic/cubits/padding_values_cubit/opportunity_padding_values.dart';
 import 'package:dongu_mobile/logic/cubits/payment_cubit/error_message.cubit.dart';
 import 'package:dongu_mobile/logic/cubits/payment_cubit/payment_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
@@ -57,6 +54,7 @@ import 'package:dongu_mobile/logic/cubits/swipe_route_cubit.dart/swipe_route_cub
 import 'package:dongu_mobile/logic/cubits/time_interval_cubit/time_interval_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_address_cubit/user_address_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_auth_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_email_control_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../logic/cubits/login_status_cubit/login_status_cubit.dart';
@@ -70,12 +68,9 @@ class BlocProviderRepository {
     BlocProvider<CleanButton>(create: (_) => CleanButton()),
     BlocProvider<SwipeRouteButton>(create: (_) => SwipeRouteButton()),
     BlocProvider<NotificationsCounterCubit>(create: (_) => NotificationsCounterCubit()),
-    BlocProvider<NearMePaddingCubit>(create: (_) => NearMePaddingCubit()),
     BlocProvider<IyzicoCardCubit>(create: (_) => IyzicoCardCubit(IyzicoCardRepository())),
     BlocProvider<IyzicoOrderCreateWith3DCubit>(
         create: (_) => IyzicoOrderCreateWith3DCubit(IyzicoCreateOrderWith3DRepository())),
-    BlocProvider<OpportunityPaddingCubit>(create: (_) => OpportunityPaddingCubit()),
-    BlocProvider<CategoryPaddingCubit>(create: (_) => CategoryPaddingCubit()),
     BlocProvider<OrderBarCubit>(create: (_) => OrderBarCubit()),
     BlocProvider<SocialLoginCubit>(create: (_) => SocialLoginCubit()),
     BlocProvider<SumPriceOrderCubit>(create: (_) => SumPriceOrderCubit()),
@@ -106,6 +101,7 @@ class BlocProviderRepository {
     BlocProvider<FiltersManagerCubit>(create: (context) => FiltersManagerCubit(SampleFiltersRepository())),
     BlocProvider<LoginStatusCubit>(create: (context) => sl<LoginStatusCubit>()),
     BlocProvider<ErrorMessageCubit>(create: (context) => ErrorMessageCubit()),
+    BlocProvider<UserEmailControlCubit>(create: (context) => UserEmailControlCubit()),
 
 
   ];

@@ -1,8 +1,8 @@
 import 'package:dongu_mobile/logic/cubits/category_filter_cubit/category_filter_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/padding_values_cubit/category_padding_values_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../data/model/category_name.dart';
 import '../../../../data/services/locator.dart';
@@ -39,19 +39,16 @@ class _CustomHorizontalListCategoryState extends State<CustomHorizontalListCateg
             int radius = 38;
             double sumOfRadius = 0;
             return ListView.separated(
+              padding: EdgeInsets.only(
+                left: 26.w,
+                right: 26.w,
+              ),
               itemCount: results.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 sumOfRadius += (radius * 2) + context.dynamicWidht(0.04);
-
-                if (index + 1 == results.length) {
-                  context
-                      .read<CategoryPaddingCubit>()
-                      .setPadding(sumOfRadius - context.dynamicWidht(1) - context.dynamicWidht(0.04));
-                }
                 return GestureDetector(
                   onTap: () {
-                   
                     print(results[index].id!);
                     Navigator.of(context).pushNamed(
                       RouteConstant.CATEGORIES_VIEW,
