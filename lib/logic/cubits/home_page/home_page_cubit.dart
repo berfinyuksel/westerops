@@ -9,6 +9,7 @@ import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../data/repositories/update_permission_for_com_repository.dart';
 import '../order_cubit/order_received_cubit.dart';
 
 part 'home_page_state.dart';
@@ -22,6 +23,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   init(TextEditingController controller) async {
     emit(HomePageLoading());
     await sl<SearchStoreCubit>().getSearchStore();
+    userSocialAuthCheck();
     nearMeScrollController = ScrollController();
     opportunitiesScrollController = ScrollController();
     LocationService.getCurrentLocation();
@@ -32,6 +34,12 @@ class HomePageCubit extends Cubit<HomePageState> {
     SharedPrefs.setBoolPaymentCardControl(false);
     addControllerListener(controller);
     emit(HomePageCompleted());
+  }
+
+  userSocialAuthCheck() async {
+    if (SharedPrefs.getIsLogined) {
+      await sl<UpdatePermissonRepository>().userSocialControl();
+    }
   }
 
   void addControllerListener(TextEditingController controller) {
