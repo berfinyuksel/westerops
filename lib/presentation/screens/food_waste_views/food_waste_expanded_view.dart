@@ -83,38 +83,34 @@ class FoodWasteExpandedView extends StatelessWidget {
           SizedBox(
             height: 20.h,
           ),
-          Center(
-            child: Stack(children: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
               SvgPicture.asset(
                 ImageConstant.FOOD_WASTE_EXPANDED_IMAGE_3,
                 height: 145.h,
               ),
-              Positioned(
-                left: 0,
-                right: 0,
-                top: 40.h,
-                child: Center(
-                  child: AutoSizeText.rich(
-                    TextSpan(children: [
-                      TextSpan(
-                        text: "%33'ü\n",
-                        style: AppTextStyles.bodyBoldTextStyle.copyWith(fontSize: 32.sp, fontWeight: FontWeight.w700, color: Colors.black),
+              AutoSizeText.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "%33'ü\n",
+                      style: AppTextStyles.bodyBoldTextStyle.copyWith(fontSize: 32.sp, fontWeight: FontWeight.w700, color: Colors.black),
+                    ),
+                    TextSpan(
+                      text: "İsraf",
+                      style: GoogleFonts.montserrat(
+                        textStyle: TextStyle(color: Colors.black),
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.w300,
+                        fontStyle: FontStyle.normal,
                       ),
-                      TextSpan(
-                        text: "İsraf",
-                        style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(color: Colors.black),
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.w300,
-                          fontStyle: FontStyle.normal,
-                        ),
-                      ),
-                    ]),
-                    textAlign: TextAlign.center,
-                  ),
+                    ),
+                  ],
                 ),
+                textAlign: TextAlign.center,
               ),
-            ]),
+            ],
           ),
           SizedBox(
             height: 10.h,
