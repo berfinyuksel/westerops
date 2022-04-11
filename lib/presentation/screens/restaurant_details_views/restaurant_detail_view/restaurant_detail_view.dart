@@ -18,7 +18,8 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      showBackIcon: true,  //title: LocaleKeys.restaurant_detail_app_bar_title,
+      showBackIcon: true,
+   //   backIconOnpress: false,  //title: LocaleKeys.restaurant_detail_app_bar_title,
         body: ListView(
       children: [
         Stack(

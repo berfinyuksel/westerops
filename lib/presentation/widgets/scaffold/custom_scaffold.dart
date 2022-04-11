@@ -1,6 +1,7 @@
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
+import '../../../utils/constants/route_constant.dart';
 import '../../screens/my_notifications_view/my_notifications_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../screens/cart_view/cart_view.dart';
@@ -26,13 +27,15 @@ class CustomScaffold extends StatefulWidget {
   bool? isNavBar;
   bool showBackIcon;
   bool resizeToAvoidBottomInset;
+  bool backIconOnpress;
   Future<bool> Function()? isPopScope;
   CustomScaffold(
       {Key? key,
       this.title,
+      this.backIconOnpress = true,
       this.body,
       this.isNavBar,
-      this.showBackIcon =false,
+      this.showBackIcon = false,
       this.resizeToAvoidBottomInset = false,
       this.isDrawer,
       this.isPopScope})
@@ -80,14 +83,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             ? widget.title == null
                 ? _titles.elementAt(_selectedIndex) == null
                     ? null
-                    : buildAppBarWithTitleList()
+                    : buildAppBarWithTitleList(false)
                 : buildAppBarWithInputTitle()
             : widget.isDrawer!
                 ? buildAppBarForDrawer()
                 : widget.title == null
                     ? _titles.elementAt(_selectedIndex) == null
                         ? null
-                        : buildAppBarWithTitleList()
+                        : buildAppBarWithTitleList(false)
                     : buildAppBarWithInputTitle(),
         endDrawer: widget.isDrawer == null
             ? CustomDrawer()
@@ -113,7 +116,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       iconTheme: IconThemeData(color: AppColors.greenColor, size: 20.0),
       elevation: 0,
       bottomOpacity: 0,
-      leading:IconButton(
+      leading: IconButton(
         icon: SvgPicture.asset(ImageConstant.BACK_ICON),
         onPressed: () => Navigator.of(context).pop(),
       ),
@@ -137,7 +140,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       bottomOpacity: 0,
       leading: IconButton(
         icon: SvgPicture.asset(ImageConstant.BACK_ICON),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
       ),
       title: LocaleText(
         text: widget.title!,
@@ -147,14 +152,17 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     );
   }
 
-  AppBar buildAppBarWithTitleList() {
+  AppBar buildAppBarWithTitleList(bool backIconOnpress) {
     return AppBar(
       elevation: 0,
       bottomOpacity: 0,
-      leading: widget.showBackIcon ?IconButton(
-        icon: SvgPicture.asset(ImageConstant.BACK_ICON),
-        onPressed: () => Navigator.of(context).pop(),
-      ) : null,
+      leading: widget.showBackIcon
+          ? IconButton(
+              icon: SvgPicture.asset(ImageConstant.BACK_ICON),
+              onPressed: backIconOnpress ? () => Navigator.of(context).pop() : () =>       Navigator.pushNamedAndRemoveUntil(
+          context, RouteConstant.CUSTOM_SCAFFOLD, ModalRoute.withName('/scaf')),
+            )
+          : null,
       actions: [
         Padding(
           padding: EdgeInsets.only(right: context.dynamicWidht(0.03)),
@@ -177,8 +185,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
               text: _titles.elementAt(_selectedIndex)!,
               style: AppTextStyles.appBarTitleStyle,
             )
-          : 
-          SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
+          : SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
       // title: SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
       centerTitle: true,
     );
