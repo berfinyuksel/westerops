@@ -4,6 +4,10 @@
 <dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>https</string>
+		<string>http</string>
+		<string>tel</string>
+		<string>mailto</string>
     	<string>comgooglemaps</string>
     	<string>baidumap</string>
     	<string>iosamap</string>
@@ -58,13 +62,6 @@
 	<string>1062589017874599</string>
 	<key>FacebookDisplayName</key>
 	<string>Dongu</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>https</string>
-		<string>http</string>
-		<string>tel</string>
-		<string>mailto</string>
-	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

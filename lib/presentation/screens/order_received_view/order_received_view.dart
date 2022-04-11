@@ -301,7 +301,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           }),
           GestureDetector(
             onTap: () {
-              openMap(orderInfo);
+              openMapsSheet(orderInfo);
             },
             child: LocaleText(
               text: titleRight,
@@ -520,17 +520,42 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     return TimerCountDown(hour: hour, minute: minute, second: second);
   }
 
-  openMap(OrderReceived orderInfo) async {
-    final availableMaps = await MapLauncher.installedMaps;
-    print(availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
-
-    await availableMaps.first.showMarker(
-      coords: Coords(
+  openMapsSheet(OrderReceived orderInfo) async {
+    try {
+      final coords = Coords(
         orderInfo.boxes!.first.store!.latitude!,
         orderInfo.boxes!.first.store!.longitude!,
-      ),
-      title: orderInfo.boxes!.first.store!.address!,
-    );
+      );
+      final title = orderInfo.boxes!.first.store!.address!;
+      final availableMaps = await MapLauncher.installedMaps;
+
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: Wrap(
+                children: <Widget>[
+                  for (var map in availableMaps)
+                    ListTile(
+                      onTap: () => map.showMarker(
+                        coords: coords,
+                        title: title,
+                      ),
+                      title: Text(map.mapName),
+                      leading: SvgPicture.asset(
+                        map.icon,
+                        height: 30.0,
+                        width: 30.0,
+                      ),
+                    ),
+                ],
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 /* 
   int buildHourForCountDown(DateTime dateTime, DateTime? endDate) {
