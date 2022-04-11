@@ -17,6 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 import '../../../data/model/order_received.dart';
 import '../../../data/services/local_notifications/local_notifications_service/local_notifications_service.dart';
@@ -46,8 +47,6 @@ class OrderReceivedView extends StatefulWidget {
 class _OrderReceivedViewState extends State<OrderReceivedView> {
   late Timer timer;
   int durationFinal = 10;
-
-  bool isShowOnMap = false;
   bool isShowBottomInfo = false;
 
   double latitude = 0;
@@ -116,13 +115,9 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
 
         if (orderInfo.boxes != null &&
             surprisePackageStatus == false &&
-            DateTime.now().toLocal().isBefore(
-                orderInfo.boxes!.first.saleDay!.startDate!.toLocal())) {
-          NotificationService().initSurprisePackage(
-              orderInfo.refCode.toString(),
-              orderInfo.boxes!.first.saleDay!.startDate!
-                  .toLocal()
-                  .subtract(Duration(hours: 2)));
+            DateTime.now().toLocal().isBefore(orderInfo.boxes!.first.saleDay!.startDate!.toLocal())) {
+          NotificationService()
+              .initSurprisePackage(orderInfo.refCode.toString(), orderInfo.boxes!.first.saleDay!.startDate!.toLocal().subtract(Duration(hours: 2)));
         }
 
         return orderInfo.id != null
@@ -141,9 +136,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 26.w),
-                    child: LocaleText(
-                        text: LocaleKeys.order_received_order_summary,
-                        style: AppTextStyles.bodyTitleStyle),
+                    child: LocaleText(text: LocaleKeys.order_received_order_summary, style: AppTextStyles.bodyTitleStyle),
                   ),
                   SizedBox(
                     height: 10.h,
@@ -158,107 +151,23 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                     context,
                     LocaleKeys.order_received_delivery_address,
                     LocaleKeys.payment_address_to_address,
-                    isShowOnMap
-                        ? LocaleKeys.order_received_order_summary
-                        : LocaleKeys.order_received_show_on_map,
+                    LocaleKeys.order_received_show_on_map,
                     orderInfo,
                   ),
                   SizedBox(
                     height: context.dynamicHeight(0.01),
                   ),
-                  Visibility(
-                    visible: !isShowOnMap,
-                    child: GetItAddressListTile(
-                      userAddress: orderInfo.address!.address,
-                      userAddressName: orderInfo.address!.name,
-                      restaurantName: orderInfo.boxes!.length != 0
-                          ? orderInfo.boxes![0].store!.name
-                          : "",
-                      address: orderInfo.boxes!.length != 0
-                          ? orderInfo.boxes![0].store!.address
-                          : "",
-                    ),
-                  ),
-                  Visibility(
-                    visible: isShowOnMap,
-                    child: Expanded(
-                      child: Container(
-                        height: context.dynamicHeight(0.54),
-                        width: double.infinity,
-                        child: Stack(
-                          children: [
-                            Stack(
-                              alignment: Alignment(0.81, 0.88),
-                              children: [
-                                GoogleMap(
-                                  myLocationEnabled: true,
-                                  myLocationButtonEnabled: false,
-                                  initialCameraPosition: CameraPosition(
-                                    target: LatLng(
-                                        orderInfo.boxes!.first.store!.latitude!,
-                                        orderInfo
-                                            .boxes!.first.store!.longitude!),
-                                    zoom: 17.0,
-                                  ),
-                                  onMapCreated:
-                                      (GoogleMapController controller) {
-                                    _mapController.complete(controller);
-                                  },
-                                  mapType: MapType.normal,
-                                  markers: Set<Marker>.of(markers.values),
-                                ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    final GoogleMapController controller =
-                                        await _mapController.future;
-                                    setState(() {
-                                      latitude = LocationService.latitude;
-                                      longitude = LocationService.longitude;
-
-                                      controller.animateCamera(
-                                          CameraUpdate.newCameraPosition(
-                                        CameraPosition(
-                                          target: LatLng(latitude, longitude),
-                                          zoom: 17.0,
-                                        ),
-                                      ));
-                                    });
-                                  },
-                                  child: SvgPicture.asset(
-                                      ImageConstant.COMMONS_MY_LOCATION_BUTTON),
-                                ),
-                                Visibility(
-                                    visible: isShowBottomInfo,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            isShowBottomInfo = false;
-                                          });
-                                        },
-                                        child: Container(
-                                            color: Colors.black
-                                                .withOpacity(0.2)))),
-                              ],
-                            ),
-                            Visibility(
-                              visible: isShowBottomInfo,
-                              child: buildBottomInfo(context, orderInfo),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  GetItAddressListTile(
+                    userAddress: orderInfo.address!.address,
+                    userAddressName: orderInfo.address!.name,
+                    restaurantName: orderInfo.boxes!.length != 0 ? orderInfo.boxes![0].store!.name : "",
+                    address: orderInfo.boxes!.length != 0 ? orderInfo.boxes![0].store!.address : "",
                   ),
                   SizedBox(
                     height: context.dynamicHeight(0.04),
                   ),
-                  buildButton(
-                      context,
-                      LocaleKeys.order_received_button_1,
-                      Colors.transparent,
-                      AppColors.greenColor,
-                      () => Navigator.pushNamed(
-                          context, RouteConstant.PAST_ORDER_VIEW)),
+                  buildButton(context, LocaleKeys.order_received_button_1, Colors.transparent, AppColors.greenColor,
+                      () => Navigator.pushNamed(context, RouteConstant.PAST_ORDER_VIEW)),
                   SizedBox(
                     height: context.dynamicHeight(0.02),
                   ),
@@ -268,8 +177,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                     AppColors.greenColor,
                     Colors.white,
                     () {
-                      Navigator.pushNamed(
-                          context, RouteConstant.CUSTOM_SCAFFOLD);
+                      Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
                       SharedPrefs.setDeleteOrder(false);
                     },
                   ),
@@ -281,14 +189,12 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             : Text("${orderInfo.id} order endpointi boş");
       } else {
         final error = state as GenericError;
-        return Center(
-            child: Text("${error.message}\n${error.statusCode} aaaa"));
+        return Center(child: Text("${error.message}\n${error.statusCode} aaaa"));
       }
     });
   }
 
-  Container buildOrderNumberContainer(
-      BuildContext context, OrderReceived orderInfo) {
+  Container buildOrderNumberContainer(BuildContext context, OrderReceived orderInfo) {
     return Container(
       width: double.infinity,
       height: 280.h,
@@ -300,8 +206,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           Spacer(flex: 4),
           LocaleText(
             text: LocaleKeys.order_received_headline,
-            style: AppTextStyles.appBarTitleStyle.copyWith(
-                fontWeight: FontWeight.w400, color: AppColors.orangeColor),
+            style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w400, color: AppColors.orangeColor),
             alignment: TextAlign.center,
           ),
           Spacer(flex: 2),
@@ -347,9 +252,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
                 Spacer(flex: 5),
                 SvgPicture.asset(ImageConstant.ORDER_RECEIVED_CLOCK_ICON),
                 Spacer(flex: 1),
-                LocaleText(
-                    text: LocaleKeys.order_received_count_down,
-                    style: AppTextStyles.bodyTitleStyle),
+                LocaleText(text: LocaleKeys.order_received_count_down, style: AppTextStyles.bodyTitleStyle),
                 Spacer(flex: 1),
                 countdown(orderInfo),
                 Spacer(flex: 5),
@@ -362,8 +265,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           );
   }
 
-  Padding buildButton(BuildContext context, String title, Color color,
-      Color textColor, VoidCallback onPressedd) {
+  Padding buildButton(BuildContext context, String title, Color color, Color textColor, VoidCallback onPressedd) {
     return Padding(
       padding: EdgeInsets.only(
         left: 28.w,
@@ -380,8 +282,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     );
   }
 
-  Padding buildRowTitleLeftRight(BuildContext context, String titleLeft,
-      String titleCourier, String titleRight, OrderReceived orderInfo) {
+  Padding buildRowTitleLeftRight(BuildContext context, String titleLeft, String titleCourier, String titleRight, OrderReceived orderInfo) {
     return Padding(
       padding: EdgeInsets.only(
         left: 28.w,
@@ -393,7 +294,6 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         children: [
           Builder(builder: (context) {
             final PaymentState state = context.watch<PaymentCubit>().state;
-
             return LocaleText(
               text: state.isGetIt! ? titleLeft : titleCourier,
               style: AppTextStyles.bodyTitleStyle,
@@ -401,11 +301,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
           }),
           GestureDetector(
             onTap: () {
-              setState(() {
-                isShowOnMap = !isShowOnMap;
-                _mapController = Completer<GoogleMapController>();
-                setCustomMarker(orderInfo);
-              });
+              openMap(orderInfo);
             },
             child: LocaleText(
               text: titleRight,
@@ -426,8 +322,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       shadowColor: Colors.transparent,
       leading: IconButton(
         icon: SvgPicture.asset(ImageConstant.COMMONS_CLOSE_ICON),
-        onPressed: () =>
-            Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
+        onPressed: () => Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD),
       ),
       title: SvgPicture.asset(ImageConstant.COMMONS_APP_BAR_LOGO),
       centerTitle: true,
@@ -435,28 +330,22 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
   }
 
   void setCustomMarker(OrderReceived orderInfo) async {
-    markerIcon =
-        await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
-    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(
-        ImageConstant.COMMONS_RESTAURANT_MARKER);
-    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(
-        ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
+    markerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_MAP_MARKER);
+    restaurantMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_MARKER);
+    restaurantSoldoutMarkerIcon = await _bitmapDescriptorFromSvgAsset(ImageConstant.COMMONS_RESTAURANT_SOLDOUT_MARKER);
     getLocation(orderInfo);
   }
 
-  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(
-      String assetName) async {
+  Future<BitmapDescriptor> _bitmapDescriptorFromSvgAsset(String assetName) async {
     // Read SVG file as String
-    String svgString =
-        await DefaultAssetBundle.of(context).loadString(assetName);
+    String svgString = await DefaultAssetBundle.of(context).loadString(assetName);
     // Create DrawableRoot from SVG String
     DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, "");
 
     // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
     MediaQueryData queryData = MediaQuery.of(context);
     double devicePixelRatio = queryData.devicePixelRatio;
-    double width =
-        64 * devicePixelRatio; // where 32 is your SVG's original width
+    double width = 64 * devicePixelRatio; // where 32 is your SVG's original width
     double height = 64 * devicePixelRatio; // same thing
 
     // Convert to ui.Picture
@@ -503,8 +392,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
         },
         icon: restaurantMarkerIcon,
         markerId: MarkerId(orderInfo.refCode!.toString()),
-        position: LatLng(orderInfo.boxes!.last.store!.latitude!,
-            orderInfo.boxes!.last.store!.longitude!),
+        position: LatLng(orderInfo.boxes!.last.store!.latitude!, orderInfo.boxes!.last.store!.longitude!),
       );
       markers[MarkerId(orderInfo.refCode!.toString())] = restMarker;
 /*       for (int i = 1; i < 3; i++) {
@@ -565,21 +453,15 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
             child: Container(
               width: double.infinity,
               height: context.dynamicHeight(0.176),
-              padding:
-                  EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
+              padding: EdgeInsets.symmetric(vertical: context.dynamicHeight(0.02)),
               color: Colors.white,
               child: RestaurantInfoListTile(
-                minDiscountedOrderPrice: chosenRestaurant
-                    .first.packageSettings!.minDiscountedOrderPrice,
-                minOrderPrice:
-                    chosenRestaurant.first.packageSettings!.minOrderPrice,
+                minDiscountedOrderPrice: chosenRestaurant.first.packageSettings!.minDiscountedOrderPrice,
+                minOrderPrice: chosenRestaurant.first.packageSettings!.minOrderPrice,
                 deliveryType: int.parse(orderInfo.deliveryType!),
                 restaurantName: orderInfo.boxes!.first.store!.name,
-                distance: Haversine.distance(
-                        orderInfo.boxes!.last.store!.latitude!,
-                        orderInfo.boxes!.last.store!.longitude!,
-                        LocationService.latitude,
-                        LocationService.longitude)
+                distance: Haversine.distance(orderInfo.boxes!.last.store!.latitude!, orderInfo.boxes!.last.store!.longitude!,
+                        LocationService.latitude, LocationService.longitude)
                     .toStringAsFixed(2),
                 availableTime:
                     '${orderInfo.boxes!.last.saleDay!.startDate!.hour}:${orderInfo.boxes!.last.saleDay!.startDate!.minute}0 - ${orderInfo.boxes!.last.saleDay!.endDate!.hour}:${orderInfo.boxes!.last.saleDay!.endDate!.minute}0',
@@ -611,8 +493,7 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     int minuteOfitem = (durationFinal - (hourOfitem * 60 * 60)) ~/ 60;
     results.add(minuteOfitem);
 
-    int secondOfitem =
-        (durationFinal - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
+    int secondOfitem = (durationFinal - (minuteOfitem * 60) - (hourOfitem * 60 * 60));
     results.add(secondOfitem);
 
     return results;
@@ -622,17 +503,13 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
     int hourOfItem = dateTime.hour;
     int minuteOfitem = dateTime.minute;
     int secondsOfitem = dateTime.second;
-    int durationOfitems =
-        ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
+    int durationOfitems = ((hourOfItem * 60 * 60) + (minuteOfitem * 60) + (secondsOfitem));
     return durationOfitems;
   }
 
   Widget countdown(OrderReceived orderInfo) {
     List<int> itemsOfCountDown = buildDurationForCountdown(
-        DateTime.now(),
-        orderInfo.boxes!.isNotEmpty
-            ? orderInfo.boxes!.first.saleDay!.endDate!.toLocal()
-            : orderInfo.buyingTime!.toLocal());
+        DateTime.now(), orderInfo.boxes!.isNotEmpty ? orderInfo.boxes!.first.saleDay!.endDate!.toLocal() : orderInfo.buyingTime!.toLocal());
     int hour = itemsOfCountDown[0];
     int minute = itemsOfCountDown[1];
     int second = itemsOfCountDown[2];
@@ -641,6 +518,19 @@ class _OrderReceivedViewState extends State<OrderReceivedView> {
       SharedPrefs.setOrderBar(false);
     }
     return TimerCountDown(hour: hour, minute: minute, second: second);
+  }
+
+  openMap(OrderReceived orderInfo) async {
+    final availableMaps = await MapLauncher.installedMaps;
+    print(availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
+
+    await availableMaps.first.showMarker(
+      coords: Coords(
+        orderInfo.boxes!.first.store!.latitude!,
+        orderInfo.boxes!.first.store!.longitude!,
+      ),
+      title: orderInfo.boxes!.first.store!.address!,
+    );
   }
 /* 
   int buildHourForCountDown(DateTime dateTime, DateTime? endDate) {
