@@ -19,6 +19,7 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       showBackIcon: true,  //title: LocaleKeys.restaurant_detail_app_bar_title,
+      isNavBar: false,
         body: ListView(
       children: [
         Stack(
