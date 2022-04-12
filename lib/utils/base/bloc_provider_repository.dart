@@ -42,6 +42,7 @@ import 'package:dongu_mobile/logic/cubits/order_cubit/order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_cubit/order_received_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/payment_cubit/error_message.cubit.dart';
 import 'package:dongu_mobile/logic/cubits/payment_cubit/payment_cubit.dart';
+import 'package:dongu_mobile/logic/cubits/scaffold_cubit/scaffold_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_cubit/search_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_location_cubit/search_location_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/search_store_cubit/search_store_cubit.dart';
@@ -102,6 +103,7 @@ class BlocProviderRepository {
     BlocProvider<LoginStatusCubit>(create: (context) => sl<LoginStatusCubit>()),
     BlocProvider<ErrorMessageCubit>(create: (context) => ErrorMessageCubit()),
     BlocProvider<UserEmailControlCubit>(create: (context) => UserEmailControlCubit()),
+    BlocProvider<ScaffoldCubit>(create: (context) => ScaffoldCubit()),
 
 
   ];
