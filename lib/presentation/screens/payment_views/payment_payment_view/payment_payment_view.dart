@@ -51,17 +51,17 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     '  11',
     '  12'
   ];
-  List<String> years = <String>[
-    '  2021',
-    '  2022',
-    '  2023',
-    '  2024',
-    '  2025',
-    '  2026',
-    '  2027',
-    '  2028',
-    '  2029',
-    '  2030'
+  List<int> years = <int>[
+    DateTime.now().year,
+    (DateTime.now().year + 1),
+    (DateTime.now().year + 2),
+    (DateTime.now().year + 3),
+    (DateTime.now().year + 4),
+    (DateTime.now().year + 5),
+    (DateTime.now().year + 6),
+    (DateTime.now().year + 7),
+    (DateTime.now().year + 8),
+    (DateTime.now().year + 9),
   ];
   bool checkboxAddCardValue = false;
   bool threeDSecure = false;
@@ -368,7 +368,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
     );
   }
 
-  Container buildYearDropDown(BuildContext context, List<String> items) {
+  Container buildYearDropDown(BuildContext context, List<int> items) {
     return Container(
       height: 56.h,
       width: 95.w,
@@ -381,27 +381,30 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
           width: 2.w,
         ),
       ),
-      child: DropdownButton<String>(
-        underline: SizedBox(),
-        hint: Padding(
-          padding: EdgeInsets.fromLTRB(19.w, 0, 15.w, 0),
-          child: LocaleText(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5.w),
+        child: DropdownButton<String>(
+          underline: SizedBox(),
+          hint: LocaleText(
             text: LocaleKeys.payment_payment_card_info_year,
           ),
+          value: yearValue,
+          onChanged: (value) {
+            setState(() {
+              this.yearValue = value;
+              SharedPrefs.setExpireYear(value.toString().substring(4, 6));
+            });
+          },
+          items: years.map((int item) {
+            return DropdownMenuItem(
+              onTap: () {
+                setState(() {});
+              },
+              child: Text('$item'),
+              value: '$item',
+            );
+          }).toList(),
         ),
-        value: yearValue,
-        onChanged: (value) {
-          setState(() {
-            this.yearValue = value;
-            SharedPrefs.setExpireYear(value.toString().substring(4, 6));
-          });
-        },
-        items: years.map((String item) {
-          return DropdownMenuItem(
-            child: Text(item),
-            value: item,
-          );
-        }).toList(),
       ),
     );
   }
