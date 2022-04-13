@@ -67,7 +67,7 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+		<false/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Turning on location services allows us to save your address, show you nearby restaurants and help you watch live location of your deliveries.</string>
