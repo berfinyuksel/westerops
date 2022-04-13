@@ -63,8 +63,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               child: Visibility(
                   visible: isRulesVisible,
                   child: ClippedPasswordRules(
-                    child:
-                        PasswordRules(passwordController: passwordController),
+                    child: PasswordRules(
+                        passwordController: newPasswordController),
                   )),
             ),
           ],
@@ -252,7 +252,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     newPasswordAgainController.text &&
                 passwordController.text != newPasswordController.text &&
                 newPasswordController.text == newPasswordAgainController.text) {
-             Navigator.popAndPushNamed(
+              Navigator.popAndPushNamed(
                   context, RouteConstant.CHANGE_PASSWORD_VERIFY);
             } else {
               showDialog(
