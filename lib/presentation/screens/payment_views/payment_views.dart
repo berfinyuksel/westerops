@@ -50,10 +50,13 @@ class _PaymentViewsState extends State<PaymentViews>
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: buildAppBar(context),
-      body: Builder(builder: (context) {
-        final PaymentState state = context.watch<PaymentCubit>().state;
-        return buildBody(context, state);
-      }),
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Builder(builder: (context) {
+          final PaymentState state = context.watch<PaymentCubit>().state;
+          return buildBody(context, state);
+        }),
+      ),
     );
   }
 
@@ -603,11 +606,11 @@ class _PaymentViewsState extends State<PaymentViews>
                       } else {
                         print("ELSE");
                         if (SharedPrefs.getThreeDBool) {
-                        print("606");
+                          print("606");
 
                           buildWith3DPayment(context);
                         } else {
-                        print("610");
+                          print("610");
                           buildWithout3DPayment(context);
                         }
                       }
@@ -660,7 +663,7 @@ class _PaymentViewsState extends State<PaymentViews>
           cvc: SharedPrefs.getCVC,
           ip: SharedPrefs.getIpV4,
         );
-        
+
     context
         .read<StoreCourierCubit>()
         .updateCourierHours(SharedPrefs.getCourierHourId);

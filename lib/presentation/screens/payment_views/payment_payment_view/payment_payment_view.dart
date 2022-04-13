@@ -415,12 +415,14 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       child: Container(
         color: Colors.white,
         child: TextFormField(
+          textInputAction: TextInputAction.next,
+          keyboardType: controller == cardController
+              ? TextInputType.number
+              : TextInputType.text,
           inputFormatters: [
-            /* controller == cvvController || controller == cardController
-                ? FilteringTextInputFormatter.digitsOnly
-                : FilteringTextInputFormatter.singleLineFormatter, */
-            FilteringTextInputFormatter.singleLineFormatter,
-            LengthLimitingTextInputFormatter(16),
+            controller == cardController
+                ? LengthLimitingTextInputFormatter(16)
+                : FilteringTextInputFormatter.singleLineFormatter,
           ],
           cursorColor: AppColors.cursorColor,
           style:
@@ -454,6 +456,7 @@ class _PaymentPaymentViewState extends State<PaymentPaymentView> {
       color: Colors.white,
       child: TextFormField(
         keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.next,
         inputFormatters: [
           LengthLimitingTextInputFormatter(3),
         ],
