@@ -65,14 +65,17 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider<SearchStoreCubit>(
+          /*  BlocProvider<SearchStoreCubit>(
             create: (BuildContext context) =>
                 sl<SearchStoreCubit>()..getSearchStore(),
-          ),
-          BlocProvider<SearchStoreCubit>(
+          ), */
+          /* BlocProvider<SearchStoreCubit>(
             create: (BuildContext context) =>
                 sl<SearchStoreCubit>()..getSearchStoreAddress(),
-          ),
+          ), */
+          BlocProvider.value(value: sl<SearchStoreCubit>()..getSearchStore()),
+          BlocProvider.value(
+              value: sl<SearchStoreCubit>()..getSearchStoreAddress()),
           BlocProvider.value(value: sl<AddressCubit>()..getActiveAddress()),
         ],
         child: BlocBuilder<SearchStoreCubit, GenericState>(
