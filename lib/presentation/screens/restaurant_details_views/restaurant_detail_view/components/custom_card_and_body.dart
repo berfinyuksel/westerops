@@ -699,7 +699,52 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody> with SingleTicker
           ),
         ),
       );
-    } else {
+    }else if (statusCode == StatusCode.noFullName) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          content: Container(
+            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+            width: context.dynamicWidht(0.87),
+            height: context.dynamicHeight(0.29),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18.0),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Spacer(flex: 8),
+                SvgPicture.asset(
+                  ImageConstant.SURPRISE_PACK,
+                  height: context.dynamicHeight(0.134),
+                ),
+                SizedBox(height: 10.h),
+                LocaleText(
+                  text:"Sipariş için isim ve soyisim girilmelidir.",
+                  style: AppTextStyles.bodyBoldTextStyle,
+                  alignment: TextAlign.center,
+                ),
+                Spacer(flex: 35),
+                CustomButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.pushNamed(context, RouteConstant.MY_INFORMATION_VIEW);
+                  },
+                  width: context.dynamicWidht(0.35),
+                  color: AppColors.greenColor,
+                  textColor: Colors.white,
+                  borderColor: AppColors.greenColor,
+                  title: LocaleKeys.restaurant_detail_alert_dialog_text_2,
+                ),
+                Spacer(flex: 20),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    else {
       setState(() {});
       switch (statusCode) {
         case StatusCode.success:

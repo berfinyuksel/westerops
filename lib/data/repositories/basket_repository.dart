@@ -4,7 +4,7 @@ import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:http/http.dart' as http;
 
-enum StatusCode { success, error, unauthecticated, noAddress }
+enum StatusCode { success, error, unauthecticated, noAddress, noFullName }
 
 class BasketRepository {
   Future<StatusCode> addToBasket(
@@ -24,6 +24,8 @@ class BasketRepository {
     switch (response.statusCode) {
       case 200:
         return StatusCode.success;
+      case 400:
+        return StatusCode.noFullName;
       case 401:
         return StatusCode.unauthecticated;
       case 406:
