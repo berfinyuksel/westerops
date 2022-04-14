@@ -1,5 +1,5 @@
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
-import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +15,6 @@ import '../../../logic/cubits/order_cubit/order_cubit.dart';
 import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../../../logic/cubits/store_boxes_cubit/store_boxes_cubit.dart';
 import '../../../logic/cubits/store_courier_hours_cubit/store_courier_hours_cubit.dart';
-import '../../../logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
 import '../../../utils/extensions/context_extension.dart';
@@ -43,21 +42,11 @@ class _CartViewState extends State<CartView> {
   List<BoxOrder> itemList = [];
 
   @override
-  void initState() {
-    super.initState();
-    // context.read<OrderCubit>().getBasket();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<OrderCubit>(
           create: (BuildContext context) => sl<OrderCubit>()..getBasket(),
-        ),
-        BlocProvider<SearchStoreCubit>(
-          create: (BuildContext context) =>
-              sl<SearchStoreCubit>()..getSearchStore(),
         ),
       ],
       child: buildBuilder(),
@@ -93,8 +82,8 @@ class _CartViewState extends State<CartView> {
         }
         totalPayPrice();
         if (itemList.length == 0) {
-          context.read<SumOldPriceOrderCubit>().clearOldPrice();
-          context.read<SumPriceOrderCubit>().clearPrice();
+          // context.read<SumOldPriceOrderCubit>().clearOldPrice();
+          // context.read<SumPriceOrderCubit>().clearPrice();
           SharedPrefs.setOldSumPrice(0);
           return EmptyCartView();
         } else if (SharedPrefs.getIsLogined == false) {
@@ -140,10 +129,6 @@ class _CartViewState extends State<CartView> {
                   shrinkWrap: true,
                   itemCount: itemList.length,
                   itemBuilder: (context, index) {
-                    SharedPrefs.setSumPrice(
-                        context.watch<SumPriceOrderCubit>().state);
-                    SharedPrefs.setOldSumPrice(
-                        context.watch<SumOldPriceOrderCubit>().state);
                     context
                         .read<StoreBoxesCubit>()
                         .getStoreBoxes(itemList[index].id!);
@@ -231,12 +216,6 @@ class _CartViewState extends State<CartView> {
   Future<bool?> deleteItemShowDialogBuild(BuildContext context,
       List<BoxOrder> itemList, int index, int counterState) {
     return deleteItemShowDialog(context, () {
-      context
-          .read<SumOldPriceOrderCubit>()
-          .decrementOldPrice(itemList[index].packageSetting!.minOrderPrice!);
-      context.read<SumPriceOrderCubit>().decrementPrice(
-          itemList[index].packageSetting!.minDiscountedOrderPrice!);
-
       context.read<OrderCubit>().deleteBasket("${itemList[index].id}");
       context.read<BasketCounterCubit>().decrement();
       SharedPrefs.setCounter(counterState - 1);
