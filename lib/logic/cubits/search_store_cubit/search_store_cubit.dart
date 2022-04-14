@@ -2,6 +2,7 @@ import 'package:dongu_mobile/data/model/search_store.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dongu_mobile/utils/network_error.dart';
 import '../../../data/repositories/search_store_repository.dart';
+import '../../../data/shared/shared_prefs.dart';
 import '../generic_state/generic_state.dart';
 
 class SearchStoreCubit extends Cubit<GenericState> {
@@ -11,6 +12,7 @@ class SearchStoreCubit extends Cubit<GenericState> {
   List<SearchStore> searchStores = [];
   List<SearchStore> searchQueryResults = [];
   List<String> popularSearchesList = [];
+  List<SearchStore> deliveredRestaurant = [];
   Future<void> getSearchStore() async {
     try {
       final response = await _searchStoreRepository.getSearchStores();
@@ -81,5 +83,19 @@ class SearchStoreCubit extends Cubit<GenericState> {
         popularSearchesList.add(meal.name!);
       });
     });
+  }
+
+  getDeliveredRestaurant() {
+    // List<SearchStore> restaurants = [];
+
+    int? restaurantId = SharedPrefs.getDeliveredRestaurantAddressId;
+
+    for (var i = 0; i < searchStores.length; i++) {
+      if (searchStores[i].id == restaurantId) {
+        deliveredRestaurant.add(searchStores[i]);
+        print("delivered rest: $deliveredRestaurant");
+      }
+    }
+    emit(GenericCompleted(deliveredRestaurant));
   }
 }

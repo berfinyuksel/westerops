@@ -812,10 +812,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   padding: EdgeInsets.all(context.dynamicHeight(0.004)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_PACKAGE_ICON,
-                    color: widget.restaurant!.packageSettings!.deliveryType ==
-                                "1" ||
-                            widget.restaurant!.packageSettings!.deliveryType ==
-                                "3"
+                    color: widget.restaurant!.packageSettings!.deliveryType == "1" ||
+                            widget.restaurant!.packageSettings!.deliveryType == "3"
                         ? Colors.white
                         : AppColors.unSelectedpackageDeliveryColor,
                   ),
@@ -829,10 +827,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 height: 36.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: widget.restaurant!.packageSettings!.deliveryType ==
-                              "2" ||
-                          widget.restaurant!.packageSettings!.deliveryType ==
-                              "3"
+                  color: widget.restaurant!.packageSettings!.deliveryType == "2" ||
+                          widget.restaurant!.packageSettings!.deliveryType == "3"
                       ? AppColors.yellowColor
                       : Colors.white,
                 ),
@@ -840,10 +836,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   padding: EdgeInsets.all(context.dynamicHeight(0.006)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_COURIER_ICON,
-                    color: widget.restaurant!.packageSettings!.deliveryType ==
-                                "2" ||
-                            widget.restaurant!.packageSettings!.deliveryType ==
-                                "3"
+                    color: widget.restaurant!.packageSettings!.deliveryType == "2" ||
+                            widget.restaurant!.packageSettings!.deliveryType == "3"
                         ? Colors.white
                         : AppColors.unSelectedpackageDeliveryColor,
                   ),
