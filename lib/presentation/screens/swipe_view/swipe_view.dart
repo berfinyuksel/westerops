@@ -228,7 +228,7 @@ class _SwipeViewState extends State<SwipeView> {
                       sl<UpdateOrderRepository>()
                           .updateOrderStatus(widget.orderInfo!.id!, 6);
                       context.read<OrderBarCubit>().stateOfBar(false);
-                      context.read<CancelOrderCubit>().cancelOrder(false);
+                      context.read<CancelOrderCubit>().cancelOrder(true);
                     },
                     direction: DismissDirection.startToEnd,
                     child: Padding(

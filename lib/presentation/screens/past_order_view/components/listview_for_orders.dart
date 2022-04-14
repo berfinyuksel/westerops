@@ -5,6 +5,9 @@ import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 
 class ListViewForOrders extends StatelessWidget {
   const ListViewForOrders({
@@ -26,6 +29,14 @@ class ListViewForOrders extends StatelessWidget {
                       arguments: ScreenArgumentsRestaurantDetail(
                         orderInfo: orderInfoReversed[index],
                       ));
+                      if (        orderInfoReversed[index].status == '5' ||
+                          orderInfoReversed[index].status == '4' ||
+                          orderInfoReversed[index].status == '0') {
+                         context.read<CancelOrderCubit>().cancelOrder(true);
+                      }else{
+                         context.read<CancelOrderCubit>().cancelOrder(false);
+
+                      }
             },
             child: PastOrderListTile(
               statusSituationForCancel:

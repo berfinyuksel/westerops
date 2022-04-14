@@ -41,7 +41,6 @@ class SampleUserAuthenticationRepository
       },
     );
 
-    
     if (response.statusCode == 201) {
       SharedPrefs.setUserPhone(phone);
       return loginUser(phone, password);
@@ -67,6 +66,7 @@ class SampleUserAuthenticationRepository
       },
     );
 
+    print("UPDATE USER ${response.statusCode}");
 
     if (response.statusCode == 200) {
       SharedPrefs.setUserEmail(email);
@@ -116,7 +116,6 @@ class SampleUserAuthenticationRepository
       },
     );
 
-
     if (response.statusCode == 200) {
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       var jsonResults = jsonBody['user'];
@@ -165,7 +164,6 @@ class SampleUserAuthenticationRepository
       // SharedPrefs.setUserLastName(user.lastName!);
       // SharedPrefs.setUserPhone(phone);
       // SharedPrefs.login();
-
 
       List<String> users = [];
       return users;
