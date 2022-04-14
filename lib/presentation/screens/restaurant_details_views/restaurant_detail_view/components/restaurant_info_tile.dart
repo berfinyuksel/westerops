@@ -21,16 +21,11 @@ class RestaurantInfoTile extends StatelessWidget {
     return Container(
       child: Expanded(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Spacer(flex: 1),
             restaurantLogoContainer(context),
-            Spacer(flex: 1),
             restaurantTitleAndAddressColumn(),
-            Spacer(flex: 1),
-            Padding(padding: EdgeInsets.only(top: 10.h, right: 10.w), child: restaurantStarIconRating()),
-            //   Spacer(flex: 1),
           ],
         ),
       ),
@@ -58,39 +53,38 @@ class RestaurantInfoTile extends StatelessWidget {
         ));
   }
 
-  Column restaurantTitleAndAddressColumn() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 180.w,
-          child: Text(
+  Widget restaurantTitleAndAddressColumn() {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(alignment: Alignment.topRight, child: restaurantStarIconRating()),
+          Text(
             restaurant!.name!,
             style: AppTextStyles.appBarTitleStyle.copyWith(fontWeight: FontWeight.w600),
             overflow: TextOverflow.ellipsis,
           ),
-        ),
-        AutoSizeText(
-          restaurant!.address!,
-          style: AppTextStyles.subTitleStyle,
-        ),
-      ],
+          SizedBox(height: 10.w),
+          AutoSizeText(
+            restaurant!.address!,
+            style: AppTextStyles.subTitleStyle,
+          ),
+        ],
+      ),
     );
   }
 
   Row restaurantStarIconRating() {
     return Row(
-      //backend
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Container(
-          child: SvgPicture.asset(ImageConstant.RESTAURANT_STAR_ICON),
-        ),
+        SvgPicture.asset(ImageConstant.RESTAURANT_STAR_ICON),
         SizedBox(width: 10.w),
         Text(
           restaurant!.avgReview!.toStringAsFixed(1),
           style: AppTextStyles.bodyTextStyle,
-        )
+        ),
+        SizedBox(width: 10.w),
       ],
     );
   }
