@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../data/model/box_order.dart';
 import '../../../data/model/search_store.dart';
+import '../../../data/services/locator.dart';
 import '../../../data/shared/shared_prefs.dart';
 import '../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import '../../../logic/cubits/generic_state/generic_state.dart';
@@ -28,7 +29,6 @@ import '../past_order_detail_view/components/past_order_detail_body_title.dart';
 import '../past_order_detail_view/components/past_order_detail_payment_list_tile.dart';
 import '../past_order_detail_view/components/past_order_detail_total_payment_list_tile.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
-import '../surprise_pack_view/components/custom_alert_dialog.dart';
 import 'components/delete_item_show_dialog.dart';
 import 'empty_cart_view.dart';
 import 'not_logged_in_view.dart';
@@ -45,12 +45,23 @@ class _CartViewState extends State<CartView> {
   @override
   void initState() {
     super.initState();
-    context.read<OrderCubit>().getBasket();
+    // context.read<OrderCubit>().getBasket();
   }
 
   @override
   Widget build(BuildContext context) {
-    return buildBuilder();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<OrderCubit>(
+          create: (BuildContext context) => sl<OrderCubit>()..getBasket(),
+        ),
+        BlocProvider<SearchStoreCubit>(
+          create: (BuildContext context) =>
+              sl<SearchStoreCubit>()..getSearchStore(),
+        ),
+      ],
+      child: buildBuilder(),
+    );
   }
 
   double totalPayPrice() {
@@ -70,9 +81,8 @@ class _CartViewState extends State<CartView> {
     return totalPrice;
   }
 
-  Builder buildBuilder() {
-    return Builder(builder: (context) {
-      final GenericState state = context.watch<OrderCubit>().state;
+  BlocBuilder buildBuilder() {
+    return BlocBuilder<OrderCubit, GenericState>(builder: (context, state) {
       if (state is GenericInitial) {
         return Container(color: Colors.white);
       } else if (state is GenericLoading) {
@@ -83,12 +93,10 @@ class _CartViewState extends State<CartView> {
         }
         totalPayPrice();
         if (itemList.length == 0) {
-          return Builder(builder: (context) {
-            context.read<SumOldPriceOrderCubit>().clearOldPrice();
-            context.read<SumPriceOrderCubit>().clearPrice();
-            SharedPrefs.setOldSumPrice(0);
-            return EmptyCartView();
-          });
+          context.read<SumOldPriceOrderCubit>().clearOldPrice();
+          context.read<SumPriceOrderCubit>().clearPrice();
+          SharedPrefs.setOldSumPrice(0);
+          return EmptyCartView();
         } else if (SharedPrefs.getIsLogined == false) {
           return NotLoggedInEmptyCartView();
         } else {
@@ -132,56 +140,55 @@ class _CartViewState extends State<CartView> {
                   shrinkWrap: true,
                   itemCount: itemList.length,
                   itemBuilder: (context, index) {
-                    return Builder(builder: (context) {
-                      SharedPrefs.setSumPrice(
-                          context.watch<SumPriceOrderCubit>().state);
-                      SharedPrefs.setOldSumPrice(
-                          context.watch<SumOldPriceOrderCubit>().state);
-                      context
-                          .read<StoreBoxesCubit>()
-                          .getStoreBoxes(itemList[index].id!);
-                      context
-                          .read<StoreCourierCubit>()
-                          .getCourierHours(itemList[index].store!.id!);
-                      final counterState =
-                          context.watch<BasketCounterCubit>().state;
-                      return Dismissible(
-                        direction: DismissDirection.endToStart,
-                        key: UniqueKey(),
-                        background: Container(
-                          color: AppColors.redColor,
-                          alignment: Alignment.centerRight,
-                          padding: EdgeInsets.only(right: 50.w),
-                          child: LocaleText(
-                            text: LocaleKeys.my_notifications_delete_text_text,
-                            style: AppTextStyles.bodyTextStyle.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                            alignment: TextAlign.end,
-                          ),
+                    SharedPrefs.setSumPrice(
+                        context.watch<SumPriceOrderCubit>().state);
+                    SharedPrefs.setOldSumPrice(
+                        context.watch<SumOldPriceOrderCubit>().state);
+                    context
+                        .read<StoreBoxesCubit>()
+                        .getStoreBoxes(itemList[index].id!);
+                    context
+                        .read<StoreCourierCubit>()
+                        .getCourierHours(itemList[index].store!.id!);
+                    final counterState =
+                        context.watch<BasketCounterCubit>().state;
+                    return Dismissible(
+                      direction: DismissDirection.endToStart,
+                      key: UniqueKey(),
+                      background: Container(
+                        color: AppColors.redColor,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(right: 50.w),
+                        child: LocaleText(
+                          text: LocaleKeys.my_notifications_delete_text_text,
+                          style: AppTextStyles.bodyTextStyle.copyWith(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                          alignment: TextAlign.end,
                         ),
-                        confirmDismiss: (DismissDirection direction) {
-                          return deleteItemShowDialogBuild(context, itemList, index, counterState);
+                      ),
+                      confirmDismiss: (DismissDirection direction) {
+                        return deleteItemShowDialogBuild(
+                            context, itemList, index, counterState);
+                      },
+                      child: PastOrderDetailBasketListTile(
+                        onPressed: () {
+                          deleteItemShowDialogBuild(
+                              context, itemList, index, counterState);
                         },
-                        child: PastOrderDetailBasketListTile(
-                          onPressed: () {
-                         deleteItemShowDialogBuild(context, itemList, index, counterState);
-                          },
-                          oldPrice: itemList[index]
-                              .packageSetting!
-                              .minOrderPrice!
-                              .toDouble(),
-                          withMinOrderPrice: true,
-                          title: "${itemList[index].textName}",
-                          price: itemList[index]
-                              .packageSetting!
-                              .minDiscountedOrderPrice!
-                              .toDouble(),
-                          withDecimal: true,
-                          subTitle: "",
-                        ),
-                      );
-                    });
+                        oldPrice: itemList[index]
+                            .packageSetting!
+                            .minOrderPrice!
+                            .toDouble(),
+                        withMinOrderPrice: true,
+                        title: "${itemList[index].textName}",
+                        price: itemList[index]
+                            .packageSetting!
+                            .minDiscountedOrderPrice!
+                            .toDouble(),
+                        withDecimal: true,
+                        subTitle: "",
+                      ),
+                    );
                   }),
               SizedBox(
                 height: 40.h,
@@ -192,23 +199,19 @@ class _CartViewState extends State<CartView> {
               SizedBox(
                 height: 10.h,
               ),
-              Builder(builder: (context) {
-                return PastOrderDetailPaymentListTile(
-                  oldPrice: true,
-                  oldPriceValue: totalBasketPrice(),
-                  title: LocaleKeys.past_order_detail_payment_1,
-                  price: totalPayPrice(),
-                  lineTrough: false,
-                  withDecimal: true,
-                );
-              }),
-              Builder(builder: (context) {
-                return PastOrderDetailTotalPaymentListTile(
-                  title: LocaleKeys.past_order_detail_payment_4,
-                  price: totalPayPrice(),
-                  withDecimal: true,
-                );
-              }),
+              PastOrderDetailPaymentListTile(
+                oldPrice: true,
+                oldPriceValue: totalBasketPrice(),
+                title: LocaleKeys.past_order_detail_payment_1,
+                price: totalPayPrice(),
+                lineTrough: false,
+                withDecimal: true,
+              ),
+              PastOrderDetailTotalPaymentListTile(
+                title: LocaleKeys.past_order_detail_payment_4,
+                price: totalPayPrice(),
+                withDecimal: true,
+              ),
               SizedBox(
                 height: 20.h,
               ),
@@ -225,24 +228,24 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  Future<bool?> deleteItemShowDialogBuild(BuildContext context, List<BoxOrder> itemList, int index, int counterState) {
-    return deleteItemShowDialog(
-                            context, (){
-                               context.read<SumOldPriceOrderCubit>().decrementOldPrice(
-              itemList[index].packageSetting!.minOrderPrice!);
-          context.read<SumPriceOrderCubit>().decrementPrice(
-              itemList[index].packageSetting!.minDiscountedOrderPrice!);
+  Future<bool?> deleteItemShowDialogBuild(BuildContext context,
+      List<BoxOrder> itemList, int index, int counterState) {
+    return deleteItemShowDialog(context, () {
+      context
+          .read<SumOldPriceOrderCubit>()
+          .decrementOldPrice(itemList[index].packageSetting!.minOrderPrice!);
+      context.read<SumPriceOrderCubit>().decrementPrice(
+          itemList[index].packageSetting!.minDiscountedOrderPrice!);
 
-          context.read<OrderCubit>().deleteBasket("${itemList[index].id}");
-          context.read<BasketCounterCubit>().decrement();
-          SharedPrefs.setCounter(counterState - 1);
-          menuList.remove(itemList[index].id.toString());
-          SharedPrefs.setMenuList(menuList);
-          itemList.remove(itemList[index]);
-          Navigator.of(context).pop();
-                            });
+      context.read<OrderCubit>().deleteBasket("${itemList[index].id}");
+      context.read<BasketCounterCubit>().decrement();
+      SharedPrefs.setCounter(counterState - 1);
+      menuList.remove(itemList[index].id.toString());
+      SharedPrefs.setMenuList(menuList);
+      itemList.remove(itemList[index]);
+      Navigator.of(context).pop();
+    });
   }
-
 
   Padding buildButton(BuildContext context, List<BoxOrder> itemList) {
     return Padding(
@@ -279,16 +282,16 @@ class _CartViewState extends State<CartView> {
             SharedPrefs.setDeliveredRestaurantAddressId(
                 itemList[index].store!.id!);
 
-            return Builder(builder: (context) {
-              final GenericState stateOfSearchStore =
-                  context.watch<SearchStoreCubit>().state;
+            return BlocBuilder<SearchStoreCubit, GenericState>(
+                builder: (context, state) {
+              // final GenericState stateOfSearchStore =
+              //     context.watch<SearchStoreCubit>().state;
 
-              if (stateOfSearchStore is GenericCompleted) {
+              if (state is GenericCompleted) {
                 List<SearchStore> chosenRestaurat = [];
-                for (var i = 0; i < stateOfSearchStore.response.length; i++) {
-                  if (stateOfSearchStore.response[i].id ==
-                      itemList[index].store!.id) {
-                    chosenRestaurat.add(stateOfSearchStore.response[i]);
+                for (var i = 0; i < state.response.length; i++) {
+                  if (state.response[i].id == itemList[index].store!.id) {
+                    chosenRestaurat.add(state.response[i]);
                   }
                 }
                 return ListTile(
@@ -313,14 +316,14 @@ class _CartViewState extends State<CartView> {
                         ),
                       );
                     });
-              } else if (stateOfSearchStore is GenericInitial) {
+              } else if (state is GenericInitial) {
                 return Container(color: Colors.white);
-              } else if (stateOfSearchStore is GenericLoading) {
+              } else if (state is GenericLoading) {
                 return Container(
                     color: Colors.white,
                     child: CustomCircularProgressIndicator());
               } else {
-                final error = stateOfSearchStore as GenericError;
+                final error = state as GenericError;
 
                 return Center(
                     child: Text("${error.message}\n${error.statusCode}"));
