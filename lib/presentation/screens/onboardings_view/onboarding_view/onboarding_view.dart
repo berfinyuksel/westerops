@@ -11,7 +11,6 @@ import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../components/background_onboarding_svg.dart';
-import '../components/onboarding_background_image.dart';
 import '../components/onboarding_headline_text.dart';
 import '../components/onboarding_text.dart';
 

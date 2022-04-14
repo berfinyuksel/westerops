@@ -1,4 +1,3 @@
-import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

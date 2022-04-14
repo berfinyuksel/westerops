@@ -4,11 +4,8 @@ import 'package:dongu_mobile/presentation/screens/restaurant_details_views/scree
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_card/restaurant_info_card.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:dongu_mobile/utils/extensions/context_extension.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/haversine.dart';
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:dongu_mobile/utils/theme/app_colors/app_colors.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -3,10 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/constants/image_constant.dart';
-import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../components/background_onboarding_svg.dart';
-import '../components/onboarding_background_image.dart';
 import '../components/onboarding_headline_text.dart';
 import '../components/onboarding_text.dart';
 

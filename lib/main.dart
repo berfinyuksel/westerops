@@ -9,8 +9,6 @@ import 'data/services/locator.dart';
 import 'data/shared/shared_prefs.dart';
 import 'utils/constants/locale_constant.dart';
 
-import 'package:device_preview/device_preview.dart';
-
 Future<void> main() async {
   await buildInit();
   runApp(
