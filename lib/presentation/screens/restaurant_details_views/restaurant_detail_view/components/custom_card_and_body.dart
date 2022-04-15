@@ -356,7 +356,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 categoryNames,
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
-              trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+              //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
             ),
           ),
         );
