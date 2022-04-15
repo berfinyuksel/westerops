@@ -5,7 +5,7 @@ import '../../../data/repositories/order_repository.dart';
 import '../generic_state/generic_state.dart';
 
 class OrderCubit extends Cubit<GenericState> {
-  final OrderRepository _orderRepository;
+  final SampleOrderRepository _orderRepository;
   OrderCubit(this._orderRepository) : super(GenericInitial());
 
   List<BoxOrder> itemList = [];

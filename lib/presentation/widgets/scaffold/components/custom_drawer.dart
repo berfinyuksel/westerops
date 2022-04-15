@@ -1,5 +1,4 @@
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:in_app_review/in_app_review.dart';
 
@@ -8,7 +7,6 @@ import '../../../../data/services/facebook_login_controller.dart';
 import '../../../../data/shared/shared_prefs.dart';
 import '../../../../logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import '../../../../logic/cubits/order_cubit/order_cubit.dart';
-import '../../../../logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import '../../../../utils/constants/image_constant.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -192,9 +190,7 @@ class CustomDrawer extends StatelessWidget {
           context.read<OrderCubit>().clearBasket();
 
           SharedPrefs.setSumPrice(0);
-          context.read<SumPriceOrderCubit>().clearPrice();
           SharedPrefs.setOldSumPrice(0);
-          context.read<SumOldPriceOrderCubit>().clearOldPrice();
 
           SharedPrefs.setCounter(0);
           SharedPrefs.setMenuList([]);
