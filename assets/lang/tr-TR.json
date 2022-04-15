@@ -124,13 +124,13 @@
         "headline2": "Güncel Verilerle Gıda İsrafı",
         "headline3": "Gıda İsrafının Çevreye Etkisi",
         "body1": "Gezegenimizi korumak çıktığımız bu yolda bizi yalnız bırakmadığın için teşekkürler!",
-        "body2": "Food and Agricultural Organisation of the United Nations (FAO) verilerine göre, bir öğün yemeğin atık olarak değerlendirilmesi, 2.5 kg CO2 gazının yayılmasına yani bir diğer değişle akıllı telefonları 300 milyon kez şarj etmeye ya da 1130 ton kömürün yakılmasına bedel olmaktadır.",
+        "body2": "Birleşmiş Milletler Gıda ve Tarım Örgütü (FAO) verileri; bir öğün yemeğin üretimi için ortalama 2.5 kg CO² salınımı gerçekleştiğini ortaya koyuyor. Bu veri; israf edilen bir öğünün, bir akıllı telefonun 300 milyon defa şarj edilmesine ve 1130 ton kömürün yakılmasına bedel olduğunu söylüyor.        ",
         "body3": "2050 yılına gelindiğinde dünya nüfusunun yaklaşık 9,3 milyara ulaşması beklenirken, bu büyüklükte bir nüfusun beslenebilmesi için bugünkü gıda üretiminin %60 daha fazlasına ihtiyaç duyulacağı öngörülüyor.",
-        "body4": "Tüketime yönelik üretilen toplam gıdanın %33’ü tüketiciye ulaşmadan israf ediliyor.",
-        "body5": "Gıda israfı, yılda yaklaşık 750 milyar dolara mal oluyor.",
-        "body6": "Türkiye'de her yıl israf edilen yiyecek miktarı, 26 milyon ton. Bu israfın maliyeti ise, 214 milyar TL.",
+        "body4": "Tüketiciye ulaşmadan atığa dönüşen gıdanın toplam üretimdeki oranı",
+        "body5": "Gıda israfının küresel ekonomide meydana getirdiği yıllık kayıp",
+        "body6": "Türkiye’nin, maliyeti 214 milyar TL olan, yıllık gıda israfı miktarı",
         "body7": "Dünya üzerinde açlıkla mücadele eden insanların sayısı",
-        "body8": "İsraf edilen gıdaların üretiminde kullanılan su miktarı (250 km3), Avrupa’nın en uzun nehri olan İdil (Volga) Nehri’nden bir yıl boyunca akan su miktarı ve Cenevre Gölü’nün hacminin 3 katı ile eş değer olup, bu miktar 9 milyon kişinin günlük su ihtiyacı karşılanabilir.",
+        "body8": "Gıda, üretimde su kullanımının en yoğun olduğu sektörler arasında yer alıyor. Küresel çapta her yıl israf edilen toplam gıdanın üretimi için, 250 km³ su tüketimi gerçekleştiği biliniyor. 9 milyar kişinin günlük su ihtiyacını karşılayabilecek bu rakam, Avrupa’nın en uzun nehri olan İdil (Volga) Nehri’nin yıllık debisine ve Cenevre Gölü hacminin 3 katına karşılık gelmekte.",
         "button": "Restoranları Keşfet"
     },
     "custom_drawer": {

@@ -374,7 +374,6 @@ class _MyInformationViewState extends State<MyInformationView> {
           phoneController.text,
           SharedPrefs.getUserAddress,
           SharedPrefs.getUserBirth,
-          // birthController.text,
         );
     
   }
@@ -383,7 +382,8 @@ class _MyInformationViewState extends State<MyInformationView> {
     SharedPrefs.setUserPhone(phoneController.text);
     SharedPrefs.setUserEmail(mailController.text);
     SharedPrefs.setUserName(nameController.text);
-    SharedPrefs.setUserEmail(surnameController.text);
+    SharedPrefs.setUserLastName(surnameController.text);
+    SharedPrefs.setUserBirth(birthController.text);
   }
 
   Padding buildSocialAuthTitle(BuildContext context) {
@@ -410,7 +410,7 @@ class _MyInformationViewState extends State<MyInformationView> {
         onPressed: () {
           print("SOCIAL LOGIN SHARED : ${SharedPrefs.getSocialLogin}");
           if (!SharedPrefs.getSocialLogin) {
-            textControllersSaveCache();
+            updateUser();
             Navigator.popAndPushNamed(
                 context, RouteConstant.VERIFY_INFORMATION);
           } else {
