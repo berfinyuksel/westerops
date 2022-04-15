@@ -35,6 +35,7 @@ import '../../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../../widgets/button/custom_button.dart';
 import '../../../../widgets/tabBar/restaurant_details_tabbar.dart';
 import '../../../../widgets/text/locale_text.dart';
+import '../../../categories_view/screen_arguments_categories/screen_arguments_categories.dart';
 import '../../../register_view/components/clipped_password_rules.dart';
 import '../../../surprise_pack_view/components/custom_alert_dialog.dart';
 import '../../screen_arguments/screen_arguments.dart';
@@ -335,10 +336,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         } 
         String categoryNames = nameList.join(', ');
         return GestureDetector(
-          // onTap: () {
-          //   Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
-          //       arguments: ScreenArgumentsCategories(categoriesList: relatedCategories));
-          // },
+          onTap: () {
+            Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
+                arguments: ScreenArgumentsCategories(categoriesList: relatedCategories));
+          },
           child: Container(
             color: AppColors.appBarColor,
             width: double.infinity,
@@ -354,7 +355,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 categoryNames,
                 style: AppTextStyles.myInformationBodyTextStyle,
               ),
-              //trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
+              trailing: SvgPicture.asset(ImageConstant.COMMONS_FORWARD_ICON),
             ),
           ),
         );

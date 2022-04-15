@@ -28,7 +28,6 @@ import '../past_order_detail_view/components/past_order_detail_body_title.dart';
 import '../past_order_detail_view/components/past_order_detail_payment_list_tile.dart';
 import '../past_order_detail_view/components/past_order_detail_total_payment_list_tile.dart';
 import '../restaurant_details_views/screen_arguments/screen_arguments.dart';
-import '../surprise_pack_view/components/custom_alert_dialog.dart';
 import 'components/delete_item_show_dialog.dart';
 import 'empty_cart_view.dart';
 import 'not_logged_in_view.dart';
