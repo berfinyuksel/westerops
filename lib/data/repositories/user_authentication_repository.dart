@@ -132,16 +132,20 @@ class SampleUserAuthenticationRepository
      
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       var jsonResults = jsonBody['user'];
-      String year = jsonResults['birthdate'].split("-")[0];
-      String month = jsonResults['birthdate'].split("-")[1];
-      String day= jsonResults['birthdate'].split("-")[2];
+      String year = "yyyy";
+      String month = "mm";
+      String day = "dd";
+      if(jsonResults['birthdate'] != null) {
+        year = jsonResults['birthdate'].split("-")[0];
+        month = jsonResults['birthdate'].split("-")[1];
+        day= jsonResults['birthdate'].split("-")[2];
+      }
+     
       SharedPrefs.setToken(jsonBody['token']);
       User user = User.fromJson(jsonResults);
       SharedPrefs.setUserId(jsonResults['id']);
       //  SharedPrefs.setUserAddress(jsonResults['address']);
-      SharedPrefs.setUserBirth(jsonResults['birthdate'] == null
-          ? "dd/mm/yyyy"
-          : "$day/$month/$year");
+      SharedPrefs.setUserBirth("$day/$month/$year");
       SharedPrefs.setUserEmail(user.email!);
       SharedPrefs.setUserName(user.firstName!);
       SharedPrefs.setUserLastName(user.lastName!);
@@ -204,6 +208,23 @@ class SampleUserAuthenticationRepository
 
       List<String> result = [];
       return result;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
+
+  Future<User> getUser(int id) async {
+    final response = await http.get(
+      Uri.parse("$url$id/"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'JWT ${SharedPrefs.getToken}',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+      User user = User.fromJson(jsonBody);
+      return user;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }
