@@ -334,7 +334,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         List<String> nameList = [];
         for (var i = 0; i < relatedCategories.length; i++) {
           nameList.add(relatedCategories[i].name!);
-        }
+        } 
         String categoryNames = nameList.join(', ');
         return GestureDetector(
           // onTap: () {
