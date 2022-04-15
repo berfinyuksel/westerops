@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favorite_state.dart';
 import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
-
 import '../../../../../data/model/box.dart';
 import '../../../../../data/model/category_name.dart';
 import '../../../../../data/model/search_store.dart';
@@ -37,7 +35,6 @@ import '../../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../../widgets/button/custom_button.dart';
 import '../../../../widgets/tabBar/restaurant_details_tabbar.dart';
 import '../../../../widgets/text/locale_text.dart';
-import '../../../categories_view/screen_arguments_categories/screen_arguments_categories.dart';
 import '../../../register_view/components/clipped_password_rules.dart';
 import '../../../surprise_pack_view/components/custom_alert_dialog.dart';
 import '../../screen_arguments/screen_arguments.dart';
@@ -338,10 +335,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         } 
         String categoryNames = nameList.join(', ');
         return GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
-                arguments: ScreenArgumentsCategories(categoriesList: relatedCategories));
-          },
+          // onTap: () {
+          //   Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
+          //       arguments: ScreenArgumentsCategories(categoriesList: relatedCategories));
+          // },
           child: Container(
             color: AppColors.appBarColor,
             width: double.infinity,
