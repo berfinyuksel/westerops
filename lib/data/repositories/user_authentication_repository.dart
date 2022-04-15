@@ -57,9 +57,15 @@ class SampleUserAuthenticationRepository
     // List<int> address = [1];
     // List<int>? adminRole;
     // String password = "12345678Q";
+    String year;
+    String month;
+    String day;
+    year = birthday.split('/')[2];
+    month = birthday.split('/')[1];
+    day = birthday.split('/')[0];
     String phoneNumber = phone.contains('+90') ? phone : '+90$phone';
     String json =
-        '{"first_name":"$firstName", "last_name": "$lastName", "email": "$email", "phone_number": "$phoneNumber"}'; // "birthdate": "$birthday"
+        '{"first_name":"$firstName", "last_name": "$lastName", "email": "$email", "phone_number": "$phoneNumber", "birthdate": "$year-$month-$day"}';
     final response = await http.patch(
       Uri.parse("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
       body: json,
@@ -123,17 +129,19 @@ class SampleUserAuthenticationRepository
     );
 
     if (response.statusCode == 200) {
+     
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       var jsonResults = jsonBody['user'];
-
+      String year = jsonResults['birthdate'].split("-")[0];
+      String month = jsonResults['birthdate'].split("-")[1];
+      String day= jsonResults['birthdate'].split("-")[2];
       SharedPrefs.setToken(jsonBody['token']);
-
       User user = User.fromJson(jsonResults);
       SharedPrefs.setUserId(jsonResults['id']);
       //  SharedPrefs.setUserAddress(jsonResults['address']);
-      SharedPrefs.setUserBirth(jsonResults['birthday'] == null
+      SharedPrefs.setUserBirth(jsonResults['birthdate'] == null
           ? "dd/mm/yyyy"
-          : "${jsonResults['birthday']}");
+          : "$day/$month/$year");
       SharedPrefs.setUserEmail(user.email!);
       SharedPrefs.setUserName(user.firstName!);
       SharedPrefs.setUserLastName(user.lastName!);
