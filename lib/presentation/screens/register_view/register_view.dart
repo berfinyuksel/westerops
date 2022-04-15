@@ -495,7 +495,9 @@ class _RegisterViewState extends State<RegisterView> {
         });
       },
       validator: validator,
-      keyboardType: TextInputType.number,
+      keyboardType: controller == phoneController
+          ? TextInputType.number
+          : TextInputType.text,
       inputFormatters: [
         isCharacterLimited
             ? LengthLimitingTextInputFormatter(10)
