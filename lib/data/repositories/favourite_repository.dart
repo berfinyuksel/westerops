@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-
 import '../model/favourite.dart';
-import '../services/locator.dart';
 import '../shared/shared_prefs.dart';
 import '../../utils/constants/url_constant.dart';
 import 'package:dongu_mobile/utils/network_error.dart';

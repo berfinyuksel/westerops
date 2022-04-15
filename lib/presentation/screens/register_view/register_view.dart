@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
 import 'package:dongu_mobile/presentation/screens/register_view/components/error_alert_dialog.dart';
@@ -495,7 +494,9 @@ class _RegisterViewState extends State<RegisterView> {
         });
       },
       validator: validator,
-      keyboardType: TextInputType.number,
+      keyboardType: controller == phoneController
+          ? TextInputType.number
+          : TextInputType.text,
       inputFormatters: [
         isCharacterLimited
             ? LengthLimitingTextInputFormatter(10)

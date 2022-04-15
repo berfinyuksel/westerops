@@ -1,6 +1,4 @@
-import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../data/model/search_store.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../widgets/scaffold/custom_scaffold.dart';

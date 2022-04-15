@@ -1,12 +1,9 @@
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../data/services/location_service.dart';
 import '../../../../logic/cubits/my_favorites_page/cubit/my_favorites_cubit.dart';
 import '../../../../utils/constants/route_constant.dart';
 import '../../../../utils/haversine.dart';
-import '../../../../utils/locale_keys.g.dart';
 import '../../../widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
 import '../../restaurant_details_views/screen_arguments/screen_arguments.dart';
 

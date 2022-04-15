@@ -306,7 +306,7 @@ class SharedPrefs {
   static int get getOldSumPrice => _prefs.getInt('oldSumOfPrice') ?? 0;
   static int get getSumPrice => _prefs.getInt('sumOfPrice') ?? 0;
   static String get getUserEmail => _prefs.getString('userEmail') ?? "";
-  static String get getUserPhone => _prefs.getString('userPhone') ?? "";
+  static String get getUserPhone => _prefs.getString('userPhone') ?? "+90";
   static String get getUserName => _prefs.getString('userName') ?? "";
   static String get getUserBirth =>
       _prefs.getString('userBirth') ?? "dd/mm/yyyy";

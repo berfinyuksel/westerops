@@ -6,14 +6,11 @@ import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notificati
 import 'package:dongu_mobile/presentation/screens/my_notifications_view/empty_my_notifications_view.dart';
 
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
-import 'package:dongu_mobile/presentation/widgets/text/locale_text.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../utils/extensions/context_extension.dart';
 import '../../../utils/extensions/string_extension.dart';
 import '../../../utils/locale_keys.g.dart';

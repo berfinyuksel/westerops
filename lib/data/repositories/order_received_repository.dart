@@ -92,8 +92,8 @@ class SampleOrderReceivedRepository implements OrderReceivedRepository {
       },
     );
     log("Create Order Without 3D status ${response.statusCode}");
-    final jsonBody =  jsonDecode(utf8.decode(response.bodyBytes));
-    log("Create Order Without 3D ERROR MESSAGE ${jsonBody}");
+    final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+    log("Create Order Without 3D ERROR MESSAGE $jsonBody");
     sl<ErrorMessageCubit>().setStateMessage(jsonBody);
     if (response.statusCode == 201) {
       final jsonBody = jsonDecode(

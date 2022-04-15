@@ -2,25 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>https</string>
-		<string>http</string>
-		<string>tel</string>
-		<string>mailto</string>
-    	<string>comgooglemaps</string>
-    	<string>baidumap</string>
-    	<string>iosamap</string>
-    	<string>waze</string>
-    	<string>yandexmaps</string>
-    	<string>yandexnavi</string>
-    	<string>citymapper</string>
-    	<string>mapswithme</string>
-    	<string>osmandmaps</string>
-    	<string>dgis</string>
-    	<string>qqmap</string>
-    	<string>here-location</string>
-	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -62,6 +43,25 @@
 	<string>1062589017874599</string>
 	<key>FacebookDisplayName</key>
 	<string>Dongu</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>http</string>
+		<string>tel</string>
+		<string>mailto</string>
+		<string>comgooglemaps</string>
+		<string>baidumap</string>
+		<string>iosamap</string>
+		<string>waze</string>
+		<string>yandexmaps</string>
+		<string>yandexnavi</string>
+		<string>citymapper</string>
+		<string>mapswithme</string>
+		<string>osmandmaps</string>
+		<string>dgis</string>
+		<string>qqmap</string>
+		<string>here-location</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

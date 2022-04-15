@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+
 import 'package:http/http.dart' as http;
 import 'package:dongu_mobile/utils/network_error.dart';
 import '../../utils/constants/url_constant.dart';
 import '../model/user.dart';
+import '../services/locator.dart';
 import '../shared/shared_prefs.dart';
 
 abstract class UserAuthenticationRepository {
@@ -41,7 +43,6 @@ class SampleUserAuthenticationRepository
       },
     );
 
-    
     if (response.statusCode == 201) {
       SharedPrefs.setUserPhone(phone);
       return loginUser(phone, password);
@@ -56,8 +57,15 @@ class SampleUserAuthenticationRepository
     // List<int> address = [1];
     // List<int>? adminRole;
     // String password = "12345678Q";
+    String year;
+    String month;
+    String day;
+    year = birthday.split('/')[2];
+    month = birthday.split('/')[1];
+    day = birthday.split('/')[0];
+    String phoneNumber = phone.contains('+90') ? phone : '+90$phone';
     String json =
-        '{"first_name":"$firstName", "last_name": "$lastName", "email": "$email", "phone_number": "$phone"}'; // "birthdate": "$birthday"
+        '{"first_name":"$firstName", "last_name": "$lastName", "email": "$email", "phone_number": "$phoneNumber", "birthdate": "$year-$month-$day"}';
     final response = await http.patch(
       Uri.parse("${UrlConstant.EN_URL}user/${SharedPrefs.getUserId}/"),
       body: json,
@@ -66,7 +74,11 @@ class SampleUserAuthenticationRepository
         'Authorization': 'JWT ${SharedPrefs.getToken}'
       },
     );
-
+    print("USER TOKEN: ${SharedPrefs.getToken}");
+    print("USER ID: ${SharedPrefs.getUserId}");
+    print(json);
+    print("UPDATE USER STATUS: ${response.statusCode}");
+  
 
     if (response.statusCode == 200) {
       SharedPrefs.setUserEmail(email);
@@ -116,19 +128,24 @@ class SampleUserAuthenticationRepository
       },
     );
 
-
     if (response.statusCode == 200) {
+     
       final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
       var jsonResults = jsonBody['user'];
-
+      String year = "yyyy";
+      String month = "mm";
+      String day = "dd";
+      if(jsonResults['birthdate'] != null) {
+        year = jsonResults['birthdate'].split("-")[0];
+        month = jsonResults['birthdate'].split("-")[1];
+        day= jsonResults['birthdate'].split("-")[2];
+      }
+     
       SharedPrefs.setToken(jsonBody['token']);
-
       User user = User.fromJson(jsonResults);
       SharedPrefs.setUserId(jsonResults['id']);
       //  SharedPrefs.setUserAddress(jsonResults['address']);
-      SharedPrefs.setUserBirth(jsonResults['birthday'] == null
-          ? "dd/mm/yyyy"
-          : "${jsonResults['birthday']}");
+      SharedPrefs.setUserBirth("$day/$month/$year");
       SharedPrefs.setUserEmail(user.email!);
       SharedPrefs.setUserName(user.firstName!);
       SharedPrefs.setUserLastName(user.lastName!);
@@ -166,7 +183,6 @@ class SampleUserAuthenticationRepository
       // SharedPrefs.setUserPhone(phone);
       // SharedPrefs.login();
 
-
       List<String> users = [];
       return users;
     }
@@ -192,6 +208,23 @@ class SampleUserAuthenticationRepository
 
       List<String> result = [];
       return result;
+    }
+    throw NetworkError(response.statusCode.toString(), response.body);
+  }
+
+  Future<User> getUser(int id) async {
+    final response = await http.get(
+      Uri.parse("$url$id/"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'JWT ${SharedPrefs.getToken}',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final jsonBody = jsonDecode(utf8.decode(response.bodyBytes));
+      User user = User.fromJson(jsonBody);
+      return user;
     }
     throw NetworkError(response.statusCode.toString(), response.body);
   }

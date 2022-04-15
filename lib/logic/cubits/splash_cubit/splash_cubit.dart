@@ -1,15 +1,11 @@
 import 'package:dongu_mobile/data/repositories/favourite_repository.dart';
 import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
-import 'package:dongu_mobile/data/repositories/update_permission_for_com_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/notifications_counter_cubit/notifications_counter_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/order_bar_cubit/order_bar_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
-import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_email_control_cubit.dart';
 import 'package:dongu_mobile/utils/base/svg_image_repository.dart';
 import 'package:dongu_mobile/utils/constants/route_constant.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +26,7 @@ class SplashCubit extends Cubit<SplashCubitState> {
       await notificationsCounter(context);
       await addFavorite(context);
       await stateOfBar(context);
-      await sumOldNewPrice(context);
+
       await navigateToScreens(context);
     } catch (e) {}
   }
@@ -66,13 +62,6 @@ class SplashCubit extends Cubit<SplashCubitState> {
 
   stateOfBar(BuildContext context) {
     context.read<OrderBarCubit>().stateOfBar(SharedPrefs.getOrderBar);
-  }
-
-  sumOldNewPrice(BuildContext context) {
-    context.read<SumPriceOrderCubit>().incrementPrice(SharedPrefs.getSumPrice);
-    context
-        .read<SumOldPriceOrderCubit>()
-        .incrementOldPrice(SharedPrefs.getOldSumPrice);
   }
 
   checksIsLogin() async {

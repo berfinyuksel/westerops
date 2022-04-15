@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:device_info/device_info.dart';
-import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +16,6 @@ import '../../../data/model/box.dart';
 import '../../../data/model/search_store.dart';
 import '../../../data/services/location_service.dart';
 import '../../../data/services/locator.dart';
-import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';
@@ -95,38 +93,11 @@ class _MyNearViewState extends State<MyNearView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<SearchStoreCubit>()..getSearchStore(),
-      child: CustomScaffold(
-        title: LocaleKeys.my_near_title,
-        isNavBar: false,
-        body: buildBuilder(),
-      ),
+    return CustomScaffold(
+      title: LocaleKeys.my_near_title,
+      isNavBar: false,
+      body: buildBody(context, sl<SearchStoreCubit>().searchStores, distances),
     );
-  }
-
-  BlocBuilder buildBuilder() {
-    return BlocBuilder<SearchStoreCubit, GenericState>(
-        builder: (context, state) {
-      if (state is GenericInitial) {
-        LocationService.getCurrentLocation();
-
-        return Container();
-      } else if (state is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
-      } else if (state is GenericCompleted) {
-        List<SearchStore> getrestaurants = [];
-
-        for (int i = 0; i < state.response.length; i++) {
-          getrestaurants.add(state.response[i]);
-        }
-        mapsMarkers = getrestaurants;
-        return buildBody(context, getrestaurants, distances);
-      } else {
-        final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    });
   }
 
   Column buildBody(BuildContext context, List<SearchStore> getrestaurants,

@@ -5,7 +5,6 @@ import 'package:dongu_mobile/data/services/location_service.dart';
 import 'package:dongu_mobile/presentation/screens/restaurant_details_views/screen_arguments/screen_arguments.dart';
 import 'package:dongu_mobile/presentation/widgets/restaurant_info_list_tile/restaurant_info_list_tile.dart';
 import 'package:dongu_mobile/utils/constants/image_constant.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/haversine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +16,6 @@ import 'dart:async';
 import 'dart:ui' as ui;
 import '../../../../data/model/search_store.dart';
 import '../../../../data/services/locator.dart';
-import '../../../../data/shared/shared_prefs.dart';
 import '../../../../logic/cubits/address_cubit/address_cubit.dart';
 import '../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
@@ -65,17 +63,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          /*  BlocProvider<SearchStoreCubit>(
-            create: (BuildContext context) =>
-                sl<SearchStoreCubit>()..getSearchStore(),
-          ), */
-          /* BlocProvider<SearchStoreCubit>(
-            create: (BuildContext context) =>
-                sl<SearchStoreCubit>()..getSearchStoreAddress(),
-          ), */
-          BlocProvider.value(value: sl<SearchStoreCubit>()..getSearchStore()),
           BlocProvider.value(
-              value: sl<SearchStoreCubit>()..getSearchStoreAddress()),
+              value: sl<SearchStoreCubit>()..getDeliveredRestaurant()),
           BlocProvider.value(value: sl<AddressCubit>()..getActiveAddress()),
         ],
         child: BlocBuilder<SearchStoreCubit, GenericState>(
@@ -90,22 +79,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             } else if (state is GenericCompleted) {
               print("GENERIC COMPLETED ADDRESS");
 
-              List<SearchStore> restaurants = [];
-              List<SearchStore> deliveredRestaurant = [];
-              int? restaurantId = SharedPrefs.getDeliveredRestaurantAddressId;
-
-              for (int i = 0; i < state.response.length; i++) {
-                restaurants.add(state.response[i]);
-              }
-
-              for (var i = 0; i < restaurants.length; i++) {
-                if (restaurants[i].id == restaurantId) {
-                  deliveredRestaurant.add(restaurants[i]);
-                }
-              }
-
               return Center(
-                child: buildBody(context, deliveredRestaurant),
+                child: buildBody(context, state.response as List<SearchStore>),
               );
             } else {
               final error = state as GenericError;
