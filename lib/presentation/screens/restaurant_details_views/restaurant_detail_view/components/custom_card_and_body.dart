@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favorite_state.dart';
-import 'package:dongu_mobile/logic/cubits/sum_price_order_cubit/sum_old_price_order_cubit.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import '../../../../../data/model/box.dart';
 import '../../../../../data/model/category_name.dart';
@@ -23,7 +22,6 @@ import '../../../../../logic/cubits/favourite_cubit/favourite_cubit.dart';
 import '../../../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../../../logic/cubits/order_cubit/order_cubit.dart';
 import '../../../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
-import '../../../../../logic/cubits/sum_price_order_cubit/sum_price_order_cubit.dart';
 import '../../../../../logic/cubits/swipe_route_cubit.dart/swipe_route_cubit.dart';
 import '../../../../../utils/constants/image_constant.dart';
 import '../../../../../utils/constants/route_constant.dart';
@@ -338,7 +336,8 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         return GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed(RouteConstant.FOOD_CATEGORIES_VIEW,
-                arguments: ScreenArgumentsCategories(categoriesList: relatedCategories));
+                arguments: ScreenArgumentsCategories(
+                    categoriesList: relatedCategories));
           },
           child: Container(
             color: AppColors.appBarColor,
@@ -614,10 +613,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   Spacer(flex: 4),
                   Builder(
                     builder: (context) {
-                      SharedPrefs.setSumPrice(
-                          context.watch<SumPriceOrderCubit>().state);
-                      SharedPrefs.setOldSumPrice(
-                          context.watch<SumOldPriceOrderCubit>().state);
                       int? menuItem = state.packages[index].id;
                       final counterState =
                           context.watch<BasketCounterCubit>().state;
@@ -729,26 +724,61 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
           ),
         ),
       );
-    } else {
+    }else if (statusCode == StatusCode.noFullName) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          content: Container(
+            padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+            width: context.dynamicWidht(0.87),
+            height: context.dynamicHeight(0.29),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18.0),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Spacer(flex: 8),
+                SvgPicture.asset(
+                  ImageConstant.SURPRISE_PACK,
+                  height: context.dynamicHeight(0.134),
+                ),
+                SizedBox(height: 10.h),
+                LocaleText(
+                  text:"Sipariş için isim ve soyisim girilmelidir.",
+                  style: AppTextStyles.bodyBoldTextStyle,
+                  alignment: TextAlign.center,
+                ),
+                Spacer(flex: 35),
+                CustomButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.pushNamed(context, RouteConstant.MY_INFORMATION_VIEW);
+                  },
+                  width: context.dynamicWidht(0.35),
+                  color: AppColors.greenColor,
+                  textColor: Colors.white,
+                  borderColor: AppColors.greenColor,
+                  title: LocaleKeys.restaurant_detail_alert_dialog_text_2,
+                ),
+                Spacer(flex: 20),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    else {
       setState(() {});
       switch (statusCode) {
         case StatusCode.success:
           if (!menuList!.contains(menuItem.toString())) {
-            context.read<SumPriceOrderCubit>().incrementPrice(priceOfMenu!);
-            context
-                .read<SumOldPriceOrderCubit>()
-                .incrementOldPrice(oldPriceOfMenu!);
-
             context.read<BasketCounterCubit>().increment();
             SharedPrefs.setCounter(counterState + 1);
             menuList!.add(menuItem.toString());
             SharedPrefs.setMenuList(menuList!);
           } else {
-            context.read<SumPriceOrderCubit>().decrementPrice(priceOfMenu!);
-            context
-                .read<SumOldPriceOrderCubit>()
-                .decrementOldPrice(priceOfMenu!);
-
             context
                 .read<OrderCubit>()
                 .deleteBasket("${state.packages[index].id}");
@@ -768,8 +798,6 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   onPressedTwo: () {
                     context.read<OrderCubit>().clearBasket();
 
-                    context.read<SumPriceOrderCubit>().clearPrice();
-                    context.read<SumOldPriceOrderCubit>().clearOldPrice();
                     SharedPrefs.setSumPrice(0);
                     SharedPrefs.setOldSumPrice(0);
                     menuList!.clear();

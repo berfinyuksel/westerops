@@ -18,6 +18,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../../logic/cubits/generic_state/generic_state.dart';
+import '../../../utils/theme/app_text_styles/app_text_styles.dart';
+
 class VerifyInformation extends StatefulWidget {
   const VerifyInformation({Key? key}) : super(key: key);
 
@@ -158,6 +161,26 @@ class _VerifyInformationState extends State<VerifyInformation> {
     );
   }
 
+  update() {
+    context.read<UserAuthCubit>().updateUser(
+        SharedPrefs.getUserName,
+        SharedPrefs.getUserLastName,
+        SharedPrefs.getUserEmail,
+        SharedPrefs.getUserPhone,
+        SharedPrefs.getUserPassword,
+        SharedPrefs.getUserBirth
+        // birthController.text,
+        );
+  }
+  errorPopup(){
+         showDialog(
+                    context: context,
+                    builder: (_) => CustomAlertDialogResetPassword(
+                          description: LocaleKeys.forgot_password_fail_changed,
+                          onPressed: () => Navigator.pop(context),
+                        ));
+  }
+
   Padding buildButton(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
@@ -176,53 +199,18 @@ class _VerifyInformationState extends State<VerifyInformation> {
             );
             try {
               await FirebaseAuth.instance.signInWithCredential(credential);
-              showDialog(
-                  context: context,
-                  builder: (_) => CustomAlertDialogResetPassword(
-                        description:
-                            "Değişiklikler başarılı bir şekilde güncellendi.",
-                        onPressed: () => Navigator.popAndPushNamed(
-                            context, RouteConstant.CUSTOM_SCAFFOLD),
-                      ));
-              //                     SharedPrefs.setUserPhone(phoneController.text);
-              // SharedPrefs.setUserEmail(mailController.text);
-              context.read<UserAuthCubit>().updateUser(
-                  SharedPrefs.getUserName,
-                  SharedPrefs.getUserLastName,
-                  SharedPrefs.getUserEmail,
-                  SharedPrefs.getUserPhone,
-                  SharedPrefs.getUserPassword,
-                  SharedPrefs.getUserBirth);
+              update();
+              _showMyDialog();
             } on FirebaseAuthException catch (e) {
               if (e.code == 'invalid-verification-code') {
-                showDialog(
-                    context: context,
-                    builder: (_) => CustomAlertDialogResetPassword(
-                          description: LocaleKeys.forgot_password_fail_changed,
-                          onPressed: () => Navigator.pop(context),
-                        ));
+                errorPopup();
               }
-              showDialog(
-                  context: context,
-                  builder: (_) => CustomAlertDialogResetPassword(
-                        description: LocaleKeys.forgot_password_fail_changed,
-                        onPressed: () => Navigator.pop(context),
-                      ));
+              errorPopup();
             } catch (e) {
-              showDialog(
-                  context: context,
-                  builder: (_) => CustomAlertDialogResetPassword(
-                        description: LocaleKeys.forgot_password_fail_changed,
-                        onPressed: () => Navigator.pop(context),
-                      ));
+                errorPopup();
             }
           } else {
-            showDialog(
-                context: context,
-                builder: (_) => CustomAlertDialogResetPassword(
-                      description: LocaleKeys.forgot_password_fail_changed,
-                      onPressed: () => Navigator.pop(context),
-                    ));
+                errorPopup();
           }
         },
       ),
@@ -278,6 +266,121 @@ class _VerifyInformationState extends State<VerifyInformation> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        final GenericState state = context.watch<UserAuthCubit>().state;
+        if (state is GenericInitial) {
+          return Container();
+        } else if (state is GenericLoading) {
+          return Container();
+        } else if (state is GenericCompleted) {
+          return buildUpdateCompletedAlertDialog(context);
+        } else {
+          return buildUpdateErrorAlertDialog(context);
+        }
+      },
+    );
+  }
+
+  AlertDialog buildUpdateErrorAlertDialog(BuildContext context) {
+    return AlertDialog(
+      contentPadding: EdgeInsets.zero,
+      content: Container(
+        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+        width: context.dynamicWidht(0.87),
+        height: context.dynamicHeight(0.29),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18.0),
+          color: Colors.white,
+        ),
+        child: Column(
+          children: [
+            Spacer(
+              flex: 8,
+            ),
+            SvgPicture.asset(
+              ImageConstant.COMMONS_WARNING_ICON,
+              height: context.dynamicHeight(0.134),
+            ),
+            SizedBox(height: 10.h),
+            Text(
+              "Bu e-postaya veya telefon numarasına sahip kullanıcı var.",
+              style: AppTextStyles.bodyBoldTextStyle,
+              textAlign: TextAlign.center,
+            ),
+            Spacer(
+              flex: 35,
+            ),
+            CustomButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              width: 110.w,
+              color: AppColors.greenColor,
+              textColor: Colors.white,
+              borderColor: AppColors.greenColor,
+              title: "Tamam",
+            ),
+            Spacer(
+              flex: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  AlertDialog buildUpdateCompletedAlertDialog(BuildContext context) {
+    return AlertDialog(
+      contentPadding: EdgeInsets.zero,
+      content: Container(
+        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidht(0.04)),
+        width: context.dynamicWidht(0.87),
+        height: context.dynamicHeight(0.29),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18.0),
+          color: Colors.white,
+        ),
+        child: Column(
+          children: [
+            Spacer(
+              flex: 8,
+            ),
+            SvgPicture.asset(
+              ImageConstant.SURPRISE_PACK,
+              height: context.dynamicHeight(0.134),
+            ),
+            SizedBox(height: 10.h),
+            Text(
+              "Değişiklikler başarılı bir şekilde güncellendi.",
+              style: AppTextStyles.bodyBoldTextStyle,
+              textAlign: TextAlign.center,
+            ),
+            Spacer(
+              flex: 35,
+            ),
+            CustomButton(
+              onPressed: () {
+                Navigator.pushNamed(context, RouteConstant.CUSTOM_SCAFFOLD);
+              },
+              width: 110.w,
+              color: AppColors.greenColor,
+              textColor: Colors.white,
+              borderColor: AppColors.greenColor,
+              title: LocaleKeys.order_received_button_2,
+            ),
+            Spacer(
+              flex: 20,
+            ),
+          ],
         ),
       ),
     );

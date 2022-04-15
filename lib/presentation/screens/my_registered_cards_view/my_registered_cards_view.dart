@@ -38,21 +38,24 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      isNavBar: true,
-      title: LocaleKeys.registered_cards_title,
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: 20.h,
-          bottom: 29.h,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildList(context),
-            Spacer(),
-            buildButton(context),
-          ],
+    return BlocProvider(
+      create: (context) => sl<IyzicoCardCubit>()..getCards(),
+      child: CustomScaffold(
+        isNavBar: true,
+        title: LocaleKeys.registered_cards_title,
+        body: Padding(
+          padding: EdgeInsets.only(
+            top: 20.h,
+            bottom: 29.h,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildList(context),
+              Spacer(),
+              buildButton(context),
+            ],
+          ),
         ),
       ),
     );
@@ -61,8 +64,9 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
   Container buildList(BuildContext context) {
     return Container(
       height: 600.h,
-      child: Builder(builder: (context) {
-        final GenericState state = context.watch<IyzicoCardCubit>().state;
+      child:
+          BlocBuilder<IyzicoCardCubit, GenericState>(builder: (context, state) {
+        // final GenericState state = context.watch<IyzicoCardCubit>().state;
 
         if (state is GenericInitial) {
           return Container();
@@ -109,22 +113,20 @@ class _MyRegisteredCardsViewState extends State<MyRegisteredCardsView> {
   }
 
   Widget buildRegisteredCards(List<CardDetail> cards) {
-              List<String> cardNumberList = [];
-              for (int i = 0; i < cards.length; i++) {
-                cardNumberList.add(cards[i].binNumber! + cards[i].lastFourDigits!);
-       
-               
-                // print("CARDS FIRST : ${cards.first.cardDetails!.first.binNumber}");
-                // print("CARDS LAST : ${cards.last.cardDetails!.last.binNumber}");
+    List<String> cardNumberList = [];
+    for (int i = 0; i < cards.length; i++) {
+      cardNumberList.add(cards[i].binNumber! + cards[i].lastFourDigits!);
 
-              }
-              print(cardNumberList);
-              SharedPrefs.setRegisterCards(cardNumberList);
+      // print("CARDS FIRST : ${cards.first.cardDetails!.first.binNumber}");
+      // print("CARDS LAST : ${cards.last.cardDetails!.last.binNumber}");
+
+    }
+    // print(cardNumberList);
+    SharedPrefs.setRegisterCards(cardNumberList);
     return cards.isNotEmpty
         ? ListView.builder(
             itemCount: cards.length,
             itemBuilder: (context, index) {
-       
               print(cardNumberList);
               SharedPrefs.setRegisterCards(cardNumberList);
               print(SharedPrefs.getCardsList);
