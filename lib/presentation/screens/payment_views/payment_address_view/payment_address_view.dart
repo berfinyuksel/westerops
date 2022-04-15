@@ -65,17 +65,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          /*  BlocProvider<SearchStoreCubit>(
-            create: (BuildContext context) =>
-                sl<SearchStoreCubit>()..getSearchStore(),
-          ), */
-          /* BlocProvider<SearchStoreCubit>(
-            create: (BuildContext context) =>
-                sl<SearchStoreCubit>()..getSearchStoreAddress(),
-          ), */
-          BlocProvider.value(value: sl<SearchStoreCubit>()..getSearchStore()),
           BlocProvider.value(
-              value: sl<SearchStoreCubit>()..getSearchStoreAddress()),
+              value: sl<SearchStoreCubit>()..getDeliveredRestaurant()),
           BlocProvider.value(value: sl<AddressCubit>()..getActiveAddress()),
         ],
         child: BlocBuilder<SearchStoreCubit, GenericState>(
@@ -90,22 +81,8 @@ class _PaymentAddressViewState extends State<PaymentAddressView> {
             } else if (state is GenericCompleted) {
               print("GENERIC COMPLETED ADDRESS");
 
-              List<SearchStore> restaurants = [];
-              List<SearchStore> deliveredRestaurant = [];
-              int? restaurantId = SharedPrefs.getDeliveredRestaurantAddressId;
-
-              for (int i = 0; i < state.response.length; i++) {
-                restaurants.add(state.response[i]);
-              }
-
-              for (var i = 0; i < restaurants.length; i++) {
-                if (restaurants[i].id == restaurantId) {
-                  deliveredRestaurant.add(restaurants[i]);
-                }
-              }
-
               return Center(
-                child: buildBody(context, deliveredRestaurant),
+                child: buildBody(context, state.response as List<SearchStore>),
               );
             } else {
               final error = state as GenericError;

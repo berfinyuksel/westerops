@@ -95,38 +95,11 @@ class _MyNearViewState extends State<MyNearView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<SearchStoreCubit>()..getSearchStore(),
-      child: CustomScaffold(
-        title: LocaleKeys.my_near_title,
-        isNavBar: false,
-        body: buildBuilder(),
-      ),
+    return CustomScaffold(
+      title: LocaleKeys.my_near_title,
+      isNavBar: false,
+      body: buildBody(context, sl<SearchStoreCubit>().searchStores, distances),
     );
-  }
-
-  BlocBuilder buildBuilder() {
-    return BlocBuilder<SearchStoreCubit, GenericState>(
-        builder: (context, state) {
-      if (state is GenericInitial) {
-        LocationService.getCurrentLocation();
-
-        return Container();
-      } else if (state is GenericLoading) {
-        return Center(child: CustomCircularProgressIndicator());
-      } else if (state is GenericCompleted) {
-        List<SearchStore> getrestaurants = [];
-
-        for (int i = 0; i < state.response.length; i++) {
-          getrestaurants.add(state.response[i]);
-        }
-        mapsMarkers = getrestaurants;
-        return buildBody(context, getrestaurants, distances);
-      } else {
-        final error = state as GenericError;
-        return Center(child: Text("${error.message}\n${error.statusCode}"));
-      }
-    });
   }
 
   Column buildBody(BuildContext context, List<SearchStore> getrestaurants,
