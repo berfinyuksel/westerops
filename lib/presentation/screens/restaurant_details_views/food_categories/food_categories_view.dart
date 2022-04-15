@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../../data/model/category_name.dart';
 import '../../../../utils/constants/image_constant.dart';
-import '../../../../utils/constants/route_constant.dart';
 import '../../../../utils/extensions/context_extension.dart';
 import '../../../../utils/locale_keys.g.dart';
 import '../../../../utils/theme/app_colors/app_colors.dart';
 import '../../../../utils/theme/app_text_styles/app_text_styles.dart';
 import '../../../widgets/scaffold/custom_scaffold.dart';
 import '../../../widgets/text/locale_text.dart';
-import '../../categories_view/screen_arguments_categories/screen_arguments_categories.dart';
 import '../../home_page_view/components/category_item.dart';
 
 class FoodCategories extends StatefulWidget {
@@ -26,6 +23,7 @@ class _FoodCategoriesState extends State<FoodCategories> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      isNavBar: false,
       title: LocaleKeys.restaurant_detail_food_categories_title,
       body: SingleChildScrollView(
         child: Column(
@@ -50,13 +48,13 @@ class _FoodCategoriesState extends State<FoodCategories> {
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              RouteConstant.CATEGORIES_VIEW,
-                              arguments: ScreenArgumentsCategories(
-                                  categories: widget.categories![index]),
-                            );
-                          },
+                          // onTap: () {
+                          //   Navigator.of(context).pushNamed(
+                          //     RouteConstant.CATEGORIES_VIEW,
+                          //     arguments: ScreenArgumentsCategories(
+                          //         categories: widget.categories![index]),
+                          //   );
+                          // },
                           child: CategoryItem(
                             radius: 38,
                             imagePath: widget.categories![index].photo,

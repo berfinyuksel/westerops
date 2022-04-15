@@ -1,6 +1,5 @@
 import 'package:dongu_mobile/data/repositories/favourite_repository.dart';
 import 'package:dongu_mobile/data/repositories/search_store_repository.dart';
-import 'package:dongu_mobile/data/repositories/update_permission_for_com_repository.dart';
 import 'package:dongu_mobile/data/services/locator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:dongu_mobile/logic/cubits/basket_counter_cubit/basket_counter_cubit.dart';

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:device_info/device_info.dart';
-import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:dongu_mobile/data/shared/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +16,6 @@ import '../../../data/model/box.dart';
 import '../../../data/model/search_store.dart';
 import '../../../data/services/location_service.dart';
 import '../../../data/services/locator.dart';
-import '../../../logic/cubits/generic_state/generic_state.dart';
 import '../../../logic/cubits/search_store_cubit/search_store_cubit.dart';
 import '../../../utils/constants/image_constant.dart';
 import '../../../utils/constants/route_constant.dart';

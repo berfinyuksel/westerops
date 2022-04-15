@@ -1,5 +1,4 @@
 import 'package:dongu_mobile/logic/cubits/category_filter_cubit/category_filter_cubit.dart';
-import 'package:dongu_mobile/utils/extensions/string_extension.dart';
 import 'package:dongu_mobile/utils/locale_keys.g.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

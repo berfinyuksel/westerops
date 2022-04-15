@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../utils/theme/app_colors/app_colors.dart';
-
 class PackageDelivery extends StatelessWidget {
   final String? image;
   final double? width;

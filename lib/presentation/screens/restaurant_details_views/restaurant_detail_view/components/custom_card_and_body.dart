@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:dongu_mobile/logic/cubits/cancel_order_cubit/cancel_order_cubit.dart';
 import 'package:dongu_mobile/logic/cubits/favourite_cubit/favorite_state.dart';
 import 'package:dongu_mobile/presentation/widgets/circular_progress_indicator/custom_circular_progress_indicator.dart';
-
 import '../../../../../data/model/box.dart';
 import '../../../../../data/model/category_name.dart';
 import '../../../../../data/model/search_store.dart';
@@ -333,7 +331,7 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
         List<String> nameList = [];
         for (var i = 0; i < relatedCategories.length; i++) {
           nameList.add(relatedCategories[i].name!);
-        }
+        } 
         String categoryNames = nameList.join(', ');
         return GestureDetector(
           onTap: () {
@@ -857,8 +855,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   padding: EdgeInsets.all(context.dynamicHeight(0.004)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_PACKAGE_ICON,
-                    color: widget.restaurant!.packageSettings!.deliveryType == "1" ||
-                            widget.restaurant!.packageSettings!.deliveryType == "3"
+                    color: widget.restaurant!.packageSettings!.deliveryType ==
+                                "1" ||
+                            widget.restaurant!.packageSettings!.deliveryType ==
+                                "3"
                         ? Colors.white
                         : AppColors.unSelectedpackageDeliveryColor,
                   ),
@@ -872,8 +872,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                 height: 36.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: widget.restaurant!.packageSettings!.deliveryType == "2" ||
-                          widget.restaurant!.packageSettings!.deliveryType == "3"
+                  color: widget.restaurant!.packageSettings!.deliveryType ==
+                              "2" ||
+                          widget.restaurant!.packageSettings!.deliveryType ==
+                              "3"
                       ? AppColors.yellowColor
                       : Colors.white,
                 ),
@@ -881,8 +883,10 @@ class _CustomCardAndBodyState extends State<CustomCardAndBody>
                   padding: EdgeInsets.all(context.dynamicHeight(0.006)),
                   child: SvgPicture.asset(
                     ImageConstant.RESTAURANT_COURIER_ICON,
-                    color: widget.restaurant!.packageSettings!.deliveryType == "2" ||
-                            widget.restaurant!.packageSettings!.deliveryType == "3"
+                    color: widget.restaurant!.packageSettings!.deliveryType ==
+                                "2" ||
+                            widget.restaurant!.packageSettings!.deliveryType ==
+                                "3"
                         ? Colors.white
                         : AppColors.unSelectedpackageDeliveryColor,
                   ),
