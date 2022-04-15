@@ -256,8 +256,6 @@ class _MyInformationViewState extends State<MyInformationView> {
           nameController.text = user.firstName ?? "",
           surnameController.text = user.lastName ?? "",
           mailController.text = user.email ?? "",
-          print(user.birth),
-          print(SharedPrefs.getToken),
           birthController.text =
               user.birth == null ? "dd/mm/yyyy" : "${user.birth!.split("-")[2]}/${user.birth!.split("-")[1]}/${user.birth!.split("-")[0]}",
           phoneController.text = user.phone ?? "+90",
