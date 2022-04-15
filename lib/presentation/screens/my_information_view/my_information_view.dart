@@ -1,3 +1,4 @@
+import 'package:dongu_mobile/data/repositories/user_authentication_repository.dart';
 import 'package:dongu_mobile/logic/cubits/user_auth_cubit/user_email_control_cubit.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/components/popup_reset_password.dart';
 import 'package:dongu_mobile/presentation/screens/forgot_password_view/forgot_password_view.dart';
@@ -43,12 +44,10 @@ class _MyInformationViewState extends State<MyInformationView> {
   DateTime? _selectedDate;
   bool isReadOnly = true;
   bool isVisibilty = false;
-  String phoneTR = '+90';
   late bool userSocialLogin;
 
   bool showLoading = false;
-  MobileVerificationState currentState =
-      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+  MobileVerificationState currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
   String? verificationId;
   @override
   Widget build(BuildContext context) {
@@ -82,29 +81,12 @@ class _MyInformationViewState extends State<MyInformationView> {
                   color: Colors.white,
                   child: Column(
                     children: [
-                      buildTextFormField(
-                          context,
-                          LocaleKeys.inform_list_tile_name.locale,
-                          nameController),
-                      buildTextFormField(
-                          context,
-                          LocaleKeys.inform_list_tile_surname.locale,
-                          surnameController),
-                      buildTextFormFieldBirthDate(
-                          context,
-                          LocaleKeys.inform_list_tile_birth.locale,
-                          birthController),
+                      buildTextFormField(context, LocaleKeys.inform_list_tile_name.locale, nameController),
+                      buildTextFormField(context, LocaleKeys.inform_list_tile_surname.locale, surnameController),
+                      buildTextFormFieldBirthDate(context, LocaleKeys.inform_list_tile_birth.locale, birthController),
                       buildEmailTextFormField(
-                          context,
-                          LocaleKeys.inform_list_tile_mail.locale,
-                          mailController,
-                          sl<UserEmailControlCubit>().state != ""
-                              ? true
-                              : false),
-                      buildTextFormField(
-                          context,
-                          LocaleKeys.inform_list_tile_phone.locale,
-                          phoneController),
+                          context, LocaleKeys.inform_list_tile_mail.locale, mailController, sl<UserEmailControlCubit>().state != "" ? true : false),
+                      buildTextFormField(context, LocaleKeys.inform_list_tile_phone.locale, phoneController),
                     ],
                   ),
                 ),
@@ -116,10 +98,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                 SizedBox(height: 32.h),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteConstant.DELETE_ACCOUNT_VIEW,
-                        ModalRoute.withName('/deleteAccount'));
+                    Navigator.pushNamedAndRemoveUntil(context, RouteConstant.DELETE_ACCOUNT_VIEW, ModalRoute.withName('/deleteAccount'));
                   },
                   child: LocaleText(
                     text: LocaleKeys.inform_delete_account,
@@ -129,8 +108,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                 SizedBox(height: 32.h),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                        context, RouteConstant.FREEZE_ACCOUNT_VIEW);
+                    Navigator.pushNamed(context, RouteConstant.FREEZE_ACCOUNT_VIEW);
                   },
                   child: LocaleText(
                     text: LocaleKeys.freeze_account_title,
@@ -146,8 +124,7 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
-  Container buildTextFormFieldBirthDate(BuildContext context, String labelText,
-      TextEditingController controller) {
+  Container buildTextFormFieldBirthDate(BuildContext context, String labelText, TextEditingController controller) {
     return Container(
       height: 56.h,
       color: Colors.white,
@@ -171,8 +148,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                   data: Theme.of(context).copyWith(
                     colorScheme: ColorScheme.light(
                       primary: AppColors.greenColor, // header background color
-                      onPrimary:
-                          AppColors.borderAndDividerColor, // header text color
+                      onPrimary: AppColors.borderAndDividerColor, // header text color
                       onSurface: AppColors.cursorColor, // body text color
                     ),
                     textButtonTheme: TextButtonThemeData(
@@ -190,8 +166,7 @@ class _MyInformationViewState extends State<MyInformationView> {
               }
               setState(() {
                 _selectedDate = pickedDate;
-                String datetime1 =
-                    DateFormat("dd/MM/yyyy").format(_selectedDate!);
+                String datetime1 = DateFormat("dd/MM/yyyy").format(_selectedDate!);
                 birthController.text = datetime1;
               });
             });
@@ -211,8 +186,7 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
-  Container buildTextFormField(BuildContext context, String labelText,
-      TextEditingController controller) {
+  Container buildTextFormField(BuildContext context, String labelText, TextEditingController controller) {
     return Container(
       height: 56.h,
       color: Colors.white,
@@ -229,7 +203,6 @@ class _MyInformationViewState extends State<MyInformationView> {
         ],
         controller: controller,
         decoration: InputDecoration(
-          prefixText: controller == phoneController ? phoneTR : null,
           contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
           labelText: labelText,
           hintStyle: AppTextStyles.myInformationBodyTextStyle,
@@ -242,8 +215,7 @@ class _MyInformationViewState extends State<MyInformationView> {
     );
   }
 
-  Container buildEmailTextFormField(BuildContext context, String labelText,
-      TextEditingController controller, bool enabled) {
+  Container buildEmailTextFormField(BuildContext context, String labelText, TextEditingController controller, bool enabled) {
     return Container(
       height: 56.h,
       color: Colors.white,
@@ -260,7 +232,6 @@ class _MyInformationViewState extends State<MyInformationView> {
         ],
         controller: controller,
         decoration: InputDecoration(
-          prefixText: controller == phoneController ? phoneTR : null,
           contentPadding: EdgeInsets.only(left: context.dynamicWidht(0.06)),
           labelText: labelText,
           hintStyle: AppTextStyles.myInformationBodyTextStyle,
@@ -277,15 +248,20 @@ class _MyInformationViewState extends State<MyInformationView> {
   void initState() {
     super.initState();
     userSocialLogin = SharedPrefs.getSocialLogin;
-    nameController.text = SharedPrefs.getUserName;
-    surnameController.text = SharedPrefs.getUserLastName;
-    mailController.text = SharedPrefs.getUserEmail;
-    birthController.text = SharedPrefs.getUserBirth;
-    // phoneController.text = SharedPrefs.getUserPhone;
-    phoneController.text = isReadOnly && SharedPrefs.getUserPhone.isNotEmpty
-        ? SharedPrefs.getUserPhone.substring(3)
-        : SharedPrefs.getUserPhone;
-    print(phoneController.text);
+    getUser();
+  }
+
+  getUser() async {
+    await sl<SampleUserAuthenticationRepository>().getUser(SharedPrefs.getUserId).then((user) => {
+          nameController.text = user.firstName ?? "",
+          surnameController.text = user.lastName ?? "",
+          mailController.text = user.email ?? "",
+          print(user.birth),
+          print(SharedPrefs.getToken),
+          birthController.text =
+              user.birth == null ? "dd/mm/yyyy" : "${user.birth!.split("-")[2]}/${user.birth!.split("-")[1]}/${user.birth!.split("-")[0]}",
+          phoneController.text = user.phone ?? "+90",
+        });
   }
 
   OutlineInputBorder buildOutlineInputBorder() {
@@ -351,8 +327,7 @@ class _MyInformationViewState extends State<MyInformationView> {
   }
 
   phoneControl() {
-    if (phoneController.text != SharedPrefs.getUserPhone &&
-        phoneController.text.length < 10) {
+    if (phoneController.text != SharedPrefs.getUserPhone && phoneController.text.length < 10) {
       return showDialog(
         context: context,
         builder: (_) => CustomAlertDialogResetPassword(
@@ -366,24 +341,14 @@ class _MyInformationViewState extends State<MyInformationView> {
   }
 
   updateUser() {
-    textControllersSaveCache();
     context.read<UserAuthCubit>().updateUser(
-          SharedPrefs.getUserName,
-          SharedPrefs.getUserLastName,
+          nameController.text,
+          surnameController.text,
           mailController.text,
           phoneController.text,
           SharedPrefs.getUserAddress,
-          SharedPrefs.getUserBirth,
+          birthController.text,
         );
-    
-  }
-
-  textControllersSaveCache() {
-    SharedPrefs.setUserPhone(phoneController.text);
-    SharedPrefs.setUserEmail(mailController.text);
-    SharedPrefs.setUserName(nameController.text);
-    SharedPrefs.setUserLastName(surnameController.text);
-    SharedPrefs.setUserBirth(birthController.text);
   }
 
   Padding buildSocialAuthTitle(BuildContext context) {
@@ -411,8 +376,7 @@ class _MyInformationViewState extends State<MyInformationView> {
           print("SOCIAL LOGIN SHARED : ${SharedPrefs.getSocialLogin}");
           if (!SharedPrefs.getSocialLogin) {
             updateUser();
-            Navigator.popAndPushNamed(
-                context, RouteConstant.VERIFY_INFORMATION);
+            Navigator.popAndPushNamed(context, RouteConstant.VERIFY_INFORMATION);
           } else {
             updateUser();
             _showMyDialog();
